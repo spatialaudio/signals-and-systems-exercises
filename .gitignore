@@ -1,3 +1,9 @@
+*-checkpoint.ipynb
+*.cut 
+solving_2nd_order_ode.pdf
+frequency_response_2nd_order_ode.pdf
+clearlogs.sh
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

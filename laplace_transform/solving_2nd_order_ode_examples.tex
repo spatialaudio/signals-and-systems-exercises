@@ -1,0 +1,341 @@
+\documentclass[a4paper,11pt,oneside]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\KOMAoptions{DIV=14}
+\usepackage[english]{babel}
+%
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+%
+\usepackage{chngcntr}
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+%
+\usepackage{xcolor}
+\usepackage{url}
+%
+\usepackage{amsmath,amssymb}
+\usepackage{trfsigns}
+\usepackage{nicefrac}
+\usepackage{comment}
+\usepackage{cancel}
+%
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc}
+\tikzset{cross/.style={cross out, draw,
+         minimum size=2*(#1-\pgflinewidth),
+         inner sep=0pt, outer sep=0pt}}
+\usepackage{circuitikz}
+%
+\newcommand{\eq}[1]{Eq. (\ref{#1})}
+%
+\newcommand{\fscom}[2][red]{\textcolor{#1}{#2}}
+\definecolor{CalcColor}{rgb}{0.0,0.0,0.5}
+\newcommand{\ExCalcCol}[2][CalcColor]{\textcolor{#1}{#2}}
+%\excludecomment{calc}
+\includecomment{calc}
+
+
+\newcommand\uc{u_\mathrm{C}}
+\newcommand\duc{\dot{u}_\mathrm{C}}
+\newcommand\dduc{\ddot{u}_\mathrm{C}}
+
+\newcommand\ul{u_\mathrm{L}}
+\newcommand\dul{\dot{u}_\mathrm{L}}
+\newcommand\ddul{\ddot{u}_\mathrm{L}}
+
+\newcommand\uri{u_\mathrm{R1}}
+\newcommand\duri{\dot{u}_\mathrm{R1}}
+\newcommand\dduri{\ddot{u}_\mathrm{R1}}
+
+\newcommand\urii{u_\mathrm{R2}}
+\newcommand\durii{\dot{u}_\mathrm{R2}}
+\newcommand\ddurii{\ddot{u}_\mathrm{R2}}
+
+\newcommand\dx{\dot{x}}
+\newcommand\ddx{\ddot{x}}
+\newcommand\dy{\dot{y}}
+\newcommand\ddy{\ddot{y}}
+
+%\renewcommand\c{\imath}
+%\newcommand\dc{\dot{\imath}}
+%\newcommand\ddc{\ddot{\imath}}
+\renewcommand\c{I}
+\newcommand\dc{\dot{I}}
+\newcommand\ddc{\ddot{I}}
+
+
+\newcommand\fsd{\mathrm{d}}
+
+%
+\title{Electric RLC circuit to 2nd order ordinary differential equation (ODE)
+with constant coefficients}
+\author{Frank Schultz, fs446}
+%
+\begin{document}
+%
+\noindent Uni Rostock, IEF, INT, Signal- \& Systemtheorie, \#24015, SS2019,
+\today, CC BY 4.0
+
+\noindent Prof. Sascha Spors, Frank Schultz, Till Rettberg
+
+\noindent \textbf{Electric RLC circuit to 2nd order ordinary differential equation (ODE)
+with constant coefficients}
+
+%##############################################################################
+%##############################################################################
+\section{Problem Statement}
+
+\begin{minipage}{0.5\textwidth}
+Find differential equation $f(\dx,\ddx,y,\dy,\ddy)=0$ and from that
+Laplace system function $H(s)=\frac{Y(s)}{X(s)}$  of the
+electric RLC circuit shown right for input voltage $x(t)$ and output voltage $y(t)$.
+%
+$R_1$, $R_2$ denote resistors, $C$ a capacitor and $L$ an inductor.
+%
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\begin{footnotesize}
+\begin{circuitikz}[european, scale=0.55, /tikz/circuitikz/bipoles/length=1cm]
+\draw (1,0) to [R,l=$R_1$,o-] (3,0);
+\draw (3,0) to [C,l=$C$] (5,0);
+\draw (5.5,0) to [L,l=$L$,*-] (5.5,-2.5);
+\draw (5.5,-2.5) to [R,l=$R_2$,-*] (5.5,-5);
+\draw (5,0) to [short,-o,] (7,0);
+\draw (1,-5) to [short,o-o] (7,-5);
+\draw[-latex] (1,-0.5)--(1,-4.5) node[midway,left]{$x(t)$};
+\draw[-latex] (7,-0.5)--(7,-4.5) node[midway,right]{$y(t)$};
+\end{circuitikz}
+\end{footnotesize}
+\end{center}
+\end{minipage}
+
+\section{Solution}
+%
+We use notation $\dot{u} = \frac{\fsd u}{\fsd t}$, $\ddot{u} = \frac{\fsd^2 u}{\fsd t^2}$
+for temporal derivatives. We use large $I$ to indicate the current $i(t)$ for
+derivative notation, since $\dot{i}$ and $\ddot{i}$ are hard to read.
+%
+Except the constants $R_1$, $R_2$, $C$ and $L$, all variables are functions
+with respect to time.
+
+The voltage / current relations for $R$, $L$ and $C$ are
+\begin{align*}
+&\uri = R_1 \c, \quad \urii = R_2 \c, \quad \ul = L \dc, \quad \uc = \frac{1}{C}\int \c \fsd t\\
+&\c = \frac{\uri}{R_1}, \quad \c = \frac{\urii}{R_2}, \quad \c = \frac{1}{L} \int \ul \fsd t, \quad \c = C \duc
+\end{align*}
+
+\subsection{Method I: Complex Voltage Divider}
+%
+If we are not at all interested in (i) initial conditions of voltage and
+current and (ii) in the ODE, we can simply apply the complex voltage
+divider between $Y(\omega)$ and $X(\omega)$
+%
+\begin{align}
+H(\omega) = \frac{Y(\omega)}{X(\omega)} =
+\frac{\im \omega L + R_2}{R_1 + \frac{1}{\im \omega C} + \im \omega L + R_2}
+\end{align}
+%
+and substitute $\im \omega \rightarrow s = \sigma + \im\omega$
+%
+\begin{align}
+&H(s) = \frac{Y(s)}{X(s)} = \frac{s L + R_2}{R_1 + \frac{1}{s C} + s L + R_2}=
+\frac{s^2 + \frac{R_2}{L} s}{s^2 + \frac{R_1 + R_2}{L} s + \frac{1}{L C}}
+\end{align}
+%
+to obtain the Laplace system function.
+%
+\subsection{Method II: ODE with the Current as Intermediate Variable}
+%
+Here, we derive ODEs, but we are not interested in initial conditions.
+With above voltage / current relations, we can state ODEs following from mesh
+equations for input $x$ and output $y$ as
+%
+\begin{align}
+x& = R_1 \c + \frac{1}{C} \int \c \fsd t + L \dc + R_2 \c,\\
+y& = L \dc + R_2 \c.
+\end{align}
+%
+The Laplace transform of $x$, $y$ and $\c$ in both equations yields
+%
+\begin{align}
+X(s)& = R_1 \c(s) + \frac{1}{s C} \c(s) + s L \c(s) + R_2 \c(s)\\
+Y(s)& = s L \c(s) + R_2 \c(s),
+\end{align}
+%
+considering vanishing initial conditions,
+%
+from which the transfer function
+%
+\begin{align}
+H(s)& = \frac{Y(s)}{X(s)} = \frac{s L \c(s) + R_2 \c(s)}{R_1 \c(s) + \frac{1}{sC} \c(s) + s L \c(s) + R_2 \c(s)},\\
+%H(s)& = \frac{Y(s)}{X(s)} = \frac{s L + R_2}{R_1+R_2 + \frac{1}{s C} + s L}\\
+%H(s)& = \frac{Y(s)}{X(s)} = \frac{s + \frac{R_2}{L}}{\frac{R_1+R_2}{L} + \frac{1}{s L C} + s}\\
+H(s)& = \frac{Y(s)}{X(s)} = \frac{s^2 + \frac{R_2}{L} s}{s^2 + \frac{R_1+R_2}{L} s + \frac{1}{L C}}
+\end{align}
+%
+results by canceling the current $I(s)$.
+
+\subsection{Method III: ODE}
+%
+The most tedious derivation aims at finding the full ODE $f(\dx,\ddx,y,\dy,\ddy)=0$
+without any intermediate variable, such as the current involved.
+%
+The circuit under discussion requires more careful inspection than other RLC
+circuits , since there is only one current involved and the unknown voltage drop
+$y$ is along two electric elements.
+
+There is certainly a more formalised way to solve this problem, however a suitable
+approach would be as follows:
+%
+Let us start with above stated mesh equations
+%
+\begin{align}
+x& = R_1 \c + \frac{1}{C} \int \c \fsd t + L \dc + R_2 \c,\\
+y& = L \dc + R_2 \c
+\end{align}
+%
+and rearrange to equate them
+$x - R_1 \c - \frac{1}{C} \int \c \fsd t - R_2 \c = L \dc = y - R_2 \c$
+to
+%
+\begin{align}
+%x - R_1 \c - \frac{1}{C} \int \c \fsd t - R_2 \c = y - R_2 \c\\
+x - (R_1+R_2) \c - \frac{1}{C} \int \c \fsd t = y - R_2 \c.
+\end{align}
+%
+We aim to find relations in order to substitute the current. Since we deal with a
+second order ODE, we expect second order derivatives, at least for the output $y$.
+%
+Thus, it appears reasonable to apply a temporal derivation
+%
+\begin{align}
+\dx - (R_1+R_2) \dc - \frac{1}{C} \c  = \dy - R_2 \dc.
+\end{align}
+%
+Recall that $\c = \frac{1}{L} \int \ul \fsd t \rightarrow \dc = \frac{1}{L} \ul$.
+%
+Inserting this
+%
+\begin{align}
+\dx - \frac{R_1+R_2}{L} \ul - \frac{1}{C} \c  = \dy - R_2 \frac{1}{L} \ul.
+\end{align}
+%
+This simplified things, so let us perform these two steps again.
+%
+Second temporal derivation
+%
+\begin{align}
+\ddx - \frac{R_1+R_2}{L} \dul - \frac{1}{C} \dc  = \ddy - \frac{R_2}{L} \dul
+\end{align}
+%
+and again inserting $\dc = \frac{1}{L} \ul$ yields
+%
+\begin{align}
+\ddx - \frac{R_1+R_2}{L} \dul - \frac{1}{L C} \ul  = \ddy - \frac{R_2}{L} \dul.
+\end{align}
+%
+Now, we should rearrange this equation
+%
+\begin{align}
+\label{eq:ODE_with_uL}
+\ddx + \frac{R_2}{L} \dul = \ddy + \frac{R_1+R_2}{L} \dul + \frac{1}{L C} \ul
+\end{align}
+%
+due to our expectation that coefficients for $x, \dx, \ddx, y, \dy, \ddy$
+will appear as positive constants.
+%
+Next, we need to get rid of $\ul$ and $\dul$. For that we can use the mesh
+equations
+%
+\begin{align}
+\label{eq:ODE_helper_x}
+&x = \uri + \uc + \ul + \urii \rightarrow& \ul = x - \uri - \uc - \urii,\\
+\label{eq:ODE_helper_y}
+&y = \ul + \urii \rightarrow& \ul = y - \urii.
+\end{align}
+%
+Applying \eq{eq:ODE_helper_x} into the left, $x$-related  side of \eq{eq:ODE_with_uL}
+and applaying \eq{eq:ODE_helper_y} into the right, $y$-related side of \eq{eq:ODE_with_uL}
+results in
+%
+\begin{align}
+\label{eq:ODE_tmp1}
+\ddx + \frac{R_2}{L} (\dx - \duri - \duc - \durii) = \ddy + \frac{R_1+R_2}{L} (\dy - \durii) + \frac{1}{L C} (y - \urii).
+\end{align}
+%
+It appears meaningful to sort terms
+\begin{align}
+\ddx + \frac{R_2}{L} \dx - \frac{R_2}{L} (\duri + \duc + \durii)
+=
+\ddy + \frac{R_1+R_2}{L} \dy + \frac{1}{L C} y
+- \frac{R_1+R_2}{L} \durii - \frac{1}{L C} \urii.
+\end{align}
+Since we have no degrees of freedom left
+(we have used all relations between voltage, current and Kirchhoff's laws)
+we are in hope that the ODE reduces to
+\begin{align}
+\label{eq:ODE}
+\boxed{
+\ddx + \frac{R_2}{L} \dx
+=
+\ddy + \frac{R_1+R_2}{L} \dy + \frac{1}{L C} y}
+\end{align}
+under the assumption that the remaining terms
+\begin{align}
+- \frac{R_2}{L} (\duri + \duc + \durii)
+\stackrel{?}{=}
+- \frac{R_1+R_2}{L} \durii - \frac{1}{L C} \urii
+\end{align}
+and thus cancel out.
+%
+Rearranging yields
+\begin{align}
+&R_2 C (\duri + \duc + \durii)
+\stackrel{?}{=}
+(R_1+R_2) C \durii + \urii,\\
+&R_2 C \duri+
+R_2 C \duc+
+\cancel{R_2 C \durii}
+\stackrel{?}{=}
+R_1 C \durii + \cancel{R_2 C \durii} + \urii,\\
+&R_2 C \duri+
+R_2 C \duc
+\stackrel{?}{=}
+R_1 C \durii+
+\urii.
+\end{align}
+%
+Inserting the current (recall that $\c = C \duc$)
+\begin{align}
+R_2 C R_1 \dc+
+R_2 C \frac{1}{C} \c+
+=
+R_1 C R_2 \dc+
+R_2 \c
+\end{align}
+proves identity as required.
+
+Thus, the derived ODE in \eq{eq:ODE} can be transformed to Laplace domain
+\begin{align}
+s^2 X(s) + \frac{R_2}{L} s X(s)
+=
+s^2 Y(s) + \frac{R_1+R_2}{L} s Y(s) + \frac{1}{L C} Y(s)
+\end{align}
+%
+for \underline{vanishing initial conditions} and we can confirm the already known result
+%
+\begin{align}
+\boxed{
+H(s) = \frac{Y(s)}{X(s)} =
+\frac{s^2 + \frac{R_2}{L} s}
+{s^2 + \frac{R_1+R_2}{L} s + \frac{1}{L C}}
+}.
+\end{align}
+%
+\bibliographystyle{IEEEtranSA.bst}
+\bibliography{literature}
+\end{document}
