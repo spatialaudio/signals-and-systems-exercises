@@ -1,0 +1,2290 @@
+\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{fouriernc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{trfsigns}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{comment}
+\usepackage{mdframed}
+\usepackage{tikz}
+
+\bibliographystyle{dinat}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\newcommand\fsd{\mathrm{d}} %Ableitungsoperator
+\renewcommand{\vec}[1]{\mathbf{#1}} %Vektor
+\newcommand{\eq}[1]{Glg. (\ref{#1})} %Zitat Gleichung
+\newcommand{\fig}[1]{Abb. \ref{#1}} %Zitat Abbildung
+\newcommand{\red}{\textcolor{red}}
+
+\definecolor{C0}{HTML}{1f77b4}
+\definecolor{C1}{HTML}{ff7f0e}
+\definecolor{C2}{HTML}{2ca02c}
+\definecolor{C3}{HTML}{d62728}
+\definecolor{C7}{HTML}{7f7f7f}
+
+\specialcomment{Ziel}{\begin{mdframed}[backgroundcolor=C2!10] \textit{Lernziel}\\\noindent}{\end{mdframed}\noindent}
+\specialcomment{Werkzeug}{\begin{mdframed}[backgroundcolor=C7!10] \textit{Werkzeug}\\\noindent}{\end{mdframed}\noindent}
+\specialcomment{Ansatz}{\begin{mdframed}[backgroundcolor=C3!10] \textit{Ansatz}\\\noindent}{\end{mdframed}\noindent}
+\specialcomment{ExCalc}{\begin{mdframed}[backgroundcolor=C1!10]\noindent \textit{Ausführliche Rechnung}\\\noindent}{\end{mdframed}\noindent}
+\specialcomment{Loesung}{\begin{mdframed}[backgroundcolor=C0!10] \textit{Lösung}\\\noindent}{\end{mdframed}\noindent}
+
+%\excludecomment{Ziel}
+%\excludecomment{Werkzeug}
+%\excludecomment{ExCalc}
+
+% \newpage
+% \subsection{Überschrift}
+% \label{sec:0123456789}
+% \begin{Ziel}
+% \end{Ziel}
+% \textbf{Aufgabe} {\tiny 0123456789}: Berechnen Sie...
+% \begin{Werkzeug}
+% \end{Werkzeug}
+% \begin{Ansatz}
+% \end{Ansatz}
+% \begin{ExCalc}
+% \end{ExCalc}
+% \begin{Loesung}
+% \end{Loesung}
+
+
+% C964DD7400
+% 114F06AFAA
+% A0F7C530F3
+% 0B03A693AD
+% 31AEFEF90B
+% 4408E33353
+% 8ADC89E8AB
+% 3EE13FE7F4
+% 479082ABB1
+% 30B8653E1C
+% 501B527770
+% 81203BB953
+% 2CE2BF3BF0
+% 9DB89709BC
+% 95FC09C101
+% AE7A1E23F4
+% 8638A34D09
+% 11792AAE1A
+% CC195E9826
+% 4186EBC30B
+% E2A3404BAE
+% 4E088FAB0E
+% 7D194BC8E5
+% BD36CBB4D9
+% 64E3F03858
+% 0139F0A8F3
+% 0A97EC5C0F
+% F9F42E8F2D
+% 5912031D86
+% 14E35F9B88
+% C3C06D25E1
+% CA150937F8
+% FBE36B0684
+% AF3B15E0D3
+% 1D3D68B312
+% C97E6AA17A
+% 42DE8C69F7
+% 31C1621D73
+% 25F7F29E2A
+
+%------------------------------------------------------------------------------
+\title{Signal- und Systemtheorie\\
+Übung\thanks{
+This tutorial is provided as Open Educational Resource, to be found at
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+accompanying the lecture
+\url{https://github.com/spatialaudio/signals-and-systems-lecture}.
+%
+Both are licensed under the Creative Commons Attribution 4.0 International
+License for text/graphics and under the MIT License for software.
+%
+Please attribute the present document as \textit{Frank Schultz,
+Signals and Systems - A Tutorial Featuring Computational Examples, sig\_sys\_ex.pdf,
+University of Rostock}
+with the github URL and commit number and/or version tag.
+%
+This CC BY 4.0 project is currently under heavy development while adding new
+material for the summer term 2020.
+}
+\\
+\small Universität Rostock Vst.-Nr. 24015}
+%
+\author{Dr. Frank Schultz, Prof. Sascha Spors\\
+\small Institut für Nachrichtentechnik (INT)\\
+\small Fakultät für Informatik und Elektrotechnik (IEF)\\
+\small Universität Rostock
+}
+%
+\date{Sommersemester 2020, Version: \today}
+
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\tableofcontents
+%------------------------------------------------------------------------------
+\section*{Einleitung}
+%
+Aus aktuellem Anlass einer hoffentlich einmaligen COVID-19 Pandemie, entsteht
+dieses ausführliche Skript mit Übungsaufgaben, um die Signal- und Systemtheorie
+(SigSys) zu vertiefen.
+%
+Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher Stoff
+aus Mathematik Grundlagenvorlesungen.
+%
+Das was wir aber an Mathematik brauchen, muss sicher beherrscht werden.
+%
+Dies gelingt durch individuelle Übung.
+%
+Das Klären des \textbf{Was?, Warum? Wie?} und die vorangestellte \textbf{Frage des Wesens}
+bei der Vermittlung und Vertiefung von Stoff liegt in der
+Verantwortung der Dozierenden.
+%
+Dies zu beherzigen und dem streng zu folgen ist viel wichtiger als die neuesten
+oder die tradiertesten technischen Errungenschaften für die Didaktik zu benutzen.
+%
+Es gibt unterirdisch schlechte, genauso wie brillante Tafelvorlesungen,
+E-Learning Videos, Lehrbücher usw.
+%
+Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller Erarbeitungs-
+und Selbstreflexionsprozess, den jede(r) mit eigener Strategie bewältigt.
+%
+
+Ich hab mich nach langem Überlegen für ein klassisches Skript entschieden,
+um den nötigen Stoff (komplett neu) aufzubereiten.
+%
+Jede Übung werde ich in einem kurzen Screencast-Video des vorliegenden Skripts
+ankommentieren und teasen (ich hoffe ich komme zeitlich mit allem hinterher).
+%
+Unterstützt wird dieses Übungsskript durch kleine Python-Skripte in
+Jupyter Notebooks (*.ipynb Dateien),
+welche alle hier enthaltenen Diagramme erzeugen, sodass Sie
+detailliert nachschauen können und mit diesen Beispielen eigene Versuche machen
+können.
+%
+Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
+Lernziel fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
+
+Im StudIP haben wir eine \textbf{Formelsammlung} bereitgestellt. Dort sind die
+wichtigsten Zusammenhänge der Signal- und Systemtheorie kompakt auf vier DIN A4
+Seiten zusammengetragen. Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten
+und zu verstehen. Diese Formelsammlung steht während der Klausur zur Verfügung.
+
+Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester,
+teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des letzten
+Sommersemesters 2019 für Fans den nichtlinearen Lernens.
+
+Das LaTex-Projekt zu diesem vorliegenden Skript und alle Jupyter Notebooks
+gibt es unter
+\begin{mdframed}[backgroundcolor=C2!10]
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+\end{mdframed}
+%
+Regelmäßiges Update des Skripts als fertiges PDF erfolgt im StudIP.
+%
+Unter
+\begin{mdframed}[backgroundcolor=C2!10]
+\url{https://github.com/spatialaudio/signals-and-systems-lecture}
+\end{mdframed}
+finden sich die Unterlagen der Vorlesung.
+%
+Jeder ist eingeladen bei diesen zwei Projekten Fehler zu finden, Verbesserungen
+vorzuschlagen oder sogar selber vorzunehmen (mittels neuem git branch).
+%
+Zudem sollten wir die StudIP-Mittel \textbf{Wiki, Forum, Blubber} usw. zusammen
+intensiv nutzen um das kommende Semester bestmöglich zu bestreiten.
+%
+Ich werde zur planmäßigen Übungszeit Mi 11:00 bis 13:00 online im StudIP sein
+und für Blubber etc. zur Verfügung stehen.
+%
+Gerne jederzeit Fragen ins Forum (dann haben alle etwas davon).
+
+\newpage
+\subsection*{Aufbau Aufgabe}
+\begin{Ziel}
+Das Wesen vorher klären mit Was?, Warum?, Wie? ist essentiell, damit wir das
+Lernziel erfassen können und Lernen nicht willkürliches Puzzleteilsammeln ist.
+Aus dem Was?, Warum?, Wie? und der gestellten Aufgabe sollten wir immer eine
+Erwartungshaltung entwickeln, bevor wir uns rein handwerklich der Lösung nähern.
+\end{Ziel}
+\textbf{Aufgabe:} Berechnen Sie..., Zeigen Sie..., Falls...warum..., Erläutern
+Sie anhand...
+\begin{Werkzeug}
+Hier meist Formeln, Zusammenhänge, Modelle. Wir benutzen die Formelsammlung
+wo es geht und lesen ideal andere Literatur zum Thema, um die nötigen Werkzeuge
+aus anderen Blickwinkeln zu erfassen.
+\end{Werkzeug}
+\begin{Ansatz}
+Problemstellung in eine Formel überführt. Als nächstes können wir rechnen, also
+reines Handwerk betreiben.
+\end{Ansatz}
+\begin{ExCalc}
+Ein möglicher Rechenweg, wir sollten mit eigenem Stil
+rechnen.
+Händisches Rechnen, im Vergleich zu reinem Lesen und computergestützten Lösungen,
+steigert die kognitive Kompetenz und erleichtert dem Kopf den Zugang zum Thema.
+\end{ExCalc}
+\begin{Loesung}
+Endergebnisse, Grafiken und ganz wichtig ist --- nicht der fragwürdige Antwortsatz
+aus der Schulphysik --- sondern vielmehr eine Interpretation der Lösung
+für das gestellte Problem. Was ist unser Erkenntnisgewinn? Was sehen wir in den
+Formeln? Was lesen wir aus den Grafiken? Wurde unsere Erwartungshaltung erfüllt
+oder nicht.
+
+In der Klausur ist typischerweise so viel Stoff abzufragen und so wenig Zeit,
+dass so etwas leicht auf der Strecke bleiben kann. Jedoch eine im Kopf
+durchgeführte Interpretation ist ein hervorragender Plausibilitätscheck, ob das was
+wir da gerechnet haben, sein kann. Und je mehr Aufgaben wir
+vorher geübt haben (eigentlich je mehr wir vom Wesen verstanden haben und in
+Echtzeit verwenden können; das wird aber gern mit viel Üben oder gar
+Auswendiglernen gleichgesetzt),
+desto leichter und schneller wird uns das fallen.
+\end{Loesung}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 1: Wiederholung Mathe Fourier-Reihe/-Transformation, Lösen von DGL}
+Zielsetzung / Objectives: Bereits bestehende Kenntnisse aus der Mathematik
+wiederholen und in den Kontext der SigSys stellen.
+%Ausblick was/wie/warum und Verknüpfung mit bereits
+%bekanntem MatheZeug, Begrifflichkeit Signal, System
+
+\begin{itemize}
+\item Komplexe Fourierreihe, Signalanalyse und -synthese
+\item Fouriertransformation, Signalanalyse und -synthese
+\item Dualität Sinc/Spalt-Funktion vs. Rect-Funktion
+\item Dualität Verschiebung vs. Modulation
+%\item Ausblick zwei weitere Transformationen für Signalanalyse und -synthese: DFT, DTFT
+\item DGL lösen mittels Eigenfunktionen, charakteristisches Polynom vs. Eigenwerte/-vektoren einer Matrix, Systemanalyse
+%\item Message: SigSys fundamentalisiert, sammelt und vereinfacht AlltagMath für typ. Ing Aufgaben bzgl. System/Signale
+%Auch wenn SigSys-Hand-Rechnerei veraltet erscheint im vgl zu den 'neuen' trendy Topics, it's fundamental Need to know
+\end{itemize}
+%
+Wir benutzen im Grunde noch kein Signal- und Systemtheorie (SigSys) spezifisches Wissen,
+sondern benutzen das in Mathe erworbene Wissen zur Fourierreihe und -transformation
+und Differentialgleichungen. Die vergleichsweise einfach gehaltenen
+Übungen dienen aber dazu fundamental wichtige Bausteine der SigSys zu teasen.
+
+
+\newpage
+\subsection{Komplexe Fourier-Reihe Beispiel Rechteckschwingung}
+\label{sec:D1483A84E2}
+%
+\begin{Ziel}
+Wir wollen für die Fourierreihe den wichtigen Zusammenhang zwischen der Rechteckfunktion
+und der Spaltfunktion anhand eines fundamentalen Beispiels erfassen. Zudem enthält die
+ausführliche Rechnung Rechenschritte und Umformungen welche wir so oder ähnlicher Form
+immer wieder brauchen werden.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny D1483A84E2}: Berechnen Sie die komplexe Fourier-Reihe für
+\begin{itemize}
+\item axialsymmetrische periodische Rechteckschwingung $x(t)$ mit Periode $T$
+und Amplitude $A$
+\item Tastverhältnis $0<\frac{T_h}{T}\leq 1$
+\item Grundkreisfrequenz $\omega_0 = \frac{2\pi}{T}$ mit $\omega_0>0$
+\end{itemize}
+%
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\def\T{0.4}
+\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\foreach \pos in {-2,...,2} {
+\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
+};
+\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
+\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
+\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
+\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
+\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
+\end{tikzpicture}
+\end{figure}
+%
+\begin{Werkzeug}
+Synthese mit komplexer Fourierreihe
+%
+\begin{equation}
+x(t) = \sum\limits_{k=-\infty}^{-\infty} c_k \cdot \e^{+\im \omega_0 k t}
+\end{equation}
+%
+Analyse mit komplexer Fourierreihe
+\begin{equation}
+c_k = \frac{1}{T} \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \omega_0 k t} \mathrm{d}t
+\end{equation}
+%
+Hinweis: Wir verwenden hinfort nur noch selten die Fourierreihe mit
+reellen Koeffizienten und die Zerlegung in $\cos$- und $\sin$-Schwingungen.
+%
+Diese Darstellung mag zunächst zugänglicher erscheinen als der komplexe
+Dreher $\e^{\pm\im \omega_0 k t}$, aber die Rechnerei ist am Ende deutlich
+umfangreicher.
+%
+Aus gleichem Grund haben wir in der Elektrotechnik die komplexe
+Wechselstromrechnung eingeführt.
+%
+Zudem gestaltet sich das Aufzeigen der Verknüpfungen zu den anderen
+Fourier-Transformationen mit der komplexen Variante deutlich eleganter.
+\end{Werkzeug}
+
+\begin{Ansatz}
+%
+Wir müssen innerhalb einer Periode nur die Teile berücksichtigen, wo
+die Funktion nicht Null ist. Am einfachsten ist das, wenn wir den
+Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und daher nur von $-T_h/2$ bis $+T_h/2$
+integrieren.
+\begin{equation}
+c_k = \frac{1}{T} \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm{d}t
+\end{equation}
+%
+\end{Ansatz}
+%
+\begin{ExCalc}
+Integrieren
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{-\im \omega_0 k t}}{-\im \omega_0 k }\bigg|_{-T_h/2}^{+T_h/2}
+\end{equation}
+Grenzen einsetzen
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{-\im \omega_0 k T_h/2} - \e^{+\im \omega_0 k T_h/2}}{-\im \omega_0 k }
+\end{equation}
+Vorzeichen
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k }
+\end{equation}
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k } \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+Umsortieren, Kürzen
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot \frac{T_h/2}{1} \cdot \frac{2}{1}
+\end{equation}
+%
+\begin{equation}
+c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot T_h
+\end{equation}
+%
+\begin{equation}
+c_k = A \frac{T_h}{T} \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
+\end{equation}
+\end{ExCalc}
+
+\begin{Loesung}
+%
+\begin{equation}
+\label{eq:D1483A84E2_Loesung}
+T \cdot c_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2}) = A T_h \cdot \mathrm{sinc}(k \pi \frac{T_h}{T})
+\end{equation}
+%
+Wir sollten uns mit der Spaltfunktion
+\begin{equation}
+\mathrm{sinc}(x) := \frac{\sin(x)}{x}
+\end{equation}
+vertraut machen, z.B.
+hier \url{https://mathworld.wolfram.com/SincFunction.html} oder in einschlägigen
+Mathe- und Signalverarbeitungsbüchern. Wichtig ist, die Umhüllende, die Nullstellen
+und den Verlauf der lokalen Maxima / Minima grob auf dem Schirm zu haben.
+%
+Besonders relevant für die aktuelle Aufgabe ist, dass die die Spaltfunktion
+breiter und schmaler bzgl. des gleichen Ausschnitts
+$-K \leq k \leq +K$ gemacht wird.
+
+Zunächst halten wir fest: a) eine periodische Rechteckfunktion hat eine sinc-artige,
+komplexe Fourierreihe, b) die Fourierkoeffizienten sind reell, das ist
+hier ein Spezialfall der komplexen Fourierreihe c) die Spalt-Funktion wird
+wegen diskretem $k$ nur an bestimmten Stellen ausgewertet.
+Die Fourierreihe ist also als Folge
+über alle $k$ der komplexen Fourierkoeffizienten $c_k$ aufzufassen. Wir werden
+das später Linienspektrum bezeichnen.
+
+Grafische Darstellungen helfen uns das Verhalten der komplexen Fourierreihe und
+Fourier-Synthese besser zu verstehen.
+%
+Dafür wurde für die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}
+jeweils die sinc-förmige Fourierreihe (links) und das rechteck-förmig Signal
+(rechts) dargestellt, das Tastverhältnis $T_h$ wurde
+variiert, die Amplitude zu $A = 1/T_h$ gewählt, sowie $T=1$ s konstant gehalten.
+%
+Die Fouriersynthese erfolgt mit $-40 \leq k \leq +40$.
+%
+Wir erkennen, dass die Breite der Spalt-Funktion für steigendes Tastverhältnis
+$\frac{T_h}{T}$ abnimmt.
+%
+Im Extremfall $\frac{T_h}{T} = 1$ resultiert ein Gleichsignal, und daher
+nur $c_0 \neq 0$, alle anderen $c_k=0$.
+%
+Spannend ist zudem der Fall $\frac{T_h}{T} = 1/2$: hier ist jeder zweite $c_k=0$,
+weil wir da eine Nullstelle der Spalt-Funktion auswerten.
+
+Sehr vereinfacht, aber vom Wesen wichtig:
+Je mehr Gleichsignal, desto weniger Fourierkoeffizienten werden benötigt um das
+Signal zu approximieren. Je mehr impulshafte Änderung
+$\frac{T_h}{T} \to  0$, desto mehr Fourierkoeffizienten werden benötigt, also
+desto breiter das sinc-förmige Linienspektrum.
+%
+
+
+\end{Loesung}
+
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fs/D1483A84E2_0.pdf}
+\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=1$ s, $T_h=0.1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\label{fig:D1483A84E2_0}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fs/D1483A84E2_1.pdf}
+\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=1$ s, $T_h=0.2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\label{fig:D1483A84E2_1}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fs/D1483A84E2_2.pdf}
+\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=1$ s, $T_h=0.5$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\label{fig:D1483A84E2_2}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fs/D1483A84E2_3.pdf}
+\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=1$ s, $T_h=0.8$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\label{fig:D1483A84E2_3}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{../fs/D1483A84E2_4.pdf}
+\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=1$ s, $T_h=1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\label{fig:D1483A84E2_4}
+\end{figure}
+
+
+
+
+\newpage
+\subsection{Fourier-Transformation Beispiel Rechteckfunktion}
+\label{sec:8C3958BE4F}
+\begin{Ziel}
+Wir wollen für die Fouriertransformation die wichtige Dualität zwischen der
+Rechteckfunktion und der Spaltfunktion anhand eines fundamentalen Beispiels erfassen.
+Zudem enthält auch hier die ausführliche Rechnung Rechenschritte und Umformungen
+welche wir so oder ähnlicher Form immer wieder brauchen werden.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 8C3958BE4F}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item axialsymmetrische Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.5,0) node[below] {$\frac{-T_h}{2}$} -- (-0.5,1) node[left] {$A$} -- (0.5,1) -- (0.5,0) node[below] {$\frac{+T_h}{2}$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+
+\begin{Werkzeug}
+Synthese mit Fouriertransformation
+\begin{align}
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
+\end{align}
+%
+Analyse mit Fouriertransformation
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+
+\begin{Ansatz}
+\begin{equation}
+X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+\end{Ansatz}
+
+\begin{ExCalc}
+Integrieren
+\begin{equation}
+X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h/2}^{+T_h/2}
+\end{equation}
+Grenzen einsetzen
+\begin{equation}
+X(\im \omega) = A \frac{\e^{-\im \omega T_h/2}-\e^{+\im \omega T_h/2}}{-\im \omega}
+\end{equation}
+Vorzeichen
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega}
+\end{equation}
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega} \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+Umsortieren
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{2 \im \omega T_h/2} \frac{T_h/2}{1} \cdot \frac{2}{1}
+\end{equation}
+\end{ExCalc}
+
+\begin{Loesung}
+\begin{equation}
+\label{eq:8C3958BE4F_Loesung}
+X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})
+\end{equation}
+
+Wir bekommen wieder eine Spaltfunktion, wie schon bei der Fourierreihe aus Aufgabe
+\ref{sec:D1483A84E2}, vgl. \eq{eq:D1483A84E2_Loesung}.
+%
+Diesmal, weil $\omega$ kontinuierlich wird die Spaltfunktion überall ausgewertet,
+die Fouriertransformation ist also eine kontinuierliche Funktion über $\omega$.
+%
+Auch hier ist $X(\im\omega)\in\mathbb{R}$ ein Spezialfall.
+%
+Der Faktor $\frac{T_h}{2}$ im sinc-Argument bestimmt wieder die Breite der
+Spaltfunktion.
+
+Je \textbf{kleiner} $T_h$, also je \textbf{schmal}er der
+\textbf{Rechteck}impuls, desto \textbf{breit}er die \textbf{Spalt}funktion.
+
+Je \textbf{größer} $T_h$, also je \textbf{breit}er der
+\textbf{Rechteck}impuls, desto \textbf{schmal}er die \textbf{Spalt}funktion.
+%
+Dieser Zusammenhang ist fundamental in der Signalverarbeitung und der
+Kommunikationstechnik und ist in \fig{fig:8C3958BE4F} grafisch aufbereitet.
+
+Was erwarten für $T_h\to 0$ (idealer Impuls) und was für $T_h\to \infty$
+(Gleichspannung)? In beiden Fällen bekommen
+wir Probleme beim Integrieren. Aber dies sind in der Signaltheorie überaus wichtige
+Grenzfälle, für die auch Fouriertransformierte existieren. Wir werden sie bald
+kennenlernen.
+
+Wir werden in der VL und UE sehr oft das Elementarsignal
+
+\begin{equation}
+\text{rect}(t) := \begin{cases} 1 & |t| < \frac{1}{2} \\ \frac{1}{2} & |t| = \frac{1}{2} \\ 0 & |t| > \frac{1}{2} \end{cases}\quad,
+\end{equation}
+also den Rechteckimpuls mit $T_h=1$ und $A=1$, zum Rechnen benutzen.
+%
+Die Fouriertransformierte von $\text{rect}(t)$ lautet dann abgeleitet aus
+\eq{eq:8C3958BE4F_Loesung} einfach
+$X(\im \omega) = \mathrm{sinc}(\frac{\omega}{2})$.
+%
+Eine oft benutzte Schreibweise von Fouriertransformationspaaren (sogenannte
+Korrespondenzen, siehe Formelsammlung) benutzt den Operator $\laplace$.
+%
+Wir schreiben für das soeben gefundene Transformationspaar
+\begin{equation}
+x(t) = \text{rect}(t) \quad \laplace \quad X(\im \omega) = \mathrm{sinc}(\frac{\omega}{2})
+\end{equation}
+%
+Eine weitere Korrespondenz ist
+\begin{equation}
+x(t) = \text{sinc}(t) \quad \laplace \quad X(\im \omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
+\end{equation}
+also bis auf den Faktor $\pi$ vertauscht.
+%Diese Korrespondenz direkt zu
+%beweisen, also die Spaltfunktion fourierzutransformieren ist nicht trivial, aber
+%man kann die inverse Fourier Transformation berechnen. Das ist wieder nur der
+%Rechteckimpuls unter dem Integralkern.
+%
+Die Dualität \textbf{Spaltfunktion transformiert ergibt Rechteckfunktion und umgekehrt},
+dürfen wir die ganze Zeit nicht aus den Augen verlieren.
+
+Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
+Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
+hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $T \cdot c_k$
+\eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
+mit den Werten von $X(\im\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
+$\omega_0 k = \omega$. Dies ist kein Zufall und werden wir als Abtastung
+kennenlernen.
+
+
+
+\end{Loesung}
+
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{1\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_1.pdf}
+\caption{Rechteckimpulse für verschiedene $T_h$ und gewähltem $A=1/T_h$.
+Um die resultierenden Amplitudenunterschiede sinnvoll darstellen zu können,
+ist $\log_{10}x(t)$ über $t$ aufgetragen. Da $\log_{10}(0)=-\infty$
+ist nur der Signalteil mit Amplitude $A=1/T_h$ sichtbar.}
+\label{fig:8C3958BE4F_1}
+\end{subfigure}
+\\
+\begin{subfigure}{1\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_0.pdf}
+\caption{Fouriertransformation der Rechteck-Impulse aus
+\fig{fig:8C3958BE4F_1}. Durch die Wahl $A=1/T_h$ haben alle Rechteckimpulse Fläche
+1 und alle Fouriertransformierten
+das gleiche globale Maximum (bei $\omega=0$ rad/s) mit Wert 1.}
+\label{fig:8C3958BE4F_0}
+\end{subfigure}
+%
+\caption{Rechteckimpulse (oben) und Fouriertransformierte (unten).
+Liniendickenvariation zu besseren Unterscheidbarkeit bei Graustufenanzeige.
+\texttt{FourierTransformation\_8C3958BE4F.ipynb}}
+\label{fig:8C3958BE4F}
+\end{figure*}
+
+
+
+\newpage
+\subsection{Fourier-Transformation Signal-Verschiebung}
+\label{sec:A8A2DEE53A}
+\begin{Ziel}
+Wir wollen uns erarbeiten, wie sich eine Zeitverschiebung auf die
+Fouriertransformierte auswirkt und damit das Verschiebungsgesetz kennenlernen.
+Zeitverschiebung bedeutet immer Phasenänderung in der Fouriertransformierten.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny A8A2DEE53A}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item dargestellte Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+%
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.0,0) node[below] {$0$} -- (-0,1) node[left] {$A$} -- (1,1) -- (1,0) node[below] {$T_h$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+%
+Wir erkennen die in Aufgabe \ref{sec:8C3958BE4F} hier um $T_h/2$, also nach rechts,
+verschobene Rechteckfunktion.
+
+
+\begin{Werkzeug}
+nothing new here...
+Analyse mit Fouriertransformation
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{equation}
+X(\im \omega) = \int\limits_{0}^{T_h} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+\end{Ansatz}
+
+
+\begin{ExCalc}
+Integrieren
+\begin{equation}
+X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{0}^{T_h}
+\end{equation}
+Grenzen einsetzen
+\begin{equation}
+X(\im \omega) = A \frac{\e^{-\im \omega T_h}-1}{-\im \omega}
+\end{equation}
+Vorzeichen
+\begin{equation}
+X(\im \omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega}
+\end{equation}
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\im \omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega} \underbrace{\e^{+\im\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}}_{=1}=
+A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
+\cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+Umsortieren
+\begin{equation}
+X(\im \omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{-\im\omega\frac{T_h}{2}} =
+A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+\end{ExCalc}
+
+
+\begin{Loesung}
+\begin{equation}
+\label{eq:A8A2DEE53A_Loesung}
+X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+%
+Wir erkennen, dass \eq{eq:8C3958BE4F_Loesung} um den komplexen Dreher / Zeiger $\e^{-\im\omega\frac{T_h}{2}}$
+erweitert wird und nun $X(\im \omega)\in\mathbb{C}$.
+%
+Eine zeitliche Verschiebung um $\frac{T_h}{2}$ führt zu einer Phasenänderung (der
+Betrag bleibt erhalten) in der
+Fouriertransformierten, und zwar um $\angle \e^{-\im\omega\frac{T_h}{2}} = -\omega\frac{T_h}{2}$.
+
+Damit ist für das hier berechnete Beispiel der Betrag der Fouriertransformierten
+$|X(\im \omega)| = A T_h \cdot |\mathrm{sinc}(\omega\frac{T_h}{2})|$ und die Phase
+der Fouriertransformierten
+$\angle X(\im\omega) = -\omega\frac{T_h}{2}$.
+%
+Wir müssen bei grafischen Darstellungen daher streng immer zwei Diagramme anfertigen:
+\begin{itemize}
+  \item Realteil + Imaginärteil oder
+  \item Betrag + Phase
+\end{itemize}
+%
+Aufgabe \ref{sec:8C3958BE4F} lieferte eine reelle
+Lösung, wir mussten daher in \fig{fig:8C3958BE4F_0} nur den Realteil
+plotten.
+%
+Das können wir nun hier nicht mehr machen: wenn wir nur den Realteil darstellen,
+verlieren wir durch unterschlagenen Imaginärteil Informationen.
+%
+Eine Darstellung in Betrag und Phase ist üblich, weil dies bei praktischen
+Problemen, schnell hilfreiche Informationen offenbart. Das haben wir auch schon
+bei der Wechselstromrechnung benutzt.
+%
+In \fig{fig:A8A2DEE53A} ist daher das Verhalten von \eq{eq:A8A2DEE53A_Loesung} als
+Betrag und Phase über $\omega$ dargestellt.
+
+Der Betrag der Spaltfunktion ist einfach zu erhalten, wir klappen einfach alle
+negativen Funktionswerte in Richtung positiver Ordinate.
+%
+Die Phase ist eine Gerade über $\omega$ durch den Ursprung mit Anstieg $-T_h/2$,
+also fallend.
+%
+Diese \textbf{Phase}nfunktion ist bzgl. des Ursprungs \textbf{punktsymmetrisch}.
+Dies gilt immer für die Fouriertransformierten $X(\im\omega)$ von \textbf{reellwertigen}
+Signalen $x(t)$.
+%
+Größere Zeitverschiebung $T_h/2$ bedeutet größere Phasenverschiebung, also steilere
+fallende Gerade.
+
+Das was wir anhand eines speziellen (wichtigen) Beispiels gezeigt haben, gilt auch
+allgemein. Die Korrespondenz zur \textbf{Zeitverschiebung} um $\tau\in\mathbb{R}$
+---bekannt als \textbf{Verschiebungssatz}---lautet
+\begin{align}
+x(t) & \quad \laplace \quad X(\im\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}.
+\end{align}
+%
+Man kann natürlich auch eine Fouriertransformierte um die Kreisfrequenz
+$\omega_0\in\mathbb{R}$ verschieben, vgl. Aufgabe \ref{sec:9D652BE72B}.
+%
+Die Korrespondenz zur \textbf{Frequenzverschiebung}
+---bekannt als \textbf{Modulationssatz}---lautet
+\begin{align}
+x(t) & \quad \laplace \quad X(\im\omega)\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0]).
+\end{align}
+%
+Bemerkenswert ist der gekreuzte Zusammenhang Zeit-/ Frequenzverschiebung
+vs.
+Frequenz-/ Zeitmodulation,
+jedoch mit anderem Vorzeichen
+in im komplexen Dreher.
+\end{Loesung}
+
+\begin{figure}[h!]
+\includegraphics[width=0.9\textwidth]{../ft/A8A2DEE53A.pdf}
+  \caption{Betrag (oben) und Phase (unten) der Fouriertransformierten \eq{eq:A8A2DEE53A_Loesung}.
+\textbf{Vorsicht:} Die Grafik suggeriert, dass eine zeitliche Rechts-Verschiebung
+sowohl Phase als auch Betrag ändert. Dies passiert aber hier speziell, weil wir in der
+Aufgabe nach einer Verschiebung um $T_h/2$ gefragt haben, und $T_h$
+im Argument der Spaltfunktion die Breite dieser bestimmt.
+\texttt{FourierTransformation\_A8A2DEE53A.ipynb}}
+  \label{fig:A8A2DEE53A}
+\end{figure}
+
+
+\newpage
+\subsection{Fourier-Transformation Signal-Zeitumkehr}
+\label{sec:1CFE5FE3A1}
+\begin{Ziel}
+Wir wollen uns erarbeiten, wie sich eine Zeitumkehr in der Fouriertransformierten
+auswirkt und dabei eine wichtige Symmetrie der Korrespondenzen kennenlernen.
+Zeitumkehr ist Phasenumkehr in der Fouriertransformierten.
+\end{Ziel}
+
+\textbf{Aufgabe} {\tiny 1CFE5FE3A1}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item dargestellte Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+%
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-1,0) node[below] {$-T_h$} -- (-1,1) node[left] {$A$} -- (0,1) -- (0,0) -- (2,0);
+\end{tikzpicture}
+\end{figure}
+%
+Wir erkennen
+\begin{itemize}
+\item die in Aufgabe \ref{sec:8C3958BE4F} hier um $-T_h/2$, also nach links,
+verschobene Rechteckfunktion
+\item die in Aufgabe \ref{sec:A8A2DEE53A} hier zeitgedrehte Rechteckfunktion
+\end{itemize}
+
+\begin{Werkzeug}
+Korrespondenz Zeitverschiebung um $\tau\in\mathbb{R}$:
+\begin{align}
+x(t) & \quad \laplace \quad X(\im\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}.
+\end{align}
+Analyse mit Fouriertransformation:
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+
+\begin{Ansatz}
+Mit Kenntnis der Fouriertransformierten aus Aufgabe \ref{sec:8C3958BE4F}, d.h. der
+unverschobenen Zeitfunktion, können wir den Zeitverschiebungssatz anwenden:
+
+\begin{equation}
+x(t - (-T_h/2)) \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega (-T_h/2)}
+\end{equation}
+Das Endergebnis für die hier gestellte Aufgabe lautet daher
+\begin{equation}
+X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+\end{equation}
+Wir können aber auch wieder zu Fuß das Integral der Fourier Transformation
+\begin{equation}
+X(\im \omega) = \int\limits_{-T_h}^{0} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+mit ähnlichem Vorgehen wie Aufgabe \ref{sec:A8A2DEE53A} lösen und müssen das
+gleiche Endergebnis bekommen, wie die folgende ausführliche Rechnung zeigt.
+\end{Ansatz}
+\begin{ExCalc}
+%Integrieren
+\begin{equation}
+X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h}^{0}
+\end{equation}
+%Grenzen einsetzen
+\begin{equation}
+X(\im \omega) = A \frac{1 - \e^{+\im \omega T_h}}{-\im \omega}
+\end{equation}
+%Vorzeichen
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega}
+\end{equation}
+%Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega} \underbrace{\e^{-\im\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}}_{=1}=
+A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
+\end{equation}
+\begin{equation}
+X(\im \omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
+\cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+%Umsortieren
+\begin{equation}
+X(\im \omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{+\im\omega\frac{T_h}{2}} =
+A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}
+\end{equation}
+\end{ExCalc}
+\begin{Loesung}
+Das Ergebnis
+\begin{equation}
+\label{eq:1CFE5FE3A1_Loesung}
+X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+\end{equation}
+ist in \fig{fig:1CFE5FE3A1} dargestellt. Der Betrag $A T_h \cdot |\mathrm{sinc}(\omega\frac{T_h}{2})|$
+ist gleich wie in Aufgabe \ref{sec:A8A2DEE53A}, weil wir gelernt haben, dass
+eine Zeitverschiebung nur die Phase in der Fouriertransformierten ändert.
+%
+
+Der wichtige neue Punkt ist:
+Die Phase ist eine Geradengleichung über $\omega$ durch den Ursprung und mit Anstieg $+T_h/2$,
+also diesmal steigend!
+%
+Die \textbf{Zeitumkehr} erzeugt also eine \textbf{Phasenumkehr}, vgl.
+Aufgabe \ref{sec:A8A2DEE53A} fallende Phase, Aufgabe \ref{sec:1CFE5FE3A1} hier steigende Phase.
+%
+Dies gilt auch wieder verallgemeinert und ist eine wichtige \textbf{Symmetrie}eigenschaft
+der Fourier Transformation
+%
+\begin{align}
+x(+t) \quad \laplace \quad X(+\im\omega) =& |X(\im\omega)| \, \e^{+\im\angle X(\im\omega)}\\
+x(-t) \quad \laplace \quad X(-\im\omega) =& |X(\im\omega)| \, \e^{-\im\angle X(\im\omega)}
+\end{align}
+%
+Zufällig in unserem Beispiel konnten wir das Problem auch über Zeitverschiebung
+lösen, weil wir die unverschobene Rechteckfunktion bereits gut kennen.
+\end{Loesung}
+%
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../ft/1CFE5FE3A1.pdf}
+  \caption{Betrag (oben) und Phase (unten) der Fouriertransformierten \eq{eq:1CFE5FE3A1_Loesung}.
+\textbf{Vorsicht:} Die Grafik suggeriert, dass eine zeitliche Links-Verschiebung
+sowohl Phase als auch Betrag ändert. Dies passiert aber hier speziell, weil wir in der
+Aufgabe nach einer Verschiebung um $-T_h/2$ gefragt haben, und $T_h$
+im Argument der Spaltfunktion die Breite dieser bestimmt.
+\texttt{FourierTransformation\_1CFE5FE3A1.ipynb}}
+  \label{fig:1CFE5FE3A1}
+\end{figure}
+
+
+
+
+
+
+
+\newpage
+\subsection{Dirac-Impuls}
+\label{sec:D410BDAAE0}
+\begin{Ziel}
+Wir führen den Dirac-Impuls ein. Ohne den geht in SigSys (fast) nix, bekannt auch als
+Dirac-Delta-Impuls, Dirac-Stoß, Einheitsimpuls.
+Wir werden den Dirac-Impuls bei der Beschreibung von Signalen und Systemen
+in fundamentalen Zusammenhängen benutzen (müssen).
+Wir haben in den bisherigen Aufgaben ganz gut vorgearbeitet und können uns
+mit der Rechteck- und Spaltfunktion dem Phänomen Dirac-Impuls nähern.
+Dem Ingenieur macht das Konzept am Anfang ein wenig Bauchweh, weil
+der Dirac-Impuls keine klassische Funktion ist, sondern eine Distribution, d.h.
+es gibt bestimmte Funktionen, für die zwar ein gewünschter Grenzwert nicht existiert,
+die aber gleiche Grundeigenschaften besitzen, wenn man sich dieser Grenze annähert.
+Diese Grundeigenschaften werden wir kennenlernen als sehr nützliche
+Rechenregeln des Dirac-Impulses, und damit haben wir eigentlich das nötige
+Handwerkszeug für SigSys dann schon parat.
+Die Rechteck- und Spaltfunktion sind zwei solcher Funktionen mit gleichen
+Grundeigenschaften die einen Dirac-Impuls ausmachen.
+
+Zudem werden wir zwei fundamentale Korrespondenzen der Fouriertransformation
+kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
+war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny D410BDAAE0}:
+Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ und
+$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$
+\begin{Werkzeug}
+Führen wir für $\epsilon\in\mathbb{N}^+$ eine Funktion $\delta_\epsilon(x)$ ein, die entweder
+\begin{equation}
+\delta_\epsilon(x) := \epsilon \cdot \mathrm{rect}(\epsilon \, x) =
+\begin{cases} \epsilon & |x| < \frac{1}{2 \epsilon} \\ \frac{\epsilon}{2} & |x| = \frac{1}{2 \epsilon} \\ 0 & |x| > \frac{1}{2 \epsilon} \end{cases}\quad
+\end{equation}
+oder
+\begin{equation}
+\delta_\epsilon(x) := \frac{\epsilon}{\pi} \cdot \mathrm{sinc}(\epsilon \, x) = \frac{\sin(\epsilon \, x)}{\pi x}
+\end{equation}
+ist.
+Wir entdecken die, zwar ein wenig normiert, aber uns mittlerweile vertraute
+Rechteck- und Spaltfunktion  wieder.
+%
+Es gilt für beide Funktion, und zwar unabhängig von $\epsilon$ (für die
+Rechteckfunktion ist das leicht einzusehen, für die sinc-Funktion überlassen wir
+das den Mathematikern oder müssen uns vertiefter mit dem Integralsinus auseinander setzen)
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta_\epsilon(x) \fsd x = 1,
+\end{equation}
+d.h. die \textbf{Fläche ist immer 1} bei der gewählten Normierung der
+Rechteck- und Spaltfunktion.
+%
+Nun sind die Grenzwerte
+\begin{equation}
+\lim_{\epsilon\to\infty} \delta_\epsilon(x)
+\end{equation}
+leider nicht definiert.
+%
+Machen wir uns aber klar, dass sowohl die Rechteck- als auch Spaltfunktion mit
+größer werdendem $\epsilon\to \infty$ immer schmaler und höher werden und sich
+einem Impuls annähern, siehe \fig{fig:1CFE5FE3A1}.
+%
+Die Mathematik\footnote{\url{https://dlmf.nist.gov/1.17} bzw. Buch
+\cite[Kapitel 1.15]{Arfken2005}}
+liefert uns nun eine Lösung im Sinne eines Grenzwerts für eine
+Sequenz von Integralen über $\delta_\epsilon(x)$, $\epsilon=1,2,3,...$
+\begin{equation}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x = f(x_0).
+\end{equation}
+Wir sehen, dass dieser Grenzwert auf eine Funktion $f(x)$ einwirkt und als Lösung
+$f(x_0)$ hervorbringt, wenn $\delta_\epsilon(x)$ um $x_0$ verschoben wurde, also
+$\delta_\epsilon(x-x_0)$ im Integral benutzt wurde.
+%
+Das ist das was uns primär als Ingenieure interessiert.
+%
+Der für uns etwas sperrige Ausdruck
+\begin{equation}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
+\end{equation}
+bekommt jetzt eine Definition mit Einführung des sogenannten Dirac-Impulses $\delta(x)$
+\begin{equation}
+\label{eq:DiracDistrDef}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
+:= \int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)
+\end{equation}
+%
+Die rechte Seite ist \textbf{kein} klassisches Riemann-Integral, sondern eine
+\textbf{Definition} (nämlich die des linken Grenzwerts),
+für uns aber eine nützliche \text{Rechenregel} und Grundeigenschaft des
+Dirac-Impulses. Diese ist als \textbf{Austasteigenschaft} oder
+\textbf{Ausblendeigenschaft} bekannt. Je nachdem wie wir denken wollen:
+Austasten nur des Funktionswertes $f(x_0)$ oder Ausblenden aller Funktionswerte
+außer $f(x_0)$.
+
+Aus dieser können wir sofort ableiten, dass
+\begin{equation}
+\label{}
+\int\limits_{-\infty}^{+\infty} \delta(x) \cdot f(x) \, \fsd x = f(0)
+\end{equation}
+wenn $x_0=0$ gewählt wurde.
+%
+Weiter finden wir
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta(x) \fsd x = 1
+\end{equation}
+wenn $f(x)=1$ gewählt wurde.
+%
+Beide Beziehungen konnten wir nur deswegen sehr schnell und einfach ableiten, weil
+wir die Definition benutzt haben. Wir müssen uns aber klar machen, dass wir
+nicht das Integral gelöst haben, sondern vielmehr die Rechenregel der Austastung
+verwendet haben.
+%
+Die Versuchung das letzte Integral als Fläche des Dirac-Impulses zu interpretieren
+ist sehr groß, und wenn wir den Grenzübergang mit der Rechteckfunktion in Gedanken
+tatsächlich vollziehen auch nicht falsch, aber wir können das streng genommen
+nicht aus dem Definitionsintegral
+$\int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)$
+des Dirac-Impulses auslesen.
+%
+Statt Fläche, sprechen wir hinfort vom Gewicht 1 des Dirac-Impulses.
+
+\end{Werkzeug}
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
+  \caption{Rechteck- (oben) und Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
+  Durch die Normierung verhalten sich Breite und Höhe umgekehrt proportional und
+  gehen daher in den Grenzfällen zu einem unendlich kleinem Gleichsignal oder einem unendlich kurzen und hohen
+  Impuls über. Diese beiden Funktionen erfüllen im Grenzfall $\epsilon\to\infty$
+  die Distributionsforderungen des Dirac-Impulses \eq{eq:DiracDistrDef}.
+  \texttt{dirac\_impulse\_CT\_D410BDAAE0.ipynb}}
+  \label{fig:D410BDAAE0}
+\end{figure}
+
+\cleardoublepage
+\begin{Ansatz}
+Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$
+können wir ableiten aus der Ausblendeigenschaft
+$\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(t_0)$
+mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
+%
+Dann bekommt die Ausblendeigenschaft das Aussehen der Fouriertransformation
+des Dirac-Impulses
+\begin{equation}
+X(\im\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-\im \omega \cdot 0} = 1
+\end{equation}
+
+Auch die gesuchte Korrespondenz
+$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$ lässt sich
+ableiten aus der Ausblendeigenschaft, diesmal mit der Funktionsvariablen Kreisfrequenz, also mit
+
+$\int\limits_{-\infty}^{+\infty} \delta(\omega-\omega_0) \cdot f(\omega) \, \fsd \omega \stackrel{\mathrm{def}}= f(\omega_0)$
+für $f(\omega) = \e^{+\im \omega t}$ (Vorzeichen der inversen Fouriertransformation $+$!) und $\omega_0=0$.
+%
+Dann bekommen wir
+\begin{equation}
+2\pi \cdot \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= 2\pi \cdot \e^{+\im \omega \cdot 0} = 2\pi
+\end{equation}
+%
+Weil bei der inversen Fouriertransformation
+\begin{align}
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
+\end{align}
+noch der Faktor $\frac{1}{2\pi}$ berücksichtigt werden muss, erhalten wir
+\begin{equation}
+x(t) = \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= \e^{+\im \omega \cdot 0} = 1
+\end{equation}
+
+\end{Ansatz}
+%\begin{ExCalc}
+%\end{ExCalc}
+\begin{Loesung}
+Damit haben wir zwei weitere wichtige Korrespondenzen gefunden, in der Formelsammlung
+ganz oben auf der Liste:
+\begin{align}
+\label{eq:D410BDAAE0_Loesung1}
+x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
+\label{eq:D410BDAAE0_Loesung2}
+x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
+\end{align}
+%
+Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
+%
+Wesentlich ist, dass ein Dirac-Impuls alle Frequenzen gleich gewichtet enthält
+(\fig{fig:D410BDAAE0_Korrespondenzen} oben)
+und dass ein Gleichsignal, nur einen Dirac-Impuls bei $\omega=0$ enthält
+(\fig{fig:D410BDAAE0_Korrespondenzen} unten).
+Weil hier nichts schwingt, gibt es nur ein Dirac-Gewicht beim Gleichanteil.
+
+\end{Loesung}
+
+
+\begin{figure}[h!]
+\centering
+%
+\begin{tikzpicture}0
+\def\l{-2.5}
+\def\r{+2.5}
+\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
+\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=\delta(t)$};
+\draw[->, C0, line width=1mm] (0+\l,0) -- (0+\l,1) node[left] {$(1)$};
+\node at (0,1) {$\laplace$};
+\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=1$};
+\draw[-, C0, line width=1mm] (-2+\r,1) -- (2+\r,1) node[right] {$1$};
+\end{tikzpicture}
+%
+\begin{tikzpicture}0
+\def\l{-2.5}
+\def\r{+2.5}
+\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
+\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=1$};
+\draw[-, C0, line width=1mm] (-2+\l,1) node[left] {$1$} -- (2+\l,1);
+\node at (0,1) {$\laplace$};
+\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=2\pi\delta(\omega)$};
+\draw[->, C0, line width=1mm] (0+\r,0) -- (0+\r,1) node[right] {$(2\pi)$};
+\end{tikzpicture}
+%
+\caption{Korrespondenzen Fouriertransformation: \eq{eq:D410BDAAE0_Loesung1} (oben),
+\eq{eq:D410BDAAE0_Loesung2} (unten).}
+\label{fig:D410BDAAE0_Korrespondenzen}
+\end{figure}
+
+
+\begin{mdframed}
+\textit{Ausblick:}
+%
+\\\noindent
+Wir haben bisher die Korrespondenzen
+\begin{align}
+x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
+x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])\\
+\end{align}
+kennengelernt.
+%
+Diese lassen sich nun geschickt kombinieren, um weitere Korrespondenzen zu finden,
+z.B. ein verschobener Dirac-Impuls im Zeitbereich
+\begin{align}
+\delta(t-\tau)& \quad \laplace \quad 1 \cdot \e^{-\im\omega \tau}.
+\end{align}
+Wir erinnern uns: Zeitverschiebung für zu Phasenänderung im Frequenzbereich.
+
+Oder ein verschobener Dirac-Impuls im Frequenzbereich
+\begin{align}
+1 \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad 2\pi\delta(\omega-\omega_0),
+\end{align}
+bedeutet Phasenänderung im Zeitbereich, speziell resultiert eine Multiplikation
+mit einer komplexen Schwingung auf das ursprüngliche Gleichsignal $x(t)=1$.
+%
+In der nächsten Übung wird diese Korrespondenz nochmal näher mit einem
+Rechteckzeitsignal beleuchtet. Aus der zeitlichen Begrenzung des Gleichsignals
+zum Rechtecksignal resultiert ein Übergang vom Dirac-Impuls zur Spaltfunktion
+für die Fouriertransformierte.
+\end{mdframed}
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{Fourier-Transformation Signal-Modulation}
+\label{sec:9D652BE72B}
+\begin{Ziel}
+Anhand eines speziellen Beispiels erfassen wir das Wesen des Modulationstheorems.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 9D652BE72B}: Berechnen Sie die Fouriertransformation für
+\begin{itemize}
+\item axialsymmetrische Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\item die mit der komplexen Schwingung $\e^{+\im \omega_0 t}$ mit Kreisfrequenz $\omega_0>0$
+multipliziert wird
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.5,0) node[below] {$\frac{-T_h}{2}$} -- (-0.5,1) node[left] {$A$} -- (0.5,1) -- (0.5,0) node[below] {$\frac{+T_h}{2}$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+
+\begin{Werkzeug}
+Analyse mit Fouriertransformation
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{align}
+X_m(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} \e^{+\im \omega_0 t} \cdot A \, \e^{-\im \omega t} \mathrm{d}t
+\end{align}
+\end{Ansatz}
+\begin{ExCalc}
+\begin{align}
+X_m(\im \omega) = A \int\limits_{-T_h/2}^{+T_h/2} \e^{-\im (\omega-\omega_0) t} \mathrm{d}t =
+A \frac{\e^{-\im (\omega-\omega_0) t}}{-\im (\omega-\omega_0)}\bigg|_{-T_h/2}^{+T_h/2} =
+A \frac{\e^{-\im (\omega-\omega_0) T_h/2} - \e^{+\im (\omega-\omega_0) T_h/2}}{-\im (\omega-\omega_0)}
+\end{align}
+Vorzeichen drehen, erweitern, $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
+\begin{align}
+X_m(\im \omega) = A \frac{\e^{+\im (\omega-\omega_0) T_h/2} - \e^{-\im (\omega-\omega_0) T_h/2}}{\im (\omega-\omega_0)} \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{align}
+\end{ExCalc}
+\begin{Loesung}
+\begin{align}
+X_m(\im \omega) = A T_h \cdot \mathrm{sinc}\left((\omega-\omega_0) \frac{T_h}{2}\right)
+\end{align}
+Wir können mit Vergleich dieser und  Aufgabe \ref{sec:8C3958BE4F} beobachten, dass
+die Korrespondenz
+\begin{align}
+\e^{+\im \omega_0 t} \cdot x(t) \quad\laplace\quad X\left(\im [\omega-\omega_0]\right)
+\end{align}
+gilt.
+%
+Dieser Zusammenhang gilt generell und ist als Modulationstheorem der
+Fourier Transformation bekannt.
+%
+Das Spektrum (die Fouriertransformierte) $X(\im \omega)$ wird im Frequenzbereich
+um $\omega_0$ verschoben, wenn $x(t)$ mit der komplexen Trägerschwingung
+$\e^{+\im \omega_0 t}$ multipliziert wird. In der Nachrichtentechnik bezeichnet man
+diesen Vorgang als Modulation von $x(t)$ auf den Träger $\e^{+\im \omega_0 t}$.
+Dies benutzt man um Spektren in einen anderen (freien) Frequenzbereich zu
+verschieben. Das werden wir bald im Detail besser verstehen.
+\end{Loesung}
+
+
+\begin{mdframed}
+\textit{Ausblick:}
+%
+\\\noindent Wir könnten an dieser Stelle durchaus schon in der Lage sein, uns die
+Fouriertransformierten von $x(t) = \cos(\omega_0 t)$ und $x(t) = \sin(\omega_0 t)$
+abzuleiten und in Betrag und Phase zu skizzieren.
+%
+Dazu ist es nicht ratsam, dass Transformationsintegral lösen zu wollen,
+es konvergiert nicht, sondern die bisher bekannten Korrespondenzen zusammen
+mit den Euler Identitäten
+\begin{align}
+\cos(\omega_0 t) = \frac{\e^{+\im\omega_0 t}+\e^{-\im\omega_0 t}}{2}\qquad
+\sin(\omega_0 t) = \frac{\e^{+\im\omega_0 t}-\e^{-\im\omega_0 t}}{2\im}
+\end{align}
+zu benutzen.
+%
+Diese Idee durchzieht die SigSys: Suchen nach und Arbeiten mit passenden
+Korrespondenzen. Wir werden als Ingenieure sehr wahrscheinlich keine unbekannte
+Fouriertransformierte neu finden! Lassen wir dieses Feld den Integralprofis, wie
+\cite{Abramowitz1972}, \cite{Gradshteyn2007} und lernen stattdessen was wir mit den
+Tools anstellen können und was sie uns im Wesen sagen.
+\end{mdframed}
+
+%
+In den bisherigen Aufgaben haben wir uns mit einfachen Signalen und der
+Fouriertransformierten beschäftigt, sprich wir haben geschaut, welche Frequenzen
+stecken mit welcher Amplitude in den untersuchten Signalen.
+%
+Als Spezialfall bekamen wir für periodische Signale Fourierkoeffizienten.
+%
+Das ist der \textbf{SigSys-Teil: Signalanalyse und -synthese}. Wir werden insgesamt
+\textbf{vier Fouriertransformationen} kennenlernen, alle spezialisiert auf bestimmte
+Signaltypen, zwei kennen wir nun schon ein wenig besser: Fourierreihe und
+Fouriertransformation.
+Die anderen beiden sind
+
+\url{https://de.wikipedia.org/wiki/Diskrete_Fourier-Transformation}
+
+\url{https://de.wikipedia.org/wiki/Fouriertransformation_für_zeitdiskrete_Signale}
+
+Die Idee mit Korrespondenzen zu arbeiten, bleibt für alle Transformationen
+erhalten. Auch werden wir die Sinc/Rect-Dualitäten immer wieder finden,
+genauso wie Zeit-/Frequenzverschiebung.
+
+
+
+
+\begin{comment}
+\newpage
+\subsection{Fourier-Transformation Cosinus-Schwingung}
+\label{sec:610482EF57}
+\begin{Ziel}
+Mit dem (eigentlich noch recht bescheidenen) Wissen zur Fourier-Transformation
+können wir trotzdem schon eine ganze Menge fundamental wichtiger Aspekte ableiten,
+diese sind in Büchern bereits bestens abgedeckt.
+Es kann jedoch nicht schaden, hin und wieder Sachen neu zu erfinden.
+Wir werden die Qualität je schmaler/breiter Rechteckfunktion desto breiter/schmaler
+Spaltfunktion erfassen und uns das zunutze machen, um die auf direktem Wege
+für uns noch nicht lösbare Aufgabenstellung trotzdem zu lösen.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 610482EF57}: Berechnen Sie die Fouriertransformation für
+\begin{itemize}
+\item Cosinus-Schwingung $\cos(\omega_1 t)$ mit Kreisfrequenz $\omega_1>0$
+\end{itemize}
+\begin{Werkzeug}
+Analyse mit Fouriertransformation
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+Dieses Integral konvergiert nicht und suggeriert, dass es keine Lösung gibt, was
+natürlich nicht stimmt, sonst gäbe es die Aufgabenstellung nicht. Wir müssen
+anders herangehen.
+%
+Wir könnten $x(t) = \cos(\omega_1 t)$ definieren und das Modulationstheorem
+aus vorheriger Aufgabe mit $\omega_0=0$ zu Hilfe nehmen. Das bringt uns nur keinen
+Schritt weiter.
+%
+Wir könnten $x(t) = 1$ definieren und das Modulationstheorem
+aus vorheriger Aufgabe mit $\omega_0=\omega_1$ zu Hilfe nehmen. Dann haben wir
+zwei Probleme mehr: a) wir kennen die Transformationsregel für die Modulation
+mit dem reellen Cosinussignal noch nicht und b) wir kennen die Lösung der
+Fourier Transformation des unmodulierten Signals $x(t)=1$, also
+\begin{align}
+X(\im \omega) = \int\limits_{-\infty}^{+\infty} 1 \e^{-\im \omega t} \fsd t = ?
+\end{align}
+noch nicht. Es stresst hier wieder, dass das Integral nicht konvergiert. Mit
+unendlichen Grenzen können wir hier noch nicht gut umgehen.
+%
+Benutzen wir also unser Handwerkszeug aus den vorigen Übungen und legen zunächst
+eine endliche Integrationsgrenze fest, nämlich mit Hilfe der
+axialsymmetrischen Rechteckfunktion der Breite $T$ und Amplitude $A$. Diesen
+Rechteckverlauf lassen wir dann immer breiter werden, bis er sich im Grenzfall
+von $-\infty$ bis
+$+\infty$ erstreckt.
+%
+Unser Ansatz lautet also
+\begin{align}
+X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+Wir erkennen, dass der Reckteckimpuls auf den Cosinus-Träger moduliert wird, aber
+wir kennen das Modulationsgesetz diesbezüglich noch nicht.
+Daher lösen wir das Integral zu Fuß.
+\end{Ansatz}
+\begin{ExCalc}
+Wir benutzen $\cos(x) = \frac{1}{2}(\e^{\im x} + \e^{-\im x})$ um
+\begin{align}
+X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \frac{1}{2}(\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t =
+\frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t
+\end{align}
+%
+\begin{align}
+X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_1) t} + \e^{-\im (\omega+\omega_1) t} \right) \fsd t
+\end{align}
+%
+\begin{align}
+X(\im \omega) =
+\frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) t}}{-\im (\omega-\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
++\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) t}}{-\im (\omega+\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
+\end{align}
+%
+\begin{align}
+X(\im \omega) =
+\frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) T_h/2} - \e^{+\im (\omega-\omega_1) T_h/2}}{-\im (\omega-\omega_1)}
++\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) T_h/2} - \e^{+\im (\omega+\omega_1) T_h/2}}{-\im (\omega+\omega_1)}
+\end{align}
+%
+Vorzeichen, Erweitern
+%
+\begin{align}
+X(\im \omega) =
+\frac{A}{2} \frac{\e^{+\im (\omega-\omega_1) T_h/2} - \e^{-\im (\omega-\omega_1) T_h/2}}{\im (\omega-\omega_1)} \cdot \frac{T_h/2}{T_h/2}
++\frac{A}{2} \frac{\e^{+\im (\omega+\omega_1) T_h/2} - \e^{-\im (\omega+\omega_1) T_h/2}}{\im (\omega+\omega_1)} \cdot \frac{T_h/2}{T_h/2}
+\end{align}
+%
+Mit $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
+\begin{align}
+X(\im \omega) =
+A \frac{T_h}{2} \mathrm{sinc}\left((\omega-\omega_1) \frac{T_h}{2}\right) +
+A \frac{T_h}{2} \mathrm{sinc}\left((\omega+\omega_1) \frac{T_h}{2}\right)
+\end{align}
+Zur Kontrolle: für $\omega_1 = 0$ bekommen wir das Ergebnis aus Aufgabe
+\ref{sec:8C3958BE4F}, ein Indiz, dass wir uns nicht verrechnet haben.
+\end{ExCalc}
+%
+\begin{Loesung}
+Wir bekommen zwei mit $A \frac{T_h}{2}$ gewichtete Spaltfunktionen,
+verschoben um $\pm \omega_1$ auf der Frequenzachse. Das Maximum der ersten Spaltfunktion
+liegt bei $+\omega_1$ (positive Frequenz), das Maximum der zweiten Spaltfunktion
+liegt bei $-\omega_1$ (negative Frequenz).
+
+
+
+Was ist nun mit der ursprünglichen Aufgabe die Fourier Transformierte des Cosinus
+zu finden?
+%
+Wir können sie ehrlicherweise nur mit einem Vorgriff auf kommenden Stoff erarbeiten, das
+ist aber so fundamental, dass es sich lohnt, das hier schonmal anzudeuten.
+%
+Die Grundidee ist bekanntes mathematisches Handwerkszeug: wir lassen
+$T_h\to \infty$ gehen. Dann wird sich für beide gewichtete Spaltfunktionen ein
+geschlossener Ausdruck finden lassen.
+
+\end{Loesung}
+
+\begin{mdframed}
+\textit{Vorgriff}
+%
+Zunächst nehmen wir unser vorläufiges Endergebnis und schreiben die Spaltfunction
+aus
+\begin{align}
+X(\im \omega) =
+A \frac{T_h}{2} \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{(\omega-\omega_1) \frac{T_h}{2}} +
+A \frac{T_h}{2} \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{(\omega+\omega_1) \frac{T_h}{2}}
+\end{align}
+kürzen ein wenig und erweitern mit $\pi$
+\begin{align}
+X(\im \omega) =
+A \pi \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{\pi (\omega-\omega_1)} +
+A \pi \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{\pi (\omega+\omega_1)}
+\end{align}
+und stellen im sin-Argument noch ein wenig die Brüche um
+\begin{align}
+X(\im \omega) =
+A \pi \frac{\sin\left( \frac{(\omega-\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega-\omega_1)} +
+A \pi \frac{\sin\left( \frac{(\omega+\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega+\omega_1)}
+\end{align}
+weil wir jetzt einen Ausdruck ähnlich $\sin(\omega / \epsilon)$ stehen haben.
+%
+Die Mathematiker schenken uns nun für folgenden Grenzübergang
+\begin{align}
+\delta(\omega) = \lim_{\epsilon\to 0} \frac{\sin(\frac{\omega}{\epsilon})}{\pi \omega}
+\end{align}
+einen geschlossenen Ausdruck $\delta(\omega)$.
+%
+Wenden wir $\epsilon\to 0$ für unseren spezifischen Term $\frac{2}{T_h}\to 0$ an,
+was wie gewünscht $T_h\to \infty$ bedingt,
+können wir die obige Definition verwenden und schreiben
+\begin{align}
+X(\im \omega) = A \pi \delta(\omega-\omega_1) + A \pi \delta(\omega+\omega_1)
+\end{align}
+%
+Für $A=1$ folgt weiter trivial
+\begin{align}
+X(\im \omega) = \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+\end{align}
+%
+Machen wir uns klar, dass durch die Wahl $T_h\to \infty$ (also Verbreiterung
+der Rechteckfunktion bis ins Unendliche) die gesuchte Korrespondenz
+\begin{align}
+\cos(\omega_1 t) \quad\laplace\quad \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+\end{align}
+gefunden wurde.
+%
+Der Ausdruck $\delta(\omega)$ ist bekannt als Dirac-Impuls, es ist aufgrund seiner
+Eigenschaften keine normale Funktion, sondern eine Distribution.
+Momentan hilft es uns weiter, wenn wir uns den Dirac-Impuls $\delta(\omega)$
+als unendlich hohe, unendlich schmale Rechteckfunktion der Fläche 1 an der Stelle
+$\omega=0$ vorstellen, siehe Grafiken unten.
+
+Die Fourier-Transformation des Cosinus besteht daher aus zwei mit $\pi$ gewichteten
+Dirac-Impulsen, die verschoben sind. Der erste Dirac-Impuls ist bei $+\omega_1$
+(positive Kreisfrequenz) und der zweite Dirac ist bei $-\omega_1$
+(negative Kreisfrequenz).
+%
+Wir erkennen eine Analogie zur komplexen Fourierreihe bei der es auch zweier
+komplexer Fourierkoeffizienten (bei $\pm k$) bedarf um eine Cosinus-Schwingung
+darzustellen bzw. zu synthetisieren.
+%
+Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
+\end{mdframed}
+\end{comment}
+
+
+
+\newpage
+\subsection{Lineare Differentialgleichungen}
+\label{sec:A7BEE9E24E}
+%
+Zunächst keine Aufgabe, sondern erst ein Ausblick in den Kontext einer Wiederholung
+gestellt.
+Wir betrachten hier einleitend nun den \textbf{SigSys-Teil: Systemanalyse und -synthese}.
+Dafür werden wir die Laplace-Transformation (für zeitkontinuierliche Signale, Systeme)
+und die $z$-Transformation (für zeitdiskrete Signale/Systeme) kennenlernen, um
+Differentialgleichungen und Differenzengleichungen elegant lösbar zu machen.
+%
+Signale und Systeme sind natürlich sehr eng verknüpft, die hier aufgespannte
+Trennung sollten wir daher nicht dogmatisch verfolgen, sondern dient als grober
+Überblick, was uns in SigSys erwarten wird.
+
+In Mathe haben wir das Konzept der Differentialgleichung (DGL) kennengelernt.
+%
+Wir haben verschiedene Lösungsmöglichkeiten kennengelernt (Variation
+der Konstanten, Variablentrennung, Eigenlösungen und charakteristisches Polynom,
+Störgliedansätze, usw. Ich persönlich fand das in meinem Studium damals
+ziemlich wirr, Rechnen konnte man damit irgendwann, aber Verstehen hat erst
+später eingesetzt. Das muss eigentlich nicht so sein, wie das Buch
+\cite{Strang2014} zeigt.
+Anyway...).
+
+Lineare DLG mit konstanten (also \textbf{nicht zeitveränderliche}n) Koeffizienten der
+ersten und zweiten Ordnung sind die wichtigsten Vertreter, die wir als Ingenieure
+in SigSys brauchen, weil man damit beeindruckend viele Dinge bauen und modellieren
+kann, Feder-Masse-Dämpfer und RLC-Schwingkreis sind die beiden Klassiker.
+%
+In den Grundlagen der E-Technik lernten wir alles erst zu Fuß zu lösen, also
+die Wechselstromtechnik und die Einschaltvorgänge an RLC-Schaltungen.
+%
+NachrichtentechnikerInnen bauen sich aus diesen DGLs Filter, früher analog, heute digital.
+%
+RegelungstechnikerInnen bauen sich im Grunde die gleichen Filter, nennen sie nur
+selten Filter, sondern eher Glieder mit z.B. differenzierendem, proportionalem,
+integrierendem, usw. Verhalten.
+%
+Die Brücke zwischen E-Technik und Nachrichten-/Regelungstechnik ist SigSys!
+Das sollten wir immer im Hinterkopf behalten.
+
+Wir werden daher in der SigSys eine elegante Form finden,
+diesen DGL-Typ für beliebige Störgliedansätze zu lösen (am Ende des Tages
+müssen wir ja praktisch vorkommende Signale verarbeiten und können uns nicht
+auf schicke Störgliedformeln beschränken)
+und das Konzept der Eigenlösungen und des charakteristischen
+Polynoms vertiefen bzw. aus anderem Blickwinkel betrachten (am Ende des Tages
+wollen wir für eine bestimmte Aufgabe eine Lösung mit gewünschter Genauigkeit
+mit dem einfachsten Aufwand erhalten. Praktisch die gesamte SigSys ist daraufhin
+ausgelegt, auch wenn sich das momentan noch nicht so anfühlt).
+
+Der folgende Abschnitt soll daher die SigSys Denke ein wenig schmackhaft machen und
+greift den didaktisch brillanten Faden aus \cite{Strang2014} auf. Viele Dinge
+müssten uns aus der Mathe-VL vertraut vorkommen.
+%
+\subsubsection{Lineare DGL 2. Ordnung mit konstanten Koeffizienten}
+Betrachten wir beispielhaft die lineare DGL
+\begin{align}
+\label{eq:A7BEE9E24E_DGL}
+A \frac{\fsd^2 y(t)}{\fsd t^2} + B \frac{\fsd y(t)}{\fsd t} + C y(t) = x(t),
+\end{align}
+mit den konstanten Koeffizienten $A,B,C\in\mathbb{R}$.
+%
+Die DGL stellt ein System dar mit dem Eingangssignal $x(t)$
+(das ist die Störfunktion / Anregungsfunktion) und dem Ausgangssignal
+$y(t)$ (das ist die Lösung der DGL).
+%
+In der SigSys Literatur ist die Notation von Eingang $x(t)$ und Ausgang $y(t)$
+sehr weit verbreitet, aber wir sind gut beraten das im Detail vorher zu checken.
+%
+Die Koeffizienten $A,B,C$ bestimmen im Wesen, wie das System den Eingang $x(t)$
+im Sinne der ersten und zweiten Ableitung \textbf{linear ändert} zum Ausgang $y(t)$.
+
+Die Lösung der DGL ist immer die Superposition von homogener und partikulärer
+Lösung
+%
+\begin{align}
+y(t) = y_h(t) + y_p(t)
+\end{align}
+mit Berücksichtigung der Anfangsbedingungen meist für exakt $t=0$, also gegebenem
+$y(0)$, $y'(0)$.
+%
+Die homogene Lösung findet alle $y_h(t)$ für den Fall $x(t)=0$, daher auch oft
+\textbf{Nulllösungen} genannt. Für das spezielle Eingangssignal $x(t)\neq 0$ in
+\eq{eq:A7BEE9E24E_DGL} erhalten wir die partikuläre Lösung $y_p(t)$.
+%
+\subsubsection{Homogene Lösung: Charakteristisches Polynom}
+%
+Wir haben gelernt (und vielleicht sogar didaktisch fein hergeleitet bekommen,
+warum das so sein muss), dass man die homogene Lösung dieser DGL mit dem
+Lösungsansatz
+\begin{equation}
+y_h(t) \propto \e^{\lambda t}\qquad \lambda\in\mathbb{C}
+\end{equation}
+erhält ($\propto$ meint proportional zu, dann können wir hier erst einmal
+eventuelle Vorfaktoren weglassen).
+%
+Setzen wir diesen Ansatz in \eq{eq:A7BEE9E24E_DGL} ein, führen die Ableitungen
+aus, erhalten wir das \textbf{charakteristische Polynom} in der Klammer von
+\begin{equation}
+(A \lambda^2 + B \lambda + C) \cdot \e^{\lambda t} = 0
+\end{equation}
+mit den zwei Lösungen ($\e^{\lambda t}$ bekommen wir nicht zu Null)
+\begin{align}
+\label{eq:A7BEE9E24E_lambdas}
+\lambda_{1,2} = \frac{-B \pm \sqrt{B^2-4 A C}}{2 A},
+\end{align}
+die
+\begin{itemize}
+  \item a) reell und unterschiedlich sind, wenn $B^2>4 A C$
+  \item b) reell und identisch sind, wenn $B^2 = 4 A C$
+  \item c) konjugiert-komplex sind, wenn $B^2<4 A C$.
+\end{itemize}
+%
+Für die Fälle a) und c) gilt immer der Ansatz
+\begin{align}
+\label{eq:A7BEE9E24E_Eigenloesungen}
+y_h(t) = c_1 \e^{\lambda_1 t} + c_2 \e^{\lambda_2 t},
+\end{align}
+%
+Wichtig zu erkennen ist, dass wir---je nachdem wie $\lambda_1$ und $\lambda_2$
+beschaffen ist (also abhängig von den Koeffizienten $A,B,C$)---verschiedene
+Funktionsverläufe als Nulllösungen erhalten.
+Es ginge:
+\begin{itemize}
+  \item harmonische komplexe, sin- oder cos-Schwingung
+  \item gedämpfte komplexe, sin- oder cos-Schwingung
+  \item aufklingende komplexe, sin- oder cos-Schwingung (in der Praxis zu vermeiden)
+  \item abfallender exponentieller Verlauf
+  \item ansteigender exponentieller Verlauf (siehe COVID-19, in der Praxis zu vermeiden).
+\end{itemize}
+Dies sind \textbf{Eigenlösungen} der homogenen DGL und können mit
+\eq{eq:A7BEE9E24E_Eigenloesungen} beschrieben werden.
+%
+Die noch fehlende Eigenlösung für Fall b) ist $y_h(t) = t \e^{\lambda_1 t}$, das
+ist der sogenannte Resonanzfall und bedarf deswegen einer eigenständigen Lösung,
+den wir hier mal vernachlässigen wollen.
+
+\subsubsection{Homogene Lösung: Eigenwerte und Vektoren der Koeffizientenmatrix}
+%
+Es ist bemerkenswert, dass die Nulllösungen
+auch hervorgehen, wenn man Eigenwerte und Eigenvektoren einer ganz bestimmten Matrix
+berechnet. Das ist natürlich kein Zufall und mit der Denke können wir viele
+nützliche Tools aus der Lineare Algebra mitverwenden!
+
+Um die Matrix aufzustellen, schreiben wir zunächst die homogene DGL um zu
+\begin{align}
+\frac{\fsd^2 y(t)}{\fsd t^2} + \frac{B}{A} \frac{\fsd y(t)}{\fsd t} + \frac{C}{A} y(t) = 0,
+\end{align}
+%
+Wir können diese DGL 2. Ordnung auch in zwei getrennten DGL schreiben. Das wird
+der Grundstein für die Matrix-Sichtweise.
+%
+Mit der gängigen abgekürzten Schreibweise für Zeitableitung
+\begin{align}
+\frac{\fsd y(t)}{\fsd t} = y'(t)
+\end{align}
+können wir schreiben
+\begin{align}
+\frac{\fsd^2 y(t)}{\fsd t^2} = \frac{\fsd y'(t)}{\fsd t} = - \frac{B}{A}  \frac{\fsd y(t)}{\fsd t} - \frac{C}{A}  y(t).
+\end{align}
+%
+Diese beiden Gleichungen können wir nun als einfaches Matrix-Gleichungssystem formulieren
+\begin{align}
+\label{eq:A7BEE9E24E_uAU}
+\vec{u}' = \frac{\fsd}{\fsd t}
+\begin{bmatrix}
+y(t) \\ y'(t)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 \\ - \frac{C}{A} & - \frac{B}{A}
+\end{bmatrix}
+\begin{bmatrix}
+y(t) \\ y'(t)
+\end{bmatrix}
+=
+\vec{A} \vec{u}.
+\end{align}
+%
+Wir finden in der Matrix $\vec{A}$ alle Koeffizienten $A,B,C$ wieder, daher
+ist es sinnvoll diese als Koeffizientenmatrix zu bezeichnen und sich klarzumachen,
+dass diese Matrix das System vollständig beschreibt.
+
+Behauptung:
+Dieses Gleichungssystem lässt sich mittels Eigenwert $\lambda$ und
+Eigenvektor $\vec{x}$ lösen, also
+\begin{align}
+\vec{A} \vec{x} = \lambda \vec{x},
+\end{align}
+wobei es kein Zufall ist, dass wir auch hier die Variable $\lambda$, wie schon
+beim charakteristischen Polynom verwenden: es sind die gleichen Zahlen.
+Wir wissen, dass man die unbekannten Eigenwerte mittels Ansatz
+$(\vec{A} - \lambda \vec{I})\vec{x} = \vec{0}$, also singulärer Matrix
+$(\vec{A} - \lambda \vec{I})$, also $\mathrm{det}(\vec{A} - \lambda \vec{I})=0$
+findet.
+%
+Daher
+\begin{align}
+\vec{A} - \lambda \vec{I} =
+\begin{bmatrix}
+0 & 1 \\ -\frac{C}{A} & -\frac{B}{A}
+\end{bmatrix}
+-\lambda
+\begin{bmatrix}
+1 & 0 \\ 0 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\lambda & 1 \\ -\frac{C}{A} & -\frac{B}{A} - \lambda
+\end{bmatrix}
+\end{align}
+und derer Determinante
+\begin{align}
+-\lambda \cdot (-\frac{B}{A} - \lambda) - (-\frac{C}{A})\cdot 1 = \lambda^2 + \frac{B}{A} \lambda + \frac{C}{A}.
+\end{align}
+%
+$\mathrm{det}(\vec{A} - \lambda \vec{I})=0$ wird also zu
+\begin{align}
+A \lambda^2 + B \lambda + C = 0
+\end{align}
+mit den zwei Eigenwerten $\lambda_{1,2}$ aus \eq{eq:A7BEE9E24E_lambdas},
+weil identisch mit dem charakteristischen Polynom.
+%
+Für die beiden zugehörigen Eigenvektoren $\vec{x}_{1}$ und $\vec{x}_{2}$ finden sich wegen
+dem geforderten
+\begin{align}
+(\vec{A} - \lambda_{1,2} \vec{I}) \, \vec{x}_{1,2} = \vec{0}
+\end{align}
+die Lösungen
+\begin{align}
+\vec{x}_{1,2} =
+\begin{bmatrix}
+1 \\ \lambda_{1,2}
+\end{bmatrix}.
+\end{align}
+%
+Wir schreiben für $\vec{A} \vec{x} = \lambda \vec{x}$
+%
+\begin{align}
+\vec{A}
+\begin{bmatrix}
+1 \\ \lambda_{1,2}
+\end{bmatrix} = \lambda_{1,2}
+\begin{bmatrix}
+1 \\ \lambda_{1,2}
+\end{bmatrix},
+\end{align}
+%
+mit
+\begin{align}
+\lambda_{1,2} = \frac{-B \pm \sqrt{B^2-4 A C}}{2 A}.
+\end{align}
+%
+Wichtig: das gerade beschriebene Vorgehen funktioniert nur, wenn
+$\lambda_1 \neq \lambda_2$, also tatsächlich zwei unabhängige Eigenvektoren vorliegen.
+%
+$\lambda_1 = \lambda_2$ ist wieder der Spezialfall der Resonanz.
+
+Unser Ausgangspunkt war $\vec{A}  \vec{u} = \vec{u}'$ in \eq{eq:A7BEE9E24E_uAU}.
+Wie verknüpfen wir das mit der gefundenen Eigenwert/-vektor-Darstellung?
+%
+Kein stringenter Beweis, aber fundamentale Beobachtung, nämlich
+$\frac{\fsd \e^{a t}}{\fsd t} = a \e^{a t}$.
+%
+Es ist nicht verboten zu erweitern
+\begin{align}
+\vec{A}
+\begin{bmatrix}
+1 \\ \lambda_{1,2}
+\end{bmatrix}
+\e^{\lambda_{1,2} t}
+= \lambda_{1,2}
+\begin{bmatrix}
+1 \\ \lambda_{1,2}
+\end{bmatrix}
+\e^{\lambda_{1,2} t}
+\end{align}
+und sehen, dass wenn wir
+\begin{align}
+\vec{u}_{1,2} = \vec{x}_{1,2} \cdot \e^{\lambda_{1,2} t}
+\end{align}
+definieren, die Gleichung \eq{eq:A7BEE9E24E_uAU} dann aufgeht, weil bei der Ableitung zu
+$\vec{u}'_{1,2}$ der benötigte Vorfaktor $\lambda_{1,2}$ entsteht.
+%
+$\vec{x}_{1,2}$ ist also im Grunde zeitbereinigt, enthält aber als Eigenvektor
+alle Informationen, die wir brauchen, um das Systemverhalten zu beschreiben.
+%
+$\vec{u}_{1,2}$ ist dann die Version, wo die zeitliche Änderung mittels
+$\e^{\lambda_{1,2} t}$ berücksichtigt ist.
+%
+Das gewünschte Gleichungssystem $\vec{u}'=\vec{A}  \vec{u}$ kann nun einfach
+gelöst werden:
+%
+Die Linearkombination aller (hier der beiden) Vektoren $\vec{u}_{1,2}$ ergibt den
+Lösungsraum
+\begin{align}
+\begin{bmatrix}
+y(t) \\ y'(t)
+\end{bmatrix} =
+c_1 \e^{\lambda_1 t}
+\begin{bmatrix}
+1 \\ \lambda_{1}
+\end{bmatrix}
++
+c_2 \e^{\lambda_2 t}
+\begin{bmatrix}
+1 \\ \lambda_{2}
+\end{bmatrix},
+\end{align}
+%
+wobei man für die erste Zeile die Lösung $y(t)$ erkennt und für die zweite $y'(t)$
+(man erkennt das, aber wir hatten eben $\vec{u}$ in \eq{eq:A7BEE9E24E_uAU}
+auch so definiert).
+%
+Wir haben damit die gleiche Lösung der DGL wie beim Rechnen mit dem
+charakteristischen Polynom gefunden.
+%
+Mit dieser homogenen Lösung können wir dann partikuläre Lösungen mit
+Variation der Konstanten berechnen.
+
+Soweit der kurze Abriss mit hoffentlich wiederholendem Charakter.
+%
+Wir machen weiter mit einem fundamentalen Zusammenhang, der die Grundlage der
+SigSys-Theorie für linear Systeme (also lineare DGL mit konstanten Koeffizienten)
+ist.
+%
+Keine Sorge, wenn das folgende ein wenig sperrige Kost ist, es ist mutmaßlich
+Neuland, aber der Teaser hier ist wichtig, damit wir ein Gefühl für das Wesen von SigSys
+bekommen.
+
+\subsubsection{Spezielle Anregung mit Dirac-Impuls}
+Wir betrachten die homogene Lösung unter einer bestimmten Anfangsbedingung
+(vgl. \cite[S.97]{Strang2014})
+\begin{align}
+A y''(t) + B y'(t) + C y(t) = 0,\quad y(0)=0,\quad y'(0)=\frac{1}{A}.
+\end{align}
+%
+Immer noch für $\lambda_1 \neq \lambda_2$ !!! wissen wir von oben
+\begin{align}
+y_h(t) = &c_1 \e^{\lambda_1 t} + c_2 \e^{\lambda_2 t},\\
+y_h'(t) = &c_1 \lambda_1 \, \e^{\lambda_1 t} + c_2 \lambda_2 \, \e^{\lambda_2 t}
+\end{align}
+und mit $y_p=0$ wird $y=y_h+y_p=y_h$.
+Die Anfangsbedingungen berücksichtigt
+\begin{align}
+y(0) = &c_1 + c_2 = 0,\\
+y'(0) = &c_1 \lambda_1 + c_2 \lambda_2 = \frac{1}{A}
+\end{align}
+Daraus folgt
+\begin{equation}
+c_1 = -c_2 = \frac{1}{A} \, \frac{1}{\lambda_1 - \lambda_2}
+\end{equation}
+und diese Koeffizienten eingesetzt
+\begin{align}
+\label{sec:A7BEE9E24E_hyh}
+y(t) =
+\frac{1}{A} \, \frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}.
+\end{align}
+%
+Soweit, so gut. Schaut aus wie just another Lösung, aber diese Lösung hat es in sich:
+%
+Erinnern wir uns an den Dirac-Impuls aus Aufgabe \ref{sec:D410BDAAE0},
+den unendlich hohen und schmalen Impuls,
+wofür wir Rechenregeln finden mussten, weil er keine klassische Funktion ist.
+%
+Wenn wir diesen Dirac-Impuls als Anregung / Eingang / Störgröße für unsere DGL
+wählen und verschwindende Anfangswerte als linksseitigen! Grenzwert
+berücksichtigen (System vor der Anregung bei exakt $t=0$ in Ruhe), also
+\begin{align}
+A y''(t) + B y'(t) + C y(t) = \delta(t),\qquad y'(0-) = 0,\qquad y(0-) = 0
+\end{align}
+erhalten wir als Lösung
+\begin{align}
+\label{sec:A7BEE9E24E_hyp}
+y(t) =
+\frac{1}{A} \, \frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}.
+\end{align}
+%
+Die Rechnung schauen wir uns zu einem späteren Zeitpunkt an. Es gelingt mit Variation
+der Konstanten und Benutzung der Austasteigenschaft des Dirac Impulses,
+vgl. \cite[S.133ff]{Strang2014}.
+%
+Auch das warum schauen wir uns später an. Wir stellen hier zunächst fest, dass
+\eq{sec:A7BEE9E24E_hyh} und \eq{sec:A7BEE9E24E_hyp} gleich sind!
+%
+Also: homogene DGL mit speziellen Anfangsbedingungen zu $t=0$ ist gleich wie
+Lösung der Anregung mit Dirac-Impuls $\delta(t)$ zum Zeitpunkt $t=0$ mit
+linksseitigen, verschwindenden Anfangsbedingungen.
+%
+In SigSys bezeichnen wir diese Lösung als \textbf{Impulsantwort} $h(t)$
+(das ist die Antwort der DGL auf den Dirac Impuls mit Gewicht 1, Mathematiker
+nennen diese Funktion auch Green'sche Funktion)
+\begin{align}
+h(t) =
+\frac{1}{A}\,\frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}
+\qquad \lambda_1 \neq \lambda_2.
+\end{align}
+%
+Mit dieser können wir die \textbf{partikuläre Lösung jeder beliebigen Anregung},
+also Störfunktion $x(t)$ angeben, und zwar mit dem Integral beginnend ab unserem gewähltem
+Zeitpunkt $t=0$
+\begin{equation}
+y_p(t) = \int\limits_{0}^{t} h(t-\tau) x(\tau) \fsd \tau
+\end{equation}
+%
+Falls das System vorher in Ruhe war, ist dies auch die komplette Lösung $y(t)$.
+%
+
+Wir finden dieses Integral (mit allgemeineren Grenzen) in der Formelsammlung in dem
+Abschnitt Faltung. Das Integral ist als \textbf{Faltungsintegral}, die Operation als
+\textbf{Faltung} bekannt.
+%
+Für einen Zeitpunkt $t$ werden alle Beiträge der Eingangsgröße $x$ mit der Impulsantwort $h$
+gewichtet und \textit{addiert}. Bezüglich eines Zeitpunkts $t$, werden \textit{aktuelle}
+Eingangswerte $x(t)$ mit dem \textit{Anfang} der Impulsantwort, \textit{lange}
+zurückliegende Eingangswerte mit dem \textit{Ende} der Impulsantwort gewichtet.
+%
+Wir werden das bald im Detail lernen, es ist ein ganz wesentliches Integral und
+eine ganz wesentliche Operation und deswegen \textbf{immer klausurrelevant}.
+%
+Machen wir uns nochmal klar: in $h(t)$ steckt die Systeminformation in Form
+der Eigenwerte $\lambda_{1,2}$, also am Ende des Tages in Form der Koeffizienten $A,B,C$.
+Die zeitliche Komponente ist durch $\e^{\lambda_{1,2} t}$ abgebildet.
+
+Der hier nicht näher betrachtete Fall der Resonanz $\lambda_1 = \lambda_2$
+hat eine eigene Impulsantwort $h(t) = t \e^{\lambda t}$.
+%
+Das Faltungsintegral gilt konsistent
+für alle Fälle a), b), c). Das Integral weiß ja und interessiert sich auch nicht,
+dass wir eine Funktion als Impulsantwort auffassen und wir Fallunterscheidungen
+vornehmen müssen, je nachdem wie $A$, $B$ und $C$ beschaffen sind.
+
+Wir fragen uns jetzt zu Recht, ob das Faltungsintegral
+uns das Leben so viel einfacher macht, als DGLs zu lösen, so wie wir das in Mathe
+gelernt haben.
+%
+Unbedingt ja! Deswegen gehört die SigSys ja zum Grundausbildungskanon für Ingenieure.
+Es erhellt erstens, was bei DGLs eigentlich passiert, die Rechnerei
+ist nicht notwendigerweise einfacher geworden, aber wir werden zweitens mit der
+\textbf{Laplace Transformation} eine
+Methode kennenlernen diese ganze \textbf{DGL-Rechnerei und Faltungsoperation auf
+einfache algebraische Funktionen runterzubrechen}. Aus der Faltung von zwei
+Zeitfunktionen wird dann die Multiplikation zweier Laplace Transformierter.
+%
+Die Laplace Transformierte der Impulsantwort enthält viele Informationen auf
+sehr übersichtliche Weise und ist perfekt für die tägliche Ingenieurarbeit, sei
+es in der Regelungstechnik, Kommunikationstechnik oder Maschinenbau, Mechatronik.
+
+
+\subsubsection{Rechenaufgabe}
+\label{sec:A7BEE9E24E_Aufgabe}
+\begin{Ziel}
+Anhand eines speziellen Beispieles, wollen wir die Impulsantwort berechnen. Auch,
+wenn wir unsere Lösung jetzt noch nicht anderweitig verifizieren können,
+ist es sinnvoll hier nochmal eine DGL zu lösen und dann gleich einen sehr wichtigen
+Spezialfall.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny A7BEE9E24E}: Berechnen Sie für die DGL 2. Ordnung
+\begin{align}
+\frac{16}{25} \ddot{y}(t) + \frac{24}{25} \dot{y}(t) + y(t) = 0,
+\quad y(0)=0,\quad y'(0)=\frac{25}{16}.
+\end{align}
+die Lösung $y(t)$ für $t\geq 0$.
+\begin{Werkzeug}
+Entweder wir benutzen die Sachen aus dem vorangegangen Repetitorium
+\ref{sec:A7BEE9E24E} oder
+wir befragen unsere Mathe-Vorlesungsunterlagen. Ziel soll zunächst sein, diese
+DGL korrekt zu lösen.
+\end{Werkzeug}
+\begin{Ansatz}
+Im github Repository
+
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+
+findet sich unter \verb|laplace_transform/solving_2nd_order_ode.tex| eine
+ausführlichste Lösung.
+Dieses Dokument werden wir zu einem späteren Zeitpunkt, ca. in der Mitte der
+UE, sowieso ausführlich behandeln. Es steht als PDF im StudIP.
+\end{Ansatz}
+%\begin{ExCalc}
+%\end{ExCalc}
+\begin{Loesung}
+Wir sollten zur Lösung
+\begin{align}
+y(t) = \frac{25}{16} \e^{-\frac{3}{4} t} \sin(t), \qquad t\geq 0
+\end{align}
+gelangen.
+%
+Dies ist eine Sinusschwingung die exponentiell gedämpft wird und mit
+$\frac{25}{16}$ gewichtet ist.
+Wegen des gestellten Problems haben wir die Impulsantwort dieser DGL berechnet.
+\end{Loesung}
+
+
+
+
+%Laplace Trafo macht jetzt etwas sehr elegantes: anstatt jedesmal das Matrix Problem aufzustellen (DGL n-ter Ordnung ergibt nxn Matrix und n Eigenwerte/Eigenvektoren), hat man das Problem
+%mit Rechenregeln direkt in ein algebriasches Problem überführt, und nicht nur das es erlaubt das elebante Handling von Eingangsgrößen und Anfangs/Randbedingungen. Dadurch werden DGL erst bequem oder überhauot lösbar. Die Einführung der Laplace vor ca. 100 Jahren und ihre Formalisierung in den 1960/70er Jahren hat maßgeblich zum Weiterentwiklung analoger Signalverabrietung beigetragen und muss auch heute noch als wichtige Essenz des IngHandwerks verstanden werden.
+
+
+
+\begin{comment}
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 2: Basics: Elementarsignale, Lineare Systeme}
+Zielsetzung / Objectives:
+Basics Signale / Lineare Systeme
+
+
+Fahrplan
+\begin{itemize}
+\item Elementarsignale rect, sprung, exp(jwt), Superposition, Zeit/Amplitudenskalierung, Zeitverschiebung/inversion
+\item Systeme Test auf Linearität, i.e. Superposition, Zeit Verschiebung, Amplitudenskalierung
+\item einfache aber plakative Beispiele, vlt. Corona Zeitreihe
+\item Ausblick: Verknüfung Signal -> System -> Signal, vs. DGL, vs. FR, d.h. Rückgriff auf UE1
+\item Message System: DGL ist mühsam, viele lineare Systeme lassen sich deutlich einfacher und elegnater lösen
+\item Message Signal: manchmal(sehr oft) ist es vorteilhaft das Signal anders darzustellen (Frequenzanalyse), um
+an Informationen ranzukommen, BSP: funktechnik, Video
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 3: Faltung zeitkontinuierlich}
+Zielsetzung / Objectives: Idee der Faltung, Faltungsintegral allgemein, Link zu System: Faltung mit einer Impulsantwort
+
+Fahrplan
+\begin{itemize}
+\item Tiefpass erster Ordnung, Sprungantowrt analytisch, Impulsantwort analytisch, Faltung für rect analytisch und grafisch
+\item Link Sprung / Impuls
+\item DGL lösen vs. Falten
+\item Beispiel SOS Hochpass analytisch/grafisch, Interpretation/Erwartungshaltung was sehen wir in Immuls/Sprung, vgl. zu Tiefpass
+\item Faltung Eigenfunktion mit Impulsantowt, Teaser zu Amplitude und Phase
+\item Beispiel: Bildverabreitunt Glättungsfilter = Tiefpass, Kanten
+\item Message: Faltungsintegral fundamental zur beschreibung Signale->LTI Systeme->Signale
+\item Message: Faltungsintegral bzw. die Impulsantwort analytisch lösen/beschreiben oft kompliziert bis hin zu unlösbar, daher suchen wir elegante adequate beschreibungen, zB im Freqz
+vgl. eine einfache 2nd order H(s) vs. komplizierter Ausdruck für Impz
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 4: DGL vs. Impulsantwort vs. Laplace Trafo}
+Zielsetzung / Objectives: Sinn der Laplace Trafo, HinTrafo, Link Impulsantowrt H(s), Laplace Ebene
+
+Fahrplan
+\begin{itemize}
+\item von DGL Tiefpass1st zu h(t) zu H(s) mit Def Laplace Trafo
+\item Direkter Link DGL konst Koeff zu H(s)
+\item Polstellen in Lapalce sind NST des Char Pol, zusätzlich in Laplace: NST
+\item Analytisches Rechnen einfache Laplace Hin Trafos, stückweise stetige Signale
+\item Korrespondenzen / Eigenschaften motivieren, Sprung / Impulse Zusammenhang in Laplace, Mod, Delay, was passiert jeweils im PZ
+\item Faltung vs. Mult
+\item Message: bisher vermeintlich noch nicht so viel gewonnen, außer andere Denke, aber in der übernächsten UE wird das alles sehr sinnvoll anzuwenden sein, aus Faltung Mult machen hat  großen Impact
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 5: Laplace Rücktrafo, ROC}
+Zielsetzung / Objectives: Damit das Tool Laplace vollständig sinnvoll ist, brauchen wir auch die Rücktrafo,
+komplexes Integral :-(, meist nicht rechnen, sondern mit Korrespondeze oder der
+partialbruchzerlegung (Spezialfall der allg. Rücktrafo Integralsatz), wir wollen aus einer PZ Verteliung eine Impulsanfort/Springantwort/Signal finden
+
+Fahrplan
+\begin{itemize}
+\item H(s) tiefpass/hochpass rücktransfomrieren, wir wissen aus UE3 was die Lösung sein muss
+\item PZB Beispiele
+\item KB / ROC Problematik, bisher kausale Systeme/Signale, aber Mehrdeutigekt, daher BSP links/rechts/beidseitg (diese Reihenfolge, wichtig, weil viel weniger verwirrend, also erst Spezialfall, dann allgemeinfall)
+\item Message: wir können nun Laplace Hin/Rück trafo und es wurde bahuptet, dass es DGLs einfacher lösbar macht, das schauen wir uns in der nächsten UE im Detail an
+\item Message: wir können mit Laplace Dinge machen die mit FT nicht gehen, KOnverhenz des Integrals erzwingen, damit Sprunghafte Signale erlaubt
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 6: Beispiel System 2. Ordung Laplace vs. DGL}
+Zielsetzung / Objectives: Anhand eines Tief- oder Hochpasssystems 2. Ordnung soll
+einmal alles durchgepsielt werden, um den Sinn/Eleganz der Laplace Trafo zu demonstrieren, Falt zu Mult
+
+Fahrplan
+\begin{itemize}
+\item DGL homo + verschiedene inhom, so dass man Sprung/Impulsantowrt und Aexp(jwt+phi) errechnet
+\item verschiedenene Schwingungszustände durch verschiedene NST des char Polynoms, versch Ansätze für part Ansatz mühsam
+\item Laplace H(s) + Anfangs/Randbed, Diskussion PZ
+\item Inverse Laplace für Sprung/Impuls/exp-Antowrten
+\item Message: man sollte hier nun gesehen haben, dass Laplace in der Tat eleganter ist, zumindest für die hier betrachteten LTI 2nd order Systeme
+\item Systemstabilität andeuten
+\item Message: Statt nur hin/her zu transfomieren, können wir aber im Laplace Bereich noch mehr Info aus der PZ Ebene rausholen, daszu setzen wir sigma=0 und landen bei
+einem Spezialfall der Lapace Trafo, nämlich der Fourier Trafo
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 7: Fourier Trafo}
+Zielsetzung / Objectives: Trafo für eingeschwungene Zustände, Anaylse Frequenzgang Systeme, FrequenzAnaylse spezieller Signaltypen
+
+Fahrplan
+\begin{itemize}
+\item Begriff Spektrum
+\item Anayltische Beisoiele für Mod, Delay, Soektralanalysue
+\item Energie
+\item Korrespondenzen
+\item Gem/Untersch Fouirer / Laplace
+\item Link zur FR, periodische Signale vs. Linienspektrum -> wir kennen jetzt 2 von 4 Trafos
+\item Message: Rückgriff aus UE1, jetzt macht die Anwendnung vlt mehr Sinn
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 8: Bode Plot/Nyquist Plot}
+Zielsetzung / Objectives: Ing Tools um aus Laplace
+Fourier Abschätzungen zu Systemeigenschaften zu treffen, früher manuell wichtig, heute
+Computer, aber Kopfschätzungen auch heute noch sehr relavent, was macht ein Pol, eine NST
+
+Fahrplan
+\begin{itemize}
+\item Bode Regeln PZ für Magnitude
+\item Bode Regeln PZ für Phase
+\item Beispiel Bode für das System aus UE 6
+\item Typische 'Kurven'diskussion für System ist also: H(s), h(t), he(t), PZ, KB, Mag/Phase
+\item Parallel / Reihenschaltund anhand Bode, Ausblick: Feedback Regler
+\item Stabilität durch Pole schieben
+\item Message: Bode und Nyquist Plots waren in analog Zeiten DIE Tools, Abschätzung
+per Hand auch heute noch wichtig, weil Verständnis für die Dinge
+\item Message: wir sind damit durch mit zeitkont Signalen, es lohnt sich für alle bisherig behandelten Trafos (FT, FR, Laplace) exolizit nochmal mit den Eigenschaften z ubeschäftigen -> evtl. Sonderrechenblatt wo nur das behandelt wird
+\item Schaubild x->h->y vs. X->H->Y
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 9: Abtastung / Rekonstruktion}
+Zielsetzung / Objectives: Erklärung Abtastung im Spektralbereich mittels Fourier trafo
+
+Fahrplan
+\begin{itemize}
+\item Rückgriff Fourier Trafo, Dirac Kamm, Exp/Sin/Cos
+\item Rückgriff Spektrum / Signal Vershc / Mod-> das brauchen wir jetz wieder
+\item Anwendung: Signal Abtastung und Rekonsturktion
+\item Sinc Rect Dualität again
+\item Ausblick Signal vs. Spektrum Denke (Beweis Abtasttheorem Kotelnikov, FH Lange)
+\item Message: WKS-Abtasttheorem ist ein mögliches Szenario mit Signalannahmen und
+idealer (d.h. praktisch nicht realisierbarer) Reko, Praxis: andere Interpolatoren, oder aber andere Sampling Schemes, je nach Signaltyp
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 10: Basics Elementarsignale, Lineare Systeme}
+Zielsetzung / Objectives: Für Folgen kann man ähnliche
+Elementarsignale und Eigenschaften für LTI Systeme aufstellen, Eigensignale/lösungen von DiffGl
+
+Fahrplan
+\begin{itemize}
+\item Rect/Exp/Sin/Cos, Periodizität, Eigensignale, Stem Plots!
+\item Denke zu DiffGlg
+\item Zeitverschiebung, Modulation, Zeitstreckung/Stauchung, Ampitudenskal, Zeit/Ampl-Inversion
+\item Checks auf System Lineariät
+\item Message: es gibt fundamentale Gemeinsamkeiten zwischen zeitkont/diskret, aber
+auch ein paar sehr wichtige Unterschiede. Das Wesen wie Tools benutzt werden ist aber komplett gleich
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 11: The Big Picture FT / FR / DTFT / DFT}
+Zielsetzung / Objectives: Erkennen/Erarbeiten der großen Zusammenhänge,
+die DFT ist die FR für diskrete Signale, die DTFT ist die FT für diskrete Signale.
+Vom Wesen, das was UE1 für zeitkont. Signale war, Zusammenhang für diskrete Siganle aufzeigen
+Didaktisch: funktioniert bestens als WDH/Neueinstieg und als Teaser für das Kommende
+
+Fahrplan
+\begin{itemize}
+\item Gemeinsamkeiten/Unterschiede Signale und deren Spektren (Periodizität, Linienspektrum)
+\item Sinc / Rect Dualitäten, Dirac aus Sinc
+\item Link als Ausblick: Laplace und z-Trafo als Systembeschreibungs Trafos und Frequenzgang in der FT und DTFT
+\item Ausblick: es gibt auch wieder Faltung vs. Mult, Pole/Nullstellen, aus DGL wird DifffGlg
+\item Message: jede Signaltyp hat seine Spektraldarstellung in exp()-Eigenfunktionen
+für viele Signale ist diese Zerlegung sinnvoll, für andere aber gar nicht (KOnvergenz Fourierreihe)
+wichtig ist, die richtige Trafo für das richtige Problem und souveränder Wechsel zwischen den Trafos, ist
+Ing Handwerk
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 12: Zeitkdiskrete Faltung}
+Zielsetzung / Objectives: Fundamentals der Faltung für Zeitdiskrete Signale
+
+Fahrplan
+\begin{itemize}
+\item Faltungssume
+\item Grafisch vs. Analytisch
+\item Periodische / Linear Faltung
+\item Korr vs. Conv summe (Machine Learning Link)
+\item Message: Faltung diskret vtl. sogar einfacher als Integral, weil Summe
+zugänglicher, Wesen erfassen: lange zurücliegende Samples werden mit sehr späten Samples der IR verrechnet, Ursache Wirkung plausibilisieren (Dirac Kamm)
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 13: z-Trafo}
+Zielsetzung / Objectives: Sinn und Eigenschaften der zTrafo erlernen, weil wir ja eigentlich zu Analyse von Systemen nicht immer falten wollen, also Falt vs. Mult auch bei Zeitdiskret erarbeiten, statt Laplace machen wir das mit zT
+
+Fahrplan
+\begin{itemize}
+\item aus DiffGL wird ein z Polynom, Analogie zu Laplace
+\item z-Plane statt s-Plane
+\item Korrespondenzen einfache rekursive / nicht rek Systeme, exp(jWt)
+\item Beispiele Hin / Rücktrafo / ROC, Pole / NST
+\item Signal X(s), Y(s), System H(s)
+\item Schaubild x->h->y vs. X->H->Y
+\item Message: mit Schaubild udn Vorwissen Laplace sollte wir das Tool zT zu schätzen wissen
+\item TBD: DiffGL -> z Vorwärts,Rückwärts, Centered Int, Reihenentwicklung
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 14: DTFT / DFT Im Detail}
+Zielsetzung / Objectives: vertiefendes Kennenlernen der beiden Neuen Fourier Trafos
+
+Fahrplan
+\begin{itemize}
+\item einfache Hin/Rück, Korrespondenzen, va. Mod, Mult, Dly
+\item DTFT Mag/Phase eines FIR, Was machen Nullstellen im Spektrum, Ausblick: FensterDesign als Spezialfall von Design endlicher Folgen-> Codes mit bestimmtem Spektrum
+\item schnelle Faltung über zeropadded DFT
+\item Message: DTFT und DFT sind Pendants von FT und FR, spezielles Problem in best Domäne sehr elegant mit richtiger Trafo
+\end{itemize}
+
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 15: z-Trafo großes Beispiel SOS}
+Zielsetzung / Objectives: komplette analytische 'Kurvendiskussion' für rek und nichtrek System
+
+Fahrplan
+\begin{itemize}
+\item rek System 2nd order, zB wieder der Tiefpass, impz, step, H(z), PZ, Mag/Phase usw.
+\item nicht rek System, Spezialfall Sym IR und Linearphasigkeit, impz, step, H(z), PZ, Mag/Phase usw.
+\item Min/allpass Phase
+\item Inversion
+\item Ausblick: Bode Approx hier etwas unangenehmer, aber im Prinzip gleiche
+\item Wichtig:!!! Code für IIR / FIR Filter, FIR ist Conv, IIR ist DiffGl
+\item Message: einmal Systemanalyse z-Trafo/DTFT für IIR/FIR durchgespielt, in der Praxis werden die Systeme nur komplizierte, nicht aber die Tools
+\end{itemize}
+\end{comment}
+
+
+
+
+\cite{*}
+\newpage
+\bibliography{literatur}
+\end{document}

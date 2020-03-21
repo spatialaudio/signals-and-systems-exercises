@@ -4,6 +4,8 @@
 \usepackage{lmodern}
 \KOMAoptions{DIV=14}
 \usepackage[english]{babel}
+\usepackage{natbib}
+\bibliographystyle{dinat}
 %
 \usepackage{graphicx}
 \usepackage{caption}
@@ -16,7 +18,9 @@
 \usepackage{xcolor}
 \usepackage{url}
 %
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{trfsigns}
 \usepackage{nicefrac}
 \usepackage{comment}
@@ -41,31 +45,37 @@ coefficients}
 %
 \begin{document}
 %
-\noindent Uni Rostock, IEF, INT, Signal- \& Systemtheorie, \#24015, SS2019,
+\noindent
+Continuous- and Discrete-Time Signals and Systems - A Tutorial with Computational Examples
+Uni Rostock, IEF, INT, Signal- \& Systemtheorie, \#24015, SS2020,
 \today, CC BY 4.0
 
-\noindent Prof. Sascha Spors, Frank Schultz
+\noindent Prof. Dr.-Ing. Sascha Spors, Dr.-Ing. Frank Schultz
 
-\noindent \textbf{Solving 2nd Order Ordinary Differential Equation (ODE) with
+\noindent \textbf{Solving 2nd Order, Linear, Ordinary Differential Equation with
 Constant Coefficients}
 
 %##############################################################################
 %##############################################################################
 \section{Problem Statement}
 
+
+
 %##############################################################################
 \subsection{Electric RLC Circuit}
-For a voltage source $u_Q(t)=x(t)$ -- the system's input in V -- connected to a
+For a voltage source $u_Q(t)=x(t)$---system input in Volt---connected to a
 series circuit consisting of
 a resistor with resistance $R$,
 an inductor with inductance $L$ and
-a capacitor with capacitance $C$, Kirchhoff's voltage law yields
+a capacitor with capacitance $C$,
+Kirchhoff's voltage law yields
 \begin{align}
 \label{eq:KirchhoffLaw}
 u_Q(t) = u_R(t) + u_L(t) + u_C(t),
 \end{align}
-with system's output $y(t) = u_C(t)$ in V according to Fig. \ref{fig:lowpass}.
-This constitutes a linear and time-invariant (LTI) system.
+for the system output $y(t) = u_C(t)$ in Volt according to Fig. \ref{fig:lowpass}.
+This constitutes a linear and time-invariant (LTI) system describable by impulse
+response $h(t)$ and step response $h_\epsilon(t)$.
 %
 \begin{figure}[h]
 \centering
@@ -75,69 +85,90 @@ and output voltage $y(t)$.}
 \label{fig:lowpass}
 \end{figure}
 
+
+
 %##############################################################################
-\subsection{ODE}
-There is one current $i(t)$ in the RLC circuit under discussion.
+\subsection{Ordinary Differential Equation (ODE)}
+There is one current $i(t)$ flowing in the RLC circuit under discussion.
 The corresponding current-voltage laws for the components are
-$u_R(t) = R i(t)$,
-$u_L = L\frac{\mathrm{d}i(t)}{\mathrm{d} t}$ and
-$u_C(t) = \frac{1}{C}\int i(t) \mathrm{d}t$.
+$u_R(t) = R\,i(t)$,
+$u_L = L\,\frac{\mathrm{d}i(t)}{\mathrm{d} t}$ and
+$u_C(t) = \frac{1}{C} \, \int i(t) \mathrm{d}t$.
 With these \eq{eq:KirchhoffLaw} is rewritten as
 %
 \begin{align}
-L C \cdot \ddot{u}_C + R C \cdot \dot{u}_C + u_C = u_Q
+L C \cdot \ddot{u}_C(t) + R C \cdot \dot{u}_C(t) + u_C(t) = u_Q(t)
 \end{align}
-by omitting time dependence $t$ and using
-$\ddot{u}_C = \frac{\mathrm{d}^2 u_C}{\mathrm{d}t^2}$ and
-$\dot{u}_C = \frac{\mathrm{d} u_C}{\mathrm{d}t}$
+using
+$\ddot{u}_C(t) = \frac{\mathrm{d}^2 u_C(t)}{\mathrm{d}t^2}$ and
+$\dot{u}_C(t) = \frac{\mathrm{d} u_C(t)}{\mathrm{d}t}$
 as temporal derivative notations.
 %
 With
 the system input $x(t)$ and
 the system output $y(t)$ this 2nd order, linear ODE with
-constant (here positive) coefficients is rewritten as
+constant coefficients is rewritten
 \begin{align}
 \label{eq:ODE_RLC}
-L C \ddot{y} + R C \dot{y} + y = x.
+L C \cdot \ddot{y}(t) + R C \cdot \dot{y}(t) + y(t) = x(t).
 \end{align}
+
+
 
 %##############################################################################
 \subsection{Task}
-The ODE in \eq{eq:ODE_RLC} is to be solved for $y(t)$ with
+The ODE in \eq{eq:ODE_RLC} with
 $R = 3\,\nicefrac{\text{V}}{\text{A}}$,
 $L=2\,\nicefrac{\text{V s}}{\text{A}}$,
 $C=\frac{8}{25}\,\nicefrac{\text{A s}}{\text{V}}$
-and
+is to be solved for $t\geq 0$
 \begin{itemize}
-\item[a)] $x=\delta(t)$ with initial conditions $\dot{y}(t=0) = 0$, $y(t=0)=0$
-\item[b)] $x=\epsilon(t)$ with initial conditions $\dot{y}(t=0) = 0$, $y(t=0)=0$
-\item[c)] $x=0\quad$ with initial conditions $\dot{y}(t=0) = 2$, $y(t=0)=1$
-\item[d)] $x=\epsilon(t)$ with initial conditions $\dot{y}(t=0) = 2$, $y(t=0)=1$
-\item[e)] $x=\sin(t)$ with initial conditions $\dot{y}(t=0) = 0$, $y(t=0)=0$
+\item[a)] $y_\text{particular}(t)$ when $x(t)=\delta(t)$
+\item[b)] $y(t) = y_\text{null}(t)+y_\text{particular}(t)$ when
+$x(t)=1$ and initial conditions $\dot{y}(0) = 0$, $y(0)=0$
+\item[c)] $y(t) = y_\text{null}(t)+y_\text{particular}(t)$ when $x(t)=0$
+and initial conditions $\dot{y}(0) = 2$, $y(0)=1$
+\item[d)] $y(t) = y_\text{null}(t)+y_\text{particular}(t)$ when $x(t)=1$
+and initial conditions $\dot{y}(0) = 2$, $y(0)=1$
+\item[e)] $y(t) = y_\text{null}(t)+y_\text{particular}(t)$ when $x(t)=\sin(t)$
+and initial conditions $\dot{y}(0) = 0$, $y(0)=0$
 \end{itemize}
-denoting Dirac-Delta impulse $\delta(t)$ and Heaviside step function $\epsilon(t)$.
+denoting the Dirac-Delta impulse $\delta(t)$.
+%and Heaviside step function
+%$\epsilon(t)= \{0\,\,\text{for}\,\,t < 0;\,\,\, 1\,\,\text{for}\,\,t \geq 0\}$.
 %
-The task shall be performed in the time domain and via the Laplace domain.
+The task shall be performed in the time domain and with the help of the Laplace
+transform.
+%
+Initial conditions refer to the exact time instance $t=0$, excitation signals start
+at right limit $t=0+$.
+
+
 
 %##############################################################################
 %##############################################################################
 \section{Time Domain Solution Preliminaries}
 
+
+
 %##############################################################################
 \subsection{Helping Variables}
 Before solving any of the requested tasks, it is good scientific and engineering
 practice to adapt the ODE for convenient handling and result's interpretation.
-Thus (by some experience dealing with such problems and having looks
-in text books), we introduce
+Thus (by some experience dealing with such problems and reading text books, cf.
+\cite{LangeSigSys1}, \cite{Goeldner1987},  \cite{Oppenheim1997}, \cite{Strang2014}),
+we introduce
 \begin{equation}
 \omega_0^2 = \frac{1}{L C} \rightarrow \omega_0 = \frac{1}{\sqrt{L C}}
 \end{equation}
+(this is the \textbf{resonance frequency} of the system when no damping would occur)
 and
 \begin{equation}
 \sigma_0 = \frac{1}{2}\frac{R}{L},
 \qquad
 D = \frac{\sigma_0}{\omega_0}.
 \end{equation}
+(these are related to the \textbf{damping quality} of the system).
 %
 Furthermore,
 \begin{equation}
@@ -147,7 +178,8 @@ Furthermore,
 becomes convenient for the case $\sigma_0^2 - \omega_0^2 < 0$.
 We will later experience the usefulness of these helping variables.
 For now, it is worth to note that $\omega_0$ and $\sigma_0$ intentionally share
-similarities with the Laplace transform's variable $s=\sigma + \im \omega$.
+\textbf{similarities} with the variable $s=\sigma + \im \omega$ of the
+\textbf{Laplace transform}.
 
 By introducing the variables into \eq{eq:ODE_RLC}, we have
 \begin{align}
@@ -160,11 +192,14 @@ and
 \begin{align}
 \label{eq:ODE_D}
 \boxed{
-\frac{\ddot{y}}{\omega_0^2} + \frac{2 D}{\omega_0} \dot{y} + y = x}\,.
+\frac{\ddot{y}}{\omega_0^2} + \frac{2 D}{\omega_0} \dot{y} + y = x}\,,
 \end{align}
+when omitting the temporal dependence $t$ in $y$ and $x$ for brevity.
+%
 This generalisation allows for discussion of the ODE's characteristics detached
 from the underlying physical representation and helps for communication between
 engineers with different job specialisation.
+
 
 
 %##############################################################################
@@ -176,17 +211,17 @@ $C=\frac{8}{25}\,\nicefrac{\text{A s}}{\text{V}}$
 we can rewrite \eq{eq:ODE_RLC}
 \begin{align}
 \boxed{
-(\frac{16}{25} \cdot \text{s}^2) \ddot{y} + (\frac{24}{25} \cdot \text{s})
-\dot{y} + y = x.
+(\frac{16}{25} \cdot \text{s}^2) \, \ddot{y} + (\frac{24}{25} \cdot \text{s})
+\, \dot{y} + y = x.
 }
 \end{align}
-Note that the straight letter s here is the unit 'seconds', not the Laplace
-variable, which is typeset as italic $s$.
+Note that the straight letter s here represents the unit seconds, \textbf{not the Laplace
+variable}, which is typeset as italic $s$.
 %
 The above variables have the quantities
 \begin{equation}
-\omega_0^2 = \frac{25}{16} \cdot \frac{1}{\text{s}^2}
-\rightarrow \omega_0 = \frac{5}{4} \cdot \frac{\text{1}}{\text{s}}
+\omega_0^2 = \frac{25}{16} \cdot \frac{\text{rad}^2}{\text{s}^2}
+\rightarrow \omega_0 = \frac{5}{4} \cdot \frac{\text{rad}}{\text{s}}
 \end{equation}
 and
 \begin{equation}
@@ -195,7 +230,7 @@ and
 \end{equation}
 and since $\sigma_0^2 - \omega_0^2 = -1 \cdot \frac{1}{\text{s}^2}< 0\cdot \frac{1}{\text{s}^2}$
 \begin{equation}
-\omega_D = 1 \cdot \frac{\text{1}}{\text{s}}.
+\omega_D = 1 \cdot \frac{\text{rad}}{\text{s}}.
 \end{equation}
 %
 The chosen values for $R$, $L$, $C$ lead to convenient quantities, which is on
@@ -205,6 +240,7 @@ expect such nice numbers.
 In the remainder we omit the physical units in the calculus.
 
 
+
 %##############################################################################
 \subsection{Fundamental Set of Solutions for Homogeneous Solution}
 \label{Sec:FundamentalSet}
@@ -212,12 +248,13 @@ The present 2nd order ODE can be solved by means of the
 fundamental set of solutions
 considering the eigenfunctions
 \begin{align}
-y = \mathrm{e}^{\lambda t}
+y = \mathrm{e}^{\lambda t}, \quad \lambda\in\mathbb{C}
 \end{align}
 of the system. Note the (intentional) similarity to $\mathrm{e}^{s t}$,
 which is the integral kernel of the Laplace transform.
 %
-Derivatives with respect to time $t$ become
+Derivatives with respect to time $t$ become (this is the nice part, why this
+works at all)
 \begin{align}
 y = \mathrm{e}^{\lambda t},\quad
 \dot{y} = \lambda \cdot \mathrm{e}^{\lambda t},\quad
@@ -225,7 +262,9 @@ y = \mathrm{e}^{\lambda t},\quad
 \end{align}
 %
 We insert these in \eq{eq:ODE_sigma0} with $x=0$, to obtain the
-homogeneous solution $y_h$. Thus,
+so called \textbf{null solution} $y_\text{null}$, also known as
+\textbf{homogeneous solution} $y_h$.
+Thus,
 \begin{align}
 \frac{1}{\omega_0^2} (\lambda^2 \cdot \mathrm{e}^{\lambda t}) +
 \frac{2 \sigma_0}{\omega_0^2} (\lambda \cdot \mathrm{e}^{\lambda t}) +
@@ -238,8 +277,9 @@ homogeneous solution $y_h$. Thus,
 %
 We are not able to force the left side of this equation to zero with the $\mathrm{e}^{\lambda t}$
 function.
-Thus, we calculate the zeros of the term within brackets, which is the so
-called \textbf{characteristic equation}.
+Thus, we calculate the zeros of the term within brackets, which is well known as
+\textbf{characteristic equation}.
+%
 The zeros of this 2nd order polynomial are
 \begin{align}
 \label{lambda12}
@@ -250,8 +290,7 @@ The homogeneous solution $y_h$ depends on the characteristics
 of the term $\sigma_0^2 - \omega_0^2$.
 Three cases need to be considered.
 
-%##############################################################################
-\subsubsection{Case I for Homogeneous Solution (Kriechfall, starke Dämpfung)}
+\subsubsection{Case I for Homogeneous Solution (Kriechfall, starke Dämpfung if $\sigma_0<0$)}
 For
 \begin{align}
 \sigma_0^2 - \omega_0^2 > 0
@@ -261,14 +300,14 @@ the Ansatz reads
 y_h=
 A \mathrm{e}^{\lambda_1 t} + B \mathrm{e}^{\lambda_2 t}
 =
-\mathrm{e}^{-\sigma_0 t} [A \mathrm{e}^{+\sqrt{\sigma_0^2 - \omega_0^2} t}
-+ B \mathrm{e}^{-\sqrt{\sigma_0^2 - \omega_0^2} t}]
+\mathrm{e}^{-\sigma_0 t} [A \mathrm{e}^{+t\,\sqrt{\sigma_0^2 - \omega_0^2}}
++ B \mathrm{e}^{-t\,\sqrt{\sigma_0^2 - \omega_0^2}}]
 \end{align}
-with the two constants $A$ and $B$ to be defined by the imposed
-boundary/initial conditions on $\dot{y}(t=0)$ and $y(t=0)$ and the
-external source $x$.
+with the two constants $A$ and $B$ to be defined by the initial conditions
+$\dot{y}(t)$ and $y(t)$ for a given $t$ (very often $t=0$)
+of the the complete solution
+$y(t) = y_\text{null}(t)+y_\text{particular}(t)$.
 
-%##############################################################################
 \subsubsection{Case II for Homogeneous Solution (Aperiodischer Grenzfall)}
 For
 \begin{align}
@@ -284,9 +323,9 @@ Then the Ansatz reads
 y_h = \mathrm{e}^{-\sigma_0 t} [A t + B].
 \end{align}
 
-%##############################################################################
 \subsubsection{Case III for Homogeneous Solution (Schwingungsfall,
-schwache Dämpfung)}
+schwache Dämpfung if $\sigma_0<0$)}
+\label{pg:caseIII}
 For
 \begin{align}
 \sigma_0^2 - \omega_0^2 < 0,
@@ -299,31 +338,47 @@ rearranges \eq{lambda12} to
 \begin{align}
 \label{eq:lmb12_caseIII}
 \lambda_{1,2} = -\sigma_0 \pm \sqrt{-\omega_D^2}
-= -\sigma_0 \pm \mathrm{j}\omega_D,
+= -\sigma_0 \pm \mathrm{j}\,\omega_D,
 \end{align}
 yielding a complex conjugate zero pair.
-Then the Ansatz reads
+Then the Ansatz reads (cf. case I)
 \begin{align}
-y_h = \mathrm{e}^{-\sigma_0 t}
-\left[ A \sin(\omega_D t) + B \cos(\omega_D t)\right],
+\label{eq:Ansatz_caseIIIkomplex}
+\boxed{
+y_h = A \mathrm{e}^{\lambda_1 t} + B \mathrm{e}^{\lambda_2 t}.
+}
 \end{align}
-constituting damped sine and cosine oscillations.
+or (using other $A$, $B$)
+\begin{align}
+\label{eq:Ansatz_caseIIIsincos}
+y_h = \mathrm{e}^{-\sigma_0 t}
+\left[ A \sin(\omega_D t) + B \cos(\omega_D t)\right].
+\end{align}
+While \eq{eq:Ansatz_caseIIIkomplex} is more elegant to perform calculus,
+\eq{eq:Ansatz_caseIIIsincos} directly reveals the \textbf{damped}
+(parameter $\sigma_0$) sine and cosine \textbf{oscillations}
+(with angular frequency $\omega_D$).
+%
+Case III covers the characteristics of the majority of practical systems
+for signal processing.
+
 
 
 %##############################################################################
 \subsection{Inhomogeneous Solution}
-Let the ODE be of form
+Now, let the ODE be of form
 \begin{align}
-a \ddot{y} + b \dot{y} + c y = x.
+a \, \ddot{y} + b \, \dot{y} + c \, y = x.
 \end{align}
 with constant coefficients $a, b, c\in \mathbb{R}$.
 %
 There are different suitable approaches for solving such an ODE for
 different inhomogeneities $x$.
-We restrict our discussion to the most often asked cases, cf. your math lecture
-notes.
+We restrict our discussion to the most often asked cases.
+We should check our math lecture notes for e.g. the method
+\textit{variation of parameters / Variation der Konstanten} for a general
+solution concept.
 
-%##############################################################################
 \subsubsection{Polynomial Function}
 The particular solution $y_p$ for the inhomogeneous ODE with
 polynomial $x = P_n(t)$ of degree $n$
@@ -340,12 +395,10 @@ t^2 Q_n(t)&\quad a\neq 0, b=0, c=0
 and solving for the coefficients $q_n, q_{n-1},...,q_0$ by comparing
 coefficients in
 \begin{align}
-a \ddot{y}_p + b \dot{y}_p + c y_p = x.
+a \, \ddot{y}_p + b \, \dot{y}_p + c \, y_p = x.
 \end{align}
 
-
-%##############################################################################
-\subsubsection{Exponential Function}
+\subsubsection{Exponential Function (i.e. Eigenfunctions of the ODE)}
 The particular solution $y_p$ for the inhomogeneous ODE with
 $x = \e^{s_x t}$
 requires the Ansatz
@@ -357,16 +410,9 @@ A t \cdot \e^{s_x t}&\quad \text{if} \quad s_x \in \lambda_{1 \text{ or } 2}\\
 A t^2 \cdot \e^{s_x t}&\quad \text{if} \quad s_x \in \lambda_{1 \text{ and } 2}
 \end{cases}
 \end{align}
-and solving for the coefficient $A$ by comparing coefficients
-in
-\begin{align}
-a \ddot{y}_p + b \dot{y}_p + c y_p = x.
-\end{align}
+and solving for the coefficient $A$ by comparing coefficients.
 
-
-
-%##############################################################################
-\subsubsection{Cosine / Sine Functions}
+\subsubsection{Cosine / Sine Functions (i.e. Special Case of ODE's Eigenfunctions)}
 \label{Sec:CosSineAnsatzInhomo}
 The particular solution $y_p$ for the inhomogeneous ODE with
 $x=\sin(\omega_x t)$ or $x=\cos(\omega_x t)$
@@ -380,126 +426,209 @@ A t \cdot \cos(\omega_x t) + B t \cdot \sin(\omega_x t)&\quad \text{if}
 \quad \im \omega_x \in \lambda_{1,2}
 \end{cases}
 \end{align}
-and solving for the coefficients $A, B$ by comparing coefficients
-in
-\begin{align}
-a \ddot{y}_p + b \dot{y}_p + c y_p = x.
-\end{align}
+and solving for the coefficients $A, B$ by comparing coefficients.
+
+
 
 %##############################################################################
 \subsection{Full ODE Solution}
 The full solution of an ODE is the superposition of the homogeneous solution
 and inhomogeneous (particular) solution
 \begin{align}
+y(t) = y_\text{null}(t)+y_\text{particular}(t) \qquad \rightarrow \qquad
 y = y_h + y_p
 \end{align}
-and then resolving for the initial conditions to obtain the specific solution
-$y$.
+and then resolving for the initial conditions $\dot{y}(t)$ and $y(t)$ for a
+given $t$ (very often $t=0$) to obtain the specific solution $y$.
+
 
 
 %##############################################################################
 %##############################################################################
 \section{Solution in Time Domain}
 
+
+
 %##############################################################################
-\subsection{Solution for Task a) in Time Domain}
+\subsection{Solution for Task a) in Time Domain / Impulse Response}
 We shall solve
 \begin{align}
-\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \delta(t), \qquad
-\dot{y}(t=0) = 0,\quad y(t=0)=0
+\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \delta(t)
 \end{align}
-for $y$ in time domain.
+for the particular solution $y_p$ in the time domain.
 
-Actually, this is physicist's and mathematician's playground to properly solve
-this directly in time domain by using stuff we typically don't learn in
-engineering math.
 %
-In short, the solution $y(t)$ of an excitation with $\delta(t)$ and
-zero initial conditioning is named the
-\textit{Green's function} $g(t)$ of this particular ODE. Once $g(t)$ is known,
-the solution for any other inhomogeneity $x(t)$ can be derived with the
-operation $y(t) = x(t) * g(t)$. This constitutes a fundamental theorem for ODEs.
+A brilliant didactical approach tailored for engineers to solve this task is
+found in \cite{Strang2014}.
+%
+In short, the \textbf{particular solution} $y_p(t)$ of this equation
+with \textbf{Dirac impulse excitation} is named the \textbf{Green's function} $g(t)$.
+%
+When the null solutions of the ODE are known, the Green's function can be found
+by variation of parameters.
+Making use of the important sifting property
+$\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \mathrm{d} t \stackrel{\mathrm{def}}= f(t_0)$
+becomes a vital part when doing this.
+%
+However, we will not go into detail here, cf. \cite[p.133]{Strang2014} instead.
+%
+The important part of the story is:
+Once $g(t)$ is known,
+the \textbf{particular solution} $y_p$ \textbf{for any other inhomogeneity}
+$x(t)$ can be derived with the \textbf{convolution} operation
+$y_p(t) = x(t) * g(t)$.
+%
+This constitutes a fundamental (if not the most important) theorem for ODEs.
+%
+For our discussed ODEs in signal and
+system theory (where we only handle time dependence), we call the Green's
+function $g(t)$ typically the \textbf{impulse response} $h(t)$ of the
+\textbf{LTI system} and use the convolution $y_p(t) = x(t) * h(t)$.
 
-Right, this is the convolution operation! For our discussed ODEs in signals and
-systems theory (where we only handle time dependence), we call the Green's
-function $g(t)$ typically the impulse response $h(t)$ of the LTI system.
+\textbf{Important detail}: Actually the initial conditions problem
+$\frac{16}{25} \ddot{h}(t) + \frac{24}{25} \dot{h}(t) + h(t) = \delta(t), h'(0-)=0, h(0-)=0$
+solves for the impulse response, where we need the left sided limit $t=0-$,
+since the Dirac impulse excites at $t=0$.
+%
+This proof is a little bit off-topic due to lack of time.
+%
+Instead, we can use the particular solution only by keeping in
+mind that the system was in rest before excitation.
 
-We can solve this problem not directly, but indirectly with our learned tools.
-It will become clear when pursuing calculus of the other tasks beforehand.
-
-%##############################################################################
-\subsection{Solution for Task b) in Time Domain}
-We shall solve
+Said that, we can make our life even more convenient, since according to
+\cite[p.97]{Strang2014},
+the \textbf{Green's function is also found by the null solution}
+(instead of Dirac excitation)
+\textbf{and new specific initial conditions}.
+In general for a 2nd order ODE this means
+%\begin{align}
+$a \, \ddot{y} + b \, \dot{y} + c \, y = 0,
+\quad y(0)=0,
+\quad \dot{y}(0)=\frac{1}{a}$,
+%\end{align}
+and thus for our specified example
 \begin{align}
-\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \epsilon(t), \quad
-\dot{y}(t=0) = 0,\quad y(t=0)=0
+\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 0,
+\quad y(0)=0,
+\quad \dot{y}(0)=\frac{25}{16}
 \end{align}
-for $y$ with the Ansatz of fundamental set of solutions.
+for $t\geq 0$.
+%
+Feel free to explore the solution by usage of \url{https://www.wolframalpha.com}
+with the input \verb|16/25*y’’(t)+24/25*y’(t)+y(t)=0, y(0)=0, y'(0)=25/16|
+or with other tools that can handle symbolic math on a computer.
+%
+We are going to calculate this manually in the following.
+%
 
-%##############################################################################
+
 \subsubsection{Homogeneous Solution}
-\label{Sec:TaskbHomo}
+\label{Sec:TaskaHomo}
+First, we need the homogeneous solution of the ODE for this subtask.
+%
+We will also need this in general, so it is anyway a good idea to calculate
+this first.
+%
 According to Sec. \ref{Sec:FundamentalSet} the characteristic equation for the
 ODE is \eq{lambda12}
 \begin{align}
 \lambda_{1,2} = -\sigma_0 \pm \sqrt{\sigma_0^2 - \omega_0^2}.
 \end{align}
-and with the chosen quantities intentionally simple numbers
+and with the chosen quantities, we get
 \begin{align}
-\lambda_{1,2} = -\frac{3}{4} \pm \im
+\lambda_{1,2} = -\frac{3}{4} \pm \im,
 \end{align}
-result in a complex conjugate zero pair.
-Thus, we deal with case III for the homogeneous solution (a damped oscillation).
+i.e. a complex conjugate zero pair with intentionally very simple numbers.
+Thus, we deal with \textbf{case III} (page \pageref{pg:caseIII})
+for the homogeneous solution, this is the case of \textbf{damped oscillation}.
 The corresponding zero pair is depicted in Fig.~\ref{fig:sketch_lambda_plane},
 left.
 %
-We re-identify $\sigma_0 = \frac{3}{4}$ and $\omega_D = 1$ from
-\eq{eq:lmb12_caseIII}
+Repeating \eq{eq:lmb12_caseIII}
+$\lambda_{1,2} = -\sigma_0 \pm \mathrm{j}\omega_D$,
+we identify $\sigma_0 = \frac{3}{4}$ and $\omega_D = 1$.
+Repeating \eq{eq:Ansatz_caseIIIkomplex}
+$y_h = A \mathrm{e}^{\lambda_1 t} + B \mathrm{e}^{\lambda_2 t}$,
+we therefore have to deal with
 \begin{align}
-\lambda_{1,2} =& -\sigma_0 \pm \mathrm{j}\omega_D,
+y_h = A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} + B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t},
 \end{align}
-for the Ansatz
-$y_h = \mathrm{e}^{-\sigma_0 t} \cdot
-\left[ A \sin(\omega_D t) + B \cos(\omega_D t)\right]$,
-yielding
+and since $y_p=0$
 \begin{align}
-y_h = \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left[ A \sin(t) + B \cos(t)\right].
+y = y_h + y_p = A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} + B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t}.
 \end{align}
 
+\subsubsection{Initial Conditions}
+\label{Sec:TaskaInitCond}
+The initial conditions $y(0)=0$ and $\dot{y}(0)=\nicefrac{25}{16}$ require to find
+the derivative
+\begin{align}
+\dot{y} =
+(-\frac{3}{4}+\im) A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} +
+(-\frac{3}{4}-\im) B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t}.
+\end{align}
+%
+The ease of performing this derivation makes the Ansatz \eq{eq:Ansatz_caseIIIkomplex}
+more elegant than \eq{eq:Ansatz_caseIIIsincos}.
+%
+However, we now have slightly more effort to find the coefficients $A$ and $B$,
+but it is actually more enlightening, how our final result evolves.
+%
+Applying the initial conditions yields
+%
+\begin{align}
+y(0) = 0 = A + B
+\qquad
+\dot{y}(0) = \nicefrac{25}{16} =
+(-\frac{3}{4}+\im) \, A + (-\frac{3}{4}-\im) \, B
+\end{align}
+Thus, comparing coefficients and using one Euler identity
+$\sin(x) = \frac{\e^{\im x}-\e^{-\im x}}{2\im}$
+\begin{align}
+A = \frac{\nicefrac{25}{16}}{2\im}\qquad B = -\frac{\nicefrac{25}{16}}{2\im}
+\quad\rightarrow\quad
+y = y_h + y_p =
+ \frac{\nicefrac{25}{16}}{2\im} \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t}
+-\frac{\nicefrac{25}{16}}{2\im} \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t},
+\end{align}
+yields the \textbf{impulse response} of the 2nd order system / ODE under discussion
+\begin{align}
+\boxed{
+h = y_\text{Task a} = \nicefrac{25}{16} \cdot \mathrm{e}^{-\frac{3}{4} t} \sin(t) \qquad t\geq0
+}\,.
+\end{align}
 
 
 
 %##############################################################################
+\subsection{Solution for Task b) in Time Domain / Step Response}
+We shall solve
+\begin{align}
+\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 1, \quad
+\dot{y}(0) = 0,\quad y(0)=0
+\end{align}
+for $y$ with the Ansatz of fundamental set of solutions.
+
 \subsubsection{Inhomogeneous Solution}
-For $t>0$, the source term $x=\epsilon(t>0)=1$ exhibits unit
+The source term $x(t\geq 0+)=1$ exhibits unit
 amplitude over time. This can be stated as the most simple polynomial $p_0=1$.
-Thus, the polynomial Ansatz
+Thus, the polynomial Ansatz $y_p = q_0$ leads to
 \begin{align}
-y_p = q_0
-\end{align}
-is chosen.
-We need to solve
-\begin{align}
-&\frac{16}{25} \ddot{y}_p + \frac{24}{25} \dot{y}_p + y_p = 1
-\end{align}
-for $q_0$.
-Since the time derivatives are zero, this case yields
-\begin{align}
-q_0 = 1 \rightarrow  y_p = 1.
+\frac{16}{25} \ddot{y}_p + \frac{24}{25} \dot{y}_p + y_p = 1
+\rightarrow q_0 = 1 \rightarrow  y_p = 1.
 \end{align}
 
-%##############################################################################
 \subsubsection{Specific Solution with Initial Conditions}
-The superposition of the homogeneous and inhomogeneous solution is
+The superposition of the homogeneous (this timewe use the sin/cos-Ansatz
+\eq{eq:Ansatz_caseIIIsincos} for demonstration purpose) and the inhomogeneous
+solution is
 \begin{align}
 \label{eq:SpecificyTaskb}
 y = y_h + y_p = \underbrace{
 \mathrm{e}^{-\frac{3}{4} t} \cdot
 \left[ A \sin(t) + B  \cos(t)\right]}_{y_h} +\underbrace{1}_{y_p}.
 \end{align}
-The initial condition $\dot{y}(t=0) = 0$ requires $\dot{y}$.
-With the product and chain rule we get
+The initial condition $\dot{y}(0) = 0$ again requires to find the derivative
 \begin{align}
 \dot{y}
 =
@@ -509,15 +638,15 @@ With the product and chain rule we get
 \mathrm{e}^{-\frac{3}{4} t} \cdot
 \left[ A \cos(t)  - B \sin(t)\right].
 \end{align}
-The initial condition $\dot{y}(t=0) = 0$ yields
+The initial condition $\dot{y}(0) = 0$ yields
 \begin{align}
 0 = -\frac{3}{4}\cdot B + A \rightarrow A = \frac{3}{4}\cdot B.
 \end{align}
-The initial condition ${y}(t=0) = 0$ yields
+The initial condition ${y}(0) = 0$ yields
 \begin{align}
 0 = B  + 1 \rightarrow B = -1.
 \end{align}
-Thus,
+The resulting coefficients
 \begin{align}
 A = -\frac{3}{4}\qquad B = -1
 \end{align}
@@ -525,22 +654,18 @@ are inserted into \eq{eq:SpecificyTaskb}
 \begin{align}
 \boxed{
 h_\epsilon = y_\text{Task b} =
-[1 + \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left(- \frac{3}{4} \sin(t) - \cos(t)\right)] \cdot \epsilon(t)
-}
+1 - \mathrm{e}^{-\frac{3}{4} t} \cdot
+\left(\frac{3}{4} \sin(t) + \cos(t)\right) \qquad t \geq 0
+}\,,
 \end{align}
-giving the final result for task b).
-Note that solving an ODE with initial conditions at $t=0$ inherently states
-that the derived solution is valid for $t\geq 0$ only.
-Multiplication of the solution with the Heaviside step function takes this
-conveniently into account.
+giving the final result for task b) with $h_\epsilon(t\to\infty) = 1$.
 
 In Fig.~\ref{fig:step_response_parts} the solution $y_\text{Task b}$ is depicted
 as the thick, non-dashed orange graph. It results from the superposition of the
 functions
-(i) unit amplitude (black),
-(ii) exponentially damped, negative sine (green, diamonds),
-(iii) exponentially damped, negative cosine (red, stars).
+i. unit amplitude (black),
+ii. exponentially damped, negative sine (green, diamonds),
+iii. exponentially damped, negative cosine (red, stars).
 In grey colour, the pure sine and cosine functions with negative amplitude,
 as well as the exponential
 damping with different initial amplitude are indicated.
@@ -552,82 +677,82 @@ damping with different initial amplitude are indicated.
 \label{fig:step_response_parts}
 \end{figure}
 
-Feel free to double check this solution with
+Feel free to double check this solution at Wolfram Alpha with input
 \begin{verbatim}
+16/25*y''(t)+24/25*y'(t)+y(t)=1,       y'(0)=0, y(0)=0
 16/25*y''(t)+24/25*y'(t)+y(t)=Step[t], y'(0)=0, y(0)=0
 \end{verbatim}
-with Wolfram Alpha at \url{https://www.wolframalpha.com} or with other tools
-that can handle symbolic math on a computer. Unfortunately, the current sympy
-renderer does not yield elegant solutions to this particular ODE.
 
 
-\subsection{Retry Solution for Task a) in Time Domain}
-We shall solve
-\begin{align}
-\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \delta(t),
-\quad \dot{y}(t=0) = 0,\quad y(t=0)=0
-\end{align}
-for $y$ in time domain.
+
+
+%##############################################################################
+\subsection{Another Way to Solve Task a) in Time Domain / Impulse Response}
 %
-We have learned an important link between the Dirac Delta impulse and the
-Heaviside step function
+The Heaviside step function
+\begin{equation}
+\epsilon(t) =
+\begin{cases}
+  0 & t\leq 0-\\
+  1 & t\geq 0+
+\end{cases}
+\end{equation}
+and
+the Dirac impulse $\delta(t)$ are related by
 \begin{align}
-\dot{\epsilon}(t) = \delta(t),
+\dot{\epsilon}(t) = \delta(t).
 \end{align}
-which for an LTI system links the unit step response $h_\epsilon$ with the
-impulse response $h$
+In fact, in task a and b we just derived the impulse response $h$ and step response
+$h_\epsilon$ of the ODE, respectively.
+%
+We can also relate the step and impulse response by
 \begin{align}
 \dot{h_\epsilon}(t) = h(t).
 \end{align}
 %
-By solving task b we derived the unit step response of the given LTI system.
-So, the temporal derivative $\dot{y}_\text{Task b}$ yields the impulse response.
-For $t\geq 0$ have
+The \textbf{temporal derivative of the step response} $h_\epsilon=y_\text{Task b}$
+\textbf{yields the impulse response} $h$.
+Thus, for the step response
 \begin{align}
-y_\text{Task b} =
-- \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( \frac{3}{4} \sin(t) + \cos(t)\right) + 1
+h_\epsilon = y_\text{Task b} =
+1 - \mathrm{e}^{-\frac{3}{4} t} \cdot
+\left( \frac{3}{4} \sin(t) + \cos(t)\right)
 \end{align}
-and thus by means of product and chain rule
+the derivative is the impulse response
 \begin{align}
-\dot{y}_\text{Task b} = h =
-- (-\frac{3}{4})\mathrm{e}^{-\frac{3}{4} t} \cdot
+h = \dot{h_\epsilon} = \dot{y}_\text{Task b} =
+ - (-\frac{3}{4})\,\mathrm{e}^{-\frac{3}{4} t} \cdot
 \left( \frac{3}{4} \sin(t) + \cos(t)\right)
 - \mathrm{e}^{-\frac{3}{4} t} \cdot
 \left( \frac{3}{4} \cos(t) - \sin(t)\right).
 \end{align}
-Rearranging yields
+Rearranging yields the expected result identical to task a
 \begin{align}
 \boxed{
-h = y_\text{Task a} = \frac{25}{16} \mathrm{e}^{-\frac{3}{4} t} \sin(t) \epsilon(t)
-}
+h = y_\text{Task a} = \frac{25}{16} \mathrm{e}^{-\frac{3}{4} t} \sin(t) \qquad t\geq 0
+}\,.
 \end{align}
 %
 In Fig. \ref{fig:impulse_step_response} the impulse response is depicted as
 the dashed blue graph, whereas the step response is plotted in thick
 orange again.
-The impulse response is a weighted and exponentially damped sine function.
+The impulse response is a weighted and exponentially damped sine function
+with $h(t\to\infty) = 0$.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\textwidth]{impulse_step_response}
-\caption{Impulse response (task a) and step response (task b) of the ODE under discussion.}
+\caption{Impulse response (task a, blue, dotted) and step response (task b, orange, thick)
+of the ODE under discussion.}
 \label{fig:impulse_step_response}
 \end{figure}
 
-Feel free to verify this solution with
+Feel free to verify that Wolfram Alpha returns the particular solution to the
+input
 \begin{verbatim}
-16/25*y''(t)+24/25*y'(t)+y(t)=DiracDelta[t], y'(0)=0, y(0)=0
+16/25*y''(t)+24/25*y'(t)+y(t)=DiracDelta[t]
 \end{verbatim}
-with Wolfram Alpha at \url{https://www.wolframalpha.com}.
-
-
-
-
-
-
-
-
+precisely identical to the manually calculated impulse response.
 
 
 
@@ -636,54 +761,49 @@ with Wolfram Alpha at \url{https://www.wolframalpha.com}.
 Now, we shall solve
 \begin{align}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 0,
-\quad \dot{y}(t=0) = 2,\quad y(t=0)=1
+\quad \dot{y}(0) = 2,\quad y(0)=1
 \end{align}
 for $y$.
 %
 Since $y_p=0$, we can immediately adapt the solution of Sec.
-\ref{Sec:TaskbHomo} here
+\ref{Sec:TaskaHomo} and \ref{Sec:TaskaInitCond} as
 %
 \begin{align}
-y = y_h + y_p = \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left[ A \sin(t) + B \cos(t)\right].
-\end{align}
-%
-The initial conditions require $\dot{y}$, thus with chain and product rule
-%
-\begin{align}
-\dot{y} =
--\frac{3}{4} \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( A \sin(t) + B \cos(t)\right)
-+
-\mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( A \cos(t) - B \sin(t)\right).
+y_h + y_p = y =& A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} + B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t}\\
+\dot{y} =&
+(-\frac{3}{4}+\im) A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} +
+(-\frac{3}{4}-\im) B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t}
 \end{align}
 %
 Applying the initial conditions yields
 %
 \begin{align}
 \dot{y}(0) = 2 =
--\frac{3}{4}  B
-+
-A\qquad
-y(0) = 1 =
-B.
+(-\frac{3}{4}+\im) A+
+(-\frac{3}{4}-\im) B
+\qquad
+y(0) = 1 = A + B.
 \end{align}
-Thus,
+Thus, the coefficients become
 \begin{align}
-A = \frac{11}{4}\qquad B = 1
+A = \frac{1}{2} + \frac{11}{8\im}\qquad B = 1-A = \frac{1}{2} - \frac{11}{8\im}.
 \end{align}
-applied, yields
+%
+Inserting these and applying the Euler identities
+$\cos(x) = \frac{\e^{\im x}+\e^{-\im x}}{2}$,
+$\sin(x) = \frac{\e^{\im x}-\e^{-\im x}}{2\im}$
+yields
 \begin{align}
 \boxed{
 y_\text{Task c} = \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( \frac{11}{4} \sin(t) + \cos(t)\right) \epsilon(t).
-}
+\left( \frac{11}{4} \sin(t) + \cos(t)\right) \qquad t\geq 0
+}\,.
 \end{align}
 In Fig.~\ref{fig:initial_conditions_response_parts} the brown graph depicts the
-response $y_\text{Task c}$, which is decaying to zero since the capacitor is
+response $y_\text{Task c}$, which is decaying to zero since the L and C are
 just discharging. As typical for such ODEs, again
-weighted and exponentially damped cosine and sine function are superimposed.
+weighted and exponentially damped cosine (red, stars) and sine (green, diamonds)
+function are superimposed.
 
 \begin{figure}[h!]
 \centering
@@ -692,59 +812,58 @@ weighted and exponentially damped cosine and sine function are superimposed.
 \label{fig:initial_conditions_response_parts}
 \end{figure}
 
-Feel free to verify this solution with
+Feel free to double check this solution at Wolfram Alpha with input
 \begin{verbatim}
 16/25*y''(t)+24/25*y'(t)+y(t)=0, y'(0)=2, y(0)=1
 \end{verbatim}
-with Wolfram Alpha at \url{https://www.wolframalpha.com}.
+
 
 
 %##############################################################################
 \subsection{Solution for Task d) in Time Domain}
 In this task we shall solve
 \begin{align}
-\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \epsilon(t), \quad
-\dot{y}(t=0) = 2,\quad y(t=0)=1
+\frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 1, \quad
+\dot{y}(0) = 2,\quad y(0)=1
 \end{align}
 for $y$.
 %
-This task is the superposition of the solution from task b (exterior source
-but vanishing initial conditions) and the solution of task c (no exterior
+This task is the \textbf{superposition} of the solution from \textbf{task b} (exterior source
+but vanishing initial conditions) and the solution of \textbf{task c} (no exterior
 source, but initial conditions). Thus, we should expect
 \begin{align}
 &y_\text{Task d} =
 y_\text{Task b} +
-y_\text{Task c} =\nonumber\\
-&[- \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( \frac{3}{4} \sin(t) + \cos(t)\right) + 1] \cdot \epsilon(t)
-+\mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( \frac{11}{4} \sin(t) + \cos(t)\right)\epsilon(t)=\nonumber\\
-&[1 + 2\mathrm{e}^{-\frac{3}{4} t} \sin(t)] \cdot \epsilon(t).
+y_\text{Task c} = 1 + 2\mathrm{e}^{-\frac{3}{4} t} \sin(t) = \nonumber\\
+&\left[1 - \mathrm{e}^{-\frac{3}{4} t} \cdot
+\left( \frac{3}{4} \sin(t) + \cos(t)\right)\right]
++\left[\mathrm{e}^{-\frac{3}{4} t} \cdot
+\left( \frac{11}{4} \sin(t) + \cos(t)\right)\right].
 \end{align}
-
-In order to reassure this we can start with \eq{eq:SpecificyTaskb} and
-rearrange for the differing initial conditions: The superposition of the
-homogeneous and inhomogeneous solution is
+%
+In order to reassure this result, we can start with \eq{eq:SpecificyTaskb} from
+task b and rearrange this for the differing initial conditions:
+The superposition of the homogeneous and inhomogeneous solution is
 \begin{align}
 y = y_h + y_p = \underbrace{
 \mathrm{e}^{-\frac{3}{4} t} \cdot
 \left( A \sin(t) + B \cos(t)\right)}_{y_h} + \underbrace{1}_{y_p}
 \end{align}
-Derivation with respect to time is
+Again, derivation with respect to time is
 \begin{align}
 \dot{y}
 =
--\frac{3}{4}\mathrm{e}^{-\frac{3}{4} t} \cdot
+-\frac{3}{4}\,\mathrm{e}^{-\frac{3}{4} t} \cdot
 \left( A \sin(t) + B \cos(t)\right)
 +
 \mathrm{e}^{-\frac{3}{4} t} \cdot
-\left( A \cos(t)  - B \sin(t)\right)
+\left( A \cos(t)  - B \sin(t)\right).
 \end{align}
-and its initial condition $\dot{y}(t=0) = 2$ yields
+The initial condition $\dot{y}(0) = 2$ yields
 \begin{align}
 2 = -\frac{3}{4}\cdot B + A \rightarrow A = 2 +  \frac{3}{4}\cdot B.
 \end{align}
-The initial condition ${y}(t=0) = 1$ yields
+The initial condition ${y}(0) = 1$ yields
 \begin{align}
 1 = B  + 1 \rightarrow B = 0.
 \end{align}
@@ -752,15 +871,15 @@ Thus,
 \begin{align}
 A = 2\qquad B = 0
 \end{align}
-inserted into \eq{eq:SpecificyTaskb}
+inserted
 \begin{align}
 \boxed{
 y_\text{Task d} =
-[1+\mathrm{e}^{-\frac{3}{4} t}
-\, 2 \sin(t)] \cdot \epsilon(t)
+1+\mathrm{e}^{-\frac{3}{4} t}
+\, 2 \sin(t)\qquad t \geq 0
 }
 \end{align}
-leads to the final result for task d), as expected from above.
+leads to the final result for task d) as expected.
 %
 \begin{figure}[b!]
 \centering
@@ -769,16 +888,21 @@ leads to the final result for task d), as expected from above.
 \label{fig:response_full}
 \end{figure}
 %
-In Fig.~\ref{fig:response_full} the reponse $y_\text{Task d} $ is depicted as
-magenta graph. This is the result of the superposition of the step function and
-an exponentially damped and weighted sine.
+In Fig.~\ref{fig:response_full} the response $y_\text{Task d} $ is depicted as
+magenta graph. This is the result of the superposition of the Heaviside step
+function and an exponentially damped, weighted sine function.
 The final result asymptotically converges to unit amplitude.
+%
+This is expected: once the initial conditions are vanished for $t\to\infty$
+the external excitation of the step function is the dominant part for the system
+response.
+%
+We can see this in the equations: $y_\text{Task d}(t\to\infty) = y_\text{Task b}(t\to\infty)$
 
-Feel free to double check this solution with
+Feel free to double check this solution at Wolfram Alpha with input
 \begin{verbatim}
-16/25*y''(t)+24/25*y'(t)+y(t)=Step[t], y'(0)=2, y(0)=1
+16/25*y''(t)+24/25*y'(t)+y(t)=1, y'(0)=2, y(0)=1
 \end{verbatim}
-with Wolfram Alpha at \url{https://www.wolframalpha.com}.
 
 
 
@@ -790,11 +914,11 @@ In this task we shall solve
 \begin{align}
 \label{eq:InHomoODE_sin}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \sin(t), \quad
-\dot{y}(t=0) = 0,\quad y(t=0)=0
+\dot{y}(0) = 0,\quad y(0)=0
 \end{align}
 for $y$.
 %
-From Sec. \ref{Sec:TaskbHomo} we know the homogeneous solution
+We already know the homogeneous solution
 $y_h = \mathrm{e}^{-\frac{3}{4} t} \cdot
 \left[ A \sin(t) + B \cos(t)\right]$.
 %
@@ -812,20 +936,21 @@ C = \frac{25}{73}\qquad D = -\frac{200}{219}.
 The solution then becomes
 \begin{align}
 y = y_h + y_p = \underbrace{\mathrm{e}^{-\frac{3}{4} t} \cdot
-\left[ A \sin(t) + B \cos(t)\right]}_{y_h}+
-\underbrace{\frac{25}{73} \sin(t) - \frac{200}{219} \cos(t)}_{y_p}.
+\left[ A \sin(t) + B \cos(t)\right]}_{\text{damped solution} \, y_h}+
+\underbrace{\frac{25}{73} \sin(t) - \frac{200}{219} \cos(t)}_{\text{oscillating solution} \, y_p}.
 \end{align}
-By considering the initial conditions the coefficients solve to
+By considering the initial conditions the remaining unknown coefficients solve to
 \begin{align}
 A = \frac{25}{73}\qquad B = \frac{200}{219}
 \end{align}
 giving the final result
 \begin{align}
 \boxed{
-y_\text{Task e} = \left[\frac{25}{73} \mathrm{e}^{-\frac{3}{4} t} \sin(t) +
+y_\text{Task e} = \frac{25}{73} \mathrm{e}^{-\frac{3}{4} t} \sin(t) +
 \frac{200}{219} \mathrm{e}^{-\frac{3}{4} t} \cos(t) +
 \frac{25}{73} \sin(t) -
-\frac{200}{219} \cos(t)\right] \epsilon(t)}\,.
+\frac{200}{219} \cos(t) \qquad t\geq 0
+}\, ,
 \end{align}
 %
 \begin{figure}[h!]
@@ -838,41 +963,48 @@ $\sin(t)$ input.}
 
 The response is depicted in Fig.~\ref{fig:sine_excitation_response} in
 thick/blue.
-It results from the superposition of weighted and exponentially damped sine and
-cosine functions (yellow and green graphs) and weighted but undamped sine and
-cosine functions (brown and purple graphs).
-In this example it is important to realise that the initial conditions (damped
-sine and cosine) contribute
-to the response only up to approximately $t=2\pi$
+It results from the superposition of i. weighted and \textbf{exponentially damped}
+sine and cosine functions (yellow and green graphs) and ii. weighted but \textbf{undamped}
+sine and cosine functions (brown and purple graphs).
+In this example it is important to realise that the initial conditions
+(exponentially damped sine and cosine) contribute
+to the system response only up to approximately $t=2\pi$
 seconds, i.e. in the first period $T=\frac{2\pi}{\omega_D}=2\pi$ of the
 excitation's frequency here.
 %
 For times $t\gg2\pi$ seconds the system response is determined by the
 undamped sine and cosine functions, yielding a system response of
 \begin{align}
-y(t\gg 2\pi) = \frac{25}{3 \sqrt{73}}
+\label{eq:steadystate_timedomain}
+y(t\gg 2\pi, t\to\infty) = \frac{25}{3 \sqrt{73}}\cdot
 \sin\left(t-\tan^{-1}
 \left[\frac{\nicefrac{200}{219}}{\nicefrac{25}{73}}\right]\right),
 \end{align}
 depicted as the red dotted graph in Fig.~\ref{fig:sine_excitation_response}.
-This constitutes the so called steady-state of the system response.
+This constitutes the so called \textbf{steady-state} of the system response
+for $t\to\infty$.
 For that, we see that the excitation signal $x=\sin(t)$ is altered in amplitude
 (very subtle damping of about 0.975) and
-a time delay (in terms of phase: about 70 degrees or about $0.386 \pi$ in
+a time delay (in terms of phase: about -70 degrees or about $-0.386 \pi$ in
 radian), cf. the black line indicator in the figure.
+Note that $\frac{\nicefrac{200}{219}}{\nicefrac{25}{73}} = \nicefrac{8}{3}$ again
+results in simple numbers for the chosen example. We will rather not see such
+for real practical problems.
 
-The two parameters --- amplitude and phase offset ---
-and their specific quantities are very important for the
+The two parameters in the
+\textbf{steady state}---\textbf{the amplitude and the phase offset}---and
+their specific quantities are very important for the
 interpretation of ODEs as LTI systems. Each excitation frequency has its own
 quantity set, yielding frequency dependent system characteristics.
 We will deal with it in detail when discussing ODEs in Laplace domain.
+%
+The so called Bode plot or \textbf{Bode diagram} is one still important tool
+to visualize amplitude and phase over frequency in approximated manner.
 
-
-Feel free to double check this solution with
+Feel free to double check this solution at Wolfram Alpha with input
 \begin{verbatim}
 16/25*y''(t)+24/25*y'(t)+y(t)=Sin[t], y'(0)=0, y(0)=0
 \end{verbatim}
-with Wolfram Alpha at \url{https://www.wolframalpha.com}.
 
 
 
@@ -880,27 +1012,38 @@ with Wolfram Alpha at \url{https://www.wolframalpha.com}.
 
 %##############################################################################
 \section{Laplace Domain Solution Preliminaries}
-We should now study the problem with the help of Laplace transform.
+We should now study the problem with the help of the Laplace transform.
 For the chosen ODE and input signals the calculus effort is about the same,
 however for more complicated cases, the approach via Laplace transform
 is often the more convenient approach for the solution.
 %
-For example, the easy looking convolution
-\begin{align}
-y_\text{Task e} = h(t) * (\epsilon(t) \sin(t))
-\end{align}
-requires solving the integral
-\begin{align}
-\int
-\frac{25}{16} \mathrm{e}^{-\frac{3}{4} \tau} \sin(\tau) \epsilon(\tau) \cdot
-\sin(t-\tau) \epsilon(t-\tau) \mathrm{d}\tau.
-\end{align}
-Even by eliminating the step functions with proper
-integration limits, the integral deals with three functions to be multiplicated.
-Integration to solve for the convolution result is expected to be not
-straightforward.
+For instance, Laplace transform is more powerful, when the \textbf{steady state}
+system response for oscillations \textbf{at many different frequencies} is
+searched for.
+%
+Instead of solving each individual problem with the approach that we took before,
+the problem is conveniently solved by means of the \textbf{transfer function},
+which stores amplitude and phase offset for each arbitrary oscillation frequency.
+%
+We will discover this, when solving tasks a) to e) with the help of the Laplace
+transform. The solutions must be of course identical to these we have found so far.
+
+To obtain the time function the inverse Laplace function is needed.
+%
+We do not need to use the complex integral and application of the
+\textbf{residue theorem}
+here, but rather make use of \textbf{correspondence tables for Laplace transforms}.
+%
+The English and German textbooks
+\cite{Strang2014,GirodRabensteinStenger2007,Girod2001,Oppenheim1997,Fliege1991,
+Goeldner1987,LangeSigSys1,Wunsch1972}
+can be considered classics and cover the Laplace transform very well for our
+purpose.
 
 
+
+
+%##############################################################################
 \subsection{Laplace Transform}
 The Laplace transform pair reads
 \begin{align}
@@ -931,8 +1074,10 @@ s^n Y(s) - \sum_{k=1}^{n} s^{n-k} \cdot
 \frac{\mathrm{d}^{k-1} y(t)}{\mathrm{d} t^{k-1}}\bigg|_{t=0},
 \end{align}
 The temporal derivation operation will be transformed to a multiplication
-operation with Laplace variable $s$ (differential equations essentially become
-algebraic equations).
+operation with Laplace variable $s$ (\textbf{differential equations} essentially \textbf{become
+algebraic equations}, that is the key idea and a special case of
+so called operator theory, we have seen a similar concept already for the
+characteristic polynomial).
 %
 For typical systems up to 2nd order, we will need
 \begin{align}
@@ -942,33 +1087,41 @@ For typical systems up to 2nd order, we will need
 \begin{align}
 \label{eq:Laplace1std}
 \mathcal{L}\{\frac{\mathrm{d} y(t)}{\mathrm{d} t}\}=
-s Y(s) - \sum_{k=1}^{1} s^{1-k} \cdot
+s \cdot Y(s) - \sum_{k=1}^{1} s^{1-k} \cdot
 \frac{\mathrm{d}^{k-1} y(t)}{\mathrm{d} t^{k-1}}\bigg|_{t=0}
-= \boxed{\mathcal{L}\{\dot{y}\} = s Y(s) - y(t=0)}
+= \boxed{\mathcal{L}\{\dot{y}\} = s \cdot Y(s) - y(0)}
 \end{align}
 and
 \begin{align}
 \label{eq:Laplace2ndd}
 \mathcal{L}\{\frac{\mathrm{d}^2 y(t)}{\mathrm{d} t^2}\}=
-s^2 Y(s) - \sum_{k=1}^{2} s^{2-k} \cdot
+s^2 \cdot Y(s) - \sum_{k=1}^{2} s^{2-k} \cdot
 \frac{\mathrm{d}^{k-1} y(t)}{\mathrm{d} t^{k-1}}\bigg|_{t=0}
-= \boxed{\mathcal{L}\{\ddot{y}\} = s^2 Y(s) - s y(t=0) - \dot{y}(t=0)}\,.
+= \boxed{\mathcal{L}\{\ddot{y}\} = s^2 \cdot Y(s) - s \cdot y(0) - \dot{y}(0)}\,.
 \end{align}
+
+Note the \textbf{application of the initial conditions} in these transform rules!
 
 %##############################################################################
 \subsection{Solving ODE with Help of Laplace Transform}
 
-Solving an ODE problem via the indirect way of Laplace transform is then
+Solving an ODE problem via the indirect way of Laplace transform is then as follows
 \begin{itemize}
-\item[1.] transform the ODE to the Laplace domain by applying linearity and
+\item[1.] transform the ODE equation to the Laplace domain by applying linearity and
 derivative rules
-\item[2.] insert initial conditions if any
-\item[3.] figure out the Laplace transform $X(s)$ of inhomogeneity $x(t)$ and insert
-it
+\item[2.] insert the initial conditions of $y(0)$  and $\dot{y}(0)$
+(if they are zero, actually the additional terms immediately become zero,
+this is very nice)
+\item[3.] find the Laplace transform $X(s)$ of inhomogeneity $x(t)$ and insert
+it (note that we are most often interested in $x(t)=\delta(t)$,
+$x(t)=\epsilon(t)$, $x(t)=\exp(s_1 t)$ with $s_1\in\mathbb{C}$
+as they tell us the most interesting things of the ODE)
 \item[4.] reorganize the transformed equation for $Y(s)$
-\item[5.] perform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$ by means of partial fraction
-decomposition and usage of transform tables or if this fails by means of the
-residue theorem...if this even fails you have a very delicate problem at hand.
+\item[5.] perform \textbf{inverse transformation} $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
+by means of either \textbf{partial fraction decomposition} and usage of
+\textbf{transform tables}
+or if this fails by means of the residue theorem...if this even fails we have a
+very delicate problem at hand.
 \footnote{For many systems we deal with in engineering,
 someone very likely calculated the inverse Laplace transform already and we
 might find it in formularies, list of integrals and textbooks.
@@ -976,11 +1129,11 @@ So before trying to solve the integral of the inverse Laplace transform
 manually, try to find the tabulated solution.
 Though, very often the solution must be tweaked to fit into the tabulated
 transforms.
-Anyway, deriving solutions with residue theorem by your own is a
-good exercise.}
+Anyway, deriving solutions with residue theorem by our own is a
+good exercise and enlightening.}
 \end{itemize}
 
-We aim at right-sided, and more specifically causal systems and signals.
+We aim at \textbf{right-sided}, and more specifically \textbf{causal systems and signals}.
 Thus the region of convergence (ROC) is placed right of the most right pole of a
 Laplace transform's function.
 %
@@ -989,7 +1142,7 @@ the left half of the $s$-plane.
 
 %##############################################################################
 \subsection{Laplace Transform of an ODE}
-The ODE under discussion is \eq{eq:ODE_sigma0}
+The ODE under discussion is still \eq{eq:ODE_sigma0}
 \begin{align}
 \frac{\ddot{y}}{\omega_0^2} + \frac{2 \sigma_0}{\omega_0^2} \dot{y} + y = x
 \end{align}
@@ -1009,22 +1162,24 @@ First, considering linearity (scaling, superposition) yields
 Second, the temporal derivative rules \eq{eq:Laplace0thd}, \eq{eq:Laplace1std}
 and \eq{eq:Laplace2ndd} are applied to functions $y$ and $x$ yielding
 \begin{align}
-\frac{1}{\omega_0^2} \left[ s^2 Y(s) - s y(t=0) - \dot{y}(t=0)\right]  +
-\frac{2 \sigma_0}{\omega_0^2} \left[ s Y(s) - y(t=0) \right] + Y(s) = X(s).
+\frac{1}{\omega_0^2} \left[ s^2 \cdot Y(s) - s \cdot y(0) - \dot{y}(0)\right]  +
+\frac{2 \sigma_0}{\omega_0^2} \left[ s \cdot Y(s) - y(0) \right] + Y(s) = X(s).
 \end{align}
 %
-Rearranging for $Y(s)$ yields
+Rearranging for $Y(s)$ yields (we must savely distinguish between $Y$, $y$ and $\dot{y}$
+in that equation)
 \begin{align}
 Y(s) = \frac{X(s)}{\frac{1}{\omega_0^2} s^2 +
 \frac{2 \sigma_0}{\omega_0^2} s + 1}
-+ \frac{\frac{1}{\omega_0^2} y(0) s + \frac{2 \sigma_0}{\omega_0^2} y(0) +
-\frac{1}{\omega_0^2}\dot{y}(0)}{\frac{1}
++ \frac{\frac{1}{\omega_0^2} s \cdot y(0) + \frac{2 \sigma_0}{\omega_0^2} \cdot y(0) +
+\frac{1}{\omega_0^2} \cdot \dot{y}(0)}{\frac{1}
 {\omega_0^2} s^2 + \frac{2 \sigma_0}{\omega_0^2} s + 1}.
 \end{align}
 %
-It is now important to realise that the characteristic equation (\ref{eq:CharEq})
-appears as the denominator in the Laplace function, we only have to change
-$\lambda\rightarrow s$.
+It is now important to realise (and shows the links in a beautiful way)
+that the \textbf{characteristic equation} (\ref{eq:CharEq})
+appears as the \textbf{denominator in the Laplace function}, we only have to change
+variable $\lambda\rightarrow s$.
 Therefore, discussions of the characteristic equation in terms of its zeros become
 discussions in terms of poles in the Laplace domain,
 cf. Fig.~\ref{fig:sketch_lambda_plane} left vs. right.
@@ -1085,13 +1240,15 @@ Some tasks in this exercise require the initial conditions
 $\dot{y}(0)=0$ and $y(0)=0$.
 Then the Laplace transform becomes
 \begin{align}
-Y(s) = \frac{X(s)}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
+\boxed{
+Y(s) = \frac{X(s)}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}}\,.
 \end{align}
 Other tasks require initial conditions $\dot{y}(0)=2$ and $y(0)=1$.
 Then the Laplace transform reads
 \begin{align}
+\boxed{
 Y(s) = \frac{X(s)}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}+
-\frac{\frac{16}{25} s + \frac{56}{25}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
+\frac{\frac{16}{25} s + \frac{56}{25}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}}\,.
 \end{align}
 
 We require the following input signals for this exercise
@@ -1119,9 +1276,9 @@ $y(t) = \mathcal{L}^{-1}\{Y(s)\}$ for
 Y(s) = \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}
 \quad \text{ROC}: \Re(s) > -\frac{3}{4}.
 \end{align}
-Since the Dirac Delta impulse is the input signal here,
-$Y(s)$ is by definition equivalent with the
-transfer function $H(s)$, for which the fundamental theorem
+Since the \textbf{Dirac Delta impulse} is the \textbf{input signal} here,
+$Y(s)$ is here and only here by definition equivalent with the
+\textbf{transfer function} $H(s)$, for which the \textbf{fundamental theorem}
 \begin{align}
 \boxed{y(t) = x(t)*h(t) \quad \laplace \quad Y(s) = X(s) \cdot H(s)}
 \end{align}
@@ -1138,10 +1295,15 @@ corresponding to a damped sine function (cf. Appendix) as the LTI system's
 impulse response
 \begin{align}
 \boxed{h(t) = y_\text{Task a}(t) = \frac{25}{16} \e^{-\frac{3}{4} t} \sin(t)
-\epsilon(t)}\,.
+\cdot \epsilon(t)}\,.
 \end{align}
 
-Make yourself comfortable with the Laplace transform pairs of sine, cosine
+Feel free to double check this solution at Wolfram Alpha with input
+\begin{verbatim}
+InverseLaplaceTransform[1/(16/25*s^2+24/25*s+1)]
+\end{verbatim}
+
+We should make ourselves comfortable with the Laplace transform pairs of sine, cosine
 functions and its exponentially damped versions in the Appendix.
 These will often appear as solutions for ODEs under discussion.
 
@@ -1195,10 +1357,15 @@ Individual inverse Laplace transform of each fraction is allowed due to
 linearity. Thus, we get
 \begin{align}
 \boxed{y(t)_\text{Task b} =
-\epsilon(t)
-- \e^{-\frac{3}{4} t} \cos(t) \epsilon(t)
-- \frac{3}{4}\e^{-\frac{3}{4} t} \sin(t) \epsilon(t)}\,.
+\left[1
+- \e^{-\frac{3}{4} t} \cos(t)
+- \frac{3}{4}\e^{-\frac{3}{4} t} \sin(t) \right] \cdot \epsilon(t)}\,.
 \end{align}
+
+Feel free to double check this solution at Wolfram Alpha with input
+\begin{verbatim}
+InverseLaplaceTransform[(1/s)/(16/25*s^2+24/25*s+1)]
+\end{verbatim}
 
 %##############################################################################
 \subsection{Solution for Task c) in Laplace Domain}
@@ -1220,9 +1387,14 @@ Y(s) =
 This results in exponentially damped cosine and sine functions
 \begin{align}
 \boxed{y(t)_\text{Task c} =
-\e^{-\frac{3}{4} t} \cos(t) \epsilon(t)
-+\frac{11}{4}\e^{-\frac{3}{4} t} \sin(t) \epsilon(t)}.
+\left[\e^{-\frac{3}{4} t} \cos(t)
++\frac{11}{4}\e^{-\frac{3}{4} t} \sin(t) \right] \cdot \epsilon(t)}\,.
 \end{align}
+
+Feel free to double check this solution at Wolfram Alpha with input
+\begin{verbatim}
+InverseLaplaceTransform[(16/25*s+56/25)/(16/25*s^2+24/25*s+1)]
+\end{verbatim}
 
 
 %##############################################################################
@@ -1239,9 +1411,15 @@ We already have calculated the individual inverse Laplace transforms in task b
 and c. So the solution becomes
 \begin{align}
 \boxed{y(t)_\text{Task d} = y(t)_\text{Task b} + y(t)_\text{Task c}
+= \left[1+\mathrm{e}^{-\frac{3}{4} t} \, 2 \sin(t) \right] \cdot \epsilon(t)
 }\,.
 \end{align}
 We have observed this characteristics in the time domain as well.
+
+Feel free to double check this solution at Wolfram Alpha with input
+\begin{verbatim}
+InverseLaplaceTransform[(1/s+16/25*s+56/25)/(16/25*s^2+24/25*s+1)]
+\end{verbatim}
 
 
 %##############################################################################
@@ -1252,7 +1430,8 @@ for
 Y(s) = \frac{\frac{1}{s^2 + 1^2}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}
 \quad \text{ROC}: \Re(s) > 0.
 \end{align}
-Here we deal with two complex conjugate pole pairs
+Here we deal with two complex conjugate pole pairs (the first one from system
+characteristic, the second from the $sin(t)$-input signal)
 \begin{align}
 s_{\infty,1,2} = -\frac{3}{4} \pm \im \qquad s_{\infty,3,4} = \pm \im.
 \end{align}
@@ -1270,8 +1449,8 @@ Hence,
 Manual comparison of coefficients becomes more and more inconvenient with growing
 numbers of coefficients.
 Although, in this example a matrix inversion is more calculus effort than plain
-comparison of coefficients, don't forget that you can set up a system of linear
-equations in matrix notation
+comparison of coefficients, we should keep in mind that we can set up a system
+of linear equations in matrix notation
 %wolfram alpha:
 %inv[[[0, 1, 0, 1], [10/13, 10/13, 1, 1], [250/137, 125/137, 274/137, 1], [750/241, 250/241, 723/241, 1]]]*[1, 5/13, 25/137, 25/241]
 % \begin{align}
@@ -1337,14 +1516,19 @@ D
 .
 \end{align}
 %
-Solving $\mathbf{u} = \mathbf{M}^{-1} \cdot \mathbf{v}$ (in later practice you
-might leave this job for a computer, e.g.
+The matrix $\mathbf{M}$ is full rank (if we do not believe this, we should assure
+us. However, it is worth to note that the system response is unique, thus the defined
+linear system of equations must be also unique,
+requiring that square $\mathbf{M}$ is invertible, which in fact it is).
+%
+Thus, solving $\mathbf{u} = \mathbf{M}^{-1} \cdot \mathbf{v}$ (in later practice
+we might leave this job for a computer, such as e.g. input to Wolfram Alpha
 \begin{verbatim}
 inv[[[1, 0, 16/25, 0], [0, 1, 24/25, 16/25], [1, 0, 1, 24/25], [0, 1, 0, 1]]]*[0, 0, 0, 1]
 \end{verbatim}
-in \url{https://www.wolframalpha.com}
 ) yields the coefficients
 \begin{align}
+\label{eq:coeffABCDsinLaplace}
   A = \frac{128}{219}
   \quad B = \frac{48}{73}
   \quad C = -\frac{200}{219}
@@ -1352,7 +1536,7 @@ in \url{https://www.wolframalpha.com}
 \end{align}
 %
 %
-Inserting into the Ansatz results in
+Inserting these into the Ansatz results in
 \begin{align}
 Y(s) = \frac{\frac{128}{219} s +
 \frac{48}{73}}{\frac{16}{25} s^2 +
@@ -1360,8 +1544,9 @@ Y(s) = \frac{\frac{128}{219} s +
 \frac{-\frac{200}{219} s +
 \frac{25}{73}}{s^2+1}.
 \end{align}
-This again needs to be reformulated such that Laplace transforms of
-exponentially damped and undamped sine/cosine functions can be revealed.
+This again needs to be reformulated such that \textbf{Laplace transforms of
+exponentially damped and undamped sine/cosine functions}
+can be revealed (this is a typical exam task).
 %
 The last fraction is straightforward with regard to that:
 \begin{align}
@@ -1370,7 +1555,7 @@ Y(s) = \frac{\frac{128}{219} s + \frac{48}{73}}{\frac{16}{25} s^2 + \frac{24}{25
 +\frac{25}{73}\frac{1}{s^2+1^2}.
 \end{align}
 %
-The first fraction is similar to the approaches of tasks a-d and can be
+The first fraction is similar to the approaches of tasks a) - d) and can be
 rearranged as
 \begin{align}
 Y(s) = &
@@ -1387,22 +1572,99 @@ Y(s) = &
 -\frac{200}{219}\frac{s}{s^2+1^2}
 +\frac{25}{73}\frac{1}{s^2+1^2}.
 \end{align}
-This now can be conveniently transformed back into time domain, fraction by fraction
-due to Laplace transform's linearity characteristic
+This term now can be conveniently transformed back into time domain,
+fraction by fraction due to the linearity of the Laplace transform
 \begin{align}
 \boxed{
   y_\text{Task e}(t) =
-  \frac{200}{219} \e^{-\frac{3}{4} t} \cos(t) \epsilon(t)+
-  \frac{25}{73} \e^{-\frac{3}{4} t} \sin(t) \epsilon(t)-
-  \frac{200}{219} \cos(t) \epsilon(t) +
-  \frac{25}{73} \sin(t) \epsilon(t)}\,.
+  \left[ \frac{200}{219} \e^{-\frac{3}{4} t} \cos(t) +
+  \frac{25}{73} \e^{-\frac{3}{4} t} \sin(t) -
+  \frac{200}{219} \cos(t) +
+  \frac{25}{73} \sin(t) \right] \cdot \epsilon(t)}\,.
 \end{align}
+
+Feel free to double check this solution at Wolfram Alpha with input
+\begin{verbatim}
+InverseLaplaceTransform[(1/(s^2+1^2))/(16/25*s^2+24/25*s+1)]
+\end{verbatim}
+
+
+
+%##############################################################################
+\subsection{Frequency Response of the System}
+%
+With \eq{eq:steadystate_timedomain}
+\begin{align}
+y(t\gg 2\pi, t\to\infty) = \frac{25}{3 \sqrt{73}}\cdot
+\sin\left(t-\tan^{-1}
+\left[\frac{\nicefrac{200}{219}}{\nicefrac{25}{73}}\right]\right),
+\end{align}
+we explored the \textbf{steady state} of the system giving
+amplitude and phase offset for $\omega=1$.
+%
+A convenient way to calculate the steady state for many (all) $\omega$, is to evaluate
+the \textbf{Laplace transform}, i.e. \textbf{the transfer function} along the
+$\im\omega$-axis
+\begin{align}
+H(\im\omega)
+= \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}\bigg|_{s=\im\omega}
+= \frac{1}{\frac{16}{25} (\im\omega)^2 + \frac{24}{25} \im\omega + 1}
+= \frac{1}{ (1 -\frac{16}{25} \omega^2) + \im (\frac{24}{25} \omega)}.
+\end{align}
+This constitutes the \textbf{Fourier transform} of the system and is known as
+\textbf{frequency response} $H(\im\omega)$.
+%
+Typically, $H(\im\omega)$ is complex-valued (only in rare, special cases
+it is real-valued), thus it is meaningful to specify the magnitude and the phase
+of the complex number $H(\im\omega)$ at each $\omega$.
+%
+This is depicted in Fig. \ref{fig:frequency_response_mag_phase}: on top magnitude
+$|H(\im\omega)|$ over angular frequency $\omega$, at the bottom plot normalized
+phase $\angle H(\im\omega) / \pi$ over $\omega$.
+%
+%We see in the magnitude plot that, lower frequencies ($\omega<1$) can pass,
+%while higher frequencies $\omega>3$ are attenuated.
+%
+%The system characteristics is therefore called \textbf{low-pass} filter or
+%\textbf{high-cut} filter.
+
+If we set up $\omega=1$ in the frequency response
+\begin{align}
+H(\im(\omega=1))
+= \frac{1}{ (1 -\frac{16}{25} (1)^2) + \im (\frac{24}{25} (1))}
+= \frac{1}{ \frac{9}{25} + \im \frac{24}{25}}
+= \frac{\frac{9}{25} - \im \frac{24}{25}}{ \frac{81}{625} + \frac{576}{625}}
+\end{align}
+the complex number $H(\im(\omega=1)) = \frac{25}{73} - \im \frac{200}{219}$ results.
+%
+We are familiar with these numbers as they appeared somehow in task e), cf.
+$C$ and $D$ in \eq{eq:coeffABCDsinLaplace}.
+%
+The resulting magnitude and phase
+\begin{equation}
+|H(\im(\omega=1))| = \frac{25}{3 \sqrt{73}}
+\qquad
+\angle H(\im(\omega=1)) = -\tan^{-1}
+\left[\frac{\nicefrac{200}{219}}{\nicefrac{25}{73}}\right]
+= -\tan^{-1}\left[\frac{8}{3}\right]
+\end{equation}
+are precisely identical with \eq{eq:steadystate_timedomain},
+proving that the shown concepts are consistent.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{frequency_response_mag_phase}
+\caption{Frequency response for the ODE with Laplace function
+$H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
+\label{fig:frequency_response_mag_phase}
+\end{figure}
+
 
 
 %##############################################################################
 %##############################################################################
 \newpage
-\section*{Appendix}
+\section*{Appendix A}
 
 %##############################################################################
 \subsection*{Important Laplace Transform Pairs for Right-Sided Signals}
@@ -1456,6 +1718,13 @@ and
 \boxed{\e^{-s_0 t} \sin(\omega_0) \epsilon(t)\quad \laplace \quad \frac{\omega_0}{(s+s_0)^2 + \omega_0^2}\quad \text{ROC}: \Re(s)>\Re(-s_0)}\,.
 \end{align}
 
-\bibliographystyle{IEEEtranSA.bst}
-\bibliography{literature}
+
+
+%##############################################################################
+%##############################################################################
+\newpage
+\section*{Appendix B}
+TBD the big picture ODE 1st/2nd, cf. \cite[p.117]{Strang2014}
+
+\bibliography{literatur}
 \end{document}
