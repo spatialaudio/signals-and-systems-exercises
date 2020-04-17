@@ -659,8 +659,20 @@ Liniendickenvariation zu besseren Unterscheidbarkeit bei Graustufenanzeige.
 \end{figure*}
 
 
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_SingleCase_MagPhase.pdf}
+  \caption{Betrag (oben) und Phase (unten) der rellwertigen
+  Fouriertransformierten \eq{eq:8C3958BE4F_Loesung}. Für eine Variable
+  $a\in\mathbb{R}$ gilt $a = -a \e^{\pm\im\pi}$, daher
+  der Phasensprung um $\pi$ bei negativer Amplitude der Spaltfunktion.
+\texttt{FourierTransformation\_8C3958BE4F.ipynb}}
+  \label{fig:8C3958BE4F_SingleCase_MagPhase}
+\end{figure}
 
-\newpage
+
+
+
+\clearpage
 \subsection{Fourier-Transformation Signal-Verschiebung}
 \label{sec:A8A2DEE53A}
 \begin{Ziel}
@@ -739,31 +751,53 @@ X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\o
 Wir erkennen, dass \eq{eq:8C3958BE4F_Loesung} um den komplexen Dreher / Zeiger $\e^{-\im\omega\frac{T_h}{2}}$
 erweitert wird und nun $X(\im \omega)\in\mathbb{C}$.
 %
-Eine zeitliche Verschiebung um $\frac{T_h}{2}$ führt zu einer Phasenänderung (der
-Betrag bleibt erhalten) in der
-Fouriertransformierten, und zwar um $\angle \e^{-\im\omega\frac{T_h}{2}} = -\omega\frac{T_h}{2}$.
-
-Damit ist für das hier berechnete Beispiel der Betrag der Fouriertransformierten
-$|X(\im \omega)| = A T_h \cdot |\mathrm{sinc}(\omega\frac{T_h}{2})|$ und die Phase
-der Fouriertransformierten
-$\angle X(\im\omega) = -\omega\frac{T_h}{2}$.
-%
 Wir müssen bei grafischen Darstellungen daher streng immer zwei Diagramme anfertigen:
 \begin{itemize}
   \item Realteil + Imaginärteil oder
   \item Betrag + Phase
 \end{itemize}
 %
-Aufgabe \ref{sec:8C3958BE4F} lieferte eine reelle
-Lösung, wir mussten daher in \fig{fig:8C3958BE4F_0} nur den Realteil
-plotten.
-%
-Das können wir nun hier nicht mehr machen: wenn wir nur den Realteil darstellen,
-verlieren wir durch unterschlagenen Imaginärteil Informationen.
-%
 Eine Darstellung in Betrag und Phase ist üblich, weil dies bei praktischen
 Problemen, schnell hilfreiche Informationen offenbart. Das haben wir auch schon
 bei der Wechselstromrechnung benutzt.
+
+
+Im Gegensatz zum vorherigen Beispiel und \fig{fig:8C3958BE4F_SingleCase_MagPhase},
+wo $X(\im \omega)\in\mathbb{R}<0$ Phasensprünge um $\pi$ verursacht haben, müssen
+wir hier eine stückweise stetige, linear Phasenfunktion $\phi(\omega)$ berücksichtigen.
+Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein Bild zu machen.
+%
+Der Anstieg der Geradenteile lässt sich direkt aus dem komplexen Dreher rauslesen
+zu $-\frac{T_h}{2}$.
+%
+Für die Fouriertransformierte in Betrag und Phase dargestellt, gilt mit $k\in\mathbb{Z}$
+\begin{equation}
+X(\im \omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+\cdot  \e^{-\im\omega\frac{T_h}{2}}\cdot
+\begin{cases}
+\e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi k)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\end{cases}
+\end{equation}
+Überall da wo die Spaltfunktion einen Polaritärswechsel macht, entsteht
+eine Phasen-Unstetigkeitstelle, weil die Phase springt um $\pi$ bzw. wegen der
+$2\pi$-Vieldeutigkeit um $\pi + 2\pi k$.
+%
+Die Phasenfunktion ist daher
+\begin{equation}
+\phi(\omega) = -\omega\frac{T_h}{2} +
+\begin{cases}
+2\pi k\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi k\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+\end{cases}
+\end{equation}
+Die numpy-Funktion \verb|angle()| wertet die Phase zwischen $-\pi$ und $+\pi$ aus,
+deswegen bekommen wir den in \fig{fig:A8A2DEE53A} dargestellten Verlauf der Phase.
+
+Daher nochmal: Jenseits der Phasensprünge, ist zu realisieren, dass
+eine zeitliche Verschiebung um $\frac{T_h}{2}$ in der Fouriertransformierten
+zu einer Phasenänderung mit Anstieg $-\frac{T_h}{2}$ (negativ, fallend)
+führt und der Betrag erhalten bleibt.
 %
 In \fig{fig:A8A2DEE53A} ist daher das Verhalten von \eq{eq:A8A2DEE53A_Loesung} als
 Betrag und Phase über $\omega$ dargestellt.
@@ -771,15 +805,15 @@ Betrag und Phase über $\omega$ dargestellt.
 Der Betrag der Spaltfunktion ist einfach zu erhalten, wir klappen einfach alle
 negativen Funktionswerte in Richtung positiver Ordinate.
 %
-Die Phase ist eine Gerade über $\omega$ durch den Ursprung mit Anstieg $-T_h/2$,
-also fallend.
+Die Phase ist die stückweise stetig Gerade über $\omega$ durch den Ursprung
+mit Anstieg $-T_h/2$, also fallend.
 %
 Diese \textbf{Phase}nfunktion ist bzgl. des Ursprungs \textbf{punktsymmetrisch}.
 Dies gilt immer für die Fouriertransformierten $X(\im\omega)$ von \textbf{reellwertigen}
 Signalen $x(t)$.
 %
 Größere Zeitverschiebung $T_h/2$ bedeutet größere Phasenverschiebung, also steilere
-fallende Gerade.
+fallende Geradenstücke.
 
 Das was wir anhand eines speziellen (wichtigen) Beispiels gezeigt haben, gilt auch
 allgemein. Die Korrespondenz zur \textbf{Zeitverschiebung} um $\tau\in\mathbb{R}$
@@ -796,6 +830,7 @@ Die Korrespondenz zur \textbf{Frequenzverschiebung}
 ---bekannt als \textbf{Modulationssatz}---lautet
 \begin{align}
 x(t) & \quad \laplace \quad X(\im\omega)\\
+\label{eq:A8A2DEE53A_ModTheoremTime}
 x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0]).
 \end{align}
 %
@@ -818,7 +853,7 @@ im Argument der Spaltfunktion die Breite dieser bestimmt.
 \end{figure}
 
 
-\newpage
+\clearpage
 \subsection{Fourier-Transformation Signal-Zeitumkehr}
 \label{sec:1CFE5FE3A1}
 \begin{Ziel}
@@ -912,14 +947,32 @@ Das Ergebnis
 \label{eq:1CFE5FE3A1_Loesung}
 X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
 \end{equation}
-ist in \fig{fig:1CFE5FE3A1} dargestellt. Der Betrag $A T_h \cdot |\mathrm{sinc}(\omega\frac{T_h}{2})|$
+ist in \fig{fig:1CFE5FE3A1} dargestellt. Der Betrag
+$\bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|$
 ist gleich wie in Aufgabe \ref{sec:A8A2DEE53A}, weil wir gelernt haben, dass
 eine Zeitverschiebung nur die Phase in der Fouriertransformierten ändert.
 %
 
-Der wichtige neue Punkt ist:
-Die Phase ist eine Geradengleichung über $\omega$ durch den Ursprung und mit Anstieg $+T_h/2$,
-also diesmal steigend!
+Der wichtige neue Punkt ist, dass die \textbf{unstetige Phasenfunktion} $\phi(\omega)$
+\textbf{diesmal ansteigend} ist,  da
+\begin{equation}
+X(\im \omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+\cdot  \e^{+\im\omega\frac{T_h}{2}}\cdot
+\begin{cases}
+\e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi k)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\phi(\omega) = +\omega\frac{T_h}{2} +
+\begin{cases}
+2\pi k\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi k\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+\end{cases}
+\end{equation}
+Die Phase ist eine stückweise stetige Geradengleichung über $\omega$ durch den
+Ursprung und mit Anstieg $+T_h/2$, also diesmal steigend!
 %
 Die \textbf{Zeitumkehr} erzeugt also eine \textbf{Phasenumkehr}, vgl.
 Aufgabe \ref{sec:A8A2DEE53A} fallende Phase, Aufgabe \ref{sec:1CFE5FE3A1} hier steigende Phase.
@@ -951,278 +1004,6 @@ im Argument der Spaltfunktion die Breite dieser bestimmt.
 
 
 
-
-
-\newpage
-\subsection{Dirac-Impuls}
-\label{sec:D410BDAAE0}
-\begin{Ziel}
-Wir führen den Dirac-Impuls ein. Ohne den geht in SigSys (fast) nix, bekannt auch als
-Dirac-Delta-Impuls, Dirac-Stoß, Einheitsimpuls.
-Wir werden den Dirac-Impuls bei der Beschreibung von Signalen und Systemen
-in fundamentalen Zusammenhängen benutzen (müssen).
-Wir haben in den bisherigen Aufgaben ganz gut vorgearbeitet und können uns
-mit der Rechteck- und Spaltfunktion dem Phänomen Dirac-Impuls nähern.
-Dem Ingenieur macht das Konzept am Anfang ein wenig Bauchweh, weil
-der Dirac-Impuls keine klassische Funktion ist, sondern eine Distribution, d.h.
-es gibt bestimmte Funktionen, für die zwar ein gewünschter Grenzwert nicht existiert,
-die aber gleiche Grundeigenschaften besitzen, wenn man sich dieser Grenze annähert.
-Diese Grundeigenschaften werden wir kennenlernen als sehr nützliche
-Rechenregeln des Dirac-Impulses, und damit haben wir eigentlich das nötige
-Handwerkszeug für SigSys dann schon parat.
-Die Rechteck- und Spaltfunktion sind zwei solcher Funktionen mit gleichen
-Grundeigenschaften die einen Dirac-Impuls ausmachen.
-
-Zudem werden wir zwei fundamentale Korrespondenzen der Fouriertransformation
-kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
-war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
-\end{Ziel}
-\textbf{Aufgabe} {\tiny D410BDAAE0}:
-Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ und
-$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$
-\begin{Werkzeug}
-Führen wir für $\epsilon\in\mathbb{N}^+$ eine Funktion $\delta_\epsilon(x)$ ein, die entweder
-\begin{equation}
-\delta_\epsilon(x) := \epsilon \cdot \mathrm{rect}(\epsilon \, x) =
-\begin{cases} \epsilon & |x| < \frac{1}{2 \epsilon} \\ \frac{\epsilon}{2} & |x| = \frac{1}{2 \epsilon} \\ 0 & |x| > \frac{1}{2 \epsilon} \end{cases}\quad
-\end{equation}
-oder
-\begin{equation}
-\delta_\epsilon(x) := \frac{\epsilon}{\pi} \cdot \mathrm{sinc}(\epsilon \, x) = \frac{\sin(\epsilon \, x)}{\pi x}
-\end{equation}
-ist.
-Wir entdecken die, zwar ein wenig normiert, aber uns mittlerweile vertraute
-Rechteck- und Spaltfunktion  wieder.
-%
-Es gilt für beide Funktion, und zwar unabhängig von $\epsilon$ (für die
-Rechteckfunktion ist das leicht einzusehen, für die sinc-Funktion überlassen wir
-das den Mathematikern oder müssen uns vertiefter mit dem Integralsinus auseinander setzen)
-\begin{equation}
-\int\limits_{-\infty}^{+\infty} \delta_\epsilon(x) \fsd x = 1,
-\end{equation}
-d.h. die \textbf{Fläche ist immer 1} bei der gewählten Normierung der
-Rechteck- und Spaltfunktion.
-%
-Nun sind die Grenzwerte
-\begin{equation}
-\lim_{\epsilon\to\infty} \delta_\epsilon(x)
-\end{equation}
-leider nicht definiert.
-%
-Machen wir uns aber klar, dass sowohl die Rechteck- als auch Spaltfunktion mit
-größer werdendem $\epsilon\to \infty$ immer schmaler und höher werden und sich
-einem Impuls annähern, siehe \fig{fig:1CFE5FE3A1}.
-%
-Die Mathematik\footnote{\url{https://dlmf.nist.gov/1.17} bzw. Buch
-\cite[Kapitel 1.15]{Arfken2005}}
-liefert uns nun eine Lösung im Sinne eines Grenzwerts für eine
-Sequenz von Integralen über $\delta_\epsilon(x)$, $\epsilon=1,2,3,...$
-\begin{equation}
-\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
-\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x = f(x_0).
-\end{equation}
-Wir sehen, dass dieser Grenzwert auf eine Funktion $f(x)$ einwirkt und als Lösung
-$f(x_0)$ hervorbringt, wenn $\delta_\epsilon(x)$ um $x_0$ verschoben wurde, also
-$\delta_\epsilon(x-x_0)$ im Integral benutzt wurde.
-%
-Das ist das was uns primär als Ingenieure interessiert.
-%
-Der für uns etwas sperrige Ausdruck
-\begin{equation}
-\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
-\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
-\end{equation}
-bekommt jetzt eine Definition mit Einführung des sogenannten Dirac-Impulses $\delta(x)$
-\begin{equation}
-\label{eq:DiracDistrDef}
-\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
-\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
-:= \int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)
-\end{equation}
-%
-Die rechte Seite ist \textbf{kein} klassisches Riemann-Integral, sondern eine
-\textbf{Definition} (nämlich die des linken Grenzwerts),
-für uns aber eine nützliche \text{Rechenregel} und Grundeigenschaft des
-Dirac-Impulses. Diese ist als \textbf{Austasteigenschaft} oder
-\textbf{Ausblendeigenschaft} bekannt. Je nachdem wie wir denken wollen:
-Austasten nur des Funktionswertes $f(x_0)$ oder Ausblenden aller Funktionswerte
-außer $f(x_0)$.
-
-Aus dieser können wir sofort ableiten, dass
-\begin{equation}
-\label{}
-\int\limits_{-\infty}^{+\infty} \delta(x) \cdot f(x) \, \fsd x = f(0)
-\end{equation}
-wenn $x_0=0$ gewählt wurde.
-%
-Weiter finden wir
-\begin{equation}
-\int\limits_{-\infty}^{+\infty} \delta(x) \fsd x = 1
-\end{equation}
-wenn $f(x)=1$ gewählt wurde.
-%
-Beide Beziehungen konnten wir nur deswegen sehr schnell und einfach ableiten, weil
-wir die Definition benutzt haben. Wir müssen uns aber klar machen, dass wir
-nicht das Integral gelöst haben, sondern vielmehr die Rechenregel der Austastung
-verwendet haben.
-%
-Die Versuchung das letzte Integral als Fläche des Dirac-Impulses zu interpretieren
-ist sehr groß, und wenn wir den Grenzübergang mit der Rechteckfunktion in Gedanken
-tatsächlich vollziehen auch nicht falsch, aber wir können das streng genommen
-nicht aus dem Definitionsintegral
-$\int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)$
-des Dirac-Impulses auslesen.
-%
-Statt Fläche, sprechen wir hinfort vom Gewicht 1 des Dirac-Impulses.
-
-\end{Werkzeug}
-
-\begin{figure}[h!]
-\includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
-  \caption{Rechteck- (oben) und Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
-  Durch die Normierung verhalten sich Breite und Höhe umgekehrt proportional und
-  gehen daher in den Grenzfällen zu einem unendlich kleinem Gleichsignal oder einem unendlich kurzen und hohen
-  Impuls über. Diese beiden Funktionen erfüllen im Grenzfall $\epsilon\to\infty$
-  die Distributionsforderungen des Dirac-Impulses \eq{eq:DiracDistrDef}.
-  \texttt{dirac\_impulse\_CT\_D410BDAAE0.ipynb}}
-  \label{fig:D410BDAAE0}
-\end{figure}
-
-\cleardoublepage
-\begin{Ansatz}
-Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$
-können wir ableiten aus der Ausblendeigenschaft
-$\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(t_0)$
-mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
-%
-Dann bekommt die Ausblendeigenschaft das Aussehen der Fouriertransformation
-des Dirac-Impulses
-\begin{equation}
-X(\im\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-\im \omega \cdot 0} = 1
-\end{equation}
-
-Auch die gesuchte Korrespondenz
-$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$ lässt sich
-ableiten aus der Ausblendeigenschaft, diesmal mit der Funktionsvariablen Kreisfrequenz, also mit
-
-$\int\limits_{-\infty}^{+\infty} \delta(\omega-\omega_0) \cdot f(\omega) \, \fsd \omega \stackrel{\mathrm{def}}= f(\omega_0)$
-für $f(\omega) = \e^{+\im \omega t}$ (Vorzeichen der inversen Fouriertransformation $+$!) und $\omega_0=0$.
-%
-Dann bekommen wir
-\begin{equation}
-2\pi \cdot \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= 2\pi \cdot \e^{+\im \omega \cdot 0} = 2\pi
-\end{equation}
-%
-Weil bei der inversen Fouriertransformation
-\begin{align}
-x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
-\end{align}
-noch der Faktor $\frac{1}{2\pi}$ berücksichtigt werden muss, erhalten wir
-\begin{equation}
-x(t) = \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= \e^{+\im \omega \cdot 0} = 1
-\end{equation}
-
-\end{Ansatz}
-%\begin{ExCalc}
-%\end{ExCalc}
-\begin{Loesung}
-Damit haben wir zwei weitere wichtige Korrespondenzen gefunden, in der Formelsammlung
-ganz oben auf der Liste:
-\begin{align}
-\label{eq:D410BDAAE0_Loesung1}
-x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
-\label{eq:D410BDAAE0_Loesung2}
-x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
-\end{align}
-%
-Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
-%
-Wesentlich ist, dass ein Dirac-Impuls alle Frequenzen gleich gewichtet enthält
-(\fig{fig:D410BDAAE0_Korrespondenzen} oben)
-und dass ein Gleichsignal, nur einen Dirac-Impuls bei $\omega=0$ enthält
-(\fig{fig:D410BDAAE0_Korrespondenzen} unten).
-Weil hier nichts schwingt, gibt es nur ein Dirac-Gewicht beim Gleichanteil.
-
-\end{Loesung}
-
-
-\begin{figure}[h!]
-\centering
-%
-\begin{tikzpicture}0
-\def\l{-2.5}
-\def\r{+2.5}
-\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
-\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=\delta(t)$};
-\draw[->, C0, line width=1mm] (0+\l,0) -- (0+\l,1) node[left] {$(1)$};
-\node at (0,1) {$\laplace$};
-\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
-\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=1$};
-\draw[-, C0, line width=1mm] (-2+\r,1) -- (2+\r,1) node[right] {$1$};
-\end{tikzpicture}
-%
-\begin{tikzpicture}0
-\def\l{-2.5}
-\def\r{+2.5}
-\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
-\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=1$};
-\draw[-, C0, line width=1mm] (-2+\l,1) node[left] {$1$} -- (2+\l,1);
-\node at (0,1) {$\laplace$};
-\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
-\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=2\pi\delta(\omega)$};
-\draw[->, C0, line width=1mm] (0+\r,0) -- (0+\r,1) node[right] {$(2\pi)$};
-\end{tikzpicture}
-%
-\caption{Korrespondenzen Fouriertransformation: \eq{eq:D410BDAAE0_Loesung1} (oben),
-\eq{eq:D410BDAAE0_Loesung2} (unten).}
-\label{fig:D410BDAAE0_Korrespondenzen}
-\end{figure}
-
-
-\begin{mdframed}
-\textit{Ausblick:}
-%
-\\\noindent
-Wir haben bisher die Korrespondenzen
-\begin{align}
-x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
-x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}\\
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])\\
-\end{align}
-kennengelernt.
-%
-Diese lassen sich nun geschickt kombinieren, um weitere Korrespondenzen zu finden,
-z.B. ein verschobener Dirac-Impuls im Zeitbereich
-\begin{align}
-\delta(t-\tau)& \quad \laplace \quad 1 \cdot \e^{-\im\omega \tau}.
-\end{align}
-Wir erinnern uns: Zeitverschiebung für zu Phasenänderung im Frequenzbereich.
-
-Oder ein verschobener Dirac-Impuls im Frequenzbereich
-\begin{align}
-1 \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad 2\pi\delta(\omega-\omega_0),
-\end{align}
-bedeutet Phasenänderung im Zeitbereich, speziell resultiert eine Multiplikation
-mit einer komplexen Schwingung auf das ursprüngliche Gleichsignal $x(t)=1$.
-%
-In der nächsten Übung wird diese Korrespondenz nochmal näher mit einem
-Rechteckzeitsignal beleuchtet. Aus der zeitlichen Begrenzung des Gleichsignals
-zum Rechtecksignal resultiert ein Übergang vom Dirac-Impuls zur Spaltfunktion
-für die Fouriertransformierte.
-\end{mdframed}
-
-
-
-
-
-
-
-
-
-
-
-
 \clearpage
 \subsection{Fourier-Transformation Signal-Modulation}
 \label{sec:9D652BE72B}
@@ -1235,6 +1016,11 @@ Anhand eines speziellen Beispiels erfassen wir das Wesen des Modulationstheorems
 \item die mit der komplexen Schwingung $\e^{+\im \omega_0 t}$ mit Kreisfrequenz $\omega_0>0$
 multipliziert wird
 \end{itemize}
+Wir wollen die Fouriertransformation Korrespondenz \eq{eq:A8A2DEE53A_ModTheoremTime}
+\begin{align}
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])
+\end{align}
+nochmal am Beispiel sehen.
 
 \begin{figure}[h!]
 \centering
@@ -1529,6 +1315,285 @@ Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
 
 
 
+
+
+
+
+\newpage
+\subsection{Dirac-Impuls}
+\label{sec:D410BDAAE0}
+\begin{Ziel}
+Wir führen den Dirac-Impuls ein. Ohne den geht in SigSys (fast) nix, bekannt auch als
+Dirac-Delta-Impuls, Dirac-Stoß, Einheitsimpuls.
+Wir werden den Dirac-Impuls bei der Beschreibung von Signalen und Systemen
+in fundamentalen Zusammenhängen benutzen (müssen).
+Wir haben in den bisherigen Aufgaben ganz gut vorgearbeitet und können uns
+mit der Rechteck- und Spaltfunktion dem Phänomen Dirac-Impuls nähern.
+Dem Ingenieur macht das Konzept am Anfang ein wenig Bauchweh, weil
+der Dirac-Impuls keine klassische Funktion ist, sondern eine Distribution, d.h.
+es gibt bestimmte Funktionen, für die zwar ein gewünschter Grenzwert nicht existiert,
+die aber gleiche Grundeigenschaften besitzen, wenn man sich dieser Grenze annähert.
+Diese Grundeigenschaften werden wir kennenlernen als sehr nützliche
+Rechenregeln des Dirac-Impulses, und damit haben wir eigentlich das nötige
+Handwerkszeug für SigSys dann schon parat.
+Die Rechteck- und Spaltfunktion sind zwei solcher Funktionen mit gleichen
+Grundeigenschaften die einen Dirac-Impuls ausmachen.
+
+Zudem werden wir zwei fundamentale Korrespondenzen der Fouriertransformation
+kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
+war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny D410BDAAE0}:
+Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ und
+$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$
+\begin{Werkzeug}
+Führen wir für $\epsilon\in\mathbb{N}^+$ eine Funktion $\delta_\epsilon(x)$ ein, die entweder
+\begin{equation}
+\delta_\epsilon(x) := \epsilon \cdot \mathrm{rect}(\epsilon \, x) =
+\begin{cases} \epsilon & |x| < \frac{1}{2 \epsilon} \\ \frac{\epsilon}{2} & |x| = \frac{1}{2 \epsilon} \\ 0 & |x| > \frac{1}{2 \epsilon} \end{cases}\quad
+\end{equation}
+oder
+\begin{equation}
+\delta_\epsilon(x) := \frac{\epsilon}{\pi} \cdot \mathrm{sinc}(\epsilon \, x) = \frac{\sin(\epsilon \, x)}{\pi x}
+\end{equation}
+ist.
+Wir entdecken die, zwar ein wenig normiert, aber uns mittlerweile vertraute
+Rechteck- und Spaltfunktion  wieder.
+%
+Es gilt für beide Funktion, und zwar unabhängig von $\epsilon$ (für die
+Rechteckfunktion ist das leicht einzusehen, für die sinc-Funktion überlassen wir
+das den Mathematikern oder müssen uns vertiefter mit dem Integralsinus auseinander setzen)
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta_\epsilon(x) \fsd x = 1,
+\end{equation}
+d.h. die \textbf{Fläche ist immer 1} bei der gewählten Normierung der
+Rechteck- und Spaltfunktion.
+%
+Nun sind die Grenzwerte
+\begin{equation}
+\lim_{\epsilon\to\infty} \delta_\epsilon(x)
+\end{equation}
+leider nicht definiert.
+%
+Machen wir uns aber klar, dass sowohl die Rechteck- als auch Spaltfunktion mit
+größer werdendem $\epsilon\to \infty$ immer schmaler und höher werden und sich
+einem Impuls annähern, siehe \fig{fig:1CFE5FE3A1}.
+%
+Die Mathematik\footnote{\url{https://dlmf.nist.gov/1.17} bzw. Bücher
+\cite[Kapitel 1.15]{Arfken2005}, \cite{Burg2013}}
+liefert uns nun eine Lösung im Sinne eines Grenzwerts für eine
+Sequenz von Integralen über $\delta_\epsilon(x)$, $\epsilon=1,2,3,...$
+\begin{equation}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x = f(x_0).
+\end{equation}
+Wir sehen, dass dieser Grenzwert auf eine Funktion $f(x)$ einwirkt und als Lösung
+$f(x_0)$ hervorbringt, wenn $\delta_\epsilon(x)$ um $x_0$ verschoben wurde, also
+$\delta_\epsilon(x-x_0)$ im Integral benutzt wurde.
+%
+Das ist das was uns primär als Ingenieure interessiert.
+%
+Der für uns etwas sperrige Ausdruck
+\begin{equation}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
+\end{equation}
+bekommt jetzt eine Definition mit Einführung des sogenannten Dirac-Impulses $\delta(x)$
+\begin{equation}
+\label{eq:DiracDistrDef}
+\lim_{\epsilon\to\infty} \int\limits_{-\infty}^{+\infty}
+\delta_\epsilon(x-x_0) \cdot f(x) \, \fsd x
+:= \int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)
+\end{equation}
+%
+Die rechte Seite ist \textbf{kein} klassisches Riemann-Integral, sondern eine
+\textbf{Definition} (nämlich die des linken Grenzwerts),
+für uns aber eine nützliche \text{Rechenregel} und Grundeigenschaft des
+Dirac-Impulses. Diese ist als \textbf{Austasteigenschaft} oder
+\textbf{Ausblendeigenschaft} bekannt. Je nachdem wie wir denken wollen:
+Austasten nur des Funktionswertes $f(x_0)$ oder Ausblenden aller Funktionswerte
+außer $f(x_0)$.
+
+Aus dieser können wir sofort ableiten, dass
+\begin{equation}
+\label{}
+\int\limits_{-\infty}^{+\infty} \delta(x) \cdot f(x) \, \fsd x = f(0)
+\end{equation}
+wenn $x_0=0$ gewählt wurde.
+%
+Weiter finden wir
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta(x) \fsd x = 1
+\end{equation}
+wenn $f(x)=1$ gewählt wurde.
+%
+Beide Beziehungen konnten wir nur deswegen sehr schnell und einfach ableiten, weil
+wir die Definition benutzt haben. Wir müssen uns aber klar machen, dass wir
+nicht das Integral gelöst haben, sondern vielmehr die Rechenregel der Austastung
+verwendet haben.
+%
+Die Versuchung das letzte Integral als Fläche des Dirac-Impulses zu interpretieren
+ist sehr groß, und wenn wir den Grenzübergang mit der Rechteckfunktion in Gedanken
+tatsächlich vollziehen auch nicht falsch, aber wir können das streng genommen
+nicht aus dem Definitionsintegral
+$\int\limits_{-\infty}^{+\infty} \delta(x-x_0) \cdot f(x) \, \fsd x \stackrel{\mathrm{def}}= f(x_0)$
+des Dirac-Impulses auslesen.
+%
+Statt Fläche, sprechen wir hinfort vom Gewicht 1 des Dirac-Impulses.
+
+\end{Werkzeug}
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
+  \caption{Rechteck- (oben) und Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
+  Durch die Normierung verhalten sich Breite und Höhe umgekehrt proportional und
+  gehen daher in den Grenzfällen zu einem unendlich kleinem Gleichsignal oder einem unendlich kurzen und hohen
+  Impuls über. Diese beiden Funktionen erfüllen im Grenzfall $\epsilon\to\infty$
+  die Distributionsforderungen des Dirac-Impulses \eq{eq:DiracDistrDef}.
+  \texttt{dirac\_impulse\_CT\_D410BDAAE0.ipynb}}
+  \label{fig:D410BDAAE0}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+%
+\begin{tikzpicture}0
+\def\l{-2.5}
+\def\r{+2.5}
+\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
+\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=\delta(t)$};
+\draw[->, C0, line width=1mm] (0+\l,0) -- (0+\l,1) node[left] {$(1)$};
+\node at (0,1) {$\laplace$};
+\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=1$};
+\draw[-, C0, line width=1mm] (-2+\r,1) -- (2+\r,1) node[right] {$1$};
+\end{tikzpicture}
+%
+\begin{tikzpicture}0
+\def\l{-2.5}
+\def\r{+2.5}
+\draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
+\draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=1$};
+\draw[-, C0, line width=1mm] (-2+\l,1) node[left] {$1$} -- (2+\l,1);
+\node at (0,1) {$\laplace$};
+\draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=2\pi\delta(\omega)$};
+\draw[->, C0, line width=1mm] (0+\r,0) -- (0+\r,1) node[right] {$(2\pi)$};
+\end{tikzpicture}
+%
+\caption{Korrespondenzen Fouriertransformation: \eq{eq:D410BDAAE0_Loesung1} (oben),
+\eq{eq:D410BDAAE0_Loesung2} (unten).}
+\label{fig:D410BDAAE0_Korrespondenzen}
+\end{figure}
+
+
+
+\cleardoublepage
+\begin{Ansatz}
+Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$
+können wir ableiten aus der Ausblendeigenschaft
+$\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(t_0)$
+mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
+%
+Dann bekommt die Ausblendeigenschaft das Aussehen der Fouriertransformation
+des Dirac-Impulses
+\begin{equation}
+X(\im\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-\im \omega \cdot 0} = 1
+\end{equation}
+
+Auch die gesuchte Korrespondenz
+$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$ lässt sich
+ableiten aus der Ausblendeigenschaft, diesmal mit der Funktionsvariablen Kreisfrequenz, also mit
+
+$\int\limits_{-\infty}^{+\infty} \delta(\omega-\omega_0) \cdot f(\omega) \, \fsd \omega \stackrel{\mathrm{def}}= f(\omega_0)$
+für $f(\omega) = \e^{+\im \omega t}$ (Vorzeichen der inversen Fouriertransformation $+$!) und $\omega_0=0$.
+%
+Dann bekommen wir
+\begin{equation}
+2\pi \cdot \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= 2\pi \cdot \e^{+\im \omega \cdot 0} = 2\pi
+\end{equation}
+%
+Weil bei der inversen Fouriertransformation
+\begin{align}
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
+\end{align}
+noch der Faktor $\frac{1}{2\pi}$ berücksichtigt werden muss, erhalten wir
+\begin{equation}
+x(t) = \int\limits_{-\infty}^{+\infty} \delta(\omega) \cdot \e^{+\im \omega t} \, \fsd \omega \stackrel{\mathrm{def}}= \e^{+\im \omega \cdot 0} = 1
+\end{equation}
+
+\end{Ansatz}
+%\begin{ExCalc}
+%\end{ExCalc}
+\begin{Loesung}
+Damit haben wir zwei weitere wichtige Korrespondenzen gefunden, in der Formelsammlung
+ganz oben auf der Liste:
+\begin{align}
+\label{eq:D410BDAAE0_Loesung1}
+x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
+\label{eq:D410BDAAE0_Loesung2}
+x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
+\end{align}
+%
+Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
+%
+Wesentlich ist, dass ein Dirac-Impuls alle Frequenzen gleich gewichtet enthält
+(\fig{fig:D410BDAAE0_Korrespondenzen} oben)
+und dass ein Gleichsignal, nur einen Dirac-Impuls bei $\omega=0$ enthält
+(\fig{fig:D410BDAAE0_Korrespondenzen} unten).
+Weil hier nichts schwingt, gibt es nur ein Dirac-Gewicht beim Gleichanteil.
+
+\end{Loesung}
+
+
+
+
+\begin{mdframed}
+\textit{Ausblick:}
+%
+\\\noindent
+Wir haben bisher die Korrespondenzen
+\begin{align}
+x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
+x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])\\
+\end{align}
+kennengelernt.
+%
+Diese lassen sich nun geschickt kombinieren, um weitere Korrespondenzen zu finden,
+z.B. ein verschobener Dirac-Impuls im Zeitbereich
+\begin{align}
+\delta(t-\tau)& \quad \laplace \quad 1 \cdot \e^{-\im\omega \tau}.
+\end{align}
+Wir erinnern uns: Zeitverschiebung für zu Phasenänderung im Frequenzbereich.
+
+Oder ein verschobener Dirac-Impuls im Frequenzbereich
+\begin{align}
+1 \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad 2\pi\delta(\omega-\omega_0),
+\end{align}
+bedeutet Phasenänderung im Zeitbereich, speziell resultiert eine Multiplikation
+mit einer komplexen Schwingung auf das ursprüngliche Gleichsignal $x(t)=1$.
+%
+In der nächsten Übung wird diese Korrespondenz nochmal näher mit einem
+Rechteckzeitsignal beleuchtet. Aus der zeitlichen Begrenzung des Gleichsignals
+zum Rechtecksignal resultiert ein Übergang vom Dirac-Impuls zur Spaltfunktion
+für die Fouriertransformierte.
+\end{mdframed}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \subsection{Lineare Differentialgleichungen}
 \label{sec:A7BEE9E24E}
@@ -1584,6 +1649,9 @@ ausgelegt, auch wenn sich das momentan noch nicht so anfühlt).
 Der folgende Abschnitt soll daher die SigSys Denke ein wenig schmackhaft machen und
 greift den didaktisch brillanten Faden aus \cite{Strang2014} auf. Viele Dinge
 müssten uns aus der Mathe-VL vertraut vorkommen.
+%
+Zum Auffrischen sei \cite{Burg2013} sehr empfohlen, das ist SigSys aus Sicht von
+Mathematikern.
 %
 \subsubsection{Lineare DGL 2. Ordnung mit konstanten Koeffizienten}
 Betrachten wir beispielhaft die lineare DGL
@@ -1645,10 +1713,12 @@ die
 \end{itemize}
 %
 Für die Fälle a) und c) gilt immer der Ansatz
+\begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 \label{eq:A7BEE9E24E_Eigenloesungen}
 y_h(t) = c_1 \e^{\lambda_1 t} + c_2 \e^{\lambda_2 t},
 \end{align}
+\end{mdframed}
 %
 Wichtig zu erkennen ist, dass wir---je nachdem wie $\lambda_1$ und $\lambda_2$
 beschaffen ist (also abhängig von den Koeffizienten $A,B,C$)---verschiedene
@@ -1751,7 +1821,7 @@ $\mathrm{det}(\vec{A} - \lambda \vec{I})=0$ wird also zu
 \begin{align}
 A \lambda^2 + B \lambda + C = 0
 \end{align}
-mit den zwei Eigenwerten $\lambda_{1,2}$ aus \eq{eq:A7BEE9E24E_lambdas},
+mit den \textbf{zwei Eigenwerten} $\lambda_{1,2}$ aus \eq{eq:A7BEE9E24E_lambdas},
 weil identisch mit dem charakteristischen Polynom.
 %
 Für die beiden zugehörigen Eigenvektoren $\vec{x}_{1}$ und $\vec{x}_{2}$ finden sich wegen
@@ -1826,6 +1896,7 @@ gelöst werden:
 %
 Die Linearkombination aller (hier der beiden) Vektoren $\vec{u}_{1,2}$ ergibt den
 Lösungsraum
+\begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 \begin{bmatrix}
 y(t) \\ y'(t)
@@ -1840,6 +1911,7 @@ c_2 \e^{\lambda_2 t}
 1 \\ \lambda_{2}
 \end{bmatrix},
 \end{align}
+\end{mdframed}
 %
 wobei man für die erste Zeile die Lösung $y(t)$ erkennt und für die zweite $y'(t)$
 (man erkennt das, aber wir hatten eben $\vec{u}$ in \eq{eq:A7BEE9E24E_uAU}
@@ -1870,13 +1942,13 @@ A y''(t) + B y'(t) + C y(t) = 0,\quad y(0)=0,\quad y'(0)=\frac{1}{A}.
 %
 Immer noch für $\lambda_1 \neq \lambda_2$ !!! wissen wir von oben
 \begin{align}
-y_h(t) = &c_1 \e^{\lambda_1 t} + c_2 \e^{\lambda_2 t},\\
+y_h(t) = &c_1 \e^{\lambda_1 t} + c_2 \e^{\lambda_2 t},\qquad
 y_h'(t) = &c_1 \lambda_1 \, \e^{\lambda_1 t} + c_2 \lambda_2 \, \e^{\lambda_2 t}
 \end{align}
 und mit $y_p=0$ wird $y=y_h+y_p=y_h$.
 Die Anfangsbedingungen berücksichtigt
 \begin{align}
-y(0) = &c_1 + c_2 = 0,\\
+y(0) = &c_1 + c_2 = 0,\qquad
 y'(0) = &c_1 \lambda_1 + c_2 \lambda_2 = \frac{1}{A}
 \end{align}
 Daraus folgt
@@ -1892,6 +1964,7 @@ y(t) =
 %
 Soweit, so gut. Schaut aus wie just another Lösung, aber diese Lösung hat es in sich:
 %
+
 Erinnern wir uns an den Dirac-Impuls aus Aufgabe \ref{sec:D410BDAAE0},
 den unendlich hohen und schmalen Impuls,
 wofür wir Rechenregeln finden mussten, weil er keine klassische Funktion ist.
@@ -1899,49 +1972,57 @@ wofür wir Rechenregeln finden mussten, weil er keine klassische Funktion ist.
 Wenn wir diesen Dirac-Impuls als Anregung / Eingang / Störgröße für unsere DGL
 wählen und verschwindende Anfangswerte als linksseitigen! Grenzwert
 berücksichtigen (System vor der Anregung bei exakt $t=0$ in Ruhe), also
+
+\begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 A y''(t) + B y'(t) + C y(t) = \delta(t),\qquad y'(0-) = 0,\qquad y(0-) = 0
 \end{align}
-erhalten wir als Lösung
-\begin{align}
-\label{sec:A7BEE9E24E_hyp}
-y(t) =
-\frac{1}{A} \, \frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}.
-\end{align}
+\end{mdframed}
+erhalten wir als Lösung \eq{sec:A7BEE9E24E_hyh}!!
+%\begin{align}
+%\label{sec:A7BEE9E24E_hyp}
+%y(t) =
+%\frac{1}{A} \, \frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}.
+%\end{align}
 %
 Die Rechnung schauen wir uns zu einem späteren Zeitpunkt an. Es gelingt mit Variation
 der Konstanten und Benutzung der Austasteigenschaft des Dirac Impulses,
 vgl. \cite[S.133ff]{Strang2014}.
 %
-Auch das warum schauen wir uns später an. Wir stellen hier zunächst fest, dass
-\eq{sec:A7BEE9E24E_hyh} und \eq{sec:A7BEE9E24E_hyp} gleich sind!
-%
-Also: homogene DGL mit speziellen Anfangsbedingungen zu $t=0$ ist gleich wie
+Auch das warum schauen wir uns später an. Wir stellen hier zunächst fest, dass:
+homogene DGL mit speziellen Anfangsbedingungen zu $t=0$ ist gleich wie
 Lösung der Anregung mit Dirac-Impuls $\delta(t)$ zum Zeitpunkt $t=0$ mit
 linksseitigen, verschwindenden Anfangsbedingungen.
-%
+
 In SigSys bezeichnen wir diese Lösung als \textbf{Impulsantwort} $h(t)$
 (das ist die Antwort der DGL auf den Dirac Impuls mit Gewicht 1, Mathematiker
-nennen diese Funktion auch Green'sche Funktion)
+nennen diese Funktion auch \textbf{Green'sche Funktion})
+\begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 h(t) =
 \frac{1}{A}\,\frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}
 \qquad \lambda_1 \neq \lambda_2.
 \end{align}
-%
+\end{mdframed}
+
+\newpage
 Mit dieser können wir die \textbf{partikuläre Lösung jeder beliebigen Anregung},
-also Störfunktion $x(t)$ angeben, und zwar mit dem Integral beginnend ab unserem gewähltem
+also Störfunktion $x(t)$ angeben, und zwar mit dem sogenannten
+\textbf{Faltungsintegral} beginnend ab unserem hier gewähltem
 Zeitpunkt $t=0$
+%
+\begin{mdframed}[backgroundcolor=C3!10]
 \begin{equation}
 y_p(t) = \int\limits_{0}^{t} h(t-\tau) x(\tau) \fsd \tau
 \end{equation}
+\end{mdframed}
 %
 Falls das System vorher in Ruhe war, ist dies auch die komplette Lösung $y(t)$.
 %
 
-Wir finden dieses Integral (mit allgemeineren Grenzen) in der Formelsammlung in dem
-Abschnitt Faltung. Das Integral ist als \textbf{Faltungsintegral}, die Operation als
-\textbf{Faltung} bekannt.
+Wir finden dieses Faltungsintegral (mit allgemeineren Grenzen) in der
+Formelsammlung in dem Abschnitt Faltung, da die Operation allgemeingültig als
+\textbf{Faltung} bekannt ist.
 %
 Für einen Zeitpunkt $t$ werden alle Beiträge der Eingangsgröße $x$ mit der Impulsantwort $h$
 gewichtet und \textit{addiert}. Bezüglich eines Zeitpunkts $t$, werden \textit{aktuelle}
@@ -1980,7 +2061,8 @@ sehr übersichtliche Weise und ist perfekt für die tägliche Ingenieurarbeit, s
 es in der Regelungstechnik, Kommunikationstechnik oder Maschinenbau, Mechatronik.
 
 
-\subsubsection{Rechenaufgabe}
+\subsubsection{Aufgabe: Homogene Lösung einer DGL 2. Ordnung mit konstanten
+Koeffizienten und Anfangsbedingungen}
 \label{sec:A7BEE9E24E_Aufgabe}
 \begin{Ziel}
 Anhand eines speziellen Beispieles, wollen wir die Impulsantwort berechnen. Auch,
@@ -1995,7 +2077,7 @@ Spezialfall.
 \end{align}
 die Lösung $y(t)$ für $t\geq 0$.
 \begin{Werkzeug}
-Entweder wir benutzen die Sachen aus dem vorangegangen Repetitorium
+Entweder wir benutzen die Sachen aus dem vorangegangen Repetitorium Abschnitt
 \ref{sec:A7BEE9E24E} oder
 wir befragen unsere Mathe-Vorlesungsunterlagen. Ziel soll zunächst sein, diese
 DGL korrekt zu lösen.
