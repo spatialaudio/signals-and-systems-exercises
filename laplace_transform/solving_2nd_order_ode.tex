@@ -1,68 +1,89 @@
-\documentclass[a4paper,11pt,oneside]{scrartcl}
+\documentclass[11pt,a4paper,DIV=14]{scrartcl}
 \usepackage[utf8]{inputenc}
+\usepackage{fouriernc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\KOMAoptions{DIV=14}
 \usepackage[english]{babel}
+\usepackage[hidelinks]{hyperref}
 \usepackage{natbib}
-\bibliographystyle{dinat}
-%
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
-%
-\usepackage{chngcntr}
-\counterwithout{figure}{section}
-\counterwithout{table}{section}
-%
-\usepackage{xcolor}
 \usepackage{url}
-%
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{trfsigns}
 \usepackage{nicefrac}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
 \usepackage{comment}
-%
+\usepackage{mdframed}
 \usepackage{tikz}
+\usepackage{verbatim}
+
+%\usepackage{chngcntr}
+%\counterwithout{figure}{subsection}
+%\counterwithout{table}{subsection}
+
+\numberwithin{equation}{subsection}
+\numberwithin{figure}{subsection}
+
+
+\bibliographystyle{dinat}
+
+\newcommand\fsd{\mathrm{d}} %Ableitungsoperator
+\renewcommand{\vec}[1]{\mathbf{#1}} %Vektor
+\newcommand{\eq}[1]{Eq. (\ref{#1})}
+\newcommand{\fig}[1]{Fig. \ref{#1}} %Zitat Abbildung
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\fscom}[2][red]{\textcolor{#1}{#2}}
+
 \usetikzlibrary{shapes.misc}
 \tikzset{cross/.style={cross out, draw,
          minimum size=2*(#1-\pgflinewidth),
          inner sep=0pt, outer sep=0pt}}
-%
-\newcommand{\eq}[1]{Eq. (\ref{#1})}
-%
-\newcommand{\fscom}[2][red]{\textcolor{#1}{#2}}
+
 \definecolor{CalcColor}{rgb}{0.0,0.0,0.5}
 \newcommand{\ExCalcCol}[2][CalcColor]{\textcolor{#1}{#2}}
 %\excludecomment{calc}
 \includecomment{calc}
+
+%##############################################################################
+\title{Signal- und Systemtheorie\\
+Übung\thanks{
+This tutorial is provided as Open Educational Resource (OER), to be found at
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+accompanying the OER lecture
+\url{https://github.com/spatialaudio/signals-and-systems-lecture}.
 %
-\title{Solving 2nd order ordinary differential equation (ODE) with constant
-coefficients}
-\author{Frank Schultz, fs446}
+Both are licensed under a) the Creative Commons Attribution 4.0 International
+License for text and graphics and b) the MIT License for source code.
 %
+Please attribute material from the tutorial as \textit{Frank Schultz,
+Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
+Computational Examples, University of Rostock} with
+\texttt{main file, github URL, commit number and/or version tag, year}.
+}
+\\
+\small Universität Rostock Vst.-Nr. 24015}
+%
+\author{Dr. Frank Schultz, Prof. Sascha Spors\\
+\small Institut für Nachrichtentechnik (INT)\\
+\small Fakultät für Informatik und Elektrotechnik (IEF)\\
+\small Universität Rostock
+}
+%
+\date{Sommersemester 2020, Version: \today}
+
+%##############################################################################
 \begin{document}
-%
-\noindent
-Continuous- and Discrete-Time Signals and Systems - A Tutorial with Computational Examples
-Uni Rostock, IEF, INT, Signal- \& Systemtheorie, \#24015, SS2020,
-\today, CC BY 4.0
-
-\noindent Prof. Dr.-Ing. Sascha Spors, Dr.-Ing. Frank Schultz
-
-\noindent \textbf{Solving 2nd Order, Linear, Ordinary Differential Equation with
+\setcounter{section}{2}  % UE 3 in our current sequence
+\maketitle
+\tableofcontents
+\clearpage
+\section{UE 3: Solving 2nd Order, Linear, Ordinary Differential Equation with
 Constant Coefficients}
-
-%##############################################################################
-%##############################################################################
-\section{Problem Statement}
-
-
-
-%##############################################################################
-\subsection{Electric RLC Circuit}
+\subsection{Problem Statement}
+\subsubsection{Electric RLC Circuit}
 For a voltage source $u_Q(t)=x(t)$---system input in Volt---connected to a
 series circuit consisting of
 a resistor with resistance $R$,
@@ -88,7 +109,7 @@ and output voltage $y(t)$.}
 
 
 %##############################################################################
-\subsection{Ordinary Differential Equation (ODE)}
+\subsubsection{Ordinary Differential Equation (ODE)}
 There is one current $i(t)$ flowing in the RLC circuit under discussion.
 The corresponding current-voltage laws for the components are
 $u_R(t) = R\,i(t)$,
@@ -116,7 +137,7 @@ L C \cdot \ddot{y}(t) + R C \cdot \dot{y}(t) + y(t) = x(t).
 
 
 %##############################################################################
-\subsection{Task}
+\subsubsection{Task}
 The ODE in \eq{eq:ODE_RLC} with
 $R = 3\,\nicefrac{\text{V}}{\text{A}}$,
 $L=2\,\nicefrac{\text{V s}}{\text{A}}$,
@@ -147,12 +168,12 @@ at right limit $t=0+$.
 
 %##############################################################################
 %##############################################################################
-\section{Time Domain Solution Preliminaries}
+\subsection{Preliminaries for Fundamental System of Solutions}
 
 
 
 %##############################################################################
-\subsection{Helping Variables}
+\subsubsection{Helping Variables}
 Before solving any of the requested tasks, it is good scientific and engineering
 practice to adapt the ODE for convenient handling and result's interpretation.
 Thus (by some experience dealing with such problems and reading text books, cf.
@@ -203,7 +224,7 @@ engineers with different job specialisation.
 
 
 %##############################################################################
-\subsection{Specific Parameters}
+\subsubsection{Specific Parameters}
 With the given values for the electric elements
 $R = 3\,\nicefrac{\text{V}}{\text{A}}$,
 $L=2\,\nicefrac{\text{V s}}{\text{A}}$,
@@ -242,7 +263,7 @@ In the remainder we omit the physical units in the calculus.
 
 
 %##############################################################################
-\subsection{Fundamental Set of Solutions for Homogeneous Solution}
+\subsubsection{Homogeneous Solution}
 \label{Sec:FundamentalSet}
 The present 2nd order ODE can be solved by means of the
 fundamental set of solutions
@@ -290,7 +311,7 @@ The homogeneous solution $y_h$ depends on the characteristics
 of the term $\sigma_0^2 - \omega_0^2$.
 Three cases need to be considered.
 
-\subsubsection{Case I for Homogeneous Solution (Kriechfall, starke Dämpfung if $\sigma_0<0$)}
+\paragraph{Case I for Homogeneous Solution (Kriechfall, starke Dämpfung if $\sigma_0<0$)}
 For
 \begin{align}
 \sigma_0^2 - \omega_0^2 > 0
@@ -308,7 +329,7 @@ $\dot{y}(t)$ and $y(t)$ for a given $t$ (very often $t=0$)
 of the the complete solution
 $y(t) = y_\text{null}(t)+y_\text{particular}(t)$.
 
-\subsubsection{Case II for Homogeneous Solution (Aperiodischer Grenzfall)}
+\paragraph{Case II for Homogeneous Solution (Aperiodischer Grenzfall)}
 For
 \begin{align}
 \sigma_0^2 - \omega_0^2 = 0
@@ -323,7 +344,7 @@ Then the Ansatz reads
 y_h = \mathrm{e}^{-\sigma_0 t} [A t + B].
 \end{align}
 
-\subsubsection{Case III for Homogeneous Solution (Schwingungsfall,
+\paragraph{Case III for Homogeneous Solution (Schwingungsfall,
 schwache Dämpfung if $\sigma_0<0$)}
 \label{pg:caseIII}
 For
@@ -365,7 +386,7 @@ for signal processing.
 
 
 %##############################################################################
-\subsection{Inhomogeneous Solution}
+\subsubsection{Inhomogeneous Solution}
 Now, let the ODE be of form
 \begin{align}
 a \, \ddot{y} + b \, \dot{y} + c \, y = x.
@@ -377,9 +398,9 @@ different inhomogeneities $x$.
 We restrict our discussion to the most often asked cases.
 We should check our math lecture notes for e.g. the method
 \textit{variation of parameters / Variation der Konstanten} for a general
-solution concept.
+solution concept, cf. \cite{Burg2013}.
 
-\subsubsection{Polynomial Function}
+\paragraph{Polynomial Function}
 The particular solution $y_p$ for the inhomogeneous ODE with
 polynomial $x = P_n(t)$ of degree $n$
 (for example $x = p_n t^n + p_{n-1} t^{n-1} + ... +p_0$)
@@ -398,7 +419,7 @@ coefficients in
 a \, \ddot{y}_p + b \, \dot{y}_p + c \, y_p = x.
 \end{align}
 
-\subsubsection{Exponential Function (i.e. Eigenfunctions of the ODE)}
+\paragraph{Exponential Function (i.e. Eigenfunctions of the ODE)}
 The particular solution $y_p$ for the inhomogeneous ODE with
 $x = \e^{s_x t}$
 requires the Ansatz
@@ -412,7 +433,7 @@ A t^2 \cdot \e^{s_x t}&\quad \text{if} \quad s_x \in \lambda_{1 \text{ and } 2}
 \end{align}
 and solving for the coefficient $A$ by comparing coefficients.
 
-\subsubsection{Cosine / Sine Functions (i.e. Special Case of ODE's Eigenfunctions)}
+\paragraph{Cosine / Sine Functions (i.e. Special Case of ODE's Eigenfunctions)}
 \label{Sec:CosSineAnsatzInhomo}
 The particular solution $y_p$ for the inhomogeneous ODE with
 $x=\sin(\omega_x t)$ or $x=\cos(\omega_x t)$
@@ -431,7 +452,7 @@ and solving for the coefficients $A, B$ by comparing coefficients.
 
 
 %##############################################################################
-\subsection{Full ODE Solution}
+\subsubsection{Full ODE Solution}
 The full solution of an ODE is the superposition of the homogeneous solution
 and inhomogeneous (particular) solution
 \begin{align}
@@ -445,12 +466,12 @@ given $t$ (very often $t=0$) to obtain the specific solution $y$.
 
 %##############################################################################
 %##############################################################################
-\section{Solution in Time Domain}
+\subsection{Solutions Using Fundamental System}
 
 
 
 %##############################################################################
-\subsection{Solution for Task a) in Time Domain / Impulse Response}
+\subsubsection{Task a) with Fundamental System / Impulse Response}
 We shall solve
 \begin{align}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = \delta(t)
@@ -522,7 +543,7 @@ We are going to calculate this manually in the following.
 %
 
 
-\subsubsection{Homogeneous Solution}
+\paragraph{Homogeneous Solution}
 \label{Sec:TaskaHomo}
 First, we need the homogeneous solution of the ODE for this subtask.
 %
@@ -558,7 +579,7 @@ and since $y_p=0$
 y = y_h + y_p = A \, \mathrm{e}^{(-\frac{3}{4}+\im)\,t} + B \, \mathrm{e}^{(-\frac{3}{4}-\im)\,t}.
 \end{align}
 
-\subsubsection{Initial Conditions}
+\paragraph{Initial Conditions}
 \label{Sec:TaskaInitCond}
 The initial conditions $y(0)=0$ and $\dot{y}(0)=\nicefrac{25}{16}$ require to find
 the derivative
@@ -601,7 +622,7 @@ h = y_\text{Task a} = \nicefrac{25}{16} \cdot \mathrm{e}^{-\frac{3}{4} t} \sin(t
 
 
 %##############################################################################
-\subsection{Solution for Task b) in Time Domain / Step Response}
+\subsubsection{Task b) with Fundamental System / Step Response}
 We shall solve
 \begin{align}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 1, \quad
@@ -609,7 +630,7 @@ We shall solve
 \end{align}
 for $y$ with the Ansatz of fundamental set of solutions.
 
-\subsubsection{Inhomogeneous Solution}
+\paragraph{Inhomogeneous Solution}
 The source term $x(t\geq 0+)=1$ exhibits unit
 amplitude over time. This can be stated as the most simple polynomial $p_0=1$.
 Thus, the polynomial Ansatz $y_p = q_0$ leads to
@@ -618,7 +639,7 @@ Thus, the polynomial Ansatz $y_p = q_0$ leads to
 \rightarrow q_0 = 1 \rightarrow  y_p = 1.
 \end{align}
 
-\subsubsection{Specific Solution with Initial Conditions}
+\paragraph{Specific Solution with Initial Conditions}
 The superposition of the homogeneous (this timewe use the sin/cos-Ansatz
 \eq{eq:Ansatz_caseIIIsincos} for demonstration purpose) and the inhomogeneous
 solution is
@@ -687,7 +708,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 
 %##############################################################################
-\subsection{Another Way to Solve Task a) in Time Domain / Impulse Response}
+\subsubsection{Task a) Revisited with Fundamental System / Impulse Response}
 %
 The Heaviside step function
 \begin{equation}
@@ -757,7 +778,7 @@ precisely identical to the manually calculated impulse response.
 
 
 %##############################################################################
-\subsection{Solution for Task c) in Time Domain}
+\subsubsection{Task c) with Fundamental System}
 Now, we shall solve
 \begin{align}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 0,
@@ -820,7 +841,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 
 %##############################################################################
-\subsection{Solution for Task d) in Time Domain}
+\subsubsection{Task d) with Fundamental System}
 In this task we shall solve
 \begin{align}
 \frac{16}{25} \ddot{y} + \frac{24}{25} \dot{y} + y = 1, \quad
@@ -909,7 +930,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 
 %##############################################################################
-\subsection{Solution for Task e) in Time Domain}
+\subsubsection{Task e) with Fundamental System}
 In this task we shall solve
 \begin{align}
 \label{eq:InHomoODE_sin}
@@ -966,6 +987,9 @@ thick/blue.
 It results from the superposition of i. weighted and \textbf{exponentially damped}
 sine and cosine functions (yellow and green graphs) and ii. weighted but \textbf{undamped}
 sine and cosine functions (brown and purple graphs).
+
+\subsubsection{Steady State of the System}
+%
 In this example it is important to realise that the initial conditions
 (exponentially damped sine and cosine) contribute
 to the system response only up to approximately $t=2\pi$
@@ -1011,7 +1035,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 
 %##############################################################################
-\section{Laplace Domain Solution Preliminaries}
+\subsection{Preliminaries for Laplace Transform}
 We should now study the problem with the help of the Laplace transform.
 For the chosen ODE and input signals the calculus effort is about the same,
 however for more complicated cases, the approach via Laplace transform
@@ -1044,7 +1068,7 @@ purpose.
 
 
 %##############################################################################
-\subsection{Laplace Transform}
+\subsubsection{Laplace Transform Fundamentals}
 The Laplace transform pair reads
 \begin{align}
 Y(s) = \mathcal{L}\{y(t)\}= \int\limits_{-\infty}^{\infty} y(t) \e^{-s t}
@@ -1103,7 +1127,7 @@ s^2 \cdot Y(s) - \sum_{k=1}^{2} s^{2-k} \cdot
 Note the \textbf{application of the initial conditions} in these transform rules!
 
 %##############################################################################
-\subsection{Solving ODE with Help of Laplace Transform}
+\subsubsection{Algorithm for Solving ODEs via Laplace Transform}
 
 Solving an ODE problem via the indirect way of Laplace transform is then as follows
 \begin{itemize}
@@ -1141,7 +1165,7 @@ A stable LTI system requires poles only left of the $\Im(s)$-axis, i.e. only in
 the left half of the $s$-plane.
 
 %##############################################################################
-\subsection{Laplace Transform of an ODE}
+\subsubsection{Laplace Transform of the 2nd Order Linear ODE with Constant Coefficients}
 The ODE under discussion is still \eq{eq:ODE_sigma0}
 \begin{align}
 \frac{\ddot{y}}{\omega_0^2} + \frac{2 \sigma_0}{\omega_0^2} \dot{y} + y = x
@@ -1227,7 +1251,7 @@ solution.}
 
 
 %##############################################################################
-\subsection{Specific Parameters}
+\subsubsection{Specific Parameters}
 For our chosen quantities
 $\omega_0=\frac{5}{4}$,
 $\sigma_0 = \frac{3}{4}$,
@@ -1265,10 +1289,10 @@ We require the following input signals for this exercise
 
 %##############################################################################
 %##############################################################################
-\section{Solution in Laplace Domain}
+\subsection{Solutions Using Laplace Transform}
 
 %##############################################################################
-\subsection{Solution for Task a) in Laplace Domain}
+\subsubsection{Task a) with Laplace Transform / Impulse Response}
 \label{sec:TransferFunction}
 We shall find the inverse Laplace transform
 $y(t) = \mathcal{L}^{-1}\{Y(s)\}$ for
@@ -1309,7 +1333,7 @@ These will often appear as solutions for ODEs under discussion.
 
 
 %##############################################################################
-\subsection{Solution for Task b) in Laplace Domain}
+\subsubsection{Task b) with Laplace Transform / Step Response}
 We shall find the inverse Laplace transform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
 for
 \begin{align}
@@ -1368,7 +1392,7 @@ InverseLaplaceTransform[(1/s)/(16/25*s^2+24/25*s+1)]
 \end{verbatim}
 
 %##############################################################################
-\subsection{Solution for Task c) in Laplace Domain}
+\subsubsection{Task c) with Laplace Transform}
 We shall find the inverse Laplace transform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
 for
 \begin{align}
@@ -1398,7 +1422,7 @@ InverseLaplaceTransform[(16/25*s+56/25)/(16/25*s^2+24/25*s+1)]
 
 
 %##############################################################################
-\subsection{Solution for Task d) in Laplace Domain}
+\subsubsection{Task d) with Laplace Transform}
 We shall find the inverse Laplace transform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
 for
 \begin{align}
@@ -1423,7 +1447,7 @@ InverseLaplaceTransform[(1/s+16/25*s+56/25)/(16/25*s^2+24/25*s+1)]
 
 
 %##############################################################################
-\subsection{Solution for Task e) in Laplace Domain}
+\subsubsection{Task e) with Laplace Transform}
 We shall find the inverse Laplace transform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
 for
 \begin{align}
@@ -1591,7 +1615,7 @@ InverseLaplaceTransform[(1/(s^2+1^2))/(16/25*s^2+24/25*s+1)]
 
 
 %##############################################################################
-\subsection{Frequency Response of the System}
+\subsubsection{Transfer Function and Frequency Response of the System}
 %
 With \eq{eq:steadystate_timedomain}
 \begin{align}
@@ -1603,16 +1627,22 @@ we explored the \textbf{steady state} of the system giving
 amplitude and phase offset for $\omega=1$.
 %
 A convenient way to calculate the steady state for many (all) $\omega$, is to evaluate
-the \textbf{Laplace transform}, i.e. \textbf{the transfer function} along the
-$\im\omega$-axis
+the \textbf{Laplace transform}, i.e. \textbf{the transfer function} of the system,
+see taks a)
+\begin{align}
+H(s) = \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}
+\end{align}
+along the
+$\im\omega$-axis of the $s$-domain
 \begin{align}
 H(\im\omega)
 = \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}\bigg|_{s=\im\omega}
 = \frac{1}{\frac{16}{25} (\im\omega)^2 + \frac{24}{25} \im\omega + 1}
 = \frac{1}{ (1 -\frac{16}{25} \omega^2) + \im (\frac{24}{25} \omega)}.
 \end{align}
-This constitutes the \textbf{Fourier transform} of the system and is known as
-\textbf{frequency response} $H(\im\omega)$.
+This constitutes the \textbf{Fourier transform} $\mathcal{F}\{h(t)\}$
+of the impulse response $h(t)$ and is known as
+\textbf{frequency response} $H(\im\omega)$ of the system.
 %
 Typically, $H(\im\omega)$ is complex-valued (only in rare, special cases
 it is real-valued), thus it is meaningful to specify the magnitude and the phase
@@ -1651,6 +1681,9 @@ The resulting magnitude and phase
 are precisely identical with \eq{eq:steadystate_timedomain},
 proving that the shown concepts are consistent.
 %
+Thus, evaluating the frequency response give us information about the steady
+state of a system.
+%
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\textwidth]{frequency_response_mag_phase}
@@ -1663,11 +1696,11 @@ $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
 
 %##############################################################################
 %##############################################################################
-\newpage
-\section*{Appendix A}
+\clearpage
+\subsection*{Appendix A}
 
 %##############################################################################
-\subsection*{Important Laplace Transform Pairs for Right-Sided Signals}
+\subsubsection*{Important Laplace Transform Pairs for Right-Sided Signals}
 The Dirac Delta Impulse pair reads
 \begin{align}
 \boxed{\delta(t) \quad \laplace \quad 1 \quad \text{ROC}: \mathbb{C}}\,.
@@ -1723,7 +1756,7 @@ and
 %##############################################################################
 %##############################################################################
 \newpage
-\section*{Appendix B}
+\subsection*{Appendix B}
 TBD the big picture ODE 1st/2nd, cf. \cite[p.117]{Strang2014}
 
 \bibliography{literatur}
