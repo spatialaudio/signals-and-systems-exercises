@@ -1,0 +1,252 @@
+
+%Laplace Trafo macht jetzt etwas sehr elegantes: anstatt jedesmal das Matrix Problem aufzustellen (DGL n-ter Ordnung ergibt nxn Matrix und n Eigenwerte/Eigenvektoren), hat man das Problem
+%mit Rechenregeln direkt in ein algebriasches Problem überführt, und nicht nur das es erlaubt das elebante Handling von Eingangsgrößen und Anfangs/Randbedingungen. Dadurch werden DGL erst bequem oder überhauot lösbar. Die Einführung der Laplace vor ca. 100 Jahren und ihre Formalisierung in den 1960/70er Jahren hat maßgeblich zum Weiterentwiklung analoger Signalverabrietung beigetragen und muss auch heute noch als wichtige Essenz des IngHandwerks verstanden werden.
+
+%\begin{comment}
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 2: Basics: Elementarsignale, Lineare Systeme}
+Zielsetzung / Objectives:
+Basics Signale / Lineare Systeme
+
+
+Fahrplan
+\begin{itemize}
+\item Elementarsignale rect, sprung, exp(jwt), Superposition, Zeit/Amplitudenskalierung, Zeitverschiebung/inversion
+\item Systeme Test auf Linearität, i.e. Superposition, Zeit Verschiebung, Amplitudenskalierung
+\item einfache aber plakative Beispiele, vlt. Corona Zeitreihe
+\item Ausblick: Verknüfung Signal -> System -> Signal, vs. DGL, vs. FR, d.h. Rückgriff auf UE1
+\item Message System: DGL ist mühsam, viele lineare Systeme lassen sich deutlich einfacher und elegnater lösen
+\item Message Signal: manchmal(sehr oft) ist es vorteilhaft das Signal anders darzustellen (Frequenzanalyse), um
+an Informationen ranzukommen, BSP: funktechnik, Video
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 3: Faltung zeitkontinuierlich}
+Zielsetzung / Objectives: Idee der Faltung, Faltungsintegral allgemein, Link zu System: Faltung mit einer Impulsantwort
+
+Fahrplan
+\begin{itemize}
+\item Tiefpass erster Ordnung, Sprungantowrt analytisch, Impulsantwort analytisch, Faltung für rect analytisch und grafisch
+\item Link Sprung / Impuls
+\item DGL lösen vs. Falten
+\item Beispiel SOS Hochpass analytisch/grafisch, Interpretation/Erwartungshaltung was sehen wir in Immuls/Sprung, vgl. zu Tiefpass
+\item Faltung Eigenfunktion mit Impulsantowt, Teaser zu Amplitude und Phase
+\item Beispiel: Bildverabreitunt Glättungsfilter = Tiefpass, Kanten
+\item Message: Faltungsintegral fundamental zur beschreibung Signale->LTI Systeme->Signale
+\item Message: Faltungsintegral bzw. die Impulsantwort analytisch lösen/beschreiben oft kompliziert bis hin zu unlösbar, daher suchen wir elegante adequate beschreibungen, zB im Freqz
+vgl. eine einfache 2nd order H(s) vs. komplizierter Ausdruck für Impz
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 4: DGL vs. Impulsantwort vs. Laplace Trafo}
+Zielsetzung / Objectives: Sinn der Laplace Trafo, HinTrafo, Link Impulsantowrt H(s), Laplace Ebene
+
+Fahrplan
+\begin{itemize}
+\item von DGL Tiefpass1st zu h(t) zu H(s) mit Def Laplace Trafo
+\item Direkter Link DGL konst Koeff zu H(s)
+\item Polstellen in Lapalce sind NST des Char Pol, zusätzlich in Laplace: NST
+\item Analytisches Rechnen einfache Laplace Hin Trafos, stückweise stetige Signale
+\item Korrespondenzen / Eigenschaften motivieren, Sprung / Impulse Zusammenhang in Laplace, Mod, Delay, was passiert jeweils im PZ
+\item Faltung vs. Mult
+\item Message: bisher vermeintlich noch nicht so viel gewonnen, außer andere Denke, aber in der übernächsten UE wird das alles sehr sinnvoll anzuwenden sein, aus Faltung Mult machen hat  großen Impact
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 5: Laplace Rücktrafo, ROC}
+Zielsetzung / Objectives: Damit das Tool Laplace vollständig sinnvoll ist, brauchen wir auch die Rücktrafo,
+komplexes Integral :-(, meist nicht rechnen, sondern mit Korrespondeze oder der
+partialbruchzerlegung (Spezialfall der allg. Rücktrafo Integralsatz), wir wollen aus einer PZ Verteliung eine Impulsanfort/Springantwort/Signal finden
+
+Fahrplan
+\begin{itemize}
+\item H(s) tiefpass/hochpass rücktransfomrieren, wir wissen aus UE3 was die Lösung sein muss
+\item PZB Beispiele
+\item KB / ROC Problematik, bisher kausale Systeme/Signale, aber Mehrdeutigekt, daher BSP links/rechts/beidseitg (diese Reihenfolge, wichtig, weil viel weniger verwirrend, also erst Spezialfall, dann allgemeinfall)
+\item Message: wir können nun Laplace Hin/Rück trafo und es wurde bahuptet, dass es DGLs einfacher lösbar macht, das schauen wir uns in der nächsten UE im Detail an
+\item Message: wir können mit Laplace Dinge machen die mit FT nicht gehen, KOnverhenz des Integrals erzwingen, damit Sprunghafte Signale erlaubt
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 6: Beispiel System 2. Ordung Laplace vs. DGL}
+Zielsetzung / Objectives: Anhand eines Tief- oder Hochpasssystems 2. Ordnung soll
+einmal alles durchgepsielt werden, um den Sinn/Eleganz der Laplace Trafo zu demonstrieren, Falt zu Mult
+
+Fahrplan
+\begin{itemize}
+\item DGL homo + verschiedene inhom, so dass man Sprung/Impulsantowrt und Aexp(jwt+phi) errechnet
+\item verschiedenene Schwingungszustände durch verschiedene NST des char Polynoms, versch Ansätze für part Ansatz mühsam
+\item Laplace H(s) + Anfangs/Randbed, Diskussion PZ
+\item Inverse Laplace für Sprung/Impuls/exp-Antowrten
+\item Message: man sollte hier nun gesehen haben, dass Laplace in der Tat eleganter ist, zumindest für die hier betrachteten LTI 2nd order Systeme
+\item Systemstabilität andeuten
+\item Message: Statt nur hin/her zu transfomieren, können wir aber im Laplace Bereich noch mehr Info aus der PZ Ebene rausholen, daszu setzen wir sigma=0 und landen bei
+einem Spezialfall der Lapace Trafo, nämlich der Fourier Trafo
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 7: Fourier Trafo}
+Zielsetzung / Objectives: Trafo für eingeschwungene Zustände, Anaylse Frequenzgang Systeme, FrequenzAnaylse spezieller Signaltypen
+
+Fahrplan
+\begin{itemize}
+\item Begriff Spektrum
+\item Anayltische Beisoiele für Mod, Delay, Soektralanalysue
+\item Energie
+\item Korrespondenzen
+\item Gem/Untersch Fouirer / Laplace
+\item Link zur FR, periodische Signale vs. Linienspektrum -> wir kennen jetzt 2 von 4 Trafos
+\item Message: Rückgriff aus UE1, jetzt macht die Anwendnung vlt mehr Sinn
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 8: Bode Plot/Nyquist Plot}
+Zielsetzung / Objectives: Ing Tools um aus Laplace
+Fourier Abschätzungen zu Systemeigenschaften zu treffen, früher manuell wichtig, heute
+Computer, aber Kopfschätzungen auch heute noch sehr relavent, was macht ein Pol, eine NST
+
+Fahrplan
+\begin{itemize}
+\item Bode Regeln PZ für Magnitude
+\item Bode Regeln PZ für Phase
+\item Beispiel Bode für das System aus UE 6
+\item Typische 'Kurven'diskussion für System ist also: H(s), h(t), he(t), PZ, KB, Mag/Phase
+\item Parallel / Reihenschaltund anhand Bode, Ausblick: Feedback Regler
+\item Stabilität durch Pole schieben
+\item Message: Bode und Nyquist Plots waren in analog Zeiten DIE Tools, Abschätzung
+per Hand auch heute noch wichtig, weil Verständnis für die Dinge
+\item Message: wir sind damit durch mit zeitkont Signalen, es lohnt sich für alle bisherig behandelten Trafos (FT, FR, Laplace) exolizit nochmal mit den Eigenschaften z ubeschäftigen -> evtl. Sonderrechenblatt wo nur das behandelt wird
+\item Schaubild x->h->y vs. X->H->Y
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 9: Abtastung / Rekonstruktion}
+Zielsetzung / Objectives: Erklärung Abtastung im Spektralbereich mittels Fourier trafo
+
+Fahrplan
+\begin{itemize}
+\item Rückgriff Fourier Trafo, Dirac Kamm, Exp/Sin/Cos
+\item Rückgriff Spektrum / Signal Vershc / Mod-> das brauchen wir jetz wieder
+\item Anwendung: Signal Abtastung und Rekonsturktion
+\item Sinc Rect Dualität again
+\item Ausblick Signal vs. Spektrum Denke (Beweis Abtasttheorem Kotelnikov, FH Lange)
+\item Message: WKS-Abtasttheorem ist ein mögliches Szenario mit Signalannahmen und
+idealer (d.h. praktisch nicht realisierbarer) Reko, Praxis: andere Interpolatoren, oder aber andere Sampling Schemes, je nach Signaltyp
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 10: Basics Elementarsignale, Lineare Systeme}
+Zielsetzung / Objectives: Für Folgen kann man ähnliche
+Elementarsignale und Eigenschaften für LTI Systeme aufstellen, Eigensignale/lösungen von DiffGl
+
+Fahrplan
+\begin{itemize}
+\item Rect/Exp/Sin/Cos, Periodizität, Eigensignale, Stem Plots!
+\item Denke zu DiffGlg
+\item Zeitverschiebung, Modulation, Zeitstreckung/Stauchung, Ampitudenskal, Zeit/Ampl-Inversion
+\item Checks auf System Lineariät
+\item Message: es gibt fundamentale Gemeinsamkeiten zwischen zeitkont/diskret, aber
+auch ein paar sehr wichtige Unterschiede. Das Wesen wie Tools benutzt werden ist aber komplett gleich
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 11: The Big Picture FT / FR / DTFT / DFT}
+Zielsetzung / Objectives: Erkennen/Erarbeiten der großen Zusammenhänge,
+die DFT ist die FR für diskrete Signale, die DTFT ist die FT für diskrete Signale.
+Vom Wesen, das was UE1 für zeitkont. Signale war, Zusammenhang für diskrete Siganle aufzeigen
+Didaktisch: funktioniert bestens als WDH/Neueinstieg und als Teaser für das Kommende
+
+Fahrplan
+\begin{itemize}
+\item Gemeinsamkeiten/Unterschiede Signale und deren Spektren (Periodizität, Linienspektrum)
+\item Sinc / Rect Dualitäten, Dirac aus Sinc
+\item Link als Ausblick: Laplace und z-Trafo als Systembeschreibungs Trafos und Frequenzgang in der FT und DTFT
+\item Ausblick: es gibt auch wieder Faltung vs. Mult, Pole/Nullstellen, aus DGL wird DifffGlg
+\item Message: jede Signaltyp hat seine Spektraldarstellung in exp()-Eigenfunktionen
+für viele Signale ist diese Zerlegung sinnvoll, für andere aber gar nicht (KOnvergenz Fourierreihe)
+wichtig ist, die richtige Trafo für das richtige Problem und souveränder Wechsel zwischen den Trafos, ist
+Ing Handwerk
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 12: Zeitkdiskrete Faltung}
+Zielsetzung / Objectives: Fundamentals der Faltung für Zeitdiskrete Signale
+
+Fahrplan
+\begin{itemize}
+\item Faltungssume
+\item Grafisch vs. Analytisch
+\item Periodische / Linear Faltung
+\item Korr vs. Conv summe (Machine Learning Link)
+\item Message: Faltung diskret vtl. sogar einfacher als Integral, weil Summe
+zugänglicher, Wesen erfassen: lange zurücliegende Samples werden mit sehr späten Samples der IR verrechnet, Ursache Wirkung plausibilisieren (Dirac Kamm)
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 13: z-Trafo}
+Zielsetzung / Objectives: Sinn und Eigenschaften der zTrafo erlernen, weil wir ja eigentlich zu Analyse von Systemen nicht immer falten wollen, also Falt vs. Mult auch bei Zeitdiskret erarbeiten, statt Laplace machen wir das mit zT
+
+Fahrplan
+\begin{itemize}
+\item aus DiffGL wird ein z Polynom, Analogie zu Laplace
+\item z-Plane statt s-Plane
+\item Korrespondenzen einfache rekursive / nicht rek Systeme, exp(jWt)
+\item Beispiele Hin / Rücktrafo / ROC, Pole / NST
+\item Signal X(s), Y(s), System H(s)
+\item Schaubild x->h->y vs. X->H->Y
+\item Message: mit Schaubild udn Vorwissen Laplace sollte wir das Tool zT zu schätzen wissen
+\item TBD: DiffGL -> z Vorwärts,Rückwärts, Centered Int, Reihenentwicklung
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 14: DTFT / DFT Im Detail}
+Zielsetzung / Objectives: vertiefendes Kennenlernen der beiden Neuen Fourier Trafos
+
+Fahrplan
+\begin{itemize}
+\item einfache Hin/Rück, Korrespondenzen, va. Mod, Mult, Dly
+\item DTFT Mag/Phase eines FIR, Was machen Nullstellen im Spektrum, Ausblick: FensterDesign als Spezialfall von Design endlicher Folgen-> Codes mit bestimmtem Spektrum
+\item schnelle Faltung über zeropadded DFT
+\item Message: DTFT und DFT sind Pendants von FT und FR, spezielles Problem in best Domäne sehr elegant mit richtiger Trafo
+\end{itemize}
+
+
+
+%------------------------------------------------------------------------------
+\newpage
+\section{UE 15: z-Trafo großes Beispiel SOS}
+Zielsetzung / Objectives: komplette analytische 'Kurvendiskussion' für rek und nichtrek System
+
+Fahrplan
+\begin{itemize}
+\item rek System 2nd order, zB wieder der Tiefpass, impz, step, H(z), PZ, Mag/Phase usw.
+\item nicht rek System, Spezialfall Sym IR und Linearphasigkeit, impz, step, H(z), PZ, Mag/Phase usw.
+\item Min/allpass Phase
+\item Inversion
+\item Ausblick: Bode Approx hier etwas unangenehmer, aber im Prinzip gleiche
+\item Wichtig:!!! Code für IIR / FIR Filter, FIR ist Conv, IIR ist DiffGl
+\item Message: einmal Systemanalyse z-Trafo/DTFT für IIR/FIR durchgespielt, in der Praxis werden die Systeme nur komplizierte, nicht aber die Tools
+\end{itemize}
+%\end{comment}

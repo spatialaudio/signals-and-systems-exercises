@@ -158,11 +158,12 @@ denoting the Dirac-Delta impulse $\delta(t)$.
 %and Heaviside step function
 %$\epsilon(t)= \{0\,\,\text{for}\,\,t < 0;\,\,\, 1\,\,\text{for}\,\,t \geq 0\}$.
 %
-The task shall be performed in the time domain and with the help of the Laplace
-transform.
+For Dirac impulse initial conditions refer to $t=0-$ since excitation is at $t=0$.
+For other signals, initial conditions refer to the exact time instance $t=0$,
+excitation signals start at right limit $t=0+$.
 %
-Initial conditions refer to the exact time instance $t=0$, excitation signals start
-at right limit $t=0+$.
+The task shall be performed with help of the \textbf{fundamental system of solutions}
+and and with the help of the \textbf{Laplace transform}.
 
 
 
@@ -506,10 +507,11 @@ system theory (where we only handle time dependence), we call the Green's
 function $g(t)$ typically the \textbf{impulse response} $h(t)$ of the
 \textbf{LTI system} and use the convolution $y_p(t) = x(t) * h(t)$.
 
-\textbf{Important detail}: Actually the initial conditions problem
-$\frac{16}{25} \ddot{h}(t) + \frac{24}{25} \dot{h}(t) + h(t) = \delta(t), h'(0-)=0, h(0-)=0$
-solves for the impulse response, where we need the left sided limit $t=0-$,
-since the Dirac impulse excites at $t=0$.
+\textbf{Important detail}: Actually the problem
+$\frac{16}{25} \ddot{h}(t) + \frac{24}{25} \dot{h}(t) + h(t) = \delta(t),\,\,\,
+\dot{h}(0-)=0,\,\,\,h(0-)=0$
+solves for the impulse response, where we need the \textbf{left sided}
+limit $t=0-$, since the Dirac impulse excites at $t=0$.
 %
 This proof is a little bit off-topic due to lack of time.
 %
