@@ -1,0 +1,117 @@
+\section*{Einleitung}
+%
+Aus aktuellem Anlass einer hoffentlich einmaligen COVID-19 Pandemie, entsteht
+dieses ausführliche Skript mit Übungsaufgaben, um die Signal- und Systemtheorie
+(SigSys) zu vertiefen.
+%
+Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher Stoff
+aus Mathematik Grundlagenvorlesungen.
+%
+Das was wir aber an Mathematik brauchen, muss sicher beherrscht werden.
+%
+Dies gelingt durch individuelle Übung.
+%
+Das Klären des \textbf{Was?, Warum? Wie?} und die vorangestellte \textbf{Frage des Wesens}
+bei der Vermittlung und Vertiefung von Stoff liegt in der
+Verantwortung der Dozierenden.
+%
+Dies zu beherzigen und dem streng zu folgen ist viel wichtiger als die neuesten
+oder die tradiertesten technischen Errungenschaften für die Didaktik zu benutzen.
+%
+Es gibt unterirdisch schlechte, genauso wie brillante Tafelvorlesungen,
+E-Learning Videos, Lehrbücher usw.
+%
+Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller Erarbeitungs-
+und Selbstreflexionsprozess, den jede(r) mit eigener Strategie bewältigt.
+%
+
+Ich hab mich nach langem Überlegen für ein klassisches Skript entschieden,
+um den nötigen Stoff (komplett neu) aufzubereiten.
+%
+Jede Übung werde ich in einem kurzen Screencast-Video des vorliegenden Skripts
+ankommentieren und teasen (ich hoffe ich komme zeitlich mit allem hinterher).
+%
+Unterstützt wird dieses Übungsskript durch kleine Python-Skripte in
+Jupyter Notebooks (*.ipynb Dateien),
+welche alle hier enthaltenen Diagramme erzeugen, sodass Sie
+detailliert nachschauen können und mit diesen Beispielen eigene Versuche machen
+können.
+%
+Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
+Lernziel fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
+
+Im StudIP haben wir eine \textbf{Formelsammlung} bereitgestellt. Dort sind die
+wichtigsten Zusammenhänge der Signal- und Systemtheorie kompakt auf vier DIN A4
+Seiten zusammengetragen. Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten
+und zu verstehen. Diese Formelsammlung steht während der Klausur zur Verfügung.
+
+Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester,
+teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des letzten
+Sommersemesters 2019 für Fans den nichtlinearen Lernens.
+
+Das LaTex-Projekt zu diesem vorliegenden Skript und alle Jupyter Notebooks
+gibt es unter
+\begin{mdframed}[backgroundcolor=C2!10]
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+\end{mdframed}
+%
+Regelmäßiges Update des Skripts als fertiges PDF erfolgt im StudIP.
+%
+Unter
+\begin{mdframed}[backgroundcolor=C2!10]
+\url{https://github.com/spatialaudio/signals-and-systems-lecture}
+\end{mdframed}
+finden sich die Unterlagen der Vorlesung.
+%
+Jeder ist eingeladen bei diesen zwei Projekten Fehler zu finden, Verbesserungen
+vorzuschlagen oder sogar selber vorzunehmen (mittels neuem git branch).
+%
+Zudem sollten wir die StudIP-Mittel \textbf{Wiki, Forum, Blubber} usw. zusammen
+intensiv nutzen um das kommende Semester bestmöglich zu bestreiten.
+%
+Ich werde zur planmäßigen Übungszeit Mi 11:00 bis 13:00 online im StudIP sein
+und für Blubber etc. zur Verfügung stehen.
+%
+Gerne jederzeit Fragen ins Forum (dann haben alle etwas davon).
+
+\newpage
+\subsection*{Aufbau Aufgabe}
+\begin{Ziel}
+Das Wesen vorher klären mit Was?, Warum?, Wie? ist essentiell, damit wir das
+Lernziel erfassen können und Lernen nicht willkürliches Puzzleteilsammeln ist.
+Aus dem Was?, Warum?, Wie? und der gestellten Aufgabe sollten wir immer eine
+Erwartungshaltung entwickeln, bevor wir uns rein handwerklich der Lösung nähern.
+\end{Ziel}
+\textbf{Aufgabe:} Berechnen Sie..., Zeigen Sie..., Falls...warum..., Erläutern
+Sie anhand...
+\begin{Werkzeug}
+Hier meist Formeln, Zusammenhänge, Modelle. Wir benutzen die Formelsammlung
+wo es geht und lesen ideal andere Literatur zum Thema, um die nötigen Werkzeuge
+aus anderen Blickwinkeln zu erfassen.
+\end{Werkzeug}
+\begin{Ansatz}
+Problemstellung in eine Formel überführt. Als nächstes können wir rechnen, also
+reines Handwerk betreiben.
+\end{Ansatz}
+\begin{ExCalc}
+Ein möglicher Rechenweg, wir sollten mit eigenem Stil
+rechnen.
+Händisches Rechnen, im Vergleich zu reinem Lesen und computergestützten Lösungen,
+steigert die kognitive Kompetenz und erleichtert dem Kopf den Zugang zum Thema.
+\end{ExCalc}
+\begin{Loesung}
+Endergebnisse, Grafiken und ganz wichtig ist --- nicht der fragwürdige Antwortsatz
+aus der Schulphysik --- sondern vielmehr eine Interpretation der Lösung
+für das gestellte Problem. Was ist unser Erkenntnisgewinn? Was sehen wir in den
+Formeln? Was lesen wir aus den Grafiken? Wurde unsere Erwartungshaltung erfüllt
+oder nicht.
+
+In der Klausur ist typischerweise so viel Stoff abzufragen und so wenig Zeit,
+dass so etwas leicht auf der Strecke bleiben kann. Jedoch eine im Kopf
+durchgeführte Interpretation ist ein hervorragender Plausibilitätscheck, ob das was
+wir da gerechnet haben, sein kann. Und je mehr Aufgaben wir
+vorher geübt haben (eigentlich je mehr wir vom Wesen verstanden haben und in
+Echtzeit verwenden können; das wird aber gern mit viel Üben oder gar
+Auswendiglernen gleichgesetzt),
+desto leichter und schneller wird uns das fallen.
+\end{Loesung}
