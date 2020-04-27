@@ -1,0 +1,160 @@
+\begin{figure}
+\begin{center}
+%sigma < 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \convAbsz {-1}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-1,0) node{\Huge $\times$};
+\draw (-1,\tic)--(-1,-\tic) node[below]{$\sigma_0$};
+%\draw (-\tic,1) -- (\tic,1) node[right]{$\omega_0$};
+%\draw (-\tic,-1) -- (\tic,-1) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0<0, \omega_0=0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+s_0 t} \cdot \epsilon(t)$},
+title = {$\e^{+s_0 t} \cdot \epsilon(t) \, \laplace \, \frac{1}{s-s_0}\text{ für }\Re\{s\} > \Re\{+s_0\}$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={0},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-x)};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+% sigma = 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (0,0) node{\Huge $\times$};
+\draw (0,\tic)--(0,-\tic) node[below]{$\sigma_0$};
+%\draw (-\tic,1) -- (\tic,1) node[right]{$\omega_0$};
+%\draw (-\tic,-1) -- (\tic,-1) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0=0, \omega_0=0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+s_0 t} \cdot \epsilon(t)$},
+title = {$\e^{+s_0 t} \cdot \epsilon(t) \, \laplace \, \frac{1}{s-s_0}\text{ für }\Re\{s\} > \Re\{+s_0\}$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={0},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(0*x)};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+%sigma >0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \convAbsz {+1}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (1,0) node{\Huge $\times$};
+\draw (1,\tic)--(1,-\tic) node[below]{$\sigma_0$};
+%\draw (-\tic,1) -- (\tic,1) node[right]{$\omega_0$};
+%\draw (-\tic,-1) -- (\tic,-1) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0>0, \omega_0=0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+s_0 t} \cdot \epsilon(t)$},
+title = {$\e^{+s_0 t} \cdot \epsilon(t) \, \laplace \, \frac{1}{s-s_0}\text{ für }\Re\{s\} > \Re\{+s_0\}$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=12.1,
+xtick={0},
+ytick={0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(x)};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\caption{\textbf{Kausales} 1-Pol Signal.
+Links: $s$-Ebene, rechts: zugehöriges \textbf{rechtsseitiges}
+Signal $\e^{s_0 t} \cdot \epsilon(t)$ für $s_0 = \sigma_0 + \im \omega_0$ mit
+$\omega_0=0$ und Variation von $\sigma_0$.
+Das Signal ganz unten ist nicht beschränkt.}
+\label{fig:0B03A693AD_rightsided}
+\end{figure}

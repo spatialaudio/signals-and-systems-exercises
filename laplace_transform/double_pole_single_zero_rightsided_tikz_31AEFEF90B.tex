@@ -1,0 +1,188 @@
+\begin{figure}
+\begin{center}
+%sigma < 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1/4}
+\def \omegaz {5/4}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$\sigma_0$};
+\draw (-\tic,\omegaz) -- (\tic,\omegaz) node[right]{$+\omega_0$};
+\draw (-\tic,-\omegaz) -- (\tic,-\omegaz) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0<0, \omega_0>0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=64,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+\sigma_0 t} \, \cos(\omega_0 t) \, \epsilon(t)$},
+title = {$\e^{+\sigma_0 t} \cos(\omega_0 t) \epsilon(t)
+\, \laplace \,
+\frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}
+\text{ für }\Re\{s\} > +\sigma_0$},
+xmin=-0.1, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={0},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-\sigmaz*4*x) * cos(deg(\omegaz*4*x)))};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+
+% sigma = 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0}
+\def \omegaz {5/4}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$\sigma_0$};
+\draw (-\tic,\omegaz) -- (\tic,\omegaz) node[right]{$+\omega_0$};
+\draw (-\tic,-\omegaz) -- (\tic,-\omegaz) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0=0, \omega_0>0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=64,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+\sigma_0 t} \, \cos(\omega_0 t) \, \epsilon(t)$},
+title = {$\e^{+\sigma_0 t} \cos(\omega_0 t) \epsilon(t)
+\, \laplace \,
+\frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}
+\text{ für }\Re\{s\} > +\sigma_0$},
+xmin=-0.1, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={0},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-\sigmaz*4*x) * cos(deg(\omegaz*4*x)))};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+
+%sigma >0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {-1/4}
+\def \omegaz {5/4}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$\sigma_0$};
+\draw (-\tic,\omegaz) -- (\tic,\omegaz) node[right]{$+\omega_0$};
+\draw (-\tic,-\omegaz) -- (\tic,-\omegaz) node[right]{$-\omega_0$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,-1.75) node[draw,outer sep=0pt]{$\sigma_0>0, \omega_0>0$};
+\draw (1.25,1.75) node[]{$g=+1$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:4,
+samples=64,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\e^{+\sigma_0 t} \, \cos(\omega_0 t) \, \epsilon(t)$},
+title = {$\e^{+\sigma_0 t} \cos(\omega_0 t) \epsilon(t)
+\, \laplace \,
+\frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}
+\text{ für }\Re\{s\} > +\sigma_0$},
+xmin=-0.1, xmax=4,
+ymin=-10.1, ymax=10.1,
+xtick={0},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-\sigmaz*4*x) * cos(deg(\omegaz*4*x)))};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\caption{\textbf{Kausales} 2-Pol/1-NST Signal für
+$\sigma_0\in\mathbb{R}$ und $\omega_0\in\mathbb{R}, >0$.
+Links: $s$-Ebene, rechts: zugehöriges \textbf{rechtsseitiges}
+Signal $\e^{+\sigma_0 t} \, \cos(\omega_0 t) \, \epsilon(t)$
+mit Variation von $\sigma_0$.
+Das Signal ganz oben geht wegen exp() und $\sigma_0<0$ asymptotisch gegen Null.
+Das Signal in der Mitte ist eine harmonische cos()-Schwingung für $t>0$, weil
+$\sigma_0=0$.
+Das Signal ganz unten ist nicht beschränkt, weil exp() wegen $\sigma_0>0$ wächst.
+}
+\label{fig:31AEFEF90B}
+\end{figure}
