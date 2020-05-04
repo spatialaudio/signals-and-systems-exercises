@@ -6,14 +6,12 @@ tmp
 ## rendered pdf files
 laplace_transform/*.pdf
 laplace_system_analysis/*.pdf
+fs/*.pdf
+ft/*.pdf
+dirac_impulse_ct/*.pdf
 
 ## for tutorial_latex_deu
-sig_sys_ex.pdf
-D1483A84E2_*.pdf
-1CFE5FE3A1.pdf
-8C3958BE4F_*.pdf
-A8A2DEE53A.pdf
-D410BDAAE0.pdf
+tutorial_latex_deu/sig_sys_ex.pdf
 
 ## ipynb stuff
 *-checkpoint.ipynb

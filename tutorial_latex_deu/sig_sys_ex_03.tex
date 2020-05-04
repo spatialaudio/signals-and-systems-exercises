@@ -1,2 +1,1484 @@
+%------------------------------------------------------------------------------
+\clearpage
+\section{UE 3: Laplace Transformation}
+%
+Wir hatten Laplace Transformation sicherlich schon in einer Mathe Vorlesung
+kennengelernt.
+Laplace Transformation ist eine Integraltransformation der allgemeinen Form
+\begin{equation}
+F(y) = \int\limits_{x_1}^{x_2} f(x) \cdot K(x,y) \fsd x
+\end{equation}
+mit dem Integralkern $K(x,y) = \e^{-x\,y}$.
+Wir verwenden in SigSys vorwiegend für die Variable $x$ die Zeit $t$ und für
+$y$ die Laplace/Bild Variable $s\in\mathbb{C}$ (in älterer Literatur finden
+wir auch oft $p$, wahrscheinlich um den Link zur Namensgebung La\underline{p}lace
+zu machen).
+Als Grenzen benutzen wir oft $x_1=0$ und $x_2=\infty$ um kausale Signale und
+Systeme beschreiben zu können.
+%
+Die Rücktransformation ist wegen $s\in\mathbb{C}$ ein komplexes Wegintegral.
+
+Wir verwenden Signal-Transformationen, in der Hoffnung, dass a) Probleme im
+transformierten Signalraum, dem sogenannten Bildbereich einfacher zu lösen
+sind als im Originalbereich und b) dass Signale einfacher/kompakter darstellbar
+sind (vgl. periodisches Signal vs. Koeffizienten der Fourierreihe).
+%
+Die Wahl der geeignetsten Transformation ist dabei entscheidend, weil eine
+ungeeignete das Problem sogar noch erheblich komplizierter machen kann.
+%
+Die Laplace Transformation ist nun deswegen herausragend geeignet, weil
+wir Signale \textbf{und} LTI-Systeme analysieren \textbf{und} synthetisieren
+können.
+
+Wir sollten uns klarmachen, dass der \textbf{Wunsch nach einem einfacherem Operator
+für die zeitliche Ableitung} der Ursprung für die Laplace Transformation ist;
+das sehr lesenswerte Lehrwerk \cite{LangeSigSys1} enthält einen Abschnitt über die
+Entwicklungshistorie bis in die 1970er.
+Statt Ableiten, also Multiplizieren
+\begin{equation}
+  \frac{\fsd }{\fsd t} (\cdot) \rightarrow s(\cdot ) \text{ mit } s \in \mathbb{C}
+\end{equation}
+unter Beibehaltung der Skalierungseigenschaft (Multiplikation mit Konstanten)
+und Additionseigenschaft (Superposition).
+%
+Viele Mathematiker haben sich an dieser Fragestellung der Operatorentheorie
+abgearbeitet, sie ist ja zunächst aus rein mathematischer hochspannend, und
+es hat sich herausgestellt, dass ein Spezialfall
+(nämlich für $y=s\in\mathbb{C}$\footnote{die Integraltransformation mit $y=\im\omega$
+, also $y$ rein imaginär, erfüllt unsere Anforderung an den neuen Operator nicht ganz,
+weil eben der Realteil in $y$ fehlt. Wir werden sie aber trotzdem sehr nützlich finden
+für SigSys, es ist die Fouriertransformation.})
+der obigen
+Integraltransformation genau das gewünschte leistet. Es wurde definiert
+\begin{align}
+\mathcal{L}\{x(t)\} = \int\limits_{t=0}^{\infty} x(t) \cdot \e^{-s\,t} \fsd t,
+\end{align}
+später deklariert als einseitige Laplace Transformation, benutzbar
+für kausale Signale.
+%
+Die Laplace Transformation ist ein linearer Operator, d.h.
+es gilt Additionseigenschaft
+\begin{align}
+\mathcal{L}\{x_1(t)+x_2(t)\} = \mathcal{L}\{x_1(t)\} + \mathcal{L}\{x_2(t)\}
+\end{align}
+und die Skalierungseigenschaft
+\begin{align}
+\mathcal{L}\{a x(t)\} = a \mathcal{L}\{x(t)\}.
+\end{align}
+
+Schauen wir uns kurz an, wie der Wunsch nach
+$\frac{\fsd }{\fsd t} (\cdot) \rightarrow s(\cdot )$
+mittels der Integraltransformation erfüllt wird, also was passiert mit
+\begin{align}
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\} &= \int\limits_{t=0}^{\infty} \frac{\fsd }{\fsd t}  x(t) \cdot \e^{-s\,t} \fsd t
+\end{align}
+Die partielle Integration hilft dies anders darzustellen
+\begin{align}
+&\int u v' \fsd t + \int v u' \fsd t = u\,v\\
+&\int u v' \fsd t = u\,v - \int v u' \fsd t\\
+&u = \e^{-s\,t}\qquad u' = -s\,\e^{-s\,t}\\
+&v = x(t)\qquad v' = \frac{\fsd }{\fsd t}  x(t)\\
+&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= \e^{-s\,t}\,x(t)\bigg|_{t=0}^{\infty} - \int\limits_{t=0}^{\infty} x(t) \cdot (-s\,\e^{-s\,t}) \, \fsd t\\
+&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= s \cdot \int\limits_{t=0}^{\infty} x(t) \e^{-s\,t} \, \fsd t
++\e^{-s\,t}\,x(t)\bigg|_{t=0}^{\infty}\\
+&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= s \cdot \int\limits_{t=0}^{\infty} x(t) \e^{-s\,t} \, \fsd t - x(0)
+\end{align}
+und wir stellen fest, dass
+\begin{align}
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0)
+\end{align}
+also tatsächlich die lineare Operation \textbf{zeitliche Ableitung} zur Operation
+\textbf{Multiplikation mit} $s$ gemacht wurde. Dabei müssen wir nur zusätzlich den
+\textbf{Anfangswert} $x(0)$ beachten!
+
+Wie bildet sich nun der Umkehroperator der zeitlichen Ableitung, also die zeitliche
+Integration ab? Es gilt
+\begin{align}
+\mathcal{L}\{\int\limits_{0}^{t} x(\tau)\fsd \tau\}  = \frac{1}{s} \cdot \mathcal{L}\{x(t)\}.
+\end{align}
+Damit haben wir zwei ganz wichtige Operatoreigenschaften für
+$x(t)\quad\laplace\quad X(s)$ zusammengetragen:
+\begin{align}
+\text{Differentiation:   } &\frac{\fsd }{\fsd t}  x(t) \quad\laplace\quad s\cdot X(s) - x(0)\\
+\text{Integration:   } &\int\limits_{0}^{t} x(t) \quad\laplace\quad \frac{1}{s} \cdot X(s)
+\end{align}
+
+Weitere fundamentale Eigenschaften, die wie oft benötigen sind
+\begin{align}
+\text{Zeitverschiebung:   } x(t-\tau)& \quad\laplace\quad \e^{-s\,\tau} X(s)\\
+\text{Bildbereichsverschiebung:   } \e^{a\,t} \, x(t)& \quad\laplace\quad X(s-a)
+\end{align}
+Letzteres ist auch als Modulationstheorem bekannt, und wir werden es in den
+Aufgaben dieser Übung ausführlich kennenlernen und benutzen.
+
+Die eigentliche Essenz der Laplace Transformation für die Anwendung in
+SigSys steckt in der Eigenschaft
+\begin{align}
+\label{eq:laplace_intro_ast_mult}
+x(t) \ast h(t) \quad\laplace\quad X(s) \cdot H(s),
+\end{align}
+d.h. das 'Abfallprodukt' für die Einführung eines einfacheren Operators
+für die zeitliche Ableitung ist, dass die Faltung im Zeitbereich durch die
+Multiplikation im Bildbereich dargestellt wird. Das dürfen wir durchaus fancy finden.
+
+Die mathematisch saubere Verortung des Dirac Impulses war im Erfindungsprozess
+der Laplace Transformation nicht einfach. Nachdem wir uns für SigSys mit Einführung
+der Definition (zur Erinnerung: kein klassisches Riemann-Integral!)
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(\tau)
+\end{equation}
+eine nützliches, einfaches Werkzeug gebastelt haben, sollten wir das auch
+benutzen.
+Wir nehmen $\tau=0$
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta(t) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(0)
+\end{equation}
+und für den Integralkern der Laplace Transformation $f(t)=\e^{-s \cdot t}$
+ergibt sich
+\begin{equation}
+\int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-s \cdot t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-s \cdot 0} = 1
+\end{equation}
+bzw. nochmal in Operatorschreibweise, weil fundamental wichtig:
+%
+\begin{equation}
+  \mathcal{L}\{\delta(t)\} = 1
+  \text{ oder anders notiert }
+  \delta(t) \quad\laplace\quad 1.
+\end{equation}
+%
+Der Dirac Impuls bildet also die gesamte komplexe $s$-Ebene gleich gewichtet ab.
+%
+Wir werden in den Aufgaben sehen, dass für den Einheitssprung
+\begin{equation}
+  \mathcal{L}\{\epsilon(t)\} = \frac{1}{s}
+  \text{ oder anders notiert }
+  \epsilon(t) \quad\laplace\quad \frac{1}{s}
+\end{equation}
+gilt.
+Die Integrationsregel der Laplace Transformation liefert uns hier sehr bequem
+den einfachen Zusammenhang
+\begin{equation}
+  \int\limits_{0}^{t} \delta(\tau)\fsd \tau = \epsilon(t),
+\end{equation}
+mit dem wir uns wegen der Signalunstetigkeiten immer ein wenig schwer tun.
+%
+Wenn wir $x(t)=\delta(t)$ in \eq{eq:laplace_intro_ast_mult} einsetzen
+\begin{align}
+\delta(t) \ast h(t) \quad\laplace\quad 1 \cdot H(s)
+\end{align}
+und beachten, dass der Dirac Impuls das Neutralelement der Faltung ist,
+also $h(t) = \delta(t) \ast h(t)$ bekommen wir
+\begin{align}
+h(t) \quad\laplace\quad H(s).
+\end{align}
+Anders herum gedacht, die Faltung eines Signals mit einem Dirac Impuls
+ändert nicht die Laplace Transformierte des Signals.
+
+
+Soweit der kurze (mathematisch nicht rigoroseste, es geht hier um's Wesen)
+Abriss zur Laplace Transformation.
+Wir müssen lernen, die Laplace Transformierte von verschiedenen
+Signalen $X(s)$ und Systemen $H(s)$ zu interpretieren. Was sehen wir in den
+komplexwertigen Funktionen über die komplexe Ebene $s$?!?!
+Ziel bzw. zunächst nur Behauptung bevor wir das nicht selbst eingesehen haben,
+war ja zunächst die Rechnerei mit LTI-System zu vereinfachen.
+Mindestens genauso wichtig ist, dass der Bildbereich, also die Laplace Ebene
+sehr viele schöne Interpretationen zulässt, die wir im Zeitbereich nicht
+anstellen können. Nur deswegen machen wir das alles, nicht weil wir so viel
+Spass beim Üben des Residuensatzes haben ;-).
+
+
+%\red{zeitbegrenztes Signal Band ROC Bänder}
+%\red{Mod theorem gilt für s0 in C}
+%\red{was passiert wenn man sigma 0 und w0 ändert}
+%\red{lim schön schreiben}
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
-\section{UE : }
+\subsection{Laplace Transformation des Sprungsignals, Konvergenzbereich}
+\label{sec:A0F7C530F3}
+\begin{Ziel}
+Für die zweiseitige Laplace Transformation müssen wir für
+$x(t) \quad \laplace \quad X(s)$
+den Konvergenzbereich (Kb) der $s$-Ebene definieren, weil erst das eindeutig
+macht, wie das Signal $x(t)$ über die Zeit definiert ist.
+Anhand des Sprungsignals wollen wir das exemplarisch mit der
+\textbf{Laplace Hintransformation} durchspielen.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny A0F7C530F3}: Berechnen Sie für
+\begin{itemize}
+  \item $x(t)=\epsilon(t)$
+  \item $x(t)=-\epsilon(t)$
+  \item $x(t)=\epsilon(-t)$
+  \item $x(t)=-\epsilon(t)$
+\end{itemize}
+die Laplace Transformierte und geben Sie den zugehörigen Konvergenzbereich
+der $s$-Ebene an.
+\begin{Werkzeug}
+Zweiseitige Laplace Transformation
+\begin{align}
+X(s) = \int\limits_{t=-\infty}^{+\infty} x(t) \cdot \e^{-s\,t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+Signale ins Integral einsetzen, spezifische Grenzen berücksichtigen,
+Konvergenzbereich definieren, Integral lösen.
+\end{Ansatz}
+\begin{ExCalc}
+Einheitssprung $x(t)=\epsilon(t)$, rechtsseitig:
+\begin{align}
+  &X(s) = \int\limits_{t=-\infty}^{+\infty} \epsilon(t) \cdot \e^{-s\,t} \fsd t
+  = \int\limits_{t=0}^{+\infty} \e^{-s\,t} \fsd t
+  \rightarrow \text{Konvergenz nur, wenn}\,\,\,\Re\{s\}>0
+  \rightarrow\\
+  &X(s) = \frac{1}{-s}\e^{-s\,t}\bigg|_{t=0}^{\infty}
+  = \frac{1}{-s}\e^{-s \,\cdot\, \infty} - \frac{1}{-s}\e^{-s\,\cdot\, 0} = \frac{1}{s}
+\end{align}
+%
+Sprung $x(t)=-\epsilon(t)$, rechtsseitig::
+\begin{align}
+  &X(s) = \int\limits_{t=-\infty}^{+\infty} -\epsilon(t) \cdot \e^{-s\,t} \fsd t
+  = \int\limits_{t=0}^{\infty} - \e^{-s\,t} \fsd t
+  \rightarrow \text{Konvergenz nur, wenn}\,\,\,\Re\{s\}>0
+  \rightarrow\\
+  &X(s) = -\frac{1}{-s}\e^{-s\,t}\bigg|_{t=0}^{\infty}
+  = \frac{1}{s}\e^{-s\,\cdot\, \infty} - \frac{1}{s}\e^{-s\,\cdot\, 0} = -\frac{1}{s}
+\end{align}
+%
+Sprung $x(t)=\epsilon(-t)$, linksseitig:
+\begin{align}
+  &X(s) = \int\limits_{t=-\infty}^{+\infty} \epsilon(-t) \cdot \e^{-s\,t} \fsd t
+  = \int\limits_{t=-\infty}^{0} \e^{-s\,t} \fsd t
+  \rightarrow \text{Konvergenz nur, wenn}\,\,\,\Re\{s\}<0
+  \rightarrow\\
+  &X(s) = \frac{1}{-s}\e^{-s\,t}\bigg|_{t=-\infty}^{0}
+  = \frac{1}{-s}\e^{-s\,\cdot\, 0} - \frac{1}{-s}\e^{s\,\cdot\, \infty} = -\frac{1}{s}
+\end{align}
+%
+Sprung $x(t)=-\epsilon(-t)$, linksseitig:
+\begin{align}
+  &X(s) = \int\limits_{t=-\infty}^{+\infty} -\epsilon(-t) \cdot \e^{-s\,t} \fsd t
+  = \int\limits_{t=-\infty}^{0} - \e^{-s\,t} \fsd t
+  \rightarrow \text{Konvergenz nur, wenn}\,\,\,\Re\{s\}<0
+  \rightarrow\\
+  &X(s) = -\frac{1}{-s}\e^{-s\,t}\bigg|_{t=-\infty}^{0}
+  = \frac{1}{s}\e^{-s \, \cdot \, 0} - \frac{1}{s}\e^{s \, \cdot \, \infty} = \frac{1}{s}
+\end{align}
+\end{ExCalc}
+\begin{Loesung}
+%
+Zusammenfassend also
+\begin{align}
++\epsilon(t) \quad &\laplace \quad +\frac{1}{s} \quad\text{ für } \quad\Re\{s\} > 0\\
+-\epsilon(t) \quad &\laplace \quad -\frac{1}{s} \quad\text{ für } \quad\Re\{s\} > 0\\
+%\epsilon(-t) \quad &\laplace \quad \frac{1}{-s} \quad\text{ für }\quad \Re\{-s\} > 0\\
++\epsilon(-t) \quad &\laplace \quad -\frac{1}{s} \quad\text{ für }\quad \Re\{s\} < 0\\
+-\epsilon(-t) \quad &\laplace \quad +\frac{1}{s} \quad\text{ für }\quad \Re\{s\} < 0,
+\end{align}
+wobei wir die ersten beiden und die letzten beiden Beziehungen
+direkt mit der Linearitätseigenschaft
+\begin{equation}
+a \cdot x(t) \quad \laplace \quad a \cdot X(s)
+\end{equation}
+der Laplace Transformation
+verknüpfen können.
+
+Wir sehen, dass
+$X(s)=\frac{1}{s}$ die Laplacetransformierte entweder von $x(t) = \epsilon(t)$
+oder von $x(t)=-\epsilon(-t)$ ist, je nachdem welchen Teil der Laplace-Ebene ($s$-Ebene)
+wir betrachten, also für welche $\Re\{s\}$ das Laplace Integral konvergieren sollte.
+%
+In \fig{fig:A0F7C530F3} sind die vier Varianten veranschaulicht.
+
+Wir können auch die Abbildungen \fig{fig:0B03A693AD_rightsided} und
+\fig{fig:0B03A693AD_leftsided} jeweils in der Mitte zu Rate ziehen, der hier
+diskutierte Fall von $x(t)=\epsilon(t)$ und $x(t)=-\epsilon(-t)$ ist dort der
+Spezialfall $s_0=0$.
+%
+\end{Loesung}
+
+
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\epsilon(t)$},
+title = {$\epsilon(t) \quad \laplace \quad \frac{1}{s} \quad\text{ für } \quad\Re\{s\} > 0$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={-4,-2,0,2,4},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)(4,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{rechtsseitiges Signal.}
+%\label{fig:}
+\end{subfigure}
+%
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$\epsilon(-t)$},
+title = {$\epsilon(-t) \quad \laplace \quad -\frac{1}{s} \quad\text{ für } \quad\Re\{s\} < 0$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={-4,-2,0,2,4},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,1)(0,1)(0,0)(4,0)};
+\end{axis}
+\end{tikzpicture}
+\caption{linksseitiges Signal.}
+%\label{fig:}
+\end{subfigure}
+%
+
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$-\epsilon(t)$},
+title = {$-\epsilon(t) \quad \laplace \quad -\frac{1}{s} \quad\text{ für } \quad\Re\{s\} > 0$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={-4,-2,0,2,4},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,-1)(4,-1)};
+\end{axis}
+\end{tikzpicture}
+\caption{rechtsseitiges Signal.}
+%\label{fig:}
+\end{subfigure}
+%
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {t},
+ylabel = {$-\epsilon(-t)$},
+title = {$-\epsilon(-t) \quad \laplace \quad \frac{1}{s} \quad\text{ für } \quad\Re\{s\} < 0$},
+xmin=-4, xmax=4,
+ymin=-1.1, ymax=1.1,
+xtick={-4,-2,0,2,4},
+ytick={-1,0,1},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,-1)(0,-1)(0,0)(4,0)};
+\end{axis}
+\end{tikzpicture}
+\caption{linksseitiges Signal.}
+%\label{fig:}
+\end{subfigure}
+%
+%
+%
+\caption{Einheitssprung, Zeit- und Amplitudenskalierung mit $\pm 1$,
+Aufgabe \ref{sec:A0F7C530F3}.}
+\label{fig:A0F7C530F3}
+\end{figure*}
+
+
+
+
+\clearpage
+\subsection{Laplace Transformation des modulierten Einheitssprungs,
+Konvergenzbereich}
+\label{sec:0B03A693AD}
+\begin{Ziel}
+Wir hatten schon bei der Fourier Transformation das Modulationstheorem
+kennengelernt. Für die Laplace Transformation gibt es dies auch.
+Wir wollen uns dies an dem Beispiel mit dem Sprungsignal erarbeiten.
+Hier müssen wir auch wieder den rechts- und linksseitigen Fall über den
+Konvergenzbereich definieren.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 0B03A693AD}: Berechnen Sie für $\e^{s_0 \, t} \cdot \epsilon(t)$
+und $\e^{-s_0 \, t} \cdot -\epsilon(-t)$ die Laplace Transformierte unter Angabe
+des Konvergenzbereichs.
+
+\begin{Werkzeug}
+Zweiseitige Laplace Transformation
+\begin{align}
+X(s) = \int\limits_{t=-\infty}^{+\infty} x(t) \cdot \e^{-s\,t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+Wir modulieren das Sprungsignal mit $\e^{s_0 \, t}$, wobei hier
+$s_0 \in \mathbb{C}$ sein darf, weil die Laplace-Ebene auch komplexwertig ist.
+Falls $s_0$ (a) pur reellwertig oder (b) pur imaginär handelt es sich um die
+Spezialfälle Modulation mit (a) exponentiellem Anstieg/Abfall oder (b)
+harmonische, komplexe Schwingung links-/rechtsdrehend.
+\end{Ansatz}
+
+\begin{ExCalc}
+Rechtsseitiges (hier sogar zusätzlich kausales) Signal:
+\begin{align}
+&x(t) = \e^{s_0 \, t} \cdot \epsilon(t) \qquad
+X(s) = \int\limits_{t = -\infty}^{+\infty} x(t) \, \e^{-s\,t}  \fsd t\\
+&X(s) = \int\limits_{t = -\infty}^{+\infty} \e^{s_0 \, t} \, \epsilon(t) \, \e^{-s\,t}  \fsd t
+= \int\limits_{t = 0}^{+\infty} \e^{[s_0-s]\,t} \fsd t = \int\limits_{t = 0}^{+\infty} \e^{-[s-s_0]\,t} \fsd t\\
+&X(s) = -\frac{1}{[s-s_0]}\e^{-[s-s_0]\,t}\bigg|_{t=0}^{\infty}=
+-\frac{1}{[s-s_0]}\e^{-[s-s_0]\,\cdot\,\infty }
+-(-\frac{1}{[s-s_0]}\e^{-[s-s_0]\,\cdot\,0})\\
+&X(s) = -\frac{1}{[s-s_0]}\e^{-[s-s_0]\,\cdot\,\infty }
++\frac{1}{s-s_0}
+\end{align}
+Nur wenn $\Re\{s\}-\Re\{s_0\} > 0$, also wenn $\Re\{s\}>\Re\{s_0\}$, geht
+der Term $\e^{-[s-s_0]\,\cdot\,\infty }$ gegen Null und das bestimmte Integral
+konvergiert.
+Unter dieser gestellten Bedingung lautet das Endergebnis und damit die
+Korrespondenz der Laplace Transformierten dann
+\begin{align}
+\e^{+s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}\\
+\e^{-s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s+s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{-s_0\}
+\end{align}
+
+Linksseitiges (hier sogar zusätzlich antikausales) Signal:
+\begin{align}
+&x(t) = \e^{s_0 \, t} \cdot - \epsilon(-t) \qquad
+X(s) = \int\limits_{t = -\infty}^{+\infty} x(t) \, \e^{-s\,t}  \fsd t\\
+&X(s) = \int\limits_{t = -\infty}^{+\infty} -\epsilon(-t) \cdot \e^{s_0 \, t} \, \e^{-s\,t}  \fsd t
+= \int\limits_{t = -\infty}^{0} -\e^{[s_0-s]\,t} \fsd t = \int\limits_{t = -\infty}^{0} -\e^{-[s-s_0]\,t} \fsd t\\
+&X(s) = \frac{1}{[s-s_0]}\e^{-[s-s_0]\,t}\bigg|_{t=-\infty}^{0}=
+\frac{1}{[s-s_0]}\e^{-[s-s_0]\,\cdot\, 0} - \frac{1}{[s-s_0]}\e^{-[s-s_0]\,\cdot\, -\infty}\\
+&X(s) = \frac{1}{s-s_0} - \frac{1}{[s-s_0]}\e^{[s-s_0]\,\cdot\, \infty}
+\end{align}
+Nur wenn $\Re\{s\}-\Re\{s_0\} < 0$, also wenn $\Re\{s\}<\Re\{s_0\}$, geht
+der Term $\e^{[s-s_0]\,\cdot\,\infty }$ gegen Null und das bestimmte Integral
+konvergiert.
+Unter dieser gestellten Bedingung lautet das Endergebnis und damit die
+Korrespondenz der Laplace Transformierten dann
+\begin{align}
+\e^{+s_0 \, t} \cdot -\epsilon(-t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} < \Re\{+s_0\}\\
+\e^{-s_0 \, t} \cdot -\epsilon(-t) \quad \laplace \quad \frac{1}{s+s_0} \quad\text{ für } \quad\Re\{s\} < \Re\{-s_0\}
+\end{align}
+\end{ExCalc}
+\begin{Loesung}
+%
+Für $s_0=\sigma_0 + \im \omega_0$ mit $\sigma_0\in\mathbb{R}$ und $\omega_0\in\mathbb{R}$
+gelten die Korrespondenzen für die Laplace Transformation mit dem zugehörigen
+Konvergenzbereich (KB, ROC)
+%
+\begin{itemize}
+  \item kausales 1-Pol Signal / 1-Pol System:
+  \begin{align}
+  \e^{+s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}\\
+  \e^{-s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s+s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{-s_0\}
+  \end{align}
+
+  siehe \fig{fig:0B03A693AD_rightsided}
+
+  \item antikausales 1-Pol Signal / 1-Pol System:
+  \begin{align}
+  \e^{+s_0 \, t} \cdot -\epsilon(-t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} < \Re\{+s_0\}\\
+  \e^{-s_0 \, t} \cdot -\epsilon(-t) \quad \laplace \quad \frac{1}{s+s_0} \quad\text{ für } \quad\Re\{s\} < \Re\{-s_0\}
+  \end{align}
+
+  siehe \fig{fig:0B03A693AD_leftsided}
+
+\end{itemize}
+%
+Das geht zuweilen am Anfang unter: $s_0=0$ führt wieder zu Aufgabe \ref{sec:A0F7C530F3},
+mittlere Grafik in \fig{fig:0B03A693AD_rightsided} und \fig{fig:0B03A693AD_rightsided}.
+
+Wir sollten uns klarmachen, wie sich jeweils in
+\fig{fig:0B03A693AD_rightsided} und \fig{fig:0B03A693AD_leftsided} der
+Signalverlauf weiter ändern würde, wenn
+wir $\sigma_0$ gegen $\pm\infty$ laufen lassen würden.
+Was heißt das für den Konvergenzbereich.
+
+Das sogenannte Modulationstheorem gilt auch allgemein, also wenn
+$x(t) \,\laplace\, X(s)$
+%
+dann
+\begin{align}
+\e^{+s_0 \, t} \cdot x(t) \quad \laplace \quad X(s-s_0) \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}\textrm{ und }\in\mathrm{KB}\{X(s)\}
+\end{align}
+%
+\textbf{Wichtige Verständnis-Quizfrage}:
+Wir sollten uns klarmachen wie der Signalverlauf wäre, wenn wir
+für \fig{fig:0B03A693AD_rightsided} und \fig{fig:0B03A693AD_leftsided}
+$s_0$ nicht auf $\sigma_0$ beschränken, sondern $s_0\in\mathbb{C}$ zulassen!
+Wenn wir für ein solchen Fall den Pol richtig in der $s$-Ebene verorten können
+und den zugehörigen Signalverlauf korrekt darstellen können, haben wir
+schon sehr viel vom Wesen der Laplace Transformation so wie wir es für SigSys
+als Tool brauchen, verstanden.
+%
+\end{Loesung}
+
+\input{../laplace_transform/single_pole_rightsided_tikz_0B03A693AD}
+\input{../laplace_transform/single_pole_leftsided_tikz_0B03A693AD}
+
+
+\clearpage
+\subsection{Vom Modulationstheorem zur Essenz}
+\label{sec:31AEFEF90B}
+\begin{Ziel}
+Cosinus-Einschaltfunktion aus moduliertem Einheitssprung. Von der
+Laplace Transformation einfacher Zeitsignalen zur Veranschaulichung was wir damit
+in SigSys sinnvollerweise machen. Was sehen wir eigentlich in der Laplace-Funktion
+über $s$.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 31AEFEF90B}: Leiten Sie mit Hilfe von
+$\e^{+s_0 \, t} \cdot \epsilon(t)$ für
+$s_0=\sigma_0 + \im \omega_0$,
+$\sigma_0\in\mathbb{R}$,
+$\omega_0\in\mathbb{R}$
+die Laplace Transformierte
+$\cos(\omega_0 t) \cdot \epsilon(t)$ her.
+
+\begin{Werkzeug}
+Wir wissen aus Aufgabe \ref{sec:0B03A693AD}, dass das kausale 1-Pol Signal / 1-Pol System
+die Laplace Korrespondenz
+\begin{align}
+\e^{+s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}\\
+\end{align}
+hat.
+
+Additions- und Superpositionseigenschaft der Laplace Transformation:
+\begin{align}
+a_1 x_1(t) + a_2 x_2(t) \quad\laplace\quad  a_1 X_1(s) + a_2 X_2(s)
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+Willkürlich erscheinender Ansatz, der aber zum gewünschten Ergebnis führt
+\begin{align}
+\frac{1}{2}\cdot\e^{+s_0 \, t}\cdot \epsilon(t)+
+\frac{1}{2}\cdot\e^{+s_0^* \, t}\cdot \epsilon(t)
+\quad \laplace \quad
+\frac{1}{2}\cdot\frac{1}{s-s_0} + \frac{1}{2}\cdot\frac{1}{s-s_0^*}
+\quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}
+\end{align}
+\end{Ansatz}
+\begin{ExCalc}
+Wir machen eine Superposition von Exponentialsignalen mit jeweils $s_0$ und
+$s_0^*$ (also der konjugiert komplexen 'Laplace-Frequenz',
+$s_0$ darf ja komplexwertig sein).
+
+Jetzt $s_0$ splitten in $\sigma_0$ und $\im\omega_0$ Anteile zunächst auf der linken
+Seite:
+\begin{align}
+\frac{1}{2}\cdot\e^{+\sigma_0 t}
+\left(
+\e^{+\im\omega_0 \, t}+
+\e^{-\im\omega_0 \, t}
+\right) \epsilon(t)
+\quad \laplace \quad
+\frac{1}{2}\cdot\frac{s-s_0 + s-s_0^*}{(s-s_0)(s-s_0^*)}
+\quad\text{ für } \quad\Re\{s\} > +\sigma_0
+\end{align}
+Damit erhalten wir einen cos(), dann auf der rechten Seite ausformulieren
+\begin{align}
+\e^{+\sigma_0 t} \cos(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{1}{2}\cdot\frac{s-(\sigma_0+\im\omega_0) + s-(\sigma_0-\im\omega_0)}
+{(s-(\sigma_0+\im\omega_0)) \cdot (s-(\sigma_0-\im\omega_0))}
+\quad\text{ für } \quad\Re\{s\} > +\sigma_0
+\end{align}
+Mit Vereinfachung kommen wir zu einer wichtigen Laplace Korrespondenz
+\begin{align}
+\e^{+\sigma_0 t} \cos(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} >  +\sigma_0,
+\end{align}
+weil die sehr oft bei der Analyse von RLC-Schaltungen benötigt wird.
+%
+Ein ähnlicher Ansatz mit der Euleridentität für den sin() liefert
+\begin{align}
+\e^{+\sigma_0 t} \sin(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{\omega_0}{(s-\sigma_0)^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} >  +\sigma_0,
+\end{align}
+
+\end{ExCalc}
+\begin{Loesung}
+Für $s_0=\sigma_0 + \im \omega_0$,
+$\sigma_0\in\mathbb{R}$,
+$\omega_0\in\mathbb{R}$
+gelten die Laplace Transformierten
+\begin{align}
+\label{eq:31AEFEF90B}
+\e^{+\sigma_0 t} \cos(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} >  +\sigma_0
+\\
+\e^{+\sigma_0 t} \sin(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{\omega_0}{(s-\sigma_0)^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} >  +\sigma_0
+\end{align}
+Speziell für $\sigma_0=0$ ist dann
+\begin{align}
+\cos(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{s}{s^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} > 0
+\\
+\sin(\omega_0 \, t) \epsilon(t)
+\quad \laplace \quad
+\frac{\omega_0}{s^2+\omega_0^2}
+\quad\text{ für } \quad\Re\{s\} > 0
+\end{align}
+%
+Damit haben wir die eigentliche Aufgabenstellung gelöst und machen uns klar:
+\begin{itemize}
+\item wir haben mit einer einzigen bekannten Laplace Korrespondenz
+quasi im Vorbeigehen viele weitere gefunden
+ohne das Laplace Integral nochmal explizit zu lösen, sondern vielmehr Superposition
+und ein bisschen Rechnen mit komplexen Zahlen angewandt
+\item das war deswegen möglich, weil das 1-Pol Signal
+$\e^{+s_0 \, t} \cdot \epsilon(t)$ eine Eigenlösung von LTI-Systemen ist und
+daher viele Spezialfälle beinhaltet
+\end{itemize}
+
+In \fig{fig:31AEFEF90B} ist \eq{eq:31AEFEF90B}---also der praxisnahe Fall von
+kausalen Signalen---für verschiedene $\sigma_0$ schematisch veranschaulicht.
+
+In \fig{fig:31AEFEF90B_3D_surface} sind für konkrete Zahlen die Laplace
+Transformierten $X(s)$ des Fundamentalsignals $x(t)=\e^{s_0 t}\,\epsilon(t)$
+über die komplexe Laplace Ebene visualisiert.
+Die $z$-Achse ist der Betrag in Dezibel, also
+$20 \log_{10}|X(s)|$.
+
+\textbf{}
+Die Laplace Transformation hat nun die einzigartige Eigenschaft, dass sie
+sowohl Signale UND Systeme \textbf{vollständig} darstellen kann
+(die Fouriertransformation kann das nicht).
+%
+Wir haben gelernt, dass in der \textbf{Impulsantwort} $h(t)$ eines LTI-Systems die
+\textbf{komplette Information zur Systembeschreibung} steckt.
+%
+Wir können also davon ausgehen, dass die Laplace Transformierte der Impulsantwort
+auch alle Information codiert, nur halt anders. Es ist natürlich genau so, diese
+\textbf{Laplace Transformierte} hat auch einen speziellen Namen, nämlich
+\textbf{Übertragungsfunktion}.
+Es ist sehr gängige Konvention diese mit $H(s)$ zu bezeichnen, also
+\begin{equation}
+h(t) \, \laplace \, H(s)
+\end{equation}
+%
+
+Für ein LTI-System $\mathcal{H}$ mit Impulsantwort $h(t)$ gilt
+$y(t) = \mathcal{H}\{x(t)\}$.
+Für den speziellen Fall von $x(t)=\e^{+s_0 t}$ gilt (und nur dann!,
+der allgemeine Fall ist \eq{eq:4408E33353_duality})
+\begin{equation}
+y(t) = H(s)\bigg|_{s=s_0} \cdot \e^{+s_0 t}.
+\end{equation}
+%
+Nehmen wir also mal an, dass die in \fig{fig:31AEFEF90B_3D_surface_one_pole}
+dargestellte Laplace Transformierte von einer Impulsantwort eines LTI-Systems resultiert,
+konkret also die Bildunterschrift erweitert werden kann
+\begin{equation}
+\label{eq_31AEFEF90B_LaplaceExample_hH}
+h(t) = \e^{-10 t} \epsilon(t) \, \laplace \, H(s) = \frac{1}{s+10}\text{ für }\Re\{s\} > -10.
+\end{equation}
+Dann können wir für ein speziell gewähltes $x(t)$ (solange wir nur $\Re\{s_0\} > -10$
+für Erfüllung der Konvergenz sichergestellt haben) in der Grafik \fig{fig:31AEFEF90B_3D_surface_one_pole}
+nachschauen, wie das System den Betrag des Signals ändert, also ob das Ausgangssignal
+verstärkt (>0dB) oder gedämpft (<0dB) ist. Gleiches geht auch für die Phase, was
+wir uns für später aufheben.
+
+
+\end{Loesung}
+
+\input{../laplace_transform/double_pole_single_zero_rightsided_tikz_31AEFEF90B}
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{../laplace_transform/fundamental_signals_laplace_plane_31AEFEF90B_single_pole.pdf}
+\caption{$\e^{-10 t} \epsilon(t) \, \laplace \, \frac{1}{s+10}\text{ für }\Re\{s\} > -10$}
+\label{fig:31AEFEF90B_3D_surface_one_pole}
+\end{subfigure}
+
+
+
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{../laplace_transform/fundamental_signals_laplace_plane_31AEFEF90B_cos.pdf}
+\caption{$\cos(5 t) \epsilon(t)
+\, \laplace \,
+\frac{s}{s^2+25}
+\text{ für }\Re\{s\} > 0$}
+%\label{}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../laplace_transform/fundamental_signals_laplace_plane_31AEFEF90B_sin.pdf}
+%\label{}
+\caption{$\sin(5 \, t) \epsilon(t)
+\, \laplace \,
+\frac{5}{s^2+25}
+\quad\text{ für } \quad\Re\{s\} >  0$}
+\end{subfigure}
+
+
+
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{../laplace_transform/fundamental_signals_laplace_plane_31AEFEF90B_double_pole_single_zero.pdf}
+\caption{$\e^{-10 t} \cos(5 t) \epsilon(t)
+\, \laplace \,
+\frac{s+10}{(s+10)^2+25}
+\text{ für }\Re\{s\} > -10$}
+%\label{}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../laplace_transform/fundamental_signals_laplace_plane_31AEFEF90B_double_pole.pdf}
+%\label{}
+\caption{$\e^{-10 t} \sin(5 \, t) \epsilon(t)
+\, \laplace \,
+\frac{5}{(s+10)^2+25}
+\quad\text{ für } \quad\Re\{s\} >  -10$}
+\end{subfigure}
+%
+%
+%
+\caption{Betrag von Laplace Transformierten in dB über die komplexe $s$-Ebene.}
+\label{fig:31AEFEF90B_3D_surface}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\cleardoublepage
+\subsection{Von der Essenz zur Anwendung: Elektrotechnik RC-Glied Tiefpass}
+\label{sec:4408E33353}
+\begin{Ziel}
+Wir wollen mit dem SigSys-Werkzeugkoffer anhand des uns gut bekannten RC-Gliedes
+bestimmte Ein-/Ausgangssignalpaare berechnen.
+Anstatt zu Falten, also das Faltungsintegral zu lösen (dafür siehe Übung 2), wollen
+wir hier die Laplace Transformation zu Hilfe nehmen.
+Ziel ist zu erkennen, dass der beschrittene Lösungsansatz generisch funktioniert und
+vergleichsweise einfach und vor allem konsistent
+die Spezialfälle der Auf-/Entlade-/Wechselstromfälle, die
+wir in ET kennengelernt haben, abbildet.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 4408E33353}: Berechnen Sie mit Werkzeugen der Systemtheorie
+\begin{itemize}
+  \item a) die Impulsantwort
+  \item b) die Sprungantwort
+  \item c) den eingeschwungenen Zustand auf eine eingeschaltete harmonische
+  cos()-Anregung mit der Kreisfrequenz $\omega_\mathrm{RC}=\frac{1}{R \cdot C}$
+\end{itemize}
+für das unten dargestellte RC-Glied mit idealen Bauelementen (also Annahme, dass dies
+ein LTI-System darstellt). $x(t)$ und $y(t)$ sollen Spannungen darstellen.
+%
+Das System befindet sich zu $t=0$ in Ruhe, $C$ ist also nicht aufgeladen, $y(0)=0$.
+%
+\begin{center}
+\begin{circuitikz}[european, scale=0.75]
+\node (in) at (1,0){};
+\node (in_ground) at (1,-3){};
+\node (out) at (4,0){};
+\node (out_ground) at (4,-3){};
+\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (3,0) to [short,-o,] (out);
+\draw (3,0) to [C,l_=$C$,*-*] (3,-3);
+\draw (in_ground) to [short,o-o] (out_ground);
+\path[draw, bend right, ->, >=latex] (in) edge node[left]{$x(t)$} (in_ground);
+\path[draw, bend left, ->, >=latex] (out) edge node[right]{$y(t)$} (out_ground);
+\end{circuitikz}
+\end{center}
+%
+\begin{Werkzeug}
+Wir öffnen den großen SigSys-Koffer, den wir schon ganz gut gefüllt haben...\\
+Wir könnten die Aufgabe (bis vielleicht die Impulsantwort) auch mit Mitteln
+lösen, die wir bisher in Mathe und ET gelernt haben.
+%
+Wir wollen aber hier genau mal alles das anwenden was wir bisher an SigSys-Tools
+kennengelernt haben.
+%
+Weil wir für dieses System wissen, wie die Lösungen ausschauen müssen und
+diese auch schon mal in ET interpretiert haben, fällt es uns hier leicht die
+Rechenwege vergleichend einzuordnen.
+%
+\end{Werkzeug}
+\begin{Ansatz}
+Ausgangspunkt ist die bekannte DGL für dieses RC-Gied
+\begin{align}
+T_\mathrm{RC}\frac{\fsd}{\fsd t} y(t) + y(t) = x(t)
+\end{align}
+mit der Systemzeitkonstante $T_\mathrm{RC}=R \cdot C$ bzw. der Systemgrenz-
+Kreisfrequenz $\omega_\mathrm{RC}=\frac{1}{R \cdot C}$.
+%
+
+\noindent\textbf{Hinweis 1}: Dieses System hat, weil 1. Ordnung, nur eine
+Zeitkonstante bzw. eine Systemgrenzfrequenz.
+Systeme höherer Ordnung können mehrere Zeitkonstanten haben.
+
+\noindent\textbf{Hinweis 2}: es gilt die
+Relation $f=\frac{1}{T}$ zwischen Frequenz $f$ und Periodendauer $T$ ABER
+es gilt die Relation $\omega_\tau = \frac{1}{T_\tau}$ zwischen der Systemgrenz-\textbf{Kreisfrequenz}
+$\omega_\tau $ und der System-\textbf{Zeitkonstante} $T_\tau $.
+
+\noindent \textbf{Hinweis 3}:
+An dieser Stelle machen wir uns den großen Vorteil der SigSys klar:
+%
+Wir behandeln hier zwar ein elektrotechnisches System (weil didaktisch
+Verknüpfungen zu Sachen aus den vorangegangenen Semestern hergestellt werden
+sollen), aber im Grunde geht es darum diese DGL losgelöst vom naturwissenschaftlichen
+Ursprung mit SigSys-Denke zu lösen und Verhaltensweisen dieser DGL elegant
+interpretierbar zu machen.
+%
+Diese DGL modelliert als einfachste Modellannahme den Wärmestrom von einem Körper
+zu einem benachbarten, also z.B. das Abkühlen von Bier im Kühlschrank
+oder in der Badewanne ;-), that's the message. Fragen wir bei der nächsten
+Gelegenheit PhysikerInnen nach der genauen DGL...
+\end{Ansatz}
+
+\begin{ExCalc}
+Die DGL
+\begin{align}
+T_\mathrm{RC}\frac{\fsd}{\fsd t} y(t) + y(t) = x(t)\\
+\end{align}
+wird Laplace transformiert (Achtung: $Y(s)$ vs. $y(t)$ beachten,
+gerade handschriftlich eine beliebte Fehlerquelle)
+\begin{align}
+T_\mathrm{RC} \cdot s \cdot Y(s) - y(t=0) + Y(s) = X(s)
+\end{align}
+Weil $y(t=0)=0$ als Anfangsbedingung gegeben ist, können wir vereinfachen
+\begin{align}
+T_\mathrm{RC} \cdot s \cdot Y(s) + Y(s) = X(s)
+\end{align}
+und haben die DGL damit in eine algebraische Gleichung überführt, das ist die
+elegante Idee der Laplace Transformation als Operator auf eine DGL.
+%
+Schreiben wir um zu
+\begin{align}
+&(T_\mathrm{RC} s + 1 ) \cdot Y(s) = X(s)
+& (\frac{s}{\omega_\mathrm{RC}} + 1 ) \cdot Y(s) = X(s) \\
+&H(s) = \frac{Y(s)}{X(s)} = \frac{1}{T_\mathrm{RC} \cdot s + 1}
+&H(s) = \frac{Y(s)}{X(s)} = \frac{1}{\frac{s}{\omega_\mathrm{RC}} + 1}
+\end{align}
+%
+$H(s)$ ist die sogenannte Übertragungsfunktion, welche
+die Relation zwischen Aus- und Eingangs-Laplacetransformierter beschreibt.
+
+Links die Gleichungen mit Benutzung der Zeitkonstante $T\mathrm{RC}$ werden in der
+Regelungstechnik bevorzugt, weil das Zeitverhalten der Systeme im Vordergrund
+der Diskussion steht.
+%
+Rechts die Gleichungen mit Benutzung der Grenzfrequenz $\omega_\mathrm{RC}$ werden
+in der Nachrichtentechnik, Akustik, Video, Audio genutzt, weil das Frequenzverhalten
+der Systeme eher im Vordergrund steht und Systeme oft im Sinne eines Filters
+aufgefasst werden. Ein digitales Foto unschärfer machen und Bassanhebung wären zwei ganz
+typische Alltagsanwendungen die mit Filtern (also LTI-Systemen) realisiert werden.
+
+Folgen wir hier mal der Schreibweise mit Zeitkonstante, also
+\begin{align}
+Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC} \cdot s + 1} \cdot X(s)
+\end{align}
+was wir noch umschreiben, damit wir es später einfacher haben
+\begin{align}
+Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \cdot X(s)
+\end{align}
+
+Wir können jetzt alle drei Teilaufgaben immer mit
+dem gleichen Ansatz lösen, nämlich
+
+\begin{itemize}
+  \item das entsprechende $X(s)$ zum gewünschten
+  Eingangssignal $x(t)$ ermitteln
+  \item in die Gleichung $Y(s)=H(s) \cdot X(s)$ einsetzen
+  \item Laplace Rücktransformieren um mit $Y(s) \Laplace y(t)$
+\end{itemize}
+das Ausgangssignal zu erhalten.
+%
+Das erscheint im Gegensatz zum direkten Lösen der DGL mit drei eigenen Ansätzen
+für die verschiedene Inhomogenitäten elegant.
+%
+Es ist auch geringfügigere Rechnerei, als das Faltungsintegral zu lösen.
+%
+Wir können argumentieren, dass wir dann eine komplexes Integral bei der Rücktrafo
+lösen müssen, was stimmt, aber das haben zum Glück viele Leute vor uns schon
+in aller Ausführlichkeit betrieben. Die Wahrscheinlichkeit, dass eine
+unbekannte Laplace Rücktransformation in der Praxis  vorkommt ist sehr gering.
+%
+In den vorangegangenen Übungsaufgaben haben wir alle Laplace Korrespondenzen
+zusammengetragen, um das hier vorliegende Problem direkt lösen zu können.
+%
+
+Wir müssen uns klar machen, dass wir anstatt die Faltung
+\begin{align}
+y(t) = h(t) \ast x(t)
+\end{align}
+zu berechnen, hier die Multiplikation im Laplace Bereich
+\begin{align}
+Y(s) = H(s) \cdot X(s)
+\end{align}
+benutzen, um zur Lösung zu gelangen. Beide Operationen sind (absolut nicht zufällig)
+miteinander durch
+\begin{align}
+\label{eq:4408E33353_duality}
+y(t) = h(t) \ast x(t) \quad \laplace \quad Y(s) = H(s) \cdot X(s).
+\end{align}
+verknüpft. Diese \textbf{Dualität Faltung} Signalbereich A (hier Zeit)
+\textbf{vs. Multiplikation} Signalbereich B (hier Laplace/Bild) müssen wir auf dem Schirm haben! Das ist
+eine der wichtigsten Beziehungen von SigSys und im Grunde die Essenz.
+Diese Dualität gilt auch für andere Transformationen, wie die vier Fourier
+Transformationen die wir kennengelernt haben bzw. noch werden.
+%
+
+%Vorrausgeschickt seien die Gemeinsamkeiten / Unterschiede der verschiedenen
+%Transformationen:
+
+%Fourier Transformationen: Signal Analyse / Synthese, System Analyse ABER keine
+%System Synthese (dafür braucht es die komplexe $s$-Ebene)
+
+%Laplace Transformation: es geht alles, also Signal Analyse / Synthese,
+%System Analyse / Synthese, deswegen auch das mächtigste Tool aus dem die anderen
+%im Grunde abgeleitet werden können. Das macht man leider didaktisch noch zu selten.
+
+%Nun aber zur Lösung der Aufgabe.
+
+\end{ExCalc}
+\begin{Loesung}
+
+
+\begin{itemize}
+  \item a) \textbf{Impulsantwort}
+
+  Die Impulsantwort $h(t)$ ist die Antwort des LTI-Systems auf einen Dirac Impuls unter
+  verschwindenden Anfangsbedingungen (hier müssen wir $y(0-)=0$ ansetzen, weil
+  nach unserer Konvention der Dirac Impuls exakt zu $t=0$ 'explodiert').
+
+  Die Laplace Korrespondenz ist
+  \begin{equation}
+  x(t)=\delta(t) \quad\laplace\quad X(s) = 1
+  \end{equation}
+  %
+  Es ergibt sich für die Übertragungsfunktion $H(s)=\frac{Y(s)}{X(s)}$
+  der Spezialfall $H(s)=Y(s)$.
+
+  Wenn wir nun allgemein rücktransformieren $Y(s) \Laplace y(t)$, erkennen wir
+  für diesen Spezialfall, dass $H(s) \Laplace h(t)$.
+
+  Diesen weiteren fundamentalen Zusammenhang dürfen wir nie aus den Augen verlieren:
+  die \textbf{Laplace Transformierte der Impulsantwort ist die Übertragungsfunktion}
+
+  Wir lösen zu
+
+  \begin{align}
+  Y(s) = \frac{1}{T_\mathrm{RC}}\cdot\frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \cdot 1
+  \quad\Laplace\quad
+  y(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}} \epsilon(t)
+  \end{align}
+  für eine kausale Impulsantwort $h(t)=y(t)$, weil wir gut vorgearbeitet hatten
+  mit der bekannten Korrespondenz
+  \begin{align}
+  \e^{+s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}
+  \end{align}
+
+  Mit dieser Impulsantwort haben wir schon einmal in Übung 2.8 operiert, dort
+  hatten wir diese gefaltet mit einem Rechteckimpuls, um zu schauen, wie das RC-Glied
+  den Rechteckimpuls verschleift.
+
+  Machen wir uns klar, dass \fig{fig:31AEFEF90B_3D_surface_one_pole}
+  die Laplace Transformierte der gefundenen Impulsantwort für ein konkretes
+  Zahlenbeispiel veranschaulicht.
+
+  \item \textbf{b) Sprungantwort (i.e. Kondensatorspannung beim Aufladevorgang)}
+
+Die Sprungantwort $h_\epsilon(t)$ ist die Antwort des LTI-Systems auf einen Einheitssprung.
+
+Machen wir uns klar, dass bei LTI-Systemen alle Systeminformation in der Impulsantwort
+steckt, siehe Übung 1.
+
+Der aus Übung 2 bekannte Zusammenhang $\epsilon(t)' = \delta(t)$ führt bei LTI-Systemen
+direkt zur Erkenntnis, dass auch
+%(das können wir mit der Austasteigenschaft des
+%Dirac Impulses formal für jedes $t$ zeigen)
+\begin{eqnarray}
+h_\epsilon(t)' = h(t)\quad\text{weil}\quad
+h(t)=\mathcal{H}\{\delta(t)\}
+\quad\text{und}\quad
+h_\epsilon(t)=\mathcal{H}\{\epsilon(t)\}
+\end{eqnarray}
+gilt, also die zeitliche Ableitung der Sprungantwort die Impulsantwort darstellt.
+%
+Nachdem die zeitliche Ableitung ein linearer Operator ist, geht also formal keine
+Information verloren: in der Sprungantwort stecken daher auch alle Systeminformationen
+eines LTI-Systems, halt in anders verpackter Form.
+%
+Beide Anregungssignale, also der Dirac Impuls als auch der Einheitssprung sind in
+der Praxis nicht exakt zu realisieren. Dirac Impuls bräuchte zu einem unendlich kurzen
+Zeitpunk unendliche Energie (quasi der Urknall der SigSys), der Einheitssprung
+dauert nach Definition bis in alle Ewigkeit.
+%
+Mit einem Einheitssprung der nur sehr lange genug gegenüber der Systemzeitkonstanten
+ist, bilden wir die Sprungantwort in der Praxis mit guter Näherung ab.
+%
+Bei Systemen die mit Gleichsignalen
+(Strom, Spannung) gut klar kommen
+(in der Regelungstechnik ist das oft der Fall)
+, wäre diese Methode dann auch praktisch umsetzbar.
+%
+Es gibt Systeme die nicht gut auf Gleichsignale zu sprechen sind (Lautsprecher
+knacken und die darin befindliche Schwingspule wird heiß),
+dort sollten wir auf die direkte Messung der Sprungantwort mittels
+Einheitssprung verzichten.
+%
+
+Quizfrage: ein Lautsprecher mag eigentlich auch keinen kurzen Impuls hoher Amplitude
+mit dem wir die Impulsantwort näherungsweise messen könnten. Was machen wir stattdessen
+? Ist die ganze SigSys-Denke schon am Ende?
+
+
+Weiter mit der Lösung: die Korrespondenz des Einheitssprungs
+haben wir uns vorher erarbeitet (KB immer stillschweigend für kausale Signale)
+\begin{equation}
+x(t)=\epsilon(t) \quad \laplace \quad X(s)=\frac{1}{s}
+\end{equation}
+
+Setzen wir diese Korrespondenz ein, bekommen wir zunächst
+\begin{align}
+Y(s) = \frac{1}{T_\mathrm{RC}}\cdot\frac{1}{s + \frac{1}{T_\mathrm{RC}}} \cdot \frac{1}{s}
+\end{align}
+Ziel ist diesen Ausdruck als additive Überlagerung von bekannten Korrespondenzen
+darzustellen, genau genommen in eine additive Überlagerung von Polstellen mit
+unterschiedlicher Ausprägung
+(reell, reell und doppelt, einfach komplex, konjugiert komplex, usw.) zu zerlegen.
+Im Grunde ist das die Kochrezept-Anwendung des Residuensatzes.
+
+Wir müssen also für die beiden Polstellen
+\begin{equation}
+\frac{1}{s + \frac{1}{T_\mathrm{RC}}} \cdot \frac{1}{s} =
+\frac{A}{s + \frac{1}{T_\mathrm{RC}}} + \frac{B}{s}
+\end{equation}
+die äquivalente Darstellung über die Koeffizienten $A$, $B$ finden, bekannt als
+Partialbruchzerlegung.
+Wir bekommen zunächst die Ausdrücke
+\begin{align}
+&0\cdot s^1 + 1\cdot s^0 =
+A\cdot s + B \cdot (s + \frac{1}{T_\mathrm{RC}})\\
+&0\cdot s^1 + 1\cdot s^0 =
+(A+B)\cdot s^1 + B \frac{1}{T_\mathrm{RC}} \cdot s^0
+\end{align}
+und für die Koeffizienten per Vergleich
+\begin{equation}
+  A=-B\qquad B = T_\mathrm{RC}
+\end{equation}
+Eingesetzt ergibt das
+\begin{align}
+&Y(s) = \frac{1}{T_\mathrm{RC}}\cdot\frac{1}{s + \frac{1}{T_\mathrm{RC}}} \cdot \frac{1}{s}\\
+&Y(s) = \frac{1}{T_\mathrm{RC}}\cdot \left(\frac{A}{s + \frac{1}{T_\mathrm{RC}}} + \frac{B}{s}\right)\\
+&Y(s) = \frac{1}{T_\mathrm{RC}}\cdot \left(\frac{-T_\mathrm{RC}}{s + \frac{1}{T_\mathrm{RC}}} + \frac{T_\mathrm{RC}}{s}\right)\\
+&Y(s) = \frac{-1}{s - (-\frac{1}{T_\mathrm{RC}})} + \frac{1}{s}
+\end{align}
+Die Rücktransformation ist mit den vorher erarbeiteten Korrespondenzen schnell
+erledigt
+\begin{align}
+Y(s) = \frac{1}{s} - \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \quad \Laplace \quad
+y(t) = \left(1-\e^{-\frac{t}{T_\mathrm{RC}}}\right)\cdot \epsilon(t)
+\end{align}
+und damit die Sprungantwort $h_\epsilon(t) = y(t)$ gefunden.
+In Übung 2.8 haben wir als Abfallprodukt die Sprungantwort an einem dimensionierten
+RC-Glied schon mal mit berechnet. Zudem sollte uns die Formel und der Verlauf des
+Signals $h_\epsilon(t)$ sehr bekannt vorkommen aus der ET,
+im großen Kapitel Gleichspannungen und -ströme und Auf-/Entladevorgänge
+an passiven Energiespeichern. Wir haben das
+da (mutmaßlich) nicht als Sprungantwort bezeichnet.
+
+
+\item c) \textbf{Steady State (Verhältnis Aus- zu Eingangsspannung des
+RC-Gliedes bei Harmonischer Anregung)}
+
+Wir setzten fort und lösen im Wesen das was wir in der ET als weiteres großes
+Kapitel behandelt haben: Komplexe Wechselstromtechnik. Rechnen mit Zeigern
+ist eine gutes Tool, aber the bigger picture erschließt sich damit nicht
+notwendig als Selbstläufer.
+
+Wir interessieren uns für den Fall, was das System im eingeschwungenen Zustand
+treibt, wenn wir das RC-Glied mit einer harmonischer Schwingung (z.B. mit 50 Hz) anregen.
+Also eine ganz klassische Aufgabe für komplexe Spannungsteiler, Zeigerbild usw.
+Das ist das einfachste uns bekannte Lösungstool, aber es geht eben auch
+NUR das.
+
+Für SigSys ist die gestellte Aufgabe nun just another Eingangssignal, und wir lösen
+mit dem gleichen Weg wie schon zuvor.
+
+Machen wir den Ansatz eines zu $t=0$ eingeschalteten Cosinussignals, also benutzen
+\begin{equation}
+x(t)=\cos(\omega_\mathrm{RC} t ) \epsilon(t) \quad \laplace \quad X(s)=\frac{s}{s^2+\omega_\mathrm{RC}^2}
+\end{equation}
+
+Einsetzen in $Y(s) = H(s)\cdot X(s)$ bringt
+%
+\begin{align}
+Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2}
+\end{align}
+Für die manuelle Rechnung ist es hier ratsam entweder nur $\omega_\mathrm{RC}$ oder
+$T_\mathrm{RC}$ zu benutzen, um nicht durcheinander zu kommen.
+%
+Eine Partialbruchzerlegung (\textbf{das sollten wir für die Klausur ein wenig üben
+anhand der Klausuraufgaben zur Laplace Transformation oder der Aufgaben 3.7 und 3.8
+aus dem SS2019})
+ führt wieder zum Ziel, d.h. additive Überlagerung von
+'Polstellen' (bekannte Korrespondenzen, es sind genau genommen keine reinen Polstellen,
+sondern es können auch Nullstellen vorkommen, also gebrochen rationale Funktionen),
+also hier
+\begin{align}
+Y(s) = \frac{1}{2} \left(
+\frac{s}{s^2+\omega_\mathrm{RC}^2} + \frac{\omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2} - \frac{1}{s-(-\frac{1}{T_\mathrm{RC}})}
+\right)
+\end{align}
+%
+Die Rücktransformation der einzelnen Terme führt zum Ausgangssignal (also der
+Spannung über dem Kondensator)
+\begin{align}
+  y(t) = \frac{1}{2}\left(
+  \cos(\omega_\mathrm{RC} t) + \sin(\omega_\mathrm{RC} t) + \e^{-\frac{t}{T_\mathrm{RC}}}
+  \right) \epsilon(t).
+\end{align}
+Dieses Ergebnis sollte noch sinnvoll vereinfacht werden, weil wir dann erst
+den schönen Link zur ET sehen.
+%
+Wir könnten jetzt Additionstheoreme für die Addition von cos() und sin() nachschlagen
+oder selber neu erfinden mittels Euleridentitäten.
+%
+Es geht in dem Fall aber auch maximal bequem mit einem einfachen Zeigerdiagramm
+weil sin und cos mit gleicher Kreisfrequenz schwingen, die Zeigermethode ist hier
+sehr nützlich. Wir legen den cos() auf die Phasenbezugslinie.
+Das machen wir intentional, weil wir als Endergebnis
+einen cos()-Term haben wollen, damit wir die Relation zum cos()-Eingangssignal
+einfach sehen. Das Sinussignal ist dem Cosinussignal $\frac{\pi}{2}$ nachfolgend.
+Das Zeigerdiagramm ist also
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\draw[-] (0,0)--(1.5,0) node[right]{Phasen-Bezugslinie};
+\draw[->, C0, ultra thick] (0,0)--(1,0) node[above]{$A_\textrm{cos}=1$};
+\draw[->, C0, ultra thick] (0,0)--(0,-1) node[left]{$A_\textrm{sin}=1$};
+\draw[-, C7, thin] (0,-1)--(1,-1);
+\draw[-, C7, thin] (1,0)--(1,-1);
+\draw[->, C1, ultra thick] (0,0)--(1,-1) node[below]{$A_{\sum_{}^{}}=\sqrt{2}$};
+\end{tikzpicture}
+\end{center}
+und daraus können wir zunächst aus der Vektoraddition die resultierende Amplitude und
+die Lage bzgl. der Phasenbezugslinie feststellen zu
+\begin{equation}
+  \sin(\phi) + \cos(\phi) = \sqrt{2} \cos(\phi-\frac{\pi}{4})
+\end{equation}
+Damit ergibt sich
+\begin{align}
+  y(t) = \frac{1}{2}\left(
+  \sqrt{2}\,\cos(\omega_\mathrm{RC} t - \frac{\pi}{4}) + \e^{-\frac{t}{T_\mathrm{RC}}}
+  \right) \epsilon(t)
+\end{align}
+Ein nun wichtiger \textbf{Speziallfall} ist der sogenannte \textbf{eingeschwungene
+Zustand (steady state)} des Systems.
+%
+Das ist der Zustand wo das Ausgangssignal keine Artefakte mehr beinhaltet, die
+vom Anfangszeitpunkt herrühren.
+In unserem speziellen Fall ist das alles was mit dem sprunghaften Einschalten
+des Cosinus zu $t=0$ zu tun hat, also der
+$\e^{-\frac{t}{T_\mathrm{RC}}}$-Anteil.
+%
+Eingeschwungener Zustand gilt ganz streng genommen, wenn $t\to\infty$.
+In der Praxis erreicht ein System den eingeschwungenen Zustand wenn wir nur viel
+länger (aber eben nicht unendlich) als die längste Zeitkonstante des Systems
+abwarten (beim RC-Glied haben wir nur eine, nämlich $T_\mathrm{RC}$).
+%
+Wenn also $t \gg T_\mathrm{RC}$,
+dann geht $\e^{-\frac{t}{T_\mathrm{RC}}}$ mit guter Näherung gegen Null
+und es verbleibt
+\begin{align}
+  y(t \gg T_\mathrm{RC}) =& \frac{1}{\sqrt{2}} \,\cos(\omega_\mathrm{RC} t - \frac{\pi}{4})\\
+  y(t \gg T_\mathrm{RC}) =& \frac{1}{\sqrt{2}} \,\cos(\omega_\mathrm{RC} \left[t - \frac{\pi}{4} T_\mathrm{RC}\right])
+\end{align}
+Zweite Gleichung weil $T_\mathrm{RC}\cdot \omega_\mathrm{RC} =1$, erneute Übung
+zur Zeitverschiebung und Zeitskalierung.
+
+Die spezielle Amplitudenabnahme um Faktor $\frac{1}{\sqrt{2}}$ und Phasenverschiebung
+um $-\frac{\pi}{4}$ sollte uns bekannt vorkommen. Wir haben als Signalfrequenz
+die sogenannte Grenzfrequenz des Systems gewählt, also
+$\omega_\mathrm{RC} = \frac{1}{T_\mathrm{RC}} = \frac{1}{R \cdot C}$.
+Das war natürlich didaktisch so gewählt.
+%
+Der Vorteil der vollständigen Lösung mit Einschalten ist, dass wir
+die \textbf{absolute Phasenverschiebung} als Abfallprodukt mit dazu bekommen.
+%
+Wenn wir mit komplexer Wechselstromtechnik \textbf{nur den eingeschwungenen Zustand}
+berechnen, kennen wir \textbf{nur die relative} Phasenverschiebung
+zwischen Aus- und Eingang, wissen aber nicht, wie dieses tatsächlich zustande kommt.
+Es kann ja durchaus sein, dass das System eine zusätzliche Verzögerung
+um mehrere Periodendauern beinhaltet,
+die im gleichen relativen Phasenwinkel $-\frac{\pi}{4}$ endet.
+Oder aber (in der Praxis sehr
+unwahrscheinlich, weil es keine akausalen Systeme gibt, aber um den Punkt zu machen
+ein hilfreiches Bild): der Ausgang kommt früher als der Eingang.
+Das sehen wir in den komplexen Zeigern nicht.
+
+In \fig{fig:4408E33353} ist das Systemverhalten für die drei betrachteten Szenarien
+übersichtlich dargestellt.
+%
+Die Grafik ist absichtlich nicht mit irgendeiner gewählten Dimensionierung
+für $R$ und $C$ gemacht, sondern es ist alles allgemein gültig schematisch gezeichnet.
+Das System wird oft als \textbf{Tiefpass 1. Ordnung} (Nachrichtentechnik) und
+\textbf{PT$_1$-Glied} (Regelungstechnik) bezeichnet.
+
+Anhand der Grafiken, sollten wir uns klarmachen, wie der Pol wandert und
+wie sich damit die Signale über die Zeit ändern
+wenn
+\begin{itemize}
+  \item $T_\mathrm{RC}$ vergrößert, also $\omega_\mathrm{RC}$ verkleinert wird
+  \item $T_\mathrm{RC}$ verkleinert, also $\omega_\mathrm{RC}$ vergrößert wird
+  \item was im Grenzfall passiert, wenn $T_\mathrm{RC}\to\infty$, also
+  $\omega_\mathrm{RC}\to 0$ (Hinweis: idealer Integrator)
+\end{itemize}
+
+% \begin{align}
+% &\frac{1}{2} \left(\frac{e^{\im x}}{2\im} - \frac{e^{-\im x}}{2\im} + \frac{e^{\im x}}{2} + \frac{e^{-\im x}}{2}\right)\\
+% &\frac{1}{2} \left(\frac{e^{\im (x+\frac{\pi}{4})}}{2\im} - \frac{e^{-\im (x-\frac{\pi}{4})}}{2\im} + \frac{e^{\im (x+\frac{\pi}{4})}}{2} + \frac{e^{-\im (x-\frac{\pi}{4})}}{2}\right)
+% \e^{-\im\frac{\pi}{4}}\\
+% &\frac{1}{2} \left(\frac{e^{\im (x+\frac{\pi}{4}-\frac{\pi}{2})}}{2} + \frac{e^{-\im (x-\frac{\pi}{4}-\frac{\pi}{2})}}{2} + \frac{e^{\im (x+\frac{\pi}{4})}}{2} + \frac{e^{-\im (x-\frac{\pi}{4})}}{2}\right)
+% \e^{-\im\frac{\pi}{4}}\\
+% &\frac{1}{2} \left(\frac{e^{\im (x-\frac{\pi}{4})}}{2} + \frac{e^{-\im (x-\frac{3\pi}{4})}}{2} + \frac{e^{\im (x+\frac{\pi}{4})}}{2} + \frac{e^{-\im (x-\frac{\pi}{4})}}{2}\right)
+% \e^{-\im\frac{\pi}{4}}
+% \end{align}
+
+\end{itemize}
+\end{Loesung}
+
+
+\begin{figure}[h]
+\begin{center}
+%sigma < 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1}
+\def \omegaz {1}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\times$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-\frac{1}{T_\mathrm{RC}}$};
+\draw (-\tic,\omegaz) -- (\tic,\omegaz) node[right]{$+\omega_\mathrm{RC}=+\frac{1}{T_\mathrm{RC}}$};
+\draw (-\tic,-\omegaz) -- (\tic,-\omegaz) node[right]{$-\omega_\mathrm{RC}=-\frac{1}{T_\mathrm{RC}}$};
+\draw (1.25,+2.25) node[C2!75]{KB};
+\draw (1.25,1.75) node[]{$g=\frac{1}{T_\mathrm{RC}}$};
+%
+\begin{scope}[shift={(5,-1.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:7,
+samples=64,
+legend pos=outer north east,
+xlabel = {$t\rightarrow$},
+ylabel = {$h(t)$},
+title = {Impulse Response / Impulsantwort},
+xmin=-0.1, xmax=7,
+ymin=-0.1, ymax=1.1,
+xtick={0,1,3,5},
+ytick={0, 0.3678, 1},
+xticklabels={$0$, $T_\mathrm{RC}$, $3 T_\mathrm{RC}$, $5 T_\mathrm{RC}$},
+yticklabels={$0$, $\frac{0.37}{T_\mathrm{RC}}$, $\frac{1}{T_\mathrm{RC}}$},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-\sigmaz*x)};
+\end{axis}
+\end{scope}
+%
+%
+%
+%
+\begin{scope}[shift={(-3,-6.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:7,
+samples=64,
+legend pos=outer north east,
+xlabel = {$t\rightarrow$},
+ylabel = {$h_\epsilon(t)$},
+title = {Step Response / Schrittantwort},
+xmin=-0.1, xmax=7,
+ymin=-0.1, ymax=1.1,
+xtick={0, 1, 3, 5},
+ytick={0,0.63,0.95, 1},
+xticklabels={$0$, $T_\mathrm{RC}$, $3 T_\mathrm{RC}$, $5 T_\mathrm{RC}$},
+yticklabels={$0$, $0.63$, $ $, $1$},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)};
+\addplot[mark=None, color=C0, ultra thick]
+{1-exp(-\sigmaz*x)};
+\end{axis}
+\end{scope}
+%
+%
+%
+%
+\begin{scope}[shift={(5,-6.5)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:7,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t\rightarrow$ für $t_1 \gg T_\mathrm{RC}$},
+ylabel = {$\textcolor{C0}{x(t)},\,\,\,\textcolor{C3}{y(t)}$},
+title = {Steady State / Eingeschwungen},
+xmin=0, xmax=7,
+ymin=-1.1, ymax=1.1,
+xtick={0,pi/2,pi/2+pi/4,pi,pi+1,2*pi},
+ytick={-1,-0.7071,0,0.7071,1},
+xticklabels={$t_1$, $ $, $ $, $ $, $ $, $t_1+2\pi T_\mathrm{RC}$},
+yticklabels={$-1$, $-\frac{1}{\sqrt{2}}$, $0$, $\frac{1}{\sqrt{2}}$, $1$},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{cos(deg(x))};
+\addplot[mark=None, color=C3, ultra thick]
+{0.7071*cos(deg(x-pi/4))};
+\addplot[mark=None, color=C7, ultra thick]
+coordinates {(pi,0)(pi+1,0)};
+\draw (370,130) node[]{$T_\mathrm{RC}$};
+%
+\addplot[mark=None, color=C7, ultra thick]
+coordinates {(pi/2,0)(pi/2+pi/4,0)};
+\draw (180,90) node[]{$\frac{\pi}{4} T_\mathrm{RC}$};
+\end{axis}
+\end{scope}
+%
+%
+%
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\caption{Beschreibung des Ein-Pol LTI-Systems gemäß DGL
+$T_\mathrm{RC}\frac{\fsd}{\fsd t} y(t) + y(t) = x(t)$ mittels
+\textbf{Polstellen-Nullstellen Diagramm} der Laplace Transformation
+$H(s)$ von der Impulsantwort $h(t)$,
+Impulsantwort $h(t)$ und Sprungantwort $h_\epsilon(t)$.
+Speziell: eingeschwungener Zustand für die Kreisfrequenz
+$\omega_\mathrm{RC}=\frac{1}{T_\mathrm{RC}}$
+mit charakteristischer Amplitudenabnahme um Faktor $\frac{1}{\sqrt{2}}$ und
+Phasenverschiebung um $-\frac{\pi}{4}$. Grafik für Aufgabe \ref{sec:4408E33353}}
+\label{fig:4408E33353}
+\end{figure}
+
+
+\clearpage
+\begin{mdframed}
+\textbf{Ausblick auf UE 4 und 5}:
+Wir werden in den nächsten Einheiten weiter lernen, wie sich das System
+für $\omega\ll\omega_\mathrm{RC}$ und $\omega\gg\omega_\mathrm{RC}$
+verhält (das wissen wir eigentlich schon aus ET) und wie sich das elegant
+interpretieren lässt (SigSys).
+Wagen wir einen kleinen Vorgriff: die Laplace Variable $s=\sigma + \im\omega$
+kann ja den Fall $\sigma=0$ beinhalten, wir sind im Konvergenzbereich
+für das betrachtete System. Wir werten die Übertragungsfunktion
+\begin{align}
+H(s) = \frac{Y(s)}{X(s)} = \frac{1}{T_\mathrm{RC} \cdot s + 1}
+\end{align}
+dann aus für den Fall $s=\im\omega$
+\begin{align}
+H(\im\omega) = \frac{Y(\im\omega)}{X(\im\omega)} =
+\frac{1}{T_\mathrm{RC} \cdot \im\omega + 1}
+\end{align}
+Das könnte uns bekannt vorkommen aus der Wechselstromtechnik, vielleicht eher
+notiert mit komplexen Spannungsvariablen am RC-Glied
+\begin{align}
+\frac{\underline{U}_A}{\underline{U}_E} =
+\frac{1}{R\,C \cdot \im\omega + 1}.
+\end{align}
+Dies ist der \textbf{komplexe Spannungsteiler} und stellt
+ausschließlich den \textbf{eingeschwungenen Zustand} dar.
+
+In SigSys ist die Funktion $H(\im\omega)$ (also der Spezialfall
+für $\sigma=0$!) so wichtig, dass sie einen eigenen Namen erhält: dies ist
+der komplexwertige \textbf{Frequenzgang des Systems} der als Betrag und Phase
+über die Kreisfrequenz dargestellt werden kann.
+Wir haben mutmaßlich schon mal etwas vom Bodediagramm gehört, dahin geht die Reise...
+
+\end{mdframed}
+
+\textbf{Hinweise für weitere Vertiefung}:
+\begin{itemize}
+  \item Zur vertiefenden Übung für Laplace Hintransformation seien die Übungen SS2019 3.5 und 3.6 empfohlen
+  \item Rücktransformation mittels Partialbruchzerlegung kann mit Übungen SS2019 3.7 und 3.8 geübt werden.
+  Sie kommt typisch auch bei allen Klausuraufgaben zur Laplace Transformation vor.
+  \item Die Lösung für ein LTI-System 2. Ordnung ist in
+  \verb|SigSys_UE3_Lowpass2nd.pdf| geschildert. Es lohnt sich sehr das durchzuarbeiten.
+ Es zeigt kompakt die zu Fuß Lösung der DGL mittels Fundamentalsystem und mittels Laplace Transformation.
+ Der Teil Laplace Transformation ist sehr hilfreich für die Klausurvorbereitung.
+\end{itemize}

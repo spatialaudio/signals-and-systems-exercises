@@ -2257,10 +2257,21 @@ y_2(t) =
 \end{cases}
 \end{equation}
 %
-Es gilt das Superpositionsprinzip bei LTI-Systemen, also einer Eingangssumme
-$x(t) = x_1(t) + x_2(t) = \epsilon(t) - \epsilon(t-2)$
-folgt die Ausgangssumme $y(t) = y_1(t) + y_2(t)$.
+% Bitte nochmal mit Wolfram Alpha gegenchecken:
+% Ansatz für gedrehte Impulsantwort
+% integrate -step(tau-2)*5*exp(5*tau-5*t) d tau from 0 to t
+% oder Ansatz für gedrehten Reckteckimpuls
+% integrate -step(-tau+t-2)*5*exp(-5*tau) d tau from 0 to t
 
+% Mit dem zweiteren, hab ich dann für 2.217 die beiden Funktionen verschoben (bzgl. tau) und die Integralgrenzen angepasst
+% integrate -step(-tau+t)*5*exp(-5*(tau-2)) d tau from 2 to t
+% und wenn wir dann explizit erwähnen, dass y(t) nur für t>=2, brauchen wir die step funktion im Integral nicht mehr und wir können mit dem Integral
+% integrate -5*exp(-5*(tau-2)) d tau from 2 to t
+% rechnen.
+% %
+% Es gilt das Superpositionsprinzip bei LTI-Systemen, also einer Eingangssumme
+% $x(t) = x_1(t) + x_2(t) = \epsilon(t) - \epsilon(t-2)$
+% folgt die Ausgangssumme $y(t) = y_1(t) + y_2(t)$.
 \end{ExCalc}
 
 \begin{Loesung}
