@@ -1176,8 +1176,67 @@ anhand der Klausuraufgaben zur Laplace Transformation oder der Aufgaben 3.7 und 
 aus dem SS2019})
  führt wieder zum Ziel, d.h. additive Überlagerung von
 'Polstellen' (bekannte Korrespondenzen, es sind genau genommen keine reinen Polstellen,
-sondern es können auch Nullstellen vorkommen, also gebrochen rationale Funktionen),
-also hier
+sondern es können auch Nullstellen vorkommen, also gebrochen rationale Funktionen).
+
+Der Ansatz für eine reelle Polstelle und eine konjugiert-komplexe Polstelle (
+$T_\mathrm{RC}$ auf die linke Seite bringen macht sich gut
+)
+\begin{align}
+% Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2}\\
+% Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s + \omega_\mathrm{RC}} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2}\\
+T_\mathrm{RC} Y(s) = \frac{1}{s + \omega_\mathrm{RC}} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2} = \frac{A}{s+\omega_\mathrm{RC}} + \frac{B s + C}{s^2+\omega_\mathrm{RC}^2}
+\end{align}
+verlangt Koeffizientenvergleich für
+\begin{align}
+s =& A (s^2+\omega_\mathrm{RC}^2) + (B s + C) (s+\omega_\mathrm{RC})
+%s =& A s^2 + A \omega_\mathrm{RC}^2 + B s^2 + B s \omega_\mathrm{RC} + C s + C \omega_\mathrm{RC}
+\end{align}
+und führt zu Gleichungssystem
+\begin{align}
+0 =& A + B\\
+1 =& B \omega_\mathrm{RC} + C\\
+0 =& A \omega_\mathrm{RC}^2 + C \omega_\mathrm{RC}
+\end{align}
+% \begin{align}
+% A =& -B\\
+% 1 =& -A \omega_\mathrm{RC} + C \rightarrow 1 + A \omega_\mathrm{RC} = C\\
+% 0 =& A \omega_\mathrm{RC}^2 + C \omega_\mathrm{RC}
+% \end{align}
+% \begin{align}
+% A =& -B\\
+% C = & 1 + A \omega_\mathrm{RC}\\
+% 0 =& A \omega_\mathrm{RC}^2 + (1 + A \omega_\mathrm{RC}) \omega_\mathrm{RC}
+% \end{align}
+% \begin{align}
+% A =& -B\\
+% C = & 1 + A \omega_\mathrm{RC}\\
+% 0 =& A \omega_\mathrm{RC}^2 + A \omega_\mathrm{RC}^2 + \omega_\mathrm{RC}
+% \end{align}
+% \begin{align}
+% A =& -B\\
+% C = & 1 + A \omega_\mathrm{RC}\\
+% -\omega_\mathrm{RC} =& 2 A \omega_\mathrm{RC}^2 + A \omega_\mathrm{RC}^2
+% \end{align}
+% \begin{align}
+% A =& -B\\
+% C = & 1 + A \omega_\mathrm{RC}\\
+% A =& -\frac{1}{2\omega_\mathrm{RC}}
+% \end{align}
+was wir lösen können zu
+\begin{align}
+A = -\frac{1}{2\omega_\mathrm{RC}},\,B = +\frac{1}{2\omega_\mathrm{RC}},\,C = \frac{1}{2}
+\end{align}
+Nun setzen wir die Koeffizienten ein
+\begin{align}
+T_\mathrm{RC} Y(s) = \frac{-\frac{1}{2\omega_\mathrm{RC}}}{s+\omega_\mathrm{RC}} + \frac{\frac{1}{2\omega_\mathrm{RC}} s + \frac{1}{2}}{s^2+\omega_\mathrm{RC}^2}
+%T_\mathrm{RC} Y(s) = -\frac{1}{2\omega_\mathrm{RC}}\cdot\frac{1}{s+\omega_\mathrm{RC}} + \frac{\frac{1}{2\omega_\mathrm{RC}} s + \frac{1}{2}}{s^2+\omega_\mathrm{RC}^2}\\
+%T_\mathrm{RC} Y(s) = -\frac{1}{2\omega_\mathrm{RC}}\cdot\frac{1}{s+\omega_\mathrm{RC}} + \frac{1}{2\omega_\mathrm{RC}}\cdot\frac{s + \omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2}\\
+%Y(s) = -\frac{1}{2\omega_\mathrm{RC} T_\mathrm{RC} }\cdot\frac{1}{s+\omega_\mathrm{RC}} + \frac{1}{2\omega_\mathrm{RC}T_\mathrm{RC} }\cdot\frac{s + \omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2}\\
+%Y(s) = -\frac{1}{2}\cdot\frac{1}{s+\omega_\mathrm{RC}} + \frac{1}{2}\cdot\frac{s + \omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2}\\
+%Y(s) = -\frac{1}{2}\cdot\frac{1}{s-(-\frac{1}{T_\mathrm{RC}})} + \frac{1}{2}\cdot\frac{s + \omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2}
+\end{align}
+und stellen um ($T_\mathrm{RC}$ wieder zurück auf die rechte Seite),
+bis wir bekannte Korrespondenzen entdecken, also hier
 \begin{align}
 Y(s) = \frac{1}{2} \left(
 \frac{s}{s^2+\omega_\mathrm{RC}^2} + \frac{\omega_\mathrm{RC}}{s^2+\omega_\mathrm{RC}^2} - \frac{1}{s-(-\frac{1}{T_\mathrm{RC}})}
@@ -1188,7 +1247,7 @@ Die Rücktransformation der einzelnen Terme führt zum Ausgangssignal (also der
 Spannung über dem Kondensator)
 \begin{align}
   y(t) = \frac{1}{2}\left(
-  \cos(\omega_\mathrm{RC} t) + \sin(\omega_\mathrm{RC} t) + \e^{-\frac{t}{T_\mathrm{RC}}}
+  \cos(\omega_\mathrm{RC} t) + \sin(\omega_\mathrm{RC} t) - \e^{-\frac{t}{T_\mathrm{RC}}}
   \right) \epsilon(t).
 \end{align}
 Dieses Ergebnis sollte noch sinnvoll vereinfacht werden, weil wir dann erst
@@ -1222,7 +1281,7 @@ die Lage bzgl. der Phasenbezugslinie feststellen zu
 Damit ergibt sich
 \begin{align}
   y(t) = \frac{1}{2}\left(
-  \sqrt{2}\,\cos(\omega_\mathrm{RC} t - \frac{\pi}{4}) + \e^{-\frac{t}{T_\mathrm{RC}}}
+  \sqrt{2}\,\cos(\omega_\mathrm{RC} t - \frac{\pi}{4}) - \e^{-\frac{t}{T_\mathrm{RC}}}
   \right) \epsilon(t)
 \end{align}
 Ein nun wichtiger \textbf{Speziallfall} ist der sogenannte \textbf{eingeschwungene
