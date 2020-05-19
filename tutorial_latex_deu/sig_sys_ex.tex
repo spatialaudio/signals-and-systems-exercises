@@ -10,14 +10,20 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{trfsigns}
+\usepackage{marvosym}
+\usepackage{nicefrac}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage{comment}
 \usepackage{mdframed}
 \usepackage{tikz,circuitikz,pgfplots}
-
 \usetikzlibrary{matrix}
+ \usetikzlibrary{shapes.misc}
+ \tikzset{cross/.style={cross out, draw,
+          minimum size=2*(#1-\pgflinewidth),
+          inner sep=0pt, outer sep=0pt}}
+\newcommand{\filtDelay}{$z^{-4}$}
 
 \bibliographystyle{dinat}
 
@@ -71,12 +77,8 @@
 % \begin{Loesung}
 % \end{Loesung}
 
-% E1E7E53CFF
-% 68CD3A7F90
-% AB91F8317C
-% 8844932657
-% 4926427BA9
-% 081294E23C
+
+
 % EF235EE3D8
 % 45C76AFB33
 % 99D5D9F1C9
@@ -165,74 +167,46 @@ Computational Examples, University of Rostock} with
 
 %\input{sig_sys_ex_intro}
 
-%\setcounter{section}{0}  % UE 1 in our current sequence
+\setcounter{section}{0}  % UE 1 in our current sequence
 %\input{sig_sys_ex_01}  % Einführung, FS, FT, Dirac, ODE2nd, h(t)
 
-%\setcounter{section}{1}
+\setcounter{section}{1}
 %\input{sig_sys_ex_02}  % UE 2, signal ops, LTI, conv
 
-%\setcounter{section}{2}
+\setcounter{section}{2}
 %\input{sig_sys_ex_03}  % UE 3, laplace
 
-%\setcounter{section}{3}
+\setcounter{section}{2}
+%\input{sig_sys_ex_03AddOn}  % UE 3, laplace 2nd order
+
+\setcounter{section}{3}
 %\input{sig_sys_ex_04}  % UE 4, fourier
 
 \setcounter{section}{4}
 %\input{sig_sys_ex_05}  % UE 5, system in spectral domain
 
+\setcounter{section}{5}
+\input{sig_sys_ex_06}  % UE 5, min/max/allpass phase
 
+% \setcounter{section}{6}
+% \input{sig_sys_ex_07}
+%
+% \setcounter{section}{7}
+% \input{sig_sys_ex_08}
+%
+% \setcounter{section}{8}
+% \input{sig_sys_ex_09}
+%
+% \setcounter{section}{9}
+% \input{sig_sys_ex_10}
+%
+% \setcounter{section}{10}
+% \input{sig_sys_ex_11}
+%
+% \setcounter{section}{11}
+% \input{sig_sys_ex_12}
 
-
-
-
-
-
-%------------------------------------------------------------------------------
-\clearpage
-\section{UE 5: Beschreibung von LTI-Systemen im Spektralbereich}
-
-big picture mit PT1 und PT2, also Tiefpass 1./2. Ordnung
-\begin{itemize}
-  \item Impulsantwort $h(t)$
-  \item Sprungantwort $h_\epsilon(t)$
-  \item Übertragungsfunktion $H(s)$ / 3D Map, PolNST/Gain+KB
-  \item Frequenzgang $H(\im\omega)$
-  \item Wurzelortskurve, d.h. Abszisse / x-Achse  $\Re H(\im\omega)$, d.h. Ordinate / y-Achse  $\Im H(\im\omega)$
-\end{itemize}
-
-
-\newpage
-\subsection{Überschrift}
-\label{sec:}
-\begin{Ziel}
-\end{Ziel}
-\textbf{Aufgabe} {\tiny }: Berechnen Sie...
-\begin{Werkzeug}
-\end{Werkzeug}
-\begin{Ansatz}
-\end{Ansatz}
-\begin{ExCalc}
-\end{ExCalc}
-\begin{Loesung}
-\end{Loesung}
-
-
-
-\newpage
-\subsection{Überschrift}
-\label{sec:}
-\begin{Ziel}
-\end{Ziel}
-\textbf{Aufgabe} {\tiny }: Berechnen Sie...
-\begin{Werkzeug}
-\end{Werkzeug}
-\begin{Ansatz}
-\end{Ansatz}
-\begin{ExCalc}
-\end{ExCalc}
-\begin{Loesung}
-\end{Loesung}
-
+% TBD: Verweise auf Formeln / Abb.
 
 
 %------------------------------------------------------------------------------

@@ -9,6 +9,7 @@ laplace_system_analysis/*.pdf
 fs/*.pdf
 ft/*.pdf
 dirac_impulse_ct/*.pdf
+system_properties_ct/*.pdf
 
 ## for tutorial_latex_deu
 tutorial_latex_deu/sig_sys_ex.pdf
