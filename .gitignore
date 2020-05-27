@@ -10,9 +10,12 @@ fs/*.pdf
 ft/*.pdf
 dirac_impulse_ct/*.pdf
 system_properties_ct/*.pdf
+sampling/*.pdf
 
 ## for tutorial_latex_deu
 tutorial_latex_deu/sig_sys_ex.pdf
+
+series_vs_parallel_bode_level_081294E23C.png
 
 ## ipynb stuff
 *-checkpoint.ipynb

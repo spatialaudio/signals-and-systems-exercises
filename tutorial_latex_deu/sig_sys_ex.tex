@@ -19,11 +19,12 @@
 \usepackage{mdframed}
 \usepackage{tikz,circuitikz,pgfplots}
 \usetikzlibrary{matrix}
- \usetikzlibrary{shapes.misc}
- \tikzset{cross/.style={cross out, draw,
+\usetikzlibrary{shapes.misc}
+\tikzset{cross/.style={cross out, draw,
           minimum size=2*(#1-\pgflinewidth),
           inner sep=0pt, outer sep=0pt}}
-\newcommand{\filtDelay}{$z^{-4}$}
+%\newcommand{\filtDelay}{$z^{-4}$}
+\usetikzlibrary{positioning}
 
 \bibliographystyle{dinat}
 
@@ -43,6 +44,7 @@
 \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
 \DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
 \DeclareMathSymbol{\Sha}{\mathord}{mcy}{"58}
+%\newcommand{\Sha}{$\bot \!\! \bot \!\! \bot$}
 
 %matplotlib colors:
 \definecolor{C0}{HTML}{1f77b4}
@@ -78,9 +80,6 @@
 % \end{Loesung}
 
 
-
-% EF235EE3D8
-% 45C76AFB33
 % 99D5D9F1C9
 % FD58EEB1EC
 % 4CBF4358D5
@@ -186,10 +185,10 @@ Computational Examples, University of Rostock} with
 %\input{sig_sys_ex_05}  % UE 5, system in spectral domain
 
 \setcounter{section}{5}
-\input{sig_sys_ex_06}  % UE 5, min/max/allpass phase
+%\input{sig_sys_ex_06}  % UE 5, min/max/allpass phase
 
-% \setcounter{section}{6}
-% \input{sig_sys_ex_07}
+\setcounter{section}{6}
+\input{sig_sys_ex_07}
 %
 % \setcounter{section}{7}
 % \input{sig_sys_ex_08}
@@ -207,6 +206,8 @@ Computational Examples, University of Rostock} with
 % \input{sig_sys_ex_12}
 
 % TBD: Verweise auf Formeln / Abb.
+
+%------------------------------------------------------------------------------
 
 
 %------------------------------------------------------------------------------
