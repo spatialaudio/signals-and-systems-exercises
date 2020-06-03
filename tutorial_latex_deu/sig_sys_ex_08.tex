@@ -1,2 +1,1337 @@
+\clearpage
+\section{Zeitdiskrete Signale, Beschreibung diskreter Systeme im Zeitbereich}
+%
+In der zeitdiskreten Signal- und Systemtheorie haben wir mit Signalen zu tun,
+die mathematisch gesehen Folgen sind. Es gibt Folgen, die wir analytisch
+als Formeln darstellen können.
+Ein einfaches Beispiel wäre die Folge bestehend aus ganz bestimmten Cosinuswerten
+\begin{align}
+x[k] = \cos(\Omega_0 \cdot k)\quad\text{für}\quad k\in\mathbb{Z}, \Omega_0\in\mathbb{R}.
+\end{align}
+Wir benutzen zur Kenntlichmachung von Folgen / zeitdiskreten Signalen eckige
+Klammern $x[k]$ und konsistent $k$ als Folgenindex, der daher $k\in\mathbb{Z}$ ist.
+%
+Die obige Folge könnte aus einem zeitlichen Abtastprozess entstanden sein. Mit dem
+Abtastintervall $T_s$ werden zu den Zeitpunkten $t = k \cdot T_s$
+die Signalwerte $x(k T_s)$
+\begin{align}
+x[k] := x(k T_s) = \cos(\omega_0 T_s k)
+\end{align}
+der Folge $x[k]$ zugewiesen.
+%
+\begin{figure*}[h]
+\centering
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}[scale=1]
+\def\tic{0.1};
+\def\Om{360/8}
+\draw[help lines, C7!25, step=1cm] (0,-1) grid (7,1);
+\draw[->] (-1.5,0) -- (9,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[left]{$x[k]=\cos(\frac{2\pi}{8}k)$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-1,0,...,8}{\draw[stem2] plot coordinates{(\k,{cos(\Om*\k)})};};
+\foreach \k in {-1,8}{\draw[stem2, C3] plot coordinates{(\k,{cos(\Om*\k)})};};
+\end{tikzpicture}
+\caption{$N=8\in\mathbb{Z}$, daher periodisch in 8 Werten, Periode in blau.}
+\label{fig:cos8}
+\end{subfigure}
+%
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}[scale=1]
+\def\tic{0.1};
+\def\Om{360/8.5}
+\draw[->] (-1.5,0) -- (9,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[left]{$x[k]=\cos(\frac{2\pi}{8.5}k)$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-1,0,...,8}{\draw[stem2,C1] plot coordinates{(\k,{cos(\Om*\k)})};};
+\end{tikzpicture}
+\caption{$N=8.5\notin\mathbb{Z}$, daher \textbf{nicht} periodisch in $N$.}
+\label{fig:cos8.5}
+\end{subfigure}
+%
+%
+%
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}[scale=1]
+\def\tic{0.1};
+\def\Om{360/9}
+\draw[help lines, C7!25, step=1cm] (0,-1) grid (8,1);
+\draw[->] (-1.5,0) -- (9,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[left]{$x[k]=\cos(\frac{2\pi}{9}k)$};
+\foreach \x in {-1,0,...,9}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-1,0,...,9}{\draw[stem2] plot coordinates{(\k,{cos(\Om*\k)})};};
+\foreach \k in {-1,9}{\draw[stem2, C3] plot coordinates{(\k,{cos(\Om*\k)})};};
+\end{tikzpicture}
+\caption{$N=9\in\mathbb{Z}$, daher periodisch in 9 Werten, Periode in blau.}
+\label{fig:cos9}
+\end{subfigure}
+\caption{Cosinusfolgen für $\Omega_0=\frac{2\pi}{N}$ für $N=8,\,8.5,\,9$ als
+sogenannter Stem-Plot (stem [englisch] - Stiel, Halm, Stängel [deutsch]).}
+\label{fig:Cosinusfolgen}
+\end{figure*}
+
+Wir können mit der Samplingfrequenz $f_s=\frac{1}{T_s}$ die Umformungen
+$\Omega = \omega T_s = \frac{\omega}{f_s} = \frac{2\pi f}{f_s}$
+zusammentragen. Die Variable $\Omega$ ist als \textbf{digitale, zeitdiskrete oder auch
+normierte Kreisfrequenz} bekannt, wir werden sie sehr häufig brauchen.
+
+In \fig{fig:Cosinusfolgen} sind drei Cosinusfolgen für verschiedene
+$\Omega_0=\frac{2\pi}{N}$ skizziert.
+%
+Nur für $N\in\mathbb{N}$ ist eine Folge periodisch in $N$, also
+im Beispiel $N=8$ und $N=9$. Die Wahl $N=8.5$ führt zu einer nichtperiodischen
+Cosinusfolge, d.h. der Cosinus schwingt zwar munter vor sich hin, wir haben
+ausreichend Signalwerte, um das sogar grafisch zu sehen, aber wir
+können die exakte Periode bzgl. des Signalindex $k$ nicht ganzzahlig angeben,
+zumindest nicht in $N$. Weiter unten werden wir sehen, dass es Folgen gibt
+die für $N=\frac{M}{K}$, $M$-periodisch sind, falls $M$ und $K$ ganzzahlig.
+
+\subsection*{Analogien zeitkontinuierlich / zeitdiskret}
+%
+Wir haben die wesentliche Werkzeuge für die zeitkontinuierlichen Vorgänge
+kennengelernt.  Diese Konzepte haben alle Analogien für den zeitdiskreten Fall,
+siehe Tabelle \ref{tbl:Analogien_CT_DT}.
+%
+Wenn wir also das entsprechende Werkzeug zeitkontinuierlich verstanden haben,
+wird uns die Anpassung an zeitdiskrete Vorgänge vergleichsweise wenig Mühe
+bereiten. Erfahrungsgemäß gestalten sich die zeitdiskreten Vorgänge ein wenig
+zugänglicher, weil wir viel näher an der numerischen Auswertung mit Computerhilfe
+sind, also das Probieren und Testen mit kleinen eigenen Signalverarbeitungsprogrammen
+deutlich mehr einlädt, als symbolische Computeralgebra zu betreiben. Dieser
+Zugang ist sehr wertzuschätzen, zumal wir in der beruflichen Praxis dann mutmaßlich
+sehr sehr viel mit digitalen Signalen zu tun haben werden. Jedoch
+sollten wir uns klarmachen, dass wir viel mehr Probleme geschlossen analytisch
+in der zeitkontinuierlichen SigSys durchdringen können, als es bei zeitdiskreter
+SigSys der Fall ist (es gibt deutlich mehr analytische Lösungen von Integralen als von
+Summen). Summen sind aus irgendeinem Grund am Anfang des Studiums beliebter als
+Integrale, obwohl Summen viel mehr mathematischen Stress nach sich ziehen.
+%
+Wir werden (hoffentlich) in SigSys beide Welten gleich zu schätzen wissen.
+%
+%
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{ | c | c | }
+\hline
+zeitkontinuierliche LTI SigSys & zeitdiskrete LTI SigSys\\\hline
+Differentialgleichung & Differenzengleichung \\
+Eingangssignal $x(t)$ & Eingangsfolge $x[k]$ \\
+Ausgangssignal $y(t)$ & Ausgangsfolge $y[k]$ \\
+Impulsantwort $h(t)$ & Impulsantwort $h[k]$ \\
+Sprungantwort $h_\epsilon(t)$ & Sprungantwort $h_\epsilon[k]$ \\
+Faltungsintegral & Faltungssumme \\
+Laplace Transformation $s$ & $z$-Transformation \\
+komplexe $s$-Ebene & komplexe $z$-Ebene\\
+Übertragungsfunktion $H(s)$ & Übertragungsfunktion $H(z)$ \\
+imaginäre Achse der $s$-Ebene & Einheitskreis der $z$-Ebene\\
+Pole in der linken $s$-Ebene &
+Pole im Einheitskreis der $z$-Ebene \\
+Frequenzvariable $\omega$ & Frequenzvariable $\Omega$ \\
+Frequenzgang $H(s=\im\omega)$ & Frequenzgang $H(z=\e^{\im\Omega})$ \\
+Fourier Transformation (FT)  & DTFT\\
+Fourier Reihe (FS)  & DFT \\\hline
+\end{tabular}
+\end{center}
+\caption{Entsprechungen von zeitkontinuierlicher und zeitdiskreter LTI-Systemtheorie.}
+\label{tbl:Analogien_CT_DT}
+\end{table}
+
+
+
+
+
+
+
+
+\subsection*{Standardsignale}
+Die aus der zeitkontinuierlichen SigSys bekannten Standardsignale haben entsprechende
+Pendants im zeitdiskreten Bereich. Die vier wichtigsten sind:
+\begin{itemize}
+\item Dirac Impuls (Link zu LTI-Systemen: Impulsantwort)
+\begin{align}
+\delta[k] =
+\begin{cases}
+1 & k=0\\
+0 & \text{sonst}
+\end{cases}
+%\end{align}
+%\begin{align}
+%=\delta[k] =
+=\epsilon[k] - \epsilon[k-1]
+\end{align}
+\item Einheitssprungfolge (Link zu LTI-Systemen: Sprungantwort)
+\begin{align}
+\epsilon[k] =
+\begin{cases}
+1 & k \geq 0\\
+0 & \text{sonst}
+\end{cases}
+=\sum_{\kappa=-\infty}^k \delta[\kappa]
+\end{align}
+\item Rechteckfolge der Länge $N$ (also $N$ Folgenwerte, oft auch Samples genannt)
+\begin{align}
+\mathrm{rect}_N[k] =
+\begin{cases}
+1 & 0 \leq k < N\\
+0 & \text{sonst}
+\end{cases}
+%\end{align}
+%\begin{align}
+%=\mathrm{rect}_N[k]
+= \epsilon[k] - \epsilon[k-N]
+\end{align}
+\item Exponentialfolge (Link zu LTI-Systemen: Eigenfunktion bzw. -folge)
+
+\noindent Mit der komplexen Zahl
+\begin{align}
+z = \e^{\Sigma + \im\Omega}
+\end{align}
+und deren Zerlegung in Betrag und Phasenwinkel
+\begin{align}
+|z| = |\e^{\Sigma}|,\quad
+\angle z = \Omega
+\end{align}
+können wir die Exponentialfolge definieren
+\begin{align}
+x[k] =& \e^{(\Sigma_0 + \im\Omega_0) \, k} = z_0^k\\
+x[k] =& |z_0|^k (\e^{\im \angle z_0})^k
+\end{align}
+$|z_0|<1$ ist eine abklingende Folge, $|z_0|>1$ ist eine aufklingende Folge,
+Für $|z_0|=1$ erhalten wir eine harmonische, komplexwertige Schwingung,
+$x[k] = \e^{\im \Omega_0 k} = \cos(\Omega_0 k) + \im \sin(\Omega_0 k)$,
+die periodisch sein kann, siehe oben.
+\end{itemize}
+%
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\begin{scope}
+\draw[->] (-4.5,0) -- (4.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,1.5) node[above]{$\delta[k]$};
+\draw[stem] plot coordinates{(-4,0) (-3,0) (-2,0) (-1,0) (0,1) (1,0) (2,0) (3,0) (4,0)};
+\foreach \x in {-1,1}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\end{scope}
+\begin{scope}[xshift=11cm]
+\draw[->] (-4.5,0) -- (4.25,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,1.5) node[above]{$\epsilon[k]$};
+\draw[stem] plot coordinates{(-4,0) (-3,0) (-2,0) (-1,0) (0,1) (1,1) (2,1) (3,1) (4,1) (5,1)};
+\foreach \x in {-1,1}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (5,0.75) node[right]{$\dots$};
+\end{scope}
+\begin{scope}[xshift=22cm]
+\draw[->] (-4.5,0) -- (4.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,1.5) node[above]{$\mathrm{rect}_{N=4}[k]$};
+\draw[stem] plot coordinates{(-4,0) (-3,0) (-2,0) (-1,0) (0,1) (1,1) (2,1) (3,1) (4,0)};
+\foreach \x in {-1,1}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (4,\tic) -- (4,-\tic)  node[below]{$N$};
+\end{scope}
+\end{tikzpicture}
+\caption{Links: zeitdiskreter Dirac Impuls $\delta[k]$,
+Mitte: Einheitssprungfolge $\epsilon[k]$,
+rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: nicht axialsymmetrisch!).}
+\label{}
+\end{figure}
+
+
+
+
+
 \newpage
-\section{UE : }
+\subsection*{Dirac Impuls und Faltung im zeitdiskreten Bereich}
+Im Gegensatz zum zeitkontinuierlichen Fall, ist der Dirac Impuls im zeitdiskreten
+Bereich eine definierte Folge
+\begin{align}
+\delta[k] =
+\begin{cases}
+1 & k=0\\
+0 & \text{sonst}
+\end{cases}
+\end{align}
+mit der wir direkt rechnen dürfen, also keinen (gedanklichen) Umweg über
+eine Distribution und Anwendung von Eigenschaften nehmen müssen.
+%
+Die Austasteigenschaft
+\begin{align}
+x[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
+\cdot \delta[k-\kappa]
+\end{align}
+kann daher als tatsächliche Rechenvorschrift verstanden werden, aus der wir
+direkt die Multiplikationseigenschaft
+\begin{align}
+x[k] \cdot \delta[k-\kappa] = x[\kappa] \cdot \delta[k-\kappa]
+\end{align}
+ableiten können, wenn wir nur ein spezielles $\kappa$ aus der Summe betrachten
+wollen.
+
+Der Dirac Impuls ist das Neutralelement der Faltung, an diesem fundamentalen
+Konzept halten wir auch im zeitdiskreten fest. Daher repräsentiert die
+Austasteigenschaft
+\begin{align}
+x[k] = x[k] \ast_k \delta[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
+\cdot \delta[k-\kappa]
+\end{align}
+eine spezielle Faltungssumme. Für ein LTI-System $\mathcal{H}$ können wir
+die Impulsantwort $h[k]=\mathcal{H}\{\delta[k]\}$ definieren, und damit
+Eingang $x[k]$ und Ausgang $y[k]$ verknüpfen mit der Faltung
+\begin{align}
+x[k] = x[k] \ast_k h[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
+\cdot h[k-\kappa].
+\end{align}
+%
+In \fig{fig:convolution_discrete_pt1_xhy} ist ein Beispiel für eine Faltung
+zweier Folgen dargestellt, es entspricht einer möglichen zeitdiskreten
+Variante der Übungsaufgabe 2.7.
+%
+\begin{figure}[b]
+\centering
+\includegraphics[width=\textwidth]{../convolution_dt/convolution_discrete_pt1_xhy.pdf}
+\caption{Zeitdiskrete Faltung zweier endlicher Folgen, vgl. den zeitkontinuierlichen
+Fall aus Aufgabe 2.7. \texttt{convolution\_discrete\_pt1.ipynb}}
+\label{fig:convolution_discrete_pt1_xhy}
+\end{figure}
+%
+In \fig{fig:convolution_discrete_pt1_y_over_kt_zoom} das Ausgangssignal noch
+einmal mit vergrößertem Ausschnitt dargestellt, um den Stem-Plot und damit den
+Charakter einer Signalfolge deutlicher zu machen.
+%
+
+Zwei Dinge sollten wir hier mitnehmen:
+\begin{itemize}
+\item das Ausrechnen dieser Faltungssumme von Hand macht aufgrund der krummen Zahlenwerte
+schon für dieses sehr einfache Beispiel (es ähnelt wieder Tiefpassverhalten 1. Ordnung)
+keinen Spaß.
+Deswegen werden wir Faltungen im Folgenden mit sehr künstlichen Signalen
+üben, um übersichtliche Zahlen zu bekommen. Das wird uns allgemein
+sehr oft begegnen in der zeitdiskreten Welt:
+analytisches Rechnen mit praxisfernen Systemen/Signalen,
+praxisnahe Systeme eher simulieren mit dem Rechner. Damit Zweiteres sicher
+und fehlerfrei wird, müssen wir Ersteres beherrschen. Nur dann sind wir in der
+Lage, Computer-Programme mit analytischen Referenzlösungen zu validieren.
+Ohne das wäre es nur Bastelei mit Rechnern.
+\item Ein System mit endlicher Impulsantwort, also wie das einführende Beispiel
+hier und zeitkontinuierlich vergleichend Aufgabe 2.7, ist eine Spezialität das
+praktisch sinnvoll nur zeitdiskret zu realisieren geht. In der Literatur
+ist dies als \textbf{Finite Impulse Response (FIR)} Filter bekannt.
+Es dürfte schwierig bis unmöglich sein, analoge Systeme zu bauen die eine
+exakt endliche Impulsantwort haben. In Aufgabe 2.7 war das ein didaktischer
+Faden, um die Grenzen des Faltungsintegrals zu verinnerlichen.
+\end{itemize}
+%
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\textwidth]{../convolution_dt/convolution_discrete_pt1_y_over_kt_zoom.pdf}
+\caption{Ausgangssignal $y$ aus \fig{fig:convolution_discrete_pt1_xhy},
+vergrößerter Ausschnitt und aufgetragen über $k$ und $t=k T_s$.}
+\label{fig:convolution_discrete_pt1_y_over_kt_zoom}
+\end{figure}
+
+\subsection*{Lernziel}
+In dieser Übungen werden wir Abtastung verlinken mit Folgen.
+Zu einem Ingenieursstudiengang gehört das erfolgreiche Erarbeiten
+der Faltung, und weil im Digital Age überaus praxisrelevant,
+werden wir auch den zeitdiskreten Fall vertieft üben.
+Dafür fallen anderen Themen aus dieser Einheit ein wenig runter, z.B.
+den Check von Systemen auf Linearität und Zeitinvarianz, also die Analogie zu
+Aufgabe 2.4. Hier ist die Transferleistung jedoch vergleichsweise einfach.
+Des weiteren heben wir uns das Konzept der Differenzengleichungen für die folgenden
+Einheiten auf, weil sie im Kontext der $z$-Transformation besser aufgehoben sind.
+
+
+\newpage
+\subsection{Mehrdeutigkeit von Folgen}
+\label{sec:625E151299}
+\begin{Ziel}
+Wir wollen die Mehrdeutigkeit von Cosinusfolgen vertiefen und mit
+der Abtastung von Zeitsignalen verknüpfen.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 625E151299}: Zeigen Sie, dass die $N=8$ periodischen
+Cosinusfolgen $x_3[k] = \cos(3\cdot\frac{2\pi}{8}k)$ und
+$x_5[k] = \cos(5\cdot\frac{2\pi}{8}k)$
+identisch sind.
+%
+Erklären Sie mittels des idealen Abtastprozesses, warum das so sein muss.
+%
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\def\tic{0.1};
+\def\Om{360/8}
+\draw[help lines, C7!25, step=1cm] (0,-1) grid (7,1);
+\draw[->] (-1.5,0) -- (9,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[above]{$x[k]=\cos(3\cdot\frac{2\pi}{8}k)=\cos(5\cdot\frac{2\pi}{8}k)$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-1,0,...,8}{\draw[stem2] plot coordinates{(\k,{cos(3*\Om*\k)})};};
+\foreach \k in {-3,-2,-1,8,9,10}{\draw[stem2, C3] plot coordinates{(\k,{cos(3*\Om*\k)})};};
+\end{tikzpicture}
+\end{center}
+
+\begin{Werkzeug}
+Trigonometrie, ideales Abtastmodell.
+\end{Werkzeug}
+\begin{Ansatz}
+$2\pi$-Periodizität checken, Signale und Abtastspektren skizzieren.
+\end{Ansatz}
+\begin{ExCalc}
+für $n\in\mathbb{Z}$
+\begin{align}
+\cos(3\cdot\frac{2\pi}{8}k) = \cos(5\cdot\frac{2\pi}{8}k)\\
+\cos\left(\left(3\cdot\frac{2\pi}{8} + 2\pi n\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)\\
+%\cos\left(\left(3\cdot\frac{2\pi}{8} + \frac{16}{8}\pi n\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)\\
+\cos\left(\frac{2\pi}{8}\left(3 + 8 n\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)
+\end{align}
+für $n=-1$
+\begin{align}
+\cos\left(\frac{2\pi}{8}\left(3 - 8\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)
+\quad
+\rightarrow
+\quad
+\cos\left(\frac{2\pi}{8}\left(-5\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)
+\end{align}
+Übereinstimmung, weil Cosinus eine axialsymmetrische Funktion ist, also
+$\cos(k) = \cos(-k)$.
+%
+Es ist immer schön, wenn wir etwas mit Formeln belegen können.
+%
+Ein wenig greifbarer wird das aber erst, wenn wir in den Formeln auch sehen,
+was da im Wesen passiert.
+%
+Weil wir in der Übung zuvor Abtastung betrieben haben, ist es didaktisch sinnvoll,
+hier eine Verknüpfung dazu herzustellen: Wir könnten uns überlegen, dass diese
+Folgen aus einem Abtastprozess zeitkontinuierlicher Signale entstanden
+sind.
+%
+Wir sind dafür völlig frei in der Wahl der Abtast-(Kreis)-Frequenz! Das
+müssen wir uns klar machen. Die Folge $x[k]$ 'lebt' über $k$. Was wir damit
+über die tatsächliche Zeit machen, also wie wir die diskreten Zeitpunkte
+$t=k T_s$ mittels $T_s$ definieren, interessiert $x[k]$ ja nicht.
+%
+Machen wir uns es nicht schwerer als nötig und legen die Abtast-Kreis-Frequenz
+$\omega_s=8$ rad/s fest, das ist sinnvoll, weil die Folge periodisch in 8 ist,
+und alle weiteren Zahlen dann auch ganzzahlig bzw. schnell überschaubare
+Vielfache von $\pi$ werden.
+%
+Damit folgt das Abtastintervall
+$T_s = \frac{2\pi}{\omega_s}=\frac{\pi}{4}$ s.
+%
+Damit können wir die physikalischen Frequenzen der beiden zeitkontinuierlichen
+Cosinussignale ermitteln. Wir kennnen den Zusammenhang
+\begin{align}
+\Omega = \frac{2\pi}{N} \leftrightarrow \Omega = \omega T_s
+\end{align}
+und daher für $x_{3,5}[k]$
+\begin{align}
+\Omega_0 = \frac{2\pi}{\nicefrac{8}{3}} = \omega_0 T_s \rightarrow \omega_0 = 3 \text{ rad/s},\quad\quad
+\Omega_0 = \frac{2\pi}{\nicefrac{8}{5}} = \omega_0 T_s \rightarrow \omega_0 = 5 \text{ rad/s}
+\end{align}
+%
+Die Folge $x_3[k]=x_5[k]$ könnte also aus den beiden Signalen $x_3(t)=\cos(3 t)$
+und $x_5(t) = \cos(5 t)$ durch ideale Abtastung mit $\omega_s = 8$ rad/s
+entstanden sein.
+Das können wir nochmal prüfen, indem wir für $t=k T_s$
+einsetzen und für die ganzzahligen $k$ die Cosinuswerte ausrechnen.
+In \fig{fig:mehrdeutigkeit_625E151299} ist das grafisch aufbereitet.
+%
+Das Abtasttheorem verrät uns, dass das Signal $x_5(t) = \cos(5 t)$ unterabgetastet
+ist, ein erster Hinweis, dass $x_3(t)$ und $x_5(t)$ nach der Abtastung keine
+unterschiedlichen Folgen ergeben könnten.
+%
+Machen wir uns das anhand der Spektren der abgetasteten Signale klar. Siehe Skizze
+unten (das können wir nochmal wiederholend üben).
+%
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\def\freqs{8}
+\def\mult{0.2}
+\begin{scope}
+\def\freq{3}
+\draw[help lines, C7!25, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
+\draw[->] (-5 ,0) -- (5,0) node[below]{$\omega$  / (rad/s)};
+\draw[->] (0,-0.1) -- (0,1.5) node[above]{$\mathcal{F}\{\cos(3 t) \cdot \frac{4}{\pi}\Sha\left(\frac{4 t}{\pi}\right)\}$};
+\draw[->, C1, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1) node[above]{$(\nicefrac{1}{2})$};
+\foreach \y in {-2,-1,1,2,3}{\draw[->, C0, line width=0.75mm] (-\freq*\mult+\y*\freqs*\mult,0) -- (-\freq*\mult+\y*\freqs*\mult,1);};
+\draw[->, C1, line width=0.75mm] (+\freq*\mult,0) node[below]{$+\freq$} -- (+\freq*\mult,1);
+\foreach \y in {-3,-2,-1,1,2}{\draw[->, C0, line width=0.75mm] (+\freq*\mult+\y*\freqs*\mult,0) -- (+\freq*\mult+\y*\freqs*\mult,1);};
+\end{scope}
+\begin{scope}[shift={(0,-2.5)}]
+\def\freq{5}
+\draw[help lines, C7!25, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
+\draw[->] (-5 ,0) -- (5,0) node[below]{$\omega$ / (rad/s)};
+\draw[->] (0,-0.1) -- (0,1.5) node[above]{$\mathcal{F}\{\cos(5 t) \cdot \frac{4}{\pi}\Sha\left(\frac{4 t}{\pi}\right)\}$};
+\draw[->, C3, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1)  node[above]{$(\nicefrac{1}{2})$};
+\foreach \y in {-2,-1,1,2,3}{\draw[->, C0, line width=0.75mm] (-\freq*\mult+\y*\freqs*\mult,0) -- (-\freq*\mult+\y*\freqs*\mult,1);};
+\draw[->, C3, line width=0.75mm] (+\freq*\mult,0) node[below]{$+\freq$} -- (+\freq*\mult,1);
+\foreach \y in {-3,-2,-1,1,2}{\draw[->, C0, line width=0.75mm] (+\freq*\mult+\y*\freqs*\mult,0) -- (+\freq*\mult+\y*\freqs*\mult,1);};\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+Die Spektren sind identisch, unterschiedlich bunt sind sie nur deswegen,
+damit wir schneller die Zusammenhänge des jeweiligen Abtastprozesses erkennen.
+%
+Zu einem bestimmten Spektrum gehört nur ein einziges Zeitsignal, daher
+müssen die beiden Folgen $x_3[k]$ und $x_5[k]$ identisch sein.
+%
+Das Spektrum ist a) periodisch und besitzt nur bei diskreten Frequenzen einen
+Eintrag (Dirac), d.h. es ist ein sogenanntes b) Linienspektrum.
+%
+Daraus lässt sich für den Zeitbereich folgern: a) es ist eine Folge und b)
+es ist eine periodische Folge.
+Die jeweiligen Bedingungen a) und b) korrespondieren direkt.
+%
+Es gibt eine spezielle Fouriertransformation für diesen speziellen Folgen- bzw.
+Spektrentyp, es ist die sogenannte \textbf{Diskrete Fourier Transformation (DFT)}.
+%
+Wir werden sie demnächst kennenlernen.
+%
+\end{ExCalc}
+%\begin{Loesung}
+%\end{Loesung}
+%
+\begin{figure*}[h]
+\centering
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=\textwidth]{../fundamental_signals_dt/mehrdeutigkeit_625E151299_w3.pdf}
+\caption{Drei Schwingungen pro $2\pi$ ausreichend abgetastet.}
+\label{fig:mehrdeutigkeit_625E151299_w3}
+\end{subfigure}
+%
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=\textwidth]{../fundamental_signals_dt/mehrdeutigkeit_625E151299_w5.pdf}
+\caption{Fünf Schwingungen pro $2\pi$ unterabgetastet.}
+\label{fig:mehrdeutigkeit_625E151299_w5}
+\end{subfigure}
+\caption{Oben: korrekte Abtastung vs. unten: Unterabtastung für
+gewählte Abtast-(kreis)-frequenz $\omega_s = 8$ rad/s,
+also Abtastintervall $T_s = \frac{2\pi}{\omega_s} = \frac{\pi}{4}$ s.
+Für beide Fälle resultiert die gleiche Folge $x[k]$. Dies mündet in die
+Mehrdeutigkeit periodischer Folgen, die aber auch ganz unabhängig von
+Signal-Abtastung gilt.}
+\label{fig:mehrdeutigkeit_625E151299}
+\end{figure*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale-Grafische Lösung}
+\label{sec:FD58EEB1EC}
+\begin{Ziel}
+Wir wollen uns die Faltung von (endlichen) zeitdiskreten Signalen erarbeiten.
+Die Faltungsoperation selber funktioniert genau wie bei zeitkontinuierlichen
+Signalen, das Integral wird hier aber durch die Summe ersetzt.
+Die Analogie wird deutlich wenn wir uns die Faltung in den beiden
+Signaldomänen mal nebeneinander schreiben
+\begin{align}
+y(t) = \int\limits_{-\infty}^{+\infty} h(-\tau+t) \cdot x(\tau) \, \fsd \tau\quad
+y[k] = \sum\limits_{\kappa = -\infty}^{+\infty} h[-\kappa+k] \cdot x[\kappa].
+\end{align}
+Die Variablen haben analoge Entsprechungen, also $t \leftrightarrow k$ als
+Zeitvariable des Ausgangssignals und
+die Hilfsvariable $\tau \leftrightarrow \kappa$ für das Integral bzw. die Summe.
+%
+Deswegen ist alles was wir schon zur zeitkontinuierlichen Faltung gelernt haben,
+auch hier nützlich.
+%
+Nachdem wir hier kein Integral lösen müssen, sondern eine Summe,
+fällt es hier vielleicht leichter, die 'Algorithmik' des Faltungsprozesses
+für ein gewähltes $k$, also eine bestimmte Überlagerung der beiden zu faltenden
+Signal, nachzuvollziehen.
+%
+Wir werden uns das grafisch erarbeiten. In der Klausur empfiehlt sich z.B.
+die Benutzung von zwei Papierstreifen auf denen $x[\kappa]$ und $h[-\kappa]$
+aufgetragen sind, und $h[-\kappa]$ sukzessive verschoben wird um $k$. Die
+Multiplikation der exakt überlagerten Signalwerte und die Summe davon ergibt
+dann das Faltungsergebnis bei $k$. Das besagt die Faltungsformel.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny FD58EEB1EC}: Berechnen Sie die zeitdiskrete Faltung
+$y[k] = x[k] \ast h[k]$ für die unten gegebenen Signale.
+%
+%% Signal x[k], h[k]
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\begin{scope}[xshift=11cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[k]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+Es ist sinnvoll auch den analytischen Lösungsweg aus Aufgabe \ref{sec:4CBF4358D5}
+für die beiden Signale durchzuspielen.
+Python / Matlab: \texttt{convolution\_discrete\_FD58EEB1EC.ipynb / .m}
+\begin{Werkzeug}
+Wir machen uns anhand \fig{fig:FD58EEB1EC_Methods} klar, wie die Signaloperationen
+zeitliche Verschiebung und Drehung auf eine zeitdiskrete Folge wirken. Methode II
+ist eine mögliche, elegante Sichtweise zur Verwendung in der Faltungssumme
+\begin{align}
+y[k]
+= h[k] \ast_k x[k]
+= x[k] \ast_k h[k]
+= \sum_{\kappa=-\infty}^{+\infty} h[-\kappa + k] \cdot x[\kappa]
+= \sum_{\kappa=-\infty}^{+\infty} h[\kappa] \cdot x[-\kappa + k].
+\end{align}
+D.h. ein beteiligtes Signal,
+hier $h[\kappa]$ wird zunächst einmal zeitlich gedreht zu $h[-\kappa]$ und
+dann sukzessive mit der Variable $k$ verschoben, für $k>0$ nach rechts, für
+$k<0$ nach links.
+\end{Werkzeug}
+%
+\begin{figure*}[h]
+\centering
+\begin{subfigure}{0.7\textwidth}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\begin{scope}[xshift=0cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[\kappa]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\begin{scope}[xshift=9cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[\kappa-2]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem, C1] plot coordinates{ (-1+2,0) (0+2,2) (1+2,1) (2+2,-1) (3+2,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\end{scope}
+\begin{scope}[xshift=18cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[-(\kappa-2)] = h[-\kappa+2]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,-1) (1,1) (2,2) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\end{scope}
+\end{tikzpicture}
+\caption{Methode I: zunächst Verschiebung, dann Drehung}
+\label{fig:FD58EEB1EC_MethodI}
+\end{subfigure}
+%
+%
+%
+\begin{subfigure}{0.7\textwidth}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\begin{scope}[xshift=0cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[\kappa]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\begin{scope}[xshift=9cm]
+\draw[->] (-3,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[-\kappa]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem, C3] plot coordinates{ (-3,0) (-2,-1) (-1,1) (0,2) (1,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\end{scope}
+\begin{scope}[xshift=18cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[-\kappa+2]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,-1) (1,1) (2,2) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\end{scope}
+\end{tikzpicture}
+\caption{Methode II: zunächst Drehung, dann Verschiebung.}
+\label{fig:FD58EEB1EC_MethodII}
+\end{subfigure}
+%
+\caption{Zeitliche Signaloperationen für $h[\kappa] \rightarrow h[-\kappa+k]$ , $k=2$.
+Methode III: direkte Spiegelung von $h[\kappa]$ bzgl. $\kappa=\frac{k}{2}$-Achse.
+Methode II ist vorteilhaft für die Faltungssumme.}
+\label{fig:FD58EEB1EC_Methods}
+\end{figure*}
+%
+%
+%
+\begin{Ansatz}
+Die Signale hier sind endlich, daher ist auch das Ergebnis $y[k]$ ein endliches
+Signal.
+Es gilt allgemein die Formel $N_y = N_x + N_h-1$ mit den Längen $N$ für $y,x,h$.
+Das Signal $y[k]$ 'beginnt' bei $k_y=k_x+k_h$, wenn $k_x$ und $k_h$ die
+sich von Null unterscheidenden Startwerte
+der beiden Signale für $x$ und $h$ sind.
+
+Hier also: $k_x=1$, $k_h = 0$, d.h. $k_y=k_x+k_h = 1$ und
+$N_x = 4$, $N_h=3$, d.h. $N_y = N_x+N_h-1 = 6$.
+
+\end{Ansatz}
+\begin{ExCalc}
+Die grafische Lösung ist auf den nächsten Seiten aufbereitet.
+\end{ExCalc}
+\begin{Loesung}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{7}
+\begin{scope}
+\draw[help lines, C7!25, step=1cm] (0,-3) grid (6,4);
+\foreach \y in {-3,-2,-1,0,1,2,3,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$3$};
+\draw (4,\tic) -- (4,-\tic)  node[above]{$4$};
+\draw (5,\tic) -- (5,-\tic)  node[above]{$5$};
+\draw (6,\tic) -- (6,-\tic)  node[below]{$6$};
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{Loesung}
+%
+%
+%
+\clearpage
+%% k = 0
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{0}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[below]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,0) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem, C2, dashed] plot coordinates{(0,0)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k = 1
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{1}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,2) (2,0) (3,0) (4,0) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +2$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2)};
+\draw[stem, C2, dashed] plot coordinates{(1,2)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=2
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{2}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,1) (2,2) (3,0) (4,0) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +3$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) };
+\draw[stem, C2, dashed] plot coordinates{(2,3)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=3
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{3}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,-1) (2,1) (3,4) (4,0) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +4$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) };
+\draw[stem, C2, dashed] plot coordinates{(3,4)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=4
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{4}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,0) (2,-1) (3,2) (4,-2) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -1$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1)};
+\draw[stem, C2, dashed] plot coordinates{(4,-1)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=5
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{5}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,-2) (4,-1) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -3$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3)};
+\draw[stem, C2, dashed] plot coordinates{(5,-3)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=6
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{6}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,1) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +1$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1)};
+\draw[stem, C2, dashed] plot coordinates{(6,1)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\clearpage
+%% k=7
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{7}
+\begin{scope}
+\draw[->] (-3.5,0) -- (8,0) node[right]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,4) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, -1) (-1+\k,1) (0+\k,2)};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\node at (-5,1){$k=\k$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-0.5,0) -- (6,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,0) (5,0) };
+\node at (8,4){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
+\end{scope}
+\begin{scope}[yshift=-7cm, xshift=10cm]
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem, C2, dashed] plot coordinates{(7,0)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+\newpage
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale-Analytische Lösung}
+\label{sec:4CBF4358D5}
+\begin{Ziel}
+Nochmal eine Faltungssumme zweier endlicher Signale. Diesmal die analytische
+Rechnung in aller Ausführlichkeit, damit wir sehen, was die Formel macht.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 4CBF4358D5}: Berechnen Sie die Faltung $y[k] = x[k] * h[k]$
+für
+\begin{align}
+&x[k] = 1\cdot\delta[k-2] + 2\cdot\delta[k-3] + 3\cdot\delta[k-4] + 4\cdot\delta[k-5]\\
+&h[k] = 8\cdot\delta[k+2] + 7\cdot\delta[k]   + 6\cdot\delta[k-1] + 5\cdot\delta[k-2]
+\end{align}
+%\begin{align}
+%&x[k] = [1,2,3,4] \quad &\mathrm{for} \quad &k = [2,3,4,5]\\
+%&h[k] = [8,0,7,6,5] \quad &\mathrm{for} \quad &k = [-2,-1,0,1,2]
+%\end{align}
+und skizzieren Sie die Signale $x[k]$, $h[k]$, $y[k]$.
+
+Es ist sinnvoll auch den grafischen Lösungsweg aus Aufgabe \ref{sec:FD58EEB1EC}
+für die beiden Signale durchzuspielen.
+
+%\begin{Werkzeug}
+%\end{Werkzeug}
+%\begin{Ansatz}
+%\end{Ansatz}
+%\begin{ExCalc}
+%\end{ExCalc}
+\begin{Loesung}
+%% Signal x[k], h[k]
+\begin{center}
+%
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\begin{scope}
+\draw[help lines, C7!25, step=1cm] (0,0) grid (5,4);
+\draw[->] (0,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,0) -- (0,5) node[above]{$x[k]$};
+\foreach \x in {0,1,2,3,4,5}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {0, 1, 2, 3, 4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+%
+\draw[stem] plot coordinates{(0,0) (1,0) (2,1) (3,2) (4,3) (5,4) (6,0)};
+%
+\end{scope}
+%
+\begin{scope}[xshift=11cm]
+\def\g{0.5}
+\draw[help lines, C7!25, step=\g cm] (-2,0) grid (4,4);
+\draw[->] (-3,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,0) -- (0,5) node[above]{$h[k]$};
+\foreach \x in {-2,0,2,4}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {2,4,6,8}{\draw (\tic,\y*\g) -- (-\tic,\y*\g)  node[left]{$\y$};};
+%
+\draw[stem] plot coordinates{ (-3,0*\g) (-2,8*\g) (-1,0*\g) (0,7*\g) (1,6*\g) (2,5*\g) (3,0*\g)};
+%
+\end{scope}
+%
+\begin{scope}[xshift=5.5cm, yshift=-10cm]
+\def\g{0.1}
+\draw[help lines, C7!25, step=0.5cm] (0,0) grid (8,7);
+\draw[->] (0,0) -- (9,0) node[right]{$k$};
+\draw[->] (0,0) -- (0,7) node[above]{$y[k]$};
+\foreach \x in {0,2,4,6,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \y in {0,10,20,30,40,50,60}{\draw (\tic,\y*\g) -- (-\tic,\y*\g)  node[left]{$\y$};};
+%
+\draw[stem] plot coordinates{ (0,8*\g) (1,16*\g) (2,31*\g) (3,52*\g) (4,38*\g) (5,56*\g) (6,39*\g) (7,20*\g) (8,0*\g)};
+%
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+
+$k_x=2$, $k_h=-2$, also $k_y=k_x+k_y = 0$
+
+$N_x=4$, $N_h=5$, also $N_y=N_x + N_h -1 = 8$
+
+\begin{align}
+y[k] =&
+8\,\delta[k]+
+16\,\delta[k-1]+
+31\,\delta[k-2]+
+52\,\delta[k-3]+
+38\,\delta[k-4]\nonumber\\
+&+56\,\delta[k-5]+
+39\,\delta[k-6]+
+20\,\delta[k-7]
+\end{align}
+
+Im Folgenden ist die analytische Rechnung Schritt für Schritt durchgeführt.
+%
+\end{Loesung}
+
+
+
+\clearpage
+%% k = 0
+Für die ausführliche analytische Lösung, wählen wir das Signal $x[k]$,
+um es nach Variablensubstitution $\kappa$ zeitlich
+zu drehen und zu verschieben, also $x[-\kappa+k]=x[k-\kappa]$.
+
+Wir können schnell feststellen, dass hier $y[k<0]=0$ und $y[k>N_y-1]=0$, d.h.
+wir müssen das Faltungsergebnis nur für $0\leq k \leq N_y-1$ ermitteln.
+
+Bei der Faltung zweier endlicher Signale, bestimmt das aktuelle $k$, welche $\kappa$
+wir in der Faltungssumme berücksichtigen müssen.
+Es ist daher hilfreich, wenn wir uns das kleinste und größte $\kappa$ suchen,
+so dass potentiell alle Nicht-Null-Signalwerte für $x[\nu=k-\kappa]$ and $h[\nu=\kappa]$
+berücksichtigt werden.
+Für $k=0$, führt das bei uns zu
+\begin{itemize}
+\item $\kappa=-5$, weil $x[\nu=k-\kappa=5]=4$, $h[\nu=\kappa=5]=0$
+\item $\kappa=+2$, weil $x[\nu=k-\kappa=-2]=0$, $h[\nu=\kappa=2]=5$
+\end{itemize}
+Dafür können wir jetzt die Faltungssumme im Detail aufschreiben.
+\begin{align}
+y[k=0] = &\sum\limits_{\kappa = -5}^{+2} x[0 -\kappa] \cdot h[\kappa] =\\
+&x[0 -(-5)] \cdot h[-5]\nonumber\\
++&x[0 -(-4)] \cdot h[-4]\nonumber\\
++&x[0 -(-3)] \cdot h[-3]\nonumber\\
++&x[0 -(-2)] \cdot h[-2]\nonumber\\
++&x[0 -(-1)] \cdot h[-1]\nonumber\\
++&x[0 -(0)] \cdot h[0]\nonumber\\
++&x[0 -(1)] \cdot h[1]\nonumber\\
++&x[0 -(2)] \cdot h[2]
+\end{align}
+In einem zweiten Schritt können wir nun genau die Terme finden, die durch
+Multiplikation nicht zu Null werden (weil da ein Signal den Wert Null hat).
+Dazu können wir alle Terme analytisch einzeln durchgehen, oder uns das wie
+in der vorherigen Übung grafisch überlegen.
+Wir kommen für $k=0$ darauf, dass nur bei $\kappa=-2$ die beiden Signale, so
+überlagern, dass die Multiplikation in die Faltungssumme eingeht, also
+\begin{align}
+y[k=0] = & \sum\limits_{\kappa = -2}^{-2} x[0 -\kappa] \cdot h[\kappa] =\\
+&x[0 -(-2)] \cdot h[-2] = 1 \cdot 8 = 8\nonumber
+\end{align}
+Dies ist dann auch schon unser erster Ergebniswert der Faltung. Für alle weiteren
+$k$ werden die beiden hier diskutierten Schritte im Detail aufgezeigt und
+wir errechnen dadurch sukzessive alle weiteren Ergebniswerte.
+
+\clearpage
+%% k = 1
+\begin{align}
+y[k=1] = &\sum\limits_{\kappa = -4}^{+2} x[1 -\kappa] \cdot h[\kappa] =\\
+&x[1 -(-4)] \cdot h[-4]\nonumber\\
++&x[1 -(-3)] \cdot h[-3]\nonumber\\
++&x[1 -(-2)] \cdot h[-2]\nonumber\\
++&x[1 -(-1)] \cdot h[-1]\nonumber\\
++&x[1 -(0)] \cdot h[0]\nonumber\\
++&x[1 -(1)] \cdot h[1]\nonumber\\
++&x[1 -(2)] \cdot h[2]\nonumber\\
+y[k=1] = & \sum\limits_{\kappa = -2}^{-1} x[1 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[1 -(-2)] \cdot h[-2]\nonumber\\
++&x[1 -(-1)] \cdot h[-1] = 2\cdot 8 + 1\cdot 0 = 16\nonumber
+\end{align}
+
+%\clearpage
+%% k = 2
+\begin{align}
+y[k=2] =& \sum\limits_{\kappa = -3}^{+2} x[2 -\kappa] \cdot h[\kappa] =\\
+&x[2 -(-3)] \cdot h[-3]\nonumber\\
++&x[2 -(-2)] \cdot h[-2]\nonumber\\
++&x[2 -(-1)] \cdot h[-1]\nonumber\\
++&x[2 -(0)] \cdot h[0]\nonumber\\
++&x[2 -(1)] \cdot h[1]\nonumber\\
++&x[2 -(2)] \cdot h[2]\nonumber\\
+y[k=2] = & \sum\limits_{\kappa = -2}^{0} x[2 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[2 -(-2)] \cdot h[-2]\nonumber\\
++&x[2 -(-1)] \cdot h[-1]\nonumber\\
++&x[2 -(0)] \cdot h[0] = 3\cdot 8 + 2\cdot 0 + 1\cdot 7 = 31\nonumber
+\end{align}
+
+\clearpage
+%% k = 3
+\begin{align}
+y[k=3] = & \sum\limits_{\kappa = -2}^{+2} x[3 -\kappa] \cdot h[\kappa] =\\
+&x[3 -(-2)] \cdot h[-2]\nonumber\\
++&x[3 -(-1)] \cdot h[-1]\nonumber\\
++&x[3 -(0)] \cdot h[0]\nonumber\\
++&x[3 -(1)] \cdot h[1]\nonumber\\
++&x[3 -(2)] \cdot h[2]\nonumber\\
+y[k=3] = & \sum\limits_{\kappa = -2}^{+1} x[3 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[3 -(-2)] \cdot h[-2]\nonumber\\
++&x[3 -(-1)] \cdot h[-1]\nonumber\\
++&x[3 -(0)] \cdot h[0]\nonumber\\
++&x[3 -(1)] \cdot h[1] = 4\cdot 8 + 3\cdot 0 + 2\cdot 7 + 1\cdot 6 = 52\nonumber
+\end{align}
+
+%\clearpage
+%% k = 4
+\begin{align}
+y[k=4] =& \sum\limits_{\kappa = -2}^{+2} x[4 -\kappa] \cdot h[\kappa] =\\
+&x[4 -(-2)] \cdot h[-2]\nonumber\\
++&x[4 -(-1)] \cdot h[-1]\nonumber\\
++&x[4 -(0)] \cdot h[0]\nonumber\\
++&x[4 -(1)] \cdot h[1]\nonumber\\
++&x[4 -(2)] \cdot h[2]\nonumber\\
+y[k=4] = & \sum\limits_{\kappa = -1}^{+2} x[4 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[4 -(-1)] \cdot h[-1]\nonumber\\
++&x[4 -(0)] \cdot h[0]\nonumber\\
++&x[4 -(1)] \cdot h[1]\nonumber\\
++&x[4 -(2)] \cdot h[2] = 4\cdot 0 + 3\cdot 7 + 2\cdot 6 + 1\cdot 5 = 38\nonumber
+\end{align}
+
+\clearpage
+%% k = 5
+\begin{align}
+y[k=5] = & \sum\limits_{\kappa = -2}^{+3} x[5 -\kappa] \cdot h[\kappa] =\\
+&x[5 -(-2)] \cdot h[-2]\nonumber\\
++&x[5 -(-1)] \cdot h[-1]\nonumber\\
++&x[5 -(0)] \cdot h[0]\nonumber\\
++&x[5 -(1)] \cdot h[1]\nonumber\\
++&x[5 -(2)] \cdot h[2]\nonumber\\
++&x[5 -(3)] \cdot h[3]\nonumber\\
+y[k=5] = & \sum\limits_{\kappa = 0}^{+2} x[5 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[5 -(0)] \cdot h[0]\nonumber\\
++&x[5 -(1)] \cdot h[1]\nonumber\\
++&x[5 -(2)] \cdot h[2] = 4\cdot 7 + 3\cdot 6 + 2\cdot 5 = 56\nonumber
+\end{align}
+
+%\clearpage
+%% k = 6
+\begin{align}
+y[k=6] =& \sum\limits_{\kappa = -2}^{+4} x[6 -\kappa] \cdot h[\kappa] =\\
+&x[6 -(-2)] \cdot h[-2]\nonumber\\
++&x[6 -(-1)] \cdot h[-1]\nonumber\\
++&x[6 -(0)] \cdot h[0]\nonumber\\
++&x[6 -(1)] \cdot h[1]\nonumber\\
++&x[6 -(2)] \cdot h[2]\nonumber\\
++&x[6 -(3)] \cdot h[3]\nonumber\\
++&x[6 -(4)] \cdot h[4]\nonumber\\
+y[k=6] =& \sum\limits_{\kappa = +1}^{+2} x[6 -\kappa] \cdot h[\kappa] =\nonumber\\
+&x[6 -(1)] \cdot h[1]\nonumber\\
++&x[6 -(2)] \cdot h[2] = 4\cdot 6 + 3\cdot 5 = 39\nonumber
+\end{align}
+
+\clearpage
+%% k=7
+\begin{align}
+y[k=7] =& \sum\limits_{\kappa = -2}^{+5} x[7 -\kappa] \cdot h[\kappa] =\\
+&x[7 -(-2)] \cdot h[-2]\nonumber\\
++&x[7 -(-1)] \cdot h[-1]\nonumber\\
++&x[7 -(0)] \cdot h[0]\nonumber\\
++&x[7 -(1)] \cdot h[1]\nonumber\\
++&x[7 -(2)] \cdot h[2]\nonumber\\
++&x[7 -(3)] \cdot h[3]\nonumber\\
++&x[7 -(4)] \cdot h[4]\nonumber\\
++&x[7 -(5)] \cdot h[5]\nonumber\\
+y[k=7] =& \sum\limits_{\kappa = +2}^{+2} x[7 -\kappa] \cdot h[\kappa] =\nonumber\\
++&x[7 -(2)] \cdot h[2] = 4\cdot 5 = 20\nonumber
+\end{align}
+
+
+
+
+
+
+
+\newpage
+\subsection{Faltungssume für zwei Rechteckfolgen}
+\label{sec:99D5D9F1C9}
+\begin{Ziel}
+Anhand eines allgemeinen Beispiels, d.h. ohne speziell gegebenen Parameter
+wollen wir uns die Faltung zweier Rechteckfolgen erarbeiten.
+Wir wiederholen ein paar wichtige Zusammenhänge bzgl. der zeitliche Lage und
+Länge des Faltungsergebnis müssen allgemeingültiger über die Faltung nachdenken.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 99D5D9F1C9}: Berechnen Sie die zeitdiskrete Faltung
+$y[k] = \rectN{M}{k-\kappa_1} \, \ast \,\rectN{N}{k-\kappa_2}$.
+Skizzieren Sie die Signale $x[k]=\rectN{M}{k-\kappa_1}$,
+$h[k] = \rectN{N}{k-\kappa_2}$ und $y[k]$ für den allgemeinen Fall mit
+$N,M, k_1, k_2$.
+%\begin{Werkzeug}
+%\end{Werkzeug}
+%
+\begin{Ansatz}
+Für verschiedene $M$ und $N$ grafisch durchspielen und
+daraus eine allgemeingültige Formel ableiten.
+\end{Ansatz}
+%
+\begin{ExCalc}
+\begin{itemize}
+\item Beginn des Faltungsprodukts bei $k=\kappa_1+\kappa_2$
+\item Länge des Faltungsprodukts $L=M+N-1$ Samples
+\item Maximalwert der Faltungssumme bei vollständiger Überlappung der beiden Rechtecksignale $\hat{y} = \min\{M,N\}$
+\item Maximalwert $\hat{y}$ im Signal für $|M-N|+1$ Samples in der 'Mitte'
+\item Teilüberlappungen am Anfang und am Ende für $\hat{y}-1$ Samples (ohne das Maximum)
+\end{itemize}
+\end{ExCalc}
+\begin{Loesung}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.4};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,0) -- (0,1.5) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,1) (4,1) (5,1) (6,0)};
+\foreach \y in {0, 1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$k_1$};
+\draw (5,\tic) -- (5,-\tic)  node[below]{$k_1+M-1$};
+\begin{scope}[xshift=16cm]
+\draw[->] (-5,0) -- (5,0) node[right]{$k$};
+\draw[->] (0,0) -- (0,1.5) node[above]{$h[k]$};
+\foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[above]{$\y$};};
+\draw[stem] plot coordinates{ (-4,0) (-3,1) (-2,1) (-1,1) (0,1) (1,1) (2,1) (3,1) (4,0)};
+\draw (-3,\tic) -- (-3,-\tic)  node[below]{$k_2$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$k_2+N-1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+%
+\begin{align*}
+y[k] &= \begin{cases}
+k - \kappa_1-\kappa_2 +1 & \text{ für } \kappa_1+\kappa_2 \leq k < \kappa_1+\kappa_2+\hat{y} -1\\
+\hat{y} & \text{ für } \kappa_1+\kappa_2+\hat{y} - 1 \leq k \leq \kappa_1+\kappa_2+L-\hat{y}\\
+\kappa_1+\kappa_2+L-k & \text{ für } \kappa_1+\kappa_2+L-\hat{y} < k \leq \kappa_1+\kappa_2+L-1\\
+0 & \text{ sonst} \\
+\end{cases}
+\end{align*}
+%
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\begin{axis}[stemaxis,
+x=0.5cm, y=0.5cm,
+xtick={3,6,9,12}, x tick label style ={rotate=90},
+xticklabels={$\kappa_1+\kappa_2$, $\kappa_1+\kappa_2+\hat{y}-1$,$\kappa_1+\kappa_2+L-\hat{y}$, $\kappa_1+\kappa_2+L-1$},
+ytick={4}, yticklabels={$\hat{y}$},
+xlabel=$k$, ylabel={$y[k]$},
+grid=both]
+\addplot[stem2] plot coordinates{(1,0) (2,0) (3,1) (4,2) (5,3) (6,4) (7,4) (8,4) (9,4) (10,3) (11,2) (12,1) (13,0) (14,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+%
+Wir sollten uns klar machen, dass für $M=N$ ein Dreieckssignal resultiert,
+das kennen wir schon aus der zeitkontinuierlichen Signalverarbeitung, nämlich
+\begin{align}
+\mathrm{tri}(t) = \mathrm{rect}(t) \ast_t \mathrm{rect}(t).
+\end{align}
+\end{Loesung}

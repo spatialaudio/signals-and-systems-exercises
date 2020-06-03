@@ -24,7 +24,7 @@ ja keine verschiedenen Fourier Transformationen, sondern eigentlich vielmehr
 gelten. Wir kennen bisher die Fourier Reihe und die Fourier Transformation.
 Wir werden lernen sie elegant zu verknüpfen.
 
-\section*{Werkzeuge zur Abtastung / Rekonstrukion}
+\section*{Werkzeuge zur Abtastung / Rekonstruktion}
 
 Wir brauchen drei wesentliche Zutaten: i) ein Modell als Signalflussgraph und
 zwei fundamentale Signale/Spektren: ii) den Dirac Impuls Kamm um die Abtastung
@@ -388,7 +388,7 @@ Konzept. Daher unser didaktischer Faden in der Vorlesung und hier in der
 \begin{figure}
 \includegraphics[width=\textwidth]{../sampling/ReconstructionSplines.pdf}
   \caption{Für die Abtastung im Zeitbereich: Impulsantworten und Spektren von
-  Rekonstrukionsfiltern. In blau die Sinc-Impulsantwort des idealen Tiefpassfilters,
+  Rekonstruktionsfiltern. In blau die Sinc-Impulsantwort des idealen Tiefpassfilters,
   womit das Abtasttheorem 'erfunden' bzw. erstmals bewiesen wurde.}
   \label{fig:ReconstructionSplines}
 \end{figure}
@@ -1413,7 +1413,7 @@ hier die das Spektrum der Fourier Transformation.
 %
 In \fig{fig:SpectrumSampling_Th_TsXX45C76AFB33} sind zwei weitere Beispiele
 dargestellt, für die $T_h$ variiert wurde.
-In \fig{fig:SpectrumSampling_Th_Ts1_1_45C76AFB33} sehen wir den Fall der
+In \fig{fig:SpectrumSampling_Th_Ts4_3_45C76AFB33} sehen wir den Fall der
 Unterabtastung des Spektrums, im Zeitbereich überlappen sich jetzt die
 Rechteckimpulse. Es gelingt keine fehlerfreie Rekonstruktion, die Sinc-Interpolation
 interpoliert zwar fleißig, aber aufgrund der zur Verfügung stehenden (zu wenig)
@@ -1435,13 +1435,13 @@ Abtastwerte eben nicht zum originalen Spektrum.
 \begin{subfigure}{0.75\textwidth}
 \includegraphics[width=\textwidth]{../sampling/SpectrumSampling_Th_Ts3_4_45C76AFB33.pdf}
 \caption{Rekonstruktion perfekt, weil $\frac{T_h}{2}<\frac{T_s}{2}$.}
-\label{fig:SpectrumSampling_Th_Ts1_1_45C76AFB33}
+\label{fig:SpectrumSampling_Th_Ts3_4_45C76AFB33}
 \end{subfigure}
 
 \begin{subfigure}{0.75\textwidth}
 \includegraphics[width=\textwidth]{../sampling/SpectrumSampling_Th_Ts4_3_45C76AFB33.pdf}
 \caption{Rekonstruktion nicht perfekt, Unterabtastung, weil $\frac{T_h}{2}>\frac{T_s}{2}$.}
-\label{fig:SpectrumSampling_Th_Ts1_1_45C76AFB33}
+\label{fig:SpectrumSampling_Th_Ts4_3_45C76AFB33}
 \end{subfigure}
 % \begin{subfigure}{0.49\textwidth}
 % \includegraphics[width=\textwidth]{../sampling/SpectrumSampling_Th_Ts1_1_45C76AFB33.pdf}

@@ -17,19 +17,44 @@
 \usepackage{xcolor}
 \usepackage{comment}
 \usepackage{mdframed}
-\usepackage{tikz,circuitikz,pgfplots}
-\usetikzlibrary{matrix}
-\usetikzlibrary{shapes.misc}
-\tikzset{cross/.style={cross out, draw,
-          minimum size=2*(#1-\pgflinewidth),
-          inner sep=0pt, outer sep=0pt}}
-%\newcommand{\filtDelay}{$z^{-4}$}
-\usetikzlibrary{positioning}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
 
 \bibliographystyle{dinat}
 
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{shapes.misc}
+\tikzset{cross/.style={cross out, draw,minimum size=2*(#1-\pgflinewidth),inner sep=0pt, outer sep=0pt}}
+\pgfkeys{/pgfplots/axis style/.code={\pgfkeysalso{/pgfplots/every axis/.append style={#1}}}}
+\pgfplotsset{
+mathaxis/.style={
+axis lines=center,
+xtick=\empty,
+ytick=\empty,
+xlabel style=right,
+ylabel style=above,
+% Make sure the origin is shown (http://tex.stackexchange.com/a/91253)
+before end axis/.code={
+\addplot [draw=none, forget plot] coordinates {(0,0)};
+},
+anchor=origin,
+},
+stemaxis/.style={
+mathaxis,
+x=.8em,
+y=6ex,
+enlarge x limits={abs=1.2em},
+enlarge y limits={abs=1.2em},
+}
+}
+\tikzstyle{stem}=[ycomb,mark=*,mark size=10\pgflinewidth,color=C0,ultra thick]
+\tikzstyle{stem2}=[ycomb,mark=*,mark size=5\pgflinewidth,color=C0,ultra thick]
 
 \newcommand\fsd{\mathrm{d}} %der/int operator
 \newcommand{\sysH}[1]{\mathcal{H}{\{#1\}}}  % system operator
@@ -45,6 +70,9 @@
 \DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
 \DeclareMathSymbol{\Sha}{\mathord}{mcy}{"58}
 %\newcommand{\Sha}{$\bot \!\! \bot \!\! \bot$}
+
+\DeclareMathOperator{\rectOP}{\text{rect}}
+\newcommand{\rectN}[2]{\ensuremath{\rectOP_{#1} \left[ #2 \right]}}
 
 %matplotlib colors:
 \definecolor{C0}{HTML}{1f77b4}
@@ -80,10 +108,7 @@
 % \end{Loesung}
 
 
-% 99D5D9F1C9
-% FD58EEB1EC
-% 4CBF4358D5
-% 625E151299
+
 % 542FA69517
 % EF72605A91
 % A1D74A9E5B
@@ -185,13 +210,13 @@ Computational Examples, University of Rostock} with
 %\input{sig_sys_ex_05}  % UE 5, system in spectral domain
 
 \setcounter{section}{5}
-%\input{sig_sys_ex_06}  % UE 5, min/max/allpass phase
+%\input{sig_sys_ex_06}  % UE 6, min/max/allpass phase
 
 \setcounter{section}{6}
-\input{sig_sys_ex_07}
+%\input{sig_sys_ex_07}  % UE 7, sampling/reconstruction
 %
-% \setcounter{section}{7}
-% \input{sig_sys_ex_08}
+\setcounter{section}{7}
+\input{sig_sys_ex_08}  % UE 8, conv discrete
 %
 % \setcounter{section}{8}
 % \input{sig_sys_ex_09}
@@ -208,6 +233,8 @@ Computational Examples, University of Rostock} with
 % TBD: Verweise auf Formeln / Abb.
 
 %------------------------------------------------------------------------------
+
+
 
 
 %------------------------------------------------------------------------------
