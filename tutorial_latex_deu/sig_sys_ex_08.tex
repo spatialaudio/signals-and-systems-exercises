@@ -1254,7 +1254,7 @@ y[k=7] =& \sum\limits_{\kappa = +2}^{+2} x[7 -\kappa] \cdot h[\kappa] =\nonumber
 
 
 \newpage
-\subsection{Faltungssume für zwei Rechteckfolgen}
+\subsection{Faltungssumme für zwei Rechteckfolgen}
 \label{sec:99D5D9F1C9}
 \begin{Ziel}
 Anhand eines allgemeinen Beispiels, d.h. ohne speziell gegebenen Parameter
@@ -1263,10 +1263,14 @@ Wir wiederholen ein paar wichtige Zusammenhänge bzgl. der zeitliche Lage und
 Länge des Faltungsergebnis müssen allgemeingültiger über die Faltung nachdenken.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 99D5D9F1C9}: Berechnen Sie die zeitdiskrete Faltung
-$y[k] = \rectN{M}{k-\kappa_1} \, \ast \,\rectN{N}{k-\kappa_2}$.
-Skizzieren Sie die Signale $x[k]=\rectN{M}{k-\kappa_1}$,
-$h[k] = \rectN{N}{k-\kappa_2}$ und $y[k]$ für den allgemeinen Fall mit
-$N,M, k_1, k_2$.
+$y[k] = \rectN{M}{k-\kappa_M} \, \ast \,\rectN{N}{k-\kappa_N}$.
+Skizzieren Sie die Signale
+\begin{align}
+x[k]=\rectN{M}{k-\kappa_M}\\
+h[k] = \rectN{N}{k-\kappa_N}
+\end{align}
+und $y[k]$ für den allgemeinen Fall mit
+$N,M, \kappa_N, \kappa_M$.
 %\begin{Werkzeug}
 %\end{Werkzeug}
 %
@@ -1277,7 +1281,7 @@ daraus eine allgemeingültige Formel ableiten.
 %
 \begin{ExCalc}
 \begin{itemize}
-\item Beginn des Faltungsprodukts bei $k=\kappa_1+\kappa_2$
+\item Beginn des Faltungsprodukts bei $k=\kappa_M+\kappa_N$
 \item Länge des Faltungsprodukts $L=M+N-1$ Samples
 \item Maximalwert der Faltungssumme bei vollständiger Überlappung der beiden Rechtecksignale $\hat{y} = \min\{M,N\}$
 \item Maximalwert $\hat{y}$ im Signal für $|M-N|+1$ Samples in der 'Mitte'
@@ -1293,24 +1297,24 @@ daraus eine allgemeingültige Formel ableiten.
 \draw[->] (0,0) -- (0,1.5) node[above]{$x[k]$};
 \draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,1) (4,1) (5,1) (6,0)};
 \foreach \y in {0, 1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
-\draw (1,\tic) -- (1,-\tic)  node[below]{$k_1$};
-\draw (5,\tic) -- (5,-\tic)  node[below]{$k_1+M-1$};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$\kappa_M$};
+\draw (5,\tic) -- (5,-\tic)  node[below]{$\kappa+M-1$};
 \begin{scope}[xshift=16cm]
 \draw[->] (-5,0) -- (5,0) node[right]{$k$};
 \draw[->] (0,0) -- (0,1.5) node[above]{$h[k]$};
 \foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[above]{$\y$};};
 \draw[stem] plot coordinates{ (-4,0) (-3,1) (-2,1) (-1,1) (0,1) (1,1) (2,1) (3,1) (4,0)};
-\draw (-3,\tic) -- (-3,-\tic)  node[below]{$k_2$};
-\draw (3,\tic) -- (3,-\tic)  node[below]{$k_2+N-1$};
+\draw (-3,\tic) -- (-3,-\tic)  node[below]{$\kappa_N$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$\kappa_N+N-1$};
 \end{scope}
 \end{tikzpicture}
 \end{center}
 %
 \begin{align*}
 y[k] &= \begin{cases}
-k - \kappa_1-\kappa_2 +1 & \text{ für } \kappa_1+\kappa_2 \leq k < \kappa_1+\kappa_2+\hat{y} -1\\
-\hat{y} & \text{ für } \kappa_1+\kappa_2+\hat{y} - 1 \leq k \leq \kappa_1+\kappa_2+L-\hat{y}\\
-\kappa_1+\kappa_2+L-k & \text{ für } \kappa_1+\kappa_2+L-\hat{y} < k \leq \kappa_1+\kappa_2+L-1\\
+k - \kappa_M-\kappa_N +1 & \text{ für } \kappa_M+\kappa_N \leq k < \kappa_M+\kappa_N+\hat{y} -1\\
+\hat{y} & \text{ für } \kappa_M+\kappa_N+\hat{y} - 1 \leq k \leq \kappa_M+\kappa_N+L-\hat{y}\\
+\kappa_M+\kappa_N+L-k & \text{ für } \kappa_M+\kappa_N+L-\hat{y} < k \leq \kappa_M+\kappa_N+L-1\\
 0 & \text{ sonst} \\
 \end{cases}
 \end{align*}
@@ -1320,7 +1324,7 @@ k - \kappa_1-\kappa_2 +1 & \text{ für } \kappa_1+\kappa_2 \leq k < \kappa_1+\ka
 \begin{axis}[stemaxis,
 x=0.5cm, y=0.5cm,
 xtick={3,6,9,12}, x tick label style ={rotate=90},
-xticklabels={$\kappa_1+\kappa_2$, $\kappa_1+\kappa_2+\hat{y}-1$,$\kappa_1+\kappa_2+L-\hat{y}$, $\kappa_1+\kappa_2+L-1$},
+xticklabels={$\kappa_M+\kappa_N$, $\kappa_M+\kappa_N+\hat{y}-1$,$\kappa_M+\kappa_N+L-\hat{y}$, $\kappa_M+\kappa_N+L-1$},
 ytick={4}, yticklabels={$\hat{y}$},
 xlabel=$k$, ylabel={$y[k]$},
 grid=both]

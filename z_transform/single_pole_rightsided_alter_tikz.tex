@@ -1,0 +1,193 @@
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+\def \zre{0} %real of zero
+\def \zim{0} %imag of zero
+\def \pre{-0.8} %real of pole
+\def \pim{0} %imag of pole
+\def \pabs{0.8} % largest radius for poles to determine roc
+\def \rocmax{1.6} % sketch of outer roc domain
+%
+\begin{scope}
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(\pabs) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+%\draw (-2*\tic,1+2*\tic) node{$1$};
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=+1$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (\pre,+\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\pre,-\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\zre,+\zim) node{\Huge $\circ$};
+\draw[C0, ultra thick] (\zre,-\zim) node{\Huge $\circ$};
+%
+\draw (-\tic,\zim) -- (\tic,\zim) node[right]{$\zim$};
+\draw (-\tic,\pim) -- (\tic,\pim) node[right]{$\pim$};
+\draw (\zre,\tic) -- (\zre,-\tic) node[below]{$\zre$};
+\draw (\pre,\tic) -- (\pre,-\tic) node[below]{$\pre$};
+\end{scope}
+%
+\begin{scope}[scale=0.5, xshift=8cm]
+\def\tic{0.1};
+\def\Om{360/8}
+\draw[help lines, C7!25, step=0.5cm] (-1,-1) grid (8,1);
+\draw[->] (-1.5,0) -- (8.5,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[above]{$x[k]=(\pre)^k \epsilon[k] \,\ztransf\, X(z)=\frac{z}{z-(\pre)}$ für $|z|>\pabs$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-2,-1}
+{
+  \draw[stem] plot coordinates
+  {
+    (\k,{0*\k})
+  };
+};
+\foreach \k in {0,1,...,8}{\draw[stem] plot coordinates{(\k,{(\pre)^\k})};};
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+\def \zre{0} %real of zero
+\def \zim{0} %imag of zero
+\def \pre{-1} %real of pole
+\def \pim{0} %imag of pole
+\def \pabs{1} % largest radius for poles to determine roc
+\def \rocmax{1.6} % sketch of outer roc domain
+%
+\begin{scope}
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(\pabs) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+%\draw (-2*\tic,1+2*\tic) node{$1$};
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=+1$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (\pre,+\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\pre,-\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\zre,+\zim) node{\Huge $\circ$};
+\draw[C0, ultra thick] (\zre,-\zim) node{\Huge $\circ$};
+%
+\draw (-\tic,\zim) -- (\tic,\zim) node[right]{$\zim$};
+\draw (-\tic,\pim) -- (\tic,\pim) node[right]{$\pim$};
+\draw (\zre,\tic) -- (\zre,-\tic) node[below]{$\zre$};
+\draw (\pre,\tic) -- (\pre,-\tic) node[below]{$\pre$};
+\end{scope}
+%
+\begin{scope}[scale=0.5, xshift=8cm]
+\def\tic{0.1};
+\def\Om{360/8}
+\draw[help lines, C7!25, step=0.5cm] (-1,-1) grid (8,1);
+\draw[->] (-1.5,0) -- (8.5,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[above]{$x[k]=(\pre)^k \epsilon[k] \,\ztransf\, X(z)=\frac{z}{z-(\pre)}$ für $|z|>\pabs$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-2,-1}
+{
+  \draw[stem] plot coordinates
+  {
+    (\k,{0*\k})
+  };
+};
+\foreach \k in {0,1,...,8}{\draw[stem] plot coordinates{(\k,{(\pre)^\k})};};
+\end{scope}
+%
+\end{tikzpicture}
+%
+%
+%
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+\def \zre{0} %real of zero
+\def \zim{0} %imag of zero
+\def \pre{-1.2} %real of pole
+\def \pim{0} %imag of pole
+\def \pabs{1.2} % largest radius for poles to determine roc
+\def \rocmax{1.6} % sketch of outer roc domain
+%
+\begin{scope}
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(\pabs) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+%\draw (-2*\tic,1+2*\tic) node{$1$};
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=+1$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (\pre,+\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\pre,-\pim) node{\Huge $\times$};
+\draw[C0, ultra thick] (\zre,+\zim) node{\Huge $\circ$};
+\draw[C0, ultra thick] (\zre,-\zim) node{\Huge $\circ$};
+%
+\draw (-\tic,\zim) -- (\tic,\zim) node[right]{$\zim$};
+\draw (-\tic,\pim) -- (\tic,\pim) node[right]{$\pim$};
+\draw (\zre,\tic) -- (\zre,-\tic) node[below]{$\zre$};
+\draw (\pre,\tic) -- (\pre,-\tic) node[below]{$\pre$};
+\end{scope}
+%
+\begin{scope}[scale=0.5, xshift=8cm]
+\def\tic{0.1};
+\def\Om{360/8}
+\draw[help lines, C7!25, step=0.5cm] (-1,-1) grid (8,1);
+\draw[->] (-1.5,0) -- (8.5,0) node[right]{$k$};
+\draw[->] (0,-1) -- (0,2) node[above]{$x[k]=(\pre)^k \epsilon[k] \,\ztransf\, X(z)=\frac{z}{z-(\pre)}$ für $|z|>\pabs$};
+\foreach \x in {-1,0,...,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[left]{$\x$};};
+\foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\foreach \k in {-2,-1}
+{
+  \draw[stem] plot coordinates
+  {
+    (\k,{0*\k})
+  };
+};
+\foreach \k in {0,1,...,8}{\draw[stem] plot coordinates{(\k,{(\pre)^\k})};};
+\end{scope}
+%
+\end{tikzpicture}
+%
+\caption{\textbf{Kausales} 1-Pol Signal mit fester Nullstelle in $z=0$.
+Links $z$-Ebene, rechts: zugehörige \textbf{rechtseitige} Folge
+$z_0^k \cdot \epsilon[k]$ für $z_0 = \e^{\Sigma_0+\im\Omega_0}$ mit $\Omega_0=0$
+und Variation $\Sigma_0$. Die Folge ganz unten ist nicht beschränkt.
+Wegen $\Sigma_0<0$ alternierende Folgen.}
+\label{fig:single_pole_rightsided_alter_tikz}
+\end{figure}

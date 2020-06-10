@@ -1276,6 +1276,7 @@ Zeigen Sie, dass die Korrespondenz der Fourier Transformation
 gilt.
 Skizzieren Sie das Signal $x(t)$ und das Betragsspektrum $|X(\im\omega)|$.
 
+%------------------------------------------------------------------------------
 \begin{Werkzeug}
 Siehe UE 4. Mit Korrespondenzentabelle arbeiten. Es ist ein wenig Schreibarbeit,
 aber es artet noch nicht ganz so aus.
@@ -1285,13 +1286,131 @@ Empfehlenswert, da LTI: zuerst unverschobene Signale transformieren,
 dann Zeitverzögerung berücksichtigen.
 \end{Ansatz}
 \begin{ExCalc}
-Wir sind mittlerweile sicher genug, das ohne Musterlösung hinzubringen.
-In der Not Wolfram Alpha oder sympy o.ä. befragen ist immer eine gute Idee.
+
+%------------------------------------------------------------------------------
+\noindent\textbf{Skalierung Dirac Impuls}:
+\begin{align}
+\delta(t) =& |a| \cdot \delta(a t)\\
+\delta(t-b) = & |a| \cdot \delta(a [t-b])
+\end{align}
+%
+\noindent\textbf{Cosinus-Signal}:
+\begin{align}
+&\text{Ansatz: } \cos(1 t) \quad\fourier\quad \pi\delta(\omega - 1) + \pi\delta(\omega + 1)\\
+&\text{Zeitskalierung: } \cos(\frac{1}{10} t) \quad\fourier\quad 10 \pi\delta(10 \omega - 1) + 10 \pi\delta(10 \omega + 1) \\
+&\text{Dirac Skalierung: } \cos(\frac{1}{10} t) \quad\fourier\quad \pi\delta(\omega - \frac{1}{10}) + \pi\delta(\omega + \frac{1}{10}) \\
+&\text{Zeitverschiebung bzgl. [t-600]!: } \cos(\frac{1}{10} [t - 600]) \fourier \pi\delta(\omega - \frac{1}{10})\e^{-\im 600 \omega} + \pi\delta(\omega + \frac{1}{10})\e^{-\im 600 \omega}
+%&\text{Dirac Skalierung zum Check: } \cos(\frac{1}{10} [t - 600]) \quad\fourier\quad 10\pi\delta(10\omega - 1)\e^{-\im 600 \omega} + 10\pi\delta(10\omega + 1)\e^{-\im 600 \omega} \\
+%&\text{Dirac Austast: } \cos(\frac{1}{10} [t - 600]) \quad\fourier\quad \pi\delta(\omega - \frac{1}{10})\e^{-\im 60} + \pi\delta(\omega + \frac{1}{10})\e^{+\im 60} \\
+%&\text{Dirac Skalierung, Wolfram Alpha ok: } \cos(\frac{1}{10} [t - 600]) \quad\fourier\quad 10\pi\delta(10\omega - 1)\e^{-\im 60} + 10\pi\delta(10\omega + 1)\e^{+\im 60}
+\end{align}
+%
+\noindent\textbf{Gaussglocke}:
+\begin{align}
+&\text{Ansatz: } \alpha = \left(\nicefrac{3}{800}\right)\\
+&\text{Unverschoben: } \e^{-\left(\nicefrac{3}{800}\right)^2 t^2} \fourier \sqrt{\frac{\pi}{\left(\nicefrac{3}{800}\right)^2}}
+\e^{-\frac{\omega^2}{4 \left(\nicefrac{3}{800}\right)^2}}
+=\sqrt{\pi} \frac{800}{3} \e^{-\left(\frac{400}{3}\right)^2 \omega^2}\\
+&\text{Verschoben: } \e^{-\left(\nicefrac{3}{800}\right)^2 [t-600]^2} \fourier
+=\sqrt{\pi} \frac{800}{3} \e^{-\left(\frac{400}{3}\right)^2 \omega^2} \e^{-\im 600 \omega}
+\end{align}
+%
+\noindent\textbf{Faltung der Spektren}:
+\begin{align}
+\frac{1}{2\pi} \left(\pi\delta(\omega - \frac{1}{10})\e^{-\im 600 \omega} + \pi\delta(\omega + \frac{1}{10})\e^{-\im 600 \omega}\right)
+\ast_\omega
+\left(\sqrt{\pi} \frac{800}{3} \e^{-\left(\frac{400}{3}\right)^2 \omega^2} \e^{-\im 600 \omega}\right)
+\end{align}
+1. Teilintegral
+\begin{align}
+\sqrt{\pi} \frac{400}{3}
+\delta(\omega - \frac{1}{10})\e^{-\im 600 \omega}
+\ast_\omega
+\e^{-\left(\frac{400}{3}\right)^2 \omega^2} \e^{-\im 600 \omega}\nonumber\\
+%\end{align}
+%\begin{align}
+=\sqrt{\pi} \frac{400}{3} \int\limits_{\nu =-\infty}^{+\infty}
+\delta(\nu - \frac{1}{10})\e^{-\im 600 \nu}
+\e^{-\left(\frac{400}{3}\right)^2 (-\nu+\omega)^2} \e^{-\im 600 (-\nu+\omega)}\fsd \nu
+\end{align}
+mit Austasteigenschaft
+\begin{align}
+\sqrt{\pi} \frac{400}{3}
+\e^{-\im 600 \frac{1}{10}}
+\e^{-\left(\frac{400}{3}\right)^2 (-\frac{1}{10}+\omega)^2} \e^{-\im 600 (-\frac{1}{10}+\omega)}
+%\end{align}
+% \begin{align}
+% \sqrt{\pi} \frac{400}{3}
+% \e^{-\im 60}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{100}-\frac{1}{5}\omega+\omega^2)} \e^{\im 60} \e^{-\im 600 \omega}
+% \end{align}
+% \begin{align}
+% \sqrt{\pi} \frac{400}{3}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{100})}
+% \e^{-\left(\frac{400}{3}\right)^2 (-\frac{1}{5}\omega)}
+% \e^{-\left(\frac{400}{3}\right)^2 (+\omega^2)}
+%  \e^{-\im 600 \omega}
+% \end{align}
+%\begin{align}
+=\sqrt{\pi} \frac{400}{3}
+\e^{-\left(\frac{40}{3}\right)^2}
+\e^{+\left(\frac{400}{3 \sqrt{5}}\right)^2 \omega}
+\e^{-\left(\frac{400}{3}\right)^2 \omega^2}
+ \e^{-\im 600 \omega}
+\end{align}
+%
+%
+%
+2. Teilintegral
+\begin{align}
+\sqrt{\pi} \frac{400}{3}
+\delta(\omega + \frac{1}{10})\e^{-\im 600 \omega}
+\ast_\omega
+\e^{-\left(\frac{400}{3}\right)^2 \omega^2} \e^{-\im 600 \omega}\nonumber\\
+%\end{align}
+%\begin{align}
+=\sqrt{\pi} \frac{400}{3} \int\limits_{\nu =-\infty}^{+\infty}
+\delta(\nu + \frac{1}{10})\e^{-\im 600 \nu}
+\e^{-\left(\frac{400}{3}\right)^2 (-\nu+\omega)^2} \e^{-\im 600 (-\nu+\omega)}\fsd \nu
+\end{align}
+mit Austasteigenschaft
+\begin{align}
+\sqrt{\pi} \frac{400}{3}
+\e^{-\im 600 (-\frac{1}{10})}
+\e^{-\left(\frac{400}{3}\right)^2 (-(-\frac{1}{10})+\omega)^2} \e^{-\im 600 (-(-\frac{1}{10})+\omega)}
+%\end{align}
+% \begin{align}
+% \sqrt{\pi} \frac{400}{3}
+% \e^{\im 60}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{10}+\omega)^2} \e^{-\im 600 (\frac{1}{10}+\omega)}
+% \end{align}
+% \begin{align}
+% \sqrt{\pi} \frac{400}{3}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{100}+\frac{1}{5}\omega+\omega^2)} \e^{-\im 600 \omega}
+% \end{align}
+% \begin{align}
+% \sqrt{\pi} \frac{400}{3}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{100})}
+% \e^{-\left(\frac{400}{3}\right)^2 (\frac{1}{5}\omega)}
+% \e^{-\left(\frac{400}{3}\right)^2 (\omega^2)}
+% \e^{-\im 600 \omega}
+% \end{align}
+%\begin{align}
+=
+\sqrt{\pi} \frac{400}{3}
+\e^{-\left(\frac{40}{3}\right)^2}
+\e^{-\left(\frac{400}{3 \sqrt{5}}\right)^2 \omega}
+\e^{-\left(\frac{400}{3}\right)^2 \omega^2}
+\e^{-\im 600 \omega}
+\end{align}
+
+
 \end{ExCalc}
 \begin{Loesung}
 Wir sehen anhand dieses vergleichsweise einfachen Signals, dessen Parameter
 didaktisch sinnvoll getuned sind, dass hinter unseren SigSys-Berechnungsvorschriften
-langwierige Rechnungen stecken können. Daher können wir heutzutage froh sein,
+langwierige (aber im Grunde immer noch triviale)
+Rechnungen stecken können. Daher können wir heutzutage froh sein,
 wenn der Rechner uns die Arbeit abnimmt.
 Wir sollten allerdings ein Gefühl dafür entwickeln, welcher Aufwand hinter
 einer Lösung steckt, und ob ein computer-generiertes Ergebnis stimmen

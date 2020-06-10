@@ -87,6 +87,33 @@ enlarge y limits={abs=1.2em},
 \specialcomment{ExCalc}{\begin{mdframed}[backgroundcolor=C1!10]\noindent \textit{Ausführliche Rechnung}\\\noindent}{\end{mdframed}\noindent}
 \specialcomment{Loesung}{\begin{mdframed}[backgroundcolor=C0!10] \textit{Lösung}\\\noindent}{\end{mdframed}\noindent}
 
+%https://ctan.org/tex-archive/macros/latex/contrib/trfsigns?lang=en
+%needs \rmfamily instead of \rm in trfsigns package
+\renewcommand{\ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              \put(18,3){\circle*{4}}%
+                            \end{picture}%
+                           }
+                      }
+\renewcommand{\Ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                            \end{picture}%
+                           }
+                      }
+
+
+
 %\excludecomment{Ziel}
 %\excludecomment{Werkzeug}
 %\excludecomment{ExCalc}
@@ -107,11 +134,6 @@ enlarge y limits={abs=1.2em},
 % \begin{Loesung}
 % \end{Loesung}
 
-
-
-% 542FA69517
-% EF72605A91
-% A1D74A9E5B
 % 94A7A6D9E9
 % 767B4C89FE
 % 64BE42BAEF
@@ -192,34 +214,34 @@ Computational Examples, University of Rostock} with
 %\input{sig_sys_ex_intro}
 
 \setcounter{section}{0}  % UE 1 in our current sequence
-%\input{sig_sys_ex_01}  % Einführung, FS, FT, Dirac, ODE2nd, h(t)
+%\input{sig_sys_ex_01}  % intro, FS, FT, Dirac, ODE2nd, h(t)
 
 \setcounter{section}{1}
 %\input{sig_sys_ex_02}  % UE 2, signal ops, LTI, conv
 
 \setcounter{section}{2}
-%\input{sig_sys_ex_03}  % UE 3, laplace
+%\input{sig_sys_ex_03}  % UE 3, laplace transform
 
 \setcounter{section}{2}
-%\input{sig_sys_ex_03AddOn}  % UE 3, laplace 2nd order
+%\input{sig_sys_ex_03AddOn}  % UE 3, laplace 2nd order pt2 elemtent t vs s domain
 
 \setcounter{section}{3}
 %\input{sig_sys_ex_04}  % UE 4, fourier
 
 \setcounter{section}{4}
-%\input{sig_sys_ex_05}  % UE 5, system in spectral domain
+%\input{sig_sys_ex_05}  % UE 5, LTI systems in spectral domain, bode plot
 
 \setcounter{section}{5}
-%\input{sig_sys_ex_06}  % UE 6, min/max/allpass phase
+%\input{sig_sys_ex_06}  % UE 6, min/max/allpass phase, group delay
 
 \setcounter{section}{6}
-%\input{sig_sys_ex_07}  % UE 7, sampling/reconstruction
+%\input{sig_sys_ex_07}  % UE 7, t/f sampling/reconstruction
 %
 \setcounter{section}{7}
-\input{sig_sys_ex_08}  % UE 8, conv discrete
+%\input{sig_sys_ex_08}  % UE 8, LTI, conv discrete
 %
-% \setcounter{section}{8}
-% \input{sig_sys_ex_09}
+\setcounter{section}{8}
+ \input{sig_sys_ex_09} % UE 9, z transform
 %
 % \setcounter{section}{9}
 % \input{sig_sys_ex_10}
@@ -232,7 +254,57 @@ Computational Examples, University of Rostock} with
 
 % TBD: Verweise auf Formeln / Abb.
 
+
+
+% % reference z-plane plot
+% \begin{center}
+% \begin{tikzpicture}[scale=1.5]
+% \def \tic {0.05}
+% \def \zre{0.5} %real of zero
+% \def \zim{1.323} %imag of zero
+% \def \pre{0.25} %real of pole
+% \def \pim{0.4333333} %imag of pole
+% \def \pabs{0.50027770065} % largest radius for poles to determine roc
+% \def \rocmax{1.6} % sketch of outer roc domain
+% %
+% % basic diagram features:
+% \filldraw[even odd rule,C2!50] (0,0) circle(\pabs) decorate
+% [decoration={snake, segment length=15pt, amplitude=1pt}]
+% {(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+% %
+% \draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+% %
+% \draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+% %\draw (-2*\tic,1+2*\tic) node{$1$};
+% \draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+% \draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+% \draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+% %
+% \draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+% %
+% % the z-transfer function specific stuff:
+% \draw (1,1) node[black]{$g=1$}; % indicate gain factor
+% %
+% % draw the poles / zeros and if desired ticks:
+% \draw[C0, ultra thick] (\pre,+\pim) node{\Huge $\times$};
+% \draw[C0, ultra thick] (\pre,-\pim) node{\Huge $\times$};
+% \draw[C0, ultra thick] (\zre,+\zim) node{\Huge $\circ$};
+% \draw[C0, ultra thick] (\zre,-\zim) node{\Huge $\circ$};
+% %
+% \draw (-\tic,\zim) -- (\tic,\zim) node[right]{$\zim$};
+% \draw (-\tic,\pim) -- (\tic,\pim) node[right]{$\pim$};
+% \draw (\zre,\tic) -- (\zre,-\tic) node[below]{$\zre$};
+% \draw (\pre,\tic) -- (\pre,-\tic) node[below]{$\pre$};
+% \end{tikzpicture}
+% \end{center}
+
+
+
 %------------------------------------------------------------------------------
+
+
+
+
 
 
 

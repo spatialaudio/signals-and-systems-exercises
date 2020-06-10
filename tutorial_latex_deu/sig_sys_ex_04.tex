@@ -44,6 +44,22 @@ x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\im\omega)\\
 \e^{+\im\omega_0 t} \cdot x(t) &\quad \fourier \quad X(\im[\omega-\omega_0])
 \end{align}
 
+\item Dirac Zeitskalierung vs. Gewichtskalierung
+mit $a,b\in\mathbb{R}$
+\begin{align}
+\delta(t) =& |a| \cdot \delta(a t)\\
+\delta(t-b) = & |a| \cdot \delta(a [t-b])
+\end{align}
+
+\item Verschiebung und Skalierung in der Zeit vs. Modulation und Skalierung in der Frequenz
+mit $a,b\in\mathbb{R}$
+\begin{align}
+x(\frac{t}{a}-b)  = x(\frac{t-a b}{a}) \quad\fourier\quad
+|a| X(a \cdot \im\omega) \e^{-\im\omega a b}\\
+x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
+\frac{1}{|a|} X(\frac{\im\omega}{a}) \e^{-\im\omega \frac{b}{a}}
+\end{align}
+
 \item Dualität Dirac Impuls vs. Gleichsignal
 \begin{align}
 \delta(t) &\quad \fourier \quad 1\\
@@ -175,7 +191,7 @@ $x(t)=1 \, \fourier \, X(\im\omega)=2\pi\delta(\omega)$ gilt.}
 
 
 
-\newpage
+\clearpage
 \subsection{Fourier Transformation der rechteckbegrenzten Cosinus-Schwingung}
 \label{sec:610482EF57}
 \begin{Ziel}

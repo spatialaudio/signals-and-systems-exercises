@@ -19,6 +19,7 @@ clc
 % b = [b0, b1, b2], a = [a0, a1, a2]
 % H(z) is often normalized such that a0=1
 
+Nt = 2^5; % max sample to be plotted in impulse / step response
 % check discrete-time systems that were previously discussed in the tutorials
 if false % exercise 8.1
     b = [+1, -1, +2];
@@ -34,23 +35,25 @@ elseif false % exercise 7.3: system H1
     b = [1,1,-1,1/2]; % = h
     a = 1;
     fs = 1; % sampling frequency in Hz
-elseif true % exercise 7.3: system H3
+elseif false % exercise 7.3: system H3
     % stable IIR filter 
     b = [2, 0, 1];
     a = [1, -1/2];
     fs = 1; % sampling frequency in Hz
-elseif false % ODE RLC-example
+elseif true % ODE RLC-example
     % digital filter design with so called bilinear transform of a 
     % continuous-time ODE (we will learn this in detail in the DSP course):
     % ODE RLC-example from 'solving_2nd_order_ode.pdf' /
     % 'frequency_response_2nd_order_ode.pdf' is
     % 16/25 y''(t) + 24/25 y'(t) + y(t) = DiracDelta(t), y'(t=0)=0, y(t=0)=0
+    % transfer function in Laplace domain: H(s) = 1/( 16/25 s^2 + 24/25 s +1 )
     % for example sampled with
     fs = ceil((5/4)/(2*pi) * 100); % sampling frequency in Hz, note: omega0 = 5/4
     %note that we just round up to integer for nicer plotting
     [b, a] = bilinear([25/16], [1, 24/16, 25/16], fs); % same as:
     %[b, a] = bilinear([1], [16/25, 24/25, 1], fs);
     dBRange = [-80,10];
+    Nt = ceil(fs*10);
 else % pass through system
     b = 1;
     a = 1;
@@ -60,14 +63,14 @@ end
 disp(['b = ', num2str(b)])
 disp(['a = ', num2str(a)])
 
-sos = [b a]; %second order structur (sos) convention, see sos2tf(), then a0:=1
+sos = [b a]; %second order structure (sos) convention, see sos2tf(), then a0:=1
 %this is very often used to cascade second order systems in series, cf. sosfilt()
 
 %% helping stuff
-N = 2^13;  % length of evaluated signals
-k = [0:N-1]'; %sample index
+N = 2^13;  % length of evaluated signals, spectra
+k = [0:N-1]'; %sample index for time
 
-% color handling like Python's matplotlib with Matlab's standard colors:
+% color handling like Python's matplotlib:
 C0 = [0, 0.4470, 0.7410];
 C1 = [0.8500, 0.3250, 0.0980];
 C2 = [0.9290, 0.6940, 0.1250];
@@ -75,32 +78,33 @@ C2 = [0.9290, 0.6940, 0.1250];
 % open a figure with normalized size
 figure('Units', 'normalized',...
     'Position', [0.25 0.1 0.55 0.75],...
-    'Name', 'analysis of discrete-time LTI system')
+    'Name', 'Analysis of Discrete-Time LTI System')
 
 %% discussion in discrete-time domain
 
 % impulse respone
 h = impz(b,a,N); % either
 h1 = zeros(N,1); h1(1) = 1; h1 = filter(b, a, h1); % or filter the unit impulse
+%with Dirac impulse
 
 % step response
 he = stepz(b,a,N); % either
 he1 = cumsum(h);  % or cumulative sum
-he2 = filter(b, a, ones(N,1));  % or filter the unit step signal
+he2 = filter(b, a, ones(N,1));  % or filter the unit step signal with step function
 % for computer finite length signals are required, thus a rect of length N
 % is used
 
 %do the plot job
 subplot(3,2,1)
 stem(k, h, 'LineWidth', 2, 'Color', C0)
-xlim([0, 64]) % hard coded for the above examples
+xlim([0, Nt-1])
 xlabel('k')
 ylabel('impulse response h[k]')
 grid on
 
 subplot(3,2,2)
 stem(k, he, 'LineWidth', 2, 'Color', C0)
-xlim([0, 64]) % hard coded for the above examples
+xlim([0, Nt-1])
 xlabel('k')
 ylabel('step response h\epsilon[k]')
 grid on
@@ -127,7 +131,7 @@ H = fft(h); % get the DTFT frequency response as a DFT-approximation
 df = fs/N;  % frequency step between DFT bins
 f = [0:df:fs-df]'; % eigenfrequencies of DFT in Hz
 % using this handling, one must not worry about odd/even N!
-% this then includes DC up to fs-df, corresponding to W = [0...2pi)
+% this then includes DC up to frequency (fs-df), corresponding to W = [0...2pi)
 %
 % one should realize that DTFT -> DFT is a sampling process, having
 % implications on the signal in time domain (aliasing, periodization) 
