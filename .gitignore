@@ -8,6 +8,7 @@ laplace_transform/*.pdf
 laplace_system_analysis/*.pdf
 fs/*.pdf
 ft/*.pdf
+dtft/*.pdf
 dirac_impulse_ct/*.pdf
 system_properties_ct/*.pdf
 sampling/*.pdf
@@ -23,6 +24,7 @@ series_vs_parallel_bode_level_081294E23C.png
 ## ipynb stuff
 *-checkpoint.ipynb
 *.cut
+__pycache__
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

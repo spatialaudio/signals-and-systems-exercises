@@ -1,0 +1,137 @@
+% make this one nice, code is crap !!!!!s
+\begin{center}
+\begin{tikzpicture}[thick, scale=0.25]
+\tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
+\tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
+\newcommand{\filtDelay}{$z^{-1}$}
+% FIR
+\begin{scope}
+\matrix[row sep=2mm, column sep=0.05mm](m1)
+{
+\node (input){$x[k]$}; &
+\node (spliti)[coordinate] {};
+& & \node (join1) [filtSum]{$+$};
+& & \node (join2) [filtSum]{$+$};
+& & \node (join3) [filtSum]{$+$};
+& & \node (join4) [filtSum]{$+$};
+& & \node (join5) [filtSum]{$+$};
+& & \node (join6) [filtSum]{$+$};
+& & \node (join7) [filtSum]{$+$};
+& & \node (join8) [filtSum]{$+$};
+& & \node (join9) [filtSum]{$+$};
+& & \node (join10) [filtSum]{$+$};
+&\node (output) {$y[k]$}; \\
+\node (dc){$ $}; &
+\node (splito)[coordinate] {};
+& & \node (b1) [filtBlock]{$0$};
+& & \node (b2) [filtBlock]{$1$};
+& & \node (b3) [filtBlock]{$0$};
+& & \node (b4) [filtBlock]{$\nicefrac{17}{4}$};
+& & \node (b5) [filtBlock]{$0$};
+& & \node (b6) [filtBlock]{$\nicefrac{17}{4}$};
+& & \node (b7) [filtBlock]{$0$};
+& & \node (b8) [filtBlock]{$1$};
+& & \node (b9) [filtBlock]{$0$};
+& & \node (b10) [filtBlock]{$1$};
+\\
+& \node (split0)[coordinate]{}; & \node (delay1)[filtBlock]{\filtDelay};
+& \node (split1)[coordinate]{}; & \node (delay2)[filtBlock]{\filtDelay};
+& \node (split2)[coordinate]{}; & \node (delay3)[filtBlock]{\filtDelay};
+& \node (split3)[coordinate]{}; & \node (delay4)[filtBlock]{\filtDelay};
+& \node (split4)[coordinate]{}; & \node (delay5)[filtBlock]{\filtDelay};
+& \node (split5)[coordinate]{}; & \node (delay6)[filtBlock]{\filtDelay};
+& \node (split6)[coordinate]{}; & \node (delay7)[filtBlock]{\filtDelay};
+& \node (split7)[coordinate]{}; & \node (delay8)[filtBlock]{\filtDelay};
+& \node (split8)[coordinate]{}; & \node (delay9)[filtBlock]{\filtDelay};
+& \node (split9)[coordinate]{}; & \node (delay10)[filtBlock]{\filtDelay};
+& \node (split10)[coordinate]{}; &
+&&
+&&
+&&
+&&
+&;\\
+};
+\end{scope}
+\begin{scope}[start chain=thru]
+\chainin (input) [join = by ->];
+%\chainin (spliti) [join]; %
+\chainin (delay1)[join = by ->];
+\chainin (split1)[join];
+{[start filtBranch=ff1]
+\chainin (b1) [join=by ->];
+\chainin (join1) [join=by ->];
+};
+\chainin (delay2) [join=with split1 by ->];
+\chainin (split2)[join];
+{[start filtBranch=ff2]
+\chainin (b2) [join=by ->];
+\chainin (join2) [join=by ->];
+};
+\chainin (delay3) [join=with split2 by ->];
+\chainin (split3)[join];
+{[start filtBranch=ff3]
+\chainin (b3) [join=by ->];
+\chainin (join3) [join=by ->];
+};
+\chainin (delay4) [join=with split3 by ->];
+\chainin (split4)[join];
+{[start filtBranch=ff4]
+\chainin (b4) [join=by ->];
+\chainin (join4) [join=by ->];
+};
+%
+\chainin (delay5) [join=with split4 by ->];
+\chainin (split5)[join];
+{[start filtBranch=ff5]
+\chainin (b5) [join=by ->];
+\chainin (join5) [join=by ->];
+};
+%
+\chainin (delay6) [join=with split5 by ->];
+\chainin (split6)[join];
+{[start filtBranch=ff6]
+\chainin (b6) [join=by ->];
+\chainin (join6) [join=by ->];
+};
+%
+\chainin (delay7) [join=with split6 by ->];
+\chainin (split7)[join];
+{[start filtBranch=ff7]
+\chainin (b7) [join=by ->];
+\chainin (join7) [join=by ->];
+};
+%
+\chainin (delay8) [join=with split7 by ->];
+\chainin (split8)[join];
+{[start filtBranch=ff8]
+\chainin (b8) [join=by ->];
+\chainin (join8) [join=by ->];
+};
+\chainin (delay9) [join=with split8 by ->];
+\chainin (split9)[join];
+{[start filtBranch=ff9]
+\chainin (b9) [join=by ->];
+\chainin (join9) [join=by ->];
+};
+\chainin (delay10) [join=with split9 by ->];
+\chainin (split10)[join];
+{[start filtBranch=ff10]
+\chainin (b10) [join=by ->];
+%\chainin (join10) [join=by ->];
+};
+%};
+\chainin (join1) [join=with spliti by ->];
+\chainin (join2) [join=by ->];
+\chainin (join3) [join=by ->];
+\chainin (join4) [join=by ->];
+\chainin (join5) [join=by ->];
+\chainin (join6) [join=by ->];
+\chainin (join7) [join=by ->];
+\chainin (join8) [join=by ->];
+\chainin (join9) [join=by ->];
+\chainin (join10) [join=with join9 by ->, join=with b10 by ->];
+\chainin (output) [join=by ->];
+\end{scope}
+\end{tikzpicture}
+\end{center}

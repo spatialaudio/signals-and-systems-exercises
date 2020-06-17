@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+ \documentclass[11pt,a4paper,DIV=12]{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage{fouriernc}
 \usepackage[T1]{fontenc}
@@ -29,6 +29,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{matrix}
+\usetikzlibrary{chains}
 \usetikzlibrary{shapes.misc}
 \tikzset{cross/.style={cross out, draw,minimum size=2*(#1-\pgflinewidth),inner sep=0pt, outer sep=0pt}}
 \pgfkeys{/pgfplots/axis style/.code={\pgfkeysalso{/pgfplots/every axis/.append style={#1}}}}
@@ -112,6 +113,30 @@ enlarge y limits={abs=1.2em},
                            }
                       }
 
+\newcommand{\dtft}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              %\put(18,3){\circle*{4}}%
+                            \end{picture}%
+                           }
+                      }
+\newcommand{\DTFT}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              %\put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                            \end{picture}%
+                           }
+                      }
+
+
 
 
 %\excludecomment{Ziel}
@@ -134,11 +159,9 @@ enlarge y limits={abs=1.2em},
 % \begin{Loesung}
 % \end{Loesung}
 
-% 94A7A6D9E9
-% 767B4C89FE
-% 64BE42BAEF
-% DF08FCF870
-% 96D7F1EE47
+
+
+
 % D394560597
 % 0C30EB5E76
 % C8864C8D9F
@@ -241,16 +264,16 @@ Computational Examples, University of Rostock} with
 %\input{sig_sys_ex_08}  % UE 8, LTI, conv discrete
 %
 \setcounter{section}{8}
- \input{sig_sys_ex_09} % UE 9, z transform
+%\input{sig_sys_ex_09} % UE 9, z transform
 %
-% \setcounter{section}{9}
-% \input{sig_sys_ex_10}
+\setcounter{section}{9}
+\input{sig_sys_ex_10} % UE 10, DTFT
 %
 % \setcounter{section}{10}
-% \input{sig_sys_ex_11}
+% \input{sig_sys_ex_11} % UE 11, DFT
 %
 % \setcounter{section}{11}
-% \input{sig_sys_ex_12}
+% \input{sig_sys_ex_12} % UE 12, min/max/allpass single-pole in z-domain
 
 % TBD: Verweise auf Formeln / Abb.
 
@@ -304,12 +327,8 @@ Computational Examples, University of Rostock} with
 
 
 
-
-
-
-
-
 %------------------------------------------------------------------------------
+%\input{sig_sys_ex_appendixA}
 %\input{sig_sys_intended_schedule}
 \cite{*}
 \clearpage
