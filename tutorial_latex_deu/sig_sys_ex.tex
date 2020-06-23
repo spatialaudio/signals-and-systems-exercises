@@ -20,7 +20,7 @@
 \usepackage{tikz}
 \usepackage{circuitikz}
 \usepackage{pgfplots}
-
+\usepackage{bm}
 \bibliographystyle{dinat}
 
 \numberwithin{equation}{section}
@@ -137,7 +137,31 @@ enlarge y limits={abs=1.2em},
                       }
 
 
+\newcommand{\mydft}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              %\put(18,3){\circle*{4}}%
+                              \put(6,-4){\scriptsize $N$}
+                            \end{picture}%
+                           }
+                      }
 
+\newcommand{\myDFT}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              %\put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                              \put(6,-4){\scriptsize $N$}
+                            \end{picture}%
+                           }
+                      }
 
 %\excludecomment{Ziel}
 %\excludecomment{Werkzeug}
@@ -159,13 +183,6 @@ enlarge y limits={abs=1.2em},
 % \begin{Loesung}
 % \end{Loesung}
 
-
-
-
-% D394560597
-% 0C30EB5E76
-% C8864C8D9F
-% 6337B75DF2
 % 55A8105469
 % 8209D3F114
 % F7CDDC9EEC
@@ -267,10 +284,10 @@ Computational Examples, University of Rostock} with
 %\input{sig_sys_ex_09} % UE 9, z transform
 %
 \setcounter{section}{9}
-\input{sig_sys_ex_10} % UE 10, DTFT
+%\input{sig_sys_ex_10} % UE 10, DTFT
 %
-% \setcounter{section}{10}
-% \input{sig_sys_ex_11} % UE 11, DFT
+\setcounter{section}{10}
+\input{sig_sys_ex_11} % UE 11, DFT
 %
 % \setcounter{section}{11}
 % \input{sig_sys_ex_12} % UE 12, min/max/allpass single-pole in z-domain

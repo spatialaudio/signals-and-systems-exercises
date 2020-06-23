@@ -1,2 +1,2505 @@
 \newpage
-\section{UE : }
+\section{UE 11: Diskrete Fourier Transformation (DFT)}
+%
+Wir betrachten die letzte der vier Fourier Transformationen, die DFT.
+Sie ist die einzige, die exakt mit Computern ausrechenbar ist.
+%
+Die anderen drei Fourier Transformation (FT, FR, DTFT) setzen ja entweder
+unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
+kontinuierliche Signale/Spektren
+voraus, alles Eigenschaften mit denen sich Computer schwer tun.
+%
+Daher werden wir sehr oft konfrontiert sein, die DFT als Approximation
+der anderen drei Transformationen benutzen zu müssen.
+%
+
+Eine der Grundeigenschaften der DFT, nämliche die inhärente
+Periodizität der Signalfolgen und DFT-Spektren der Länge $N$, ist eigentlich
+eher praxisfern, die meisten Signale sind ja eher nicht periodisch, und wenn
+doch dann meist überlagert mit Rauschen.
+%
+Wir haben also ein Werkzeug, was gut ist für digitale Rechentechnik, aber
+schlecht für die meisten vorkommenden Signale.
+%
+Das macht die DFT nun nich automatisch zu einem schlechten Tool. Wir müssen
+es aus Mangel an Alternativen eh wertschätzen und uns 'nur' erarbeiten, was die
+DFT unter verschiedenen Annahmen macht und wie die Ergebnisse zu interpretieren
+sind.
+%
+Dafür müssen wir die DFT-Synthese und DFT-Analyse
+und die Eigenschaften der DFT sicher beherrschen, das ist absolutes Must Have
+Knowledge!
+%
+Es ist deswegen sinnvoll, wenn wir uns das tiefgründig erarbeiten. Eine einzige
+VL/UE-Einheit ist dafür im Grunde zu wenig, daher sollten wir Zeit für
+Selbststudium einplanen. Wir vertiefen die DFT im Mastermodul Digital Signal
+Processing.
+Hier der Versuch die Essenz in übersichtlicher Form weiterzugeben.
+
+Wir benutzen die Operator Symbole
+\begin{align}
+\text{DFT: }x[k] &\quad\mydft\quad X[\mu]\\
+\text{IDFT: }X[\mu] &\quad\myDFT\quad x[k]
+\end{align}
+%
+Die Analyse Formel ist mit unserer Konvention
+(bzgl. der Normierung mit $\frac{1}{N}$ und Vorzeichenwahl im komplexen Dreher)
+\begin{align}
+X[\mu] = \mathrm{DFT}_N\{x[k]\} = \sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu},
+\end{align}
+dann lautet die Synthese Formel
+\begin{align}
+x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}.
+\end{align}
+%
+Für eine komplette Transformation brauchen wir alle Paare $k \cdot \mu$,
+die wir als $k \times \mu$ Matrix aufschreiben (wir wollen Summen vermeiden,
+die sind unübersichtlich und verschleiern meist den tieferen Zusammenhang)
+\begin{align}
+\bm{K} =
+k \downarrow
+\substack{\rightarrow \mu\\
+\begin{bmatrix}
+0 \cdot 0 & 0 \cdot 1 & 0 \cdot 2 & 0 \cdot 3 & \dots & 0 \cdot (N-1)\\
+1 \cdot 0 & 1 \cdot 1 & 1 \cdot 2 & 1 \cdot 3 & \dots & 1 \cdot (N-1)\\
+2 \cdot 0 & 2 \cdot 1 & 2 \cdot 2 & 2 \cdot 3 & \dots & 2 \cdot (N-1)\\
+3 \cdot 0 & 3 \cdot 1 & 3 \cdot 2 & 3 \cdot 3 & \dots & 3 \cdot (N-1)\\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+(N-1) \cdot 0 & (N-1) \cdot 1 & (N-1) \cdot 2 & (N-1) \cdot 3 & \dots &  (N-1) \cdot (N-1)
+\end{bmatrix}
+}
+\end{align}
+Wir führen die komplexe Zahl $z_1 = W_N = \e^{+\im\frac{2\pi}{N}}$ ein, die
+in der $z$-Ebene immer auf dem Einheitskreis liegt, also die spezielle DTFT
+Frequenz $\Omega = \frac{2\pi}{N}$ abbildet. In Analogie zur Fourierreihe ist
+das die Frequenz der ersten DFT-Harmonischen, sozusagen die DFT-Grundfrequenz.
+Mit der zweiten Matrix-Zeile (wo $k=1$) können wir erkennen,
+dass es insgesamt $N$ DFT Frequenzen
+$W_N^\mu=\left(\e^{+\im\frac{2\pi}{N}}\right)^\mu$ für $0\leq\mu\leq N-1$
+auf dem Einheitskreis gibt.
+%
+Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ und $N=5$ veranschaulicht.
+Für $N\to\infty$ nähern wir uns der DTFT an.
+%
+\begin{figure}[t]
+\center
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+%
+\begin{scope}
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw[C3] (0.78,-0.78) node[right]{DTFT $z=\e^{\im\Omega}$};
+\draw[C0] (0.78,-1.15) node[right]{DFT $z_\mu = \e^{\im\frac{2\pi}{4}\mu}$};
+%
+\draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.25,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[C0, ultra thick] (0,+1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0,-1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (+1,0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1,0) node{\Huge $\circ$};
+%
+\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=1$};
+\draw[] (2*\tic,+1+4*\tic) node[right]{$z_1=W_4=\e^{\im\frac{2\pi}{4}}$};
+\draw[] (-1+4*\tic,4*\tic) node{$z_2$};
+\draw[] (4*\tic,-1+4*\tic) node{$z_3$};
+%
+\draw[->] (0.25,0) node[above]{$\frac{2\pi}{4}$} arc (0:90:0.25) ;
+%
+\draw[] (0,2.25) node{Lösungen für $z^4 = 1$ für $N=4$ DFT};
+\end{scope}
+%
+\begin{scope}[xshift=5cm]
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw[C3] (0.78,-0.78) node[right]{DTFT $z=\e^{\im\Omega}$};
+\draw[C0] (0.78,-1.15) node[right]{DFT $z_\mu = \e^{\im\frac{2\pi}{5}\mu}$};
+%
+\draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.25,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[white] (0,-1)--(0,+1);
+\draw[white] (-1,0)--(+1,0);
+%
+\draw[C0, ultra thick] (1,0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.30902, 0.95106) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.80902, 0.58779) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.80902,- 0.58779) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.30902,- 0.95106) node{\Huge $\circ$};
+%
+\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=1$};
+\draw[] (0.30902+1*\tic, 0.95106+3*\tic) node[right]{$z_1=W_5=\e^{\im\frac{2\pi}{5}}$};
+\draw[] (-0.80902-4*\tic, 0.58779+4*\tic) node{$z_2$};
+\draw[] (-0.80902-4*\tic,- 0.58779-4*\tic) node{$z_3$};
+\draw[] (0.30902+4*\tic,- 0.95106-4*\tic) node{$z_4$};
+%
+\draw[-] (0,0) -- (1,0);
+\draw[-] (0,0) -- (0.30902, 0.95106);
+\draw[-] (0,0) -- (-0.80902, 0.58779);
+\draw[-] (0,0) -- (-0.80902,- 0.58779);
+\draw[-] (0,0) -- (0.30902,- 0.95106);
+\draw[->] (0.25,0) node[above]{$\frac{2\pi}{5}$} arc (0:72:0.25) ;
+%
+\draw[] (0,2.25) node{Lösungen für $z^5 = 1$ für $N=5$ DFT};
+\end{scope}
+%
+\end{tikzpicture}
+\caption{DFT-Frequenzen auf dem Einheitskreis.}
+\label{fig:DFT_UnitCircle}
+\end{figure}
+
+
+Wir haben es also wieder einmal mit komplexen Zahlen auf dem Einheitskreis zu
+tun, was in SigSys oft vorkommt.
+%
+Die IDFT Formel verlangt den komplexen Zeiger $\e^{+\im\frac{2\pi}{N} (k\cdot \mu)}$.
+Wir können die Matrix $\bm{K}$ um diesen Zeiger erweitern zu der sogenannten
+Fourier Matrix
+\begin{align}
+\bm{F} =
+k \downarrow
+\substack{\rightarrow \mu\\
+\begin{bmatrix}
+\e^{+\im\frac{2\pi}{N} (0 \cdot 0)} & \e^{+\im\frac{2\pi}{N} (0 \cdot 1)} & \e^{+\im\frac{2\pi}{N} (0 \cdot 2)} & \e^{+\im\frac{2\pi}{N} (0 \cdot 3)} & \dots & \e^{+\im\frac{2\pi}{N} (0 \cdot (N-1))}\\
+\e^{+\im\frac{2\pi}{N} (1 \cdot 0)} & \e^{+\im\frac{2\pi}{N} (1 \cdot 1)} & \e^{+\im\frac{2\pi}{N} (1 \cdot 2)} & \e^{+\im\frac{2\pi}{N} (1 \cdot 3)} & \dots & \e^{+\im\frac{2\pi}{N} (1 \cdot (N-1))} \\
+\e^{+\im\frac{2\pi}{N} (2 \cdot 0)} & \e^{+\im\frac{2\pi}{N} (2 \cdot 1)} & \e^{+\im\frac{2\pi}{N} (2 \cdot 2)} & \e^{+\im\frac{2\pi}{N} (2 \cdot 3)} & \dots & \e^{+\im\frac{2\pi}{N} (2 \cdot (N-1))}\\
+\e^{+\im\frac{2\pi}{N} (3 \cdot 0)} & \e^{+\im\frac{2\pi}{N} (3 \cdot 1)} & \e^{+\im\frac{2\pi}{N} (3 \cdot 2)} & \e^{+\im\frac{2\pi}{N} (3 \cdot 3)} & \dots & \e^{+\im\frac{2\pi}{N} (3 \cdot (N-1))}\\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+\e^{+\im\frac{2\pi}{N} ((N-1) \cdot 0)} & \e^{+\im\frac{2\pi}{N} ((N-1) \cdot 1)} & \e^{+\im\frac{2\pi}{N} ((N-1) \cdot 2)} & \e^{+\im\frac{2\pi}{N} ((N-1) \cdot 3)} & \dots &  \e^{+\im\frac{2\pi}{N} ((N-1) \cdot (N-1))}
+\end{bmatrix}
+}
+\end{align}
+In Büchern findet sich oft die kürzere Variante mit $W_N$
+\begin{align}
+\bm{F} =
+k \downarrow
+\substack{\rightarrow \mu\\
+\begin{bmatrix}
+1 & 1 & 1 & 1 & \dots & 1\\[1em]
+1 & W_N^1 & W_N^2 & W_N^3 & \dots & W_N^{(N-1)}\\[1em]
+1 & W_N^2 & W_N^4 & W_N^6 & \dots & W_N^{2(N-1)}\\[1em]
+1 & W_N^3 & W_N^6 & W_N^9 & \dots & W_N^{3(N-1)}\\[1em]
+\vdots & \vdots & \vdots &\vdots &\ddots & \vdots\\[1em]
+1 & W_N^{(N-1)} & W_N^{2(N-1)} & W_N^{3(N-1)} & \dots & W_N^{(N-1)(N-1)}
+\end{bmatrix}
+}
+\end{align}
+Wenn wir das Zeitsignal $x[k]$ der Länge $N$ (also eigentlich periodisch in $N$,
+wir nehmen nach Konvention die Periode $0 \leq k \leq N-1$)
+und das dazugehörige DFT-Spektrum $X[\mu]$ (auch $N$ periodisch,
+Konvention $0\leq \mu \leq N-1$)
+als Spalten-Vektoren mit $N$ Einträgen definieren
+\begin{align}
+\text{Zeitfolge: }
+\bm{x}_k =
+\begin{bmatrix}
+x[k=0]\\
+x[k=1]\\
+x[k=2]\\
+x[k=3]\\
+\vdots\\
+x[k=N-1]\\
+\end{bmatrix}\qquad
+\text{DFT-Spektrum: }
+\bm{x}_\mu =
+\begin{bmatrix}
+X[\mu=0]\\
+X[\mu=1]\\
+X[\mu=2]\\
+X[\mu=3]\\
+\vdots\\
+X[\mu=N-1]\\
+\end{bmatrix}
+\end{align}
+können wir die \textbf{IDFT als Matrixmultiplikation}
+\begin{align}
+\bm{x}_k = \frac{1}{N} \bm{F} \cdot \bm{x}_\mu
+\end{align}
+schreiben.
+Die zugrunde liegende Linearkombination der Spaltenvektoren von $\bm{F}$
+offenbart sehr übersichtlich was die IDFT bei der Synthese einer Zeitfolge macht
+\label{LinComb_for_IDFT}
+%
+\begin{align*}
+\begin{bmatrix}
+x[0]\\[1em]
+x[1]\\[1em]
+x[2]\\[1em]
+x[3]\\[1em]
+\dots\\[1em]
+x[N-1]
+\end{bmatrix}
+=
+\frac{X[0]}{N}
+\begin{bmatrix}
+1\\[1em]
+1\\[1em]
+1\\[1em]
+1\\[1em]
+\dots\\[1em]
+1
+\end{bmatrix}
++\frac{X[1]}{N}
+\begin{bmatrix}
+1\\[1em]
+W_N\\[1em]
+W_N^2\\[1em]
+W_N^3\\[1em]
+\dots\\[1em]
+W_N^{(N-1)}
+\end{bmatrix}
++\frac{X[2]}{N}
+\begin{bmatrix}
+1\\[1em]
+W_N^2\\[1em]
+W_N^4\\[1em]
+W_N^6\\[1em]
+\dots\\[1em]
+W_N^{2(N-1)}
+\end{bmatrix}
++\frac{X[3]}{N}
+\begin{bmatrix}
+1\\[1em]
+W_N^3\\[1em]
+W_N^6\\[1em]
+W_N^9\\[1em]
+\dots\\[1em]
+W_N^{3(N-1)}
+\end{bmatrix}
++
+\dots
++\frac{X[N-1]}{N}
+\begin{bmatrix}
+1\\[1em]
+W_N^{1(N-1)}\\[1em]
+W_N^{2(N-1)}\\[1em]
+W_N^{3(N-1)}\\[1em]
+\dots\\[1em]
+W_N^{(N-1)(N-1)}
+\end{bmatrix}
+\end{align*}
+Die Spaltenvektoren von $\bm{F}$ stellen die komplexen Zeit-Signale
+$\e^{+\im\frac{2\pi}{N}k \cdot 0}$ (nur Einsen),
+$\e^{+\im\frac{2\pi}{N}k \cdot 1}$ bis $\e^{+\im\frac{2\pi}{N}k \cdot (N-1)}$
+dar, diese sind alle $N$ periodisch.
+%
+Diese Signale werden mit den zugehörigen Spektralwerten
+$X[0]$ (Gleichanteil), $X[1]$ bis $X[N-1]$ gewichtet.
+Für unser Transformationspaar erfolgt bei der IDFT noch die Normierung mit
+$\frac{1}{N}$. Alle gewichteten Signale werden nun aufaddiert zum Ergebnissignal
+$x[k]$.
+
+Es ist also sehr ähnlich zur Fourierreihensynthese: Überlagerung von
+Grundschwingung und Oberschwingungen, nur, dass hier die DFT ein $N$-periodisches
+Spektrum an Fourierkoeffizienten aufweist, was zeitdiskrete \textbf{und}
+periodische Signale bedingt.
+%
+
+Für die Spaltenvektoren $\bm{f}_i$ und $\bm{f}_j$ aus der Matrix $\bm{F}$
+folgt die Orthogonalitätsbedingung aus dem Skalarprodukt für komplexe Vektoren
+\begin{align}
+\bm{f}_i^H \bm{f}_j =
+\begin{cases}
+N & i=j\\
+0 & \text{sonst}
+\end{cases}
+\end{align}
+mit dem adjungierten Operator $()^H$, also konjugiert-komplex und transponiert.
+Auch dies kennen wir schon von der Fourierreihe, dort für die kontinuierlichen
+Funktionen
+$\sin(\mu \omega_0 t)$, $\cos(\mu \omega_0 t)$ und $\e^{\im \mu \omega_0 t}$ die
+orthogonal zueinander sind für verschiedene $\mu\in\mathbb{Z}$.
+%
+Es ist die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / IDFT
+schenkt als Linearkombination $N$ orthogonaler (komplexer) Vektoren.
+%
+
+Mit der adjungierten Matrix von $\bm{F}$, also
+\begin{align}
+\bm{F}^H =
+\mu \downarrow
+\substack{\rightarrow k\\
+\begin{bmatrix}
+1 & 1 & 1 & 1 & \dots & 1\\[1em]
+1 & W_N^{-1} & W_N^{-2} & W_N^{-3} & \dots & W_N^{-(N-1)}\\[1em]
+1 & W_N^{-2} & W_N^{-4} & W_N^{-6} & \dots & W_N^{-2(N-1)}\\[1em]
+1 & W_N^{-3} & W_N^{-6} & W_N^{-9} & \dots & W_N^{-3(N-1)}\\[1em]
+\vdots & \vdots & \vdots &\vdots &\ddots & \vdots\\[1em]
+1 & W_N^{-(N-1)} & W_N^{-2(N-1)} & W_N^{-3(N-1)} & \dots & W_N^{-(N-1)(N-1)}
+\end{bmatrix}
+}
+\end{align}
+folgt die \textbf{DFT als Matrixmultiplikation}
+\begin{align}
+\bm{x}_\mu = \bm{F}^H \cdot \bm{x}_k.
+\end{align}
+Wenn wir also eine Zeile aus der Matrix mit dem Spaltenvektor $\bm{x}_k$
+als inneres Produkt / Skalarprodukt
+verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
+berücksichtigt.
+
+
+
+
+\clearpage
+\subsection{Inverse DFT}
+\label{sec:D394560597}
+\begin{Ziel}
+Wir wollen uns als Einstieg in die DFT / IDFT mit der Signalsynthese, also
+der inversen DFT beschäftigen. Dazu diskutieren wir zwei ganz einfache
+Fälle, in denen das $N=8$ DFT-Spektrum nur einen bzw. zwei Einträge hat.
+Wenn wir die Signalsynthese anhand der zugrundeliegenden Linearkombination
+verstanden haben, können wir die Spektren beliebig verkomplizieren und damit
+$N$ periodische Signalfolgen synthetisieren.
+Die Vorgehensweise ist sehr ähnlich zur Signalsynthese mit der komplexen
+Fourierreihe.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny D394560597}: Gegeben sind die $N=8$ DFT Spektren
+\begin{align}
+&X_c[\mu] = 8\e^{-\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-1 + 8\nu]\\
+&X_r[\mu] =
+4\e^{-\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-1 + 8\nu] +
+4\e^{+\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-7 + 8\nu]
+\end{align}
+Berechnen Sie davon die inversen DFTs, also $x_c[k] = \text{IDFT}_8\{X_c[\mu]\}$
+und $x_r[k] = \text{IDFT}_8\{X_r[\mu]\}$.
+
+\begin{Werkzeug}
+IDFT als Linearkombination $\bm{x}_k = \frac{1}{N} \bm{F} \bm{x}_\mu$
+oder wenn wir es lieber als Summe mögen
+\begin{align}
+x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+Es ist sinnvoll die Lage der DFT Frequenzen auf dem Einheitskreis zu
+visualisieren, damit wir die Winkel der komplexen Dreher schnell überschauen.
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+\begin{scope}
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw[C3] (0.78,-0.78) node[right]{DTFT $z=\e^{\im\Omega}$};
+\draw[C0] (0.78,-1.15) node[right]{DFT $z_\mu = \e^{\im\frac{2\pi}{8}\mu}$};
+%
+\draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.25,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[white] (0,-1)--(0,+1);
+\draw[white] (-1,0)--(+1,0);
+%
+\draw[C0, ultra thick] (1, 0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.7071, 0.7071) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0, 1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.7071, 0.7071) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1, 0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.7071, -0.7071) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0, -1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.7071, -0.7071) node{\Huge $\circ$};
+%
+\draw[] (0.7071+1*\tic, 0.7071+3*\tic) node[right]{$z_1=W_8=\e^{\im\frac{2\pi}{8}}$};
+%
+\draw[] (0,2.25) node{Lösungen für $z^8 = 1$ für $N=8$ DFT};
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+Zudem sollten wir die Fourier Matrix $\bm{F}_8$ einmal zu Papier bringen,
+das ist ein wenig Schreibarbeit, aber erkenntnisstiftend.
+Zunächst, so wie in der Einleitung dargestellt, die Matrix füllen
+\begin{align}
+\bm{F}_8 =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+1 & \e^{\im\frac{1}{4}\pi} & \e^{\im\frac{2}{4}\pi} & \e^{\im\frac{3}{4}\pi} & \e^{\im\frac{4}{4}\pi} & \e^{\im\frac{5}{4}\pi} & \e^{\im\frac{6}{4}\pi} & \e^{\im\frac{7}{4}\pi}\\
+1 & \e^{\im\frac{2}{4}\pi} & \e^{\im\frac{4}{4}\pi} & \e^{\im\frac{6}{4}\pi} & \e^{\im\frac{8}{4}\pi} & \e^{\im\frac{10}{4}\pi} & \e^{\im\frac{12}{4}\pi} & \e^{\im\frac{14}{4}\pi}\\
+1 & \e^{\im\frac{3}{4}\pi} & \e^{\im\frac{6}{4}\pi} & \e^{\im\frac{9}{4}\pi} & \e^{\im\frac{12}{4}\pi} & \e^{\im\frac{15}{4}\pi} & \e^{\im\frac{18}{4}\pi} & \e^{\im\frac{21}{4}\pi}\\
+1 & \e^{\im\frac{4}{4}\pi} & \e^{\im\frac{8}{4}\pi} & \e^{\im\frac{12}{4}\pi} & \e^{\im\frac{16}{4}\pi} & \e^{\im\frac{20}{4}\pi} & \e^{\im\frac{24}{4}\pi} & \e^{\im\frac{28}{4}\pi}\\
+1 & \e^{\im\frac{5}{4}\pi} & \e^{\im\frac{10}{4}\pi} & \e^{\im\frac{15}{4}\pi} & \e^{\im\frac{20}{4}\pi} & \e^{\im\frac{25}{4}\pi} & \e^{\im\frac{30}{4}\pi} & \e^{\im\frac{35}{4}\pi}\\
+1 & \e^{\im\frac{6}{4}\pi} & \e^{\im\frac{12}{4}\pi} & \e^{\im\frac{18}{4}\pi} & \e^{\im\frac{24}{4}\pi} & \e^{\im\frac{30}{4}\pi} & \e^{\im\frac{36}{4}\pi} & \e^{\im\frac{42}{4}\pi}\\
+1 & \e^{\im\frac{7}{4}\pi} & \e^{\im\frac{14}{4}\pi} & \e^{\im\frac{21}{4}\pi} & \e^{\im\frac{28}{4}\pi} & \e^{\im\frac{35}{4}\pi} & \e^{\im\frac{42}{4}\pi} & \e^{\im\frac{49}{4}\pi}\\
+\end{bmatrix}
+\end{align}
+und dann die komplexen Dreher vereinfachen
+\begin{align}
+\bm{F}_8 =
+k \downarrow
+\substack{\rightarrow \mu\\
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+1 & \e^{\im\frac{1}{4}\pi} & +\im & \e^{\im\frac{3}{4}\pi} & -1 & \e^{\im\frac{5}{4}\pi} & -\im & \e^{\im\frac{7}{4}\pi}\\
+1 & +\im & -1 & -\im & +1 & +\im & -1 & -\im\\
+1 & \e^{\im\frac{3}{4}\pi} & -\im & \e^{\im\frac{1}{4}\pi} & -1 & \e^{\im\frac{7}{4}\pi} & +\im & \e^{\im\frac{5}{4}\pi}\\
+1 & -1 & +1 & -1 & +1 & -1 & +1 & -1\\
+1 & \e^{\im\frac{5}{4}\pi} & +\im & \e^{\im\frac{7}{4}\pi} & -1 & \e^{\im\frac{1}{4}\pi} & -\im & \e^{\im\frac{3}{4}\pi}\\
+1 & -\im & -1 & +\im & +1 & -\im & -1 & +\im\\
+1 & \e^{\im\frac{7}{4}\pi} & -\im & \e^{\im\frac{5}{4}\pi} & -1 & \e^{\im\frac{3}{4}\pi} & +\im & \e^{\im\frac{1}{4}\pi}\\
+\end{bmatrix}
+}
+\end{align}
+%
+Ein wenig anschaulicher als der reine Formelalgorithmus, könnte die folgende
+Überlegung sein:
+%
+Die Werte in den Spaltenvektoren variieren ja über $k$,
+das sind also 8 Samples der in $N=8$ periodischen Signale.
+Die DFT stellt 8 Frequenzen dar, diese verschiedenen Frequenzen sind in den
+Signalen der 8 Spaltenvektoren codiert.
+Spalte eins codiert den Gleichanteil, es sind nur Einsen.
+%
+Spalte zwei, also für $\mu=1$ codiert das Signal $e^{\im\frac{2\pi}{8} k}$.
+Im Einheitskreis können wir uns das Zeitsignal anschaulich zusammenbauen:
+Mit Inkrement $\mu=1$ laufen wir beginnend bei
+$\e^{\im 0}$ und mathematisch positiv alle DFT Frequenzpunkte
+ab, diese Werte sind genau die Werte des Zeitsignals.
+
+Spalte drei, also für $\mu=2$ codiert das Signal $e^{\im\frac{2\pi}{8} 2 k}$.
+Auf dem Einheitskreis bedeutet dies die Berücksichtigung nur jedes $\mu=2$-ten
+DFT Frequenzwerts, wie laufen also zweimal um den Kreis um alle 8 Samples zu
+bekommen, weil wir acht (genau genommen sieben, acht sind es um den vollen
+Kreis zu schließen) 90 Grad-Sprünge machen.
+Für Spalte 8 müssen wir demzufolge jeden $\mu=7$-ten Wert benutzen, es sind
+also ingesamt 7 Umdrehungen. Wir könnten auch negativ umlaufen, dann mit
+Sprüngen um $8-7=1$ Frequenz,
+das ginge ein wenig schneller und stellt einen schönen Zusammenhang zu den
+negativen Frequenzen her, die wir in der komplexen Rechnerei ja immer nutzen,
+damit es ein wenig einfacher wird.
+
+$\mu=8$ ist nun identisch mit $\mu=0$: ob wir gar nicht springen oder um 8
+Punkte resultiert ja im selben statischen DFT-Punkt $\e^{\im 0}$. Daran sehen
+wir sehr schön die $N$ Periodizität. Es gibt für diese $N$ Punkte auf dem
+Einheitskreis genau 8 verschiedene Möglichkeiten eine komplexe Zeitfolge
+zusammenzubauen, diese sind orthogonal zueinander.
+Das ist der Sinn dieser (wunderschönen) Vektorbasis.
+%
+\end{Ansatz}
+\begin{ExCalc}
+%
+Wir müssen zunächst die etwas kryptische Schreibweise der gegebenen DFT
+Spektren entziffern.
+Wir haben eine Summe von Diracs, die jeweils um $8\mu$ verschoben sind. Dies
+sorgt dafür, dass der analytische Ausdruck periodisch in 8 ist. Wir hätten auch
+(das findet sich oft in Büchern) nur das Basisband $0\leq \mu \leq N-1$ angeben
+können und müssten dann erwähnen, dass wir es $N$ periodisch auffassen.
+%
+Damit wir den $N$ periodischen Charakter NIE! vergessen, hier mal mit Dirac
+Impuls Kamm Schreibweise. Das ist auch noch mal eine gute Übung zur
+Austasteigenschaft des Diracs.
+
+Alle Diracs werden gleich gewichtet mit einem komplexen Faktor
+\begin{align}
+8 \e^{-\im\frac{\pi}{4}}  = 8 \cos(\frac{2\pi}{8}) - \im 8 \sin(\frac{2\pi}{8})=
+\frac{8}{\sqrt{2}} - \im \frac{8}{\sqrt{2}}
+\end{align}
+im Spektrum $X_c[\mu]$.
+%
+Für das Spektrum $X_r[\mu]$ erfolgt die Gewichtung
+\begin{align}
+4 \e^{\pm\im\frac{\pi}{4}}  = 4 \cos(\frac{2\pi}{8}) \pm \im 4 \sin(\frac{2\pi}{8})=
+\frac{4}{\sqrt{2}} \pm \im \frac{4}{\sqrt{2}}
+\end{align}
+
+Damit können wir uns nun die Spektren, also genauer Realteil und Imaginärteil
+(wahlweise ginge auch Betrag und Phase), visualisieren. Das ist unten dargestellt,
+in orange das Basisband $0\leq \mu \leq N-1$, in blau die $N=8$ Periodizität.
+
+\begin{center}
+%
+\begin{tikzpicture}[scale=0.25]
+\def\tic{0.1};
+\begin{scope}
+\draw[->] (-8,0) -- (16,0) node[right]{$\mu$};
+\draw[->] (0,-.25) -- (0,6) node[above]{$\Re\{X_c[\mu]\}$};
+\draw[stem, C0] plot coordinates{(-8,0) (-7,5.6569) (-6,0) (-5,0) (-4,0) (-3,0) (-2,0) (-1,0)};
+\draw[stem, C1] plot coordinates{(0,0) (1,5.6569) (2,0) (3,0) (4,0) (5,0) (6,0) (7,0)};
+\draw[stem, C0] plot coordinates{(8,0) (9,5.6569) (10,0) (11,0) (12,0) (13,0) (14,0) (15,0)};
+\draw (-7,-\tic) node[below]{$-7$};
+\draw (0,-\tic) node[below]{$0$};
+\draw (1,-\tic) node[below]{$1$};
+\draw (7,-\tic) node[below]{$7$};
+\draw (9,-\tic) node[below]{$9$};
+%
+\draw (16,2) node[below]{$\dots$};
+\draw (-9,2) node[below]{$\dots$};
+%
+\draw (9,5.5) node[above]{$8\cos(\frac{2\pi}{8})$};
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-8,0) -- (16,0) node[right]{$\mu$};
+\draw[->] (0,-6) -- (0,3) node[above]{$\Im\{X_c[\mu]\}$};
+\draw[stem, C0] plot coordinates{(-8,0) (-7,-5.6569) (-6,0) (-5,0) (-4,0) (-3,0) (-2,0) (-1,0)};
+\draw[stem, C1] plot coordinates{(0,0) (1,-5.6569) (2,0) (3,0) (4,0) (5,0) (6,0) (7,0)};
+\draw[stem, C0] plot coordinates{(8,0) (9,-5.6569) (10,0) (11,0) (12,0) (13,0) (14,0) (15,0)};
+\draw (-7,\tic) node[above]{$-7$};
+\draw (1,\tic) node[above]{$1$};
+\draw (7,\tic) node[above]{$7$};
+\draw (9,\tic) node[above]{$9$};
+%
+\draw (16,2) node[below]{$\dots$};
+\draw (-9,2) node[below]{$\dots$};
+\end{scope}
+\end{tikzpicture}
+%
+\end{center}
+%
+%
+%
+%
+%
+\begin{center}
+%
+\begin{tikzpicture}[scale=0.25]
+\def\tic{0.1};
+\begin{scope}
+\draw[->] (-8,0) -- (16,0) node[right]{$\mu$};
+\draw[->] (0,-.25) -- (0,6) node[above]{$\Re\{X_r[\mu]\}$};
+\draw[stem, C0] plot coordinates{(-8,0) (-7,2.8284) (-6,0) (-5,0) (-4,0) (-3,0) (-2,0) (-1,2.8284)};
+\draw[stem, C1] plot coordinates{(0,0) (1,2.8284) (2,0) (3,0) (4,0) (5,0) (6,0) (7,2.8284)};
+\draw[stem, C0] plot coordinates{(8,0) (9,2.8284) (10,0) (11,0) (12,0) (13,0) (14,0) (15,2.8284)};
+\draw (-7,-\tic) node[below]{$-7$};
+\draw (0,-\tic) node[below]{$0$};
+\draw (1,-\tic) node[below]{$1$};
+\draw (7,-\tic) node[below]{$7$};
+\draw (9,-\tic) node[below]{$9$};
+%
+\draw (16,2) node[below]{$\dots$};
+\draw (-9,2) node[below]{$\dots$};
+%
+\draw (9,2.8284) node[above]{$4\cos(\frac{2\pi}{8})$};
+%
+\draw[C7, thin] (4,-3) -- (4,3); % axial sym
+%
+\end{scope}
+\begin{scope}[yshift=-7cm]
+\draw[->] (-8,0) -- (16,0) node[right]{$\mu$};
+\draw[->] (0,-6) -- (0,3) node[above]{$\Im\{X_r[\mu]\}$};
+\draw[stem, C0] plot coordinates{(-8,0) (-7,-2.8284) (-6,0) (-5,0) (-4,0) (-3,0) (-2,0) (-1,2.8284)};
+\draw[stem, C1] plot coordinates{(0,0) (1,-2.8284) (2,0) (3,0) (4,0) (5,0) (6,0) (7,2.8284)};
+\draw[stem, C0] plot coordinates{(8,0) (9,-2.8284) (10,0) (11,0) (12,0) (13,0) (14,0) (15,2.8284)};
+\draw (-7,\tic) node[above]{$-7$};
+\draw (1,\tic) node[above]{$1$};
+\draw (7,-\tic) node[below]{$7$};
+\draw (9,\tic) node[above]{$9$};
+%
+\draw (16,2) node[below]{$\dots$};
+\draw (-9,2) node[below]{$\dots$};
+%
+\draw[stem2, C7] plot coordinates{(4,0)};
+%
+\end{scope}
+\end{tikzpicture}
+%
+\end{center}
+%
+Wir müssen nun die Linearkombination
+\begin{align}
+\bm{x}_k  = \frac{1}{8} \bm{F}_8 \cdot \bm{x}_\mu
+\end{align}
+berechnen, dies ist die IDFT in Matrixschreibweise. Es resultiert die gesuchte
+Zeitfolge.
+%
+Einen Computer würden mit Zahlen versorgen, z.B. mit Matlab
+
+\verb|ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')|
+
+(Achtung: \texttt{'} ist adjungiert, \texttt{.'} ist transponiert!, hier soll
+nur transponiert, also ein Spaltenvektor erzeugt werden.)
+
+Die auf Seite \pageref{LinComb_for_IDFT} aufgezeigte Linearkombination reduziert
+sich für das Spektrum $X_c[\mu]$ zur Benutzung des zweiten Spaltenvektors (die
+anderen Gewichte sind ja Null)
+\begin{align*}
+\bm{x}_{k,c}=
+\begin{bmatrix}
+x[0]\\[1em]
+x[1]\\[1em]
+x[2]\\[1em]
+x[3]\\[1em]
+\dots\\[1em]
+x[N-1]
+\end{bmatrix}
+=
+\frac{X_c[\mu=1]}{N}
+\begin{bmatrix}
+1\\[1em]
+W_N\\[1em]
+W_N^2\\[1em]
+W_N^3\\[1em]
+\dots\\[1em]
+W_N^{(N-1)}
+\end{bmatrix}
+\end{align*}
+Mit den konkreten Zahlen
+\begin{align}
+\bm{x}_{k,c} = \frac{1}{8} \cdot 8 \e^{-\im\frac{\pi}{4}}
+\begin{bmatrix}
+1 \\  \e^{\im\frac{1}{4}\pi} \\ \im \\ \e^{\im\frac{3}{4}\pi}  \\ -1 \\ \e^{\im\frac{5}{4}\pi} \\ -\im \\ \e^{\im\frac{7}{4}\pi}
+\end{bmatrix}=
+\begin{bmatrix}
+\e^{-\im\frac{\pi}{4}}\\
+1\\
+\e^{+\im\frac{\pi}{4}}\\
+\im\\
+\e^{\im\frac{3\pi}{4}}\\
+-1\\
+\e^{-\im\frac{3\pi}{4}}\\
+-\im
+\end{bmatrix}
+\end{align}
+Passend dazu der numerische Matlab Output:
+\begin{verbatim}
+ 0.7071 - 0.7071i
+ 1.0000 + 0.0000i
+ 0.7071 + 0.7071i
+-0.0000 + 1.0000i
+-0.7071 + 0.7071i
+-1.0000 - 0.0000i
+-0.7071 - 0.7071i
+ 0.0000 - 1.0000i
+\end{verbatim}
+%
+Nachdem wir wissen, wie der zweite Spaltenvektor von $\bm{F}$ zusammengebaut
+ist, weil wir die Matrix ja mit Vorwissen intentional erzeugt haben, können wir
+auch die analytische Formel für $x_c[k]$ angeben
+\begin{align}
+x_c[k] = \frac{1}{8} \cdot 8 \e^{-\im\frac{\pi}{4}} \e^{+\im\frac{2\pi}{8} k}=
+\e^{\im \frac{2\pi}{8} [k -1] } =
+\cos(\frac{2\pi}{8} [k-1]) + \im \sin(\frac{2\pi}{8} [k-1]).
+\end{align}
+Es ist das um ein Sample verzögerte DFT-'Eigensignal' der Frequenz $\mu=1$, also
+die DFT Grundfrequenz. Amplitude und Phase des DFT Koeffizienten waren
+natürlich genauso ausgewählt, dass dieses anschauliche Ergebnis mit
+Signalamplitude 1 und Verzögerung um ein Sample rauskommt. Wir könnten
+herausfinden, dass die Wahl von $X_c[\mu] = 8\e^{\im\pi}$ das $\mu$-te DFT Eigensignal
+invertiert.
+
+Für das Spektrum $X_r[\mu]$ beinhaltet die Linearkombination $\bm{x}_{k,r}  =
+\frac{1}{8} \bm{F}_8 \cdot \bm{x}_{\mu,r}$ zwei von Null unterschiedliche
+Einträge, die der zweiten ($\mu=1$) und die der achten ($\mu=7$)
+Spalte der Matrix $\bm{F}$
+\begin{align}
+\bm{x}_{k,r} = \frac{1}{8} \cdot 4 \e^{-\im\frac{\pi}{4}}
+\begin{bmatrix}
+1 \\  \e^{\im\frac{1}{4}\pi} \\ \im \\ \e^{\im\frac{3}{4}\pi}  \\ -1 \\ \e^{\im\frac{5}{4}\pi} \\ -\im \\ \e^{\im\frac{7}{4}\pi}
+\end{bmatrix}
++
+\frac{1}{8} \cdot 4 \e^{+\im\frac{\pi}{4}}
+\begin{bmatrix}
+1 \\ e^{\im\frac{7}{4}\pi} \\ -\im \\ e^{\im\frac{5}{4}\pi} \\ -1 \\ e^{\im\frac{3}{4}\pi} \\ \im \\ e^{\im\frac{1}{4}\pi}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\nicefrac{1}{\sqrt{2}}\\
+1\\
+\nicefrac{1}{\sqrt{2}}\\
+0\\
+-\nicefrac{1}{\sqrt{2}}\\
+-1\\
+-\nicefrac{1}{\sqrt{2}}\\
+0
+\end{bmatrix}
+\end{align}
+Unser Ergebnis suggeriert, dass die resultierende Zeitfolge rein reellwertig ist.
+Das ist in der Tat so! Wir prüfen es kurz analytisch und fragen uns dann, warum
+das so sein muss.
+
+Wir kennen die analytischen Ausdrücke der DFT 'Eigensignale' aus der zweiten
+und achten Spalte. Diese mit dem jeweiligen Vorfaktor gewichtet ergibt
+\begin{align}
+x_r[k]
+=
+\frac{1}{8} \cdot 4 \e^{-\im\frac{\pi}{4}} \cdot  \e^{\im \frac{2\pi}{8}\cdot 1 k}+
+\frac{1}{8} \cdot 4 \e^{+\im\frac{\pi}{4}} \cdot  \e^{\im \frac{2\pi}{8}\cdot 7 k}
+\end{align}
+%
+und weiter ausformuliert und damit vereinfacht
+\begin{align}
+x_r[k]
+=
+&\frac{1}{2} \e^{\im \frac{2\pi}{8}\cdot 1 k - \im\frac{2\pi}{8}}+
+\frac{1}{2} \e^{\im \frac{2\pi}{8}\cdot 7 k} \e^{\im\frac{2\pi}{8}}\\
+=
+&\frac{1}{2} \e^{\im \frac{2\pi}{8} (k-1)}+
+\frac{1}{2} \underbrace{\e^{\im \frac{2\pi}{8}\cdot 8 k}}_{=1} \e^{- \im \frac{2\pi}{8}\cdot k} \e^{\im\frac{2\pi}{8}}\\
+=
+&\frac{1}{2} \e^{+\im \frac{2\pi}{8} (k-1)}+
+\frac{1}{2} \e^{-\im \frac{2\pi}{8} (k-1)}\\
+=
+&\cos(\frac{2\pi}{8} [k-1]).
+\end{align}
+Wir bekommen mit dem cos() tatsächlich ein rein reelles Signal, auch wieder
+um ein Sample verzögert.
+
+Der Grund ist in den \textbf{Symmetrieeigenschaften} der Transformation zu
+suchen. Für \textbf{reellwertige Signale} $x[k]\in\mathbb{R}$ gilt
+\begin{itemize}
+  \item Axialsymmetrie für Realteil $\Re\{X[\mu]\}$
+  \item Axialsymmetrie für Betrag $|X[\mu]|$
+  \item Punktsymmetrie für Imaginärteil $\Im\{X[\mu]\}$
+  \item Punktsymmetrie für Phase $\angle X[\mu]$
+\end{itemize}
+bezüglich der Punkte bzw. der Achsen $\mu = \nu \frac{N}{2}$ mit $\nu\in\mathbb{Z}$.
+
+Schauen wir unsere Skizze des Spektrums für $X_r[\mu]$ oben genauer an.
+Wir sehen in der Grafik die Axialsymmetrie des Realteils
+bzgl. $\mu=-4,0,4,8,12$. Die graue
+Linie zeigt die für das DFT-Basisband typische Symmetrieachse bei $\frac{N}{2}=4$.
+Des weiteren sehen wir die Punktsymmetrie des Imaginärteils bzgl. $\nu \frac{N}{2}$,
+im Bild also bzgl. $\mu=-4,0,4,8,12$. Der graue kleine Punkt bei $\mu=4$ indiziert
+den Symmetriepunkt des Basisbandes.
+Das Spektrum erfüllt also intentional
+die Symmetrieeigenschaften von reellwertigen Signalen.
+
+\textbf{Hinweis 1}: Wir machen uns klar, dass die Symmetrie bei ungeraden $N$
+genau mittig zwischen zwei DFT Frequenzen liegt!
+
+\textbf{Hinweis 2}:
+Falls $N$ gerade ist und $x[k]$ reellwertig ist, also die $\nu \frac{N}{2}$
+Symmetrien vorliegen, müssen die Spektralwerte $X[\mu = \nu \frac{N}{2}]$
+bei den Symmetriestellen reellwertig sein.
+Dies ist im Basisband der Gleichanteil und die DFT-Frequenz
+$\e^{\im\pi}$ (halbe Abtastfrequenz).
+\end{ExCalc}
+
+
+
+
+
+\begin{Loesung}
+\begin{align}
+&x_c[k] = \e^{\im \frac{2\pi}{8} [k -1] } \in\mathbb{C}\\
+&x_r[k] = \cos(\frac{2\pi}{8} [k-1]) \in\mathbb{R}
+\end{align}
+\end{Loesung}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{DFT einer komplexen Exponentialschwingung}
+\label{sec:0C30EB5E76}
+\begin{Ziel}
+Wir wollen uns anschauen, wie sich die DFT errechnet für eine komplexe
+Exponentialschwingung. Wir müssen unbedingt verstanden haben, wie die
+Matrixmultiplikation und die analytische Lösung mittels der psinc Funktion
+zu dem Ergebnis für nur eine einzige Signalfrequenz kommt. Erst wenn das
+klar ist, verstehen wir die DFT komplizierterer Signale. Auch hier gilt
+wieder, je mehr wieder verstanden haben, was analytisch passiert, desto einfacher
+wird es uns fallen, mit dem Rechner erzeugte DFT-Ergebnisse zu interpretieren.
+Ansonsten ist es wieder nur Spieltrieb mit \texttt{fft() / ifft()}.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 0C30EB5E76}: Berechnen Sie für das periodische
+Signal $x[k]=x[k+\nu N]$
+mit der Berechnungsvorschrift für $0\leq k \leq 7$
+\begin{align}
+x[k] = \e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot k}
+\end{align}
+die $N=8$ DFT, also das Spektrum $X[\mu] = \mathrm{DFT}_8\{x[k]\}$.
+%
+Skizzieren Sie Betrag und Phase des DFT Spektrums.
+
+
+\begin{Werkzeug}
+Aus Aufgabe \ref{sec:D394560597} kennen wir die Fourier Matrix $\bm{F}_8$.
+Wir brauchen für die DFT Hintransformation hier nun die Adjungierte $\bm{F}^H_8$.
+\end{Werkzeug}
+\begin{Ansatz}
+DFT als Matrixmultiplikation
+\begin{align}
+\bm{x}_\mu = F^H \cdot \bm{x}_k
+\end{align}
+mit
+\begin{align}
+%
+\bm{x}_k =
+\begin{bmatrix}
+x[k=0]\\x[k=1]\\x[k=2]\\x[k=3]\\x[k=4]\\x[k=5]\\x[k=6]\\x[k=7]
+\end{bmatrix}
+%
+\qquad
+%
+\bm{x}_\mu =
+\begin{bmatrix}
+X[\mu=0]\\X[\mu=1]\\X[\mu=2]\\X[\mu=3]\\X[\mu=4]\\X[\mu=5]\\X[\mu=6]\\X[\mu=7]
+\end{bmatrix}
+%
+\end{align}
+und der adjungierten Fourier Matrix
+\begin{align}
+\bm{F}^H_8 =
+\mu \downarrow
+\substack{\rightarrow k\\
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+1 & \e^{-\im\frac{1}{4}\pi} & -\im & \e^{-\im\frac{3}{4}\pi} & -1 & \e^{-\im\frac{5}{4}\pi} & +\im & \e^{-\im\frac{7}{4}\pi}\\
+1 & -\im & -1 & +\im & +1 & -\im & -1 & +\im\\
+1 & \e^{-\im\frac{3}{4}\pi} & +\im & \e^{-\im\frac{1}{4}\pi} & -1 & \e^{-\im\frac{7}{4}\pi} & -\im & \e^{-\im\frac{5}{4}\pi}\\
+1 & -1 & +1 & -1 & +1 & -1 & +1 & -1\\
+1 & \e^{-\im\frac{5}{4}\pi} & -\im & \e^{-\im\frac{7}{4}\pi} & -1 & \e^{-\im\frac{1}{4}\pi} & +\im & \e^{-\im\frac{3}{4}\pi}\\
+1 & +\im & -1 & -\im & +1 & +\im & -1 & -\im\\
+1 & \e^{-\im\frac{7}{4}\pi} & +\im & \e^{-\im\frac{5}{4}\pi} & -1 & \e^{-\im\frac{3}{4}\pi} & -\im & \e^{-\im\frac{1}{4}\pi}\\
+\end{bmatrix}
+}
+%
+\end{align}
+Es ist hilfreich, wenn wir uns nochmal klarmachen, dass durch die Transposition
+$k$ entlang der Spalten variiert und $\mu$ der Zeilenindex ist.
+
+\end{Ansatz}
+%
+\begin{ExCalc}
+Bauen wir uns zunächst den Eingangssignalvektor zusammen
+\begin{align}
+\bm{x}_k =
+\begin{bmatrix}
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 0}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 1}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 2}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 3}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 4}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 5}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 6}\\
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot 7}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\
+\e^{+\im \frac{5\pi}{8}}\\
+\e^{+\im \frac{5\pi}{4}}\\
+\e^{+\im \frac{15\pi}{8}}\\
+\e^{+\im \frac{5\pi}{2}}\\
+\e^{+\im \frac{25\pi}{8}}\\
+\e^{+\im \frac{15\pi}{4}}\\
+\e^{+\im \frac{35\pi}{8}}
+\end{bmatrix}
+\end{align}
+
+
+Das innere Produkt (Skalarprodukt) der ersten Zeile von $\bm{F}^H$ und dem
+Spaltenvektor $\bm{x}_k$ liefert den ersten Eintrag des Vektors $\bm{x}_\mu$, also
+$X[\mu=0]$ (Gleichanteil)
+\begin{align}
+&X[\mu=0] =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+\e^{+\im \frac{5\pi}{8}}\\
+\e^{+\im \frac{5\pi}{4}}\\
+\e^{+\im \frac{15\pi}{8}}\\
+\e^{+\im \frac{5\pi}{2}}\\
+\e^{+\im \frac{25\pi}{8}}\\
+\e^{+\im \frac{15\pi}{4}}\\
+\e^{+\im \frac{35\pi}{8}}
+\end{bmatrix}
+=\\
+&1 + \im \left(1 - \sqrt{2} - 2\sin(\frac{\pi}{8}) + 2\cos(\frac{\pi}{8})\right)
+= \frac{1}{\sin(\frac{5}{16}\pi)} \e^{\im\frac{3}{16}\pi}
+\end{align}
+%
+Für die zweite Zeile von $\bm{F}^H$ folgt das Skalarprodukt für
+$X[\mu=1]$ (DFT Grundfrequenz). Damit erhalten wir den zweiten Eintrag des
+Spaltenvektors $\bm{x}_\mu$.
+\begin{align}
+&X[\mu=1] =
+\begin{bmatrix}
+1 & \e^{-\im\frac{1}{4}\pi} & -\im & \e^{-\im\frac{3}{4}\pi} & -1 & \e^{-\im\frac{5}{4}\pi} & +\im & \e^{-\im\frac{7}{4}\pi}
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+\e^{+\im \frac{5\pi}{8}}\\
+\e^{+\im \frac{5\pi}{4}}\\
+\e^{+\im \frac{15\pi}{8}}\\
+\e^{+\im \frac{5\pi}{2}}\\
+\e^{+\im \frac{25\pi}{8}}\\
+\e^{+\im \frac{15\pi}{4}}\\
+\e^{+\im \frac{35\pi}{8}}
+\end{bmatrix}
+=\\
+&1 + \im \left(-1 + \sqrt{2} - 2\sin(\frac{\pi}{8}) + 2\cos(\frac{\pi}{8})\right)=
+\frac{1}{\sin(\frac{3}{16}\pi)}\,\e^{\im\frac{5}{16}\pi}
+\end{align}
+%
+Wir sehen, dass für dieses vergleichsweise überschaubare Beispiel
+Summen zusammenkommen, die relativ viele Umformungen mit Euleridentitäten
+benötigen, um sie in geschlossen analytischer Form darstellen zu können
+(der Erkenntnisgewinn hält sich in Grenzen, daher können wir das guten Gewissens
+links liegen lassen, außer wir wollen ganz viel Euleridentität üben).
+%
+Das komplette Ergebnis lautet
+\begin{align}
+\bm{x}_\mu =
+\begin{bmatrix}
+X[\mu=0]\\X[\mu=1]\\X[\mu=2]\\X[\mu=3]\\X[\mu=4]\\X[\mu=5]\\X[\mu=6]\\X[\mu=7]
+\end{bmatrix}
+=
+\begin{bmatrix}
+(\sin(\frac{5}{16}\pi))^{-1} \cdot \e^{+\im \frac{3}{16}\pi}\\
+(\sin(\frac{3}{16}\pi))^{-1} \cdot \e^{+\im \frac{5}{16}\pi}\\
+(\sin(\frac{1}{16}\pi))^{-1} \cdot \e^{+\im \frac{7}{16}\pi}\\
+(\sin(\frac{1}{16}\pi))^{-1} \cdot \e^{-\im \frac{7}{16}\pi}\\
+(\sin(\frac{3}{16}\pi))^{-1} \cdot \e^{-\im \frac{5}{16}\pi}\\
+(\sin(\frac{5}{16}\pi))^{-1} \cdot \e^{-\im \frac{3}{16}\pi}\\
+(\sin(\frac{7}{16}\pi))^{-1} \cdot \e^{-\im \frac{1}{16}\pi}\\
+(\sin(\frac{7}{16}\pi))^{-1} \cdot \e^{+\im \frac{1}{16}\pi}\\
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+1.2027\e^{+\im \frac{3}{16}\pi}\\
+1.8\e^{+\im \frac{5}{16}\pi}\\
+5.1258\e^{+\im \frac{7}{16}\pi}\\
+5.1258\e^{-\im \frac{7}{16}\pi}\\
+1.8\e^{-\im \frac{5}{16}\pi}\\
+1.2027\e^{-\im \frac{3}{16}\pi}\\
+1.0196\e^{-\im \frac{1}{16}\pi}\\
+1.0196\e^{+\im \frac{1}{16}\pi}\\
+\end{bmatrix}.
+\end{align}
+%$\Omega_{0,\mu} = -\frac{2\pi}{8} \cdot \frac{5}{2} + \frac{2\pi}{8} \cdot 2$
+
+%$\Omega_{0,\mu} \frac{8}{2}= (-\frac{2\pi}{8} \cdot \frac{5}{2} + \frac{2\pi}{8} \cdot 2) \frac{8}{2}
+%=(- 5\pi + 4\pi) \frac{1}{2} =(- \pi) \frac{1}{2} \rightarrow \sin(-\frac{\pi}{2})=-1
+%$
+
+%$\Omega_{0,\mu} \frac{1}{2}=(-\frac{2\pi}{8} \cdot \frac{5}{2} + \frac{2\pi}{8} \cdot 2) \frac{1}{2}=
+%(-\frac{\pi}{8} \cdot 5 + \frac{\pi}{2}) \frac{1}{2}=(-\frac{5\pi}{16}  + \frac{4\pi}{16}) = -\frac{\pi}{16}\rightarrow \sin(-\frac{\pi}{16})$
+%\begin{align}
+%- (-\frac{2\pi}{8} \cdot \frac{5}{2} + \frac{2\pi}{8} \cdot 2 ) \frac{7}{2}\\
+%- (-\frac{35\pi}{16} + \frac{28\pi}{16})\\
+%\end{align}
+%
+Wir könnten das z.B. mit Matlab
+\begin{verbatim}
+X = fft(exp(+1j*2*pi/8*2.5*[0:7]'))
+abs(X)
+angle(X)/pi*16
+\end{verbatim}
+und mit Python inkl.\texttt{numpy} Paket
+\begin{verbatim}
+import numpy as np
+X = np.fft.fft(np.exp(+1j*2*np.pi/8 * 2.5 * np.arange(8)))
+print(np.abs(X))
+print(np.angle(X)/np.pi*16)
+\end{verbatim}
+gegenchecken.
+%
+
+Nun ist wichtig, das komplexe Skalarprodukt zu verstehen: ein komplexer
+Zeilenvektor aus $\bm{F}^H$ beinhaltet ein DFT Eigensignal,
+konjugiert-komplex ist durch $^H$ schon beinhaltet,
+deshalb haben wir es ganz korrekt mit einem komplexen Skalarprodukt zu tun.
+Das zu analysierende Signal ist der (bei Bedarf komplexe) Spaltenvektor $\bm{x}_k$.
+Wenn diese beiden Vektoren sehr kongruent verlaufen ($N$-dimensionaler
+komplexer Vektorraum ist schwierig in der Vorstellung, aber die Idee funktioniert
+ja genau so in reell 2D), ist viel Signalenergie
+bei der betrachteten DFT Frequenz enthalten. Wenn die beiden Vektoren orthogonal
+verlaufen ist keine Energie bei der betrachteten DFT Frequenz enthalten.
+%
+Weil die DFT Eigensignale an sich orthogonal sind (wir hatten ja eine orthogonale
+Vektorbasis erschaffen) ist die DFT eine Analyse wie viel Amplitude / Energie
+bei exakt den $N$ Frequenzen enthalten ist. Nichts anderes macht vom Wesen
+die Analyse bei der komplexe Fourierreihe mit den kontinuierlichen, orthogonalen
+Funktionen $\e^{\im\omega_0 \mu t}$.
+%
+
+Wir haben nun mit dem Skalarprodukt das Wesen der DFT erklärt,
+die analytische Darstellung der Ergebnisse aus der Skalarprodukt-Summe
+ist viel Gefrickel.
+%
+Das geht eleganter und bietet einen zweiten wichtigen Blickpunkt. Dazu
+machen wir eine Rechnung, die wir so ähnlich schon mal bei der DTFT gesehen haben.
+Unter bestimmten Umständen sind Summen geschlossen analytisch darstellbar.
+Das haben wir hier zum Glück wieder einmal vorliegen.
+Die DFT für unser komplexwertiges Signal lautet allgemein
+\begin{align}
+X[\mu] =& \sum_{\mu=0}^{N-1} \e^{+\im\,\Omega_0 k} \e^{-\im\,\frac{2\pi}{N} k \mu}
+=  \sum_{\mu=0}^{N-1} \e^{+\im\,(\Omega_0 - \frac{2\pi}{N} \mu) \, k}
+=  \sum_{\mu=0}^{N-1} \e^{-\im\,(-\Omega_0 + \frac{2\pi}{N} \mu) \, k}
+=  \sum_{\mu=0}^{N-1} \e^{-\im\, \Omega_{0,\mu} \,k}
+\end{align}
+mit $\Omega_{0,\mu} = -\Omega_0 + \frac{2\pi}{N} \mu$.
+Dies ist wieder die endliche geometrische Reihe mit der geschlossenen Lösung
+\red{TBD: konsistent machen mit Formelsammlung, Darstellungen sind identisch}
+\begin{align}
+X[\mu] = \e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot
+\frac{\sin\left(\Omega_{0,\mu}\cdot\frac{N}{2}\right)}{\sin\left(\Omega_{0,\mu}\cdot\frac{1}{2}\right)}
+=\e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot N \cdot \mathrm{psinc}_N(\Omega_{0,\mu})
+.
+\end{align}
+Wir begegnen wieder einmal der periodischen Sinc Funktion.
+%
+Mit dieser Formel finden wir die analytischen Ausdrücke für Betrag und Phase
+vergleichsweise schöner und einfacher, z.B. für $\mu=2$
+\begin{align}
+&|X[\mu=2]| = \frac{1}{\sin(\frac{\pi}{16})} \approx 5.1258\\
+&\angle X[\mu=2] = +\frac{7}{16}\pi
+\end{align}
+Es ist hilfreich, wenn wir uns klarmachen, dass wir für $\Omega_0=0$ die DFT der
+Rechteckfolge $\mathrm{rect}_N[k]$
+in dieser Formel abbilden, sozusagen wieder geschenkt.
+
+Die beiden Denkkonzepte a) das Herauspicken des DFT-Betrags aus der psinc Funktion
+für eine komplexe Exponentialfolge und b) die Betrachtungsweise des
+Skalarprodukts sollten wir verinnerlichen. Dann haben für uns die Zahlen,
+die ein Rechner bei numerischer DFT beliebiger Folgen liefert, einen tieferen
+Sinn.
+
+Quizfrage: Wenn wir das Eingangssignal zu
+\begin{align}
+x[k] = \e^{+\im \frac{2\pi}{8} \cdot 2 \cdot k}
+\end{align}
+oder
+\begin{align}
+x[k] = \e^{+\im \frac{2\pi}{8} \cdot 3 \cdot k}
+\end{align}
+abändern, wie schaut dann das DFT Spektrum aus? Wenn wir das durch reine
+Überlegung lösen können, haben wir viel vom Wesen der DFT
+verstanden.
+%
+Falls ein Aha Erlebnis ausbleibt, ruhig nochmal die vorherige Aufgabe
+intensiver anschauen.
+
+\end{ExCalc}
+
+\begin{Loesung}
+%
+%
+Das Spektrum ist in \fig{fig:DFT_Spectrum_0C30EB5E76} veranschaulicht. Wir sehen
+3 Perioden, davon das DFT Basisband für $0\leq \mu \leq 7$ in orange.
+Es gibt ein Betragsmaximum bei $\mu=2$ und $\mu=3$, diese DFT Frequenzen sind
+also prominenter im Signal vertreten als die anderen Frequenzen.
+%
+Wir wissen, dass unser Signal eigentlich nur eine Frequenz hat, nämlich
+$\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$.
+Warum ist diese Signalenergie in der DFT nun auf die $\mu$, vor allem auf $\mu=2$ und
+$\mu=3$  verschmiert und suggeriert sogar einen Gleichanteil bei $\mu=0$.
+%
+Schuld ist \textbf{nie} die DFT, die macht alles richtig, immer!, sie bildet
+einen $N$-dimensionalen Vektor auf einen anderen ab.
+%
+\textbf{Unsere} obige Aussage---unser Signal bestünde eigentlich nur aus der Frequenz
+$\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$---ist \textbf{nicht korrekt}.
+Dazu schauen wir uns das Zeitsignal in \fig{fig:Signal_0C30EB5E76} an, oben
+Real- unten Imaginärteil. In orange wieder die angenommene Periode $N=8$, also
+die Samples für $0 \leq k \leq 7$.
+In grau als durchgemalte Linien (was bei Folgen ja eigentlich strenggenommen
+nicht erlaubt ist, aber dadurch sehen wir es besser) sehen wir das Signal
+\begin{align}
+\e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot k} =
+\exp\left(+\im \frac{2\pi}{\nicefrac{16}{5}} \cdot k\right)
+\end{align}
+also wenn es frei vor sich hinschwingen dürfte.
+Wir sehen in der Formel (vgl. S. 3 oben, Übung 8) und in der Grafik, dass
+dieses Signal periodisch in 16 Samples ist.
+%
+Diese inhärente Signalperiode beschneiden wir durch Wahl unserer DFT Länge,
+hier $N=8$, also exakt in der Mitte.
+%
+Wir können uns bei der Fourierreihe hoffentlich bildlich vorstellen, wie das
+Spektrum hochfrequent Energie gewinnt, wenn wir einen Sinus zeitlich beschneiden.
+%
+Nicht anderes passiert hier, es ist in der Literatur als Spectral leakage,
+leakage effect bzw. deutsch Leckeffekt bekannt.
+%
+Falls das zu analysierende Signal nicht genau mit den Signalperiode(n)
+der DFT-Frequenzen übereinstimmt, suggeriert die DFT-inhärente Periodisierung
+Frequenzanteile, die im Signal eigentlich nicht da sind.
+%
+Um das aber nochmal ganz deutlich zu machen: das $N$-DFT Spektrum ist das exakte
+Spektrum des $N$-periodisierten Signals.
+Die Fouriermatrix kann nix für unser Unvermögen einen nicht repräsentativen
+Signalausschnitt ausgewählt zu haben.
+%
+Es ist daher unsere Aufgabe sicherzustellen (das braucht viel SigSys Erfahrung),
+dass das $N$-periodisierte Signal genau den repräsentativen Signalausschnitt
+enthält, wo wir mit der DFT das Spektrum ermitteln wollen.
+%
+In unserem einfachen Beispiel reicht es schon die DFT Länge auf $N=16$ zu erhöhen.
+%
+Überlegen wir ruhig zuerst warum das so ist, wie das DFT Spektrum ausschauen könnte
+und checken dann mit dem Rechner.
+%
+
+Die sogenannte Fensterung ist ein weiteres Konzept um Leakage zu unterdrücken,
+auf Kosten der Frequenzauflösung. Dies schauen wir uns im Master Modul
+Digital Signal Processing genauer an.
+%
+\end{Loesung}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{../dft/DFT_Spectrum_0C30EB5E76.pdf}
+\caption{Aufgabe \ref{sec:0C30EB5E76}. DFT Spektrum $X[\mu]=\mathrm{DFT}_8\{x[k]\}$ ,
+Betrag oben, Phase unten. DFT Basisband in orange.}
+\label{fig:DFT_Spectrum_0C30EB5E76}
+\end{figure}
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{../dft/Signal_0C30EB5E76.pdf}
+\caption{Aufgabe \ref{sec:0C30EB5E76}. Komplexe Folge $x[k]$, oben Realteil,
+unten Imaginärteil. Orange: Signalausschnitt für die $N=8$ DFT. Das Signal
+hätte ohne unsere künstlich vorgenommene Periodisierung mit $N=8$
+eine Periode von 16 Samples (siehe graue Linie). Durch die Beschneidung der
+Signalperiode kommt es im DFT-Spektrum
+\fig{fig:DFT_Spectrum_0C30EB5E76} zum sogennanten Leakage Effect.}
+\label{fig:Signal_0C30EB5E76}
+\end{figure}
+
+
+
+
+
+
+
+\clearpage
+\subsection{Zyklische / Lineare / Schnelle Faltung}
+\label{sec:C8864C8D9F}
+\begin{Ziel}
+Wir wollen die Konzepte der linearen und zyklischen Faltung verinnerlichen.
+Die zyklische Faltung ist sehr wichtig, weil wir mit ihr in der Praxis sehr
+oft lineare Faltungsergebnisse ausrechnen wollen. Dies erreichen wir
+durch geeignetes Auffüllen von Nullen in die zu faltenden Folgen.
+Die zyklische Faltung $y[k] = x[k]\circledast_N h[k]$
+entspricht im DFT-Bildbereich der Multiplikation von Spektren, d.h. wir könnten
+den Umweg
+\begin{align}
+y[k] = \mathrm{IDFT}_N\{\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\}
+\end{align}
+nehmen. Es gibt extrem effiziente Algorithmen für die DFT,
+unter dem Sammelbegriff Fast Fourier Transform (FFT), die diese Operation für
+große $N$ mit Umweg über Hin- und Rücktransformation deutlich schneller machen,
+als die zyklische Faltung im Zeitbereich zu rechnen. Dies wird als schnelle
+Faltung bezeichnet und ist ein Kernbaustein der digitalen Signalverarbeitung.
+Die Grundidee aller FFTs ist die Fourier Matrix geeignet zu Faktorisieren, um
+die benötigten (viele redundante) Rechenschritte zu reduzieren. Das schauen
+wir uns im Mastermodul Digital Signal Processing genauer an.
+
+Hier wollen wir uns anhand eines einfachen Beispiels mit einfachen Zahlen die
+genannten Konzepte verdeutlichen. Weil die Folgen sehr kurz sind, sollten wir
+nicht erwarten, dass die schnelle Faltung deutlich performanter ist.
+Für größere $N$ fällt dies aber zunehmend deutlicher auf, das sind Größenordnungen
+wo wir von Minuten vs. Sekunden reden, also bedenkenswert.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny C8864C8D9F}:
+Berechnen Sie für die beiden Folgen
+\begin{align}
+&x[k] = -\delta[k] +2 \delta[k-1] + 4 \delta[k-2]\\
+&h[k] = +3 \delta[k] + \delta[k-1] + 5 \delta[k-2]
+\end{align}
+die lineare Faltung $y_l[k] = x[k] \ast h[k]$ und die zyklische Faltung
+$y_c[k] = x[k] \circledast_3 h[k]$
+mit Periode $3$.
+\begin{Werkzeug}
+lineare Faltung aus Übung 8, Matrixmultiplikation, Dualität zyklische Faltung
+Multiplikation
+\end{Werkzeug}
+\begin{Ansatz}
+Wir könnten die grafische Methode aus Übung 8 benutzen. Das ist unten
+für die zyklische Faltung ausführlich skizziert.
+Dies bildet die Rechenvorschrift
+\begin{align}
+x[k] \circledast_3 h[k] = \sum_{\kappa=0}^{2} x[\kappa] h[-\kappa + k]
+\end{align}
+grafisch ab.
+Die lineare Faltung nimmt periodisierte Folgen an, hier mit $N=3$, also
+$x[k] = x[k+\nu N]$ und $h[k] = h[k+\nu N]$ mit $\nu\in\mathbb{Z}$.
+Wir müssen die Faltungssumme also nur für $k=0,1,2$ auswerten und können
+den Rest periodisch auffüllen.
+%
+Die grafische Lösung funktioniert nun völlig gleich wie eine lineare Faltung,
+wir müssen nur beachten das Signal immer zyklisch 'nachzuschieben' und nur den
+Bereich $0 \leq \kappa \leq 2$ für die Summe zu verwenden.
+%
+Im gewählten Rechenweg ist $h[-\kappa+k]$ das zeitlich gespiegelte und zu
+verschiebende Signal.
+%
+Die grau rechteckige Markierung zeigt eine Periode bzw. den $\kappa$ Bereich,
+der für die Faltungssumme relevant ist.
+%
+Wir bekommen als Ergebnis
+\begin{align}
+&y_c[k] = x[k] \circledast_3 h[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
+&y_c[k] = y_c[k + 3\nu], \nu\in\mathbb{Z}
+\end{align}
+%
+Die lineare Faltung ergibt
+\begin{align}
+y_l[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
+\end{align}
+%
+\end{Ansatz}
+
+\clearpage
+%% k = 0
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.15};
+\def\k{0}
+\begin{scope}
+\fill[C7!30] (-0.5,0) rectangle (2.5,6);
+\draw[->] (-8,0) -- (8,0) node[below]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,6) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, 5) (-1+\k,1) (0+\k,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k-3, 5) (-1+\k-3,1) (0+\k-3,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k+3, 5) (-1+\k+3,1) (0+\k+3,3)};
+\draw[stem] plot coordinates{(0,-1) (1,2) (2,4)};
+\draw[stem] plot coordinates{(0-3,-1) (1-3,2) (2-3,4)};
+\draw[stem] plot coordinates{(0+3,-1) (1+3,2) (2+3,4)};
+\node at (-6,1){$k=\k$};
+\draw[C0] (-6,3) node {$\dots$};
+\draw[C1] (-6,4) node {$\dots$};
+\draw[C0] (7,3) node {$\dots$};
+\draw[C1] (7,4) node {$\dots$};
+%
+\draw (0,1) node[left]{$1$};
+\draw (0,2) node[left]{$2$};
+\draw (0,3) node[left]{$3$};
+\draw (0,4) node[left]{$4$};
+\draw (0,5) node[left]{$5$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm]
+\fill[C7!30] (-0.5,-1.5) rectangle (2.5,5);
+\draw[->] (-0.5,0) -- (3.5,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,5.5) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,-3/4) (1,10/4) (2,4/4)};
+%
+\draw (0,-1) node[left]{$-4$};
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm, xshift=14cm]
+\fill[C7!30] (-0.5,0) rectangle (2.5,7);
+\draw[->] (-4,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_c[k] = x[k] \circledast_3 h[k]$};
+\foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,11/4) (1,25/4) (2,9/4)};
+\draw[stem, C2!10] plot coordinates{(0-3,11/4) (1-3,25/4) (2-3,9/4)};
+\draw[stem, C2!10] plot coordinates{(0+3,11/4) (1+3,25/4) (2+3,9/4)};
+\draw[stem, C2, dashed] plot coordinates{(0,11/4)};
+\draw[stem, C2, dashed] plot coordinates{(0-3,11/4)};
+\draw[stem, C2, dashed] plot coordinates{(0+3,11/4)};
+%
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+\draw (0,6) node[left]{$24$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\draw[C2] (-4,4) node {$\dots$};
+\draw[C2] (6,4) node {$\dots$};
+%
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+%% k = 1
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.15};
+\def\k{1}
+\begin{scope}
+\fill[C7!30] (-0.5,0) rectangle (2.5,6);
+\draw[->] (-8,0) -- (8,0) node[below]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,6) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, 5) (-1+\k,1) (0+\k,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k-3, 5) (-1+\k-3,1) (0+\k-3,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k+3, 5) (-1+\k+3,1) (0+\k+3,3)};
+\draw[stem] plot coordinates{(0,-1) (1,2) (2,4)};
+\draw[stem] plot coordinates{(0-3,-1) (1-3,2) (2-3,4)};
+\draw[stem] plot coordinates{(0+3,-1) (1+3,2) (2+3,4)};
+\node at (-6,1){$k=\k$};
+\draw[C0] (-6,3) node {$\dots$};
+\draw[C1] (-6,4) node {$\dots$};
+\draw[C0] (7,3) node {$\dots$};
+\draw[C1] (7,4) node {$\dots$};
+%
+\draw (0,1) node[left]{$1$};
+\draw (0,2) node[left]{$2$};
+\draw (0,3) node[left]{$3$};
+\draw (0,4) node[left]{$4$};
+\draw (0,5) node[left]{$5$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm]
+\fill[C7!30] (-0.5,-1.5) rectangle (2.5,5);
+\draw[->] (-0.5,0) -- (3.5,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,5.5) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,-1/4) (1,6/4) (2,20/4)};
+%
+\draw (0,-1) node[left]{$-4$};
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm, xshift=14cm]
+\fill[C7!30] (-0.5,0) rectangle (2.5,7);
+\draw[->] (-4,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_c[k] = x[k] \circledast_3 h[k]$};
+\foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2!10] plot coordinates{(0,11/4) (1,25/4) (2,9/4)};
+\draw[stem, C2!10] plot coordinates{(0-3,11/4) (1-3,25/4) (2-3,9/4)};
+\draw[stem, C2!10] plot coordinates{(0+3,11/4) (1+3,25/4) (2+3,9/4)};
+\draw[stem, C2] plot coordinates{(0,11/4)};
+\draw[stem, C2] plot coordinates{(0-3,11/4)};
+\draw[stem, C2] plot coordinates{(0+3,11/4)};
+\draw[stem, C2, dashed] plot coordinates{(1,25/4)};
+\draw[stem, C2, dashed] plot coordinates{(1-3,25/4)};
+\draw[stem, C2, dashed] plot coordinates{(1+3,25/4)};
+%
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+\draw (0,6) node[left]{$24$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\draw[C2] (-4,4) node {$\dots$};
+\draw[C2] (6,4) node {$\dots$};
+%
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+%% k = 2
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.15};
+\def\k{2}
+\begin{scope}
+\fill[C7!30] (-0.5,0) rectangle (2.5,6);
+\draw[->] (-8,0) -- (8,0) node[below]{$\kappa$};
+\draw[->] (0,-1.5) -- (0,6) node[above]{\shortstack{\textcolor{C0}{$x[\kappa]\,,$}\\\textcolor{C1}{$h[-\kappa+\k]$}}};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k, 5) (-1+\k,1) (0+\k,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k-3, 5) (-1+\k-3,1) (0+\k-3,3)};
+\draw[stem, C1, xshift=2pt, yshift=1pt] plot coordinates{ (-2+\k+3, 5) (-1+\k+3,1) (0+\k+3,3)};
+\draw[stem] plot coordinates{(0,-1) (1,2) (2,4)};
+\draw[stem] plot coordinates{(0-3,-1) (1-3,2) (2-3,4)};
+\draw[stem] plot coordinates{(0+3,-1) (1+3,2) (2+3,4)};
+\node at (-6,1){$k=\k$};
+\draw[C0] (-6,3) node {$\dots$};
+\draw[C1] (-6,4) node {$\dots$};
+\draw[C0] (7,3) node {$\dots$};
+\draw[C1] (7,4) node {$\dots$};
+%
+\draw (0,1) node[left]{$1$};
+\draw (0,2) node[left]{$2$};
+\draw (0,3) node[left]{$3$};
+\draw (0,4) node[left]{$4$};
+\draw (0,5) node[left]{$5$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm]
+\fill[C7!30] (-0.5,-1.5) rectangle (2.5,5);
+\draw[->] (-0.5,0) -- (3.5,0) node[right]{$\kappa$};
+\draw[->] (0,-2.5) -- (0,5.5) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
+\foreach \y in {-1,...,5}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C3] plot coordinates{(0,-5/4) (1,2/4) (2,12/4)};
+%
+\draw (0,-1) node[left]{$-4$};
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\begin{scope}[yshift=-8cm, xshift=14cm]
+\fill[C7!30] (-0.5,0) rectangle (2.5,7);
+\draw[->] (-4,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_c[k] = x[k] \circledast_3 h[k]$};
+\foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2] plot coordinates{(0,11/4) (1,25/4) (2,9/4)};
+\draw[stem, C2] plot coordinates{(0-3,11/4) (1-3,25/4) (2-3,9/4)};
+\draw[stem, C2] plot coordinates{(0+3,11/4) (1+3,25/4) (2+3,9/4)};
+%
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+\draw (0,6) node[left]{$24$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\draw[C2] (-4,4) node {$\dots$};
+\draw[C2] (6,4) node {$\dots$};
+%
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+\newpage
+\begin{ExCalc}
+Matrixmultiplikationen speziell zusammengesetzter Matrizen sind Faltungen.
+Die zyklische Faltung wird mit zyklischen Matrizen abgebildet.
+Für zyklische Matrizen müssen wir nur eine Spalte oder eine Zeile kennen.
+
+\textbf{Zyklische Faltung} der Zeilenvektoren
+\begin{align}
+[-1,2,4] \circledast_3 [3,1,5] = [11,25,9]
+\end{align}
+als Matrix Multiplikation mit \textbf{zyklischen Matrizen} (für die gilt Kommutativität, i.e.
+Kommutativität der Faltung).
+Die obigen Zeilenvektoren sind die \textbf{ersten Zeilen} der zyklischen Matrizen
+\begin{align}
+\begin{bmatrix}
+-1 &  2 &  4\\
+ 4 & -1 &  2\\
+ 2 &  4 & -1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3 & 1 & 5\\
+5 & 3 & 1\\
+1 & 5 & 3
+\end{bmatrix}
+=
+\begin{bmatrix}
+11  &  25  &   9\\
+ 9  &  11  &  25\\
+25  &   9  &  11
+\end{bmatrix}.
+\end{align}
+
+Die \textbf{Lineare Faltung}
+\begin{align}
+[-1,2,4] \ast [3,1,5] = [-3,5,9,14,20]
+\end{align}
+kann \textbf{über eine zyklische Faltung} dargestellt werden.
+Die Länge des Ergebnisses der linearen Faltung ist  $N_y = N_x+N_h-1=5$.
+Wir füllen die beiden Folgen mit Nullen auf Länge $N_y=5$ auf und führen die
+zyklische Faltung aus
+\begin{align}
+[-1,2,4,0,0] \circledast_5 [3,1,5,0,0] = [-3,5,9,14,20],
+\end{align}
+es resultiert das lineare Faltungsergebnis.
+Als Matrix Operation mit zyklischen Matrizen sind
+die obigen Zeilenvektoren wieder die \textbf{ersten Zeilen}
+\begin{align}
+\label{eq:C8864C8D9F_LinConv_with_CycConv}
+\begin{bmatrix}
+-1  &   2  &   4  &   0  &   0\\
+ 0  &  -1  &   2  &   4  &   0\\
+ 0  &   0  &  -1  &   2  &   4\\
+ 4  &   0  &   0  &  -1  &   2\\
+ 2  &   4  &   0  &   0  &  -1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3  &   1  &   5  &   0  &   0\\
+0  &   3  &   1  &   5  &   0\\
+0  &   0  &   3  &   1  &   5\\
+5  &   0  &   0  &   3  &   1\\
+1  &   5  &   0  &   0  &   3
+\end{bmatrix}
+=
+\begin{bmatrix}
+-3  &   5  &   9  &  14  &  20\\
+20  &  -3  &   5  &   9  &  14\\
+14  &  20  &  -3  &   5  &   9\\
+ 9  &  14  &  20  &  -3  &   5\\
+ 5  &   9  &  14  &  20  &  -3
+\end{bmatrix}
+\end{align}
+
+Das lineare Faltungsergebnis kann auch als Matrix Produkt mit sogenannten
+\textbf{Toeplitz Matrizen} erzeugt werden.
+\begin{align}
+\begin{bmatrix}
+-1  &   2  &   4  &   0  &   0\\
+ 0  &  -1  &   2  &   4  &   0\\
+ 0  &   0  &  -1  &   2  &   4\\
+ 0  &   0  &   0  &  -1  &   2\\
+ 0  &   0  &   0  &   0  &  -1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3  &   1  &   5  &   0  &   0\\
+0  &   3  &   1  &   5  &   0\\
+0  &   0  &   3  &   1  &   5\\
+0  &   0  &   0  &   3  &   1\\
+0  &   0  &   0  &   0  &   3
+\end{bmatrix}
+=
+\begin{bmatrix}
+-3  &   5  &   9  &  14  &  20\\
+ 0  &  -3  &   5  &   9  &  14\\
+ 0  &   0  &  -3  &   5  &   9\\
+ 0  &   0  &   0  &  -3  &   5\\
+ 0  &   0  &   0  &   0  &  -3
+\end{bmatrix}
+\end{align}
+Es lohnt sich zu verstehen, warum bei der zyklischen Methode
+\eq{eq:C8864C8D9F_LinConv_with_CycConv}
+die linken unteren
+nicht von Null unterschiedlichen Einträge (und damit abweichend von der Toeplitz
+Form) keine Rolle für das Faltungsergebnis spielen
+(vgl. Linearkombination in \eq{eq:C8864C8D9F_LinComb_Row})
+. Das ist extrem hilfreich, weil:
+Wir können zyklische Faltung sehr recheneffizient über den DFT-Bildbereich
+abwickeln, und damit (wenn wir ordentlich mit Nullen aufgefüllt haben) auch
+die lineare Faltung.
+
+Dafür benutzen wir die DFT Korrespondenz für die zyklische Faltung im
+Zeitbereich vs. Multiplikation im Bildbereich
+\begin{align}
+y[k] = x[k] \circledast_N h[k] \quad\mydft\quad Y[\mu] = X[\mu] \cdot H[\mu],
+\end{align}
+umgeschrieben
+\begin{align}
+y[k] = \mathrm{IDFT}_N\{\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\}
+\end{align}
+Für die Faltung sehr langer Folgen ist diese Rechenvorschrift deutlich
+recheneffizienter, als $y[k] = x[k] \circledast_N h[k]$, unter der Voraussetzung,
+dass die DFT / IDFT recheneffizient implementiert ist. Dafür gibt es Algorithmen,
+die als \textbf{Fast Fourier Transform Algorithmen (FFT)} bekannt sind.
+%
+Dies wird dann als \textbf{schnelle Faltung} bezeichnet. In der Tabelle
+ist die direkte und die \textbf{schnelle zyklische Faltung}
+links und die direkte und \textbf{schnelle
+lineare Faltung (aufgrund von Zeropadding)} rechts aufgezeigt mit Matlab
+typischen Befehlen.
+%
+\end{ExCalc}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | l | l |}
+\hline
+& zyklische Faltung $N=3$ & zyklische Faltung $N=5$ \\\hline
+&  & lineare Faltung $N_x=3$, $N_h=3$, $N_y = N_x+N_h-1=5$ \\\hline
+slow  & \texttt{cconv([-1 2 4], [3 1 5], 3)} & \texttt{cconv([-1 2 4 0 0], [3 1 5 0 0], 5)} \\\hline
+& &  \texttt{conv([-1 2 4], [3 1 5])} \\\hline
+fast  & \texttt{ifft(fft([-1 2 4]) .* fft([3 1 5]))} & \texttt{ifft(fft([-1 2 4 0 0]) .* fft([3 1 5 0 0]))} \\\hline
+\end{tabular}
+\end{table}
+
+
+\begin{Loesung}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.15};
+\begin{scope}
+\fill[C7!30] (-0.5,0) rectangle (2.5,7);
+\draw[->] (-4,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_c[k] = x[k] \circledast_3 h[k]$};
+\foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2] plot coordinates{(0,11/4) (1,25/4) (2,9/4)};
+\draw[stem, C2] plot coordinates{(0-3,11/4) (1-3,25/4) (2-3,9/4)};
+\draw[stem, C2] plot coordinates{(0+3,11/4) (1+3,25/4) (2+3,9/4)};
+%
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+\draw (0,6) node[left]{$24$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\draw[C2] (-4,4) node {$\dots$};
+\draw[C2] (6,4) node {$\dots$};
+%
+\end{scope}
+%
+\begin{scope}[xshift=12cm]
+\draw[->] (-2,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_l[k] = x[k] \ast h[k]$};
+\foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem, C2] plot coordinates{(-2,0) (-1,0) (0,-3/4) (1,5/4) (2,9/4) (3,14/4) (4,20/4) (5,0) (6,0)};
+%
+\draw (0,1) node[left]{$4$};
+\draw (0,2) node[left]{$8$};
+\draw (0,3) node[left]{$12$};
+\draw (0,4) node[left]{$16$};
+\draw (0,5) node[left]{$20$};
+\draw (0,6) node[left]{$24$};
+%
+\draw (1,0) node[below]{$1$};
+\draw (2,0) node[below]{$2$};
+%
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{align}
+&y_c[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
+&y_c[k] = y_c[k + 3\nu], \nu\in\mathbb{Z}
+\end{align}
+%
+\begin{align}
+y_l[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
+\end{align}
+
+
+\end{Loesung}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection*{Anhang: DFT in der Welt der linearen Algebra}
+%
+Die DFT ist natürlich keine reine Erfindung der SigSys, sondern hat eine
+tiefsinnige Verknüpfung zu vektoriellen Linearkombinationen einer orthogonalen
+Basis.
+%
+Wenn wir also die $N$ Werte der Signalfolge $x[k]$ und des Spektrums $X[\mu]$
+als $N$-dimensionale Vektoren auffassen, können wir die Werkzeuge der linearen
+Algebra benutzen und die DFT als Eigenwertproblem interpretieren.
+%
+Das Erlernen dieser Sichtweise ist sehr empfehlenswert,
+weil lineare Algebra als wichtiges Grundwerkzeug für heutige
+Big Data und Machine Learning Probleme gilt, vgl. \cite{Strang2019}.
+%
+Die DFT ist in diesen Anwendungen ein essentieller Grundbaustein, hier wäre
+ein Buzzword Convolutional Neural Network (CNN).
+%
+
+Da nun $x[k]$ und $X[\mu]$ periodisch in ihrer Länge $N$ aufgefasst werden,
+haben wir es mit zyklischen Vektoren und Matrizen zu tun.
+%
+Eine spezielle zyklische Matrix ist die Permutationsmatrix, das wird unser
+Ausgangspunkt für die folgende Betrachtung.
+Diese ist stark inspiriert von \cite{Strang2016, Strang2019}.
+%
+
+Starten wir mit einer Permutationsmatrix $\bm{P}$ mit Dimension $N \times N$,
+beispielhaft für $N=4$
+\begin{align}
+\bm{P}_{N=4} =
+\begin{bmatrix}
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+\end{bmatrix}.
+\end{align}
+%
+\textbf{Eigenwerte von $\bm{P}$}:
+Es gibt $N$ Eigenwerte $\lambda_{0}, \lambda_{1}, \lambda_{2}, \dots, \lambda_{N-1}$,
+folgend aus der Bedingung
+\begin{align}
+\mathrm{det}(\bm{P}-\lambda \bm{I}) = 0 \rightarrow \lambda^N - 1 = 0 \rightarrow \lambda^N = 1
+\end{align}
+%
+Mit der komplexen Zahl mit Betrag 1
+\begin{align}
+W_N = \e^{+\im\frac{2\pi}{N}}
+\end{align}
+sind diese $N$ Eigenwerte für $0\leq n \leq N-1$ gegeben als
+\begin{align}
+\lambda_n =(W_N)^n = W_N^n = \e^{+\im\frac{2\pi}{N}\cdot n}.
+\end{align}
+Das sind komplexe Zahlen mit Betrag 1, also auf dem Einheitskreis in der komplexen
+Ebene liegend und äquiangular verteilt alle $\frac{2\pi}{N}$.
+%
+Für z.B. $N=4$ bekommen wir (äquiangular alle 90 Grad)
+\begin{align}
+\lambda_0 =(W_4)^0 = W_4^0 = \e^{+\im\frac{2\pi\cdot 0}{4}} = +1\nonumber\\
+\lambda_1 =(W_4)^1 = W_4^1 = \e^{+\im\frac{2\pi\cdot 1}{4}} = +\im\nonumber\\
+\lambda_2 =(W_4)^2 = W_4^2 = \e^{+\im\frac{2\pi\cdot 2}{4}} = -1\nonumber\\
+\lambda_3 =(W_4)^3 = W_4^3 = \e^{+\im\frac{2\pi\cdot 3}{4}} = -\im,
+\end{align}
+skizziert in der Grafik unten.
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\def \tic {0.05}
+%
+% basic diagram features:
+%
+\draw[C7, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+%
+\draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.25,0)--(1.5,0) node[right]{$\Re\{\lambda\}$}; % axis label
+\draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{\lambda\}$}; % axis label
+%
+\draw[C0, ultra thick] (0,+1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0,-1) node{\Huge $\circ$};
+\draw[C0, ultra thick] (+1,0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1,0) node{\Huge $\circ$};
+%
+\draw[] (+1+4*\tic,4*\tic) node{$\lambda_0$};
+\draw[] (4*\tic,+1+4*\tic) node{$\lambda_1$};
+\draw[] (-1+4*\tic,4*\tic) node{$\lambda_2$};
+\draw[] (4*\tic,-1+4*\tic) node{$\lambda_3$};
+%
+\draw[] (-1.75,1) node{Lösungen für $\lambda^4 = 1$};
+\end{tikzpicture}
+\end{center}
+
+
+\textbf{Eigenvektoren von $\bm{P}$}:
+Zu diesen $N$ Eigenwerten gehören $N$ Eigenvektoren. Eine orthogonale
+Matrix hat orthogonale Eigenvektoren. Weil wir per Sicht sehen, dass
+$\bm{P}$ orthogonal (sogar orthonormal) ist, können wir also $N$ orthogonale
+Eigenvektoren erwarten.
+Für den $n$-ten Eigenvektor $\bm{x}_n$ gilt mit $0\leq n \leq N-1$
+\begin{align}
+\bm{P} \bm{x}_n = \lambda_n \bm{x}_n.
+\end{align}
+Der $n$-te Eigenvektor $\bm{x}_n$ definiert sich zu
+\begin{align}
+\bm{x}_n =
+\begin{bmatrix}
+(\lambda_n)^0\\
+(\lambda_n)^1\\
+(\lambda_n)^2\\
+(\lambda_n)^3\\
+\vdots\\
+(\lambda_n)^{N-1}\\
+\end{bmatrix}
+\end{align}
+%
+Für z.B. $N=4$ bekommen wir
+\begin{align}
+\bm{x}_0 =
+\begin{bmatrix}
+(W_4^0)^0\\
+(W_4^0)^1\\
+(W_4^0)^2\\
+(W_4^0)^3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\1\\1\\1
+\end{bmatrix}
+\quad
+\bm{x}_1 =
+\begin{bmatrix}
+(W_4^1)^0\\
+(W_4^1)^1\\
+(W_4^1)^2\\
+(W_4^1)^3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\\im\\-1\\-\im
+\end{bmatrix}\quad
+\bm{x}_2 =
+\begin{bmatrix}
+(W_4^2)^0\\
+(W_4^2)^1\\
+(W_4^2)^2\\
+(W_4^2)^3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\-1\\1\\-1
+\end{bmatrix}\quad
+\bm{x}_3 =
+\begin{bmatrix}
+(W_4^3)^0\\
+(W_4^3)^1\\
+(W_4^3)^2\\
+(W_4^3)^3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\-\im\\-1\\\im
+\end{bmatrix}
+\end{align}
+%
+%Wir sehen, dass $\bm{x}_1 = \bm{x}_3^*$, das werden wir wiedersehen.
+
+\textbf{Fourier Matrix, i.e. Eigenvektoren von $\bm{P}$}:
+Wir setzen eine orthogonale Einheitsvektormatrix
+auf, indem wir die Vektoren mit
+wachsendem Winkel in $W_N^n$ sortieren, zunächst mit $\lambda_n$ geschrieben
+\begin{align}
+\bm{F}_N =
+\begin{bmatrix}
+\bm{x}_0 \quad \bm{x}_1 \quad \bm{x}_2 \quad \bm{x}_3 \quad \dots \quad \bm{x}_{N-1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\lambda^0_0 & \lambda^0_1 & \lambda^0_2 & \lambda^0_3 & \dots & \lambda^0_{N-1}\\[1em]
+\lambda^1_0 & \lambda^1_1 & \lambda^1_2 & \lambda^1_3 & \dots & \lambda^1_{N-1}\\[1em]
+\lambda^2_0 & \lambda^2_1 & \lambda^2_2 & \lambda^2_3 & \dots & \lambda^2_{N-1}\\[1em]
+\lambda^3_0 & \lambda^3_1 & \lambda^3_2 & \lambda^3_3 & \dots & \lambda^3_{N-1}\\[1em]
+\vdots & \vdots & \vdots &\vdots &\ddots & \vdots\\[1em]
+\lambda^{N-1}_0 & \lambda^{N-1}_1 & \lambda^{N-1}_2 & \lambda^{N-1}_3 & \dots & \lambda^{N-1}_{N-1} & \\
+\end{bmatrix}
+\end{align}
+und die sogenannte Fourier Matrix mit $W_N^n$ geschrieben (in dieser Form oft in Büchern)
+\begin{align}
+\label{eq:DFT_FMatrix_WN}
+\bm{F}_N =
+\begin{bmatrix}
+\bm{x}_0 \quad \bm{x}_1 \quad \bm{x}_2 \quad \bm{x}_3 \quad \dots \quad \bm{x}_{N-1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 & 1 & \dots & 1\\[1em]
+1 & W_N^1 & W_N^2 & W_N^3 & \dots & W_N^{(N-1)}\\[1em]
+1 & W_N^2 & W_N^4 & W_N^6 & \dots & W_N^{2(N-1)}\\[1em]
+1 & W_N^3 & W_N^6 & W_N^9 & \dots & W_N^{3(N-1)}\\[1em]
+\vdots & \vdots & \vdots &\vdots &\ddots & \vdots\\[1em]
+1 & W_N^{(N-1)} & W_N^{2(N-1)} & W_N^{3(N-1)} & \dots & W_N^{(N-1)(N-1)}
+\end{bmatrix}
+\end{align}
+Machen wir uns klar, dass a) alle $\lambda_0^{(\cdot)} = 1$, weil $\lambda_0=1$
+und b) alle $\lambda_{(\cdot)}^0 = 1$, weil $\mathbb{C}^0 = 1$.
+%
+
+\noindent Für z.B. $N=4$ bekommen wir die Fouriermatrix
+\begin{align}
+\bm{F}_4 =
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & \im & -1 & -\im \\
+1 & -1 & 1 & -1 \\
+1 & -\im & -1 & \im
+\end{bmatrix}.
+\end{align}
+
+Mit dem äußeren Vektorprodukt können wir die Index-Matrix
+\begin{align}
+\bm{K}_N =
+\begin{bmatrix}
+0\\1\\2\\3\\\vdots\\N-1
+\end{bmatrix}
+[0,1,2,3,\dots,N-1]
+=
+\begin{bmatrix}
+0 & 0 & 0 & 0 & \dots & 0\\
+0 & 1 & 2 & 3 & \dots & N-1\\
+0 & 2 & 4 & 6 & \dots & 2(N-1)\\
+0 & 3 & 6 & 9 & \dots & 3(N-1)\\
+: & : & : & : & \ddots & :\\
+0 & (N-1) & 2(N-1) & 3(N-1) & \dots & (N-1)(N-1)\\
+\end{bmatrix}
+\end{align}
+erzeugen und aus dieser
+\begin{align}
+\bm{F} = \exp(+\im\frac{2\pi}{N} \bm{K}) = (W_N)^{\bm{K}}.
+\end{align}
+Dies lässt sich in Source Code sehr effizient benutzen. In Matlab und Python
+ginge das jeweils mit drei Befehlen (wenn wir vorher $N$ und
+für Python \texttt{import numpy as np} definiert haben)
+
+\verb|k = [0:N-1]'; K = k.*k'; F = exp(+1j*2*pi/N * K);|
+
+\verb|k = np.arange(N); K = np.outer(k, k); F = np.exp(+1j*2*np.pi/N * K)|
+
+\noindent Die Matrix $\bm{F}_N$ hat, weil wir sie so zusammengebaut haben,
+vollen Rang $N$, spannt also einen $N$-dimensionalen, komplexen Vektorraum auf,
+der mit der Linearkombination der $N$ orthogonalen Eigenvektoren $\bm{x}$
+dargestellt wird. Es ist also eine $N$-dimensionale, orthogonale Vektorbasis,
+sozusagen das 'Beste' was wir in einer Matrix abbilden können.
+%
+
+\textbf{Diagonalisierung von $\bm{P}$:}
+Passend zu dieser Eigenvektormatrix (Fourier Matrix)
+$\bm{F}_N$ definieren wir noch die Eigenwerte-Diagonalmatrix
+\begin{align}
+\bm{\Lambda}_N =
+\begin{bmatrix}
+\lambda_0 & & & & &\\
+&\lambda_1 & & & & \\
+&&\lambda_2 & & & \\
+&&&\lambda_3 & & \\
+&&&& \ddots& & \\
+&&&&&\lambda_{N-1}
+\end{bmatrix}
+\end{align}
+Mit diesen beiden Matrizen, also $\bm{F}$ und $\bm{\Lambda}$ wird nun die
+Permutationsmatrix diagonalisiert
+\begin{align}
+\bm{P}  = \bm{F} \bm{\Lambda} \bm{F}^{-1} \quad\text{bzw.}\quad
+\bm{F}^{-1} \bm{P} \bm{F} = \bm{\Lambda}
+\end{align}
+Eine wichtige Eigenschaft von Matrizen mit orthogonalen, komplexen Vektoren
+ist der Zusammenhang zwischen Inverser und konjugiert-komplexer Matrix.
+Es gilt ja zunächst
+\begin{align}
+\bm{F}\bm{F}^* = N \bm{I}, \qquad \bm{F}^*\bm{F} = N \bm{I}
+\end{align}
+woraus
+\begin{align}
+%\bm{F}^{-1}\bm{F}\bm{F}^* = N \bm{F}^{-1} \bm{I}\\
+%\frac{1}{N}\bm{F}^* = \bm{F}^{-1}\\
+\bm{F}^{-1} = \frac{1}{N} \bm{F}^*
+\end{align}
+folgt.
+Wenn wir nun noch zur Kenntnis nehmen, dass $\bm{F}$ eine symmetrische Matrix ist,
+also $\bm{F}=\bm{F}^T$ können wir den $^H$-Operator (für die adjungierte
+Matrix), also konjugiert-komplex und transponiert benutzen
+\begin{align}
+\bm{F}\bm{F}^H = N \bm{I},\qquad
+\bm{F}^H\bm{F} = N \bm{I},\qquad
+\bm{F}^{-1} = \frac{1}{N} \bm{F}^H.
+\end{align}
+Die letzte Eigenschaft ist sehr wichtig, weil wir die Inverse durch eine
+gewichtete Adjungierte darstellen können, das ist für Computerberechnungen
+sehr sinnvoll, weil viel effizienter zu rechnen. Das Ausnutzen dieser
+Matrixeigenschaft hat den Erfolg der digitalen
+Signalverarbeitung maßgeblich geprägt.
+%
+Die obige Diagonalisierung können wir also auch
+\begin{align}
+\bm{P}  = \bm{F} \bm{\Lambda} \frac{1}{N} \bm{F}^H \quad\text{bzw.}\quad
+\frac{1}{N} \bm{F}^H \bm{P} \bm{F} = \bm{\Lambda}
+\end{align}
+schreiben.
+
+\textbf{DFT in Matrix-Notation}
+Warum machen wir das alles? Um vorzugreifen:
+%
+Wenn wir ein $N$ Werte DFT-Spektrum $X[\mu]$ als Vektor $\bm{x}_\mu$ darstellen
+\begin{align}
+\bm{x}_\mu = [X[\mu=0],X[1],X[2],X[3],\dots,X[N-1]]^T
+\end{align}
+also die DFT-Werte für Index $0 \leq \mu \leq N-1$ nehmen
+(die DFT ist zwar $N$-periodisch,
+aber in einer einzigen Periode steckt ja die gesamte Information drin),
+dann bekommen wir mit
+\begin{align}
+\bm{x}_k = \frac{1}{N} \bm{F} \bm{x}_\mu
+\end{align}
+einen Vektor
+\begin{align}
+\bm{x}_k = [x[k=0],x[1], x[2], x[3], \dots, x[N-1]]^T
+\end{align}
+im Zeitbereich für $0 \leq k \leq N-1$.
+Dies ist die inverse DFT als Matrix-Operation notiert, und offensichtlich
+benutzen wir die oben definierte $\bm{F}$-Matrix!
+%
+Die Hintransformation der DFT
+(also vom Zeitbereich in den Bildbereich) lautet in Matrix-Notation
+\begin{align}
+\bm{x}_\mu = \bm{F}^H \bm{x}_k
+\end{align}
+%
+Dass dieses Transformationspaar in sich geschlossen ist, also
+$x[k] = \text{IDFT}(\text{DFT}(x[k]))$,
+lässt sich mit den Matrizen mühelos checken
+\begin{align}
+\bm{x}_k =
+\frac{1}{N} \bm{F} (\bm{F}^H \bm{x}_k)=
+\frac{1}{N} \underbrace{\bm{F} \bm{F}^H}_{N \bm{I}} \bm{x}_k = \bm{x}_k.
+\end{align}
+In Summendarstellung müssten wir für diesen 'Beweis' deutlich mehr Aufwand
+betreiben.
+
+Was jetzt verbleibt ist zu verstehen, warum diese beiden Matrix-Operationen
+genau der inversen DFT und der DFT entsprechen, also hinter den Zahlen
+das Wesen der angelegten Matrizen kennenzulernen.
+%
+Gilbert Strang hat das---wie alles was er didaktisch auf den Prüfstand
+stellt---herausragend in seinen Büchern
+\cite{Strang2010, Strang2016, Strang2019}
+aufgeschrieben; (Alters)-Weisheit und progressiver Blick in die konstruktive
+Zukunft bestens vereint. Algebra löst viel
+mehr heutiger Ingenieursprobleme als Analysis, und wenn wir in der Lage sind
+die Algorithmen des maschinellen Lernens und 'klassische' SigSys in der Welt
+der linearen Algebra zu verorten, sind wir für zukünftige Ingenieursberufsprofile
+bestens vorbereitet. Genau dieses didaktische Konzept verfolgt Strang seit vielen
+Jahren mit Erfolg am MIT, daher sehr zu empfehlende Lektüre.
+
+\textbf{Zyklische Permutationen}: Wir könnten uns nun fragen, welche
+Matrizen auch mit $\bm{F}$ diagonalisiert werden können, weil das ja mutmaßlich
+eine ganz sinnstiftende Matrixeigenschaft ist.
+%
+Weil wir bei der DFT mit Periodizität zu tun haben, $x[k]$ und $X[\mu]$
+sind ja jeweils $N$-periodische Folgen, sollten wir uns zunächst
+mal Permutationen von
+der Permutationsmatrix anschauen, also z.B. für $N=4$
+
+\begin{align}
+\bm{P}^2 = \bm{P}\bm{P} =
+\begin{bmatrix}
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+\end{bmatrix}.
+\end{align}
+%
+Die dritte Zeile von Matrix zwei ist verantwortlich für die dritte Zeile der Ergebnis-Matrix: wir berücksichtigen wegen [0,0,0,1] nur die vierte Zeile von Matrix eins.
+Das ist Matrixmultiplikation als Permutation gedacht.
+
+\begin{align}
+\bm{P}^3 = \bm{P}\bm{P}\bm{P} =
+\begin{bmatrix}
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+\end{bmatrix}\qquad
+\bm{I} = \bm{P}^4 = \bm{P}\bm{P}\bm{P}\bm{P} =
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+\end{bmatrix}
+\end{align}
+Wir können das Spiel unendlich fortsetzen, aber bei $\bm{I} = \bm{P}^N$ haben
+wir alle möglichen unterschiedlichen Permutationsmuster durch. Mehr Variation
+gibt die $N$-Basis nicht her, wir sind zyklisch in $N$.
+
+Jetzt wird es fancy: alle permutierten Permutationsmatrizen haben a)
+die gleichen Eigenvektoren $\bm{x}_n$ (und damit die gleiche Fouriermatrix $\bm{F}$,
+das war ja unsere Ausgangsfrage) und b) Eigenwerte die auf $\lambda_n$ basieren.
+Es gilt nämlich
+\begin{align}
+&\bm{P}^1 \bm{x}_n = \lambda_n^1 \bm{x}_n
+\qquad
+\bm{P}^1 \bm{x}_n = (W_N^n)^{1} \cdot \bm{x}_n
+\nonumber\\
+&\bm{P}^2 \bm{x}_n = \lambda_n^2 \bm{x}_n
+\qquad
+\bm{P}^2 \bm{x}_n = (W_N^n)^{2} \cdot \bm{x}_n = W_N^{2 n} \bm{x}_n
+\nonumber\\
+&\bm{P}^3 \bm{x}_n = \lambda_n^3 \bm{x}_n
+\qquad
+\bm{P}^3 \bm{x}_n = (W_N^n)^{3} \cdot \bm{x}_n = W_N^{3 n} \bm{x}_n
+\nonumber\\
+&\vdots\nonumber\\
+&\bm{P}^N \bm{x}_n = \lambda_n^N \bm{x}_n
+\qquad
+\bm{P}^N \bm{x}_n = (W_N^n)^{N} \cdot \bm{x}_n = W_N^{N\,n} \bm{x}_n
+\end{align}
+%
+Anhand $\lambda_n^N$ stellen wir kurz sicher, dass wir mit der Formelschreibweise
+vertraut sind.
+%
+Wir hatten oben für $0\leq n \leq N-1$ die $N$ Eigenwerte von $\bm{P}$
+eingeführt als
+\begin{align}
+\lambda_n =(W_N)^n = W_N^n = \e^{+\im\frac{2\pi\cdot n}{N}}.
+\end{align}
+Die Eigenwerte von $\bm{I} = \bm{P}^N$ sind nun
+\begin{align}
+\lambda_n^N =\left((W_N)^n\right)^N = W_N^{(n \cdot N)} = \e^{+\im\frac{2\pi\cdot n \cdot N}{N}} = 1
+\end{align}
+was erfreulicherweise bestätigt, dass die $NxN$ Einheitsmatrix $\bm{I}$ immer
+$N$ Eigenwerte mit Wert 1 hat.
+Trivial, aber der Vollständigkeit halber, notieren wir (Matrix hoch 0 ist Einheitsmatrix)
+\begin{align}
+\bm{P}^N \bm{x}_n = \bm{P}^0 \bm{x}_n = \bm{I} \bm{x}_n = \bm{x}_n
+\end{align}
+
+\textbf{Zyklische Matrix als Linearkombination zyklischer Matrizen}
+Die lineare Superposition von Vektoren und Matrizen ist ja das Kerngeschäft
+der linearen Algebra.
+Daher ist ein weiterer logischer Schritt aus den $N$
+Permutationsmatrizen eine Linearkombination der Form---hier für $N=4$
+\begin{align}
+&\bm{C} = c_1 \, \bm{P}^1 + c_2 \, \bm{P}^2 + c_3 \, \bm{P}^3 + c_0 \, \bm{P}^4\text{ bzw. umsortiert}\nonumber\\
+&\bm{C} = c_0 \, \bm{I} + c_1 \, \bm{P}^1 + c_2 \, \bm{P}^2 + c_3 \, \bm{P}^3
+\end{align}
+zu bauen.
+Die Koeffizienten $c_{(\cdot)}$ dürfen komplexwertig sein. Die resultierende
+Matrix $\bm{C}$ ist zyklisch, so wie ja auch die Permutationsmatrizen.
+Bleiben wir bei unserem einfach zu überschauendem Beispiel mit $N=4$, dann hat
+$\bm{C}$ die Struktur
+%
+\begin{align}
+\bm{C}=
+\begin{bmatrix}
+c_0& c_1& c_2& c_3\\
+c_3& c_0& c_1& c_2\\
+c_2& c_3& c_0& c_1\\
+c_1& c_2& c_3& c_0.
+\end{bmatrix}
+\end{align}
+Für zyklische Matrizen müssen wir nur die $N$ Einträge der ersten Zeile kennen,
+den Rest können wir zusammenbauen. Diese Koeffizienten $c_0,c_1, c_2, c_3,\dots, c_{N-1}$
+haben eine besondere Bedeutung.
+
+Da $\bm{C}$ die gleichen Eigenvektoren $\bm{x}_n$ aufweist, wie $\bm{P}$
+(und $\bm{P}^2$, $\bm{P}^3$, $\bm{P}^4$), eben weil es eine Linearkombination
+ist, können wir das Eigenwertproblem schnell formulieren
+\begin{align}
+\bm{C} \bm{x}_n = \zeta_n \bm{x}_n
+\end{align}
+Um Verwechslung auszuschließen, bezeichnen wir die $N$ möglichen
+Eigenwerte von $\bm{C}$ mit $\zeta_n$ für $0\leq n \leq N-1$.
+%
+Für unser Beispiel $N=4$, also $\zeta_0, \zeta_1, \zeta_2, \zeta_3$.
+%
+Diese Eigenwerte erhalten wir durch Summation der $c_n$ gewichteten Eigenwerte
+der Matrizen $\bm{P}^1, \bm{P}^2, \bm{P}^3, \bm{P}^4$.
+Diese Summationsregel gilt für Matrizen mit gleichen! Eigenvektoren, was hier
+ja intentional vorliegt. Allgemein für den $n$-ten Eigenwert von $\bm{C}$
+gilt somit
+\begin{align}
+&\zeta_n = c_0 + c_1 \lambda_n + c_2 \lambda_n^2 + c_3 \lambda_n^3 + \dots + c_{N-1} \lambda_n^{N-1}\\
+&\zeta_n = c_0 + c_1 W_N^n + c_2 (W_N^n)^2 + c_3 (W_N^n)^3 + \dots + c_{N-1} (W_N^n)^{N-1}\\
+&\zeta_n = c_0 + c_1 W_N^n + c_2 W_N^{2n} + c_3 W_N^{3n} + \dots + c_{N-1} W_N^{(N-1) n}
+\end{align}
+
+Schreiben wir das mal aus für $0\leq n \leq N-1$:
+\begin{align}
+&\zeta_0 = c_0 + c_1 W_N^0 + c_2 W_N^{2\cdot0} + c_3 W_N^{3\cdot0} + \dots + c_{N-1} W_N^{(N-1) \cdot 0}\nonumber\\
+&\zeta_1 = c_0 + c_1 W_N^1 + c_2 W_N^{2\cdot1} + c_3 W_N^{3\cdot1} + \dots + c_{N-1} W_N^{(N-1) \cdot1}\nonumber\\
+&\zeta_2 = c_0 + c_1 W_N^2 + c_2 W_N^{2\cdot2} + c_3 W_N^{3\cdot2} + \dots + c_{N-1} W_N^{(N-1) \cdot2}\nonumber\\
+&\zeta_3 = c_0 + c_1 W_N^3 + c_2 W_N^{2\cdot3} + c_3 W_N^{3\cdot3} + \dots + c_{N-1} W_N^{(N-1) \cdot3}\nonumber\\
+&\vdots\nonumber\\
+&\zeta_{N-1} = c_0 + c_1 W_N^{N-1} + c_2 W_N^{2\cdot(N-1)} + c_3 W_N^{3\cdot(N-1)} + \dots + c_{N-1} W_N^{(N-1) \cdot(N-1)}
+\end{align}
+Das ist ein Gleichungssystem und lässt sich bestens in Matrix-Notation schreiben.
+Definieren wir die Vektoren $\bm{\zeta} = [\zeta_0, \zeta_1, \zeta_2, \zeta_3, \dots, \zeta_{N-1}]^T$
+und $\bm{c} = [c_0, c_1, c_2, c_3, \dots, c_{N-1}]^T$ und schauen das obige
+Gleichungssystem im Vergleich zu \eq{eq:DFT_FMatrix_WN} (hier nochmal gegeben)
+\begin{align*}
+\bm{F}_N =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & \dots & 1\\[1em]
+1 & W_N^1 & W_N^2 & W_N^3 & \dots & W_N^{(N-1)}\\[1em]
+1 & W_N^2 & W_N^4 & W_N^6 & \dots & W_N^{2(N-1)}\\[1em]
+1 & W_N^3 & W_N^6 & W_N^9 & \dots & W_N^{3(N-1)}\\[1em]
+\vdots & \vdots & \vdots &\vdots &\ddots & \vdots\\[1em]
+1 & W_N^{(N-1)} & W_N^{2(N-1)} & W_N^{3(N-1)} & \dots & W_N^{(N-1)(N-1)}
+\end{bmatrix}
+\end{align*}
+genau an, dann finden wir
+\begin{align}
+\bm{\zeta} = \bm{F} \bm{c},
+\end{align}
+also die inverse DFT ohne die $\frac{1}{N}$-Normierung.
+%
+Die $N$ Eigenwerte in $\bm{\zeta}$ der zyklischen Matrix $C$ errechnen sich
+aus $\bm{F} \bm{c}$, wobei $\bm{c}$ die Einträge der ersten Zeile in $\bm{C}$
+als Spaltenvektor.
+%
+Oder anders: wir legen eine zyklische Matrix $\bm{C}$ mit den Koeffizienten
+$\bm{c}$ an. Die mit $\bm{c}$ gewichtete Linearkombination
+der $N$ orthogonalen Vektoren in der Fouriermatrix $\bm{F}$ ergibt die Eigenwerte
+von $\bm{C}$, eingetragen als Koeffizienten in $\bm{\zeta}$.
+
+DFT und inverse DFT können wir also als Eigenwertprobleme
+zyklischer Matrizen auffassen, wobei
+wir immer mit der gleichen orthogonalen, $N$-dimensionalen Basis
+für Folgen der Länge $N$ operieren, weil der aufspannbare Vektorraum
+offensichtlich sehr elegant ist. Bei der komplexen Fourierreihe hatten wir die Basisfunktionen $\e^{\pm\im\omega_0 \mu t}$ aus ähnlicher Motivation gewählt.
+Die Fouriermatrix ist im Wesen die Analogie für (zeit-/frequenzdiskrete)
+Folgen die periodisch aufgefasst werden.
+
+Für unser Beispiel $N=4$ können wir das Gleichungssystem aufstellen
+\begin{align}
+\begin{bmatrix}
+\zeta_0 \\ \zeta_1 \\ \zeta_2 \\ \zeta_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & \im & -1 & -\im \\
+1 & -1 & 1 & -1 \\
+1 & -\im & -1 & \im
+\end{bmatrix}
+\,
+\begin{bmatrix}
+c_0 \\ c_1 \\ c_2 \\ c_3
+\end{bmatrix},
+\end{align}
+und mit schöner zu überschauenden Linearkombination (i.e. inverse DFT ohne $\frac{1}{N}$)
+\begin{align}
+\begin{bmatrix}
+\zeta_0 \\ \zeta_1 \\ \zeta_2 \\ \zeta_3
+\end{bmatrix}
+=
+c_0
+\begin{bmatrix}
+1\\1\\1\\1
+\end{bmatrix}+
+c_1
+\begin{bmatrix}
+1\\\im\\-1\\-\im
+\end{bmatrix}+
+c_2
+\begin{bmatrix}
+1\\-1\\1\\-1
+\end{bmatrix}+
+c_3
+\begin{bmatrix}
+1\\-\im\\-1\\\im
+\end{bmatrix}
+\end{align}
+
+Wenn wir nun $\bm{c}$ als Spektral-Koeffizienten (Frequenzbereich) und
+den Vektor $\bm{\zeta}$ als Folge von Samples (Zeitbereich) auffassen,
+dann können wir uns das Wesen an drei ganz einfachen Beispielen klar machen.
+
+I. Für $\bm{c} = [1,0,0,0]^T$ folgt $\bm{\zeta} = [1,1,1,1]^T$,
+das ist die Synthese des Gleichanteils. Spektrum enthält nur einen Dirac in $c_0$
+und repräsentiert die DFT-Frequenz $\Omega = 0 \cdot \frac{2\pi}{4}$.
+
+II. Für $\bm{c} = [0,0,1,0]^T$ folgt $\bm{\zeta} = [1,-1,1,-1]^T$,
+das ist die Synthese der 'schnellst möglichen' Folge (halbe Abtastfrequenz).
+Spektrum enthält nur einen Dirac in $c_2$
+und repräsentiert die DFT-Frequenz $\Omega = 2 \cdot \frac{2\pi}{4} = \pi$.
+
+III. Für $\bm{c} = [\nicefrac{1}{4},\nicefrac{1}{4},\nicefrac{1}{4},\nicefrac{1}{4}]^T$
+folgt $\bm{\zeta} = [1,0,0,0]^T$,
+das ist die Synthese des Dirac Impulses bei $k=0$.
+Spektrum enthält alle Frequenzen gleich gewichtet.
+
+\textbf{Zyklische Faltung}
+Für zwei zyklische Matrizen können wir per Multiplikation eine
+neue zyklische Matrix erzeugen, z.B.
+\begin{align}
+\bm{C} =
+\begin{bmatrix}
+-1 & 2 & 4 \\
+4 & -1 & 2 \\
+2 & 4 & -1
+\end{bmatrix}
+\qquad
+\bm{D} =
+\begin{bmatrix}
+3 & 1 & 5\\
+5 & 3 & 1 \\
+1 & 5 & 3
+\end{bmatrix}
+\qquad
+\bm{C}\bm{D} =
+\begin{bmatrix}
+11 & 25 & 9\\
+9 &  11&  2\\
+25 &  9&  11
+\end{bmatrix}
+\end{align}
+Die erste Zeile der Ergebnismatrix als Linearkombination der
+Zeilen von $\bm{D}$ mit den Gewichten in der ersten Zeile von $\bm{C}$
+\begin{align}
+\label{eq:C8864C8D9F_LinComb_Row}
+-1 \cdot [3 \quad 1 \quad 5] + 2 \cdot [5 \quad 3 \quad 1] + 4 \cdot [1 \quad 5 \quad 3] =
+[11 \quad 25 \quad 9]
+\end{align}
+Damit können wir die zyklische Struktur auffüllen und müssten nicht
+weiterrechnen.
+%
+Wir können die zyklische Faltung
+\begin{align}
+\underbrace{
+\begin{bmatrix}
+-1 & 2 & 4
+\end{bmatrix}^T}_{\bm{c}}
+\circledast_3
+\underbrace{
+\begin{bmatrix}
+3 & 1 & 5
+\end{bmatrix}^T}_{\bm{d}}
+=
+\begin{bmatrix}
+11 & 25 & 9
+\end{bmatrix}^T
+\end{align}
+ausrechnen, und finden die Äquivalenz mit den ersten Zeilen der Matrizen
+$\bm{C}$, $\bm{D}$ und $\bm{C} \bm{D}$. Die Matrixoperation $\bm{C} \bm{D}$
+realisiert also die zyklische Faltung,
+eben weil wir zyklische Matrizen benutzen.
+
+Einer der wichtigsten Zusammenhänge der SigSys findet sich natürlich auch
+in der Algebra wieder. Es ist der Link zwischen Zeit- und Bildbereich, oder
+anders: zwischen Vektor und Eigenwert der zyklischen Matrix die von diesem
+Vektor erzeugt wird:
+\begin{align}
+\bm{F}(\bm{c} \circledast_N \bm{d}) = (\bm{F}\bm{c})  \odot (\bm{F}\bm{d})
+\end{align}
+mit elementweiser Multiplikation $\odot$.
+Umformen mit linksseitiger Multiplikation
+\begin{align}
+\frac{1}{N}
+\bm{F}^H \bm{F}(\bm{c} \circledast_N \bm{d}) =\frac{1}{N}
+\bm{F}^H \left( \bm{F}\bm{c}  \odot \bm{F}\bm{d} \right)
+\end{align}
+erzeugt die SigSys typische Darstellung (das ist bei uns die
+zyklische Faltung von Spektren)
+\begin{align}
+\bm{c} \circledast_N \bm{d} =
+\frac{1}{N} \bm{F}^H \left( \bm{F}\bm{c}  \odot \bm{F}\bm{d} \right),
+\end{align}
+also den wichtigen Zusammenhang zyklische Faltung von zyklischen Folgen vs.
+elementweise Multiplikation der Eigenwerte der jeweiligen zyklischen Matrizen.
+%
+Für sehr große $N$ ist die rechte Seite deutlich recheneffizienter, weil
+die Matrixmultiplikationen sehr stark optimiert werden können, die benötigte
+Faltungssumme auf der linken Seite hingegen nicht.
+%
+Diese Optimierungen, also effiziente Algorithmen zur Matrixmultiplikation
+sind unter dem Sammelbegriff Fast Fourier Transform (FFT) bekannt.
+Es gibt also nicht die eine FFT, sondern für spezielle $N$, für
+spezielle Rechner, für bestimmten Speicheraufwand usw.
+optimierte Algorithmen für schnellstmögliche Matrixmultiplikationen mit
+$\bm{F}$ bzw. $\bm{F}^H$. Mit dem Design von FFT Algorithmen sind ganze
+Ingenieurslebensläufe bestritten worden. Die \texttt{fft()} in Matlab und
+scipy/numpy für Python basiert auf hoch-optimierten FFT-Bibliotheken für
+typische CPU-Anwendungen.

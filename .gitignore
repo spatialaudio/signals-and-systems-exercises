@@ -15,6 +15,7 @@ sampling/*.pdf
 convolution_dt/*.pdf
 fundamental_signals_dt/*.pdf
 z_system_analysis/*.pdf
+dft/*.pdf
 
 ## for tutorial_latex_deu
 tutorial_latex_deu/sig_sys_ex.pdf
