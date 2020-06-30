@@ -217,3 +217,52 @@ xlim([0, 2])
 
 %%
 set(gcf,'Units', 'pixels') % restore default
+
+
+%%
+sos = tf2sos(b,a)
+plot_dtlti(sos, 'dt lti system')
+
+
+
+% compact function for full discrete-time LTI system analysis
+% in time/frequency domain
+function plot_dtlti(sos, fig_name)
+if size(sos,1) == 1  % some routines below behave weird if only one biquad 
+    sos(end+1,:) = [1,0,0,1,0,0] % thus put another thru biquad in series
+end
+figure('Name', fig_name)
+dW = 2*pi/2^10;
+W = 0:dW:2*pi-dW;
+W(1) = eps; % W(1)=0 is not working sometimes
+H = freqz(sos,W);
+gd = grpdelay(sos, W);
+subplot(3,2,1)
+plot(W, db(abs(H)))
+ylabel('dB')
+title('Level')
+grid on
+subplot(3,2,3)
+plot(W, unwrap(angle(H)))
+ylabel('rad')
+title('Phase')
+grid on
+subplot(3,2,5)
+plot(W, gd)
+xlabel('\Omega / rad')
+ylabel('samples')
+title('Group Delay')
+grid on
+subplot(3,2,2)
+impz(sos)
+grid on
+subplot(3,2,4)
+stepz(sos)
+grid on
+subplot(3,2,6)
+[z,p,k] = sos2zp(sos);
+zplane(z,p)
+text(0.8,0.8, ['gain=',num2str(k)])
+title('pole/zero/gain plot z-plane')
+grid on
+end
