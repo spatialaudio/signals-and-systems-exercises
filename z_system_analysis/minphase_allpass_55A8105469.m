@@ -5,6 +5,8 @@
 %[Frank Schultz](https://orcid.org/0000-0002-3010-0294),
 %[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+% task 12.2 55A8105469
+
 % discrete-time LTI system examples
 % minimum phase system in series with specific allpass to obtain
 % a) mixed phase system (some zeros out of unit circle)
@@ -18,21 +20,21 @@ z = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 1/2];
 p = [3/4*1j, -3/4*1j, -1/3];
 k = 2;
 sos_min = zp2sos(z,p,k)
-plot_dtlti(sos_min, 'minimum phase')
+plot_dtlti_analysis(sos_min, 'minimum phase')
 
 %% a) mixed phase
 z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 1/2];
 p = [3/4*1j, -3/4*1j, -1/3];
 k = 1/2;
 sos_mix = zp2sos(z,p,k)
-plot_dtlti(sos_mix, 'mixed phase')
+plot_dtlti_analysis(sos_mix, 'mixed phase')
 
 %allpass for mixed phase to get Hmin * Hall = Hmix
 z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 0]; %max phase zeros from mixed phase
 p = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 0]; % we need two SOS for fvtool(sos), thus zero/pole in origin
 k = 1/4;
 sos_all_mix = zp2sos(z,p,k)
-plot_dtlti(sos_all_mix, 'allpass for mixed phase')
+plot_dtlti_analysis(sos_all_mix, 'allpass for mixed phase')
 
 
 %% b) maximum phase
@@ -40,27 +42,29 @@ z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 2];
 p = [3/4*1j, -3/4*1j, -1/3];
 k = -1/4;
 sos_max = zp2sos(z,p,k)
-plot_dtlti(sos_max, 'maximum phase')
+plot_dtlti_analysis(sos_max, 'maximum phase')
 
 %allpass for maximum phase to get Hmin * Hall = Hmax
 z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 2]; %all zeros from max phase
 p = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 1/2];
 k = -1/8;
 sos_all_max = zp2sos(z,p,k)
-plot_dtlti(sos_all_max, 'allpass for maximum phase')
+plot_dtlti_analysis(sos_all_max, 'allpass for maximum phase')
+disp('all for max')
+
 
 %% Hmin * Hall in series
-plot_dtlti([sos_min; sos_all_mix], 'check Hmix = Hmin * Hall')
+plot_dtlti_analysis([sos_min; sos_all_mix], 'check Hmix = Hmin * Hall')
+
 
 %% Hmin * Hall in series
-plot_dtlti([sos_min; sos_all_max], 'check Hmax = Hmin * Hall')
-
+plot_dtlti_analysis([sos_min; sos_all_max], 'check Hmax = Hmin * Hall')
 
 
 
 % compact function for full discrete-time LTI system analysis
 % in time/frequency domain
-function plot_dtlti(sos, fig_name)
+function plot_dtlti_analysis(sos, fig_name)
 if size(sos,1) == 1  % some routines below behave weird if only one biquad 
     sos(end+1,:) = [1,0,0,1,0,0] % thus put another thru biquad in series
 end

@@ -5,6 +5,8 @@
 %[Frank Schultz](https://orcid.org/0000-0002-3010-0294),
 %[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+% exercise 12.1 #6337B75DF2
+
 % Frequency Response of FIR Filter
 % a) analytical DTFT
 % b) DFT

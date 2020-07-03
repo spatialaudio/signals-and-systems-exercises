@@ -1,18 +1,795 @@
 \newpage
-\section{UE : }
+\section{UE 12: Beschreibung diskreter Systeme im Spektralbereich, Eigenschaften diskreter LTI-Systeme}
+
+Wir haben den SigSys Werkzeug Koffer bestens aufgefüllt mit den fundamentalen
+Werkzeugen, die wir als IngenieurInnen in modifizierter Form
+immer wieder antreffen werden. Es ist eh immer die gleiche Message: je mehr wir
+die Basics vom Wesen verstanden haben, desto einfacher fällt uns das Adaptieren auf
+kompliziertere und/oder praktische Probleme.
+
+Die Idee dieser letzten Übung ist, zwei Betrachtungen, die wir aus der
+zeitkontinuierlichen Welt schon kennen, hier für zeitdiskrete Signale
+durchzuspielen. Einerseits um zu wiederholen und Gemeinsamkeiten und Unterschiede
+klar zu machen. Andererseits, weil es sinnvoll ist,
+die prototypische Implementierung der Werkzeuge in Programmcode
+ins Licht zu rücken.
+Hin und wieder waren ja in den letzten Übungen schon Code-Schnipsel
+enthalten, aber nicht zu viele, damit wir nicht dem Spieltrieb verfallen und
+die wichtigen analytischen Rechnungen nicht aus den Augen verlieren.
+
+Hier nun zwei Aufgaben, die wir im Detail nicht mehr analytisch ausrechnen,
+sie sollten aber noch auf dem Papier
+handhabbar sein (der Autor mutmaßt, weil er es selbst nicht getan hat). Darum
+soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
+Aspekte zur Beschreibung von zeitdiskreten Systemen herauszuarbeiten.
+
+
+
 
 
 \clearpage
 \subsection{DFT Interpolation zur DTFT}
 \label{sec:6337B75DF2}
 \begin{Ziel}
+Wir wollen die DFT zu DTFT Rekonstruktion vertiefen. Wir hatten kennengelernt,
+dass die vier Fouriertransformierten durch Abtastung und Rekonstruktion
+miteinander verknüpfbar sind. Hier wollen wir nun ein DFT-Linienspektrum
+interpolieren zu einem kontinuierlichen DTFT-Spektrum. Anders herum, könnten
+wir uns dies als ideale Abtastung des DTFT-Spektrum hin zum DFT-Spektrum erklären.
 \end{Ziel}
-\textbf{Aufgabe} {\tiny 6337B75DF2}: Berechnen Sie...
+\textbf{Aufgabe} {\tiny 6337B75DF2}: Stellen Sie für das FIR-Filter
+aus Aufgabe 10.2 die Betragsfrequenzgänge der
+\begin{itemize}
+  \setlength\itemsep{-0.5em}
+  \item DTFT
+  \item DFT
+  \item DFT des mit Nullen aufgefüllten Signals auf Länge 16
+  \item DFT des mit Nullen aufgefüllten Signals auf Länge 32
+\end{itemize}
+mit ihren jeweiligen Zeitfolgen grafisch dar. Wir können zur numerischen Lösung
+die unten verlinkten Skripte nutzen.
+Interpretieren Sie die Grafiken.
 \begin{Werkzeug}
+Abtastungs-/Rekonstruktionsmodell, Faltung im Spektralbereich ist Multiplikation
+im Zeitbereich, Periodische Sinc Funktion.
+%
+Source Code passend zur Aufgabe unter
+
+\url{https://github.com/spatialaudio/signals-and-systems-exercises/blob/master/dft/}
+
+entweder als Matlab Skript oder Jupyter Notebook
+\texttt{dtf2dtft\_6337B75DF2.m /.ipynb}
+
 \end{Werkzeug}
 \begin{Ansatz}
+Wir setzen die DFT Synthese ($\tilde{x}, \tilde{X}$ als Hinweis, dass $N$-periodisch)
+%
+\begin{equation}
+\tilde{x}[k]=\frac{1}{N} \sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\e^{+\im\frac{2\pi}{N}k\mu}
+\end{equation}
+%
+in die DTFT Analyse ein und summieren aber nur $0 \leq k \leq N-1$
+\begin{align}
+X(\Omega)&=\sum_{k=-\infty}^\infty \tilde{x}[k]\cdot\e^{-\im\Omega k}
+=\sum_{k=0}^{N-1}\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\e^{+\im\frac{2\pi}{N}k\mu}\cdot\e^{-\im\Omega k}
+=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\frac{1}{N}\,\sum_{k=0}^{N-1}\e^{-\im k\left(\Omega-\frac{2\pi}{N}\mu\right)}.
+\end{align}
+%
+Das machen wir, weil wir wissen wollen, wie die Doppelsumme
+aus dem eigentlich $N$-periodischen $\tilde{x}[k]$,
+ein nicht periodisches, endliches Signal $x[k]$ der Länge $N$ erzeugt,
+für das ja eine DTFT mit kontinuierlicher Frequenzvariable $\Omega$ existiert.
+%
+Im Zeitbereich müsste dies einer Multiplikation
+\begin{align}
+x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k]
+\end{align}
+entsprechen.
+
 \end{Ansatz}
 \begin{ExCalc}
+Die hintere Summe über $k$ ist nun wieder einmal die geometrische Reihe, vgl. (10.67), (10.68)
+und \cite[(3-39)]{Lyons2011}.
+Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Übung,
+weil ähnliche Rechenschritte immer wieder auftauchen in SigSys.
+%
+\begin{align}
+X(\Omega)&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)N}}{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)}}\\
+&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\cdot\frac{\e^{\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}-\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}-\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\\
+&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{\e^{\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}-\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}-\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}.
+\end{align}
+%
+Mit $2\im\cdot\sin(x)=\e^{\im x}-\e^{-\im x}$ können wir vereinfachen
+\cite[(2.41)]{Moeser2011}, vgl. \cite[(2.142)]{Rabiner1975}
+%
+\begin{equation}
+X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{1}{N}\cdot\frac{\sin\left(N\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}{\sin\left(\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}.
+\end{equation}
+%
+Wir stoßen wieder auf die  periodische Sinc Funktion
+%
+\begin{align}
+\text{psinc}_N(\Omega)=\begin{cases}\frac{1}{N}\cdot\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}&\text{for }\Omega\neq2\pi m\\
+(-1)^{m(N-1)}&\text{for }\Omega=2\pi m\end{cases},\,\,m\in\mathbb{Z},
+\end{align}
+%
+(Matlab und Python's scipy \texttt{diric(Omega,N)}) und einen Phasenterm (dieser
+taucht auf, weil $x[k]$ bei $k=0$ beginnt.
+Bei Übung 7, S. 17 hatten wir axialsymmetrische Signale.)
+%
+Wir können daher umschreiben zu
+%
+\begin{equation}
+\label{eq:6337B75DF2_DFT2DTFT}
+X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\text{psinc}_N\left(\Omega-\frac{2\pi}{N}\mu\right)
+\end{equation}
+oder vielleicht nochmal anders die Argumente angeordnet
+\begin{equation}
+X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu\rightarrow \Omega_\mu = \frac{2\pi}{N} \mu]\cdot
+\underbrace{\e^{-\im\frac{\left(-\frac{2\pi}{N}\mu+\Omega\right)(N-1)}{2}}\cdot\text{psinc}_N\left(-\frac{2\pi}{N}\mu + \Omega\right)\cdot N}_{H_\mathrm{r}\left(-\Omega_\mu+\Omega\right)}.
+\end{equation}
+
+Erinnern wir uns an Abtastung von Spektren. Die
+jetzige Formelstruktur hat doch sehr starke Ähnlichkeit mit (7.60):
+Ein Linienspektrum (DFT) wird mit einer Sinc bzw. hier jetzt periodischen
+Sinc Funktion interpoliert zu einem kontinuierlichen Spektrum (DTFT).
+Wenn wir genau hinschauen, sehen wir dass es eine spezielle Faltung zweier
+Spektren ist (gedrehte und geschobene Hilfsvariable ist $\Omega_\mu$).
+%
+Liniensignal oder -spektrum zu kontinuierlich machen heisst in unserem
+SigSys Abtastungsmodell Rekonstruktion, die als Interpolation
+aufgefasst werden kann, vgl. Abb. 7.1 und 7.2.
+Das in obiger Faltung vorkommende Rekonstruktionsspektrum
+\begin{align}
+H_\mathrm{r}(\Omega) =
+\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\text{psinc}_N\left(\Omega\right)\cdot N =
+\e^{-\im\frac{\Omega(N-1)}{2}}
+\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}
+\DTFT
+h_\mathrm{r}[k] = \mathrm{rect}_N[k]
+\end{align}
+ist die bestens bekannte DTFT Korrespondenz der Rechteckfolge der Länge $N$.
+Das erfüllt doch prima unsere obige Erwartungshaltung, dass die Faltung
+im Spektralbereich
+\begin{align}
+x[k] = h_\mathrm{r}[k]  \cdot \tilde{x}[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k]
+\end{align}
+abbilden muss.
+
 \end{ExCalc}
 \begin{Loesung}
+Die Rekonstruktion \eq{eq:6337B75DF2_DFT2DTFT}
+vom DFT-Linienspektrum / periodisches Zeitsignal zum
+DTFT-Spektrum / einmaliges Zeitsignal steht daher in enger Analogie zu der
+Rekonstruktion aus Übung 7.2 Fourierreihe (Linienspektrum) zu
+Fouriertransformation (kontinuierliches Spektrum) . Es ist genaugenommen das
+direkte Pendant für Folgen, also zeitdiskrete Signale.
+
+Diese Interpolation spielt in der Praxis eine wichtige Rolle. Wir werden sie sehr
+oft anwenden, und es ist wichtig, dass uns das bewusst ist.
+Ein mögliches Beispiel:
+In der Praxis messen wir
+die Impulsantwort von BIBO-stabilen nichtrekursiven aber auch rekursiven Systemen,
+und zwar so dass sie mit endlicher Länge in einen Rechner abgelegt werden kann.
+%
+Das können wir auch so machen, solange wir sicherstellen, dass
+in unserem Messfenster die Impulsantwort
+bis ins Messrauschen abgeklungen ist.
+In einer großen Kirche müssten wir dann schon mal 20 s Zeitfenster einplanen,
+damit wir den kompletten Nachhall als Antwort auf einen lauten Knall erfassen
+können (würde man heute aus technischen, aber viel wichtiger:
+sozialverträglichen Gründen nicht mehr mit einer Handfeuerwaffe erzeugen ;-) ).
+%
+Wenn wir uns für die Systemeigenschaften, wie den Frequenzgang der gemessenen,
+endlichen Impulsantwort der Länge $N$ interessieren, müssten wir erst die
+DFT und dann mühsam die DTFT-Interpolationsformel berechnen. Das geht deutlich
+eleganter mit sogenanntem Zeropadding, also Auffüllen der Impulsantwort mit
+Nullen und nachfolgender DFT mit resultierender Länge.
+
+Je mehr Nullen wir auffüllen, desto genauer tasten wir das DTFT Spektrum ab.
+Es ist unsere Aufgabe eine ausreichende Anzahl von Punkten auszuwählen,
+so dass wir in der grafischen Auflösung diese Abtastung nicht mehr
+von der tatsächlichen DTFT unterscheiden können.
+
+Dies ist beispielhaft in \fig{fig:6337B75DF2} anschaulich dargestellt.
+Wir nehmen unser bekanntes FIR-Filter aus Aufgabe 10.2.
+In \fig{fig:DTFT_6337B75DF2} ist das Zeitsignal und das exakte DTFT-Betragsspektrum
+skizziert (wir hatten es analytisch ausgerechnet, kennen es also sehr gut).
+%
+Wir könnten diese 11 Samples des FIRs einer 11-Punkte DFT unterziehen und erhalten
+das DFT-Spektrum. Linienspektrum heißt in der anderen Domäne immer Periodisierung.
+Das ist in \fig{fig:DFT_6337B75DF2} dargestellt. 11 Werte im Zeitbereich
+können auch nur maximal 11 Werte exakt im Frequenzbereich erklären. Dies
+entspricht kritischer Abtastung, d.h. die orange Zeitfolge wird nicht durch
+zeitliches Aliasing kaputt gemacht (dies ist ja nicht mehr reparabel).
+In den 11 DFT-Koeffizienten ist daher die komplette Information zum DTFT
+Spektrum enthalten. Die obige Interpolationsformel  \eq{eq:6337B75DF2_DFT2DTFT}
+verlinkt DFT und DTFT Spektrum.
+
+In den \fig{fig:DFT_zeropad16_6337B75DF2} und \fig{fig:DFT_zeropad32_6337B75DF2}
+sind nun zwei Fälle von Zeropadding und längerer DFT dargestellt.
+Für den Fall einer DFT-Periodizität von 32 ist der DFT-Betragsfrequenzgang
+schon sehr aufschlussreich. Wenn wir die Punkte in diesem Stem-Plot (strenggenommen
+nicht erlaubt) verbinden würden, wären wir schon sehr nah am tatsächlichen
+DTFT-Spektrum. Das wird in der Praxis sehr oft so gemacht, spricht nichts dagegen,
+wir müssen nur klar haben, was wir da treiben.
+
+Ein beliebter Denkfehler ist, dass Zeropadding die DFT-Auflösung erhöht.
+Weil wir uns sauber die Abtast-/Rekonstruktionsmodelle und Links zwischen den
+Fouriertransformationen erarbeitet haben, wissen wir, dass das eine
+falsche Behauptung ist.
+Wir erfinden mit Zeropadding keine neue Information! Mehr als 11 Samples FIR
+haben wir ja nicht.
+Wir rekonstruieren/interpolieren
+nur anders, im Falle von Zeropadding eben nicht ideal sondern so,
+dass periodische Wiederholungen im Zeitsignal erhalten bleiben.
+
 \end{Loesung}
+
+
+
+
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{0.495\textwidth}
+\includegraphics[width=\textwidth]{../dft/DTFT_6337B75DF2.pdf}
+\caption{FIR-Filter mit Länge 11 oben, DTFT-Betragsfrequenzgang unten,
+Aufgabe 10.2}
+\label{fig:DTFT_6337B75DF2}
+\end{subfigure}
+\begin{subfigure}{0.495\textwidth}
+\includegraphics[width=\textwidth]{../dft/DFT_zeropad32_6337B75DF2.pdf}
+\caption{Periodisiertes Signal mit Länge 32 oben. DFT-Betragsfrequenzgang unten.}
+\label{fig:DFT_zeropad32_6337B75DF2}
+\end{subfigure}
+
+\begin{subfigure}{0.495\textwidth}
+\includegraphics[width=\textwidth]{../dft/DFT_zeropad16_6337B75DF2.pdf}
+\caption{Periodisiertes Signal mit Länge 16 oben. DFT-Betragsfrequenzgang unten.}
+\label{fig:DFT_zeropad16_6337B75DF2}
+\end{subfigure}
+\begin{subfigure}{0.495\textwidth}
+\includegraphics[width=\textwidth]{../dft/DFT_6337B75DF2.pdf}
+\caption{FIR-Filter, also endliches Signal mit Länge 11 oben.
+DFT-Betragsfrequenzgang unten.}
+\label{fig:DFT_6337B75DF2}
+\end{subfigure}
+\caption{Signalverläufe und Betragsspektren für Aufgabe \ref{sec:6337B75DF2}.
+Aus der DFT \fig{fig:DFT_6337B75DF2} kann die DTFT \fig{fig:DTFT_6337B75DF2}
+exakt interpoliert werden. Dies entspricht im Abtast-/Rekonstruktionsmodell
+der idealen Rekonstruktion nach kritischer Abtastung.
+%
+Wir könnten auch anders herum argumentieren: ideale
+Abtastung der DTFT führt zur DFT und damit im Zeitbereich zur Periodisierung.
+Die DFTs in \fig{fig:DFT_zeropad32_6337B75DF2} und
+\fig{fig:DFT_zeropad16_6337B75DF2} sind Beispiele dafür mit Überabtastung, d.h.
+mehr Abtastpunkten pro $2\pi$ als erforderlich. Kritische Abtastung erfolgt mit
+11 Abtastwerten in \fig{fig:DFT_6337B75DF2}, weniger würde eine Überlappung
+von Zeitfolgenwerten und damit zeitliches Aliasing hervorrufen.
+}
+\label{fig:6337B75DF2}
+\end{figure*}
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{Zerlegung in Reihenschaltung aus Minimalphasensystem und Allpass}
+\label{sec:55A8105469}
+\begin{Ziel}
+Ähnlich wie Aufgabe 6.2 wollen wir uns für zeitdiskrete Systeme, deren
+Kausalität und Stabilität wir voraussetzen wollen bzw. sicher stellen müssen,
+eine Zerlegung in Minimalphasensystem und Allpass vornehmen. Dazu benutzen
+wir Systeme dritter Ordnung, d.h. Systeme
+mit 3 Polen und 3 Nullstellen. Die Vorgehensweise
+ist analog zur zeitkontinuierlichen Welt. Spiegelung von Nullstellen in
+der $s$-Ebene überträgt sich im $z$-Bereich auf
+Inversion des Betrags der Nullstelle unter Beibehaltung des
+Winkels.
+%
+
+Die benutzte \texttt{plot\_dtlti\_analysis()} Funktion zur Erzeugung der
+typischen System-Kenngrafiken (Impulsantwort, Sprungantwort, Frequenzgänge,
+Pol-Nullstellendiagramm) ist eine prototypische
+Realisierung, die wir nach Bedarf weiter modifizieren können. Die Python-Variante
+enthält ein paar mehr Formatierungsaspekte, während die Matlab-Variante
+minimal gehalten und vielleicht übersichtlicher als ihr On-board
+\texttt{fvtool} ist.
+%
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 55A8105469}:
+Gegeben sind ein sogenanntes Mixed-Phase System $H_\mathrm{mix}(z)$
+(Nullstellen sowohl innerhalb als auch außerhalb des
+Einheitskreises) und ein maximalphasiges System $H_\mathrm{max}(z)$
+(alle Nullstellen außerhalb des Einheitskreises). Alle Pole liegen im inneren
+des Einheitskreises, die Systeme sind damit stabil sind, weil wir Kausalität
+fordern.
+
+Mixed-Phase System $H_\mathrm{mix}(z)$
+\begin{align}
+z_{1,2} = 2 \e^{\pm\im\frac{3}{4}\pi},\quad z_3 = \frac{1}{2},\quad
+p_{1,2} = \pm\frac{3}{4}\im,\quad z_3 = -\frac{1}{3},\quad
+g = + \frac{1}{2}
+\end{align}
+%z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 1/2];
+%p = [3/4*1j, -3/4*1j, -1/3];
+%k = 1/2;
+
+Maximum-Phase System $H_\mathrm{max}(z)$
+\begin{align}
+z_{1,2} = 2 \e^{\pm\im\frac{3}{4}\pi},\quad z_3 = 2,\quad
+p_{1,2} = \pm\frac{3}{4}\im,\quad z_3 = -\frac{1}{3},\quad
+g = - \frac{1}{4}
+\end{align}
+%z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 2];
+%p = [3/4*1j, -3/4*1j, -1/3];
+%k = -1/4;
+
+Zerlegen Sie diese Systeme in eine Reihenschaltung aus Minimalphasensystem
+$H_\mathrm{min}(z)$
+und ein jeweils spezifisches Allpasssystem mit frequenzunabhängiger
+Verstärkung 1 (also Pegel 0dB).
+Es gilt $|H_\mathrm{max}(z)| = |H_\mathrm{mix}(z)| = |H_\mathrm{min}(z)|$.
+%
+Stellen Sie alle wichtigen Systemgrafiken des Zeit- und Frequenzbereichs dar,
+also Impuls- und Sprungantwort, Frequenzgänge (Pegel, Phase, Gruppenlaufzeit)
+und Pol / Nullstellendiagramm.
+%
+%Wir können zur numerischen Lösung die unten verlinkten Skripte nutzen.
+Interpretieren Sie die Grafiken.
+
+
+
+\begin{Werkzeug}
+Reihenschaltung, Minimal/Maximalphasensystem, Allpass-Filter
+
+Source Code passend zur Aufgabe unter
+
+\url{https://github.com/spatialaudio/signals-and-systems-exercises/tree/master/z_system_analysis/}
+
+entweder als Matlab Skript oder Jupyter Notebook
+
+\texttt{minphase\_allpass\_55A8105469.m / .ipynb}
+
+Jupyter Notebook Plot-Routine \texttt{plot\_dtlti\_analysis()} findet sich
+\url{sig_sys_tools.py}
+
+
+\end{Werkzeug}
+\begin{Ansatz}
+Um aus gemischtphasigen Systemen ein minimalphasiges zu machen, müssen wir
+alle Nullstellen in den Einheitskreis bringen. Dies gelingt mit der Idee, dass
+die neue Nullstelle bzgl. des Betragsfrequenzgangs
+das gleiche machen muss wie die alte.
+Wir schauen uns das hier nicht im Detail an (dafür siehe empfohlene SigSys-Bücher):
+die Inversion des Betrags leistet genau das. Aus einer maximalphasigen Nullstelle
+wird also eine minimalphasige Nullstellen mittels
+\begin{align}
+z_\mathrm{maxphase} = |z_\mathrm{maxphase}| e^{\im\angle z_\mathrm{maxphase}}\\
+ z_\mathrm{minphase} = \frac{1}{|z_\mathrm{maxphase}|} e^{\im\angle z_\mathrm{maxphase}}
+\end{align}
+%
+Für das gesuchte Minimalphasensystem $H_\mathrm{min}(z)$ finden wir also
+\begin{align}
+&z_{1,2} = \frac{1}{2} \e^{\pm\im\frac{3}{4}\pi},\quad z_3 = \frac{1}{2}\\
+&p_{1,2} = \pm\frac{3}{4}\im,\quad z_3 = -\frac{1}{3}\\
+&g = +2
+\end{align}
+%z = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 1/2];
+%p = [3/4*1j, -3/4*1j, -1/3];
+%k = 2;
+Den Verstärkungsfaktor finden wir aus der Forderung
+$|H_\mathrm{max}(z)| = |H_\mathrm{mix}(z)| = |H_\mathrm{min}(z)|$, was
+sich halbwegs elegant für $z=\e^{\im \Omega}$ bei $\Omega=0$ also Gleichanteil
+(DC, $\frac{15+6\sqrt(2)}{25} \approx 0.9394$) finden lässt.
+%
+\end{Ansatz}
+\begin{ExCalc}
+Nachdem das Minimalphasensystem $H_\mathrm{min}(z)$ vollständig beschrieben ist,
+finden wir nun die
+jeweiligen Allpässe $H_\mathrm{all,\cdot}(z)$, damit die Reihenschaltungen gelten
+\begin{align}
+H_\mathrm{mix}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,mix}(z)\\
+H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)
+\end{align}
+%
+Für den Allpass benutzen wir alle 'maximalphasigen' Nullstellen (also außerhalb des
+Einheitskreises) eines gemischtphasigen Systems und platzieren Pole mit invertiertem
+Betrag dieser jeweiligen Nullstellen. Dies führt dann zu einem frequenzunabhängigen
+Betragsspektrum. Der Gain-Faktor wird dann so gefunden, dass Betrag Eins ist.
+%
+%In unserem Beispiel:
+
+Allpass $H_\mathrm{all,mix}(z)$ (System 2. Ordnung, weil Berücksichtigung zweier
+maximalphasige Nullstellen)
+\begin{align}
+&z_{1,2} = \frac{2}{1} \e^{\pm\im\frac{3}{4}\pi}\\
+&p_{1,2} = \frac{1}{2} \e^{\pm\im\frac{3}{4}\pi}\\
+&g=\frac{1}{4}
+\end{align}
+%z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 0];
+%p = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 0];
+%k = 1/4;
+
+Allpass $H_\mathrm{all,max}(z)$ (System 3. Ordnung, weil drei maximalphasige
+Nullstellen)
+\begin{align}
+&z_{1,2} = \frac{2}{1} \e^{\pm\im\frac{3}{4}\pi},\quad z_3 = \frac{2}{1}\\
+&p_{1,2} = \frac{1}{2} \e^{\pm\im\frac{3}{4}\pi},\quad p_3 = \frac{1}{2}\\
+&g=-\frac{1}{8}
+\end{align}
+%z = [2*exp(+1j*3*pi/4), 2*exp(-1j*3*pi/4), 2]; %all zeros from max phase
+%p = [1/2*exp(+1j*3*pi/4), 1/2*exp(-1j*3*pi/4), 1/2];
+%k = -1/8;
+\end{ExCalc}
+\begin{Loesung}
+Damit haben wir alle Systembeschreibungen zusammen,
+bei Bedarf könnten wir dies noch in die gebrochen rationale Form
+mit Koeffizienten $b,a$ bringen. Dann vielleicht sogar so, dass Systeme 2. Ordnung
+(second order structures, sos) kaskadiert sind. Das Matlab Skript liefert
+genau diese Koeffizienten im Kommandofenster zurück.
+
+Uns geht es hier eher darum mit der Pol/Nullstellen/Verstärkung Darstellung
+die gewünschten Grafiken zu erstellen.
+
+Die Zerlegung können wir, ähnlich wie in Aufgabe 6.2, auch mit
+Pol / Nullstellendiagrammen grafisch erarbeiten, siehe Bilder unten.
+Wir beginnen wieder ganz links mit dem jeweiligen gemischtphasigen System.
+Dort tragen wir alle Pole und Nullstellen ein, die dieses System an sich
+hat. Allen Nullstellen außerhalb des Einheitskreis wird nun jeweils
+eine minimalphasige Nullstelle (durch oben beschriebene Betragsinversion)
+zugeordnet, die wir in das Diagramm eintragen, und auch gleich
+mit Polstellen an der gleichen Stelle kompensieren.
+%
+In der oberen Grafik ist das mit den orangen
+Nullstellen und Polen angedeutet (in der unteren Grafik wurde drauf verzichtet,
+damit es nicht zu unübersichtlich wird). Die zusätzlich eingezeichneten Pole
+und genau die Nullstellen außerhalb des Einheitskreises werden nun dem Allpass
+im ganz rechten Bild zugeordnet.
+Die verbleibenden Pole und Nullstellen (alles im Einheitskreis, damit
+Minimalphasigkeit erfüllt ist) werden dem mittleren Bild, also $H_\mathrm{min}(z)$
+zugeordnet.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.25]
+\def \tic {0.05}
+%
+\begin{scope}  % mixed phase
+\def \rocmax{1.5} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.75) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+%\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$=$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=\frac{1}{2}$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (0,+0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,-0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.333,0) node{\Huge $\times$};
+\draw[C0, ultra thick] (-1.4142,+1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1.4142,-1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.5,0) node{\Huge $\circ$};
+%
+\draw[C1, ultra thick] (-0.3536,-0.3536) node{\Huge $\times$};
+\draw[C1, ultra thick] (-0.3536,+0.3536) node{\Huge $\times$};
+\draw[C1, ultra thick] (-0.3536,-0.3536) node{\Huge $\circ$};
+\draw[C1, ultra thick] (-0.3536,+0.3536) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{mix}(z)$};
+%
+\end{scope}
+%
+%
+%
+\begin{scope}[xshift=4cm]  % min phase
+\def \rocmax{1.5} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.75) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+%\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$\cdot$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=2$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (0,+0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,-0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.333,0) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.3536,+0.3536) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.3536,-0.3536) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.5,0) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{min}(z)$};
+%
+\end{scope}
+%
+%
+%
+\begin{scope}[xshift=8cm]  % allpass for mixed phase
+\def \rocmax{1.5} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.5) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=\frac{1}{4}$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (-0.3536,-0.3536) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.3536,+0.3536) node{\Huge $\times$};
+\draw[C0, ultra thick] (-1.4142,+1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1.4142,-1.4142) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{all,mix}(z)$};
+%
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+%
+%
+%
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\def \tic {0.05}
+%
+\begin{scope}  % max phase
+\def \rocmax{2} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.75) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+%\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[->] (-1.75,0)--(2.25,0) node[right]{$=$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=-\frac{1}{4}$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (0,+0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,-0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.333,0) node{\Huge $\times$};
+\draw[C0, ultra thick] (-1.4142,+1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1.4142,-1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (2,0) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{max}(z)$};
+%
+\end{scope}
+%
+%
+%
+\begin{scope}[xshift=5cm]  % min phase
+\def \rocmax{2} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.75) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+%\draw[->] (-1.75,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw[->] (-1.75,0)--(2.25,0) node[right]{$\cdot$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=2$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (0,+0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,-0.75) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.333,0) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.3536,+0.3536) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.3536,-0.3536) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0.5,0) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{min}(z)$};
+%
+\end{scope}
+%
+%
+%
+\begin{scope}[xshift=10cm]  % allpass for max phase
+\def \rocmax{2} % sketch of outer roc domain
+%
+% basic diagram features:
+\filldraw[even odd rule,C2!50] (0,0) circle(0.5) decorate
+[decoration={snake, segment length=15pt, amplitude=1pt}]
+{(0,-3pt) circle(\rocmax)}; % sketch the roc domain
+%
+\draw[help lines, C7!50, step=0.25cm] (-\rocmax,-\rocmax) grid (\rocmax,\rocmax);
+%
+\draw[C3, thick] (0,0) circle(1);  % unit circle, i.e. DTFT domain
+\draw (1+2*\tic,-2*\tic) node{$1$}; % indicate that this is the unit circle
+\draw[->] (-1.75,0)--(2.25,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (0,-1.75)--(0,1.75) node[above]{$\Im\{z\}$}; % axis label
+%
+\draw (1.2*0.86602540378*\rocmax,1.2*0.5*\rocmax) node[C2!75]{KB}; % indicate the roc
+%
+% the z-transfer function specific stuff:
+\draw (1,1) node[black]{$g=-\frac{1}{8}$}; % indicate gain factor
+%
+% draw the poles / zeros and if desired ticks:
+\draw[C0, ultra thick] (-0.3536,-0.3536) node{\Huge $\times$};
+\draw[C0, ultra thick] (-0.3536,+0.3536) node{\Huge $\times$};
+\draw[C0, ultra thick] (0.5,0) node{\Huge $\times$};
+\draw[C0, ultra thick] (-1.4142,+1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-1.4142,-1.4142) node{\Huge $\circ$};
+\draw[C0, ultra thick] (2,0) node{\Huge $\circ$};
+%
+\draw (0,-2) node{$H_\mathrm{all,max}(z)$};
+%
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+
+In den folgenden Grafiken sind alle Systeme und die Reihenschaltungen
+grafisch aufbereitet.
+In der linken Spalte finden wir die Frequenzgänge Pegel, Phase und Gruppenlaufzeit
+jeweils über eine andere Normierung der digitalen Frequenz $\Omega$.
+Diese Normierungen sind sehr gängig und wir sollten mit ihnen gut vertraut sein.
+Im Pegeldiagramm ist in rot zudem noch der Verlauf bzgl. der logarithmischen
+Frequenzachse (im Diagramm oben angedeutet) dargestellt.
+Die Gruppenlaufzeit ist im Diagramm in Sekunden angegeben. Zur Erstellung
+wurde die Samplingfrequenz $f_s=1$ Hz benutzt, weswegen
+die Gruppenlaufzeit auch als Samples interpretiert werden kann, wegen
+$\tau_\mathrm{GD,samples} \,/\, f_s = \tau_\mathrm{GD,seconds}$.
+
+In der rechten Spalte sind Impuls- und Sprungantwort über Samples (also unabhängig
+von $f_s$) dargestellt. Ganz unten rechts das Pol / Nullstellendiagramm.
+Der Konvergenzbereich ist hier als weiße Fläche angedeutet, also alles außerhalb
+des grauen Kreises mit Radius der betragsmäßig größten Polstelle.
+
+Gemäß Bodediagramm-Darstellung können wir bei Reihenschaltung von Systemen
+\begin{itemize}
+  \item Pegel der Einzelsysteme addieren
+  \item Phase der Einzelsysteme addieren
+  \item Gruppenlaufzeit der Einzelsysteme addieren
+\end{itemize}
+um Gesamtpegel, -phase und -gruppenlaufzeit zu erhalten.
+
+Dies lässt sich mit den Einzelsystemen \fig{fig:Hmin_55A8105469} und
+\fig{fig:Hallmix_55A8105469} zum Gesamtsystem \fig{fig:Hmixcheck_55A8105469}
+bzw. \fig{fig:Hmix_55A8105469} checken, z.B. bei $\Omega=\frac{\pi}{2}$ oder
+$\Omega=\frac{3\pi}{4}$.
+
+Im Vergleich von $H_\mathrm{min}(z)$, $H_\mathrm{mix}(z)$ und $H_\mathrm{max}(z)$
+sehen wir, dass
+
+$H_\mathrm{min}(z)$ die geringste Phasenverschiebung und Gruppenlaufzeit
+für die Frequenzen bzw. Frequenzgruppen aufweist und $H_\mathrm{max}(z)$
+die höchste Phasenverschiebung und Gruppenlaufzeit hat.
+
+Für große $k$ gehen alle Sprungantworten asymptotisch zum gleichen DC-Anteil
+$\frac{15+6\sqrt(2)}{25} \approx 0.9394$.
+
+Für Systeme mit gleichem Betragsfrequenzgang (so wie wir das ja hier vorliegen
+haben) können wir (nur als Faustformel!) im frühen Verlauf der Impuls- und
+Sprungantworten das Phasenverhalten grob erkennen.
+Das minimalphasige System hat das Maximum in $h[k]$ und $h_\epsilon[k]$ bei $k=0$,
+reagiert also 'sehr schnell', schneller geht es nicht. Die $h[k]$ der mixed und
+maximum phase Systeme 'reagieren so richtig' erst bei $k=3$ mit ihrem Maximum.
+%
+Für $h_\epsilon[k]$ sehen wir, dass das maximalphasige System bei $k=3$ das
+Maximum erreicht, während das gemischtphasige System diesen Peak bei $k=2$
+hat.
+%
+Das maximalphasige System ist also das trägste von allen, die durchlaufenden
+Signale erhalten die größte Phasenverschiebung und Gruppenlaufzeit. Bis auf
+wenige Ausnahmen, ist das in der Praxis kein gewünschtes Systemverhalten.
+
+\end{Loesung}
+
+
+
+% plot_zplane xlim, ylim!!!
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmix_55A8105469.pdf}
+\caption{Mixed Phase System $H_\mathrm{mix}(z)$. Zwei Nullstellen außerhalb
+des Einheitskreises.}
+\label{fig:Hmix_55A8105469}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmin_55A8105469.pdf}
+\caption{Minimum Phase System $H_\mathrm{min}(z)$. Alle Pole und Nullstellen
+im Einheitskreis.}
+\label{fig:Hmin_55A8105469}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hallmix_55A8105469.pdf}
+\caption{Allpass $H_\mathrm{all,mix}(z)$ damit
+$H_\mathrm{mix}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,mix}(z)$ gilt.
+Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB.}
+\label{fig:Hallmix_55A8105469}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmixcheck_55A8105469.pdf}
+\caption{Check der Reihenschaltung
+$H_\mathrm{mix}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,mix}(z)$ .}
+\label{fig:Hmixcheck_55A8105469}
+\end{figure}
+%
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmax_55A8105469.pdf}
+\caption{Maximum Phase System $H_\mathrm{max}(z)$. Drei (alle) Nullstellen
+außerhalb des Einheitskreises.}
+\label{fig:Hmax_55A8105469}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmin_55A8105469.pdf}
+\caption{Minimum Phase System $H_\mathrm{min}(z)$. Alle Pole und Nullstellen
+im Einheitskreis.}
+\label{fig:Hmin_55A8105469_2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hallmax_55A8105469.pdf}
+\caption{Allpass $H_\mathrm{all,max}(z)$ damit
+$H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)$ gilt.
+Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB.}
+\label{fig:Hallmax_55A8105469}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{../z_system_analysis/Hmaxcheck_55A8105469.pdf}
+\caption{Check der Reihenschaltung
+$H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)$ .}
+\label{fig:Hmaxcheck_55A8105469}
+\end{figure}
