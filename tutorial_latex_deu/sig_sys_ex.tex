@@ -1,4 +1,5 @@
- \documentclass[11pt,a4paper,DIV=12]{scrartcl}
+\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+\usepackage{scrlayer-scrpage}
 \usepackage[utf8]{inputenc}
 \usepackage{fouriernc}
 \usepackage[T1]{fontenc}
@@ -220,8 +221,7 @@ enlarge y limits={abs=1.2em},
 
 
 %------------------------------------------------------------------------------
-\title{Signal- und Systemtheorie\\
-Übung\thanks{
+\title{Übung Signal- und Systemtheorie\thanks{
 This tutorial is provided as Open Educational Resource (OER), to be found at
 \url{https://github.com/spatialaudio/signals-and-systems-exercises}
 accompanying the OER lecture
@@ -236,9 +236,9 @@ Computational Examples, University of Rostock} with
 \texttt{main file, github URL, commit number and/or version tag, year}.
 }
 \\
-\small Universität Rostock Vst.-Nr. 24015}
+\small Vst.-Nr. 24015}
 %
-\author{Dr. Frank Schultz, Prof. Sascha Spors\\
+\author{Frank Schultz, Sascha Spors\\
 \small Institut für Nachrichtentechnik (INT)\\
 \small Fakultät für Informatik und Elektrotechnik (IEF)\\
 \small Universität Rostock
@@ -246,6 +246,12 @@ Computational Examples, University of Rostock} with
 %
 \date{Sommersemester 2020, Version: \today}
 %------------------------------------------------------------------------------
+
+\ihead{Aufgabe \thesubsection}
+\ohead{Signal- und Systemtheorie Übung}
+\cfoot{\pagemark}
+\ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
+
 \begin{document}
 \maketitle
 \tableofcontents
@@ -275,25 +281,23 @@ Computational Examples, University of Rostock} with
 
 \setcounter{section}{6}
 %\input{sig_sys_ex_07}  % UE 7, t/f sampling/reconstruction
-%
+
 \setcounter{section}{7}
 %\input{sig_sys_ex_08}  % UE 8, LTI, conv discrete
-%
+
 \setcounter{section}{8}
 %\input{sig_sys_ex_09} % UE 9, z transform
-%
+
 \setcounter{section}{9}
 %\input{sig_sys_ex_10} % UE 10, DTFT
-%
+
 \setcounter{section}{10}
 %\input{sig_sys_ex_11} % UE 11, DFT
-%
+
 \setcounter{section}{11}
-\input{sig_sys_ex_12} % UE 12, min/max/allpass single-pole in z-domain
+%\input{sig_sys_ex_12} % UE 12, min/max/allpass single-pole in z-domain
 
 % TBD: Verweise auf Formeln / Abb.
-
-
 
 % % reference z-plane plot
 % \begin{center}
@@ -337,11 +341,9 @@ Computational Examples, University of Rostock} with
 % \end{tikzpicture}
 % \end{center}
 
-
-
 %------------------------------------------------------------------------------
 
-
+%\input{klausur.tex}
 
 %------------------------------------------------------------------------------
 %\input{sig_sys_ex_appendixA}
