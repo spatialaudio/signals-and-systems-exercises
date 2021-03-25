@@ -1,36 +1,42 @@
 \newpage
 \section*{Einleitung}
 %
-Aus aktuellem Anlass einer hoffentlich einmaligen COVID-19 Pandemie, entsteht
-dieses ausführliche Skript mit Übungsaufgaben, um die Signal- und Systemtheorie
-(SigSys) zu vertiefen.
+Dieses Übungsskript entstand als erste Version im Frühjahr/Sommer 2020 der
+COVID-19 - pandemie-bedingten Lehr- und Lernsituation Rechnung tragend.
 %
+Die Grundidee war ein klassisches, sehr ausführliches Skript zur Hand zu haben, mit dem man auch ohne Videokonferenz-Marathon (und damals initialem Chaos) eine gute Lerngrundlage
+zur Vertiefung der Signal- und Systemtheorie (SigSys) mit Übungsaufgaben hat.
+%
+In der anhaltenden Hoffnung, dass dies ein nützliches Format ist, gibt es nun für das Sommersemester 2021 die zweite COVID19-Version. Wir sind für Feedback sehr dankbar.
+
 Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher Stoff
 aus Mathematik Grundlagenvorlesungen.
 %
-Das was wir aber an Mathematik brauchen, muss sicher beherrscht werden.
+Das was wir in SigSys aber an Mathematik brauchen, muss sicher beherrscht werden.
 %
-Dies gelingt durch individuelle Übung.
+Dies gelingt durch individuelle Übung und das individuelle erfolgreiche Aneignen
+von Wissen.
 %
 Das Klären des \textbf{Was?, Warum? Wie?} und die vorangestellte \textbf{Frage des Wesens}
 bei der Vermittlung und Vertiefung von Stoff liegt in der
 Verantwortung der Dozierenden.
 %
 Dies zu beherzigen und dem streng zu folgen ist viel wichtiger als die neuesten
-oder die tradiertesten technischen Errungenschaften für die Didaktik zu benutzen.
+oder die tradiertesten technischen Errungenschaften der Didaktik zu benutzen.
 %
 Es gibt unterirdisch schlechte, genauso wie brillante Tafelvorlesungen,
-E-Learning Videos, Lehrbücher usw.
+E-Learning Videos, Lehrbücher usw. usw.
 %
 Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller Erarbeitungs-
-und Selbstreflexionsprozess, den jede(r) mit eigener Strategie bewältigt.
+und Selbstreflexionsprozess, den jede/r mit eigener Strategie bewältigt.
 %
+Viel Erfolg dabei. Scheuen Sie keine Fragen, das macht es lebendig!
+Nutzen Sie dazu gerne die Zoom-Termine der Übung und Vorlesung und die jeweiligen
+Foren im studIP.
+%
+Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
+\textbf{Lernziel} fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
 
-Ich hab mich nach langem Überlegen für ein klassisches Skript entschieden,
-um den nötigen Stoff (komplett neu) aufzubereiten.
-%
-Jede Übung werde ich in einem kurzen Screencast-Video des vorliegenden Skripts
-ankommentieren und teasen (ich hoffe ich komme zeitlich mit allem hinterher).
 %
 Unterstützt wird dieses Übungsskript durch kleine Python-Skripte in
 Jupyter Notebooks (*.ipynb Dateien),
@@ -38,22 +44,25 @@ welche alle hier enthaltenen Diagramme erzeugen, sodass Sie
 detailliert nachschauen können und mit diesen Beispielen eigene Versuche machen
 können.
 %
-Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
-Lernziel fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
+
 
 Im StudIP haben wir eine \textbf{Formelsammlung} bereitgestellt. Dort sind die
 wichtigsten Zusammenhänge der Signal- und Systemtheorie kompakt auf vier DIN A4
 Seiten zusammengetragen. Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten
-und zu verstehen. Diese Formelsammlung steht während der Klausur zur Verfügung.
-
+und zu verstehen. Diese Formelsammlung bekommen Sie während der Klausur ausgehändigt.
+%
 Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester,
-teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des letzten
-Sommersemesters 2019 für Fans den nichtlinearen Lernens.
+teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des
+Sommersemesters 2019 für Fans den nichtlinearen Lernens. Zudem das komplette Skript des letzten Sommers (2020), also die Urversion dieses Skript-Konzepts.
+Lassen Sie sich bitte nicht von den Seitenzahlen abschrecken: wenn man versucht
+alles das zu verschriftlichen, was man während einer Präsenzübung alles erzählt
+und an die Tafel schmiert, landet man eben bei knapp 30 Seiten pro Übung.
+Wenn Sie das aber halbwegs in Echtzeit mit durcharbeiten und verinnerlichen,
+sind Sie gut vorbereitet zum Üben der Altklausuraufgaben und ganz sicher auch zum Bestehen der Klausur.
 
-Das LaTex-Projekt zu diesem vorliegenden Skript und alle Jupyter Notebooks
-gibt es unter
+Das LaTex-Projekt zu diesem vorliegenden Skript und alle gerenderten Jupyter Notebooks gibt es frei verfügbar unter CC BY 4.0 Lizenz unter
 \begin{mdframed}[backgroundcolor=C2!10]
-\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+\url{https://github.com/spatialaudio/signals-and-systems-exercises/tree/output}
 \end{mdframed}
 %
 Regelmäßiges Update des Skripts als fertiges PDF erfolgt im StudIP.
@@ -65,15 +74,10 @@ Unter
 finden sich die Unterlagen der Vorlesung.
 %
 Jeder ist eingeladen bei diesen zwei Projekten Fehler zu finden, Verbesserungen
-vorzuschlagen oder sogar selber vorzunehmen (mittels neuem git branch).
+vorzuschlagen oder sogar selber vorzunehmen (mittels neuem git branch...lernen Sie auch git, Sie werden es sehr wahrscheinlich brauchen).
 %
-Zudem sollten wir die StudIP-Mittel \textbf{Wiki, Forum, Blubber} usw. zusammen
-intensiv nutzen um das kommende Semester bestmöglich zu bestreiten.
 %
-Ich werde zur planmäßigen Übungszeit Mi 11:00 bis 13:00 online im StudIP sein
-und für Blubber etc. zur Verfügung stehen.
-%
-Gerne jederzeit Fragen ins Forum (dann haben alle etwas davon).
+
 
 \newpage
 \subsection*{Aufbau Aufgabe}
@@ -81,7 +85,7 @@ Gerne jederzeit Fragen ins Forum (dann haben alle etwas davon).
 Das Wesen vorher klären mit Was?, Warum?, Wie? ist essentiell, damit wir das
 Lernziel erfassen können und Lernen nicht willkürliches Puzzleteilsammeln ist.
 Aus dem Was?, Warum?, Wie? und der gestellten Aufgabe sollten wir immer eine
-Erwartungshaltung entwickeln, bevor wir uns rein handwerklich der Lösung nähern.
+\textbf{Erwartungshaltung} entwickeln, bevor wir uns rein handwerklich der Lösung nähern.
 \end{Ziel}
 \textbf{Aufgabe:} Berechnen Sie..., Zeigen Sie..., Falls...warum..., Erläutern
 Sie anhand...
@@ -97,12 +101,17 @@ reines Handwerk betreiben.
 \begin{ExCalc}
 Ein möglicher Rechenweg, wir sollten mit eigenem Stil
 rechnen.
-Händisches Rechnen, im Vergleich zu reinem Lesen und computergestützten Lösungen,
+Händisches Rechnen und Malen und eigenes Programmieren, im Vergleich zu reinem Lesen und computergestützten Lösungen,
 steigert die kognitive Kompetenz und erleichtert dem Kopf den Zugang zum Thema.
+%
+Fancy neue elektronische Medien und Aufbereitung sind zwar auf ihre Weise elegant, aber der Erlern- und Verstehensprozess bleibt leider (bzw. zum Glück?!?!) ein Akt es Selbermachens nicht des bloßen Anschauens.
+%
+Man muss sich einfach nur selbst beobachten und fragen, wann genau sich ein befriedigendes Belohnungsgefühl einsetzt.
+%
 \end{ExCalc}
 \begin{Loesung}
-Endergebnisse, Grafiken und ganz wichtig ist --- nicht der fragwürdige Antwortsatz
-aus der Schulphysik --- sondern vielmehr eine Interpretation der Lösung
+Endergebnisse, Grafiken und ganz wichtig ist---eben nicht der fragwürdige Antwortsatz
+aus der Schulphysik---sondern vielmehr eine Interpretation der Lösung
 für das gestellte Problem. Was ist unser Erkenntnisgewinn? Was sehen wir in den
 Formeln? Was lesen wir aus den Grafiken? Wurde unsere Erwartungshaltung erfüllt
 oder nicht.
@@ -115,4 +124,6 @@ vorher geübt haben (eigentlich je mehr wir vom Wesen verstanden haben und in
 Echtzeit verwenden können; das wird aber gern mit viel Üben oder gar
 Auswendiglernen gleichgesetzt),
 desto leichter und schneller wird uns das fallen.
+%
+Auf geht's!
 \end{Loesung}
