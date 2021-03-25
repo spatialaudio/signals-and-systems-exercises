@@ -93,7 +93,7 @@ def plot_dtlti_analysis(z, p, k, fs=1, Nf=2**10, Nt=2**5):
     # group_delay discontinuities and automatic ylim, yticks is not
     # useful sometimes
 
-    plt.figure(figsize=(9, 9))
+    plt.figure(figsize=(9, 9), tight_layout=True)
 
     mu = np.arange(Nf)
     df = fs/Nf
@@ -183,4 +183,4 @@ def plot_dtlti_analysis(z, p, k, fs=1, Nf=2**10, Nt=2**5):
     ax6 = plt.subplot(3, 2, 6)
     plot_zplane(sys.zeros, sys.poles, sys.gain)  # see function above
 
-    plt.tight_layout(True)
+    # plt.tight_layout(True)
