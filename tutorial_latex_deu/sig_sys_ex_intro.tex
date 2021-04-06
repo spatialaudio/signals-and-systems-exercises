@@ -1,83 +1,118 @@
 \newpage
 \section*{Einleitung}
 %
-Dieses Übungsskript entstand als erste Version im Frühjahr/Sommer 2020 der
+
+Dieses Übungsskript entstand als erste Version im Frühjahr/Sommer 2020, der
 COVID-19 - pandemie-bedingten Lehr- und Lernsituation Rechnung tragend.
 %
-Die Grundidee war ein klassisches, sehr ausführliches Skript zur Hand zu haben, mit dem man auch ohne Videokonferenz-Marathon (und damals initialem Chaos) eine gute Lerngrundlage
-zur Vertiefung der Signal- und Systemtheorie (SigSys) mit Übungsaufgaben hat.
+Die Intention war ein klassisches, sehr ausführliches Skript zur Hand zu haben,
+mit dem man auch ohne Videokonferenz-Marathon (und damaligem initialem Chaos)
+eine gute Materialsammlung zur Vertiefung der Signal- und Systemtheorie (SigSys)
+hat.
 %
-In der anhaltenden Hoffnung, dass dies ein nützliches Format ist, gibt es nun für das Sommersemester 2021 die zweite COVID19-Version. Wir sind für Feedback sehr dankbar.
+In der anhaltenden Hoffnung, dass dies ein nützliches Format ist, gibt es nun
+für das Sommersemester 2021 die zweite COVID19-Version. Wir sind für Feedback
+sehr dankbar.
 
-Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher Stoff
-aus Mathematik Grundlagenvorlesungen.
+Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher
+Stoff aus den Mathematik Grundlagenvorlesungen.
 %
 Das was wir in SigSys aber an Mathematik brauchen, muss sicher beherrscht werden.
 %
 Dies gelingt durch individuelle Übung und das individuelle erfolgreiche Aneignen
 von Wissen.
 %
-Das Klären des \textbf{Was?, Warum? Wie?} und die vorangestellte \textbf{Frage des Wesens}
-bei der Vermittlung und Vertiefung von Stoff liegt in der
-Verantwortung der Dozierenden.
+Das Klären des \textbf{Was?, Warum? Wie?} und die vorangestellte
+\textbf{Frage des Wesens} bei der Vermittlung und Vertiefung von Stoff liegt
+in der Verantwortung der Dozierenden.
 %
 Dies zu beherzigen und dem streng zu folgen ist viel wichtiger als die neuesten
-oder die tradiertesten technischen Errungenschaften der Didaktik zu benutzen.
-%
-Es gibt unterirdisch schlechte, genauso wie brillante Tafelvorlesungen,
-E-Learning Videos, Lehrbücher usw. usw.
+oder ältere technische Errungenschaften der Didaktik zu benutzen.
 %
 Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller Erarbeitungs-
 und Selbstreflexionsprozess, den jede/r mit eigener Strategie bewältigt.
 %
-Viel Erfolg dabei. Scheuen Sie keine Fragen, das macht es lebendig!
-Nutzen Sie dazu gerne die Zoom-Termine der Übung und Vorlesung und die jeweiligen
-Foren im studIP.
+Viel Erfolg dabei und scheuen Sie keine Fragen, das macht es lebendig!
+Nutzen Sie dazu gerne die Zoom-Termine der Übung und der Vorlesung und die
+jeweiligen Foren im studIP.
 %
 Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
 \textbf{Lernziel} fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
 
 %
 Unterstützt wird dieses Übungsskript durch kleine Python-Skripte in
-Jupyter Notebooks (*.ipynb Dateien),
+\textbf{Jupyter Notebooks} (*.ipynb Dateien),
 welche alle hier enthaltenen Diagramme erzeugen, sodass Sie
-detailliert nachschauen können und mit diesen Beispielen eigene Versuche machen
-können.
+detailliert nachschauen, mit diesen Beispielen eigene Versuche machen
+bzw. Fehler aufspüren können.
 %
+Im StudIP haben wir weiter eine \textbf{Formelsammlung} bereitgestellt.
+%
+Diese Formelsammlung können Sie in der Klausur benutzen, sie bekommen Sie
+dann mit den Aufgaben ausgehändigt.
+%
+Eigene Ausdrucke sind nicht zugelassen.
+%
+In der Formelsammlung sind die wichtigsten Zusammenhänge der Signal- und
+Systemtheorie kompakt auf vier DIN A4 Seiten zusammengetragen.
+%
+Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten und zu verstehen.
 
-
-Im StudIP haben wir eine \textbf{Formelsammlung} bereitgestellt. Dort sind die
-wichtigsten Zusammenhänge der Signal- und Systemtheorie kompakt auf vier DIN A4
-Seiten zusammengetragen. Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten
-und zu verstehen. Diese Formelsammlung bekommen Sie während der Klausur ausgehändigt.
 %
 Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester,
-teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des
-Sommersemesters 2019 für Fans den nichtlinearen Lernens. Zudem das komplette Skript des letzten Sommers (2020), also die Urversion dieses Skript-Konzepts.
-Lassen Sie sich bitte nicht von den Seitenzahlen abschrecken: wenn man versucht
-alles das zu verschriftlichen, was man während einer Präsenzübung alles erzählt
-und an die Tafel schmiert, landet man eben bei knapp 30 Seiten pro Übung.
+teilweise mit Lösungen, sowie die \textbf{Übungsblätter} des Sommersemesters
+2019 für Fans den nichtlinearen Lernens;
+%
+zudem das komplette Skript des letzten Sommers (2020), also die Urversion
+dieses Skript-Konzepts, damit Sie bei Interesse schon vorab eine Idee bekommen,
+wohin die Reise während des Semester gehen wird.
+%
+Die aktuelle Version II wird sich nicht essentiell ändern, wir werden
+Didaktik optimieren und Fehler aufspüren.
+%
+Lassen Sie sich bitte nicht von der Seitenanzahl abschrecken:
+%
+wenn man versucht alles das detailliert zu verschriftlichen, was man während einer
+Präsenzübung so alles erzählt und an die Tafel schmiert, landet man eben bei
+knapp 30 Seiten pro Übung.
+%
 Wenn Sie das aber halbwegs in Echtzeit mit durcharbeiten und verinnerlichen,
-sind Sie gut vorbereitet zum Üben der Altklausuraufgaben und ganz sicher auch zum Bestehen der Klausur.
+sind Sie gut vorbereitet zum Üben der Altklausuraufgaben und ganz sicher auch
+zum Bestehen der Klausur.
 
-Das LaTex-Projekt zu diesem vorliegenden Skript und alle gerenderten Jupyter Notebooks gibt es frei verfügbar unter CC BY 4.0 Lizenz unter
+Regelmäßiges, mindest wöchentliches Update dieses Skripts als fertiges PDF
+erfolgt im StudIP im Dateienordner und es wird verlinkt mit dem jeweiligen Thema
+im Forum.
+%
+Nutzen Sie das Forum für Fragen!
+%
+Jeden \textbf{Mittwoch 11:15 - 12:45} im SS2021 gibt es eine Zoom Konsultation
+(Zugangsdaten finden Sie im StudIP).
+
+\newpage
+Das LaTex-Projekt zu diesem vorliegenden Übungsskript und alle gerenderten Jupyter
+Notebooks gibt es frei verfügbar unter CC BY 4.0 und MIT Lizenzen unter
 \begin{mdframed}[backgroundcolor=C2!10]
 \url{https://github.com/spatialaudio/signals-and-systems-exercises/tree/output}
 \end{mdframed}
+bzw.
+\begin{mdframed}[backgroundcolor=C2!10]
+\url{https://nbviewer.jupyter.org/github/spatialaudio/signals-and-systems-exercises/blob/output/index.ipynb}
+\end{mdframed}
 %
-Regelmäßiges Update des Skripts als fertiges PDF erfolgt im StudIP.
+
 %
-Unter
+Die Unterlagen der Vorlesung finden sich unter
 \begin{mdframed}[backgroundcolor=C2!10]
 \url{https://github.com/spatialaudio/signals-and-systems-lecture}
 \end{mdframed}
-finden sich die Unterlagen der Vorlesung.
 %
-Jeder ist eingeladen bei diesen zwei Projekten Fehler zu finden, Verbesserungen
-vorzuschlagen oder sogar selber vorzunehmen (mittels neuem git branch...lernen Sie auch git, Sie werden es sehr wahrscheinlich brauchen).
+Jede/r ist eingeladen bei diesen zwei Projekten Fehler zu finden, Verbesserungen
+vorzuschlagen (mittels Issue im github System) oder sogar selber vorzunehmen
+(mittels neuem git branch und einem Pull Request im githbub System).
 %
-%
-
+Lernen Sie auch möglichst bald Versionskontrolle mittels git, Sie werden es sehr
+wahrscheinlich brauchen im weiteren Verlauf des Studiums und im Berufsleben.
 
 \newpage
 \subsection*{Aufbau Aufgabe}
@@ -95,26 +130,38 @@ wo es geht und lesen ideal andere Literatur zum Thema, um die nötigen Werkzeuge
 aus anderen Blickwinkeln zu erfassen.
 \end{Werkzeug}
 \begin{Ansatz}
-Problemstellung in eine Formel überführt. Als nächstes können wir rechnen, also
+Problemstellung in Formeln überführt. Als nächstes können wir rechnen, also
 reines Handwerk betreiben.
 \end{Ansatz}
 \begin{ExCalc}
 Ein möglicher Rechenweg, wir sollten mit eigenem Stil
 rechnen.
-Händisches Rechnen und Malen und eigenes Programmieren, im Vergleich zu reinem Lesen und computergestützten Lösungen,
-steigert die kognitive Kompetenz und erleichtert dem Kopf den Zugang zum Thema.
+Händisches Rechnen und Malen und eigenes Programmieren, im Vergleich zu reinem
+Lesen und computergestützten Lösungen, steigert die kognitive Kompetenz und
+erleichtert dem Kopf den Zugang zum Thema.
 %
-Fancy neue elektronische Medien und Aufbereitung sind zwar auf ihre Weise elegant, aber der Erlern- und Verstehensprozess bleibt leider (bzw. zum Glück?!?!) ein Akt es Selbermachens nicht des bloßen Anschauens.
+Fancy neue elektronische Medien und Aufbereitung sind zwar auf ihre Weise elegant,
+aber der Erlern- und Verstehensprozess bleibt leider (bzw. zum Glück?!?!) ein
+Akt es Selbermachens nicht des bloßen Konsumierens.
 %
-Man muss sich einfach nur selbst beobachten und fragen, wann genau sich ein befriedigendes Belohnungsgefühl einsetzt.
+Beobachten Sie sich dazu selber und fragen sich, wann genau ein
+befriedigendes Belohnungsgefühl einsetzt...
 %
 \end{ExCalc}
 \begin{Loesung}
-Endergebnisse, Grafiken und ganz wichtig ist---eben nicht der fragwürdige Antwortsatz
+Endergebnisse, Grafiken und ganz wichtig ist---eben nicht der obligatorische Antwortsatz
 aus der Schulphysik---sondern vielmehr eine Interpretation der Lösung
-für das gestellte Problem. Was ist unser Erkenntnisgewinn? Was sehen wir in den
-Formeln? Was lesen wir aus den Grafiken? Wurde unsere Erwartungshaltung erfüllt
-oder nicht.
+für das gestellte Problem.
+%
+Was ist unser Erkenntnisgewinn?
+%
+(Vergleiche: Ich kann Faltung rechnen vs. Ich habe Faltung verstanden.)
+%
+Was sehen wir in den Formeln?
+%
+Was lesen wir aus den Grafiken?
+%
+Wurde unsere Erwartungshaltung erfüllt oder nicht?
 
 In der Klausur ist typischerweise so viel Stoff abzufragen und so wenig Zeit,
 dass so etwas leicht auf der Strecke bleiben kann. Jedoch eine im Kopf
@@ -127,3 +174,44 @@ desto leichter und schneller wird uns das fallen.
 %
 Auf geht's!
 \end{Loesung}
+
+\newpage
+\subsection*{Einführung SigSys 07.04.2021, Zoom 11:15}
+
+\subsubsection*{Wesen und Einordnung SigSys}
+\begin{itemize}
+\item Mathe: DGLs/ODEs, Fundamentalsystem, Fourierreihe, Fouriertransformation,
+vlt. auch Laplace Transformation
+\item Elektrotecchnik: Gleich-/Wechselstromtechnik an RLC-Schaltungen mit
+zwei speziellen Signalen: Gleichspannung und 50 Hz Sinus
+\item Mechanik: Kräfte auf Feder-Masse System, Schwingungen, Resonanz
+\item SigSys (typisch zwischen 2-4 Semester): DGLs und Signale mit
+Ingenieurspragmatik analysieren und synthetisieren, hier speziell: DGLs mit
+konstanten! Koeffizienten und Signale die als Superposition von kontinuierlichen
+Sinus/Cosinus-Schwingungen oder diskreten Folgen darstellbar sind
+\item Wir lernen Tools für: Regelungstechnik, Nachrichtenübertragungstechnik,
+Hochfrequenztechnik, Akustik, aber auch Leistungselektronik, Schaltungstechnik
+usw.
+\item Wir legen das Fundament für: Digitale Signalverarbeitung, aber auch
+Algorithmen des Maschinellen Lernens, vlg. Buzzwords: Convolutional Neural Network,
+Image Processing Black Hole
+\end{itemize}
+
+\subsubsection*{IT für SigSys VL/UE}
+\begin{itemize}
+\item Open Educational Resources (OER), zB MIT, edX
+\item wann/warum: Matlab vs. Python
+\item SigSys Lecture github
+\item SigSys Exercise github
+\item git clone vs. repo download als zip
+\item Static View Using NBViewer
+\item Dynamic \& Interactive Using MyBinder
+\item Local Install
+\item Anaconda Distribution
+\item Anaconda Navigator
+\item operate from Terminal
+\item IDEs:PyCharm / Spyder
+\item Jupyter Lab
+\item Jupyter Notebook
+\item Beispiel numpy vs. sympy
+\end{itemize}
