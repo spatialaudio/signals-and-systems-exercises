@@ -1204,7 +1204,7 @@ Statt Fläche, sprechen wir deswegen hinfort vom Gewicht 1 des Dirac-Impulses.
 
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
-  \caption{Rechteck- (oben) und Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
+  \caption{Rechteck- (oben) und normalisierte Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
   Durch die Normierung verhalten sich Breite und Höhe umgekehrt proportional und
   gehen daher in den Grenzfällen zu einem unendlich kleinem Gleichsignal oder einem unendlich kurzen und hohen
   Impuls über. Diese beiden Funktionen gehen im Grenzfall $\xi\to\infty$
@@ -1316,7 +1316,7 @@ Wir haben bisher die Korrespondenzen
 x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
 x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\\
 x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}\\
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])
 \end{align}
 kennengelernt.
 %
@@ -1515,9 +1515,9 @@ Um die Matrix aufzustellen, schreiben wir zunächst die homogene DGL um zu
 Wir können diese DGL 2. Ordnung nun auch in zwei getrennten DGL aufschreiben. Das wird
 der Grundstein für die Matrix-Sichtweise.
 %
-Mit der gängigen abgekürzten Schreibweise für Zeitableitung
+Mit den gängigen abgekürzten Schreibweisen für Zeitableitung
 \begin{align}
-\frac{\fsd y(t)}{\fsd t} = y'(t)
+\frac{\fsd y(t)}{\fsd t} = y'(t) = \dot{y}
 \end{align}
 können wir schreiben
 \begin{align}
@@ -1838,7 +1838,7 @@ Spezialfall.
 \textbf{Aufgabe} {\tiny A7BEE9E24E}: Berechnen Sie für die DGL 2. Ordnung
 \begin{align}
 \frac{16}{25} \ddot{y}(t) + \frac{24}{25} \dot{y}(t) + y(t) = 0,
-\quad y(0)=0,\quad y'(0)=\frac{25}{16}.
+\quad \dot{y}(0)=\frac{25}{16}, \quad y(0)=0.
 \end{align}
 die Lösung $y(t)$ für $t\geq 0$.
 \begin{Werkzeug}
