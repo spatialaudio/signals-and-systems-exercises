@@ -1,10 +1,11 @@
 %------------------------------------------------------------------------------
 \newpage
-\section{UE 2: Elementarsignale- und Operationen, LTI-Eigenschaften, Faltung}
+\section{UE 2: Elementarsignale- und Operationen, LTI-System Eigenschaften, Faltung}
 
-Wir müssen uns mit den zeitkontinuierlichen Elementarsignalen, siehe \verb|fundamental_signals_CT.pdf|
-im StudIP Formelsammlung vertraut machen. Diese sind
+Wir müssen uns zunächst mit den zeitkontinuierlichen Elementarsignalen vertraut
+machen, siehe \verb|fundamental_signals_CT.pdf| im StudIP unter Formelsammlung.
 
+Diese sind
 \begin{itemize}
   \item Exponentialfunktion
   $\e^{s_0 \, t}$ mit $s=\sigma_0 + \im\omega_0, s_0\in\mathbb{C}, \sigma_0\in\mathbb{R}, \omega_0\in\mathbb{C}$
@@ -68,19 +69,24 @@ $\frac{3}{2}$ und dann zeitliche Streckung (das Signal wird 'langsamer' bzw.
 braucht über die Zeit länger) mit $\frac{1}{3}$.
 %
 Zum Schluss noch die Amplitudenstauchung auf Amplitude $1 \cdot \frac{3}{4}$.
+%
+Es ist empfehlenswert, sich das kochrezeptartig anzugewöhnen, bis es sitzt.
 
-Bei einem Cos()-Signal leuchtet uns die zeitliche Streckung, Stauchung intuitiv
-ein: ausgehend von $\cos(t)$ schwingt $\cos(2\,t)$ schneller, das ist eine
-zeitliche Stauchung. Jedoch ausgehend von $\cos(t)$ schwingt $\cos(\frac{1}{2}\,t)$
-langsamer, das ist zeitliche Streckung.
+Bei einem Cos()-Signal leuchtet uns die zeitliche Streckung, Stauchung vielleicht
+intuitiv ein: ausgehend von $\cos(t)$ schwingt $\cos(2\,t)$ schneller, das ist eine
+zeitliche Stauchung.
+%
+Jedoch ausgehend von $\cos(t)$ schwingt $\cos(\frac{1}{2}\,t)$
+langsamer, das ist dann eine zeitliche Streckung.
 
 Machen wir uns klar, dass wir auch eine Verschiebung des Signals bezüglich der
 Ordinate vornehmen können. Das heißt wir manipulieren den Gleichanteil.
 %
-Signale mit Gleichanteil werden in den meisten Ingenieursdisziplinen vermieden,
-weil man den Gleichanteil schlecht (elektrische Dauerlast, Wärme)
-oder gar nicht (z.B. über Luft) übertragen kann. Wir benutzen das daher in den
-SigSys-UE seltener.
+Signale mit Gleichanteil werden in den meisten signallastigen
+Ingenieursdisziplinen vermieden, weil man den Gleichanteil schlecht
+(elektrische Dauerlast, Wärme) oder gar nicht (z.B. über Luft) übertragen kann.
+%
+Wir benutzen das daher in den SigSys-UE seltener.
 
 \end{Ansatz}
 %\begin{ExCalc}
@@ -91,7 +97,7 @@ Das Signal ist in \fig{fig:42DE8C69F7}d dargestellt. Der Lösungsweg folgt von
 
 Eine gute Kontrollmöglichkeit bietet Wolfram Alpha
 \url{https://www.wolframalpha.com/}.
-Nachdem wir uns vergewissert haben, dass die Rechteckfunktion ähnlich definiert
+Nachdem wir uns vergewissert haben, dass die Rechteckfunktion dort ähnlich definiert
 ist (Breite, Höhe, Fläche ist jeweils 1), können wir
 \verb|3/4*rect(1/3*t-1/2)| eingeben und bekommen eine analytische und grafische
 Lösung von Wolfram Alpha angeboten.
@@ -259,7 +265,7 @@ Ableitung $x'(t)$ und stellen Sie diese grafisch dar.
 Rechteckfunktion, Skalierung, Zerlegung in Sprungfunktionen, Ableitung
 
 Ausblendeigenschaft / Austasteigenschaft des Dirac-Impulses,
-was eigentlich eher eine Definition, anstatt eine Eigenschaft ist (siehe UE1)
+was ja eigentlich eher eine Definition, anstatt eine Eigenschaft ist (siehe UE1)
 \begin{equation}
 \int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(\tau)
 \end{equation}
@@ -277,14 +283,14 @@ Rechteckfunktion einen Teil ausschneiden. Dann Mathematik betreiben.
 \end{Ansatz}
 \begin{ExCalc}
 Vier Schwingungen pro 2 Sekunden, also Frequenz $f=2$ Hz, also Kreisfrequenz
-$\omega=2\pi\cdot 2 = 4\pi$ rad/s, also $\cos(4\pi t)$ der nur zwischen
-$-2 < t < +2$ schwingt. Wir können den Cos dafür mit einer geeigneten Rechteckfunktion
-multiplizieren.
+$\omega=2\pi\cdot 2 = 4\pi$ rad/s, also $\cos(4\pi t)$ (wir haben zeitlich gestaucht)
+der nur zwischen $-2 < t < +2$ schwingt. Wir können den Cos dafür mit einer
+geeigneten Rechteckfunktion multiplizieren.
 
 Die benötigte Rechteckfunktion muss axialsymmetrisch sein, d.h. es ist keine
 Zeitverschiebung involviert.
 Die benötigte Rechteckfunktion muss breiter sein, als das Standardsignal
-$\mathrm{rect}(t)$, d.h. es ist eine Streckung ist erforderlich.
+$\mathrm{rect}(t)$, d.h. es ist eine zeitliche Streckung erforderlich.
 Breite von $\mathrm{rect}(t)$ ist 1 (hat auch Fläche 1!), wir brauchen aber
 Breite 4, daher $\mathrm{rect}(t\cdot \frac{1}{4})$ (zur Erinnerung:
 die Funktion soll sich bei Streckung langsamer über der Zeit ändern, daher
@@ -355,7 +361,7 @@ Also, zunächst die Zerlegung der Rechteckfunktion in zwei Sprungfunktionen
 \begin{align}
 \frac{\fsd }{\fsd t} x(t) =
 \frac{\fsd }{\fsd t} \cos(4\pi t) \cdot \left( \epsilon(t+2) -\epsilon(t-2)\right)=\\
-+ \frac{\fsd }{\fsd t} \cos(4\pi t) \epsilon(t+2)
+\frac{\fsd }{\fsd t} \cos(4\pi t) \epsilon(t+2)
 - \frac{\fsd }{\fsd t} \cos(4\pi t) \epsilon(t-2)
 \end{align}
 
@@ -368,7 +374,8 @@ Ausformulieren bringt
 - 4\pi\sin(4\pi t) \epsilon(t+2) + \cos(4\pi t) \delta(t+2)
 + 4\pi\sin(4\pi t) \epsilon(t-2) - \cos(4\pi t) \delta(t-2)
 \end{align}
-Umsortieren, damit wir aus den Sprüngen wieder Rechteckfunktion machen können
+Umsortieren, damit wir aus den Sprüngen wieder eine Rechteckfunktion machen können
+(was natürlich nicht immer geht, hier aber zum Glück, weil...?)
 \begin{align}x'(t)=
 - 4\pi\sin(4\pi t) (\epsilon(t+2) - \epsilon(t-2))
 + \cos(4\pi t) \delta(t+2)
@@ -535,8 +542,9 @@ Das Signal $x'(t)$ besteht also aus der Überlagerung des polaritätsinvertierte
 zeitlich begrenzten Sinus (also Sinusimpuls, auch
 Sinusburst genannt) und zwei Dirac Impulsen. Im Bild ist die
 Polarität des Gewichts per Pfeilrichtung und der Betrag des Gewichts per (1)
-indiziert. Also: $-\delta(t-2)$ Gewicht $-1$ und um 2 zeitlich verzögert,
-$+\delta(t+2)$ Gewicht $+1$ und um 2 zeitlich vorauseilend.
+indiziert. Also: $-\delta(t-2)$ hat Gewicht $-1$ und ist um die Zeit 2 zeitlich
+verzögert,
+$+\delta(t+2)$ hat Gewicht $+1$ und ist um Zeit 2 zeitlich vorauseilend.
 \end{Loesung}
 
 
@@ -551,11 +559,11 @@ Es ist wichtig, dass wir uns Zeitverschiebung im Verbund mit negativer Zeitskali
 als Konzept der Zeitspiegelung bezüglich einer Achse zu einem speziellen Zeitpunkt
 klarmachen. Diese Signaloperation ist fundamental wichtig in der Faltung.
 \end{Ziel}
-\textbf{Aufgabe} {\tiny FBE36B0684}: Stellen Sie
+\textbf{Aufgabe} {\tiny FBE36B0684}: Stellen Sie die Signale
 $x_1(t) = \mathrm{e}^{-t-1} \cdot \epsilon(t+1)$ und
 $x_2(t) = \mathrm{e}^{t-2} \cdot \epsilon(-t+2)$
-grafisch dar und machen Sie deutlich wie aus $x_1(t)$  mittels Zeitverschiebung
-und negativer Zeitskalierung $x_2(t)$ wird.
+grafisch dar und machen Sie deutlich wie aus Signal $x_1(t)$ mittels Zeitverschiebung
+und negativer Zeitskalierung das Signal $x_2(t)$ resultiert.
 \begin{Werkzeug}
 Wir brauchen die Konzepte (a) der Zeitverschiebung, hier speziell Zeitverzögerung,
 also Verschiebung des Signals nach rechts und (b) der Umkehr des Funktionsarguments,
@@ -563,10 +571,11 @@ schlampig ausgedrückt, der Zeitumkehr. Letzteres erreichen wir indem wir
 für den in der Aufgabe \ref{sec:42DE8C69F7} definierten Zeitskalierungsfaktor
 $\theta=-1$ zulassen. Wir machen uns klar, dass wir auch andere negative
 $\theta$ zulassen könnten, dann wird das Signal nicht nur gespiegelt,
-sondern zusätzlich noch gestaucht/gestreckt.
+sondern zusätzlich noch gestaucht/gestreckt. Das sollten wir uns mal ganz in Ruhe
+mit Wolfram Alpha als Referenzlösung anschauen.
 \end{Werkzeug}
 \begin{Ansatz}
-Es gibt zwei Varianten von $x_1(t)$ zu $x_2(t)$ zu gelangen:
+Es gibt zwei Varianten um von $x_1(t)$ zu $x_2(t)$ zu gelangen:
 
 Variante I: erst Zeitskalierung $\theta=-1$, dann Zeitverschiebung um $\tau$
 
@@ -576,6 +585,8 @@ Variante II: erst Zeitverschiebung um $\tau$, dann Zeitskalierung $\theta=-1$
 \begin{ExCalc}
 Mit Wolfram Alpha \url{https://www.wolframalpha.com} können wir uns bei
 Unsicherheit Klarheit verschaffen.
+%
+Ansonsten ist das eine exzellente Gelegenheit für Stift und Papier.
 \end{ExCalc}
 \begin{Loesung}
 Für Variante I siehe \fig{fig:FBE36B0684_1}, für Variante II siehe
@@ -805,7 +816,7 @@ mit welchen Systemen die LTI-Signalverarbeitung operieren darf und mit welchen n
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 25F7F29E2A}: Testen Sie für die unten gegebenen
 Systembeschreibungen, ob Linearität und Zeitinvarianz vorliegt.
-Was tut das System? Was ist ein passender Name für das System?
+Was macht das System? Was wäre ein passender Name für das System?
 \begin{Werkzeug}
 Folgen wir der Systemoperatorschreibweise
 \begin{equation}
@@ -816,7 +827,7 @@ Ausgangssignal $y(t)$.
 
 \textbf{Test auf Linearität}:
 %
-Ein System ist genau dann linear, wenn für die Superposition und Skalierung
+Ein System ist genau dann linear, wenn für die Superposition und Amplituden-Skalierung
 von Signalen
 \begin{equation}
 \sysH{a\cdot x_1(t) + b\cdot x_2(t)} = a\cdot\sysH{x_1(t)} + b\cdot\sysH{x_2(t)}
@@ -1439,9 +1450,19 @@ praktischer Probleme lösen.
 \label{sec:1D3D68B312}
 \begin{Ziel}
 Anhand zweier endlicher, vergleichsweise einfacher Signale (damit die Integrierei
-einfach bleibt) soll die Faltung zu Fuß ausgerechnet werden.
-Dabei machen wir uns klar, was die Signaloperation $-\tau+t$ für eines der beiden
-Signale bedeutet.
+überschaubar bleibt) soll die Faltung analytisch ausgerechnet werden, weil
+wir das einfach mal gemacht haben müssen (Common Basics in der
+Ingenieur*innenausbildung).
+%
+In der Praxis wird die Faltung für zeitdiskrete Signale dann vom Computer
+übernommen.
+%
+Je mehr wir verstehen, was diese Integraloperation macht, desto leichter fällt
+uns der Umgang in der Praxis.
+%
+Essentiell bei der Faltung ist die Bedeutung der der Signaloperation $-\tau+t$
+für eines der beiden Signale.
+%
 Da die Faltung kommutativ ist, können wir zwei Wege beschreiten, die zum selben
 Ergebnis führen. In der Praxis wählen wir den, der weniger Rechenaufwand bedeutet.
 Um das schon vor der Rechnerei abschätzen zu können, brauchen wir aber ein wenig
@@ -1449,7 +1470,8 @@ Um das schon vor der Rechnerei abschätzen zu können, brauchen wir aber ein wen
 \end{Ziel}
 %
 \textbf{Aufgabe} {\tiny 1D3D68B312}: Berechnen Sie für die dargestellten Signale
-$x(t)$ und $h(t)$ das Faltungsergebnis $y(t) = x(t) \ast h(t)$.
+$x(t)$ und $h(t)$ das Faltungsergebnis (also das resultierende Signal)
+$y(t) = x(t) \ast h(t)$.
 %
 \begin{center}
 \begin{tikzpicture}[>=stealth, scale = 0.5]
@@ -1469,11 +1491,11 @@ $x(t)$ und $h(t)$ das Faltungsergebnis $y(t) = x(t) \ast h(t)$.
 \foreach \x in {1,...,3} {\draw (\x,0.1) -- (\x,-0.1);};
 \foreach \y in {1,...,2} {\draw (0.1,\y) -- (-0.1,\y);};
 \node at (0,0)[below]{\tiny $0$};
-\node at (1,0)[below]{\tiny $1/2$};
+\node at (1,0)[below]{\tiny $2/4$};
 \node at (0,1)[left]{\tiny $1/2$};
 \node at (2,0)[below]{\tiny $1$};
 \node at (0,2)[left]{\tiny $1$};
-\node at (3,0)[below]{\tiny $3/2$};
+\node at (3,0)[below]{\tiny $6/4$};
 \draw[-, C0, ultra thick] (2,0) -- (2,2) -- (3,0);
 \end{scope}
 \end{tikzpicture}
@@ -1490,7 +1512,8 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(-\tau+t) h(\tau) \, \fsd \tau
 \end{equation}
 An dieser Stelle können wir kurz beachten, dass das Integral auch für
 komplexwertige Signale $x(t)\in\mathbb{C}$ und $h(t)\in\mathbb{C}$ gilt. Bei
-Zeitsignalen verwenden wir das eher seltener.
+Zeitsignalen verwenden wir das eher seltener, der Faltung von komplexwertigen
+Fourier Spektren werden wir aber hier und da begegnen.
 \end{Werkzeug}
 
 \begin{Ansatz}
@@ -1515,13 +1538,15 @@ x(t)=
 \end{cases}
 \end{equation}
 damit ist (rect: erst zeitlich verspätet um 1, dann zeitlich strecken wegen
-$\frac{1}{2}<1$)
+$\frac{1}{2}<1$ und Amplitude strecken um Faktor 2)
 \begin{equation}
 x(t) = 2\cdot\mathrm{rect}\left(\left[t-1\right] \cdot \frac{1}{2}\right)
 \end{equation}
-Fassen wir $h(t)$ als Impulsantwort eines LTI-Systems und $x(t)$ als
-Eingangssignal in dieses auf, obwohl es dem Faltungsintegral egal ist, wie wir
-die Signale interpretieren.
+Fassen wir $h(t)$ hier mal als Impulsantwort eines LTI-Systems und $x(t)$ als
+Eingangssignal in dieses auf, obwohl es dem Faltungsintegral völlig egal ist,
+wie wir die Signale interpretieren.
+%
+Dann ist das Faltungsergebnis das Ausgangssignal des LTI-Systems.
 \end{Ansatz}
 
 
@@ -1531,7 +1556,7 @@ die Signale interpretieren.
 y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
 \end{equation}
 \begin{itemize}
-  \item Schritt 1: Substitution $t\rightarrow \tau$ für $x(t)$
+  \item Schritt 1: Substitution $t\rightarrow \tau$ damit $x(t)\rightarrow x(\tau)$
   \begin{equation}
   x(\tau)=
   \begin{cases}
@@ -1555,17 +1580,26 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
   0 \quad \mathrm{sonst}
   \end{cases}
   \end{equation}
-  \item Schritt 4: Stammfunktion bilden
+  \item Schritt 4: Stammfunktionansatz aufschreiben
   \begin{equation}
   y(t) =
   \int\limits_{a}^{b} x(\tau) \cdot h(-\tau+t) \fsd \tau =
   \int\limits_{a}^{b} 2 \cdot (2 \tau - 2 t + 3) \fsd \tau
   \end{equation}
-  und berechnen zu
+  und berechnen zu (hier stumpf integrieren, Kopfweh bzgl. der Grenzen erstmal
+  ignorieren, die richtige allgemeine Stammfunktion bringt Punkte in der Klausur)
   \begin{equation}
   y(t) = 2 \tau^2 - 4 t \cdot \tau + 6 \tau\bigg|_{\tau=a}^{\tau=b}
   \end{equation}
-  Die \red{Intervall}\blue{grenzen} gehen als Integrationsbereiche $a,b$ in die Faltung ein.
+  Nun erst widmen wir uns dem typischen Stolperstein bzw. Kopfweh:
+  Die farbig markierten \red{Intervall}\blue{grenzen} gehen als
+  Integrationsbereiche $a,b$ in die Faltung ein.
+%
+  Wie genau, müssen wir uns einmal ganz in Ruhe überlegen, mit ein wenig Übung,
+  sehen wir es schneller.
+%
+  Das ganze Geheimnis ist sich klarzumachen wie sich die Signale beim gegenseitigen
+  Durchschieben überlappen. Daher:
   \item Schritt 5:  Signal-Überlappungen
 
   $x(t)$ ist endliches Signal von $t_1=0$ bis $t_2=2$
@@ -1573,6 +1607,7 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
   $h(t)$ ist endliches Signal von $t_3=1$ bis $t_4=\frac{3}{2}$
 
   $y(t)$ wird daher ein endliches Signal von $t_1+t_3=1$ bis $t_2+t_4=\frac{7}{2}$ sein
+  (Faltungsanimation auf sich wirken lassen!)
 
   es gibt eine Teilüberlappung von $x(\tau)$ und $h(-\tau+t)$  'vorne' von
   $t_1+t_3$ bis $t_1+t_3+T$
@@ -1586,7 +1621,7 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
 
   $y(t)=0$ für $t<(t_1+t_3)$ und $t\geq(t_2+t_4)$
 
-  Diese Erkenntnisse in einer Formel
+  Diese Erkenntnisse packen wir in eine Formel
   \begin{equation}
   y(t) =
   \begin{cases}
@@ -1597,7 +1632,8 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
   \end{cases}
   \end{equation}
 
-  \item Schritt 6:  Stammfunktion mit Grenzen auswerten
+  \item Schritt 6:  (immer die gleiche!)
+  Stammfunktion mit Grenzen auswerten (für $y_4(t)$ sind wir bereits fertig)
 
   \begin{equation}
   y_1(t) = 2 \tau^2 - 4 t \cdot \tau + 6 \tau\bigg|_{\tau=\red{0}}^{\tau=\blue{-1+t}}
@@ -1611,6 +1647,9 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau + t) \, \fsd \tau
   \begin{equation}
   y_3(t) = 2 \tau^2 - 4 t \cdot \tau + 6 \tau\bigg|_{\tau=\blue{-\frac{3}{2}+t}}^{\tau=\red{2}} = +2 t^2 - 14 t + \frac{49}{2}
   \end{equation}
+
+  Falls Kopfweh bleibt, lohnt sich Variante II im Vergleich anzuschauen, da
+  sind die Grenzen vielleicht anschaulicher.
 
 \end{itemize}
 \end{ExCalc}
@@ -1628,11 +1667,20 @@ y(t) =
 \end{cases}
 \end{align}
 %
-Wir machen uns für $y_2(t)$ klar, dass bei voller Überlappung hier die
-zweifache (Amplitude des rect) Dreiecksfläche
-(Beschaffenheit von $h(t)$) herauskommen muss.
+Wir machen uns für $y_2(t)$ klar, dass bei voller Überlappung die
+zweifache Dreiecksfläche
+(Beschaffenheit von $h(t)$) herauskommen muss, weil Amplitude des rect 2 und
+das Integral im Grunde die Fläche des Dreiecks auswertet.
 %
+Das passiert hier speziell und intentional (damit wir ein Gefühl bekommen, was
+die Operation Faltungsintegral eigentlich macht),
+weil wir ein Rect Signal zum Falten gewählt haben,
+das vollständig mit dem Dreieck-Signal überlappt.
+%
+Bei anderen schwierigeren Signalverläufen macht das Integral zwar immer noch
+das gleiche, aber das sehen wir dann uU nicht mehr sofort.
 
+An dem Beispiel können wir noch mehr Sachen elegant validieren:
 Eine stückweise lineare Gerade (vgl. $h(t)$) und Konstante (vgl. $x(t)$)
 im Faltungsintegral führt
 bei den Lösungen der Teilüberlappungen zu Polynomen der Ordnung 2, also für
@@ -1725,7 +1773,7 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(-\tau+t) h(\tau) \, \fsd \tau
     0 \quad \mathrm{sonst}
   \end{cases}
   \end{equation}
-  \item Schritt 4: Stammfunktion bilden
+  \item Schritt 4: Stammfunktionansatz aufschreiben
   \begin{equation}
   y(t) =
   \int\limits_{a}^{b} x(-\tau+t) \cdot h(\tau) \fsd \tau =
@@ -1797,7 +1845,7 @@ y(t) =
   y_4(t)=0 &\qquad \mathrm{sonst}
 \end{cases}
 \end{align}
-Im Vergleich zu Variante I ist diese Lösung vielleicht ein wenig
+Im Vergleich zu Variante I ist diese Lösung vielleicht
 intuitiver, weil wir die Rechteckfunktion zeitlich verschieben und die
 Integrallgrenzen schneller einleuchten.
 %
@@ -1812,6 +1860,14 @@ Die Grenzen müssen stimmig sein zu der Funktion die verschoben wird.
 
 Einem Rechteckimpuls sieht man nicht durch reines Hinschauen an, dass er
 zeitlich gedreht wurde, hier ist also besondere Obacht erforderlich.
+%
+Gut gemeintes einfaches Integrieren erkaufen wir uns hier also mit tendenzieller
+Verwirrung beim Signalspiegeln.
+%
+Erfahrungsgemäß braucht diese Rechnerei mal einen sehr ruhigen Moment und vertieftes
+Sinnieren, während die Faltungsanimation in Dauerschleife läuft, irgendwann
+wird klar, was wie verschoben werden muss und mit den Integrationsgrenzen verlinkt
+ist.
 %
 \end{Loesung}
 
@@ -1868,10 +1924,13 @@ zeitlich gedreht wurde, hier ist also besondere Obacht erforderlich.
 \label{sec:AF3B15E0D3}
 \begin{Ziel}
 Diese Aufgabe ist sehr ähnlich zu Aufgabe \ref{sec:1D3D68B312}.
-Lediglich die Funktion von $h(t)$ ist verändert, alle Grenzen und
+Nur die Funktion von $h(t)$ ist verändert, alle Grenzen und
 Längenbetrachtungen bleiben jedoch gleich. Das hat einen didaktischen
 Hintergrund: Wir wollen hier zu der Erkenntnis kommen, dass eine exp()-Funktion
 das Faltungsergebnis an den Sprungstellen anders 'glättet' als der Dreiecksimpuls.
+Wenn wir $h(t)$ wieder als Impulsantwort eines LTI-System auffassen wollen,
+heisst das, dass dieses System im Wesen ähnliche Dinge macht, aber im Detail
+leicht anderes System-Verhalten hat.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny AF3B15E0D3}: Berechnen Sie für die in der Skizze dargestellten
 endlichen Signale $h(t)$ und $x(t)$ die Faltung $y(t)=x(t) \ast h(t)$.
@@ -1912,6 +1971,8 @@ verschieben, daher
 \begin{equation}
 y(t) = \int\limits_{-\infty}^{+\infty} x(-\tau+t) h(\tau) \, \fsd \tau
 \end{equation}
+also analog zur wahrscheinlich zugänglicheren Variante II aus Aufgabe
+\ref{sec:1D3D68B312}.
 \end{Werkzeug}
 
 
@@ -1974,13 +2035,13 @@ und folgen unserem Algorithmus:
     0 \quad \mathrm{sonst}
   \end{cases}
   \end{equation}
-  \item Schritt 4: Stammfunktion bilden
+  \item Schritt 4: Stammfunktionansatz
   \begin{equation}
   y(t) =
   \int\limits_{a}^{b} x(-\tau+t) \cdot h(\tau) \fsd \tau =
   \int\limits_{a}^{b} 2 \cdot (\e^{-[\tau-1]\cdot 6}) \fsd \tau
   \end{equation}
-  und berechnen zu
+  und berechnen zu (auch noch ein eher triviales Integral)
   \begin{equation}
   y(t) = -\frac{1}{3}\e^{-[\tau-1]\cdot 6}\bigg|_{\tau=a}^{\tau=b}
   \end{equation}
@@ -2110,17 +2171,18 @@ RC-Glied hat eine \textbf{unendliche} Impulsantwort.
 
 
 \clearpage
-\subsection{Faltung Rechteckimpuls mit Exponentialfuntion}
+\subsection{Faltung Rechteckimpuls mit Exponentialfunktion}
 \label{sec:C964DD7400}
 \begin{Ziel}
 Wir werden anhand einer speziellen Faltung eines endlichen Signals mit
 einem unendlichen Signal, einen ganz fundamentalen Link zur Elektrotechnik
 und DGLs 1. Ordnung mit konstanten Koeffizienten herstellen:
-Sprungartige Spannungsänderungen an passiven E-Bauteilen (Auf-/Entladen) können wir
+Sprungartige Spannungsänderungen an passiven Energiespeichern (Auf-/Entladen) können wir
 sehr elegant mit Signal-und Systemtheorie Werkzeugen berechnen. Es wird mit
 der Laplace Transformation später sogar noch eleganter.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny C964DD7400}: Für das unten abgebildete RC-Glied
+(Annahme: ideale Bauelemente)
 gilt die \textbf{Impulsantwort} (wir nehmen LTI System-Eigenschaften an)
 \begin{equation}
 h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}
@@ -2129,7 +2191,7 @@ h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}
 \end{equation}
 Wir betrachten das RC-Glied als ruhend, also $y(0)=0$.
 %
-Berechen Sie für $T_\mathrm{RC}=\frac{1}{5}$ s und für das unten dargestellte
+Berechnen Sie für $T_\mathrm{RC}=\frac{1}{5}$ s und für das unten dargestellte
 Eingangssignal $x(t)$ das Faltungsergebnis $y(t)=x(t) \ast h(t)$.
 %
 \begin{center}
@@ -2142,8 +2204,8 @@ Eingangssignal $x(t)$ das Faltungsergebnis $y(t)=x(t) \ast h(t)$.
 \draw (3,0) to [short,-o,] (out);
 \draw (3,0) to [C,l_=$C$,*-*] (3,-3);
 \draw (in_ground) to [short,o-o] (out_ground);
-\path[draw, bend right, ->, >=latex] (in) edge node[left]{$x(t)$} (in_ground);
-\path[draw, bend left, ->, >=latex] (out) edge node[right]{$y(t)$} (out_ground);
+\path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $x(t)$} (in_ground);
+\path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $y(t)$} (out_ground);
 \end{circuitikz}
 \end{center}
 %
@@ -2173,13 +2235,13 @@ $\frac{1}{5} \cdot h(t)=\exp(- t \cdot 5) \cdot \epsilon(t)$}
 \end{axis}
 \end{tikzpicture}
 
-\noindent\textbf{Hinweis 1}: Wir werden nach Übung 3 in der Lage sein, $h(t)$ elegant herzuleiten.
+\noindent\textbf{Hinweis 1}: Wir werden nach der Übung 3 in der Lage sein, $h(t)$ elegant herzuleiten.
 Nehmen wir das an dieser Stelle mal hin, aber bemerken auch, dass wir
 diese Art Formel beim Kondensator eh schon mal gesehen haben, mutmaßlich aber
 nicht im Kontext einer Impulsantwort.
 
 \noindent\textbf{Hinweis 2}: In der ET verwenden wir gerne $\tau$ für die Zeitkonstante, weil das
-aber unsere Hilfsvariable in der Faltung ist, geben wir der Zeitkonstante die Variable
+aber unsere Hilfsvariable in der Faltung ist, geben wir der Zeitkonstante des RC-Glieds die Variable
 $T_\mathrm{RC}$.
 
 \noindent\textbf{Hinweis 3}: Aufgabe \ref{sec:AF3B15E0D3} behandelte den \textbf{endlichen Exponentialimpuls}
@@ -2195,7 +2257,7 @@ mit konstanten Koeffizienten
 T_\mathrm{RC} \frac{\fsd y(t)}{\fsd t} + y(t) = x(t)
 \end{equation}
 mit $y(0)=0$ zu tun haben und überlegen, wie wir die Aufgabe mit
-typischem Mathe-DGL Handwerk lösen würden. Siehe auch Klausur WS19/20 Aufgabe 1.
+typischem Mathe-DGL Handwerk lösen würden. Siehe auch SigSys-Klausur WS19/20 Aufgabe 1.
 
 \begin{Werkzeug}
 Es ist mutmaßlich wieder schöner zu integrieren,
@@ -2275,9 +2337,9 @@ y_2(t) =
 \end{ExCalc}
 
 \begin{Loesung}
-Das Endergebnis lautet
+Das Endergebnis lautet mit Superposition
 \begin{equation}
-y(t) =
+y(t) = y_1(t) + y_2(t) =
   \begin{cases}
   \left(1-\e^{-5 t}\right) &\qquad \mathrm{für} \qquad 0 \leq t < 2\\
   \left(1-\e^{-5 t}\right) + \left( \e^{-5 [t-2]}-1\right) = \e^{-5 [t-2]} - \e^{-5 t}
@@ -2303,16 +2365,24 @@ Annäherung an den Endzustand.
 Spannende Frage zum Sinnieren oder vielleicht sogar Rechnen:
 Wie schaut das Ausgangssignal $y(t)$ aus, wenn man den Rechtecksprung sehr,
 sehr, sehr kurz macht und vielleicht sogar Fläche 1 sicherstellt?
-
-Spannender Link: Wir haben mit $y_1(t) = 1-\e^{-5 t}$ für $t\geq 0$, $y_1(t)=0$
-sonst die \textbf{Sprungantwort} $h_\epsilon(t)$ des Systems berechnet,
-sozusagen als Abfallprodukt.
+ 
+Spannender Link I: Wir haben mit
+\begin{align}
+y_1(t) =
+\begin{cases}
+1-\e^{-5 t} \quad \text{für} \quad t\geq 0\\
+0 \quad \text{sonst}
+\end{cases}
+\end{align}
+die sogenannte \textbf{Sprungantwort} $h_\epsilon(t)$ des Systems berechnet,
+sozusagen als Abfallprodukt, weil wir die Sprungfunktion als Systemeingang gewählt
+haben, und das System eben antwortet mit der ... Sprungantwort.
 
 Spannender Link II: Die \textbf{Impulsantwort} $h(t)$ ist direkt proportional zur
 Entladekurve eines Kondensators, wenn der Kondensator zum Zeitpunkt $t=0$
 vollständig auf $U_q$ aufgeladen war und ab $t=0+$ die Entladung erfolgt.
-Aus der ET wissen wir, dass dann $y(t) = U_q \e^{-\tau/T_\mathrm{RC}}$ gilt, verglichen
-mit $h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}$...
+Aus der ET wissen wir, dass dann $y(t) = U_q \e^{-\tau/T_\mathrm{RC}}$ gilt,
+wir sehen Ähnlichkeiten mit $h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}$...
 
 Wir bekommen (hoffentlich) langsam ein Gespür für die größeren Zusammenhänge und
 warum SigSys cool sein könnte.
