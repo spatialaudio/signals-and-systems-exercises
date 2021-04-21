@@ -1,0 +1,497 @@
+\clearpage
+\section{Appendix B: Basics Elektrotechnik}
+%
+Dieser Appendix ersetzt auf keinen Fall ein mehrsemestriges intensives Studieren
+der ET, vielleicht hilft er aber sich schneller zurechtzufinden und die Links
+zur SigSys zu erkennen.
+%
+Sehr hilfreiches Buch für Einsteiger*innen in ET ist das Buch
+\cite{Marinescu2020}, im Uni Netz als freies E-Book unter
+
+\url{https://link.springer.com/book/10.1007/978-3-658-28884-6}
+
+Wenn wir bisher wirklich gar nichts mit Elektrotechnik zu tun hatten und uns
+der Link zur SigSys interessiert, helfen vielleicht die Basics
+in den \cite[Kapiteln 1-3]{Marinescu2020}
+\begin{itemize}
+  \item Ohmsches Gesetz
+  \item Kirchhoffsche Gleichungen/Regeln, also Maschenumlauf ergibt Spannung Null,
+  Summe alle Ströme rein/raus Knoten muss Null sein
+  \item für Widerstand: Reihenschaltung (R1+R2) mit gleichem Strom,
+  Parallelschaltung (1/R1+1/R2) mit gleicher Spannung
+\end{itemize}
+Dann in \cite[Kapitel 9]{Marinescu2020}
+\begin{itemize}
+\item Konzept Induktivität u = L di/dt, ideales Bauelement Spule
+\item Konzept Kapazität i = C du/dt, ideale Bauelement Kondensator
+\item Sinusschwingung, Effektivwert
+\item Phasenunterschied zwischen Strom/Spannung bei Widerstand, Spule, Kondensator
+\item Kapitel 9.7 / 9.8 beinhaltet Rechnerei an
+einfachen R,L,C Schaltungen mit DGL-Ansätzen.
+\end{itemize}
+Danach vielleicht hilfreich \cite[Kap. 10.2 und 10.3]{Marinescu2020}, d.h.
+die komplexe Wechselstromtechnik an R,L,C-Netzwerken, hier steht
+der Zusammenhang zwischen Strom und Spannung im Vordergrund.
+In \cite[Kap. 13]{Marinescu2020} schaut man sich dann den Zusammenhang zwischen
+wechselförmigen Ausgangs- und Eingangsspannung an, während
+\cite[Kap. 15]{Marinescu2020} auf Schaltvorgänge eingeht.
+
+Im Wesen schauen wir uns in ET an, wie sich Gleich- oder Wechselgrößen
+an elektrischen Netzwerken verhalten entweder im stationären Zustand
+oder speziell den Ein-/Ausschaltvorgang von Gleich-/Wechselgrößen.
+%
+Dies sind in der Welt der SigSys Spezialfälle für die Analyse des LTI-Systems
+'elektrisches Netzwerk mit idealen Bauelementen'.
+
+Im Folgenden ein Versuch die Essenz kompakt zusammenzufassen.
+
+\subsection{Strom i(t) / Spannung u(t) an passiven Bauelementen}
+
+vgl. \cite[Kap. 10.2.2]{Marinescu2020}
+
+\begin{align}
+\text{Widerstand} \qquad & u(t) = R i(t) \qquad& i(t) = \frac{1}{R} u(t)\\
+\text{Spule} \qquad & u(t) = L \frac{\fsd i(t)}{\fsd t} \qquad& i(t) = \frac{1}{L} \int u(t) \fsd t\\
+\text{Kondensator} \qquad & u(t) = \frac{1}{C} \int i(t) \fsd t \qquad& i(t) = C \frac{\fsd u(t)}{\fsd t}
+\end{align}
+
+\subsection{Symbolische Rechnung mit komplexen Zeigern für harmonische Wechselspannung}
+
+vgl. \cite[Kap. 10.3]{Marinescu2020}
+
+Wir machen den Ansatz für komplexwertige, harmonische Signale
+\begin{align}
+u(t) = \sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)}\\
+i(t) = \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)},
+\end{align}
+mit den Effektivwerten $U_\text{eff}$, $I_\text{eff}$ und Phasenoffsetwinkeln
+$\phi_u$, $\phi_i$.
+%
+Die obigen Bauteile können in der Praxis nur reellwertige Signale
+verarbeiten, daher müssen wir uns entscheiden, ob wir mit dem Realteil oder dem
+Imaginärteil von $u(t)$ und $i(t)$ Rückschlüsse zur tatsächlich stattfindenden
+Physik ziehen wollen.
+Im Grunde ist das Geschmacksfrage, wir entscheiden uns hier 'ja nur', ob wir
+physikalisch mit dem Cosinus oder dem Sinus operieren, aber diese Entscheidung
+muss dann konsequent beibehalten werden.
+
+Falls wir nun nur eine einzige Kreisfrequenz $\omega$, also z.B. die
+typische Stromnetzfrequenz $f=50$ Hz $\rightarrow$ $\omega = 2\pi \cdot 50$ rad/s
+in einem elektrischen Netzwerk betrachten, lässt sich die Schreibweise vereinfachen,
+wenn wir die Terme $\sqrt{2}$ und $\e^{\im \omega t}$ im Kopf zwar berücksichtigen,
+aber eben nicht mehr explizit notieren, weil wir wissen, dass es mit $\omega$
+schwingt und wir mit Effektivwerten operieren.
+Wir schreiben also kurz die symbolischen Zeiger (gängig ist ein Unterstrich
+und Großbuchstabe um das klar zu machen) für Strom und Spannung
+\begin{align}
+\underline{U} = U_\text{eff} \cdot \e^{\im \phi_u}\\
+\underline{I} = I_\text{eff} \cdot \e^{\im \phi_i},
+\end{align}
+meinen damit aber den vollständigen obigen Ansatz und beachten, ob wir der
+$\Re$-Teil oder $\Im$-Teil Konvention folgen wollen.
+%
+Diese Zeiger werden oft auch als ruhende Effektivwertzeiger bezeichnet.
+%
+Die sogenannte komplexe Impedanz $\underline{Z}$ ist dann definiert als (es ist konsistent mit dem
+obigen vollständigen Ansatz, weil sich $\sqrt{2}$ und $\e^{\im\omega t}$ kürzen)
+\begin{align}
+\underline{Z} =
+\frac{\underline{U}}{\underline{I}} =
+\frac{U_\text{eff} \cdot \e^{\im \phi_u}}{I_\text{eff} \cdot \e^{\im \phi_i}} =
+\frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)}
+\end{align}
+
+\subsection{Komplexe Impedanzen für passive Bauelemente}
+
+vgl. \cite[Kap. 10.3.5]{Marinescu2020}
+
+Wenn wir für den Zusammenhang Strom/Spannung am Kondensator
+$u(t) = \frac{1}{C} \int i(t)$
+die Ansätze
+\begin{align}
+u(t) = \sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)}\\
+i(t) = \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)}
+\end{align}
+einsetzen, erhalten wir zunächst
+\begin{align}
+\sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)} = \frac{1}{C} \int \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)} \fsd t
+\end{align}
+und integriert
+\begin{align}
+\sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)} = \frac{1}{\im \omega C} \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)}
+\end{align}
+und zur komplexen Impedanz für den Kondensator umgestellt
+\begin{align}
+\label{eq:appb_ZC}
+\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \frac{1}{\im \omega C} = \frac{1}{\omega C} \cdot \e^{-\im \frac{\pi}{2}}
+\end{align}
+%
+Für die Spule führt der gleiche Ansatz (diesmal ist eine Ableitung nach der Zeit zu rechnen)
+zur komplexen Impedanz
+\begin{align}
+\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \im \omega L = \omega L \cdot \e^{+\im \frac{\pi}{2}}
+\end{align}
+%
+Für den Widerstand erhält man die komplexe Impedanz
+\begin{align}
+\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = R.
+\end{align}
+%
+Wir sehen, dass die komplexe Impedanz des Widerstands eigentlich gar nicht komplexwertig ist.
+Zudem ist sie offensichtlich nicht von $\omega$ abhängig, d.h. ein (idealer!) Widerstand
+verhält sich bzgl. direkter Proportionalität zwischen Strom und Spannung frequenz\underline{un}abhängig!
+%
+Für die Spule erkennen wir ein frequenzabhängiges Verhalten zwischen Strom und Spannung, zudem
+ist der Phasenwinkel zwischen Spannung und der Referenz Strom $\frac{\pi}{2} \rightarrow 90^\circ$, man sagt,
+dass die Spannung dem Strom $90^\circ$ voraus ist.
+%
+Für den Konsensator erkennen wir auch frequenzabhängiges Verhalten zwischen Strom und Spannung.
+Der Phasenwinkel ist diesmal $-\frac{\pi}{2}$, die Spannung ist dem Strom um $90^\circ$ hinterher.
+
+
+
+\subsection{Beispiel Wechselspannung am einfachen RC-Glied}
+
+Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
+\begin{itemize}
+  \item 1. Zusammenhang zwischen Eingangsspannung $u_e(t)$ und Strom $i(t)$
+  \item 2. Zusammenhang zwischen Einganngsspannung $u_e(t)$ und Ausgangsspannung $u_a(t)$
+\end{itemize}
+%
+\begin{center}
+\begin{circuitikz}[european, scale=0.75]
+\node (in) at (1,0){};
+\node (in_ground) at (1,-3){};
+\node (out) at (4,0){};
+\node (out_ground) at (4,-3){};
+\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (3,0) to [short,-o,] (out);
+\draw (3,0) to [C,l_=$C$,*-*] (3,-3);
+\draw (in_ground) to [short,o-o] (out_ground);
+\path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $u_e(t)$} (in_ground);
+\path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $u_a(t)$} (out_ground);
+\draw (3,-3) to [short,i=${i(t)}$] (1.5,-3);
+\node (inp) at (0.5,0){$+$};
+\node (inm) at (0.5,-3){$\bot$};
+\end{circuitikz}
+\end{center}
+
+\subsubsection*{Zusammenhang zwischen Eingangsspannung $u_e(t)$ und Strom $i(t)$}
+
+\cite[Kap. 9.8.2]{Marinescu2020}
+
+Wir wählen die $\Re$-Konvention (Cosinussignal).
+%
+Es gibt nur einen Strom $i(t)$ im Netzwerk, der durch $R$ und $C$ in der angezeigten
+Richtung fließt. Das ist eine ET-Konvention mit dem sperrigen Namen
+Verbraucherzählpfeilsystem \cite[S. 7]{Marinescu2020}. Für das gewählte Potentialgefälle
+der Quelle $u_e(t)$ von Pluspol zu Masse führt diese Konvention dazu, dass
+Spannungsabfälle über Verbrauchern die gleiche Richtung wie der technische
+Stromfluss haben. Das sieht man z.B. am Spannungspfeil über dem Kondensator,
+diese Spannung ist gleichzeitig auch die uns interessierende Ausgangsspannung.
+%
+Der tatsächliche Elektronenstrom im elektrischen Netzwerk ist entgegengesetzt
+zur getroffenen Konvention.
+%
+Aus dem Maschenumlauf \cite[Kap. 2.5]{Marinescu2020} für Spannungen folgt
+\begin{align}
+\label{eq:appb:mascheRC}
+u_e(t) = R i(t) +  \frac{1}{C} \int i(t) \fsd t
+\end{align}
+und mit der symbolischen Methode und komplexen Impedanzen kann elegant (deswegen hat man sich symbolische Methode 'ausgedacht')
+\begin{align}
+\underline{U}_e = R \underline{I} +  \frac{1}{\im \omega C} \underline{I}
+= (R +  \frac{1}{\im \omega C}) \underline{I}
+\end{align}
+aufgeschrieben werden.
+%
+Die resultierende komplexe Impedanz zwischen $\underline{U}_e$ und $\underline{I}$
+lässt sich in Betrag/Phase darstellen
+\begin{align}
+\underline{U}_e = \sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2} \e^{\im \phi_Z} \cdot \underline{I}
+\end{align}
+mit dem Phasenwinkel
+\begin{align}
+\phi_Z = \text{atan2}({-\frac{1}{\omega R C}}).
+\end{align}
+Falls nun die cosinusförmige, stationär einwirkende Eingangsspannung als die
+Ursache und der resultierende Stromfluss durch R und C als
+Wirkung betrachtet wird, fügen wir den eingestellten (gegebenen = bekannte Ursache)
+Effektivwert und Phasenoffsetwinkel der Eingangsspannung ein
+\begin{align}
+U_{e,\text{eff}} \cdot \e^{\im \phi_u} = \sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2} \e^{\im \phi_Z} \cdot \underline{I}
+\end{align}
+und lösen nach dem ruhendem Effektivwertzeiger des Stroms auf
+\begin{align}
+\underline{I} =
+I_\text{eff} \cdot \e^{\im \phi_i} =
+\frac{U_{e,\text{eff}}}{\sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2}}
+\cdot \e^{\im (\phi_u-\phi_Z)}
+\end{align}
+aus dem wir sehr elegant erkennen, wie groß der Effektivwert und zugehörige
+Phasenoffsetwinkel des Stroms ist.
+%
+Wenn wir uns nun noch für den tatsächlichen, harmonischen Stromverlauf
+interessieren, müssen wir
+die gewonnenen Informationen in den vollständigen Ansatz übertragen
+\begin{align}
+\sqrt{2} \underline{I} \e^{\im \omega t}=
+\sqrt{2}  I_\text{eff} \cdot \e^{\im \phi_i} \e^{\im \omega t} =
+\sqrt{2} \frac{U_{e,\text{eff}}}{\sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2}}
+\cdot \e^{\im (\phi_u-\phi_Z)} \e^{\im \omega t}
+\end{align}
+und den Zeitverlauf durch 'Rücktransformation', also Benutzung der
+gewählten Cosinus-Konvention ($\Re$-Teil) bilden
+\begin{align}
+i(t) =
+\Re\{\sqrt{2} \frac{U_{e,\text{eff}}}{\sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2}}
+\cdot \e^{\im (\phi_u-\phi_Z)} \e^{\im \omega t}\}=
+\frac{\sqrt{2} \, U_{e,\text{eff}}}{\sqrt{R^2 +  \left(\frac{1}{\omega C}\right)^2}}
+\cdot \cos(\omega t + \phi_u-\phi_Z)
+\end{align}
+%
+In \cite[Kap. 9.8.2]{Marinescu2020} ist dann der Funktionsverlauf von $i(t)$
+und der Zusammenhang zu $u_e(t)$ zu Ende diskutiert.
+
+\subsubsection*{Zusammenhang zwischen Eingangsspannung $u_e(t)$ und Ausgangsspannung $u_a(t)$}
+
+\cite[Kap. 13.1]{Marinescu2020}
+
+Sehr oft interessieren wir uns für das Verhältnis zwischen Eingangs- und Ausgangsgröße
+des Netzwerks (i.e. Annahme: LTI-Systems), hier also zwischen der Eingangsspannung
+(i.e. eine Quellenspannung) und der Ausgangsspannung, die hier über den Kondensator
+abfällt.
+Ein wichtiges Werkzeug dafür ist der sogenannte Spannungsteiler
+\cite[Kap. 3.1.2, 11.2.1]{Marinescu2020}, den wir immer dann anwenden können,
+wenn wir uns für Spannungsverhältnisse interessieren in Schaltungsbereichen mit
+gleichem Stromfluss.
+Hier im sehr einfachen Beispiel gibt es nur einen Strom und wir können
+zwei komplexe Spannungsteiler aufstellen, einmal Kondensatorspannung bezogen auf
+Gesamtspannung (vgl. \eqref{eq:appb_ZC}, \eqref{eq:appb:mascheRC})
+\begin{align}
+\frac{\underline{U}_a}{\underline{U}_e} = \frac{\frac{1}{\im \omega C}\underline{I}}{R \underline{I}+\frac{1}{\im \omega C} \underline{I}}
+\end{align}
+und einmal Widerstandsspannung bezogen auf Gesamtspannung
+\begin{align}
+\frac{\underline{U}_a}{\underline{U}_e} = \frac{R\underline{I}}{R \underline{I}+\frac{1}{\im \omega C} \underline{I}}.
+\end{align}
+Wir sehen, dass sich in beiden Spannungsteilern der Stromzeiger kürzen lässt,
+das ist die Idee beim Spannungsteiler.
+Wir sind am ersten Spannungsteiler interessiert und schreiben den ein wenig
+um
+\begin{align}
+\frac{\underline{U}_a}{\underline{U}_e} = \frac{\frac{1}{\im \omega C}}{R +\frac{1}{\im \omega C}}=
+\frac{1}{\im \omega R C + 1}
+\end{align}
+Es ist sinnvoll für $RC$ eine eigene Variable einzuführen, weil sie ganz entscheidend
+das Verhalten des RC-Glieds bestimmt.
+Gemäß der Einheit Sekunde des Produkts $R C$ führen wie die sogenannte Zeitkonstante
+$T_\text{RC} = R C$ ein.
+%
+Sehr hilfreich ist auch der reziproke Wert, den wir als Grenzkreisfrequenz
+$\omega_\text{RC} = \frac{1}{R C}$ in rad/s kennenlernen werden.
+%
+Mit beiden Variablen lässt sich der Spannungsteiler schreiben zu
+\begin{align}
+\frac{\underline{U}_a}{\underline{U}_e} = \frac{\frac{1}{\im \omega C}}{R +\frac{1}{\im \omega C}}=
+\frac{1}{\im \omega R C + 1} =
+\frac{1}{\im \omega T_\text{RC} + 1} =
+\frac{1}{\im \frac{\omega}{\omega_\text{RC}} + 1}.
+\end{align}
+In Übung 3.4 sehen wir genau dieses System wieder, dort aus Sicht der SigSys, aber
+wir begegnen dem Spannungsteiler sozusagen als Spezialfall wieder.
+%
+In SigSys Sprech haben wir Ausgang $\underline{U}_a \rightarrow y$ und Eingang
+$\underline{U}_e \rightarrow x$ und wir könnten uns z.B. anschauen, was
+stationäre harmonische Signalen (bzw. eine Superposition solcher, weil wir
+LTI-Eigenschaften annehmen) passiert, wenn sie durch das System RC-Glied geschickt
+werden. Wir können dann finden, dass die Fälle $\omega\ll\omega_\text{RC}$ und
+$\omega\gg\omega_\text{RC}$ asymptotisch wichtige Grenzfälle sind, der Speziallfall
+$\omega=\omega_\text{RC}$ sehr wichtig ist und zur Erkenntnis kommen, dass
+das System nur die Amplitude (Effektivwert) und Phasenlage zwischen Aus- und Eingang
+ändern kann. All das machen wir auch in einer Elektrotechnik VL, in SigSys
+ist es eingebettet in den größeren Kontext. Vorgriff:
+In Abb.~\ref{fig:bodeplot_examples_pt1_element_AppB}
+sieht man, wie das Systemverhalten SigSys-typisch grafisch aufbereitet wird,
+das kommt in UE 5 ausführlich.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{../laplace_system_analysis/bodeplot_examples_pt1_element.pdf}
+  \caption{Full SigSys picture of the \textbf{1st order lowpass system from
+  exercise 3.4} with $T_\mathrm{RC} = \frac{1}{\omega_\mathrm{RC}} = 1$ s.
+  \texttt{bodeplot\_examples.ipynb}}
+  \label{fig:bodeplot_examples_pt1_element_AppB}
+\end{figure}
+
+
+
+\subsection{Beispiel Auf- und Entladevorgang am einfachen RC-Glied}
+
+Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
+\begin{itemize}
+  \item 1. Aufladevorgang Spannung des Kondensators
+  \item 2. Entladevorgang Spannung des Kondensators
+\end{itemize}
+
+\begin{center}
+\begin{circuitikz}[european, scale=0.75]
+\node (in) at (1,0){};
+\node (in_ground) at (1,-3){};
+\node (out) at (4,0){};
+\node (out_ground) at (4,-3){};
+\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (3,0) to [short,-o,] (out);
+\draw (3,0) to [C,l_=$C$,*-*] (3,-3);
+\draw (in_ground) to [short,o-o] (out_ground);
+\path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $u_e(t)$} (in_ground);
+\path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $u_a(t)$} (out_ground);
+\draw (3,-3) to [short,i=${i(t)}$] (1.5,-3);
+\node (inp) at (0.5,0){$+$};
+\node (inm) at (0.5,-3){$\bot$};
+\end{circuitikz}
+\end{center}
+
+
+\subsubsection*{Aufladevorgang am einfachen RC-Glied}
+
+Zum Zeitpunkt $t=0$ soll die Gleichspannung $U$ als Eingang auf das vorher in
+Ruhe befindliche RC Glieds geschaltet werden.
+%
+Wie verhält sich die Spannung über dem Kondensator $u_a(t)$ über die Zeit?
+
+Wir kennen den Maschenumlauf ab $t\geq 0$
+\begin{align}
+U = R i(t) + u_a(t)
+\end{align}
+und wissen, dass der Stromfluss vom Kondensator gemäß
+\begin{align}
+i(t) = C \frac{\fsd u_a(t)}{\fsd t}
+\end{align}
+beeinflusst wird.
+Die zweite Gleichung in die erste eingesetzt mit Benutzung der Zeitkonstante
+$T_\text{RC} = R C$ ergibt eine lineare Differentialgleichung erster Ordnung
+\begin{align}
+U = R C \frac{\fsd u_a(t)}{\fsd t} + u_a(t) =
+T_\text{RC} \frac{\fsd u_a(t)}{\fsd t} + u_a(t)
+\end{align}
+Wir könnten das noch etwas sauberer aufschreiben mit Anfangsbedingungen
+und Inhomogenität
+\begin{align}
+u_e(t) = T_\text{RC} \frac{\fsd u_a(t)}{\fsd t} + u_a(t),
+\qquad u_a(0_-)=0,\quad u_e(t\geq 0) = U.
+\end{align}
+Diese DGL lässt sich mit Trennung der Variablen lösen und die Anfangsbedingungen
+können direkt mit Wahl des Integrationsbereichs berücksichtigt werden.
+%
+Die Lösung führt auf
+\begin{align}
+u_a(t \geq 0) = U(1-\e^{-\frac{t}{T_\text{RC}}}) = U - U\e^{-\frac{t}{T_\text{RC}}}
+\end{align}
+und ist in Abb.~\ref{fig:4408E33353_AppB} links schematisch dargestellt.
+%
+Die Lösung wird in \cite[Lap. 15.4.4]{Marinescu2020} ausführlich diskutiert.
+
+\subsubsection*{Entladevorgang am einfachen RC-Glied}
+
+Zum Zeitpunkt $t=0$ sei der Kondensator auf die Spannung $U$ aufgeladen und
+der Eingang der Schaltung wird bei $t=0$ mit einem Kabel kurzgeschlossen.
+Der daraufhin einsetzende Stromfluss entlädt den Kondensator.
+Wie verhält sich die Spannung $u_a(t)$ über dem Kondensator.
+
+Diese Lösung wird auch in \cite[Lap. 15.4.4, S. 371]{Marinescu2020} diskutiert.
+
+Maschenumlauf für $t\geq 0$ ergibt
+\begin{align}
+  u_a(t) + R i(t) = 0
+\end{align}
+und Strom wie schon vorher
+\begin{align}
+i(t) = C \frac{\fsd u_a(t)}{\fsd t}.
+\end{align}
+Dies ergibt
+\begin{align}
+  u_a(t) = - R C \frac{\fsd u_a(t)}{\fsd t}
+\end{align}
+und die Anfangsbedingung berücksichtigt
+\begin{align}
+  u_a(t) = - R C \frac{\fsd u_a(t)}{\fsd t},
+  \quad u_a(0_-) = U.
+\end{align}
+Auch diese lineare DGL erster Ordnung lässt sich mit Trennung der Variablen lösen
+zu
+\begin{align}
+u_a(t) = U \e^{-\frac{t}{T_\text{RC}}}
+\end{align}
+%
+Die Funktion ist in Abb.~\ref{fig:4408E33353_AppB} rechts schematisch dargestellt.
+
+
+\begin{figure}[h]
+\begin{center}
+%sigma < 0
+\begin{tikzpicture}
+%
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1}
+\def \omegaz {1}
+\def \convAbsz {-\sigmaz}
+%
+\begin{scope}[]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:7,
+samples=64,
+legend pos=outer north east,
+xlabel = {$t\rightarrow$},
+ylabel = {$u_a(t)$},
+title = {Aufladevorgang Kondensatorspannung},
+xmin=0, xmax=7,
+ymin=-0.1, ymax=1.1,
+xtick={0, 1, 3, 5},
+ytick={0,0.63,0.95, 1},
+xticklabels={$0$, $T_\mathrm{RC}$, $3 T_\mathrm{RC}$, $5 T_\mathrm{RC}$},
+yticklabels={$0$, $0.63 U$, $ $, $U$},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)};
+\addplot[mark=None, color=C0, ultra thick]
+{1-exp(-\sigmaz*x)};
+\end{axis}
+\end{scope}
+%
+\begin{scope}[shift={(7,0)}]
+\begin{axis}[
+width=0.45\textwidth,
+height=0.3\textwidth,
+domain=0:7,
+samples=64,
+legend pos=outer north east,
+xlabel = {$t\rightarrow$},
+ylabel = {$u_a(t)$},
+title = {Entladevorgang Kondensatorspannung},
+xmin=0, xmax=7,
+ymin=-0.1, ymax=1.1,
+xtick={0,1,3,5},
+ytick={0, 0.3678, 1},
+xticklabels={$0$, $T_\mathrm{RC}$, $3 T_\mathrm{RC}$, $5 T_\mathrm{RC}$},
+yticklabels={$0$, $0.37 U$, $U$},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(-4,0)(0,0)(0,1)};
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-\sigmaz*x)};
+\end{axis}
+\end{scope}
+%
+\end{tikzpicture}
+\end{center}
+
+\caption{Auf- und Entladekurven für Gleichspannung am Kondensator}
+\label{fig:4408E33353_AppB}
+\end{figure}
