@@ -16,7 +16,7 @@ Sources (tex, ipynb) can be found at github
 
 The [Anaconda distribution](https://www.anaconda.com/distribution/) is a very convenient solution to install a required environment, i.e. to have access to the Jupyter Notebook renderer with a Python compiler on a personal computer. It is very likely that a very recent installation of Anaconda already delivers all required packages just using the `root` environment. We actually do not need very special packages. However, if `root` is not working immediately, creating and activating a dedicated environment `mydsp` might be useful. Do the following steps
 
-- get at least python 3.8x, numpy, scipy, matplotlib, notebook, jupyterlab, ipykernel, the other packages are very useful tools for convenience
+- get at least python 3.8x, numpy, sympy, scipy, matplotlib, notebook, jupyterlab, ipykernel, the other packages are very useful tools for convenience
 
 `conda create -n mydsp python=3.8 pip numpy scipy matplotlib notebook jupyterlab pydocstyle pycodestyle autopep8 flake8 ipykernel nb_conda jupyter_nbextensions_configurator jupyter_contrib_nbextensions`
 
@@ -38,7 +38,7 @@ The [Anaconda distribution](https://www.anaconda.com/distribution/) is a very co
 
 If the above steps still lead to problems, the following lines created the environment `mydsp`
 - using `conda 4.9.2`
-- `conda create -n mydsp python=3.8.6 pip=20.2.4 numpy=1.19.4 scipy=1.5.3 matplotlib=3.3.3 jupyter=1.0.0 notebook=6.1.5 jupyterlab=2.2.9 pydocstyle=5.1.1 pycodestyle=2.6.0 autopep8=1.5.4 flake8=3.8.4 ipykernel=5.3.4 nb_conda=2.2.1 jupyter_nbextensions_configurator=0.4.1 jupyter_contrib_nbextensions=0.5.1`
+- `conda create -n mydsp python=3.8.6 pip=20.2.4 numpy=1.19.4 sympy=1.7.1 scipy=1.5.3 matplotlib=3.3.3 jupyter=1.0.0 notebook=6.1.5 jupyterlab=2.2.9 pydocstyle=5.1.1 pycodestyle=2.6.0 autopep8=1.5.4 flake8=3.8.4 ipykernel=5.3.4 nb_conda=2.2.1 jupyter_nbextensions_configurator=0.4.1 jupyter_contrib_nbextensions=0.5.1`
 - `pip install soundfile`
 
 ## German Version
