@@ -16,8 +16,9 @@ x(t) \,\fourier\, X(\im\omega) &\qquad X(\im\omega) \,\Fourier\, x(t)
 \end{align}
 Hinweis: Hintrafo $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
 $\fourier$, Rücktrafo Fourier $\Fourier$.
-Wir finden auch $\laplace$ bei der Fourier Trafo, dann muss im Kontext klar werden,
-welche Trafo benutzt wird. In der Formelsammlung und Übung 1 ist das z.B. eindeutig.
+Wir finden oft auch $\laplace$ bei der Fourier Trafo, dann muss im Kontext klar werden,
+welche Trafo benutzt wird. In der Formelsammlung und Übung 1 ist das z.B. eindeutig, weil
+wir dort keine Laplace Transformation verwenden.
 %
 
 \noindent \textbf{Wichtigste Eigenschaften und Korrespondenzen}
@@ -281,7 +282,8 @@ X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_0 t) \, \e^{-\im \om
 \begin{ExCalc}
 \textbf{Lösungsweg I}: Sturr das Integral lösen.
 Dieser Weg ist der mathematischste, aber wegen des Integraloperators vielleicht auch
-der un-intuitivste. Wir müssen das Integral schon sehr lange anstarren, um das Wesen
+der un-intuitivste; und ohne Erwartungshaltung Rechnen ist auch nicht die beste
+Vorgehensweise. Anyway...Wir müssen das Integral schon sehr lange anstarren, um das Wesen
 dahinter zu entlocken. Das wird uns mit den Lösungswegen II und III eleganter gelingen.
 Lösen wir aber erst einmal das Integral, das gelingt ganz ähnlich wie in Übung 1.
 
@@ -601,8 +603,8 @@ Verschiebung von Funktionen (in SigSys: Signalen, Spektren) bzgl. des Arguments
 Machen wir uns nun das \textbf{Wesen von Lösungsweg II} klar: Die unendliche
 Cosinus-Schwingung bringt als Fourier Transformation, d.h. als Spektrum zwei
 mit $\pi$ gewichtete Dirac Impulse hervor an den Frequenzen $\pm\omega_0$.
-Wichtig: Das Spektrum ist eine kontinuierliche Funktion, die sich wegen der
-Diracs nur an zwei Frequenzen von Null unterscheidet.
+Wichtig: Die Frequenzvariable $\omega$ ist kontinuierlich, das Spektrum unterscheidet sich
+wegen der Diracs nur an zwei Frequenzen von Null.
 Sobald nun dieses Cosinussignal zeitlich begrenzt wird---in unserem Beispiel
 symmetrisch bezüglich $t=0$ mit der einfachen Rechteckfunktion---werden diese
 'schönen' Dirac Impulse verschliffen zu 'unschönen' Sinc-Funktionen. Das handeln
@@ -653,12 +655,12 @@ Grundidee im Sinne der SigSys: Dieses Signal könnten wir nun exakt so wie es is
 übertragen mit einer gewünschten elektromagnetischen Welle, also über Kabel, durch Licht,
 durch Luft, was jedoch ein sehr verschwenderischer Umgang mit Ressourcen wäre.
 Das Spektrum gehorcht der Spaltfunktion und ist daher nicht bandbegrenzt und
-konzentriert das Energiemaximum um $\omega=0$. Signale,
+konzentriert das Energiemaximum um $\omega=0$ (also um den Gleichanteil). Signale,
 die solche Spektren besitzen, nennen wir Basisbandsignale.
-Die Nachrichtentechnik ist getrieben von der Idee, sehr sehr viele Basisbandsignale
+Die Nachrichtentechnik ist getrieben von der Idee, sehr, sehr viele Basisbandsignale
 über einen einzigen Übertragungskanal zu übertragen, das führte uns Stand heute
-zu 5G. Das geht aber nur, wenn die Spektren von Signalen sich nicht überlappen, also
-eigentlich streng bandbegrenzt sind
+z.B. zu 5G bei Mobilfunk. Das geht aber nur, wenn die Spektren von
+Signalen sich nicht überlappen, also eigentlich streng bandbegrenzt sind
 und sich nicht alle Spektren im gleichen Frequenzband 'tummeln'.
 Letzteres erreichen wir durch Modulation, wir hatten den Begriff schon bei der Übung 1 und 3,
 es geht um Verschiebung des Spektrums in einen anderen Frequenzbereich.
@@ -901,7 +903,8 @@ für $\omega_0>0$.}
 Erinnern wir uns, dass die Laplace Transformation genau davon lebt, den
 Ableitungsoperator zu vereinfachen $\frac{\fsd}{\fsd t}(\cdot) \laplace s(\cdot)$.
 Nachdem  die Fourier Transformation der Spezialfall von $s=\sigma+\im\omega$ für
-$\sigma=0$ ist, falls! die Laplace Transformierte für $\sigma=0$ existiert,
+$\sigma=0$ ist, falls!!! die Laplace Transformierte für $\sigma=0$ existiert
+(Konvergenzbereich muss $\Im\{s\}$ enthalten),
 gilt hier $\frac{\fsd}{\fsd t}(\cdot) \fourier \im\omega(\cdot)$. Diesen Zusammenhang
 hatten wir auch schon bei eingeschwungenen Zuständen in der komplexen Wechselstromtechnik
 bemüht.
@@ -924,7 +927,8 @@ Signalunstetigkeiten elegant zu umschiffen.
 \begin{Ansatz}
 Im \textbf{Zeitbereich} ähnlich wie Aufgabe 2.2.
 
-Darstellung des rect-Signals als zwei Sprünge
+Klassiker: Darstellung des rect-Signals als zwei Sprünge (eine gute Gelegenheit
+Zeitverschiebung und -skalierung nochmal aufzufrischen)
 \begin{equation}
   \mathrm{rect}\left(\frac{t}{T_h}\right) = \epsilon(t+\frac{T_h}{2}) - \epsilon(t-\frac{T_h}{2})
 \end{equation}
@@ -1024,8 +1028,11 @@ Bemerkenswert ist die Dualität unseres Ergebnisses zu der bekannten Korresponde
 \begin{Ziel}
 Wir wollen anhand einer wichtigen Korrespondenz der Fouriertransformation das
 Parseval'sche Theorem erkunden, also Signalenergieäquivalenz.
-In der Praxis---in der Aufgabe hier absichtlich mühsam---ist dies sehr hilfreich,
+In der Praxis ist dies sehr hilfreich,
 um die Signalenergie aus dem Signalspektrum zu ermitteln.
+In der Aufgabe hier ist die Berechnung der Signalenergie aus dem Sektrum
+absichtlich mühsamer als im Zeitbereich, damit wir uns das Parseval'sche Theorem
+mit einem plakativen Beispiel merken.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 0A13DD5E57}: Zeigen Sie, dass die Korrespondenz
 \begin{equation}
@@ -1064,7 +1071,7 @@ Wir hangeln uns Schritt für Schritt zurück zu dieser Korrespondenz:
 \mathrm{rect}(\frac{1}{2} t \cdot 2) &\quad\fourier\quad 2 \frac{1}{|2|} \mathrm{sinc}(\omega \cdot \frac{1}{2})\\
 \mathrm{rect}(t) &\quad\fourier\quad \mathrm{sinc}(\frac{\omega}{2})
 \end{align}
-Vorwärts also mit obigen Werkzeug-Korrespondenzen für $a=\frac{1}{2}$, A = $\frac{1}{2}$ und $\tau=2$.
+Vorwärts hangeln also mit obigen Werkzeug-Korrespondenzen für $a=\frac{1}{2}$, A = $\frac{1}{2}$ und $\tau=2$.
 Wichtig ist hier wieder, dass wir $(\frac{1}{2} [t - 2])$ für das Argument des rect()
 schreiben müssen, um nacheinander
 Zeitverschiebung und Zeitskalierung durchzuführen. Dem Ausgangspunkt $\frac{1}{2}t - 1$
@@ -1111,7 +1118,7 @@ zu erinnern, sprich die Signalenergie ist sowohl im Zeitbereichs- als auch im
 Bildbereichssignal vollständig codiert und je nachdem was vorliegt oder einfacher
 zu rechnen ist, benutzen wir entweder den Zeit- oder Bildbereich.
 
-Hier also auf Ansage, der Bildbereich. Für die Energiebetrachtung spielt die
+Hier also wegen gewünschter Didaktik, der Bildbereich. Für die Energiebetrachtung spielt die
 Phase keine Rolle.
 \begin{align}
 \label{eq:0A13DD5E57_Energie_Freq_Ansatz}
