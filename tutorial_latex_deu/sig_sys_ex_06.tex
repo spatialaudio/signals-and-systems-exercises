@@ -17,26 +17,24 @@ und Polstellen) zu übertragen.
 Buzzwords für diese Übung sind
 \begin{itemize}
   \item Minimalphasensystem, Maximalphasensystem, Allpass, gemischtphasiges System
-  \item Bode Diagramm, Pegeldiagramm
+  \item nochmal Bode Diagramm, Pegeldiagramm
   \item Systementzerrung
   \item Reihenschaltung, Parallelschaltung von Systemen
   \item Phasenfrequenzgang, Gruppenlaufzeit
 \end{itemize}
 Das sind alles Dinge die in aufbauenden Fächern immer wieder benötigt
 werden, z.B. für Regelungstechnik, Mechatronik, Nachrichtentechnik,
-Nachrichtenübertragungstechnik und Hochfrequenztechnik.
+Nachrichtenübertragungstechnik, Hochfrequenztechnik, Akustik,
+Video- und Audiotechik uvm..
 
 Diese Übung ist auch wieder sehr dicht und diesmal eigentlich sogar zu viel für
-eine Einheit!
-Es wäre jedoch schade, nach allem was wir uns wie didaktisch erarbeitet haben,
-Inhalte zu kürzen, nur um dem aktuellen verkürzten Semestertakt gerechter
-zu werden. Mutmaßlich interessiert es langfristig niemanden, ob wir im SS2020
-nur 12 Semesterwochen für SigSys und alle anderen Fächer betrieben haben,
-wir brauchen das Handwerk ja so oder so. Das komplette Neudesign der Übungen
-war initial genauso angelegt, dass mit dieser Übung 6 der erste große Bogen,
-sozusagen die erste Staffel, zu Ende geht und wir die Essenz der SigSys
-gesehen haben.
-Wir werden in der zweiten Staffel viele bereits bekannte Werkzeuge wiedertreffen.
+eine Einheit! Es wäre jedoch schade, nach allem was wir uns wie didaktisch
+erarbeitet haben, Inhalte zu kürzen. Das Design der Übungen
+ist genauso angelegt, dass mit dieser Übung 6 der erste große Bogen,
+sozusagen die erste Staffel (zeitkontinuierliche SigSys),
+zu Ende geht und wir die Essenz der SigSys gesehen haben.
+Wir werden in der zweiten Staffel---der zeitdiskreten Signal- und Systemtheorie---viele
+bereits bekannte Werkzeuge wieder antreffen.
 
 \newpage
 \subsection{Diskussion dreier Systeme 1. Ordnung}
@@ -296,7 +294,9 @@ könnte auch nützlich sein.
 \end{subfigure}
 \begin{subfigure}{0.7\textwidth}
 \includegraphics[width=\textwidth]{../system_properties_ct/MaxMinPhaseAllpass_numpy_E1E7E53CFF_minphase.pdf}
-\caption{Bode Diagramm für System $H(s)_\mathrm{min}$}
+\caption{Bode Diagramm für System $H(s)_\mathrm{min}$.
+%
+Beachte: andere Skala für die Phase im Vergleich zu den anderen beiden Phasendiagrammen.}
 \label{fig:MaxMinPhaseAllpass_numpy_E1E7E53CFF_minphase}
 \end{subfigure}
 \begin{subfigure}{0.7\textwidth}
@@ -405,16 +405,16 @@ Zerlegen Sie dieses System in seinen Allpass- und minimalphasigen Anteil.
   \end{align}
   und wir erinnern uns, dass $H_1(s)\cdot H_2(s) \,\Laplace\, h_1(t)\ast h_2(t)$
   und $h(t) = h(t)\ast \delta(t)$
-  \item \textbf{Minimalphasensystem}: Nullstellen nur in der linken $s$-Ebene. Da prinzipiell
+  \item \textbf{Minimalphasensystem}: Nullstellen nur in der linken $s$-Halbebene. Da prinzipiell
   Stabilität gefordert wurde, gilt also die Regel: alle Pole und alle Nullstellen
-  befinden sich in der linken $s$-Ebene.
-  \item \textbf{Maximalphasensystem}: Nullstellen nur in der rechten $s$-Ebene. Da prinzipiell
+  befinden sich in der linken $s$-Halbebene.
+  \item \textbf{Maximalphasensystem}: Nullstellen nur in der rechten $s$-Halbebene. Da prinzipiell
   Stabilität gefordert wurde, gilt also die Regel: alle Pole in der linken
-  $s$-Ebene und alle Nullstellen in der rechten $s$-Ebene.
+  $s$-Halbebene und alle Nullstellen in der rechten $s$-Halbebene.
   \item \textbf{Allpasssystem}: nur spiegelbildliche Pol-Nullstellenpaare bzgl.
   der $\im\omega$-Achse. Da prinzipiell Stabilität gefordert wurde, gilt also
-  die Regel: alle Pole in der linken $s$-Ebene und zu jedem Pol gehört
-  eine an $\im\omega$ gespiegelte Nullstelle in der rechten $s$-Ebene.
+  die Regel: alle Pole in der linken $s$-Halbebene und zu jedem Pol gehört
+  eine an $\im\omega$ gespiegelte Nullstelle in der rechten $s$-Halbebene.
   Betrag über $\omega$ ist konstant, Konvention: Betrag ist 1.
 \end{itemize}
 
@@ -422,20 +422,21 @@ Zerlegen Sie dieses System in seinen Allpass- und minimalphasigen Anteil.
 \end{Werkzeug}
 \begin{Ansatz}
 Zu lösen entweder analytisch, also mit der Übertragungsfunktion als Formel
-oder grafisch anhand von Pol-Nullstellen Diagrammen.
+oder grafisch anhand von Pol-Nullstellen Diagrammen (dann aufpassen
+mit den $H_0$ Faktoren).
 \end{Ansatz}
 
 \begin{ExCalc}
 \textbf{Analytisch}:
-Wir können $H(s)_\mathrm{max} $ zunächst in Pol-, Nullstellen und frequenzunabhängige
-Konstante Darstellung bringen
+Wir können $H(s)_\mathrm{max} $ zunächst in die Darstellung mit
+Pol-, Nullstellen und frequenzunabhängiger Konstante bringen
 \begin{align}
 H(s)_\mathrm{max} = 2\cdot\frac{s-2}{s+\frac{1}{2}}
 \end{align}
-und sehen schnell, dass die einzige Nullstelle in der rechten $s$-Ebene liegt.
-Für ein Minimalphasensystem brauchen wir aber eine Nullstelle, die bzgl. der Auswertung
+und sehen schnell, dass die einzige Nullstelle in der rechten $s$-Halbebene liegt.
+Für ein Minimalphasensystem brauchen wir aber eine Nullstelle, die bzgl. des
 Betragsfrequenzgangs entlang der $\im\omega$-Achse das selbe macht, allerdings
-eben wie gefordert in der linken $s$-Ebene.
+eben wie gefordert in der linken $s$-Halbebene.
 Das ist die Nullstelle exakt an der $\im\omega$-Achse gespiegelt.
 Wir können uns das klar machen, wenn wir uns nochmal anschauen, wie das Bode
 Diagramm approximiert gezeichnet wird (siehe UE 5):
@@ -443,8 +444,8 @@ Wir benutzen die Beträge $|s_{0,\cdot}|$ um die Knickpunkte für
 die stückweisen Geraden zu bestimmen.
 Der Vorzeichenwechsel des Realteils einer Nullstelle entspricht genau der
 geforderten Spiegelung an $\im\omega$, der Betrag der komplexen Zahl ändert
-sich dadurch aber nicht. Das Pegeldiagramm bleibt daher gleich. Vorsicht: der
-Phasenfrequenzgang ändert sich sehr wohl, das ist der Gag an der Sache. Wir kommen
+sich dadurch aber nicht. Das Pegeldiagramm bleibt daher gleich. \textbf{Vorsicht: der
+Phasenfrequenzgang ändert sich sehr wohl, das ist der Gag an der Sache.} Wir kommen
 später in der Übung darauf zurück.
 
 Wir erweitern,
@@ -461,7 +462,7 @@ jeweils dem Allpass und dem Minimalphasensystem zuzuordnen.
 Dazu müssen die obigen Regeln befolgt werden.
 
 Erfahrungsgemäß ist es einfacher mit dem Minimalphasensystem zu beginnen, also
-alle Pole und alle Nullstellen zu separieren, die in der linken $s$-Ebene sind.
+alle Pole und alle Nullstellen zu separieren, die in der linken $s$-Halbebene sind.
 Das ist also
 \begin{align}
 H(s)_\mathrm{min}  = H(s)_\mathrm{Min Phase} = 2\cdot\frac{s+2}{s+\frac{1}{2}},
@@ -490,18 +491,18 @@ weil unser Ausgangssystem die zusätzliche Eigenschaft eines Maximalphasensystem
 hat. Das ist didaktisch sinnvoll gewählt.
 Wir können aber jedes beliebige System (oft gemischtphasig bezeichnet) einer
 Zerlegung unterziehen, solange es nur stabil ist. Wenn wir also praktischerweise
-kausale Systeme einfordern, haben wir es dann mit Polen nur in der linken $s$-Ebene
+kausale Systeme einfordern, haben wir es dann mit Polen nur in der linken $s$-Halbebene
 und Nullstellen beliebig verteilt (reell oder konjugiert-komplex)
 in der $s$-Ebene zu tun.
-Die Nullstellen die dann schon in der linken $s$-Ebene sind, haben
+Die Nullstellen die in der linken $s$-Halbebene sind, haben
 dann für sich schon minimalphasige Eigenschaft, wir müssen uns dann nur noch
-um die in der rechten $s$-Ebene kümmern.
+um die in der rechten $s$-Halbebene kümmern.
 
 In einem anderen Spezialfall
 könnten wir ein bereits minimalphasiges System in Minimalphasensystem und
-Allpasssystem zerlegen wollen, das ist ja nicht verboten.
-Quizfrage: Wie lautet die Übertragungsfunktion und die Impulsantwort des dann
-resultierenden Allpasses.
+Allpasssystem zerlegen wollen, das ist ja nicht verboten und die folgende Überlegung
+sogar erhellend: Wie lautet die Übertragungsfunktion und die Impulsantwort
+des dann resultierenden Allpasses?
 
 \end{ExCalc}
 
@@ -619,9 +620,9 @@ wir müssen nur darauf achten den frequenzunabhängigen Term $H_0$ nicht zu verg
 
 Die Lösung ist in der Grafik oben veranschaulicht. Zunächst ganz links unser
 Ausgangspunkt, das zu zerlegende System, hier maximalphasig, d.h.
-alle Nullstellen (hier eine) sind in der rechten $s$-Ebene.
+alle Nullstellen (hier eine) sind in der rechten $s$-Halbebene.
 Durch den gegebenen Konvergenzbereich wissen wir, dass das System kausal ist.
-Da alle Pole (hier einer) in der linken $s$-Ebene liegen, ist das System
+Da alle Pole (hier einer) in der linken $s$-Halbebene liegen, ist das System
 stabil.
 
 Für das nächste Bild müssen wir nun alle rechtsseitigen Nullstellen
@@ -634,11 +635,11 @@ Systemverhalten wie ganz links.
 Danach erfolgt die Zerlegung, die grafisch u.U. anschaulicher gelingt, als in Formeln.
 Diesmal ist es günstiger mit dem Allpass anzufangen.
 Wir suchen dafür alle rechtsseitigen Nullstellen (die sehen wir sehr schnell, weil
-in der rechten $s$-Ebene bei staibilen Systemen sonst nix weiter sein sollte)
+in der rechten $s$-Halbebene bei stabilen Systemen sonst nix weiter sein sollte)
 und die dazu passenden gespiegelten Polstellen, also im Beispiel bei $s=\pm 2$.
 Dies ist im Bild ganz rechts zu sehen.
 
-Die verbleibenden Pole und Nullstellen müssen in der linken $s$-Ebene liegen und
+Die verbleibenden Pole und Nullstellen müssen in der linken $s$-Halbebene liegen und
 bilden das Minimalphasensystem, dieses bekommt dann noch den Faktor $H_0$ des
 ursprünglichen Systems zugewiesen, also hier $H_0=2$, im dritten Bild von links.
 
@@ -678,7 +679,7 @@ erwünscht, so dass ideal das Gesamtsystemverhalten $H_r(s)$
   H_r(s) = H(s)\cdot H_i(s) = 1 \Laplace h_t(t)=\delta(t)
 \end{align}
 resultiert.
-Eine nicht ganz so strenge Version wäre
+Eine nicht ganz so strenge, und auch deutlich praxistauglichere, Version wäre
 \begin{align}
   H_r(s) = H(s)\cdot H_i(s) = \e^{-\im\omega\tau} \Laplace h_r(t)=\delta(t-\tau)
 \end{align}
@@ -691,8 +692,8 @@ In der Nachrichtenübertragung spielt das eine wichtige Rolle, weil wir
 gewillt sind unsere mühevoll erzeugten Sendesignale nicht zu stark
 bei der Übertragung (was durch Systeme modelliert wird) zu verformen.
 Wir betrachten Übertragungskanalentzerrung hier als Einstieg extrem vereinfacht mit
-\eq{eq:4926427BA9_EQing} und es stellt sich die Frage, wann $H_i(s)$ eigentlich
-existiert oder in SigSys-Sprech unter welchen Bedingungen $H_i(s)$
+\eq{eq:4926427BA9_EQing}. Es stellt sich die Frage, wann $H_i(s)$ eigentlich
+existiert oder in SigSys-Sprech: unter welchen Bedingungen $H_i(s)$
 ein stabiles, kausales und deshalb praktikables System ist.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 4926427BA9}: Gegeben sind die Laplace
@@ -721,8 +722,9 @@ H(s)_\mathrm{max}^{-1} = \frac{1}{2}\cdot\frac{s+\frac{1}{2}}{s-2}
 \end{Ansatz}
 
 \begin{ExCalc}
-Bei geübten SigSys-Blick schrillen beim Anblick von $H(s)_\mathrm{max}^{-1}$
-die Alarmglocken: wir haben eine Polstelle in der rechten $s$-Ebene.
+Bei mittlerweile geübtem SigSys-Blick schrillen beim Anblick von
+$H(s)_\mathrm{max}^{-1}$
+die Alarmglocken: wir haben eine Polstelle in der rechten $s$-Halbebene.
 Dies bedeutet ein instabiles System.
 Es ist sinnvoll, wenn wir uns das nochmal im Detail klarmachen, anhand der
 Rücktransformation zur Impulsantwort.
@@ -733,7 +735,7 @@ Wir können mit Polynomdivision rasch zeigen, dass
 H(s)_\mathrm{max}^{-1} = \frac{1}{2}\cdot\frac{s+\frac{1}{2}}{s-2}
 = \frac{1}{2} ( 1 + \frac{5}{2}\cdot\frac{1}{s-2}).
 \end{align}
-Dies führt auf Korrespondenzen die in der Formelsammlung gegebenen
+Dies führt auf Korrespondenzen die in der Formelsammlung gegeben
 sind.
 Die Rücktransformation ergibt dann
 \begin{align}
@@ -742,8 +744,8 @@ H(s)_\mathrm{max}^{-1} = \frac{1}{2} ( 1 + \frac{5}{2}\cdot\frac{1}{s-2})
 h(t)_\mathrm{max}^{-1} = \frac{1}{2}\delta(t) + \frac{5}{4}\e^{+2 t}\epsilon(t).
 \end{align}
 %
-Eine Methode die Stabilität von Systemen zu prüfen, ist eine absolut integrierbare
-Impulsantwort einzufordern. Dies ist als Bounded-Input Bounded-Output
+Eine Methode die Stabilität von Systemen zu definieren, ist eine absolut
+integrierbare Impulsantwort einzufordern. Dies ist als Bounded-Input Bounded-Output
 Stabilitätskriterium
 $\int\limits_{-\infty}^{+\infty} |h(t)|\fsd t < \infty$
 bekannt.
@@ -751,7 +753,11 @@ Die Impulsantwort $h(t)_\mathrm{max}^{-1} $ verletzt das BIBO Kriterium, weil
 die $e$-Funktion über alle Maßen für $t\to\infty$ steigt. Das System ist
 instabil.
 Mit dieser Impulsantwort möchten wir ungern falten müssen.
-Bzw. weiter gedacht: wir können mit diesem System keine Systementzerrung betreiben.
+Bzw. weiter gedacht: wir können mit diesem System keine praktisch sinnvolle
+Systementzerrung betreiben.
+%
+Bei Rechnungen nur auf dem Papier kann es aber gelegentlich hilfreich sein,
+instabile Systeme bei Zwischenschritten zu benutzen.
 \end{ExCalc}
 
 \begin{tikzpicture}
@@ -861,7 +867,7 @@ Der Konvergenzbereich des invertierten Systems wird jetzt neu bestimmt, rechts
 vom rechtsliegendsten Pol.
 In unserem Beispiel bedeutet, dass wir für das intendiert kausale
 System $H(s)_\mathrm{max}^{-1}$ einen Konvergenzbereich $\Re\{s\}>2$ fordern
-müssen, vgl. Abb. 3.2 und 3.3. Dieser ist in der rechten $s$-Ebene und schließt die imaginäre Achse
+müssen, vgl. Abb. 3.2 und 3.3. Dieser ist in der rechten $s$-Halbebene und schließt die imaginäre Achse
 \textbf{nicht} mit ein. Für Systeme ein sicheres Indiz, dass die
 Fouriertransformierte, also der Frequenzgang des Systems nicht existiert.
 Frequenzgang bedeutet Systemverhalten im eingeschwungenen Zustand. Ein instabiles
@@ -895,14 +901,14 @@ H(s)_\mathrm{min}^{-1} = \frac{1}{2} (1-\frac{3}{2}\cdot\frac{1}{s+2})
 \,\Laplace\,
 h(t)_\mathrm{min}^{-1} = \frac{1}{2}\delta(t) - \frac{3}{4}\e^{-2 t}\epsilon(t).
 \end{align}
-Abfallende Exponentialfunktionen für wachsendes $t>0$ sind immer etwas sehr
+Abklingende Exponentialfunktionen für wachsendes $t>0$ sind immer etwas sehr
 Gutes in SigSys. Sie indizieren nämlich, dass die Impulsantwort absolut
 integrierbar ist. Das System erfüllt also das BIBO Kriterium und ist damit stabil.
 
 \noindent\textbf{grafische} Lösung:
 Im Pol-Nullstellendiagramm auch wieder Pole mit Nullstellen vertauschen
 und $H_0\to\frac{1}{H_0}$. Der KB $\Re\{s\}>-2$ für $H(s)_\mathrm{min}^{-1}$
-als kausales System, liefert ein stabiles System. Pol ist in der linken $s$-Ebene,
+als kausales System, liefert ein stabiles System. Pol ist in der linken $s$-Halbebene,
 der KB schließt die $\im\omega$-Achse mit ein. So wünschen wir uns das für
 praktische Systeme.
 \end{ExCalc}
@@ -915,14 +921,14 @@ können wir also \eq{eq:4926427BA9_EQing} ansetzen.
 $H_i(s)$ ist auch wieder minimalphasig.
 
 Die \textbf{Inversion} von maximalphasigen Systemen, allgemeiner von Systemen
-die Nullstellen in der rechten $s$-Ebene haben, also \textbf{gemischtphasige Systeme},
+die Nullstellen in der rechten $s$-Halbebene haben, also \textbf{gemischtphasige Systeme},
 bringt \textbf{instabile Systeme} $H_i(s)$ hervor.
 Daher zerlegen wir diese Systeme sehr oft in Allpass und Minimalphasensystem,
 dann können wir wenigstens das letztere invertieren. Genau deswegen spielt
 diese Zerlegung eine wichtige Rolle und deswegen haben wir uns das im Detail
 angeschaut.
 
-Als SigSyslerInnen haben wir also zweifache Verantwortung: a) falls wir
+Als SigSysler*innen haben wir also zweifache Verantwortung: a) falls wir
 ein System designen müssen, sollten wir es möglichst so auslegen, dass es
 invertierbar ist (weil empfängerseitig z.B. entzerrt werden soll)
 und b) falls wir ein System invertieren müssen, sollten wir
@@ -934,15 +940,12 @@ drauf achten, dass wir stabile Systeme designen.
 \textbf{Bode Diagramm und Inversion}
 Machen wir uns an dieser Stelle klar, was die Inversion einer
 minimalphasigen Übertragungsfunktion für Auswirkungen auf das Pegel Bode Diagramm
-hat. Wahrscheinlich müssen wir es einmal zu Fuß gehen, aber im Grunde ist
-es schnell einzusehen: Nachdem wir Pole mit Nullstellen vertauschen und
+hat: Nachdem wir Pole mit Nullstellen vertauschen und
 $\tilde{H}_0\to \frac{1}{\tilde{H}_0}$ (beachte Tilde) wird, spiegelt sich
 das Pegeldiagramm in dB bzgl. der Ordinate, also der dB-Achse. Das gleiche
 gilt für den Phasenfrequenzgang, also Spiegelung an der deg-Achse.
 Wir können das in \fig{fig:inversion_4926427BA9_plus_tikz} nachvollziehen
 und nochmal üben.
-
-
 \end{mdframed}
 
 \begin{figure*}[h]
@@ -1014,10 +1017,10 @@ Zerlegung von komplexeren Systemen in Systeme 1. und 2. Ordnung ist
 sehr beliebt, damit wir handhabbare und überschaubare Einzelsysteme interpretieren
 können.
 
-Die Reihen- und Parallelschaltung (ganz äquivalent zu Widerständen in der Elektrotechnik)
+Die Reihen- und Parallelschaltung (äquivalent zu Widerständen in der Elektrotechnik)
 sind hierfür unsere Tools.
 In den \fig{fig:tikz_series_081294E23C} und \fig{fig:tikz_parallel_081294E23C}
-ist diese übersichtlich dargestellt. Es leitet sich eigentlich 'nur' aus dem
+ist dies übersichtlich dargestellt. Es leitet sich eigentlich 'nur' aus dem
 Distributivgesetz und dem Assoziativitätsgesetz der Faltung und der
 Faltung-Multiplikation-Dualität ab, alles Dinge die wir schon gut kennen.
 Deswegen müssen wir das auch nicht auswendig lernen, sondern können uns
@@ -1038,8 +1041,8 @@ bedeutet.
 
 Hingegen können wir eine Parallelschaltung \textbf{nicht} ohne weiteres
 als Bode Diagramm darstellen.
-Die Addition von komplexwertigen Übertragungsfunktionen bzw. Frequenzgängen
-erfolgt vor der Pegelberechnung. Hier lassen sich die log-Gesetze nicht anwenden.
+Die \textbf{Addition von komplexwertigen Übertragungsfunktionen} bzw. Frequenzgängen
+erfolgt \textbf{vor der Pegelberechnung}. Hier lassen sich die log-Gesetze nicht anwenden.
 Wir müssten eine Parallelschaltung also vorher in eine Reihenschaltung überführen.
 %
 Anhand unserer einfachen Systeme, die uns diese Übung begleiten, spielen wir das
@@ -1079,11 +1082,11 @@ Pegel Bode Diagramm, Reihenschaltung, Parallelschaltung,
 %können die Lösung selbst bestimmen.
 %\end{ExCalc}
 \begin{Loesung}
-Siehe \fig{fig:series_vs_parallel_bode_level_081294E23C}.
-Die Skizze der Parallelschaltung müssen wir mit äußerster Vorsicht genießen.
+Siehe \fig{fig:cascade_081294E23C}, \fig{fig:parallel_081294E23C}.
+Die \textbf{Skizze der Parallelschaltung} müssen wir mit äußerster \textbf{Vorsicht} genießen.
 Es werden komplexwertige Übertragungsfunktionen von Einzelsystemen addiert
-(da geht also auch die Phase mit ein!). Erst danach können wir mit
-Betragsbildung und Dezibelrechnung den Pegel des Gesamtsystems bestimmen
+(da geht also auch die \textbf{Phase mit} ein!). Erst danach können wir mit
+Betragsbildung und Dezibelrechnung den Pegel des Gesamtsystems bestimmen.
 Daher ist die Darstellung mit den \textbf{skizzierten Pegelverläufen für die
 Parallelschaltung streng genommen falsch}!!!
 Wir finden es jedoch oft in der Literatur.
@@ -1091,11 +1094,22 @@ Wir finden es jedoch oft in der Literatur.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=1\textwidth]{../system_properties_ct/series_vs_parallel_bode_level_081294E23C.png}
-\caption{Reihenschaltung (oben) und Parallelschaltung (unten) für
-Aufgabe \ref{sec:081294E23C}.}
-\label{fig:series_vs_parallel_bode_level_081294E23C}
+\includegraphics[width=1\textwidth]{../system_properties_ct/cascade_081294E23C.png}
+\caption{Reihenschaltung für Aufgabe \ref{sec:081294E23C}.}
+\label{fig:cascade_081294E23C}
 \end{figure}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.59\textwidth]{../system_properties_ct/parallel_081294E23C.png}
+\caption{Parallelschaltung für Aufgabe \ref{sec:081294E23C}.}
+\label{fig:parallel_081294E23C}
+\end{figure}
+
+
+
+
 
 
 \begin{figure}
@@ -1254,9 +1268,10 @@ Gesamtübertragungsfunktion $H_1(s) + H_2(s)$.}
 Wir machen an dieser Stelle einen kleinen Rückgriff auf Übung 4, thematisch
 also Fouriertransformation.
 Wir wollen das Spektrum eines modulierten Gaussimpuls berechnen.
-Dies wird uns als Modell eines schmalbandigen Spektrums---für das wir in der nächsten
-Aufgabe die sogenannte Gruppenlaufzeit berechnen wollen---gute
+Dies wird uns als Modell eines schmalbandigen Spektrums gute
 Dienste leisten.
+Wir werden es in der nächsten Aufgabe zur Berechnung der sogenannten
+Gruppenlaufzeit benutzen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 8844932657}: Gegeben ist das Signal
 \begin{align}
@@ -1416,28 +1431,31 @@ Wir sollten allerdings ein Gefühl dafür entwickeln, welcher Aufwand hinter
 einer Lösung steckt, und ob ein computer-generiertes Ergebnis stimmen
 kann. Bei dem Spektrum, was wir gerade berechnet haben, kann z.B.
 kein $w^3$ Term auftreten. Solche Sachen deuten dann sehr schnell auf Fehler hin.
-Daher, je mehr wir per Hand durchgerechnet haben (in SigSys reichen zunächst
-Systeme 1. und 2. Ordnung), desto besser können wir dem Computer beibringen, was er
+Daher: je mehr wir per Hand durchgerechnet haben (in SigSys reichen zunächst
+Systeme 1. und 2. Ordnung), desto besser können wir einem Computer beibringen, was er/sie
 für uns Rechnen soll.
 
 In \fig{fig:frequency_group_8844932657} ist das Signal (oben) und dessen
 Betragsspektrum (unten) visualisiert.
 %
-Wir sehen, dass der Gaussimpuls mittels Cosinus zu $\omega=\pm \frac{1}{10}$ rad/s
+Wir sehen, dass der Gaussimpuls mittels Cosinus zu den Frequenzeinträgen
+um $\omega=\pm \frac{1}{10}$ rad/s
 moduliert wurde.
-Oder wieder andere Sichtweise: Die beiden Dirac Impulse des idealen, unendlichen
-Cosinus werden durch zeitliche Begrenzung verschmiert (Faltung mit der Gaussglocke).
+Oder wieder andere Sichtweise: Die beiden Dirac Impulse im Spektren des idealen,
+unendlichen Cosinus werden durch dessen zeitliche Begrenzung verschmiert
+(Faltung mit der Gaussglocke).
 %
 
-Wir haben uns ein sehr feines Beispiel gebastelt, um uns den
+Wir haben uns ein sehr feines Beispiel gebastelt, um uns nun den
 Begriff einer kleinen Frequenzgruppe anschaulich zu machen.
 Das Spektrum ist zwar streng genommen nicht bandbegrenzt, weil die Gaussglocke
 nur asymptotisch gegen Null geht, aber die Hauptenergie des Spektrums
 steckt in dem sichtbaren Gaussimpuls.
 Und diese konzentriert sich \textbf{relativ} zu $\omega_0=\frac{1}{10}$ rad/s in einem
 \textbf{kleinen Frequenzbereich}. Dies wird gerne \textbf{Frequenzgruppe} genannt.
-Hinweis: eine noch kleinere Frequenzgruppe wäre im Sinne der Mathematik noch
-eleganter, aber dann sehen wir in den Grafiken nicht mehr die wesentlichen Dinge.
+Hinweis: eine noch kleinere (unendlich schmal) Frequenzgruppe wäre im Sinne der
+Mathematik noch eleganter, aber dann sehen wir in den Grafiken nicht mehr die
+wesentlichen Dinge.
 \end{Loesung}
 
 \begin{figure}[h]
@@ -1483,7 +1501,7 @@ eleganter, aber dann sehen wir in den Grafiken nicht mehr die wesentlichen Dinge
 % \end{align}
 
 
-\newpage
+\clearpage
 \subsection{Phasenfrequenzgang und Gruppenlaufzeit}
 \label{sec:AB91F8317C}
 \begin{Ziel}
@@ -1529,7 +1547,7 @@ Systeme berechnet.
 \begin{Loesung}
 \textbf{Teilaufgabe I}: Wir sehen, dass die vergleichsweise einfachen Systeme
 schon relativ  komplizierte Funktionen hervorbringen, die wir nach den Regeln der
-Kurvendiskussion (vor allem Max/Minima, Wendepunkte) analysieren könnten.
+Kurvendiskussion (vor allem Max-/Minima, Wendepunkte) analysieren könnten.
 %
 \begin{align}
 &\angle H(\im\omega)_\mathrm{max} =
@@ -1599,22 +1617,19 @@ in Gedanken nur ein harmonisches Signal zu berücksichtigen.
 Und wir können es nicht oft genug betonen: wir schauen uns den eingeschwungenen
 Zustand an.
 
-Das maximalphasig System und der Allpass invertieren hier die Polarität, das
+Das maximalphasige System und der Allpass invertieren hier die Polarität, das
 minimalphasige System ändert nicht die Polarität.
 
 Für Frequenzen $\omega\ll 0.1$ rad/s und $\omega\gg 10$ rad/s gibt es
 beim minimalphasigen System keine Phasenverschiebung zwischen Aus- und Eingangssignal.
-Im Bereich $0.1 < \omega < 10$ rad/s resultiert beim minimalphasigen System
+Im Bereich $0.1 < \omega < 10$~rad/s resultiert beim minimalphasigen System
 ein nacheilendes Ausgangssignal,
 mit einer maximalen Verzögerung bei exakt $\omega=1$ rad/s um ca. $37^\circ$.
 Bemerkenswert ist, dass dieser Phasengang über logarithmische Frequenz Axialsymmetrie
 bzgl. $\omega=1$ aufweist. Das ist zufällig nützlich für das menschliche Hören.
-Es ist sehr unwahrscheinlich (aber auch nicht ausschließbar bzw.
-ganz korrekt: ich habe nicht nach eventuell vorhandener Forschungsliteratur
-gesucht und eine tendenziöse Hypothese in den Raum gestellt...schlechte
-Vorgehensweise),
+Es ist sehr unwahrscheinlich (aber auch nicht ausschließbar),
 dass sich das menschliche Gehör in der Evolution an SigSys-Eigenschaften
-orientiert hat, daher dürfen uns da mal wundern und freuen gleichzeitig.
+orientiert hat, daher dürfen wir uns da mal wundern und freuen gleichzeitig.
 
 Das maximalphasige System liefert voreilende Ausgangssignale (um genau die Hälfte
 der Periodendauer, diese Info liefert uns die Phasenlaufzeit) für ca.
@@ -1669,7 +1684,7 @@ Frequenzgruppe. Das ist in der untenstehenden Prinzip-Grafik ersichtlich.
 \includegraphics[width=0.5\textwidth]{../system_properties_ct/PhasenGruppenlaufzeit.pdf}
 \end{center}
 Die Gruppenlaufzeit ist also die Zeit die zwischen den beiden Einhüllenden
-einer infinitesimale Frequenzgruppe liegt. Wenn wir das für alle 'Frequenzgruppen'
+einer infinitesimalen Frequenzgruppe liegt. Wenn wir das für alle 'Frequenzgruppen'
 $\fsd w$ über $\omega$ machen, bekommen wir die Gruppenlaufzeit als Funktion
 über die Kreisfrequenz.
 
@@ -1684,16 +1699,16 @@ noch kleiner machen, dann aber einhergehend mit höherem Computer-Rechenaufwand,
 der hier gespart werden sollte.
 
 Hinzu kommt aber noch, dass unsere erzeugte Frequenzgruppe eine praktische
-Annäherung einer infinitesimale Frequenzgruppe $\fsd \omega$ ist, was naturgemäß
+Annäherung einer infinitesimalen Frequenzgruppe $\fsd \omega$ ist, was naturgemäß
 Abweichungen vom analytischen Ergebnis erzeugt.
 
 Wir sehen aber, dass die Gruppenlaufzeiten bei der Frequenzgruppe
 $\omega=0.1$ rad/s aus \fig{fig:group_delay_AB91F8317C} in
 \fig{fig:envelope_AB91F8317C} als Textangabe wiederzufinden sind.
 \end{Loesung}
-
+ 
 \begin{mdframed}
-\textbf{Was bedeutet min/maximalphasig?}
+\textbf{Was bedeutet min-/maximalphasig?}
 Dies ist ein Punkt den wir leider nicht im Detail analytisch anschauen können
 (dafür seien \cite{LangeSigSys1, Fliege1991} empfohlen), der aber vom Wesen sehr
 wichtig ist.
@@ -1708,7 +1723,7 @@ System. Es hat die größtmögliche Gruppenlaufzeit für alle Frequenzgruppen.
 
 Wir haben z.B. ein System 1. Ordnung, können also nur einen reellen Pol und
 eine reelle Nullstelle platzieren. Ein kausales System fordert den Pol in der linken
-$s$-Ebene. Je nach Pol, Nullstellenlage resultiert ein Betragsfrequenzgang,
+$s$-Halbebene. Je nach Pol, Nullstellenlage resultiert ein Betragsfrequenzgang,
 was wir als Pegel Bode Diagramm darstellen können.
 Es existiert nun ein System, was Frequenzgruppen so schnell wie möglich durchlässt
 (noch schneller kann das System nicht), das ist das minimalphasige System.
