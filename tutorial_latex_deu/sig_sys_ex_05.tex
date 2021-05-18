@@ -100,7 +100,7 @@
 \noindent In this exercise we will add a very important view onto the things
 going on in SigSys: we will learn how to interpret LTI systems in the spectral
 domain, also called the frequency domain. By that we start to get the bigger
-picture of SigSys and we will be able to sort things that we've already mastered
+picture of SigSys and we will be able to sort things that we have already mastered
 in basic electrical engineering courses.
 
 Thus, in this exercise we will learn how to draw a Bode plot of the
@@ -108,11 +108,11 @@ magnitude (more precisely the level in Decibel) over frequency.
 Although our computers would (in later practice indeed will)
 perform this task for us, it is good to know what's going on in detail.
 Most likely we are already familiar with the Bode plot from analysis of RLC
-circuits in electrical engineering. We will see how this earlier viewpoint will
+circuits in electrical engineering. We will see how this viewpoint will
 perfectly fit into the SigSys world. We should start thinking of LTI systems as
-poles and zeros in the Laplace domain and what they are doing in terms
-of the frequency response, the impulse and step response and of course to
-any other arbitrary input signal.
+poles and zeros description in the Laplace domain and what these poles and zeros
+are doing in terms of the frequency response, the impulse and step response and
+of course to any other arbitrary input signal.
 
 \begin{mdframed}
 SigSys for an LTI system denoted with operator $\mathcal{H}$ is in essence described
@@ -124,10 +124,11 @@ by the three most important equations / relationships
 \end{align}
 which we already know very good.
 %
-It includes the concept of the impulse response, its convolution with input
-signal $x$ to yield the output signal $y$, and the equivalence in the Laplace
-domain using multiplication with the transfer function $H$.
-If we are interested in the steady state of the system (in practice we are quite often),
+It includes the concept of the impulse response $h(t)$, its convolution with input
+signal $x(t)$ to yield the output signal $y(t)$, and the equivalence in the Laplace
+domain using multiplication with the transfer function $H(s)$.
+If we are interested in the steady state of the system
+(if this exists we are quite often interested in it in practice),
 we can evaluate the Fourier transform as special case of Laplace transform
 \begin{align}
 &h(t) = \mathcal{H}\{\delta(t)\}\\
@@ -191,7 +192,7 @@ with the following SigSys tools:
   \item Transfer function:
   $H(s) = \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}\Laplace h(t)
   \qquad\text{ROC: }\Re\{s\}>-\frac{3}{4}$
-  \item Pole-zero map in \fig{fig:pzmap_44EB4169E9} and in 3D
+  \item Pole-zero map in \fig{fig:pzmap_44EB4169E9} and as 3D plot in
   \fig{fig:bodeplot_example_approximations_pzmaps3D_44EB4169E9}
   \item Frequency response $H(s)\big|_{s=\im\omega}$:
   $H(\im\omega) = \frac{1}{-\frac{16}{25}\omega^2 + \frac{24}{25}\im\omega  + 1}
@@ -206,19 +207,18 @@ We will have a detailed look at the last item in this exercise.
 %discuss the phase response a bit more.
 
 Based on this long list, we will get a feeling that although the fundamentals
-lie in the ODE representation (remember that we started there in exercise 1),
-the ODE entry is comparably lost in comparison to all the other SigSys tools,
-that should simplify our engineering lives.
+lie in the ODE representation, it is the SigSys tools, that will simplify our
+engineering lives.
 
 \begin{mdframed}
 In essence, when discussing an LTI system in time and frequency domain, the
 graphs of \fig{fig:pzmap_44EB4169E9} and \fig{fig:lowpass2nd_44EB4169E9}
 will help to interpret the system characteristic from different viewpoints.
 Pole/zero/gain map, impulse, step, level and phase response are the most important
-ones and actually must haves.
+ones and actually must haves to know about.
 The so called Nyquist plot and the so called Nichols plot are common in
 control system engineering.
-We need to learn what to see in these graphs.
+We need to learn what to see in all these graphs.
 \end{mdframed}
 
 
@@ -236,9 +236,9 @@ We need to learn what to see in these graphs.
   \includegraphics[width=\textwidth]{../laplace_system_analysis/bodeplot_example_approximations_pzmaps3D_44EB4169E9.pdf}
   \caption{3D view of Laplace domain for 2nd order lowpass system from
   \fig{fig:pzmap_44EB4169E9}.
-  The green line corresponds to the magnitude response along $-\omega...+\omega$.
+  The red line corresponds to the magnitude response along $-\omega...+\omega$.
   Typically we are only interested in the physical frequencies $\omega\geq0$ and
-  very often the frequency axis is logarithmic additionally.
+  very often the frequency axis is additionally plotted in logarithmic fashion.
   \texttt{bodeplot\_example\_approximations\_pzmaps3D.ipynb}}
   \label{fig:bodeplot_example_approximations_pzmaps3D_44EB4169E9}
 \end{figure}
@@ -261,16 +261,17 @@ We need to learn what to see in these graphs.
 \label{sec:44EB4169E9}
 \begin{Ziel}
 We should explore the Bode plot approximations based on zeros and poles.
-In pre-computer decades this was a vivid job of signal
-processing and control system engineering.
+In pre-computer decades this was a vivid part of signal
+processing and control system engineering jobs.
 Although nowadays a computer calculates the frequency response faster and plots it
 probably nicer, we should be able to grasp the picture of the frequency response
 by rough calculation. Furthermore, by doing this we learn how zeros and poles
 of an LTI system actually  contribute to the frequency response. This knowledge
-is indeed basic engineering stuff, and that's why we do it here in detail.
+is indeed basic engineering stuff and engineering thinking, and that's why we do
+it here in detail.
 \end{Ziel}
 \textbf{Task} {\tiny 44EB4169E9}:
-Let us consider the Laplace transform (note that we already known this from
+Let us consider the Laplace transform (note that we already know this from
 exercise 3)
 \begin{align}
 \label{eq:H_ODE}
@@ -430,7 +431,8 @@ and by that the real and imaginary parts of the poles
 and thus $s_{\infty,1,2} = -\frac{3}{4} \pm \im$
 omitting the physical unit \textit{second} in the following.
 %
-Note that the distance $|s_{\infty,1,2}| = \omega_0=\frac{5}{4}$, which is later required.
+Note that magnitude $|s_{\infty,1,2}| = \omega_0=\frac{5}{4}$ of the complex number,
+which is later required.
 %
 The ROC is $\Re\{s\}>-\frac{3}{4}$ and thus includes the $\Im(s)$-axis.
 %
@@ -592,7 +594,8 @@ to handle a superposition of the frequency response prototypes shown in
 \end{Ansatz}
 
 \begin{ExCalc}
-For system interpretation we always need the poles, the zeros and the gain:
+For system interpretation we always need the poles, the zeros and the gain of
+the system:
 
 $s_0=0$,
 $s_{\infty,1}=-\frac{1}{10}$,
@@ -627,7 +630,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 \draw (-5,\tic)--(-5,-\tic) node[below]{$-10$};
 \draw (1.25,+2.25) node[C2!75]{ROC};
 \draw (1.25,1.75) node[]{$H_0=10$};
-\draw (-5,-1) node[]{not to scale};
+\draw (-5,-1) node[]{not to scale!};
 \end{tikzpicture}
 \end{center}
 
@@ -637,7 +640,7 @@ H(s) = H_0\frac{s-s_{0,1}}{(s-s_{\infty,1})(s-s_{\infty,2})} = 10\frac{(s-0)}{(s
 =\frac{100 s}{10 s^2 + 101 s + 10}.
 \end{align}
 %
-Now we ware ready to elaborate the magnitude frequency response prototypes for this
+Now we are ready to elaborate the magnitude frequency response prototypes for this
 LTI system in order to obtain the Bode plot approximation.
 %
 Four contributions from \eq{eq:Hs_sorted_for_Bode_dB_gain} to \eq{eq:Hs_sorted_for_Bode_dB_ccpole} need to be considered
@@ -656,11 +659,11 @@ Note: zeros or poles in the origin are not considered for calculation of $\tilde
 We draw the prototypes as level in dB over angular frequency $\omega$
 \begin{itemize}
 \item blue: 20 dB line frequency independent due to \eq{eq:Hs_sorted_for_Bode_dB_gain}
-\item orange: 20dB/decade (12dB/octave) rising line due to the zero in the origin,
+\item orange: 20dB/decade (6dB/octave) rising line due to the zero in the origin,
 \eq{eq:Hs_sorted_for_Bode_dB_origin}
-\item green: first real pole, thus -20dB/decade (-12dB/octave) starting from $|s_{\infty,1}| = \frac{1}{10}$, due to
+\item green: first real pole, thus -20dB/decade (-6dB/octave) starting from $|s_{\infty,1}| = \frac{1}{10}$, due to
 \eq{eq:Hs_sorted_for_Bode_dB_pole}
-\item red: second real pole, thus -20dB/decade (-12dB/octave) starting from $|s_{\infty,2}| = 10$, due to
+\item red: second real pole, thus -20dB/decade (-6dB/octave) starting from $|s_{\infty,2}| = 10$, due to
 \eq{eq:Hs_sorted_for_Bode_dB_pole}
 \end{itemize}
 We add up all these curves in the diagram. Due to log law this corresponds to the final approximation
@@ -668,7 +671,8 @@ in dB, shown in black, this is the approximated magnitude Bode plot.
 The exact result is plotted in olive, this is the magnitude Bode plot.
 The graphs are depicted in \fig{fig:bodeplot_example_approximations_590A7AFD51}.
 The system has bandpass characteristics, which means very low and very high
-frequencies are attenuated. Angular frequencies between 0.1 and 10 rad/s can pass
+frequencies are attenuated and a certain frequency band can pass the filter:
+Angular frequencies between 0.1 and 10 rad/s can pass
 thru.
 \end{Loesung}
 
@@ -699,7 +703,7 @@ thru.
 \subsection{Highpass 2nd Order with Resonance}
 \label{sec:1EC316D8B2}
 \begin{Ziel}
-Just another Bode diagram to practice. Here we deal with two real zeros,
+Just another Bode diagram for further practice. Here we deal with two real zeros,
 one of them is in the origin. Furthermore a conjugate complex pole pair has to be
 considered. This results in the most curvy frequency response we have seen so far.
 We get an idea on the placement of zeros and poles in the $s$-domain.
@@ -712,8 +716,8 @@ H(s) = \frac{s^2+10 s}{s^2+\sqrt{2} s +1}\qquad\text{ROC: }
 \end{align}
 \begin{Werkzeug}
 The same as before. We should see the beauty of SigSys: we defined a system
-in the Laplace domain completely detached from a RLC circuit or a ODE.
-Although, it is good to know on which roots SigSys is founded, we don't need
+in the Laplace domain completely detached from a RLC circuit or an ODE.
+Although, it is good to know on which fundamentals SigSys is founded, we don't need
 any RLC circuit analogies to grasp the working principles, once we got into the
 SigSys mindset. Congratulations, we've mastered a very important step in knowledge!
 \end{Werkzeug}
@@ -724,7 +728,7 @@ If then \textbf{all poles are in the left} $s$-plane, the system is \textbf{stab
 which is the case here.
 In other words: an unstable system does not include the $\Im\{s\}$-axis and therefore
 no Fourier transform, and therefore no frequency responses exists, since unstable
-is by definition not a steady state.
+behaviour is by definition not a steady state.
 
 A 2nd order system is commonly denoted as
 \begin{align}
@@ -776,7 +780,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 \draw (-5,\tic)--(-5,-\tic) node[below]{$-10$};
 \draw (1.25,+2.25) node[C2!75]{ROC};
 \draw (1.25,1.75) node[]{$H_0=1$};
-\draw (-5,-1) node[]{not to scale};
+\draw (-5,-1) node[]{not to scale!};
 \end{tikzpicture}
 \end{center}
 
@@ -786,11 +790,11 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 We draw the prototypes as level in dB over angular frequency $\omega$
 \begin{itemize}
 \item blue: 20 dB line frequency independent due to \eq{eq:Hs_sorted_for_Bode_dB_gain}
-\item orange: 20dB/decade (12dB/octave) rising line due to the zero in the origin,
+\item orange: 20dB/decade (6dB/octave) rising line due to the zero in the origin,
 \eq{eq:Hs_sorted_for_Bode_dB_origin}
-\item green: real zero, thus 20dB/decade (12dB/octave) starting from $|s_{0,2}| = 10$, due to
+\item green: real zero, thus 20dB/decade (6dB/octave) starting from $|s_{0,2}| = 10$, due to
 \eq{eq:Hs_sorted_for_Bode_dB_zero}
-\item red: conjugate complex pole pair, thus -40dB/decade (-24dB/octave) that starts from
+\item red: conjugate complex pole pair, thus -40dB/decade (-12dB/octave) that starts from
 $|s_{\infty,1,2}|^2 = 1$, due to \eq{eq:Hs_sorted_for_Bode_dB_ccpole}
 \end{itemize}
 We add up all these curves in the diagram. Due to log law this corresponds to the final approximation
@@ -826,9 +830,10 @@ at $\omega=1$. \texttt{bodeplot\_example\_approximations.ipynb}.}
 
 
 \clearpage
-\subsection{Appendix: HowTo Magnitude Bode Plot}
+\subsection{Appendix: How To Approximate the Level Bode Plot}
 \subsubsection{Rational Function in Pole-Zero Notation}
-We often discuss LTI systems that are described by a rational function
+We often discuss LTI systems with help of the \textbf{transfer function} that
+is described by a \textbf{rational function}
 \begin{align}
 \label{eq:Hs_b_a}
 H(s) = \frac
@@ -848,8 +853,8 @@ for input signal $x(t)$ and output signal $y(t)$ of an LTI system.
 %
 Not solving the ODE directly was our motivation to introduce the Laplace transform
 and the transfer function \eq{eq:Hs_b_a}.
-Recall that the zeros of the ODE's characteristic polynomial are equivalent to
-the poles of the transfer function.
+\textbf{Recall that the zeros of the ODE's characteristic polynomial are equivalent to
+the poles of the transfer function.}
 %
 
 We can rewrite \eq{eq:Hs_b_a} as
@@ -866,8 +871,8 @@ H_0 = \frac{b_M}{a_N}.
 \end{align}
 %
 We should note that in a pole-zero map, the information on the frequency
-independent gain factor $H_0 \in \mathbb{R}$ is lost, unless it is additionally
-and explicitly stated somewhere in the map.
+independent gain factor $H_0 \in \mathbb{R}$ is lost, \textbf{unless it is
+additionally and explicitly stated somewhere in the map}.
 
 To work with computer algebra packages, we need to arrange the vectors / arrays
 \begin{align}
@@ -892,23 +897,23 @@ H(s) = |H(s)| \e^{\im \angle H(s)}.
 \end{align}
 %
 Due to the zero/pole product notation in \eq{eq:Hs_H0_z_p}
-we can conveniently state the magnitude
+we can conveniently state the \textbf{magnitude}
 \begin{align}
 \label{eq:Hs_H0_z_p_mag}
 |H(s)| = |H_0| \cdot \frac
 {|s-s_{0,1}| \cdot |s-s_{0,2}| \cdot  \,\,\dots \,\,\cdot  |s-s_{0,M-1}| \cdot  |s-s_{0,M}|}
 {|s-s_{\infty,1}| \cdot  |s-s_{\infty,2}| \cdot  \,\,\dots\,\, \cdot |s-s_{\infty,N-1}| \cdot |s-s_{\infty,N}|}
 \end{align}
-and the phase
+and the \textbf{phase}
 \begin{align}
 \label{eq:Hs_H0_z_p_phase}
-\angle H(s)| =& \angle H_0\\
+\angle H(s)| =& \angle H_0\nonumber\\
 &
 +\angle (s-s_{0,1})
 +\angle (s-s_{0,2})
 +\dots
 +\angle (s-s_{0,M-1})
-+\angle (s-s_{0,M})\\
++\angle (s-s_{0,M})\nonumber\\
 &
 -\angle (s-s_{\infty,1})
 -\angle (s-s_{\infty,2})
@@ -919,20 +924,24 @@ and the phase
 
 
 \subsubsection{Zero/Pole Characteristics}
-In practice we aim at (i) causal and (ii) bounded input, bound output (BIBO)
-stable LTI systems, which requires (i) $M\leq N$ and (ii)
-poles only in the left $s$-plane.
+In practice we aim at
+
+a) causal and b) bounded input, bound output (BIBO) stable LTI systems, which requires
+
+a) $M\leq N$ and b) poles only in the left $s$-plane.
 %
+
 Only real zeros, real poles, complex conjugate pairs of zeros and
 complex conjugate pairs of poles yield
-real coefficients $b,a \in \mathbb{R}$, and thus systems which can be build in
+real coefficients $b,a \in \mathbb{R}$, and thus systems which can be built in
 practice as well.
 %
 Vice versa, we very often analyse practical systems where precisely these types
 of poles and zeros will occur.
 %
 Thus, let us assume these types of zeros and poles only, when now following the
-book\footnote{Norbert Fliege (1991): "Systemtheorie", Teubner, Stuttgart}.
+description given in the book Norbert Fliege (1991): "Systemtheorie", Teubner,
+Stuttgart.
 %
 With
 \begin{itemize}
@@ -1015,8 +1024,8 @@ using the factor $|\tilde{H_0}|$
 \end{align}
 %
 The magnitude $|H(s)|$ of an LTI system---that is described by a rational function---can
-thus be discussed in terms of six prototypical functions given in
-\eq{eq:Hs_sorted_for_Bode_Mag}, namely
+thus be \textbf{discussed in terms of six prototypical functions given in
+\eq{eq:Hs_sorted_for_Bode_Mag}}, namely
 \begin{itemize}
 \item gain factor $|\tilde{H_0}|$
 \item poles and zeros in the origin
@@ -1085,9 +1094,9 @@ We now use the dB definition and laws of logarithm to rearrange \eq{eq:Hs_sorted
 \end{align}
 %
 Multiplication/division is transformed to addition/subtraction by the logarithm.
-Thus, we can discuss the system characteristics by the frequency response prototypes
+Thus, we can discuss the system characteristics by the \textbf{frequency response prototypes}
 \eq{eq:Hs_sorted_for_Bode_dB_gain} to \eq{eq:Hs_sorted_for_Bode_dB_ccpole} and
-their additive/subtractive interaction.
+their \textbf{additive/subtractive interaction}.
 
 \begin{figure}[!ht]
 \subfloat[Gain, \eq{eq:Hs_sorted_for_Bode_dB_gain}.\label{fig_bode_mag_gain}]{%
@@ -1122,35 +1131,35 @@ This is precisely used to discuss the frequency response of an LTI system with
 help of the Bode plot.
 The level response of the Bode plot evaluates $20 \text{lg} |H(s)\big|_{s=\im \omega}|$.
 
-The prototype systems \eq{eq:Hs_sorted_for_Bode_dB_gain} to
+The \textbf{prototype} systems \eq{eq:Hs_sorted_for_Bode_dB_gain} to
 \eq{eq:Hs_sorted_for_Bode_dB_ccpole} exhibit an interesting characteristic,
-when being plotted over a logarithmic frequency axis:
-In the limiting cases, i.e. for frequencies much larger/smaller than around the pole/zero magnitude, the frequency response can be approximated by straight-line equations.
+when being plotted \textbf{over a logarithmic frequency axis}:
+In the limiting cases, i.e. for frequencies much larger/smaller than around the pole/zero magnitude, the frequency response \textbf{can be approximated by straight-line equations}.
 These approximations are visualised in Fig. \ref{fig:magbodeprototype}.
 For example, for a single, real zero $s_{0,j}$ the prototype magnitude frequency response is $20 \text{lg}  \bigg|\frac{s}{s_{0,j}}-1\bigg|$
 according to \eq{eq:Hs_sorted_for_Bode_dB_zero}.
 For $|s| \ll |s_{0,j}|$, the value of one is dominating, yielding a line at 0 dB.
 For $|s| \gg |s_{0,j}|$, the fraction is prevailing, yielding a line with a rise of 20 dB per decade (i.e. a tenfold increase of frequency).
-The asymptotic characteristics changes exactly at $|s| = |s_{0,j}|$.
+The asymptotic characteristics changes at $|s| = |s_{0,j}|$.
 This is depicted in Fig. \ref{fig_bode_mag_single_zero}.
 
 
 
 \clearpage
 \subsubsection{Manual Logarithmic Diagram}
-It is very helpful when we are able to draw a Bode plot sketch manually. In order
-to do this we need to know how the logarithmic frequency axis is designed.
+It is very helpful when we are able to draw an approximated Bode plot sketch manually.
+In order to do this we need to know how the logarithmic frequency axis is designed.
 %
 In SigSys either the $\log_{10}$ (w.r.t. frequency decade) or $\log_{2}$
 (w.r.t. frequency octave) are commonly used.
 %
-Most important is to realized that each decade (10 times of a reference frequency)
+Most important is to realize that each decade (10 times of a reference frequency)
 or each octave (2 times of a reference frequency) takes always the same distance
 on the x-axis.
 %
 This is the idea of the log plot.
 %
-Second, minor grid lines can be set up. For the $\log_10$ plot
+Second, minor grid lines can be set up. For the $\log_{10}$ plot
 this is standardized being the numbers from 1 to 10 within one decade.
 \begin{center}
 \begin{tikzpicture}
@@ -1212,12 +1221,12 @@ this is standardized being the numbers from 1 to 10 within one decade.
 %[0.         0.13750352 0.26303441 0.37851162 0.48542683 0.5849625
 % 0.67807191 0.76553475 0.84799691 0.92599942 1.        ]
 
-
+ 
 \begin{itemize}
   \item $\log_{10}$:
-  (Standardised) grid lines for the first decade at
+  (Standardised) grid lines for the first decade in the above example at
   \begin{align}
-  10^{-1} \cdot [1,2,3,...,9,10]
+  10^{-1} \cdot [1,2,3,...,9,10] = [0.1,0.2,0.3,...,0.9,1]
   \end{align}
   to cover frequencies from $\omega=10^{-1} \omega_r$ to $\omega=10^1 \cdot 10^{-1} \omega_r= 10^0 \omega_r$
   can be drawn by the spacing values $\log_{10}[1,2,3,...,9,10]$
