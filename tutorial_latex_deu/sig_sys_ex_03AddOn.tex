@@ -19,7 +19,6 @@
 % \usepackage{mdframed}
 % \usepackage{tikz}
 % \usepackage{verbatim}
-
 % %\usepackage{chngcntr}
 % %\counterwithout{figure}{subsection}
 % %\counterwithout{table}{subsection}
@@ -115,11 +114,19 @@ There is one current $i(t)$ flowing in the RLC circuit under discussion.
 The corresponding current-voltage laws for the components are
 $u_R(t) = R\,i(t)$,
 $u_L = L\,\frac{\mathrm{d}i(t)}{\mathrm{d} t}$ and
-$u_C(t) = \frac{1}{C} \, \int i(t) \mathrm{d}t$.
-With these \eq{eq:KirchhoffLaw} is rewritten as
+$u_C(t) = \frac{1}{C} \, \int i(t) \mathrm{d}t$.\\
+With the fundamental theorem of calculus we can find the differential representation
+\begin{align}
+\label{eq:u_c}
+u_C(t) &= \frac{1}{C}\int\limits_{t_0}^{t} i(t) \fsd t+u_C(t_0) \bigg | \cdot C\frac{\fsd}{\fsd t} \nonumber \\
+C\dot u_C(t) &= i(t) \nonumber
+\end{align}
+between voltage and current of the capacitor.
+%
+We can insert this into \eq{eq:KirchhoffLaw}
 %
 \begin{align}
-L C \cdot \ddot{u}_C(t) + R C \cdot \dot{u}_C(t) + u_C(t) = u_0(t)
+RC \dot u_C(t)+LC\frac{\mathrm{d}\dot u_C(t)}{\mathrm{d}t}+u_C(t)=L C \cdot \ddot{u}_C(t) + R C \cdot \dot{u}_C(t) + u_C(t) = u_0(t)
 \end{align}
 using
 $\ddot{u}_C(t) = \frac{\mathrm{d}^2 u_C(t)}{\mathrm{d}t^2}$ and
@@ -138,7 +145,7 @@ L C \cdot \ddot{y}(t) + R C \cdot \dot{y}(t) + y(t) = x(t).
 
 
 %##############################################################################
-\subsubsection{Task}
+\subsubsection{Tasks}
 The ODE in \eq{eq:ODE_RLC} with
 $R = 3\,\nicefrac{\text{V}}{\text{A}}$,
 $L=2\,\nicefrac{\text{V s}}{\text{A}}$,
@@ -146,30 +153,36 @@ $C=\frac{8}{25}\,\nicefrac{\text{A s}}{\text{V}}$
 is to be solved for $t\geq 0$ and the cases
 \begin{itemize}
 \item[a)] $y_\text{particular}(t)$ when $x(t)=\delta(t)$
-\item[b)] $y(t) = y_\text{hom}(t)+y_\text{particular}(t)$ when
+\item[b)] $y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t)$ when
 $x(t)=1$ and initial conditions $\dot{y}(0) = 0$, $y(0)=0$
-\item[c)] $y(t) = y_\text{hom}(t)+y_\text{particular}(t)$ when $x(t)=0$
+\item[c)] $y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t)$ when $x(t)=0$
 and initial conditions $\dot{y}(0) = 2$, $y(0)=1$
-\item[d)] $y(t) = y_\text{hom}(t)+y_\text{particular}(t)$ when $x(t)=1$
+\item[d)] $y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t)$ when $x(t)=1$
 and initial conditions $\dot{y}(0) = 2$, $y(0)=1$
-\item[e)] $y(t) = y_\text{hom}(t)+y_\text{particular}(t)$ when $x(t)=\sin(t)$
+\item[e)] $y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t)$ when $x(t)=\sin(t)$
 and initial conditions $\dot{y}(0) = 0$, $y(0)=0$
 \end{itemize}
 denoting the Dirac-Delta impulse $\delta(t)$.
 %and Heaviside step function
 %$\epsilon(t)= \{0\,\,\text{for}\,\,t < 0;\,\,\, 1\,\,\text{for}\,\,t \geq 0\}$.
 %
-For Dirac impulse initial conditions refer to $t=0-$ since excitation is at $t=0$.
+
+For Dirac impulse initial conditions refer to $t=0-0$ (left limit) since excitation is at $t=0$.
 For other signals, initial conditions refer to the exact time instance $t=0$,
-excitation signals start at right limit $t=0+$.
+excitation signals start at right limit $t=0+0$ (right limit).
 %
-The task shall be performed with help of the \textbf{fundamental system of solutions}
-and and with the help of the \textbf{Laplace transform}.
 
+The task shall be performed with help of the
+\begin{itemize}
+\item \textbf{fundamental system of solutions}
+\item \textbf{Laplace transform}
+\item \textbf{convolution integral}, i.e. particular solution for tasks b and e.
+\end{itemize}
 
 
 %##############################################################################
 %##############################################################################
+\newpage
 \subsection{Preliminaries for Fundamental System of Solutions}
 
 
@@ -286,7 +299,7 @@ y = \mathrm{e}^{\lambda t},\quad
 \end{align}
 %
 We insert these in \eq{eq:ODE_sigma0} with $x=0$, to obtain the
-so called \textbf{homogeneous solution} $y_\text{hom}$, also denoted as
+so called \textbf{homogeneous solution} $y_\text{homogeneous}$, also denoted as
 $y_h$.
 Thus,
 \begin{align}
@@ -294,8 +307,8 @@ Thus,
 \frac{2 \sigma_0}{\omega_0^2} (\lambda \cdot \mathrm{e}^{\lambda t}) +
 \mathrm{e}^{\lambda t} = 0,\nonumber\\
 \label{eq:CharEq}
-(\underbrace{\frac{\lambda^2}{\omega_0^2} +
-\frac{2 \sigma_0 \lambda}{\omega_0^2} + 1}_\text{characteristic equation})
+\left(\underbrace{\frac{\lambda^2}{\omega_0^2} +
+\frac{2 \sigma_0 \lambda}{\omega_0^2} + 1}_\text{characteristic equation}\right)
 \cdot \mathrm{e}^{\lambda t} = 0.
 \end{align}
 %
@@ -306,7 +319,7 @@ Thus, we calculate the zeros of the term within brackets, which is well known as
 %
 The zeros of this 2nd order polynomial are
 \begin{align}
-\label{lambda12}
+\label{eq:lambda12}
 \lambda_{1,2} = -\sigma_0 \pm \sqrt{\sigma_0^2 - \omega_0^2}.
 \end{align}
 %
@@ -330,7 +343,7 @@ A \mathrm{e}^{\lambda_1 t} + B \mathrm{e}^{\lambda_2 t}
 with the two constants $A$ and $B$ to be defined by the initial conditions
 $\dot{y}(t)$ and $y(t)$ for a given $t$ (very often $t=0$)
 of the the complete solution
-$y(t) = y_\text{hom}(t)+y_\text{particular}(t)$.
+$y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t)$.
 
 \paragraph{Case II for Homogeneous Solution (Aperiodischer Grenzfall)}
 For
@@ -341,7 +354,7 @@ a double zero
 \begin{align}
 \lambda_{1} = \lambda_{2} = -\sigma_0
 \end{align}
-results for \eq{lambda12}.
+results for \eq{eq:lambda12}.
 Then the Ansatz reads
 \begin{align}
 y_h = \mathrm{e}^{-\sigma_0 t} [A t + B].
@@ -358,7 +371,7 @@ the already introduced helping variable
 \begin{align}
 \omega_D^2 = \omega_0^2 - \sigma_0^2 > 0
 \end{align}
-rearranges \eq{lambda12} to
+rearranges \eq{eq:lambda12} to
 \begin{align}
 \label{eq:lmb12_caseIII}
 \lambda_{1,2} = -\sigma_0 \pm \sqrt{-\omega_D^2}
@@ -372,7 +385,7 @@ Then the Ansatz reads (cf. case I)
 y_h = A \mathrm{e}^{\lambda_1 t} + B \mathrm{e}^{\lambda_2 t}.
 }
 \end{align}
-or (by using other $A$, $B$!)
+or (by using other coefficients $A$, $B$!)
 \begin{align}
 \label{eq:Ansatz_caseIIIsincos}
 y_h = \mathrm{e}^{-\sigma_0 t}
@@ -411,9 +424,9 @@ requires the Ansatz
 \begin{align}
 y_p =
 \begin{cases}
-Q_n(t)&\quad a\neq 0, c\neq 0\\
-t Q_n(t)&\quad a\neq 0, b\neq 0, c=0\\
-t^2 Q_n(t)&\quad a\neq 0, b=0, c=0
+Q_n(t)&\quad a\neq 0, c\neq 0 \rightarrow \lambda_{1,2} \neq 0\\
+t Q_n(t)&\quad a\neq 0, b\neq 0, c=0 \rightarrow \lambda_1=0,\lambda_2 = -\frac{b}{a}\\
+t^2 Q_n(t)&\quad a\neq 0, b=0, c=0  \rightarrow \lambda_{1,2} = 0
 \end{cases}
 \end{align}
 and solving for the coefficients $q_n, q_{n-1},...,q_0$ by comparing
@@ -459,7 +472,7 @@ and solving for the coefficients $A, B$ by comparing coefficients.
 The full solution of an ODE is the superposition of the homogeneous solution
 and inhomogeneous (particular) solution
 \begin{align}
-y(t) = y_\text{hom}(t)+y_\text{particular}(t) \qquad \rightarrow \qquad
+y(t) = y_\text{homogeneous}(t)+y_\text{particular}(t) \qquad \rightarrow \qquad
 y = y_h + y_p
 \end{align}
 and then resolving for the initial conditions $\dot{y}(t)$ and $y(t)$ for a
@@ -469,8 +482,9 @@ given $t$ (very often $t=0$) to obtain the specific solution $y$.
 
 %##############################################################################
 %##############################################################################
+\newpage
 \subsection{Solutions Using Fundamental System}
-
+\label{sec:SolutionsUsingFundameltalSystem}
 
 
 %##############################################################################
@@ -496,6 +510,7 @@ becomes a vital part when doing this.
 %
 However, we will not go into detail here, cf. \cite[p.133]{Strang2014} instead.
 %
+\label{pg:sig_sys_ex_03AddOn:convolution}
 The important part of the story is:
 Once $g(t)$ is known,
 the \textbf{particular solution} $y_p$ \textbf{for any other inhomogeneity}
@@ -511,9 +526,9 @@ function $g(t)$ typically the \textbf{impulse response} $h(t)$ of the
 
 \textbf{Important detail}: Actually the problem
 $\frac{16}{25} \ddot{h}(t) + \frac{24}{25} \dot{h}(t) + h(t) = \delta(t),\,\,\,
-\dot{h}(0-)=0,\,\,\,h(0-)=0$
+\dot{h}(0-0)=0,\,\,\,h(0-0)=0$
 solves for the impulse response, where we need the \textbf{left sided}
-limit $t=0-$, since the Dirac impulse excites at $t=0$.
+limit $t=0-0$, since the Dirac impulse excites at $t=0$.
 %
 This proof is a little bit off-topic due to lack of time.
 %
@@ -555,7 +570,7 @@ We will also need this in general, so it is anyway a good idea to calculate
 this first.
 %
 According to Sec. \ref{Sec:FundamentalSet} the characteristic equation for the
-ODE is \eq{lambda12}
+ODE is \eq{eq:lambda12}
 \begin{align}
 \lambda_{1,2} = -\sigma_0 \pm \sqrt{\sigma_0^2 - \omega_0^2}.
 \end{align}
@@ -607,6 +622,23 @@ y(0) = 0 = A + B
 \dot{y}(0) = \nicefrac{25}{16} =
 (-\frac{3}{4}+\im) \, A + (-\frac{3}{4}-\im) \, B
 \end{align}
+or in matrix notation
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-\frac{3}{4}+\im & -\frac{3}{4}-\im
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 \\
+		\frac{25}{16}
+	\end{pmatrix}. \nonumber
+\end{align}
 Thus, comparing coefficients and using one Euler identity
 $\sin(x) = \frac{\e^{\im x}-\e^{-\im x}}{2\im}$
 \begin{align}
@@ -635,7 +667,7 @@ We shall solve
 for $y$ with the Ansatz of fundamental set of solutions.
 
 \paragraph{Inhomogeneous Solution}
-The source term $x(t\geq 0+)=1$ exhibits unit
+The source term $x(t\geq 0+0)=1$ exhibits unit
 amplitude over time. This can be stated as the most simple polynomial $p_0=1$.
 Thus, the polynomial Ansatz $y_p = q_0$ leads to
 \begin{align}
@@ -677,6 +709,7 @@ A = -\frac{3}{4}\qquad B = -1
 \end{align}
 are inserted into \eq{eq:SpecificyTaskb}
 \begin{align}
+\label{eq:stepResponse}
 \boxed{
 h_\epsilon = y_\text{Task b} =
 1 - \mathrm{e}^{-\frac{3}{4} t} \cdot
@@ -714,18 +747,19 @@ Feel free to double check this solution at Wolfram Alpha with input
 %##############################################################################
 \subsubsection{Task a) Revisited with Fundamental System / Impulse Response}
 %
-The Heaviside step function
+The Heaviside step function (with left / right limit definition with respect to
+time instance $t=0$)
 \begin{equation}
 \epsilon(t) =
 \begin{cases}
-  0 & t\leq 0-\\
-  1 & t\geq 0+
+  0 & t\leq 0-0\\
+  1 & t\geq 0+0
 \end{cases}
 \end{equation}
 and
 the Dirac impulse $\delta(t)$ are related by
 \begin{align}
-\dot{\epsilon}(t) = \delta(t).
+\dot{\epsilon}(t) = \frac{\fsd \epsilon(t)}{\fsd t} = \delta(t).
 \end{align}
 In fact, in task a and b we just derived the impulse response $h(t)$ and step response
 $h_\epsilon(t)$ of the ODE, respectively.
@@ -808,6 +842,22 @@ Applying the initial conditions yields
 (-\frac{3}{4}-\im) B
 \qquad
 y(0) = 1 = A + B.
+\end{align}
+or as system of equations in matrix notation
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-\frac{3}{4}+\im & -\frac{3}{4}-\im
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix} =
+	\begin{pmatrix}
+		1 \\
+		2
+	\end{pmatrix}. \nonumber
 \end{align}
 Thus, the coefficients become
 \begin{align}
@@ -935,6 +985,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 %##############################################################################
 \subsubsection{Task e) with Fundamental System}
+\label{sec:TaskeWithFundamentalSystem}
 In this task we shall solve
 \begin{align}
 \label{eq:InHomoODE_sin}
@@ -1044,6 +1095,7 @@ Feel free to double check this solution at Wolfram Alpha with input
 
 
 %##############################################################################
+\newpage
 \subsection{Preliminaries for Laplace Transform}
 We should now study the problem with the help of the Laplace transform.
 For the chosen ODE and input signals the calculus effort is about the same,
@@ -1068,7 +1120,7 @@ We do not need to use the complex integral and application of the
 here in SigSys, but rather make use of \textbf{correspondence tables for Laplace transforms}.
 %
 The English and German textbooks
-\cite{Strang2010,Strang2014,GirodRabensteinStenger2007,Girod2001,Oppenheim1997,Fliege1991,
+\cite{Strang2007,Strang2010,Strang2014,GirodRabensteinStenger2007,Girod2001,Oppenheim1997,Fliege1991,
 Goeldner1987,LangeSigSys1,Wunsch1972}
 can be considered classics and cover the Laplace transform very well for our
 purpose.
@@ -1301,9 +1353,12 @@ We require the following input signals for this exercise
 
 %##############################################################################
 %##############################################################################
+\newpage
 \subsection{Solutions Using Laplace Transform}
 
 %##############################################################################
+
+
 \subsubsection{Task a) with Laplace Transform / Impulse Response}
 \label{sec:TransferFunction}
 We shall find the inverse Laplace transform
@@ -1359,16 +1414,38 @@ pole pair $s_{\infty,2,3}=-\frac{3}{4}\pm \im$.
 Thus, the Ansatz is
 \begin{align}
 Y(s) = \frac{1}{s}
-\cdot \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1} =
-\frac{A}{s-s_{\infty,1}} + \frac{Bs+C}{(s-s_{\infty,2})(s-s_{\infty,3})}.
+\cdot \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1} &=
+\frac{A}{s-s_{\infty,1}} + \frac{Bs+C}{(s-s_{\infty,2})(s-s_{\infty,3})} \\ \nonumber
+=\frac{1}{s(s-(-\frac{3}{4}+\im))(s-(-\frac{3}{4}-\im))}&=\frac{A}{s}+\frac{Bs+C}{(s-(-\frac{3}{4}+\im))(s-(-\frac{3}{4}-\im))}
+.
 \end{align}
 Rearranging yields
 \begin{align}
 1 =
 A \cdot (\frac{16}{25} s^2 + \frac{24}{25} s + 1) +
-(B s + C) \cdot s.
+(B s + C) \cdot s=s^2(\frac{16}{25}A+B)+s(\frac{24}{25}A+C)+A.
 \end{align}
-Comparison of coefficients for $s^2, s^1, s^0$ yields
+Again, we can write this as a system of linear equations
+\begin{align}
+	\begin{pmatrix}
+		\frac{16}{25} & 1 & 0 \\
+		\frac{24}{25} & 0 & 1 \\
+		1 & 0 & 0
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		A \\
+		B \\
+		C
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 \\
+		0 \\
+		1
+	\end{pmatrix}.
+\end{align}
+Comparison of coefficients for $s^2, s^1, s^0$ / solving matrix system yields
 \begin{align}
   A = 1\quad B = -\frac{16}{25} \quad C = -\frac{24}{25}.
 \end{align}
@@ -1392,6 +1469,7 @@ splits the term in the bracket.
 Individual inverse Laplace transform of each fraction is allowed due to
 linearity. Thus, we get
 \begin{align}
+\label{eq:stepResponse_Laplace}
 \boxed{y(t)_\text{Task b} =
 \left[1
 - \e^{-\frac{3}{4} t} \cos(t)
@@ -1460,6 +1538,7 @@ InverseLaplaceTransform[(1/s+16/25*s+56/25)/(16/25*s^2+24/25*s+1)]
 
 %##############################################################################
 \subsubsection{Task e) with Laplace Transform}
+\label{sec:task_e_Laplace}
 We shall find the inverse Laplace transform $y(t) = \mathcal{L}^{-1}\{Y(s)\}$
 for
 \begin{align}
@@ -1478,15 +1557,12 @@ Y(s) = \frac{A s + B}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}+
 \end{align}
 Hence,
 \begin{align}
-1=
+1&=
 (A s + B) \cdot (s^2+1)+
-(C s + D) \cdot (\frac{16}{25} s^2 + \frac{24}{25} s + 1).
+(C s + D) \cdot (\frac{16}{25} s^2 + \frac{24}{25} s + 1) \nonumber \\
+&= s^3(A+\frac{16}{25}C)+s^2(B+\frac{24}{25}C+\frac{16}{25}D)+s(A+C+\frac{24}{25}D)+(B+D).
 \end{align}
-Manual comparison of coefficients becomes more and more inconvenient with growing
-numbers of coefficients.
-Although, in this example a matrix inversion is more calculus effort than plain
-comparison of coefficients, we should keep in mind that we can set up a system
-of linear equations in matrix notation
+and again setting up a system of linear equations in convenient matrix notation
 %wolfram alpha:
 %inv[[[0, 1, 0, 1], [10/13, 10/13, 1, 1], [250/137, 125/137, 274/137, 1], [750/241, 250/241, 723/241, 1]]]*[1, 5/13, 25/137, 25/241]
 % \begin{align}
@@ -1552,17 +1628,17 @@ D
 .
 \end{align}
 %
-The matrix $\mathbf{M}$ is full rank (if we do not believe this, we can assure
-us by checking that reduced row echelon form of $\mathbf{M}$ is the identity matrix.
-The system response is unique, thus the defined linear system of equations must
-have a unique solution, saying that square $\mathbf{M}$ has an excat inverse.).
+The matrix $\mathbf{M}$ is full rank.
 %
-Thus, solving $\mathbf{u} = \mathbf{M}^{-1} \cdot \mathbf{v}$ (in later practice
-we might leave this job for a computer, such as e.g. input to Wolfram Alpha
-\begin{verbatim}
-inv[[[1, 0, 16/25, 0], [0, 1, 24/25, 16/25], [1, 0, 1, 24/25], [0, 1, 0, 1]]]*[0, 0, 0, 1]
-\end{verbatim}
-) yields the coefficients
+If we do not believe this, we can assure us by checking that the reduced row echelon
+form of $\mathbf{M}$ is the identity matrix.
+%
+Since the system response is unique, the defined linear system of equations must
+have a unique solution as well.
+%
+This means that the square $\mathbf{M}$ has an exact inverse.
+%
+Thus, solving $\mathbf{u} = \mathbf{M}^{-1} \cdot \mathbf{v}$ yields the coefficients
 \begin{align}
 \label{eq:coeffABCDsinLaplace}
   A = \frac{128}{219}
@@ -1571,6 +1647,12 @@ inv[[[1, 0, 16/25, 0], [0, 1, 24/25, 16/25], [1, 0, 1, 24/25], [0, 1, 0, 1]]]*[0
   \quad D = \frac{25}{73}.
 \end{align}
 %
+In later practice
+we might leave this job for a computer, such as e.g. input to Wolfram Alpha
+\begin{verbatim}
+inv[[[1, 0, 16/25, 0], [0, 1, 24/25, 16/25], [1, 0, 1, 24/25], [0, 1, 0, 1]]]*[0, 0, 0, 1]
+\end{verbatim}
+
 %
 Inserting these into the Ansatz results in
 \begin{align}
@@ -1710,6 +1792,169 @@ $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
 %##############################################################################
 %##############################################################################
 \clearpage
+%##############################################################################
+%##############################################################################
+\subsection{Particular Solution Using the Convolution Integral}
+\subsubsection{Introduction}
+As mentioned on page~\pageref{pg:sig_sys_ex_03AddOn:convolution}, we can calculate
+the particular solution by convolving the inhomogeneous part with the impulse
+response of the LTI system (i.e. the Green's function of ODE).
+
+\subsubsection{Task b) with Convolution: Particular solution with x(t) = Unit Step}
+The general equation of the convolution is
+\begin{equation}
+	y(t) = x(t) \ast h(t) =
+	\int\limits_{-\infty}^{\infty}h(\tau) \, x(-\tau+t)\mathrm{d}\tau=
+	\int\limits_{-\infty}^{\infty}h(-\tau+t)\, x(\tau)\mathrm{d}\tau.
+\end{equation}
+The impulse response
+\begin{align}
+h(t)=\frac{25}{16}\e^{-\frac{3}{4}t}\sin(t) \epsilon(t)
+\end{align}
+convolved with the Heaviside step function (with left / right limit definition
+with respect to
+time instance $t=0$)
+\begin{equation}
+\epsilon(t) =
+\begin{cases}
+  0 & t\leq 0-0\\
+  1 & t\geq 0+0
+\end{cases}
+\end{equation}
+yields the \textbf{step response}, as we know and derived already.
+%
+It appears reasonable that we use the impulse response as the non-shifted signal, applying the variable substitution $t \to \tau$
+\begin{align}
+h(\tau\geq 0) =& \frac{25}{16} \e^{-\frac{3}{4} \tau} \sin(\tau)\\
+h(\tau < 0) =& 0
+\end{align}
+and $x(-\tau + t) = \epsilon(-\tau + t)$ as time-mirrored (variable $\tau$) and shifted (variable $t$)
+signal in the convolution.
+%
+The product $x(-\tau + t) h(\tau) = \epsilon(-\tau + t) h(\tau) = 0$ for $t<0$ (a little
+sketch is useful here). Thus, we don't have to consider it in the integral, i.e. $y_p(t<0)=0$.
+%
+We can therefore adapt the limits to $\int_0^\infty$ and then the signal $\epsilon(-\tau + t)$
+is just a constant with value $1$.
+%
+So, basically we need to calculate the specific convolution
+%
+\begin{align}
+	y_p = x(t) \ast h(t) =
+	\int\limits_{-\infty}^{\infty}h(\tau)\cdot x(t-\tau)\mathrm{d}\tau\rightarrow
+	y_p(t \geq 0) = \frac{25}{16}\int\limits_{0}^{t} \e^{-\frac{3}{4}\tau}\sin(\tau)\mathrm{d}\tau.
+\end{align}
+%
+We temporarily put $\frac{25}{16}$ on the left side for convenience.
+%
+\begin{align}
+	\frac{16}{25}\cdot y_p &= \int_0^t\e^{-\frac{3}{4}\tau}\cdot \sin(\tau)\mathrm{d}\tau\nonumber \\
+	&= \e^{-\frac{3}{4}\tau}\cdot \sin(\tau)\cdot \bigg (-\frac{4}{3} \bigg )\bigg|_{\tau=0}^{\tau=t}-\bigg (-\frac{4}{3}\bigg )\int_0^t\e^{-\frac{3}{4}\tau}\cdot \cos(\tau)\mathrm{d}\tau \quad\text{(by partial integration)} \nonumber \\
+	&= -\frac{4}{3}\cdot \e^{-\frac{3}{4}t}\sin(t)-\Bigg (-\frac{4}{3} \bigg [\e^{-\frac{3}{4}\tau}\cdot \cos(\tau)\cdot \bigg (-\frac{4}{3}\bigg )\bigg |_{\tau=0}^{\tau=t}-\int_0^t \frac{4}{3} \cdot \e^{-\frac{3}{4}\tau}\cdot \sin(\tau)\mathrm{d}\tau\bigg ] \Bigg ) \nonumber
+\end{align}
+%
+Adding $\frac{16}{9} \int_0^t\e^{-\frac{3}{4}\tau} \sin(\tau) \mathrm{d}\tau$ on both
+sides of the equation yields
+%
+\begin{align}
+	\frac{25}{9}\int_0^t\e^{-\frac{3}{4}\tau}\sin(\tau)\mathrm{d}\tau=-\frac{16}{9}\e^{-\frac{3}{4}t}\cos(t)-\frac{12}{9}\e^{-\frac{3}{4}t}\sin(t)+\frac{16}{9} \nonumber
+\end{align}
+and further
+\begin{align}
+	\int_0^t\e^{-\frac{3}{4}\tau}\sin(\tau)\mathrm{d}\tau=-\frac{9}{25}\frac{16}{9}\e^{-\frac{3}{4}t}\cos(t)-\frac{9}{25}\frac{12}{9}\e^{-\frac{3}{4}t}\sin(t)+\frac{9}{25}\frac{16}{9} \nonumber
+\end{align}
+%
+Since we know from above
+$\frac{16}{25}\cdot y_p = \int_0^t\e^{-\frac{3}{4}\tau} \sin(\tau)\mathrm{d}\tau
+\quad\rightarrow\quad
+y_p = \frac{25}{16} \int_0^t\e^{-\frac{3}{4}\tau} \sin(\tau)\mathrm{d}\tau$
+we find that
+\begin{align}
+	y_p = \frac{25}{16} \int_0^t\e^{-\frac{3}{4}\tau}\sin(\tau)\mathrm{d}\tau
+	=-\frac{25}{16}\cdot\frac{9}{25}\cdot\frac{16}{9}\e^{-\frac{3}{4}t}\cos(t)-\frac{25}{16}\cdot\frac{9}{25}\cdot\frac{12}{9}\e^{-\frac{3}{4}t}\sin(t)+\frac{25}{16}\cdot\frac{9}{25}\cdot\frac{16}{9} \nonumber
+\end{align}
+and finally
+\begin{align}
+\boxed{
+	y_p(t)=1-\e^{-\frac{3}{4}t}\left(\frac{3}{4}\,\sin(t)+\cos(t)\right) \qquad t \geq 0.}
+\end{align}
+%
+This needs to be and is in fact the same result as in \eq{eq:stepResponse} and \eq{eq:stepResponse_Laplace}.
+
+\subsubsection{Task e) with Convolution: Particular solution with x(t>0) = sin(t)}
+%
+In this task the convolution of the impulse response with the sine signal
+\begin{align}
+x(t \geq 0) =& \sin(t)\\
+x(t<0) =& 0
+\end{align}
+shall be derived.
+%
+It again appears reasonable that we use the impulse response as non-shifted signal
+\begin{align}
+h(\tau\geq 0) =& \frac{25}{16} \e^{-\frac{3}{4} \tau} \sin(\tau)\\
+h(\tau < 0) =& 0.
+\end{align}
+and $x(-\tau + t)$ as time-mirrored (variable $\tau$) and shifted (variable $t$)
+signal in the convolution.
+%
+We can find, that the product $x(-\tau + t) h(\tau)= 0$ for $t<0$.
+Thus, we don't have to consider it in the integral, i.e. $y_p(t<0)=0$.
+%
+The convolution integral thus reads
+\begin{align}
+	y_p(t) =x(t) \ast h(t) = \int_{-\infty}^{\infty}x(-\tau+t) h(\tau)\mathrm{d}\tau=
+	\int_0^t \e^{-\frac{3}{4}\tau}\sin(\tau)\cdot\sin(-\tau+t)\mathrm{d}\tau \nonumber
+\end{align}
+This looks more complicated than the convolution in Task b), but if we remember Euler identities
+\begin{align}
+	\cos(x)=\frac{1}{2}\bigg (\e^{\im x}+\e^{-\im x} \bigg ) \qquad
+	\sin(x)=\frac{1}{2\im}\bigg (\e^{\im x}-\e^{-\im x}\bigg )
+\end{align}
+we can rewrite the sine-functions as exponential functions,
+wich are easier to integrate.
+%
+Again, we put $\frac{25}{16}$ on the left site, to make the equation more handy
+\begin{align}
+	\label{eq:sinConvolutionA}
+	\frac{16}{25}\cdot y_p(t)&=\int_0^t \e^{-\frac{3}{4}\tau}\frac{1}{2\im}\bigg(\e^{\im\tau}-\e^{-\im\tau}\bigg)\frac{1}{2\im}\bigg(\e^{\im(t-\tau)}-\e^{-\im(t-\tau)}\bigg)\mathrm{d}\tau \nonumber \\
+	&=\frac{1}{4}\int_t^0 \e^{-\frac{3}{4}\tau}\bigg(\e^{\im(\cancel {\tau-\tau}+t)}-\e^{\im(\tau-t+\tau)}-\e^{\im(t-\tau-\tau)}+\e^{\im(\cancel {\tau-\tau}-t)}\bigg)\mathrm{d}\tau \quad\text{ note: limits reversal} \nonumber \\
+	&=\frac{1}{4}\int_t^0 \left(\e^{-\frac{3}{4}\tau +\im t}-\e^{(-\frac{3}{4}+2\im)\tau-\im t}-\e^{(-\frac{3}{4}-2\im)\tau+\im t}+\e^{-\frac{3}{4}\tau-\im t}\right)\mathrm{d}\tau \nonumber \\
+	&=\frac{1}{4}\bigg[-\frac{4}{3}\e^{-\frac{3}{4}\tau+\im t}\bigg|_t^0 -\frac{1}{-\frac{3}{4}+2\im}\e^{(-\frac{3}{4}+2\im)\tau-\im t}\bigg |_t^0-\frac{1}{-\frac{3}{4}-2\im}\e^{(-\frac{3}{4}-2\im)\tau+\im t}\bigg |_t^0-\frac{4}{3}\e^{-\frac{3}{4}\tau-\im t}\bigg |_t^0\bigg ]
+\end{align}
+Now, we make use of a very helpful rearrangement of the complex numbers
+\begin{align}
+	\label{eq:helpfulCalculation}
+	\boxed{\frac{1}{-\frac{3}{4}+2\im}=\frac{1}{-\frac{3}{4}+2\im} \cdot \frac{-\frac{3}{4}-2\im}{-\frac{3}{4}-2\im}=\frac{-\frac{3}{4}-2\im}{\frac{9}{16}+\frac{64}{16}}=\frac{16\cdot (-\frac{3}{4}-2\im)}{73}=\frac{-12-32\im}{73}}
+\end{align}
+and (similarly)
+\begin{align}
+	\label{eq:helpfulCalculationAnalog}
+	\boxed{\frac{1}{-\frac{3}{4}-2\im}=\frac{-12+32\im}{73}}
+\end{align}
+Using \eq{eq:helpfulCalculation} and \eq{eq:helpfulCalculationAnalog} in \eq{eq:sinConvolutionA} for the complex coefficients and calculating the boundaries leads to
+\begin{align}
+	&= \frac{1}{3}\e^{-\frac{3}{4}t+\im t}-\frac{1}{3}\e^{\im t}-\frac{-3-8\im}{73}\bigg (\e^{-\im t}-\e^{(-\frac{3}{4}+\im)t}\bigg )-\frac{-3+8\im}{73}\bigg (e^{\im t}-\e^{(-\frac{3}{4}-\im)t}\bigg )+\frac{1}{3}\e^{-\frac{3}{4}t-\im t}-\frac{1}{3}\e^{-\im t} \nonumber \\
+	&=\e^{-\frac{3}{4}t}\bigg (\frac{1}{3}\e^{+\im t} -\frac{3}{73}e^{+\im t}-\frac{8\im}{73}\e^{+\im t}-\frac{3}{73}e^{-\im t}+\frac{8\im}{73}\e^{-\im t}+\frac{1}{3}\e^{-\im t}\bigg )\nonumber \\
+	&\quad -\frac{1}{3}\e^{+\im t}+\frac{3}{73}\e^{-\im t}+\frac{8\im}{73}\e^{-\im t}+\frac{3}{73}\e^{+\im t}-\frac{8\im}{73}\e^{+\im t}-\frac{1}{3}\e^{-\im t} \nonumber \\
+	&=\e^{-\frac{3}{4}t}\Bigg[\frac{1}{2}\cdot\bigg (\frac{2\cdot(73-9)}{219}\e^{+\im t}+\frac{2\cdot(73-9)}{219}\e^{-\im t}\bigg ) + \frac{1}{2\im} \bigg (-\frac{2\im \cdot 8 \im}{73}\e^{+\im t}+\frac{2\im \cdot 8 \im}{73}\e^{-\im t} \bigg ) \Bigg ] \nonumber \\
+	&\quad-\frac{1}{2} \bigg (\frac{2\cdot(73-9)}{73}\e^{+\im t}+\frac{2\cdot(73-9)}{73}\e^{-\im t} \bigg ) +\frac{1}{2\im}\bigg (-\frac{2\im\cdot 8 \im}{73}\e^{+\im t}+\frac{2\im\cdot 8 \im}{73}\e^{-\im t}\bigg ) \nonumber \\
+	\frac{16}{25}y_p(t)&=\e^{-\frac{3}{4}t}\bigg (\frac{128}{219}\cos (t)+\frac{16}{73}\sin (t)\bigg )-\frac{128}{219}\cos (t)+\frac{16}{73}\sin (t) \quad \Bigg | \cdot \frac{25}{16} \nonumber
+\end{align}
+and finally
+\begin{align}
+\boxed{
+y_p(t) = \e^{-\frac{3}{4}t}\left(\frac{200}{219}\cos (t)+\frac{25}{73}\sin (t)\right)-\frac{200}{219}\cos (t)+\frac{25}{73}\sin (t)\qquad t\geq 0.
+}
+\end{align}
+Again, our particular solution is the same as in sections \ref{sec:TaskeWithFundamentalSystem} and \ref{sec:task_e_Laplace}.
+\\
+\\
+\\
+For the solutions of the differential equations with initial conditions, take a look at section \ref{sec:SolutionsUsingFundameltalSystem}.
+%##############################################################################
+%##############################################################################
+\newpage
 \subsection*{Appendix A}
 
 %##############################################################################
@@ -1748,7 +1993,8 @@ yields
 \end{align}
 for which the last is due to the Euler identity $\cos(\omega_0 t) = \frac{1}{2} (\e^{+\im \omega_0 t}+\e^{-\im \omega_0 t})$.
 %
-For $\sin(\omega_0 t) = \frac{1}{2 \im} (\e^{+\im \omega_0 t}-\e^{-\im \omega_0 t})$ a similar
+
+\noindent For $\sin(\omega_0 t) = \frac{1}{2 \im} (\e^{+\im \omega_0 t}-\e^{-\im \omega_0 t})$ a similar
 procedure yields
 \begin{align}
 \boxed{
