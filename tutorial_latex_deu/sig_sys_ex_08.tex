@@ -2,22 +2,24 @@
 \section{Zeitdiskrete Signale, Beschreibung diskreter Systeme im Zeitbereich}
 %
 In der zeitdiskreten Signal- und Systemtheorie haben wir mit Signalen zu tun,
-die mathematisch gesehen Folgen sind. Es gibt Folgen, die wir analytisch
+die wir in der Mathematik als Folgen betrachten. Es gibt Folgen, die wir analytisch
 als Formeln darstellen können.
 Ein einfaches Beispiel wäre die Folge bestehend aus ganz bestimmten Cosinuswerten
 \begin{align}
-x[k] = \cos(\Omega_0 \cdot k)\quad\text{für}\quad k\in\mathbb{Z}, \Omega_0\in\mathbb{R}.
+x[k] = \cos(\Omega_0 \cdot k)\quad\text{für}\quad k\in\mathbb{Z},\,\Omega_0\in\mathbb{R}.
 \end{align}
 Wir benutzen zur Kenntlichmachung von Folgen / zeitdiskreten Signalen eckige
 Klammern $x[k]$ und konsistent $k$ als Folgenindex, der daher $k\in\mathbb{Z}$ ist.
 %
-Die obige Folge könnte aus einem zeitlichen Abtastprozess entstanden sein. Mit dem
-Abtastintervall $T_s$ werden zu den Zeitpunkten $t = k \cdot T_s$
-die Signalwerte $x(k T_s)$
+Die obige Folge könnte aus einem zeitlichen Abtastprozess (englisch \textit{sampling})
+entstanden sein. Mit dem
+\textbf{Abtastintervall / Abtasttakt} $T_s$ werden zu den Zeitpunkten $t = k \cdot T_s$
+die Signalwerte $x(k T_s)$ eines zeitkontinuierlichen Signals $x(t) = \cos(\omega_0 t)$
+der Folge $x[k]$ zugewiesen, als
 \begin{align}
 x[k] := x(k T_s) = \cos(\omega_0 T_s k)
 \end{align}
-der Folge $x[k]$ zugewiesen.
+
 %
 \begin{figure*}[h]
 \centering
@@ -34,7 +36,8 @@ der Folge $x[k]$ zugewiesen.
 \foreach \k in {-1,0,...,8}{\draw[stem2] plot coordinates{(\k,{cos(\Om*\k)})};};
 \foreach \k in {-1,8}{\draw[stem2, C3] plot coordinates{(\k,{cos(\Om*\k)})};};
 \end{tikzpicture}
-\caption{$N=8\in\mathbb{Z}$, daher periodisch in 8 Werten, Periode in blau.}
+\caption{$N=8\in\mathbb{Z}$, daher periodisch in 8 Signalwerten / 8 Folgengliedern,
+Periode in blau.}
 \label{fig:cos8}
 \end{subfigure}
 %
@@ -49,7 +52,8 @@ der Folge $x[k]$ zugewiesen.
 \foreach \y in {-1,1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
 \foreach \k in {-1,0,...,8}{\draw[stem2,C1] plot coordinates{(\k,{cos(\Om*\k)})};};
 \end{tikzpicture}
-\caption{$N=8.5\notin\mathbb{Z}$, daher \textbf{nicht} periodisch in $N$.}
+\caption{$N=8.5\notin\mathbb{Z}$, daher \textbf{nicht} periodisch in $N$.
+Aber periodisch in $2 N = 17$.}
 \label{fig:cos8.5}
 \end{subfigure}
 %
@@ -71,13 +75,20 @@ der Folge $x[k]$ zugewiesen.
 \caption{$N=9\in\mathbb{Z}$, daher periodisch in 9 Werten, Periode in blau.}
 \label{fig:cos9}
 \end{subfigure}
-\caption{Cosinusfolgen für $\Omega_0=\frac{2\pi}{N}$ für $N=8,\,8.5,\,9$ als
-sogenannter Stem-Plot (stem [englisch] - Stiel, Halm, Stängel [deutsch]).}
+\caption{Cosinusfolgen mit $\Omega_0=\frac{2\pi}{N}$ für $N=8,\,8.5,\,9$ über
+\textit{Zeit}-Index $k$ als
+sogenannter Stem-Plot (\textit{stem} [englisch] - Stiel, Halm, Stängel [deutsch]).}
 \label{fig:Cosinusfolgen}
 \end{figure*}
-
-Wir können mit der Samplingfrequenz $f_s=\frac{1}{T_s}$ die Umformungen
-$\Omega = \omega T_s = \frac{\omega}{f_s} = \frac{2\pi f}{f_s}$
+%
+Wir können mit der \textbf{Samplingfrequenz / Abtastfrequenz}
+\begin{align}
+f_s=\frac{1}{T_s}
+\end{align}
+die Umformungen
+\begin{align}
+\Omega = \omega T_s = \frac{\omega}{f_s} = \frac{2\pi f}{f_s}
+\end{align}
 zusammentragen. Die Variable $\Omega$ ist als \textbf{digitale, zeitdiskrete oder auch
 normierte Kreisfrequenz} bekannt, wir werden sie sehr häufig brauchen.
 
@@ -95,27 +106,33 @@ die für $N=\frac{M}{K}$, $M$-periodisch sind, falls $M$ und $K$ ganzzahlig.
 \subsection*{Analogien zeitkontinuierlich / zeitdiskret}
 %
 Wir haben die wesentliche Werkzeuge für die zeitkontinuierlichen Vorgänge
-kennengelernt.  Diese Konzepte haben alle Analogien für den zeitdiskreten Fall,
+kennengelernt. Diese Konzepte haben alle Analogien in der zeitdiskreten Welt,
 siehe Tabelle \ref{tbl:Analogien_CT_DT}.
 %
 Wenn wir also das entsprechende Werkzeug zeitkontinuierlich verstanden haben,
 wird uns die Anpassung an zeitdiskrete Vorgänge vergleichsweise wenig Mühe
-bereiten. Erfahrungsgemäß gestalten sich die zeitdiskreten Vorgänge ein wenig
-zugänglicher, weil wir viel näher an der numerischen Auswertung mit Computerhilfe
-sind, also das Probieren und Testen mit kleinen eigenen Signalverarbeitungsprogrammen
-deutlich mehr einlädt, als symbolische Computeralgebra zu betreiben. Dieser
-Zugang ist sehr wertzuschätzen, zumal wir in der beruflichen Praxis dann mutmaßlich
-sehr sehr viel mit digitalen Signalen zu tun haben werden. Jedoch
-sollten wir uns klarmachen, dass wir viel mehr Probleme geschlossen analytisch
+bereiten. Erfahrungsgemäß gestalten sich die zeitdiskreten Vorgänge praktisch
+ein wenig zugänglicher, weil wir viel näher an der numerischen Auswertung
+mit Computerhilfe sind.
+%
+Das Probieren und Testen mit kleinen eigenen Signalverarbeitungsprogrammen
+ist mutmaßlich einladender, als symbolische Computeralgebra oder gar
+ganz old school manuelles Rechnen zu betreiben.
+%
+Jedoch sollten wir uns klarmachen, dass wir viel mehr Probleme geschlossen analytisch
 in der zeitkontinuierlichen SigSys durchdringen können, als es bei zeitdiskreter
-SigSys der Fall ist (es gibt deutlich mehr analytische Lösungen von Integralen als von
-Summen). Summen sind aus irgendeinem Grund am Anfang des Studiums beliebter als
-Integrale, obwohl Summen viel mehr mathematischen Stress nach sich ziehen.
+SigSys der Fall ist.
 %
-Wir werden (hoffentlich) in SigSys beide Welten gleich zu schätzen wissen.
+Es gibt deutlich mehr analytische Lösungen von Integralen als von
+Summen.
+%
+Summen sind aber aus irgendeinem Grund am Anfang des Studiums beliebter als
+Integrale, obwohl Summen mathematisch mehr Stress bedeuten.
+%
+Wir werden (hoffentlich) in SigSys beide Welten zu schätzen wissen.
 %
 %
-\begin{table}[h]
+\begin{table}[t]
 \begin{center}
 \begin{tabular}{ | c | c | }
 \hline
@@ -134,8 +151,8 @@ Pole in der linken $s$-Ebene &
 Pole im Einheitskreis der $z$-Ebene \\
 Frequenzvariable $\omega$ & Frequenzvariable $\Omega$ \\
 Frequenzgang $H(s=\im\omega)$ & Frequenzgang $H(z=\e^{\im\Omega})$ \\
-Fourier Transformation (FT)  & DTFT\\
-Fourier Reihe (FS)  & DFT \\\hline
+Fourier Transformation (FT)  & discrete-time Fourier transform (DTFT)\\
+Fourier Reihe (FS)  & discrete Fourier transform (DFT) \\\hline
 \end{tabular}
 \end{center}
 \caption{Entsprechungen von zeitkontinuierlicher und zeitdiskreter LTI-Systemtheorie.}
@@ -151,7 +168,8 @@ Fourier Reihe (FS)  & DFT \\\hline
 
 \subsection*{Standardsignale}
 Die aus der zeitkontinuierlichen SigSys bekannten Standardsignale haben entsprechende
-Pendants im zeitdiskreten Bereich. Die vier wichtigsten sind:
+Pendants im zeitdiskreten Bereich. Die vier wichtigsten sind, vgl.
+Abb.~\ref{fig:ex08:Standardsignale}:
 \begin{itemize}
 \item Dirac Impuls (Link zu LTI-Systemen: Impulsantwort)
 \begin{align}
@@ -174,7 +192,7 @@ Pendants im zeitdiskreten Bereich. Die vier wichtigsten sind:
 \end{cases}
 =\sum_{\kappa=-\infty}^k \delta[\kappa]
 \end{align}
-\item Rechteckfolge der Länge $N$ (also $N$ Folgenwerte, oft auch Samples genannt)
+\item Rechteckfolge der Länge $N$ (also $N$ Folgenwerte, in SigSys oft auch Samples genannt)
 \begin{align}
 \mathrm{rect}_N[k] =
 \begin{cases}
@@ -188,9 +206,9 @@ Pendants im zeitdiskreten Bereich. Die vier wichtigsten sind:
 \end{align}
 \item Exponentialfolge (Link zu LTI-Systemen: Eigenfunktion bzw. -folge)
 
-\noindent Mit der komplexen Zahl
+\noindent Mit der komplexen Zahl $z\in\mathbb{C}$ (für $\Sigma,\Omega\in\mathbb{R}$)
 \begin{align}
-z = \e^{\Sigma + \im\Omega}
+z = \e^{\Sigma + \im\Omega} = \e^{\Sigma} \cdot \e^{\im\Omega}
 \end{align}
 und deren Zerlegung in Betrag und Phasenwinkel
 \begin{align}
@@ -199,13 +217,13 @@ und deren Zerlegung in Betrag und Phasenwinkel
 \end{align}
 können wir die Exponentialfolge definieren
 \begin{align}
-x[k] =& \e^{(\Sigma_0 + \im\Omega_0) \, k} = z_0^k\\
+x[k] =& \e^{(\Sigma_0 + \im\Omega_0) \, k} = (\e^{(\Sigma_0 + \im\Omega_0)})^k = z_0^k\\
 x[k] =& |z_0|^k (\e^{\im \angle z_0})^k
 \end{align}
 $|z_0|<1$ ist eine abklingende Folge, $|z_0|>1$ ist eine aufklingende Folge,
 Für $|z_0|=1$ erhalten wir eine harmonische, komplexwertige Schwingung,
 $x[k] = \e^{\im \Omega_0 k} = \cos(\Omega_0 k) + \im \sin(\Omega_0 k)$,
-die periodisch sein kann, siehe oben.
+die periodisch in einer gewissen Länge sein kann, siehe oben.
 \end{itemize}
 %
 \begin{figure}[h]
@@ -239,7 +257,7 @@ die periodisch sein kann, siehe oben.
 \caption{Links: zeitdiskreter Dirac Impuls $\delta[k]$,
 Mitte: Einheitssprungfolge $\epsilon[k]$,
 rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: nicht axialsymmetrisch!).}
-\label{}
+\label{fig:ex08:Standardsignale}
 \end{figure}
 
 
@@ -248,7 +266,7 @@ rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: nicht axialsymmetrisch!).}
 
 \newpage
 \subsection*{Dirac Impuls und Faltung im zeitdiskreten Bereich}
-Im Gegensatz zum zeitkontinuierlichen Fall, ist der Dirac Impuls im zeitdiskreten
+Im Gegensatz zur zeitkontinuierlichen Version, ist der Dirac Impuls im zeitdiskreten
 Bereich eine definierte Folge
 \begin{align}
 \delta[k] =
@@ -260,21 +278,21 @@ Bereich eine definierte Folge
 mit der wir direkt rechnen dürfen, also keinen (gedanklichen) Umweg über
 eine Distribution und Anwendung von Eigenschaften nehmen müssen.
 %
-Die Austasteigenschaft
+Die \textbf{Austasteigenschaft}
 \begin{align}
 x[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 \cdot \delta[k-\kappa]
 \end{align}
 kann daher als tatsächliche Rechenvorschrift verstanden werden, aus der wir
-direkt die Multiplikationseigenschaft
+direkt die \textbf{Multiplikationseigenschaft}
 \begin{align}
 x[k] \cdot \delta[k-\kappa] = x[\kappa] \cdot \delta[k-\kappa]
 \end{align}
 ableiten können, wenn wir nur ein spezielles $\kappa$ aus der Summe betrachten
 wollen.
 
-Der Dirac Impuls ist das Neutralelement der Faltung, an diesem fundamentalen
-Konzept halten wir auch im zeitdiskreten fest. Daher repräsentiert die
+Der Dirac Impuls ist das \textbf{Neutralelement der Faltung}, an diesem fundamentalen
+Konzept halten wir auch in der zeitdiskreten Welt fest. Daher repräsentiert die
 Austasteigenschaft
 \begin{align}
 x[k] = x[k] \ast_k \delta[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
@@ -282,17 +300,18 @@ x[k] = x[k] \ast_k \delta[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 \end{align}
 eine spezielle Faltungssumme. Für ein LTI-System $\mathcal{H}$ können wir
 die Impulsantwort $h[k]=\mathcal{H}\{\delta[k]\}$ definieren, und damit
-Eingang $x[k]$ und Ausgang $y[k]$ verknüpfen mit der Faltung
+Eingang $x[k]$ und Ausgang $y[k]$ verknüpfen mit der \textbf{Faltung}
 \begin{align}
 x[k] = x[k] \ast_k h[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 \cdot h[k-\kappa].
 \end{align}
 %
+
 In \fig{fig:convolution_discrete_pt1_xhy} ist ein Beispiel für eine Faltung
 zweier Folgen dargestellt, es entspricht einer möglichen zeitdiskreten
 Variante der Übungsaufgabe 2.7.
 %
-\begin{figure}[b]
+\begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../convolution_dt/convolution_discrete_pt1_xhy.pdf}
 \caption{Zeitdiskrete Faltung zweier endlicher Folgen, vgl. den zeitkontinuierlichen
@@ -304,27 +323,27 @@ In \fig{fig:convolution_discrete_pt1_y_over_kt_zoom} das Ausgangssignal noch
 einmal mit vergrößertem Ausschnitt dargestellt, um den Stem-Plot und damit den
 Charakter einer Signalfolge deutlicher zu machen.
 %
-
 Zwei Dinge sollten wir hier mitnehmen:
 \begin{itemize}
-\item das Ausrechnen dieser Faltungssumme von Hand macht aufgrund der krummen Zahlenwerte
+\item das Ausrechnen der Faltungssumme per Hand macht aufgrund der krummen Zahlenwerte
 schon für dieses sehr einfache Beispiel (es ähnelt wieder Tiefpassverhalten 1. Ordnung)
 keinen Spaß.
 Deswegen werden wir Faltungen im Folgenden mit sehr künstlichen Signalen
-üben, um übersichtliche Zahlen zu bekommen. Das wird uns allgemein
+üben, um halbwegs schöne Zahlen zu bekommen. Das wird uns nun
 sehr oft begegnen in der zeitdiskreten Welt:
 analytisches Rechnen mit praxisfernen Systemen/Signalen,
-praxisnahe Systeme eher simulieren mit dem Rechner. Damit Zweiteres sicher
-und fehlerfrei wird, müssen wir Ersteres beherrschen. Nur dann sind wir in der
-Lage, Computer-Programme mit analytischen Referenzlösungen zu validieren.
-Ohne das wäre es nur Bastelei mit Rechnern.
-\item Ein System mit endlicher Impulsantwort, also wie das einführende Beispiel
-hier und zeitkontinuierlich vergleichend Aufgabe 2.7, ist eine Spezialität das
-praktisch sinnvoll nur zeitdiskret zu realisieren geht. In der Literatur
-ist dies als \textbf{Finite Impulse Response (FIR)} Filter bekannt.
+praxisnahe Systeme eher simulieren mit dem Rechner. Damit Zweiteres fehlerfrei und
+sicher wird, müssen wir Ersteres beherrschen. Nur dann sind wir in der
+Lage, Software mit analytischen Referenzlösungen zu validieren.
+Ohne dieses wissenschaftliche Vorgehen wäre es nur Bastelei mit Computern.
+\item Ein System mit \textbf{endlicher Impulsantwort}, also wie das hier einführende Beispiel
+vgl. Aufgabe 2.7, ist eine Spezialität das
+\textbf{praktisch} sinnvoll \textbf{nur zeitdiskret} zu realisieren geht. In der Literatur
+ist dies als \textbf{Finite Impulse Response (FIR)} Filter bekannt, ein Kapitel
+zu diesem Filtertyp findet sich in jedem Lehrbuch zu digitaler Signalverarbeitung.
 Es dürfte schwierig bis unmöglich sein, analoge Systeme zu bauen die eine
-exakt endliche Impulsantwort haben. In Aufgabe 2.7 war das ein didaktischer
-Faden, um die Grenzen des Faltungsintegrals zu verinnerlichen.
+exakt endliche Impulsantwort haben. In Aufgabe 2.7 war das ein didaktisches
+Konzept, um die Grenzen des Faltungsintegrals zu verinnerlichen.
 \end{itemize}
 %
 \begin{figure}[t]
@@ -341,8 +360,8 @@ Zu einem Ingenieursstudiengang gehört das erfolgreiche Erarbeiten
 der Faltung, und weil im Digital Age überaus praxisrelevant,
 werden wir auch den zeitdiskreten Fall vertieft üben.
 Dafür fallen anderen Themen aus dieser Einheit ein wenig runter, z.B.
-den Check von Systemen auf Linearität und Zeitinvarianz, also die Analogie zu
-Aufgabe 2.4. Hier ist die Transferleistung jedoch vergleichsweise einfach.
+der Check von Systemen auf Linearität und Zeitinvarianz, also die Analogie zu
+Aufgabe 2.4. Die Transferleistung ist jedoch vergleichsweise einfach.
 Des weiteren heben wir uns das Konzept der Differenzengleichungen für die folgenden
 Einheiten auf, weil sie im Kontext der $z$-Transformation besser aufgehoben sind.
 
@@ -398,7 +417,7 @@ für $n=-1$
 \cos\left(\frac{2\pi}{8}\left(-5\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)
 \end{align}
 Übereinstimmung, weil Cosinus eine axialsymmetrische Funktion ist, also
-$\cos(k) = \cos(-k)$.
+$\cos(t) = \cos(-t)$.
 %
 Es ist immer schön, wenn wir etwas mit Formeln belegen können.
 %
@@ -410,33 +429,37 @@ hier eine Verknüpfung dazu herzustellen: Wir könnten uns überlegen, dass dies
 Folgen aus einem Abtastprozess zeitkontinuierlicher Signale entstanden
 sind.
 %
-Wir sind dafür völlig frei in der Wahl der Abtast-(Kreis)-Frequenz! Das
-müssen wir uns klar machen. Die Folge $x[k]$ 'lebt' über $k$. Was wir damit
-über die tatsächliche Zeit machen, also wie wir die diskreten Zeitpunkte
-$t=k T_s$ mittels $T_s$ definieren, interessiert $x[k]$ ja nicht.
+Wir sind dafür völlig frei in der Wahl der Abtast-(Kreis)-Frequenz!
 %
-Machen wir uns es nicht schwerer als nötig und legen die Abtast-Kreis-Frequenz
-$\omega_s=8$ rad/s fest, das ist sinnvoll, weil die Folge periodisch in 8 ist,
+Die Folge $x[k]$ selbst 'lebt' über $k$.
+%
+Was wir damit über die tatsächliche Zeit machen, also wie wir die diskreten Zeitpunkte
+$t=k T_s$ mittels $T_s$ definieren, interessiert $x[k]$ nicht.
+%
+Machen wir uns es nun nicht schwerer als nötig und legen die Abtast-Kreis-Frequenz
+$\omega_s=8$\,rad/s fest. Das ist sinnvoll, weil die Folgen periodisch in 8 sind,
 und alle weiteren Zahlen dann auch ganzzahlig bzw. schnell überschaubare
 Vielfache von $\pi$ werden.
 %
-Damit folgt das Abtastintervall
+Es folgt das Abtastintervall
 $T_s = \frac{2\pi}{\omega_s}=\frac{\pi}{4}$ s.
 %
 Damit können wir die physikalischen Frequenzen der beiden zeitkontinuierlichen
-Cosinussignale ermitteln. Wir kennnen den Zusammenhang
+Cosinussignale ermitteln. Wir kennen den Zusammenhang
 \begin{align}
 \Omega = \frac{2\pi}{N} \leftrightarrow \Omega = \omega T_s
 \end{align}
 und daher für $x_{3,5}[k]$
 \begin{align}
-\Omega_0 = \frac{2\pi}{\nicefrac{8}{3}} = \omega_0 T_s \rightarrow \omega_0 = 3 \text{ rad/s},\quad\quad
-\Omega_0 = \frac{2\pi}{\nicefrac{8}{5}} = \omega_0 T_s \rightarrow \omega_0 = 5 \text{ rad/s}
+\Omega_3 = 3\frac{2\pi}{8} = \omega_3 T_s \rightarrow \omega_3 = 3 \text{ rad/s},\quad\quad
+\Omega_5 = 5\frac{2\pi}{8} = \omega_5 T_s \rightarrow \omega_5 = 5 \text{ rad/s}
 \end{align}
 %
 Die Folge $x_3[k]=x_5[k]$ könnte also aus den beiden Signalen $x_3(t)=\cos(3 t)$
-und $x_5(t) = \cos(5 t)$ durch ideale Abtastung mit $\omega_s = 8$ rad/s
-entstanden sein.
+und $x_5(t) = \cos(5 t)$ durch ideale Abtastung mit Abtast-kreis-frequenz
+$\omega_s = 8$\,rad/s entstanden sein, halbe Abtast-kreis-frequenz also
+$\frac{\omega_s}{2} = 4$\,rad/s.
+%
 Das können wir nochmal prüfen, indem wir für $t=k T_s$
 einsetzen und für die ganzzahligen $k$ die Cosinuswerte ausrechnen.
 In \fig{fig:mehrdeutigkeit_625E151299} ist das grafisch aufbereitet.
@@ -446,7 +469,7 @@ ist, ein erster Hinweis, dass $x_3(t)$ und $x_5(t)$ nach der Abtastung keine
 unterschiedlichen Folgen ergeben könnten.
 %
 Machen wir uns das anhand der Spektren der abgetasteten Signale klar. Siehe Skizze
-unten (das können wir nochmal wiederholend üben).
+unten (das können wir nochmal wiederholend üben, siehe Übung 7).
 %
 \begin{center}
 \begin{tikzpicture}[scale=1]
@@ -454,23 +477,28 @@ unten (das können wir nochmal wiederholend üben).
 \def\mult{0.2}
 \begin{scope}
 \def\freq{3}
-\draw[help lines, C7!25, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
+\draw[help lines, C7!80, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
 \draw[->] (-5 ,0) -- (5,0) node[below]{$\omega$  / (rad/s)};
 \draw[->] (0,-0.1) -- (0,1.5) node[above]{$\mathcal{F}\{\cos(3 t) \cdot \frac{4}{\pi}\Sha\left(\frac{4 t}{\pi}\right)\}$};
-\draw[->, C1, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1) node[above]{$(\nicefrac{1}{2})$};
+\draw[->, C1, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1) node[above]{$(4)$};
 \foreach \y in {-2,-1,1,2,3}{\draw[->, C0, line width=0.75mm] (-\freq*\mult+\y*\freqs*\mult,0) -- (-\freq*\mult+\y*\freqs*\mult,1);};
 \draw[->, C1, line width=0.75mm] (+\freq*\mult,0) node[below]{$+\freq$} -- (+\freq*\mult,1);
 \foreach \y in {-3,-2,-1,1,2}{\draw[->, C0, line width=0.75mm] (+\freq*\mult+\y*\freqs*\mult,0) -- (+\freq*\mult+\y*\freqs*\mult,1);};
+\draw[C0] (-5,0.5) node{$\dots$};
+\draw[C0] (+5,0.5) node{$\dots$};
 \end{scope}
 \begin{scope}[shift={(0,-2.5)}]
 \def\freq{5}
-\draw[help lines, C7!25, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
+\draw[help lines, C7!80, step=\mult*\freqs*0.5 cm] (-\freqs*\mult*3,0) grid (\freqs*\mult*3,1.5);
 \draw[->] (-5 ,0) -- (5,0) node[below]{$\omega$ / (rad/s)};
 \draw[->] (0,-0.1) -- (0,1.5) node[above]{$\mathcal{F}\{\cos(5 t) \cdot \frac{4}{\pi}\Sha\left(\frac{4 t}{\pi}\right)\}$};
-\draw[->, C3, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1)  node[above]{$(\nicefrac{1}{2})$};
+\draw[->, C3, line width=0.75mm] (-\freq*\mult,0) node[below]{$-\freq$} -- (-\freq*\mult,1)  node[above]{$(4)$};
 \foreach \y in {-2,-1,1,2,3}{\draw[->, C0, line width=0.75mm] (-\freq*\mult+\y*\freqs*\mult,0) -- (-\freq*\mult+\y*\freqs*\mult,1);};
 \draw[->, C3, line width=0.75mm] (+\freq*\mult,0) node[below]{$+\freq$} -- (+\freq*\mult,1);
-\foreach \y in {-3,-2,-1,1,2}{\draw[->, C0, line width=0.75mm] (+\freq*\mult+\y*\freqs*\mult,0) -- (+\freq*\mult+\y*\freqs*\mult,1);};\end{scope}
+\foreach \y in {-3,-2,-1,1,2}{\draw[->, C0, line width=0.75mm] (+\freq*\mult+\y*\freqs*\mult,0) -- (+\freq*\mult+\y*\freqs*\mult,1);};
+\draw[C0] (-5,0.5) node{$\dots$};
+\draw[C0] (+5,0.5) node{$\dots$};
+\end{scope}
 \end{tikzpicture}
 \end{center}
 %
@@ -490,7 +518,7 @@ Die jeweiligen Bedingungen a) und b) korrespondieren direkt.
 Es gibt eine spezielle Fouriertransformation für diesen speziellen Folgen- bzw.
 Spektrentyp, es ist die sogenannte \textbf{Diskrete Fourier Transformation (DFT)}.
 %
-Wir werden sie demnächst kennenlernen.
+Wir werden diese bald kennenlernen.
 %
 \end{ExCalc}
 %\begin{Loesung}
@@ -536,16 +564,16 @@ Signal-Abtastung gilt.}
 
 
 \clearpage
-\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale-Grafische Lösung}
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Grafische Lösung}
 \label{sec:FD58EEB1EC}
 \begin{Ziel}
 Wir wollen uns die Faltung von (endlichen) zeitdiskreten Signalen erarbeiten.
 Die Faltungsoperation selber funktioniert genau wie bei zeitkontinuierlichen
-Signalen, das Integral wird hier aber durch die Summe ersetzt.
+Signalen, das Integral wird hier durch eine Summenoperation ersetzt.
 Die Analogie wird deutlich wenn wir uns die Faltung in den beiden
 Signaldomänen mal nebeneinander schreiben
 \begin{align}
-y(t) = \int\limits_{-\infty}^{+\infty} h(-\tau+t) \cdot x(\tau) \, \fsd \tau\quad
+y(t) = \int\limits_{-\infty}^{+\infty} h(-\tau+t) \cdot x(\tau) \, \fsd \tau\qquad
 y[k] = \sum\limits_{\kappa = -\infty}^{+\infty} h[-\kappa+k] \cdot x[\kappa].
 \end{align}
 Die Variablen haben analoge Entsprechungen, also $t \leftrightarrow k$ als
@@ -553,10 +581,10 @@ Zeitvariable des Ausgangssignals und
 die Hilfsvariable $\tau \leftrightarrow \kappa$ für das Integral bzw. die Summe.
 %
 Deswegen ist alles was wir schon zur zeitkontinuierlichen Faltung gelernt haben,
-auch hier nützlich.
+hier nützlich.
 %
-Nachdem wir hier kein Integral lösen müssen, sondern eine Summe,
-fällt es hier vielleicht leichter, die 'Algorithmik' des Faltungsprozesses
+Nachdem wir kein Integral lösen müssen, sondern eine Summe,
+fällt es vielleicht sogar leichter, die 'Algorithmik' des Faltungsprozesses
 für ein gewähltes $k$, also eine bestimmte Überlagerung der beiden zu faltenden
 Signal, nachzuvollziehen.
 %
@@ -590,7 +618,7 @@ $y[k] = x[k] \ast h[k]$ für die unten gegebenen Signale.
 %
 Es ist sinnvoll auch den analytischen Lösungsweg aus Aufgabe \ref{sec:4CBF4358D5}
 für die beiden Signale durchzuspielen.
-Python / Matlab: \texttt{convolution\_discrete\_FD58EEB1EC.ipynb / .m}
+Siehe auch Python/Matlab Skripe: \texttt{convolution\_discrete\_FD58EEB1EC.ipynb/.m}
 \begin{Werkzeug}
 Wir machen uns anhand \fig{fig:FD58EEB1EC_Methods} klar, wie die Signaloperationen
 zeitliche Verschiebung und Drehung auf eine zeitdiskrete Folge wirken. Methode II
@@ -637,7 +665,7 @@ $k<0$ nach links.
 \draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
 \end{scope}
 \end{tikzpicture}
-\caption{Methode I: zunächst Verschiebung, dann Drehung}
+\caption{Methode I: zunächst Verschiebung, dann Spiegelung bzgl. $\kappa=2$ Achse}
 \label{fig:FD58EEB1EC_MethodI}
 \end{subfigure}
 %
@@ -670,7 +698,7 @@ $k<0$ nach links.
 \draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
 \end{scope}
 \end{tikzpicture}
-\caption{Methode II: zunächst Drehung, dann Verschiebung.}
+\caption{Methode II: zunächst Spiegelung bzgl. $\kappa=0$ Achse, dann Verschiebung.}
 \label{fig:FD58EEB1EC_MethodII}
 \end{subfigure}
 %
@@ -683,9 +711,13 @@ Methode II ist vorteilhaft für die Faltungssumme.}
 %
 %
 \begin{Ansatz}
-Die Signale hier sind endlich, daher ist auch das Ergebnis $y[k]$ ein endliches
-Signal.
-Es gilt allgemein die Formel $N_y = N_x + N_h-1$ mit den Längen $N$ für $y,x,h$.
+Die Signale sind endlich, daher ist auch das Ergebnis $y[k]$endlich.
+Es gilt allgemein die Formel
+\begin{align}
+N_y = N_x + N_h-1
+\end{align}
+%$N_y = N_x + N_h-1$
+mit den Längen $N$ für $y,x,h$.
 Das Signal $y[k]$ 'beginnt' bei $k_y=k_x+k_h$, wenn $k_x$ und $k_h$ die
 sich von Null unterscheidenden Startwerte
 der beiden Signale für $x$ und $h$ sind.
@@ -694,11 +726,12 @@ Hier also: $k_x=1$, $k_h = 0$, d.h. $k_y=k_x+k_h = 1$ und
 $N_x = 4$, $N_h=3$, d.h. $N_y = N_x+N_h-1 = 6$.
 
 \end{Ansatz}
-\begin{ExCalc}
-Die grafische Lösung ist auf den nächsten Seiten aufbereitet.
-\end{ExCalc}
+%\begin{ExCalc}
+%Die grafische Lösung ist auf den nächsten Seiten aufbereitet.
+%\end{ExCalc}
 \begin{Loesung}
 %
+Das grafische Lösungsschema ist auf den nächsten Seiten aufbereitet.
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \def\tic{0.1};
@@ -997,11 +1030,11 @@ Die grafische Lösung ist auf den nächsten Seiten aufbereitet.
 
 
 \newpage
-\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale-Analytische Lösung}
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Analytische Lösung}
 \label{sec:4CBF4358D5}
 \begin{Ziel}
-Nochmal eine Faltungssumme zweier endlicher Signale. Diesmal die analytische
-Rechnung in aller Ausführlichkeit, damit wir sehen, was die Formel macht.
+Nochmal eine Faltungssumme zweier endlicher Signale. Diesmal analytische
+Rechnerei in aller Ausführlichkeit, damit wir sehen, was die Formel macht.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 4CBF4358D5}: Berechnen Sie die Faltung $y[k] = x[k] * h[k]$
 für
@@ -1016,7 +1049,8 @@ für
 und skizzieren Sie die Signale $x[k]$, $h[k]$, $y[k]$.
 
 Es ist sinnvoll auch den grafischen Lösungsweg aus Aufgabe \ref{sec:FD58EEB1EC}
-für die beiden Signale durchzuspielen.
+für die beiden hier Signale durchzuspielen. Jede Klausur hat eine Faltungsaufgabe
+zum Üben, check mit Python/Matlab, vgl. \texttt{convolution\_discrete\_4CBF4358D5.ipynb}.
 
 %\begin{Werkzeug}
 %\end{Werkzeug}
@@ -1031,7 +1065,7 @@ für die beiden Signale durchzuspielen.
 \begin{tikzpicture}[scale=0.5]
 \def\tic{0.1};
 \begin{scope}
-\draw[help lines, C7!25, step=1cm] (0,0) grid (5,4);
+\draw[help lines, C7!50, step=1cm] (0,0) grid (5,4);
 \draw[->] (0,0) -- (6.5,0) node[right]{$k$};
 \draw[->] (0,0) -- (0,5) node[above]{$x[k]$};
 \foreach \x in {0,1,2,3,4,5}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
@@ -1043,7 +1077,7 @@ für die beiden Signale durchzuspielen.
 %
 \begin{scope}[xshift=11cm]
 \def\g{0.5}
-\draw[help lines, C7!25, step=\g cm] (-2,0) grid (4,4);
+\draw[help lines, C7!50, step=\g cm] (-2,0) grid (4,4);
 \draw[->] (-3,0) -- (4,0) node[right]{$k$};
 \draw[->] (0,0) -- (0,5) node[above]{$h[k]$};
 \foreach \x in {-2,0,2,4}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
@@ -1055,7 +1089,7 @@ für die beiden Signale durchzuspielen.
 %
 \begin{scope}[xshift=5.5cm, yshift=-10cm]
 \def\g{0.1}
-\draw[help lines, C7!25, step=0.5cm] (0,0) grid (8,7);
+\draw[help lines, C7!50, step=0.5cm] (0,0) grid (8,7);
 \draw[->] (0,0) -- (9,0) node[right]{$k$};
 \draw[->] (0,0) -- (0,7) node[above]{$y[k]$};
 \foreach \x in {0,2,4,6,8}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
@@ -1084,7 +1118,7 @@ y[k] =&
 20\,\delta[k-7]
 \end{align}
 
-Im Folgenden ist die analytische Rechnung Schritt für Schritt durchgeführt.
+Im Folgenden ist eine Rechnung Schritt für Schritt durchgeführt.
 %
 \end{Loesung}
 
@@ -1092,24 +1126,28 @@ Im Folgenden ist die analytische Rechnung Schritt für Schritt durchgeführt.
 
 \clearpage
 %% k = 0
-Für die ausführliche analytische Lösung, wählen wir das Signal $x[k]$,
-um es nach Variablensubstitution $\kappa$ zeitlich
-zu drehen und zu verschieben, also $x[-\kappa+k]=x[k-\kappa]$.
-
-Wir können schnell feststellen, dass hier $y[k<0]=0$ und $y[k>N_y-1]=0$, d.h.
-wir müssen das Faltungsergebnis nur für $0\leq k \leq N_y-1$ ermitteln.
-
+Für die ausführliche analytische Lösung, wählen wir für das zu spiegelnde/verschiebende
+Signal $x[k]$.
+D.h. nach Variablensubstitution der $\kappa$ ergibt die zeitliche
+Drehung und Verschiebung $x[-\kappa+k]=x[k-\kappa]$.
+%
+Wir können feststellen, dass hier $y[k<0]=0$ und $y[k>N_y-1]=0$, d.h.
+wir müssen das Faltungsergebnis für $0\leq k \leq N_y-1$ ermitteln.
+%
 Bei der Faltung zweier endlicher Signale, bestimmt das aktuelle $k$, welche $\kappa$
 wir in der Faltungssumme berücksichtigen müssen.
 Es ist daher hilfreich, wenn wir uns das kleinste und größte $\kappa$ suchen,
 so dass potentiell alle Nicht-Null-Signalwerte für $x[\nu=k-\kappa]$ and $h[\nu=\kappa]$
 berücksichtigt werden.
-Für $k=0$, führt das bei uns zu
+Für $k=0$, führt das zu
 \begin{itemize}
 \item $\kappa=-5$, weil $x[\nu=k-\kappa=5]=4$, $h[\nu=\kappa=5]=0$
 \item $\kappa=+2$, weil $x[\nu=k-\kappa=-2]=0$, $h[\nu=\kappa=2]=5$
 \end{itemize}
-Dafür können wir jetzt die Faltungssumme im Detail aufschreiben.
+Dafür können wir jetzt die Faltungssumme im Detail aufschreiben
+(das länglich, umständlich aufgeschriebene Berücksichtigen von Summentermen
+entspricht in der zeitkontinuierlichen Welt der Integraloperation bei der Faltung):
+%
 \begin{align}
 y[k=0] = &\sum\limits_{\kappa = -5}^{+2} x[0 -\kappa] \cdot h[\kappa] =\\
 &x[0 -(-5)] \cdot h[-5]\nonumber\\
@@ -1122,7 +1160,8 @@ y[k=0] = &\sum\limits_{\kappa = -5}^{+2} x[0 -\kappa] \cdot h[\kappa] =\\
 +&x[0 -(2)] \cdot h[2]
 \end{align}
 In einem zweiten Schritt können wir nun genau die Terme finden, die durch
-Multiplikation nicht zu Null werden (weil da ein Signal den Wert Null hat).
+Multiplikation nicht zu Null werden (weil da eins der beiden Signale den Wert
+Null hat).
 Dazu können wir alle Terme analytisch einzeln durchgehen, oder uns das wie
 in der vorherigen Übung grafisch überlegen.
 Wir kommen für $k=0$ darauf, dass nur bei $\kappa=-2$ die beiden Signale, so
@@ -1257,10 +1296,12 @@ y[k=7] =& \sum\limits_{\kappa = +2}^{+2} x[7 -\kappa] \cdot h[\kappa] =\nonumber
 \subsection{Faltungssumme für zwei Rechteckfolgen}
 \label{sec:99D5D9F1C9}
 \begin{Ziel}
-Anhand eines allgemeinen Beispiels, d.h. ohne speziell gegebenen Parameter
+Anhand eines allgemeinen Beispiels, d.h. ohne speziell gegebene Parameter
 wollen wir uns die Faltung zweier Rechteckfolgen erarbeiten.
-Wir wiederholen ein paar wichtige Zusammenhänge bzgl. der zeitliche Lage und
-Länge des Faltungsergebnis müssen allgemeingültiger über die Faltung nachdenken.
+%
+Dadurch müssen wir allgemeingültiger über die Faltung nachdenken
+und wiederholen ein paar wichtige Zusammenhänge bzgl. der zeitlichen Lage und
+Länge des Faltungsergebnisses.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 99D5D9F1C9}: Berechnen Sie die zeitdiskrete Faltung
 $y[k] = \rectN{M}{k-\kappa_M} \, \ast \,\rectN{N}{k-\kappa_N}$.
@@ -1280,16 +1321,19 @@ daraus eine allgemeingültige Formel ableiten.
 \end{Ansatz}
 %
 \begin{ExCalc}
+Wir müssen 'rausfinden':
 \begin{itemize}
 \item Beginn des Faltungsprodukts bei $k=\kappa_M+\kappa_N$
 \item Länge des Faltungsprodukts $L=M+N-1$ Samples
-\item Maximalwert der Faltungssumme bei vollständiger Überlappung der beiden Rechtecksignale $\hat{y} = \min\{M,N\}$
+\item Maximalwert der Faltungssumme $\hat{y} = \min\{M,N\}$ bei vollständiger Überlappung der beiden Rechtecksignale
 \item Maximalwert $\hat{y}$ im Signal für $|M-N|+1$ Samples in der 'Mitte'
 \item Teilüberlappungen am Anfang und am Ende für $\hat{y}-1$ Samples (ohne das Maximum)
 \end{itemize}
 \end{ExCalc}
 \begin{Loesung}
 %
+Möglichst elegant allgemein aufschreiben. Check mit z.B. Matlab Skript
+\texttt{conv\_99D5D9F1C9.m}
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \def\tic{0.4};
