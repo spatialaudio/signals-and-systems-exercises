@@ -4,7 +4,7 @@
 \subsection{Task}
 Transform
 \begin{itemize}
-	\item[a )] $X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{3}{4}})\cdot(z-\e^{-\im\frac{3}{4}})}$
+	\item[a )] $X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$
 	\item[b )] $X(z)=\frac{z}{z-\frac{1}{2}}$
 	\item[c )] $X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}$
 	\item[d )] $X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}$
@@ -15,6 +15,82 @@ Transform
 into time-discret signals.
 The task shall be performed with help of the
 \begin{itemize}
-	\item \textbf{correspondence table}
-	\item \textbf{Residue theorem}
-\end{itemize}.
+	\item \textbf{correspondence table/ partial fraction decomposition},
+	\item \textbf{Residue theorem}.
+\end{itemize}
+For a quick view there is a solution table at the end of the document.
+\subsection{Solution Using Correspondence Table/ Partial Fraction Decomposition}
+\subsubsection{Task a)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z(\e^{+\im\frac{\pi}{4}}+\e^{-\im\frac{\pi}{4}})+1}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z\bigg[\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})+\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})\bigg ]+1}\nonumber\\
+	&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-2z\cos(\frac{\pi}{4})+1}=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}.
+\end{align}
+If we take a look at the correspondence table, we find following correspondence:
+\begin{align}
+	\cos[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z^2-z\cos(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}.
+\end{align}
+So our solution is
+\begin{align}
+	X(z)=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}\quad\Ztransf\quad x[k]=2\cdot\cos[\frac{\pi}{4}k]\epsilon[k]
+\end{align}
+\subsubsection{Task b)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z}{z-\frac{1}{2}}.
+\end{align}
+If we take a look at the correspondence table, we find following correspondence:
+\begin{align}
+	\label{eq:GeometricProgression}
+	a^k\epsilon[k]\quad\ztransf\quad\frac{z}{z-a}.
+\end{align}
+So our solution is
+\begin{align}
+	X(z)=\frac{z}{z-\frac{1}{2}}\quad\Ztransf\quad x[k]=\bigg (\frac{1}{2}\bigg)^k\epsilon[k].
+\end{align}
+\subsubsection{Task c)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
+\end{align}
+Now we can not find a correspondence in our table. But it seems that a partial fraction decomposition could be helpful.
+\begin{align}
+	\frac{X(z)}{z}=\frac{1}{z-\frac{1}{2}}\cdot\frac{z}{z-1}=\frac{A}{z-\frac{1}{2}}+\frac{B}{z-1} \quad \Bigg | \quad\cdot (z-\frac{1}{2})\cdot(z-1)\nonumber\\
+	z=A\cdot(z-1)+B\cdot(z-\frac{1}{2})=z(A+B)-A-\frac{B}{2}
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		-1 & -\frac{1}{2} \\
+		1 & 1
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		A & B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 & 1
+	\end{pmatrix}.
+\end{align}
+With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+\begin{align}
+	A = -1 \nonumber \\
+	B = 2.
+\end{align}
+
+\begin{align}
+	\frac{X(z)}{z}=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1} \quad\Bigg | \quad \cdot z
+\end{align}
+
+\begin{align}
+	X(z)=-1\cdot\frac{z}{z-\frac{1}{2}}+2\cdot\frac{z}{z-1}
+\end{align}
+Using the correspondence from \ref{eq:GeometricProgression} and 
+\begin{align}
+	\epsilon[k]\quad\ztransf\quad\frac{z}{z-1}
+\end{align}
+we can find the time-discret signal:
+\begin{align}
+	X(z)=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1}\quad\Ztransf\quad x[k]=-\bigg(\frac{1}{2}\bigg)^k\epsilon[k]+2\epsilon[k].
+\end{align}
