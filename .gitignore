@@ -32,6 +32,9 @@ klausur.tex
 *.cut
 __pycache__
 
+## PyCharm
+.idea
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
