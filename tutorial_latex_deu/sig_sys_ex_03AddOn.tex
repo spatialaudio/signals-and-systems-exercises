@@ -1707,139 +1707,165 @@ $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
 %##############################################################################
 %##############################################################################
 \newpage
-\subsection{Preliminaries for inverse Laplace Transform Using Residue theorem }
+\subsection{Preliminaries for Inverse Laplace Transform Using Residue Theorem }
 %
 %
-In the previous section we calculated the inverse Laplace transform with using partial fraction decomposition and correspondence tables. Now we want to find the solution using the complex integral
-Before we are starting to calculate the inverse Lapplace transform, we have to take a step back to math lecutre, complex analysis. First, there are some definitions.\\
-\subsubsection{Isolated singularity} 
+In the previous section we calculated the inverse Laplace transform by using partial fraction decomposition and correspondence tables. In this subsection we want to find the solution using the complex integral.
+Before we start, we have to remember stuff from math lectures, most of all from complex analysis.
+%
+We might have a look into \cite{Strang2007}, or its german translation \cite{Strang2010}.
+%
+The required math tools are summarised below following \cite{Fritzsche2019} and \cite{UlrichWeber2017}.
+
+\subsubsection{Isolated Singularity}
 
 
-May $U \subset \mathbb{C}$ be open, $z_0 \in U$ and $f : U \setminus \{z_0\} \rightarrow \mathbb{C}$ holomorph. Then $z_0$ is named \textbf{isolated singularity} of $f$ [\cite{Fritzsche2019}].\\
+May $U \subset \mathbb{C}$ be open, $z_0 \in U$ and $f : U \setminus \{z_0\} \rightarrow \mathbb{C}$ holomorph. Then $z_0$ is named \textbf{isolated singularity} of $f$, cf.~\cite{Fritzsche2019}.
 
-Types of isolated singularities (can be found in [\cite{Fritzsche2019}]): \\
+Types of isolated singularities, cf.~\cite{Fritzsche2019}:
 
-May $U \subset \mathbb{C}$ open and $f$ holomorph on $U$ until a isolated singularity in point $z_0 \in U$.
+May $U \subset \mathbb{C}$ open and $f$ holomorph on $U$ besides an isolated singularity in point $z_0 \in U$.
 \begin{enumerate}
-	\item $z_0$ is a \textbf{removeable singularity} of $f$, if there is a holomorph function $g$ on $U$, so that $f(z)=g(z)$ for $z \in U \subset \{z_0\}$.
-	\item $z_0$ is a \textbf{pole} of $f$, if there is a $k >= 1$, a neighbourhood $W = W(z_0) \subset U$ and a holomorph function $g$ on $W$ with $g(z_0) \neq $, so is: 
+	\item $z_0$ is a \textbf{removable singularity} of $f$, if there is a holomorph function $g$ on $U$, so that $f(z)=g(z)$ for $z \in U \subset \{z_0\}$.
+	\item $z_0$ is a \textbf{pole} of $f$, if there is a $k >= 1$, a neighbourhood $W = W(z_0) \subset U$ and a holomorph function $g$ on $W$ with $g(z_0) \neq $, so is:
 	\begin{equation}
 		f(z)\cdot(z-z_0)^k=g(z)\quad \textrm{for }z \in W \setminus \{z_0\}. \nonumber
-	\end{equation} 
+	\end{equation}
 	The clear intended $k$ with this property is the pole order of $f$ in $z_0$.
-	\item $z_0$ is \textbf{essential singularity}, if it is neither a removeable singularity nor a pol.
+	\item $z_0$ is an \textbf{essential singularity}, if it is neither a removable singularity nor a pole.
 \end{enumerate}
-\subsubsection{Laurent series} 
-A Laurent series is a series with the form:
+\subsubsection{Laurent Series}
+A Laurent series is a series of the form, cf.~\cite{Fritzsche2019},
 \begin{align}
 	f(z) = \sum_{k=-\infty}^{+\infty}c_k\cdot(z-z_0)^k.
 \end{align}
-You can find it in [\cite{Fritzsche2019}]. \\
+
 \subsubsection{Residue}
-The following definition and the connection with the Laurent series can be found in [\cite{Fritzsche2019}]. \\
-May $B \subset \mathbb{C}$ open, $z_0 \in B, f: B \setminus z_0 \rightarrow \mathbb{C}$ holomorph and $\epsilon > 0$, so that it is $D_{\epsilon}(z_0)\subset\subset \mathbb{C}$. Then 
+The following definition and the connection with the Laurent series can be found in \cite{Fritzsche2019} as well.
+May $B \subset \mathbb{C}$ open, $z_0 \in B, f: B \setminus z_0 \rightarrow \mathbb{C}$ holomorph and $\epsilon > 0$, so that it is $D_{\epsilon}(z_0)\subset\subset \mathbb{C}$. Then
 \begin{align}
 	\mathrm{Res}(f(z),z_0):=\frac{1}{2\pi\im}\int_{\partial D_{\epsilon}(z_0)}f(\xi)\mathrm{d}\xi
 \end{align}
-is named residue of $f$ in $z_0$-
-The coefficent $c_{-1}$ of the Laurent series of $f$ around $z_0$ is the residue of $f$ in $z_0$:
+is named residue of $f$ in $z_0$.
+The coefficient $c_{-1}$ of the Laurent series of $f$ around $z_0$ is the residue of $f$ in $z_0$:
 \begin{align}
 	\mathrm{Res}(f(z),z_0)=c_{-1}.
 \end{align}
-\subsubsection{Calculation of residue}
-If $z_0$ is a removeable singularity:
+\subsubsection{Calculation of Residue}
+If $z_0$ is a \textbf{removable singularity}, then
 \begin{align}
 	\mathrm{Res}(f(z),z_0)=0,
 \end{align}
-because $c_k$ = 0 for $k<0$ [\cite{Fritzsche2019}]. \\
-Example:
+because $c_k$ = 0 for $k<0$, cf.~\cite{Fritzsche2019}.
+
+\noindent Example:
 \begin{align}
 	f(z) &= \frac{\sin(z)}{z} \nonumber \\
 	\lim\limits_{z \rightarrow 0}f(z) &= \lim\limits_{z \rightarrow 0}\frac{\cos(z)}{1}=1 \Rightarrow \mathrm{Res}(f(z),0)=0 \nonumber \\
-	\sin(z) &= z-\frac{z^3}{3!}+\frac{z^5}{5!}-+\cdot\cdot\cdot\quad \quad \textrm{[\cite{Bronstein}]} \nonumber \\
+	\sin(z) &= z-\frac{z^3}{3!}+\frac{z^5}{5!}-+\cdot\cdot\cdot\quad \quad \textrm{cf.~\cite{Bronstein}} \nonumber \\
 	\frac{\sin(z)}{z} &= 1 - \frac{z^2}{3!}+\frac{z^4}{5!}-+\cdot\cdot\cdot \nonumber \\
 	&\rightarrow \quad \mathrm{Res}(f(z),0)=c_{-1} = 0. \nonumber
 \end{align}
-If $z_0$ is a pole of order m:
+
+If $z_0$ is a \textbf{pole of order m}, cf.~\cite{Fritzsche2019}, it follows
 \begin{align}
-	\mathrm{Res}(f(z),z_0)=\lim\limits_{z \rightarrow z_0}\frac{1}{(m-1)!}\frac{\mathrm{d}^{m-1}}{\mathrm{d} z^{m-1}}\bigg [f(z)\cdot (z-z_0)^m\bigg ]
+\label{eq:ResTheorem_pole_order_m}
+	\mathrm{Res}(f(z),z_0)=\lim\limits_{z \rightarrow z_0}\frac{1}{(m-1)!}\frac{\mathrm{d}^{m-1}}{\mathrm{d} z^{m-1}}\bigg [f(z)\cdot (z-z_0)^m\bigg ].
 \end{align}
-[\cite{Fritzsche2019}]. \\
-Example:
+
+\noindent Example: The order 1 pole at 2
 \begin{align}
-	f(z) = \frac{1}{z-2} \nonumber \\
+	f(z) = \frac{1}{z-2} \nonumber
 \end{align}
-2 is pole of order 1.
+leads to
 \begin{align}
-	\mathrm{Res}(f(z),2)=\lim\limits_{z\rightarrow 2}\frac{1}{(1-1)!}\frac{\mathrm{d}^{1-1}}{\mathrm{d}z^{1-1}}\bigg [(z-2)\cdot\frac{1}{z-2}\bigg ] = 1 \nonumber \\
+	\mathrm{Res}(f(z),2)=\lim\limits_{z\rightarrow 2}\frac{1}{(1-1)!}\frac{\mathrm{d}^{1-1}}{\mathrm{d}z^{1-1}}\bigg [(z-2)\cdot\frac{1}{z-2}\bigg ] = 1 \nonumber
 \end{align}
-Or as laurent series:
+Alternatively, we can have a look at its Laurent series expansion
 \begin{align}
-	\frac{1}{z-2}=\frac{1}{z-2}\cdot\frac{\frac{1}{z}}{\frac{1}{z}}=\frac{1}{z}\cdot\frac{1}{1-\frac{2}{z}} \nonumber \\
+	\frac{1}{z-2}=\frac{1}{z-2}\cdot\frac{\frac{1}{z}}{\frac{1}{z}}=\frac{1}{z}\cdot\frac{1}{1-\frac{2}{z}} \nonumber
 \end{align}
-With using the geometric series
+Using the geometric series, cf.~\cite{Bronstein}
 \begin{align}
-	\sum_{k=0}^{+\infty}q^k=\frac{1}{1-q}\quad\quad|q| < 1 \nonumber \\
+	\sum_{k=0}^{+\infty}q^k=\frac{1}{1-q}\quad\quad|q| < 1 \nonumber,
 \end{align}
-(you can find it in[\cite{Bronstein}]), we can write our function as a series:
+we can write our function as a series:
 \begin{align}
 	f(z)\underset{|\frac{2}{z}|<1}{=}\frac{1}{z}\cdot\sum_{k=0}^{+\infty}\bigg (\frac{2}{z}\bigg )^k = \sum_{k=0}^{+\infty}\frac{2^k}{z^{k+1}} = z^{-1}+2z^{-2}+4z^{-3}+\cdot\cdot\cdot \nonumber \\
 	\rightarrow \mathrm{Res}(f(z),2)=c_{-1}=1. \nonumber
 \end{align}
-If $z_0$ is essential singularity, you have to find the residue by developing the laurent series.
+
+If $z_0$ is an \textbf{essential singularity}, we have to find the residue by
+Laurent series expansion.
+
+\noindent Example:
 \begin{align}
-	f(z)=\e^{\frac{1}{z}} \nonumber 
+	f(z)=\e^{\frac{1}{z}} \nonumber
 \end{align}
 \begin{align}
-	\e^z=1+z+\frac{z^2}{2!}+\frac{z^3}{3!}+\frac{z^4}{4!}+\cdot\cdot\cdot\quad\quad \textrm{[\cite{Bronstein}]} \nonumber \\
+	\e^z=1+z+\frac{z^2}{2!}+\frac{z^3}{3!}+\frac{z^4}{4!}+\cdot\cdot\cdot\quad\quad \textrm{cf.~\cite{Bronstein}} \nonumber
 \end{align}
-Now substituting $z$ with $\frac{1}{z}$ results in
+Substituting $z$ with $\frac{1}{z}$ results in
 \begin{align}
-	f(z)=z^{-1}+1+\frac{z^1}{2!}+\frac{z^2}{3!}+\frac{z^3}{4!}+\cdot\cdot\cdot .
+	f(z)=z^{-1}+1+\frac{z^1}{2!}+\frac{z^2}{3!}+\frac{z^3}{4!}+\dots\,. \nonumber
 \end{align}
 \begin{align}
-	\rightarrow\mathrm{Res}(f(z),0)=1
+	\rightarrow\mathrm{Res}(f(z),0)=1 \nonumber
 \end{align}
-\subsubsection{Residue theorem} 
-You can find the following definition in [\cite{Fritzsche2019}]. \\
-May $G \subset \mathbb{C}$ an connected space, $D \subset G$ finite, $\gamma$ a closed curve in $G$ with $|\gamma| \cap D = \emptyset$ and $f: G \setminus D \rightarrow \mathbb{C}$ holomorph. Then is 
+\subsubsection{Residue Theorem}
+Again, we utilize \cite{Fritzsche2019} to give the definition.
+May $G \subset \mathbb{C}$ a connected space, $D \subset G$ finite, $\gamma$ a closed curve in $G$ with $|\gamma| \cap D = \emptyset$ and $f: G \setminus D \rightarrow \mathbb{C}$ holomorph. Then
 \begin{align}
 	\frac{1}{2\pi\im}\int_{\gamma}f(\xi)\mathrm{d}\xi = \sum_{z\in D}n(\gamma,z)\mathrm{Res}(f(z),z).
 \end{align}
-That means, we can calculate complex circle integrals by adding $\mathrm{Res}(f(z),z_1$) to $\mathrm{Res}(f(z),z_n)$ for all sourrounded isolated singularities $z_1$ to $z_n$.
-\subsubsection{Inverse Laplace transform using Residue theorem}
-The inverse Laplace transform is defined as
+This tells us, that we can calculate complex contour integrals
+by adding $\mathrm{Res}(f(z),z_1$) to $\mathrm{Res}(f(z),z_n)$ for all
+surrounded isolated singularities $z_1$ to $z_n$. \textbf{This is very important stuff.}
+%
+The partial fraction decomposition is doing this in essence without bothering
+us too much with the theorem, but it is always a good idea to know where things
+come from.
+
+\subsubsection{Inverse Laplace Transform Using Residue Theorem}
+The inverse Laplace transform is defined as, cf.~\cite{UlrichWeber2017},
 \begin{align}
-	\mathcal{L}^{-1}[Y(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \min \bigg \{\Re \{Kb\} \bigg\} 
+	\mathcal{L}^{-1}[Y(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \min \bigg \{\Re \{Kb\} \bigg\}.
 \end{align}
-[\cite{UlrichWeber2017}]. 
-We chose a curce $C = C_1 + C_2$, where $C_1$ is a curve parallel to the imaginary axes through $\sigma$ from $\sigma -\im\omega_0$ to $\sigma + \im\omega_0$ and $C_2$ a part of a circle with center at $0$ from $\sigma +\im\omega_0$ to $\sigma - \im\omega_0$ [\cite{UlrichWeber2017}].
-Based on figure 3.5 in [\cite{UlrichWeber2017}], here is the curve in parameter form:
+%
+We choose a curve $C = C_1 + C_2$, where $C_1$ is a curve parallel to the imaginary axes through $\sigma$ from $\sigma -\im\omega_0$ to $\sigma + \im\omega_0$ and $C_2$ a part of a circle with center at $0$ from $\sigma +\im\omega_0$ to $\sigma - \im\omega_0$, cf.~\cite{UlrichWeber2017}.
+According to \cite[Fig.~3.5]{UlrichWeber2017}, the curves in parameter form are
 \begin{align}
 	&C_1:\quad s = \sigma+\im x \quad x \in [-\omega_0,\omega_0] \\
 	&C_2:\quad s = \underbrace{\sqrt{\omega_0^2+\sigma^2}}_R \e^{\im x} \quad x \in [\arctan\bigg (\frac{\omega_0}{\sigma}\bigg ) ,2\pi-\arctan\bigg ( \frac{\omega_0}{\sigma}\bigg ) ].
 \end{align}
-[\cite{UlrichWeber2017}]. 
-If $\omega_0$ is chosen big enough, the complex integral $\oint_CY(s)\e^{st}\mathrm{d}s$ sourounds all isolated singularities $z_1$ to $z_n$ of $Y(s)$ and we can use the residue theorem:
+%
+If $\omega_0$ is chosen large enough, the complex integral $\oint_CY(s)\e^{st}\mathrm{d}s$ surrounds all isolated singularities $z_1$ to $z_n$ of $Y(s)$ and we can use the residue theorem, cf.~\cite{UlrichWeber2017}:
 \begin{align}
-	\frac{1}{2\pi\im}\oint_C F(s)\e^{st}\mathrm{d}s=\underbrace{\frac{1}{2\pi\im}\int_{\sigma-\im\omega_0}^{\sigma+\im\omega_0}F(s)\e^{st}\mathrm{d}s}_{A}+\underbrace{\frac{1}{2\pi\im}\int_{C_2}F(s)\e^{st}\mathrm{d}s}_{B}=\sum_{k=1}^{n}\mathrm{Res}(F(s)\e^{st},z_n)
+	\frac{1}{2\pi\im}\oint_C F(s)\e^{st}\mathrm{d}s=\underbrace{\frac{1}{2\pi\im}\int_{\sigma-\im\omega_0}^{\sigma+\im\omega_0}F(s)\e^{st}\mathrm{d}s}_{A}+\underbrace{\frac{1}{2\pi\im}\int_{C_2}F(s)\e^{st}\mathrm{d}s}_{B}=\sum_{k=1}^{n}\mathrm{Res}(F(s)\e^{st},z_n).
 \end{align}
-[\cite{UlrichWeber2017}]. If we let $\omega_0\rightarrow\infty$, then also $R\rightarrow\infty$ and it can be shown, that $B \rightarrow 0$ for $R\rightarrow \infty$ [\cite{UlrichWeber2017}]. In the end we get
+%
+If we let $\omega_0\rightarrow\infty$, then also $R\rightarrow\infty$ and it can be shown, that $B \rightarrow 0$ for $R\rightarrow \infty$, cf.~\cite{UlrichWeber2017}.
+%
+Finally, we get
 \begin{align}
 	\frac{1}{2\pi\im}\oint_C F(s)\e^{st}\mathrm{d}s\underset{\omega_0\rightarrow\infty}{=}\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s=\mathcal{L}^{-1}[F(s)]=\sum_{k=1}^{n}\mathrm{Res}(F(s)\e^{st},z_k).
 \end{align}
-\subsubsection{Example}
-May
+\subsubsection{Simple Example Inverse Laplace Transform Using Residue Theorem}
+Let us consider a pole with order 2 at $0$
 \begin{align}
-	F(s)=\frac{1}{s^2}.
+	F(s)=\frac{1}{s^2},
 \end{align}
-$0$ is pole with order 2 and the only singularity of $F(s)$.
+which is the only singularity of $F(s)$.
+%
+We aim at causal time signals, thus region of convergence $\Re\{\sigma\} > 0$.
+%
+Then with \eqref{eq:ResTheorem_pole_order_m}
 \begin{align}
-	\mathrm{Res}(F(s)\e^{st},0)=\lim\limits_{s\rightarrow0}\frac{1}{(2-1)!}\cdot\frac{\mathrm{d}}{\mathrm{d}s}\frac{\e^{st}\cdot s^2}{s^2}=\lim\limits_{s\rightarrow0}t\e^{st}=t
+	\mathrm{Res}(F(s)\e^{st},0)=\lim\limits_{s\rightarrow0}\frac{1}{(2-1)!}\cdot\frac{\mathrm{d}}{\mathrm{d}s}\frac{\e^{st}\cdot s^2}{s^2}=\lim\limits_{s\rightarrow0}t\e^{st}=t \epsilon(t)
 \end{align}
 We achieve
 \begin{align}
-	y(t)=\mathcal{L}^{-s}[Y(s)]=t.
+	y(t)=\mathcal{L}^{-1}[Y(s)]=t \epsilon(t).
 \end{align}
 Feel free to check the solution in a correspondence table.
 \pagebreak
@@ -1885,7 +1911,7 @@ We have to find the residue of $Y(s)\e^{st}$ for $0, -\frac{3}{4}+\im$ and $-\fr
 \begin{align}
 	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}-\im)=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}Y(s)\cdot\e^{st}(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}\frac{25}{16}\cdot\frac{\e^{st}}{s\cdot(s-(-\frac{3}{4}+\im))} = \nonumber \\
 \frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{(-\frac{3}{4}-\im)\cdot(-\frac{3}{4}-\im+\frac{3}{4}-\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}\cdot\frac{-2-\frac{3}{2}\im}{-2-\frac{3}{2}\im}=\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{2^2+\big (\frac{3}{2}\big)^2}=\nonumber \\
-\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im)	
+\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im)
 \end{align}
 We just have to add the residue and get the inverse Laplace transform.
 \begin{align}
@@ -1915,7 +1941,7 @@ To achieve the inverse Laplace transform, we now have to add all found residue:
 	&= \e^{-\frac{3}{4}t}\Bigg [\cos(t)+\frac{11}{4}\sin(t)\Bigg ] \quad t \geq 0
 \end{align}
 \subsubsection{Task d) inverse Laplace Transform with Residue theorem}
-We shall find the inverse Laplace transform for 
+We shall find the inverse Laplace transform for
 \begin{align}
 	Y(s) = \frac{\frac{1}{s}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}+
 	\frac{\frac{16}{25} s + \frac{56}{25}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
@@ -1928,7 +1954,7 @@ This is just a superposition of task b) and task c). Because of that, we can jus
 	&= 1 + 2\e^{-\frac{3}{4}t}\sin(t) \quad t \geq 0.
 \end{align}
 \subsubsection{Task e) inverse Laplace Transform with Residue theorem}
-We shall find the inverse Laplace transform for 
+We shall find the inverse Laplace transform for
 \begin{align}
 	Y(s) = \frac{\frac{1}{s^2 + 1^2}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
 \end{align}
