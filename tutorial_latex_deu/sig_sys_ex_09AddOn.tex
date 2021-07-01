@@ -94,3 +94,47 @@ we can find the time-discret signal:
 \begin{align}
 	X(z)=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1}\quad\Ztransf\quad x[k]=-\bigg(\frac{1}{2}\bigg)^k\epsilon[k]+2\epsilon[k].
 \end{align}
+\subsubsection{Task d)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
+\end{align}
+\begin{align}
+	\frac{X(z)}{z}=\frac{z^2-z+2}{z\cdot(z^2-\frac{1}{2})}
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		-1 & -\frac{1}{2} \\
+		1 & 1
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		A \\ B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 & 1
+	\end{pmatrix}.
+\end{align}
+With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+\begin{align}
+	A = -1 \nonumber \\
+	B = 2.
+\end{align}
+
+\begin{align}
+	\frac{X(z)}{z}=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1} \quad\Bigg | \quad \cdot z
+\end{align}
+
+\begin{align}
+	X(z)=-1\cdot\frac{z}{z-\frac{1}{2}}+2\cdot\frac{z}{z-1}
+\end{align}
+Using the correspondence from \ref{eq:GeometricProgression} and 
+\begin{align}
+	\epsilon[k]\quad\ztransf\quad\frac{z}{z-1}
+\end{align}
+we can find the time-discret signal:
+\begin{align}
+	X(z)=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1}\quad\Ztransf\quad x[k]=-\bigg(\frac{1}{2}\bigg)^k\epsilon[k]+2\epsilon[k].
+\end{align}
