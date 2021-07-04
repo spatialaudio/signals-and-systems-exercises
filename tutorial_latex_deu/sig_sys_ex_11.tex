@@ -2,7 +2,8 @@
 \section{UE 11: Diskrete Fourier Transformation (DFT)}
 %
 Wir betrachten die letzte der vier Fourier Transformationen, die DFT.
-Sie ist die einzige, die exakt mit Computern ausrechenbar ist.
+Sie ist die einzige, die exakt mit Computern ausrechenbar ist (wenn wir hier
+mal von numerischen Rundungsfehlern absehen wollen).
 %
 Die anderen drei Fourier Transformation (FT, FR, DTFT) setzen ja entweder
 unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
@@ -14,21 +15,22 @@ der anderen drei Transformationen benutzen zu müssen.
 %
 
 Eine der Grundeigenschaften der DFT, nämliche die inhärente
-Periodizität der Signalfolgen und DFT-Spektren der Länge $N$, ist eigentlich
-eher praxisfern, die meisten Signale sind ja eher nicht periodisch, und wenn
+Periodizität sowohl der Signalfolgen als auch der DFT-Spektren jeweils mit
+der Länge $N$, ist eigentlich
+eher praxisfern. Die meisten Signale sind ja eher nicht periodisch, und wenn
 doch dann meist überlagert mit Rauschen.
 %
 Wir haben also ein Werkzeug, was gut ist für digitale Rechentechnik, aber
 schlecht für die meisten vorkommenden Signale.
 %
-Das macht die DFT nun nich automatisch zu einem schlechten Tool. Wir müssen
+Das macht die DFT nun nicht automatisch zu einem schlechten Tool. Wir müssen
 es aus Mangel an Alternativen eh wertschätzen und uns 'nur' erarbeiten, was die
 DFT unter verschiedenen Annahmen macht und wie die Ergebnisse zu interpretieren
 sind.
 %
 Dafür müssen wir die DFT-Synthese und DFT-Analyse
-und die Eigenschaften der DFT sicher beherrschen, das ist absolutes Must Have
-Knowledge!
+und die Eigenschaften der DFT sicher beherrschen.
+%
 %
 Es ist deswegen sinnvoll, wenn wir uns das tiefgründig erarbeiten. Eine einzige
 VL/UE-Einheit ist dafür im Grunde zu wenig, daher sollten wir Zeit für
@@ -39,15 +41,16 @@ Hier der Versuch die Essenz in übersichtlicher Form weiterzugeben.
 Wir benutzen die Operator Symbole
 \begin{align}
 \text{DFT: }x[k] &\quad\mydft\quad X[\mu]\\
-\text{IDFT: }X[\mu] &\quad\myDFT\quad x[k]
+\text{IDFT: }X[\mu] &\quad\myDFT\quad x[k].
 \end{align}
 %
 Die Analyse Formel ist mit unserer Konvention
 (bzgl. der Normierung mit $\frac{1}{N}$ und Vorzeichenwahl im komplexen Dreher)
+(Matlab, Python: \texttt{fft})
 \begin{align}
 X[\mu] = \mathrm{DFT}_N\{x[k]\} = \sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu},
 \end{align}
-dann lautet die Synthese Formel
+dann lautet die Synthese Formel (Matlab, Python: \texttt{ifft})
 \begin{align}
 x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}.
 \end{align}
@@ -92,7 +95,7 @@ Für $N\to\infty$ nähern wir uns der DTFT an.
 \draw[C0] (0.78,-1.15) node[right]{DFT $z_\mu = \e^{\im\frac{2\pi}{4}\mu}$};
 %
 \draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
-\draw[->] (-1.25,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (-1.25,0)--(1.75,0) node[below]{$\Re\{z\}$}; % axis label
 \draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{z\}$}; % axis label
 %
 \draw[C0, ultra thick] (0,+1) node{\Huge $\circ$};
@@ -100,9 +103,9 @@ Für $N\to\infty$ nähern wir uns der DTFT an.
 \draw[C0, ultra thick] (+1,0) node{\Huge $\circ$};
 \draw[C0, ultra thick] (-1,0) node{\Huge $\circ$};
 %
-\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=1$};
-\draw[] (2*\tic,+1+4*\tic) node[right]{$z_1=W_4=\e^{\im\frac{2\pi}{4}}$};
-\draw[] (-1+4*\tic,4*\tic) node{$z_2$};
+\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=(W_4)^0=1$};
+\draw[] (2*\tic,+1+4*\tic) node[right]{$z_1=(W_4)^1=\e^{\im\frac{2\pi}{4}}$};
+\draw[] (-1+4*\tic,4*\tic) node{$z_2=(W_4)^2$};
 \draw[] (4*\tic,-1+4*\tic) node{$z_3$};
 %
 \draw[->] (0.25,0) node[above]{$\frac{2\pi}{4}$} arc (0:90:0.25) ;
@@ -116,7 +119,7 @@ Für $N\to\infty$ nähern wir uns der DTFT an.
 \draw[C0] (0.78,-1.15) node[right]{DFT $z_\mu = \e^{\im\frac{2\pi}{5}\mu}$};
 %
 \draw (1+2*\tic,-3*\tic) node{$1$}; % indicate that this is the unit circle
-\draw[->] (-1.25,0)--(1.75,0) node[right]{$\Re\{z\}$}; % axis label
+\draw[->] (-1.25,0)--(1.75,0) node[below]{$\Re\{z\}$}; % axis label
 \draw[->] (0,-1.25)--(0,1.5) node[above]{$\Im\{z\}$}; % axis label
 %
 \draw[white] (0,-1)--(0,+1);
@@ -128,9 +131,9 @@ Für $N\to\infty$ nähern wir uns der DTFT an.
 \draw[C0, ultra thick] (-0.80902,- 0.58779) node{\Huge $\circ$};
 \draw[C0, ultra thick] (0.30902,- 0.95106) node{\Huge $\circ$};
 %
-\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=1$};
-\draw[] (0.30902+1*\tic, 0.95106+3*\tic) node[right]{$z_1=W_5=\e^{\im\frac{2\pi}{5}}$};
-\draw[] (-0.80902-4*\tic, 0.58779+4*\tic) node{$z_2$};
+\draw[] (+1+1*\tic,4*\tic) node[right]{$z_0=(W_5)^0=1$};
+\draw[] (0.30902+1*\tic, 0.95106+3*\tic) node[right]{$z_1=(W_5)^1=\e^{\im\frac{2\pi}{5}}$};
+\draw[] (-0.80902-4*\tic, 0.58779+4*\tic) node{$z_2=(W_5)^2$};
 \draw[] (-0.80902-4*\tic,- 0.58779-4*\tic) node{$z_3$};
 \draw[] (0.30902+4*\tic,- 0.95106-4*\tic) node{$z_4$};
 %
@@ -170,7 +173,7 @@ k \downarrow
 \end{bmatrix}
 }
 \end{align}
-In Büchern findet sich oft die kürzere Variante mit $W_N$
+In Büchern findet sich oft die kürzere Variante mit $(W_N)^{k \mu} = W_N^{k \mu}$
 \begin{align}
 \bm{F} =
 k \downarrow
@@ -212,7 +215,7 @@ X[\mu=3]\\
 X[\mu=N-1]\\
 \end{bmatrix}
 \end{align}
-können wir die \textbf{IDFT als Matrixmultiplikation}
+können wir die \textbf{IDFT als Matrixmultiplikation} (Matlab, Python: \texttt{ifft})
 \begin{align}
 \bm{x}_k = \frac{1}{N} \bm{F} \cdot \bm{x}_\mu
 \end{align}
@@ -311,7 +314,7 @@ Funktionen
 $\sin(\mu \omega_0 t)$, $\cos(\mu \omega_0 t)$ und $\e^{\im \mu \omega_0 t}$ die
 orthogonal zueinander sind für verschiedene $\mu\in\mathbb{Z}$.
 %
-Es ist die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / IDFT
+Es ist genau die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / IDFT
 schenkt als Linearkombination $N$ orthogonaler (komplexer) Vektoren.
 %
 
@@ -330,7 +333,7 @@ Mit der adjungierten Matrix von $\bm{F}$, also
 \end{bmatrix}
 }
 \end{align}
-folgt die \textbf{DFT als Matrixmultiplikation}
+folgt die \textbf{DFT als Matrixmultiplikation} (Matlab, Python: \texttt{fft})
 \begin{align}
 \bm{x}_\mu = \bm{F}^H \cdot \bm{x}_k.
 \end{align}
@@ -339,7 +342,45 @@ als inneres Produkt / Skalarprodukt
 verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
 berücksichtigt.
 
-
+%
+\noindent\textbf{Unitäre Matrix Version}
+Wir könnten das IDFT/DFT-Paar auch mit $\frac{1}{\sqrt{N}}$-Normierung
+aufschreiben (sehr gerne in der Physik und Mathe benutzt)
+\begin{align}
+x[k] = \frac{1}{\sqrt{N}} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}
+\qquad
+X[\mu] = \frac{1}{\sqrt{N} }\sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu}
+\end{align}
+Dann benutzt man die Matrix
+\begin{align}
+\mathring{\mathbf{F}} = \frac{\mathbf{F}}{\sqrt{N}}
+\end{align}
+für die IDFT/DFT-Matrixoperation
+\begin{align}
+\bm{x}_k = \mathring{\mathbf{F}} \, \bm{x}_\mu
+\qquad
+\bm{x}_\mu = \mathring{\mathbf{F}}^{*} \, \bm{x}_k,
+\end{align}
+also bei der DFT die konjugiert-komplexe von $\mathring{\mathbf{F}}$.
+%
+Dies funktioniert deswegen, weil $\mathring{\mathbf{F}}$ eine unitäre Matrix ist,
+also eine orthonormale, komplexe, symmetrische Matrix, für die
+\begin{equation}
+\mathring{\mathbf{F}}^{-1} \, \mathring{\mathbf{F}}
+=
+\mathring{\mathbf{F}}^\mathrm{H} \, \mathring{\mathbf{F}}
+=
+\mathring{\mathbf{F}}^{*} \, \mathring{\mathbf{F}}
+=
+\mathbf{I}
+\end{equation}
+gilt.
+%
+Damit sieht man sehr schön, dass die DFT/IDFT im Grunde ein eindeutig lösbares
+Gleichungssystem ist, wobei die Vektoren (bei uns in SigSys also Zeitsignal bzw.
+DFT-Spektrum) in eine (spezielle und fundamentale wichtige)
+orthonormale Vektorbasis projiziert werden, die wir lernen werden sinnvoll
+für SigSys Probleme zu interpretieren.
 
 
 \clearpage
@@ -602,14 +643,14 @@ Zeitfolge.
 %
 Einen Computer würden mit Zahlen versorgen, z.B. mit Matlab
 
-\verb|ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')|
+\texttt{ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')}
 
 (Achtung: \texttt{'} ist adjungiert, \texttt{.'} ist transponiert!, hier soll
 nur transponiert, also ein Spaltenvektor erzeugt werden.)
 
 Die auf Seite \pageref{LinComb_for_IDFT} aufgezeigte Linearkombination reduziert
 sich für das Spektrum $X_c[\mu]$ zur Benutzung des zweiten Spaltenvektors (die
-anderen Gewichte sind ja Null)
+anderen Gewichte/DFT-Koeffizienten sind ja Null)
 \begin{align*}
 \bm{x}_{k,c}=
 \begin{bmatrix}
@@ -752,7 +793,7 @@ den Symmetriepunkt des Basisbandes.
 Das Spektrum erfüllt also intentional
 die Symmetrieeigenschaften von reellwertigen Signalen.
 
-\textbf{Hinweis 1}: Wir machen uns klar, dass die Symmetrie bei ungeraden $N$
+\textbf{Hinweis 1}: Wir machen uns klar, dass die Symmetrie bei ungeradem $N$
 genau mittig zwischen zwei DFT Frequenzen liegt!
 
 \textbf{Hinweis 2}:
@@ -1038,14 +1079,13 @@ X[\mu] =& \sum_{\mu=0}^{N-1} \e^{+\im\,\Omega_0 k} \e^{-\im\,\frac{2\pi}{N} k \m
 \end{align}
 mit $\Omega_{0,\mu} = -\Omega_0 + \frac{2\pi}{N} \mu$.
 Dies ist wieder die endliche geometrische Reihe mit der geschlossenen Lösung
-\red{TBD: konsistent machen mit Formelsammlung, Darstellungen sind identisch}
 \begin{align}
 X[\mu] = \e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot
 \frac{\sin\left(\Omega_{0,\mu}\cdot\frac{N}{2}\right)}{\sin\left(\Omega_{0,\mu}\cdot\frac{1}{2}\right)}
 =\e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot N \cdot \mathrm{psinc}_N(\Omega_{0,\mu})
 .
 \end{align}
-Wir begegnen wieder einmal der periodischen Sinc Funktion.
+Wir begegnen wieder einmal der periodischen Sinc Funktion $\mathrm{psinc}_N(\Omega) = \frac{\sin({\Omega\frac{N}{2}})}{N \sin({\Omega\frac{1}{2}})}$.
 %
 Mit dieser Formel finden wir die analytischen Ausdrücke für Betrag und Phase
 vergleichsweise schöner und einfacher, z.B. für $\mu=2$
@@ -1055,7 +1095,7 @@ vergleichsweise schöner und einfacher, z.B. für $\mu=2$
 \end{align}
 Es ist hilfreich, wenn wir uns klarmachen, dass wir für $\Omega_0=0$ die DFT der
 Rechteckfolge $\mathrm{rect}_N[k]$
-in dieser Formel abbilden, sozusagen wieder geschenkt.
+in dieser Formel abbilden, sozusagen wieder ein wichtiger Speziallfall nebenbei mit abgefallen.
 
 Die beiden Denkkonzepte a) das Herauspicken des DFT-Betrags aus der psinc Funktion
 für eine komplexe Exponentialfolge und b) die Betrachtungsweise des
@@ -1149,7 +1189,8 @@ Digital Signal Processing genauer an.
 \centering
 \includegraphics[width=0.75\textwidth]{../dft/DFT_Spectrum_0C30EB5E76.pdf}
 \caption{Aufgabe \ref{sec:0C30EB5E76}. DFT Spektrum $X[\mu]=\mathrm{DFT}_8\{x[k]\}$ ,
-Betrag oben, Phase unten. DFT Basisband in orange.}
+Betrag oben, Phase unten. DFT Basisband in orange.
+\texttt{dft\_complex\_signal\_0C30EB5E76.ipynb}}
 \label{fig:DFT_Spectrum_0C30EB5E76}
 \end{figure}
 %
@@ -1161,7 +1202,8 @@ unten Imaginärteil. Orange: Signalausschnitt für die $N=8$ DFT. Das Signal
 hätte ohne unsere künstlich vorgenommene Periodisierung mit $N=8$
 eine Periode von 16 Samples (siehe graue Linie). Durch die Beschneidung der
 Signalperiode kommt es im DFT-Spektrum
-\fig{fig:DFT_Spectrum_0C30EB5E76} zum sogennanten Leakage Effect.}
+\fig{fig:DFT_Spectrum_0C30EB5E76} zum sogennanten Leakage Effect.
+\texttt{dft\_complex\_signal\_0C30EB5E76.ipynb}}
 \label{fig:Signal_0C30EB5E76}
 \end{figure}
 
@@ -1227,10 +1269,10 @@ Wir müssen die Faltungssumme also nur für $k=0,1,2$ auswerten und können
 den Rest periodisch auffüllen.
 %
 Die grafische Lösung funktioniert nun völlig gleich wie eine lineare Faltung,
-wir müssen nur beachten das Signal immer zyklisch 'nachzuschieben' und nur den
-Bereich $0 \leq \kappa \leq 2$ für die Summe zu verwenden.
+wir müssen nur beachten das Signal immer \textbf{zyklisch 'nachzuschieben'} und nur den
+\textbf{Bereich} $0 \leq \kappa \leq 2$ \textbf{für die Summe} zu verwenden.
 %
-Im gewählten Rechenweg ist $h[-\kappa+k]$ das zeitlich gespiegelte und zu
+Im gewählten Rechenweg ist die Folge $h[-\kappa+k]$ das zeitlich gespiegelte und zu
 verschiebende Signal.
 %
 Die grau rechteckige Markierung zeigt eine Periode bzw. den $\kappa$ Bereich,
@@ -1247,6 +1289,16 @@ Die lineare Faltung ergibt
 y_l[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
 \end{align}
 %
+In Matlab könnten wir kurz checken:
+\begin{verbatim}
+x = [-1 2 4];
+h = [3 1 5];
+conv(h,x)  % lineare Faltung
+cconv(h,x,3) % zyklische Faltung mit Periode 3 ==
+ifft(fft(x).*fft(h))  % Umweg über DFT/IDFT
+\end{verbatim}
+
+
 \end{Ansatz}
 
 \clearpage
@@ -1655,7 +1707,7 @@ umgeschrieben
 \begin{align}
 y[k] = \mathrm{IDFT}_N\{\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\}
 \end{align}
-Für die Faltung sehr langer Folgen ist diese Rechenvorschrift deutlich
+Für die Faltung sehr langer Folgen ist dieser Umweg über den Bildbereich deutlich
 recheneffizienter, als $y[k] = x[k] \circledast_N h[k]$, unter der Voraussetzung,
 dass die DFT / IDFT recheneffizient implementiert ist. Dafür gibt es Algorithmen,
 die als \textbf{Fast Fourier Transform Algorithmen (FFT)} bekannt sind.
@@ -1812,8 +1864,9 @@ Das Erlernen dieser Sichtweise ist sehr empfehlenswert,
 weil lineare Algebra als wichtiges Grundwerkzeug für heutige
 Big Data und Machine Learning Probleme gilt, vgl. \cite{Strang2019}.
 %
-Die DFT ist in diesen Anwendungen ein essentieller Grundbaustein, hier wäre
-ein Buzzword Convolutional Neural Network (CNN).
+Die DFT und die Singulärwertzerlegung (englisch
+Singular Value Decomposition (SVD)) sind im Zeitalter der Data Science fundamentale
+Werkzeuge die wir im Schlaf beherrschen müssen!!
 %
 
 Da nun $x[k]$ und $X[\mu]$ periodisch in ihrer Länge $N$ aufgefasst werden,
