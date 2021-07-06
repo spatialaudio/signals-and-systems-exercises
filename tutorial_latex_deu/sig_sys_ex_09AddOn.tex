@@ -236,7 +236,7 @@ There are two singularities: $\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}
 	&=\frac{\sqrt{2}}{2}\bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg )-\frac{\sqrt{2}}{2\im} \bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg)\nonumber\\
 	&=\sqrt{2}\bigg(\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))\bigg)
 \end{align}
-\subsection{Task b)}
+\subsubsection{Task b)}
 We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}.
@@ -262,4 +262,82 @@ There are two singularities: $\frac{1}{2}$ and $1$.
 \end{align}
 \begin{align}
 	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)=2-\bigg (\frac{1}{2}\bigg)^k
+\end{align}
+\subsubsection{Task d)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
+\end{align}
+The poles are $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})&=\lim\limits_{z\rightarrow\frac{1}{4}+\im\frac{\sqrt{3}}{4}}\frac{z^2-z+2}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}z^{k-1}=\lim\limits_{z\rightarrow\frac{1}{2}\e^{+\im\frac{\pi}{3}}}\frac{z^2-z+2}{z-(\frac{1}{2}\e^{-\im\frac{\pi}{3}})}z^{k-1}\nonumber\\
+	&=\frac{\frac{1}{4}\e^{+\im\frac{2\pi}{3}}-\frac{1}{2}\e^{+\im\frac{\pi}{3}}+2}{\frac{1}{2}\e^{+\im\frac{\pi}{3}}-\frac{1}{2}\e^{-\im\frac{\pi}{3}}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{\frac{1}{4}(\cos(\frac{2\pi}{3})+\im\sin(\frac{2\pi}{3}))-\frac{1}{2}(\cos(\frac{\pi}{3})+\im\sin(\frac{\pi}{3}))+2}{\frac{1}{2}(\cos(\frac{\pi}{3})+\im\sin(\frac{\pi}{3})-\cos(\frac{\pi}{3})+\im\sin(\frac{\pi}{3}))}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{\frac{1}{4}(-\frac{1}{2}+\im\frac{\sqrt{3}}{2})-\frac{1}{2}(\frac{1}{2}+\im\frac{\sqrt{3}}{2})+2}{\im\frac{\sqrt{3}}{2}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=2\cdot\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{1}{8}+\im\frac{\sqrt{3}}{8}-\frac{1}{4}-\im\frac{\sqrt{3}}{4}+2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}
+\end{align}
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})&=\lim\limits_{z\rightarrow\frac{1}{4}-\im\frac{\sqrt{3}}{4}}\frac{z^2-z+2}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}z^{k-1}=\lim\limits_{z\rightarrow\frac{1}{2}\e^{-\im\frac{\pi}{3}}}\frac{z^2-z+2}{z-(\frac{1}{2}\e^{+\im\frac{\pi}{3}})}z^{k-1}\nonumber\\
+	&=\frac{\frac{1}{4}\e^{-\im\frac{2\pi}{3}}-\frac{1}{2}\e^{-\im\frac{\pi}{3}}+2}{\frac{1}{2}\e^{-\im\frac{\pi}{3}}-\frac{1}{2}\e^{+\im\frac{\pi}{3}}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{\frac{1}{4}(\cos(\frac{2\pi}{3})-\im\sin(\frac{2\pi}{3}))-\frac{1}{2}(\cos(\frac{\pi}{3})-\im\sin(\frac{\pi}{3}))+2}{\frac{1}{2}(\cos(\frac{\pi}{3})-\im\sin(\frac{\pi}{3})-\cos(\frac{\pi}{3})-\im\sin(\frac{\pi}{3}))}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{\frac{1}{4}(-\frac{1}{2}-\im\frac{\sqrt{3}}{2})-\frac{1}{2}(\frac{1}{2}-\im\frac{\sqrt{3}}{2})+2}{-\im\frac{\sqrt{3}}{2}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=2\cdot\frac{1}{\sqrt{3}}\cdot\bigg [\frac{1}{8}+\im\frac{\sqrt{3}}{8}+\frac{1}{4}-\im\frac{\sqrt{3}}{4}-2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}
+\end{align}
+\begin{align}
+	x[k]&=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
+	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}+\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
+	&=\bigg (\frac{1}{2}\bigg)^{k-1}\Bigg[ \frac{13}{2\cdot\sqrt{3}}\cdot\frac{1}{2\im}\bigg [\e^{+\im\frac{\pi}{3}(k-1)}-\e^{-\im\frac{\pi}{3}(k-1)}\bigg]-\frac{1}{2}\cdot\frac{1}{2}\bigg [\e^{+\im\frac{\pi}{3}(k-1)}+\e^{-\im\frac{\pi}{3}(k-1)}\bigg]\Bigg ]\nonumber\\
+	&=\bigg(\frac{1}{2}\bigg)^k\bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\bigg]
+\end{align}
+\subsubsection{Task e)}
+We shall find the time-discret signal for 
+\begin{align}
+	X(z)=\frac{z^2}{z^2+1}.
+\end{align}
+The poles are $\im$ and $-\im$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\im)=\lim\limits_{z\rightarrow\im}\frac{z^2}{z+\im}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{2}}}\frac{z^{k+1}}{z+\im}=\frac{1}{2\im}\e^{+\im\frac{\pi}{2}(k+1)}
+\end{align}
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},-\im)=\lim\limits_{z\rightarrow-\im}\frac{z^2}{z-\im}z^{k-1}=\lim\limits_{z\rightarrow\e^{-\im\frac{\pi}{2}}}\frac{z^{k+1}}{z-\im}=\frac{1}{-2\im}\e^{-\im\frac{\pi}{2}(k+1)}
+\end{align}
+\begin{align}
+	x[k]=\mathrm{Res}(X(z)z^{k-1},\im)+\mathrm{Res}(X(z)z^{k-1},-\im)=\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{2}(k+1)}-\e^{-\im\frac{\pi}{2}(k+1)}\bigg )=\sin(\frac{\pi}{2}(k+1))
+\end{align}
+\subsubsection{Task f)}
+We shall find the time discret signal for
+\begin{align}
+	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
+\end{align}
+$1$ is a pole of order 2.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},1)&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg [(z^4+z^3-6z-1)z^{k-1}\bigg]\nonumber\\
+	&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg[z^{k+3}+z^{k+2}-6z^k-z^{k-1}\bigg]\nonumber\\
+	&=\lim\limits_{z\rightarrow1}\bigg[(k+3)z^{k+2}+(k+2)z^{k+1}-6kz^{k-1}-(k-1)z^{k-2}\bigg ]\nonumber\\
+	&=(k+3)+(k+2)-6k-(k-1)=-5k+6
+\end{align}
+\begin{align}
+	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},1)=6-5k
+\end{align}
+\subsubsection{Task g)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}.
+\end{align}
+The poles are $\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})&=\lim\limits_{z\rightarrow\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}}\frac{z^2-z}{z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}\frac{z^2-z}{z-\e^{-\im\frac{\pi}{4}}}z^{k-1}\nonumber\\
+	&=\frac{\e^{+\im\frac{\pi}{2}}-\e^{+\im\frac{\pi}{4}}}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)}=\frac{\im-\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})}{\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})-\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+\end{align}
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})&=\lim\limits_{z\rightarrow\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}}\frac{z^2-z}{z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})}z^{k-1}=\lim\limits_{z\rightarrow\e^{-\im\frac{\pi}{4}}}\frac{z^2-z}{z-\e^{+\im\frac{\pi}{4}}}z^{k-1}\nonumber\\
+	&=\frac{\e^{-\im\frac{\pi}{2}}-\e^{-\im\frac{\pi}{4}}}{\e^{-\im\frac{\pi}{4}}-\e^{+\im\frac{\pi}{4}}}\e^{-\im\frac{\pi}{4}(k-1)}=\frac{-\im-\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})}{\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})-\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=-\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+\end{align}
+\begin{align}
+	x[k]=\mathcal{Z}^{-1}&=\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})\nonumber\\
+	&=\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}-\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
 \end{align}
