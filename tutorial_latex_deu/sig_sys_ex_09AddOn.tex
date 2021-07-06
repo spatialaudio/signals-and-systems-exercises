@@ -114,7 +114,7 @@ We get a system of linear equations. In matrix notation:
 	\end{pmatrix}
 	=
 	\begin{pmatrix}
-		0 & 1
+		0 \\ 1
 	\end{pmatrix}.
 \end{align}
 With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
@@ -140,4 +140,126 @@ we can find the time-discret signal:
 \end{align}
 \begin{align}
 	\underset{s \in \mathrm{Kb} \{ X(s) \} }{\min}\big \{ \Re \{ s \} \big \}
+\end{align}
+\subsubsection{Task e)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z^2}{z^2+1}.
+\end{align}
+If we look at the correspondence 
+\begin{align}
+	\cos [\Omega_0k]\epsilon[k]\quad\ztransf\quad \frac{z^2-z\cos(\Omega_0))}{z^2-2z\cos(\Omega_0)+1}\quad\quad |z| > 1
+\end{align}
+we have the left site if we set
+\begin{align}
+	\cos(\Omega_0)=0.
+\end{align}
+We get
+\begin{align}
+	\Omega_0 = \frac{\pi}{2} \pm \pi \cdot m \quad m \in \mathbb{Z}.
+\end{align}
+At the end, our time-discret signal is
+\begin{align}
+	x[k]=\cos[(\frac{\pi}{2}\pm \pi\cdot m)k]\epsilon[k]\quad m \in \mathbb{Z}.
+\end{align}
+\subsubsection{Task f)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
+\end{align}
+We can simplify the denominator to
+\begin{align}
+	(z-1)^2.
+\end{align}
+If we take a look at the correspondences
+\begin{align}
+	k\epsilon[k]\quad\ztransf\quad\frac{z}{(z-1)^2}\quad |z|>1
+\end{align}
+and
+\begin{align}
+	x[k-\kappa]\quad\ztransf\quad z^{-\kappa}X(z)
+\end{align}
+we rewrite our function to use these two:
+\begin{align}
+	X(z)=z^3\cdot\frac{z}{z^2+1}+z^2\cdot\frac{z}{z^2+1}-6z\cdot\frac{z}{z^2+1}+6\frac{z}{z^2+1}-z^{-1}\cdot\frac{z}{z^2+1}.
+\end{align}
+So our time-discret signal is
+\begin{align}
+	X(z)=z^3\cdot\frac{z}{z^2+1}+z^2\cdot\frac{z}{z^2+1}-6z\cdot\frac{z}{z^2+1}+6\frac{z}{z^2+1}-z^{-1}\cdot\frac{z}{z^2+1} \nonumber
+\end{align}
+\begin{align}
+	\Ztransf \nonumber
+\end{align}
+\begin{align}
+	x[k]=(k+3)\epsilon[k+3]+(k+2)\epsilon[k+2]-6(k+1)\epsilon[k+1]+6k\epsilon[k]-(k-1)\epsilon[k-1].
+\end{align}
+\subsubsection{Task g)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}.
+\end{align}
+We can reshape the function:
+\begin{align}
+	X(z)=\frac{z^2-z}{z^2-2z\cos(\frac{\pi}{4})+1}=\frac{z^2-z\cos(\frac{\pi}{4})}{z^2-2z\cos(\frac{\pi}{4})+1}-(1-\frac{\sqrt{2}}{2})\frac{z}{z^2-2z\cos(\frac{\pi}{4})+1}\cdot\frac{\sin(\frac{\pi}{4})}{\sin(\frac{\pi}{4})}.
+\end{align}
+Using the correspondeces
+\begin{align}
+	\sin[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z\sin(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}\quad |z| > 1
+\end{align}
+and
+\begin{align}
+	\cos[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z^2-z\cos(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}\quad |z| > 1
+\end{align}
+leads to
+\begin{align}
+	X(z)\quad\Ztransf\quad x[k]=\cos[\frac{\pi}{4}k]\epsilon[k]+\sin[\frac{\pi}{4}k]\epsilon[k]-\sqrt{2}\sin[\frac{\pi}{4}k]\epsilon[k].
+\end{align}
+\subsection{Solution Using Residue Theorem}
+\subsubsection{Task a)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}.
+\end{align}
+There are two singularities: $\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})&=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{-\im\frac{\pi}{4}})}z^{k-1}=2\cdot\frac{\e^{+\im\frac{\pi}{4}}\cdot(\e^{+\im\frac{\pi}{4}}-\frac{1}{\sqrt{2}})}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)} \nonumber \\
+	&=2\cdot\frac{\e^{+\im\frac{\pi}{2}}-\frac{1}{\sqrt{2}}\e^{+\im\frac{\pi}{4}}}{\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})-(\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4}))}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=2\cdot\frac{\im-\frac{1}{2}-\frac{1}{2}\im}{2\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}=\frac{-1+\im}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+\end{align}
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\e^{-\im\frac{\pi}{4}})&=\lim\limits_{z\rightarrow\e^{-\im\frac{\pi}{4}}}2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})}z^{k-1}=2\cdot\frac{\e^{-\im\frac{\pi}{4}}\cdot(\e^{-\im\frac{\pi}{4}}-\frac{1}{\sqrt{2}})}{\e^{-\im\frac{\pi}{4}}-\e^{+\im\frac{\pi}{4}}}\e^{-\im\frac{\pi}{4}(k-1)} \nonumber \\
+	&=2\cdot\frac{\e^{-\im\frac{\pi}{2}}-\frac{1}{\sqrt{2}}\e^{-\im\frac{\pi}{4}}}{\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})-(\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4}))}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=2\cdot\frac{-\im-\frac{1}{2}+\frac{1}{2}\im}{-2\im\sin(\frac{\pi}{4})}\e^{-\im\frac{\pi}{4}(k-1)}=\frac{1+\im}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}
+\end{align}
+\begin{align}
+	x[k]&=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})+\mathcal{Z}^{-1}=\mathrm{Res}(X(z)z^{k-1},\e^{-\im\frac{\pi}{4}})=\frac{-1+\im}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}+\frac{1+\im}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=\frac{\sqrt{2}}{2}\bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg )-\frac{\sqrt{2}}{2\im} \bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg)\nonumber\\
+	&=\sqrt{2}\bigg(\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))\bigg)
+\end{align}
+\subsection{Task b)}
+We shall find the time-discret signal for
+\begin{align}
+	X(z)=\frac{z}{z-\frac{1}{2}}.
+\end{align}
+There is one singularity: $\frac{1}{2}$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}z\cdot z^{k-1}=\bigg (\frac{1}{2} \bigg)^k
+\end{align}
+\begin{align}
+	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\bigg (\frac{1}{2} \bigg)^k
+\end{align}
+\subsubsection{Task c)}
+We shall find the time-discret signal for 
+\begin{align}
+	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
+\end{align}
+There are two singularities: $\frac{1}{2}$ and $1$.
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}\frac{z^2}{z-1}z^{k-1}=\frac{\bigg (\frac{1}{2}\bigg)^{k+1}}{\frac{1}{2}-1}=-\bigg (\frac{1}{2}\bigg)^k
+\end{align}
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},1)=\lim\limits_{z\rightarrow1}\frac{z^2}{z-\frac{1}{2}}z^{k-1}=1^{k+1}{1-\frac{1}{2}}=2
+\end{align}
+\begin{align}
+	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)=2-\bigg (\frac{1}{2}\bigg)^k
 \end{align}
