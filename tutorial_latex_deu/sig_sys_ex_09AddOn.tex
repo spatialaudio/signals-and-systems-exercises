@@ -220,7 +220,15 @@ We shall find the time-discret signal for
 \begin{align}
 	X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}.
 \end{align}
-There are two singularities: $\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$.
+$\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$ are poles of order 1.\\
+\begin{align}
+	0\text{ is }
+	\begin{cases}
+	\text{no singularity}, &k > 0, \\
+	\text{removable singularity}, &k = 0, \\
+	\text{pole of order }|k|, &k <0. 
+\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})&=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{-\im\frac{\pi}{4}})}z^{k-1}=2\cdot\frac{\e^{+\im\frac{\pi}{4}}\cdot(\e^{+\im\frac{\pi}{4}}-\frac{1}{\sqrt{2}})}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)} \nonumber \\
 	&=2\cdot\frac{\e^{+\im\frac{\pi}{2}}-\frac{1}{\sqrt{2}}\e^{+\im\frac{\pi}{4}}}{\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})-(\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4}))}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
@@ -232,16 +240,39 @@ There are two singularities: $\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}
 	&=2\cdot\frac{-\im-\frac{1}{2}+\frac{1}{2}\im}{-2\im\sin(\frac{\pi}{4})}\e^{-\im\frac{\pi}{4}(k-1)}=\frac{1+\im}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}
 \end{align}
 \begin{align}
-	x[k]&=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})+\mathcal{Z}^{-1}=\mathrm{Res}(X(z)z^{k-1},\e^{-\im\frac{\pi}{4}})=\frac{-1+\im}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}+\frac{1+\im}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
+	\underset{k=0}{\mathrm{Res}(X(z)z^{k-1},0)}=0
+\end{align}
+\begin{align}
+	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1}),0}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\bigg [2\cdot\frac{z-\frac{1}{\sqrt{2}}}{z^2-\sqrt{2}z+1}\bigg]\nonumber\\
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		x_1[k] &k\geq0 \\
+		x_2[k] &k<0
+	\end{cases}
+\end{align}
+\begin{align}
+	x_1[k]&=\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})+\mathrm{Res}(X(z)z^{k-1},\e^{-\im\frac{\pi}{4}})=\frac{-1+\im}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}+\frac{1+\im}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
 	&=\frac{\sqrt{2}}{2}\bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg )-\frac{\sqrt{2}}{2\im} \bigg (\e^{+\im\frac{\pi}{4}(k-1)}+\e^{+\im\frac{\pi}{4}(k-1)}\bigg)\nonumber\\
 	&=\sqrt{2}\bigg(\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))\bigg)
+\end{align}
+\begin{align}
+	x_2[k]=x_1[k]+\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\bigg [2\cdot\frac{z-\frac{1}{\sqrt{2}}}{z^2-\sqrt{2}z+1}\bigg]
 \end{align}
 \subsubsection{Task b)}
 We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}.
 \end{align}
-There is one singularity: $\frac{1}{2}$.
+$\frac{1}{2}$ is a pole of order 1. \\
+\begin{align}
+	0\text{ is }
+	\begin{cases}
+		\text{no isolated singularity}, &k > 0 \\
+		\text{removable singularity}, &k=0 \\
+		\text{pole of order }|k|, &k < 0.
+	\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}z\cdot z^{k-1}=\bigg (\frac{1}{2} \bigg)^k
 \end{align}
@@ -253,7 +284,15 @@ We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
 \end{align}
-There are two singularities: $\frac{1}{2}$ and $1$.
+$\frac{1}{2}$ and $1$ are poles of order $1$.
+\begin{align}
+	0\text{ is }
+	\begin{cases}
+		\text{no isolated singularity}, &k>0 \\
+		\text{removeable singularity}, &-1\leq k \leq0 \\
+		\text{pole of order }|k|-1, &k < -1.
+	\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}\frac{z^2}{z-1}z^{k-1}=\frac{\bigg (\frac{1}{2}\bigg)^{k+1}}{\frac{1}{2}-1}=-\bigg (\frac{1}{2}\bigg)^k
 \end{align}
@@ -330,14 +369,16 @@ The poles are $\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})&=\lim\limits_{z\rightarrow\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}}\frac{z^2-z}{z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}\frac{z^2-z}{z-\e^{-\im\frac{\pi}{4}}}z^{k-1}\nonumber\\
 	&=\frac{\e^{+\im\frac{\pi}{2}}-\e^{+\im\frac{\pi}{4}}}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)}=\frac{\im-\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})}{\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})-\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
-	&=\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+	&=\frac{-\frac{\sqrt{2}}{2}+\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
 \end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})&=\lim\limits_{z\rightarrow\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}}\frac{z^2-z}{z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})}z^{k-1}=\lim\limits_{z\rightarrow\e^{-\im\frac{\pi}{4}}}\frac{z^2-z}{z-\e^{+\im\frac{\pi}{4}}}z^{k-1}\nonumber\\
 	&=\frac{\e^{-\im\frac{\pi}{2}}-\e^{-\im\frac{\pi}{4}}}{\e^{-\im\frac{\pi}{4}}-\e^{+\im\frac{\pi}{4}}}\e^{-\im\frac{\pi}{4}(k-1)}=\frac{-\im-\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})}{\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})-\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
-	&=-\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+	&=-\frac{-\frac{\sqrt{2}}{2}-\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}
 \end{align}
 \begin{align}
 	x[k]=\mathcal{Z}^{-1}&=\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})\nonumber\\
-	&=\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}-\frac{(1-\frac{\sqrt{2}}{2})-\im\frac{\sqrt{2}}{2}}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}
+	&=\frac{-\frac{\sqrt{2}}{2}+\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}-\frac{-\frac{\sqrt{2}}{2}-\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
+	&=\frac{1-\frac{\sqrt{2}}{2}}{\sqrt{2}}\cdot\frac{2}{2}\bigg[\e^{+\im\frac{\pi}{4}(k-1)}+\e^{-\im\frac{\pi}{4}(k-1)}\bigg ]-\frac{1}{2\im}\bigg[\e^{+\im\frac{\pi}{4}(k-1)}-\e^{-\im\frac{\pi}{4}(k-1)}\bigg]\nonumber\\
+	&=(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))
 \end{align}
