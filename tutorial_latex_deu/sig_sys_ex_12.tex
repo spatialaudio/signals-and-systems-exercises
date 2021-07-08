@@ -2,7 +2,7 @@
 \section{UE 12: Beschreibung diskreter Systeme im Spektralbereich, Eigenschaften diskreter LTI-Systeme}
 
 Wir haben den SigSys Werkzeug Koffer bestens aufgefüllt mit den fundamentalen
-Werkzeugen, die wir als IngenieurInnen in modifizierter Form
+Werkzeugen, die wir als Naturwissenschaftler*innen in modifizierter Form
 immer wieder antreffen werden. Es ist eh immer die gleiche Message: je mehr wir
 die Basics vom Wesen verstanden haben, desto einfacher fällt uns das Adaptieren auf
 kompliziertere und/oder praktische Probleme.
@@ -19,8 +19,8 @@ die wichtigen analytischen Rechnungen nicht aus den Augen verlieren.
 
 Hier nun zwei Aufgaben, die wir im Detail nicht mehr analytisch ausrechnen,
 sie sollten aber noch auf dem Papier
-handhabbar sein (der Autor mutmaßt, weil er es selbst nicht getan hat). Darum
-soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
+handhabbar sein (der Autor mutmaßt, weil er es selbst zu faul dafür war).
+Darum soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
 Aspekte zur Beschreibung von zeitdiskreten Systemen herauszuarbeiten.
 
 
@@ -35,7 +35,7 @@ Wir wollen die DFT zu DTFT Rekonstruktion vertiefen. Wir hatten kennengelernt,
 dass die vier Fouriertransformierten durch Abtastung und Rekonstruktion
 miteinander verknüpfbar sind. Hier wollen wir nun ein DFT-Linienspektrum
 interpolieren zu einem kontinuierlichen DTFT-Spektrum. Anders herum, könnten
-wir uns dies als ideale Abtastung des DTFT-Spektrum hin zum DFT-Spektrum erklären.
+wir uns dies als ideale Abtastung des DTFT-Spektrums hin zum DFT-Spektrum erklären.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 6337B75DF2}: Stellen Sie für das FIR-Filter
 aus Aufgabe 10.2 die Betragsfrequenzgänge der
@@ -88,7 +88,7 @@ entsprechen.
 
 \end{Ansatz}
 \begin{ExCalc}
-Die hintere Summe über $k$ ist nun wieder einmal die geometrische Reihe, vgl. (10.67), (10.68)
+Die hintere Summe über $k$ ist wieder die geometrische Reihe, vgl. (10.68), (10.69)
 und \cite[(3-39)]{Lyons2011}.
 Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Übung,
 weil ähnliche Rechenschritte immer wieder auftauchen in SigSys.
@@ -109,13 +109,14 @@ X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{
 Wir stoßen wieder auf die  periodische Sinc Funktion
 %
 \begin{align}
-\text{psinc}_N(\Omega)=\begin{cases}\frac{1}{N}\cdot\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}&\text{for }\Omega\neq2\pi m\\
-(-1)^{m(N-1)}&\text{for }\Omega=2\pi m\end{cases},\,\,m\in\mathbb{Z},
+\text{psinc}_N(\Omega)=\begin{cases}\frac{1}{N}\cdot\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}&\text{für }\Omega\neq2\pi m\\
+(-1)^{m(N-1)}&\text{für }\Omega=2\pi m\end{cases},\,\,m\in\mathbb{Z},
 \end{align}
 %
 (Matlab und Python's scipy \texttt{diric(Omega,N)}) und einen Phasenterm (dieser
 taucht auf, weil $x[k]$ bei $k=0$ beginnt.
-Bei Übung 7, S. 17 hatten wir axialsymmetrische Signale.)
+In Übung 7 auf Seite 17 hatten wir es hingegen mit axialsymmetrischen Signale zu
+tun, daher kein Phasenterm.)
 %
 Wir können daher umschreiben zu
 %
@@ -123,7 +124,7 @@ Wir können daher umschreiben zu
 \label{eq:6337B75DF2_DFT2DTFT}
 X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\text{psinc}_N\left(\Omega-\frac{2\pi}{N}\mu\right)
 \end{equation}
-oder vielleicht nochmal anders die Argumente angeordnet
+und nochmal die Argumente anders angeordnet
 \begin{equation}
 X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu\rightarrow \Omega_\mu = \frac{2\pi}{N} \mu]\cdot
 \underbrace{\e^{-\im\frac{\left(-\frac{2\pi}{N}\mu+\Omega\right)(N-1)}{2}}\cdot\text{psinc}_N\left(-\frac{2\pi}{N}\mu + \Omega\right)\cdot N}_{H_\mathrm{r}\left(-\Omega_\mu+\Omega\right)}.
@@ -131,12 +132,13 @@ X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu\rightarrow \Omega_\mu = \fr
 
 Erinnern wir uns an Abtastung von Spektren. Die
 jetzige Formelstruktur hat doch sehr starke Ähnlichkeit mit (7.60):
-Ein Linienspektrum (DFT) wird mit einer Sinc bzw. hier jetzt periodischen
+Ein Linienspektrum (DFT) wird mit einer Sinc bzw. hier jetzt mit der periodischen
 Sinc Funktion interpoliert zu einem kontinuierlichen Spektrum (DTFT).
-Wenn wir genau hinschauen, sehen wir dass es eine spezielle Faltung zweier
+Wenn wir genau hinschauen, sehen wir dass es eine spezielle, diskrete Faltung zweier
 Spektren ist (gedrehte und geschobene Hilfsvariable ist $\Omega_\mu$).
 %
-Liniensignal oder -spektrum zu kontinuierlich machen heisst in unserem
+Eine diskrete (Zeit)-Folge oder eine Linienspektrum jeweils zu kontinuierlich
+machen heisst in unserem
 SigSys Abtastungsmodell Rekonstruktion, die als Interpolation
 aufgefasst werden kann, vgl. Abb. 7.1 und 7.2.
 Das in obiger Faltung vorkommende Rekonstruktionsspektrum
@@ -148,9 +150,9 @@ H_\mathrm{r}(\Omega) =
 \DTFT
 h_\mathrm{r}[k] = \mathrm{rect}_N[k]
 \end{align}
-ist die bestens bekannte DTFT Korrespondenz der Rechteckfolge der Länge $N$.
-Das erfüllt doch prima unsere obige Erwartungshaltung, dass die Faltung
-im Spektralbereich
+ist die uns bestens bekannte DTFT Korrespondenz der Rechteckfolge der Länge $N$.
+Das erfüllt doch prima unsere obige Erwartungshaltung, dass die obige Faltung
+im Spektralbereich im Zeitbereich die Signalmultiplikation
 \begin{align}
 x[k] = h_\mathrm{r}[k]  \cdot \tilde{x}[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k]
 \end{align}
@@ -162,11 +164,11 @@ Die Rekonstruktion \eq{eq:6337B75DF2_DFT2DTFT}
 vom DFT-Linienspektrum / periodisches Zeitsignal zum
 DTFT-Spektrum / einmaliges Zeitsignal steht daher in enger Analogie zu der
 Rekonstruktion aus Übung 7.2 Fourierreihe (Linienspektrum) zu
-Fouriertransformation (kontinuierliches Spektrum) . Es ist genaugenommen das
+Fouriertransformation (kontinuierliches Spektrum). Es ist im Grunde das
 direkte Pendant für Folgen, also zeitdiskrete Signale.
 
-Diese Interpolation spielt in der Praxis eine wichtige Rolle. Wir werden sie sehr
-oft anwenden, und es ist wichtig, dass uns das bewusst ist.
+Diese Interpolation spielt in der Praxis eine wichtige Rolle. Wir werden sie
+sehr, sehr oft anwenden, und es ist wichtig, dass uns das bewusst ist.
 Ein mögliches Beispiel:
 In der Praxis messen wir
 die Impulsantwort von BIBO-stabilen nichtrekursiven aber auch rekursiven Systemen,
@@ -177,8 +179,9 @@ in unserem Messfenster die Impulsantwort
 bis ins Messrauschen abgeklungen ist.
 In einer großen Kirche müssten wir dann schon mal 20 s Zeitfenster einplanen,
 damit wir den kompletten Nachhall als Antwort auf einen lauten Knall erfassen
-können (würde man heute aus technischen, aber viel wichtiger:
-sozialverträglichen Gründen nicht mehr mit einer Handfeuerwaffe erzeugen ;-) ).
+können (diesen Impuls zur Anregung des Raums würden wir heutzutage aus technischen,
+aber viel wichtiger: sozialverträglichen Gründen nicht mehr mit einer Handfeuerwaffe
+erzeugen ;-) ).
 %
 Wenn wir uns für die Systemeigenschaften, wie den Frequenzgang der gemessenen,
 endlichen Impulsantwort der Länge $N$ interessieren, müssten wir erst die
@@ -282,9 +285,9 @@ von Zeitfolgenwerten und damit zeitliches Aliasing hervorrufen.
 \subsection{Zerlegung in Reihenschaltung aus Minimalphasensystem und Allpass}
 \label{sec:55A8105469}
 \begin{Ziel}
-Ähnlich wie Aufgabe 6.2 wollen wir uns für zeitdiskrete Systeme, deren
-Kausalität und Stabilität wir voraussetzen wollen bzw. sicher stellen müssen,
-eine Zerlegung in Minimalphasensystem und Allpass vornehmen. Dazu benutzen
+Ähnlich wie Aufgabe 6.2 wollen wir uns für zeitdiskrete Systeme---deren
+Kausalität und Stabilität wir voraussetzen wollen bzw. sicher stellen müssen---eine
+Zerlegung in Minimalphasensystem und Allpass vornehmen. Dazu benutzen
 wir Systeme dritter Ordnung, d.h. Systeme
 mit 3 Polen und 3 Nullstellen. Die Vorgehensweise
 ist analog zur zeitkontinuierlichen Welt. Spiegelung von Nullstellen in
@@ -701,7 +704,7 @@ des grauen Kreises mit Radius der betragsmäßig größten Polstelle.
 
 Gemäß Bodediagramm-Darstellung können wir bei Reihenschaltung von Systemen
 \begin{itemize}
-  \item Pegel der Einzelsysteme addieren
+  \item Pegel (also die dB) der Einzelsysteme addieren
   \item Phase der Einzelsysteme addieren
   \item Gruppenlaufzeit der Einzelsysteme addieren
 \end{itemize}
@@ -720,7 +723,7 @@ für die Frequenzen bzw. Frequenzgruppen aufweist und $H_\mathrm{max}(z)$
 die höchste Phasenverschiebung und Gruppenlaufzeit hat.
 
 Für große $k$ gehen alle Sprungantworten asymptotisch zum gleichen DC-Anteil
-$\frac{15+6\sqrt(2)}{25} \approx 0.9394$.
+$\frac{15+6\sqrt(2)}{25} \approx 0.9394$ über.
 
 Für Systeme mit gleichem Betragsfrequenzgang (so wie wir das ja hier vorliegen
 haben) können wir (nur als Faustformel!) im frühen Verlauf der Impuls- und
@@ -735,7 +738,7 @@ hat.
 %
 Das maximalphasige System ist also das trägste von allen, die durchlaufenden
 Signale erhalten die größte Phasenverschiebung und Gruppenlaufzeit. Bis auf
-wenige Ausnahmen, ist das in der Praxis kein gewünschtes Systemverhalten.
+wenige Ausnahmen, ist das in der Praxis eher unerwünschtes Systemverhalten.
 
 \end{Loesung}
 
