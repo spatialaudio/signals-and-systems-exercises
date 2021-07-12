@@ -61,16 +61,17 @@ Now we can not find a correspondence in our table. But it seems that a partial f
 We get a system of linear equations. In matrix notation:
 \begin{align}
 	\begin{pmatrix}
-		-1 & -\frac{1}{2} \\
-		1 & 1
+		1 & 1\\
+		-1 & -\frac{1}{2}
 	\end{pmatrix}
-	\cdot
 	\begin{pmatrix}
-		A & B
+		A \\
+		B
 	\end{pmatrix}
 	=
 	\begin{pmatrix}
-		0 & 1
+		1 \\
+		0
 	\end{pmatrix}.
 \end{align}
 With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
@@ -78,7 +79,6 @@ With techniques like Gaussian elimination or Cramer's rule we can solute our sys
 	A = -1 \nonumber \\
 	B = 2.
 \end{align}
-
 \begin{align}
 	\frac{X(z)}{z}=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1} \quad\Bigg | \quad \cdot z
 \end{align}
@@ -273,17 +273,41 @@ $\frac{1}{2}$ is a pole of order 1. \\
 		\text{pole of order }|k|, &k < 0.
 	\end{cases}
 \end{align}
+So
+\begin{align}
+	x[k]=
+	\begin{cases}
+		x_1[k], &k\geq0, \\
+		x_2[k],	&k<0.
+	\end{cases}
+\end{align}
+
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}z\cdot z^{k-1}=\bigg (\frac{1}{2} \bigg)^k
 \end{align}
 \begin{align}
-	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\bigg (\frac{1}{2} \bigg)^k
+	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg [\frac{z}{(z-\frac{1}{2})\cdot z^{|k|+1}}\cdot z^{|k|}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg [\frac{1}{z-\frac{1}{2}}\Bigg]\nonumber\\
+	&=\frac{1}{(|k|-1)!}\frac{(-1)^{|k|-1}\cdot (|k|-1)!}{(-\frac{1}{2})^{|k|}}=-2^{|k|}
+\end{align}
+\begin{align}
+	x_1[k]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\bigg( \frac{1}{2} \bigg )^k
+\end{align}
+\begin{align}
+	x_2[k]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},0)=\bigg ( \frac{1}{2} \bigg)^k-2^{|k|}=0
+\end{align}
+\begin{align}
+	x[k]=
+	\begin{cases}
+		\bigg (\frac{1}{2} \bigg)^k, &k\geq0 \\
+		0, &k<0
+	\end{cases}
 \end{align}
 \subsubsection{Task c)}
 We shall find the time-discret signal for 
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
 \end{align}
+
 $\frac{1}{2}$ and $1$ are poles of order $1$.
 \begin{align}
 	0\text{ is }
@@ -294,13 +318,65 @@ $\frac{1}{2}$ and $1$ are poles of order $1$.
 	\end{cases}
 \end{align}
 \begin{align}
+	x[k]=
+	\begin{cases}
+		x_1[k], &k\geq-1 \\
+		x_2[k], &k-1
+	\end{cases}
+\end{align}
+\begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}\frac{z^2}{z-1}z^{k-1}=\frac{\bigg (\frac{1}{2}\bigg)^{k+1}}{\frac{1}{2}-1}=-\bigg (\frac{1}{2}\bigg)^k
 \end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},1)=\lim\limits_{z\rightarrow1}\frac{z^2}{z-\frac{1}{2}}z^{k-1}=1^{k+1}{1-\frac{1}{2}}=2
 \end{align}
 \begin{align}
-	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)=2-\bigg (\frac{1}{2}\bigg)^k
+	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}\frac{1}{z^{|k|+1}}\cdot z^{|k|-1}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{1}{(z-1)\cdot(z-\frac{1}{2})}\Bigg]
+\end{align}
+We use partial fraction decomposition to make the differentiation easier.
+\begin{align}
+	\frac{1}{(z-\frac{1}{2})\cdot(z-1)}=\frac{A}{z-\frac{1}{2}}+\frac{B}{z-1}\quad \Bigg | \quad \cdot(z-1)\cdot(z-\frac{1}{2}) \nonumber \\
+	1 = A(z-1)+B(z-\frac{1}{2})=z(A+B)+(-A-\frac{B}{2})
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-1 & -\frac{1}{2}
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 \\
+		1
+	\end{pmatrix}
+\end{align}
+With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+\begin{align}
+	A = -2, \nonumber \\
+	B = 2.
+\end{align}
+\begin{align}
+	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\cdot2\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{-1}{z-\frac{1}{2}}+\frac{1}{z-1}\Bigg]\nonumber \\
+	&=\lim\limits_{z\rightarrow0}\frac{2}{(|k|-2)!}\Bigg [-\frac{(-1)^{|k|}\cdot(|k|-2)!}{(z-\frac{1}{2})^{|k|-1}\cdot(|k|-2)!}+\frac{(-1)^{|k|}}{(z-1)^{|k|-1}}\Bigg] \nonumber \\
+	&=\frac{2}{(|k|-2)!}\Bigg [-\frac{(-1)^{|k|}(|k|-2)!}{(-\frac{1}{2})^{|k|-1}}+\frac{(-1)^{|k|}(|k|-2)!}{(-1)^{|k|-1}}\Bigg] \nonumber \\
+	&=2\cdot \Bigg [2^{|k|-1}-1\Bigg]=2^{|k|}-2
+\end{align}
+\begin{align}
+	x_1[k]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)=2-\bigg (\frac{1}{2}\bigg)^k
+\end{align}
+\begin{align}
+	x_2[k]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)+\mathrm{Res}(X(z)z^{k-1},0)=2-\bigg (\frac{1}{2})^k+2^{|k|}-2=0
+\end{align}
+\begin{align}
+	x[k]=
+	\begin{cases}
+		2-\bigg (\frac{1}{2}\bigg)^k, &k\geq-1 \\
+		0, &k< -1
+	\end{cases}
 \end{align}
 \subsubsection{Task d)}
 We shall find the time-discret signal for
