@@ -371,11 +371,13 @@ With techniques like Gaussian elimination or Cramer's rule we can solute our sys
 \begin{align}
 	x_2[k]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)+\mathrm{Res}(X(z)z^{k-1},0)=2-\bigg (\frac{1}{2})^k+2^{|k|}-2=0
 \end{align}
+It also is $2-\bigg (\frac{1}{2}\bigg)^{-1}=0$. \\
+Summary:
 \begin{align}
 	x[k]=
 	\begin{cases}
-		2-\bigg (\frac{1}{2}\bigg)^k, &k\geq-1 \\
-		0, &k< -1
+		2-\bigg (\frac{1}{2}\bigg)^k, &k\geq 0 \\
+		0, &k< 0
 	\end{cases}
 \end{align}
 \subsubsection{Task d)}
@@ -411,7 +413,20 @@ We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z^2}{z^2+1}.
 \end{align}
-The poles are $\im$ and $-\im$.
+$\im$ and $-\im$ are poles of order 1.
+\begin{align}
+	0 \text{ is }\begin{cases}
+		\text{no isolated singularity}, &k\geq 0,\\
+		\text{removeable singularity}, &-1\leq k \leq 0,\\
+		\text{pole of order |k|-1}, &k<-1.
+	\end{cases}
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		x_1[k], &k\geq -1 \\
+		x_2[k], &k< -1
+	\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\im)=\lim\limits_{z\rightarrow\im}\frac{z^2}{z+\im}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{2}}}\frac{z^{k+1}}{z+\im}=\frac{1}{2\im}\e^{+\im\frac{\pi}{2}(k+1)}
 \end{align}
@@ -419,7 +434,68 @@ The poles are $\im$ and $-\im$.
 	\mathrm{Res}(X(z)z^{k-1},-\im)=\lim\limits_{z\rightarrow-\im}\frac{z^2}{z-\im}z^{k-1}=\lim\limits_{z\rightarrow\e^{-\im\frac{\pi}{2}}}\frac{z^{k+1}}{z-\im}=\frac{1}{-2\im}\e^{-\im\frac{\pi}{2}(k+1)}
 \end{align}
 \begin{align}
-	x[k]=\mathrm{Res}(X(z)z^{k-1},\im)+\mathrm{Res}(X(z)z^{k-1},-\im)=\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{2}(k+1)}-\e^{-\im\frac{\pi}{2}(k+1)}\bigg )=\sin(\frac{\pi}{2}(k+1))
+	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0})=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{z^2}{z^2+1} \cdot\frac{z^{|k|-1}}{z^{|k|+1}}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathbb{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{1}{z^2+1}\Bigg]
+\end{align}
+We us partial fraction decomposition to make the differentiation easier.
+\begin{align}
+	\frac{1}{(z-\im)\cdot(z+\im)}=\frac{A}{z-\im}+\frac{B}{z+\im}\quad\Bigg | \quad \cdot(z-\im)\cdot(z+\im) \nonumber \\
+	1=A(z+\im)+B(z-\im)=z(A+B)+(\im A -\im B)
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		\im & -\im
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 \\
+		1
+	\end{pmatrix}.
+\end{align}
+With techniques like Gaussian elimination or Cramers rule, we can solute our system of linear equations and achieve
+\begin{align}
+	A= -\frac{1}{2}\im, \nonumber \\
+	B = \frac{1}{2}\im.
+\end{align}
+\begin{align}
+	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{\im}{2\cdot(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{-1}{z-\im}+\frac{1}{z+\im} \Bigg ] \nonumber \\
+	&=\lim\limits_{z\rightarrow0}\frac{\im}{2\cdot(|k|-2)!}\Bigg [-\frac{(-1)^{|k|}\cdot(|k|-2)!}{(z-\im)^{|k|-1}}+\frac{(1)^{|k|}}{(z+\im)^{|k|-1}} \Bigg]\nonumber\\
+	&=\frac{1}{2}\im \cdot\frac{1}{(|k|-2)!}\Bigg [-\frac{(-1)^{|k|}\cdot(|k|-2)!}{(-\im)^{|k|-1}}+\frac{(-1)^{|k|}\cdot(|k|-2)!}{(\im)^{|k|-1}}\Bigg] \nonumber \\
+	&=\frac{1}{2}\im\Bigg[\frac{1}{(\im)^{|k|-1}}+\frac{(-1)^{k}}{(\im)^{|k|-1}}\Bigg ] \nonumber \\
+	&=\frac{1}{2}\im\cdot\frac{1+(-1)^{|k|}}{(\im)^{|k|-1}}=\frac{1}{2}\cdot\frac{1+(-1)^{|k|}}{(\im)^{|k|-2}}=-\frac{1}{2}(1+(-1)^{|k|})\im^{|k|}\cdot\im^{-2}=-\frac{1}{2}\cdot(1+(-1)^{|k|})\im^{|k|} \nonumber \\
+	&=\begin{cases}
+		-(-1)^{\frac{|k|}{2}}, &|k|\text{ even} \\
+		0, &|k|\text{ odd}
+	\end{cases}
+\end{align}
+\begin{align}
+	x_1[k]=\mathrm{Res}(X(z)z^{k-1},\im)+\mathrm{Res}(X(z)z^{k-1},-\im)=\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{2}(k+1)}-\e^{-\im\frac{\pi}{2}(k+1)}\bigg )=\sin(\frac{\pi}{2}(k+1))
+\end{align}
+\begin{align}
+	x_2[k]&=\mathrm{Res}(X(z)z^{k-1},\im)+\mathrm{Res}(X(z)z^{k-1},-\im)+\mathrm{Res}(X(z)z^{k-1},0) \nonumber \\
+	&=\begin{cases}
+		\sin(\frac{\pi}{2}(k+1))-(-1)^{|k|}, &|k| \text{ even} \\
+		\sin(\frac{\pi}{2}(k+1)), &|k| \text{ odd}
+	\end{cases}
+\end{align}
+If $|k|$ is odd, $\frac{\pi}{2}(k+1)$ a multiple of $\pi$, so that $\sin(\frac{\pi}{2}(k+1))=0$.
+If $k<-1$ is even, $\sin(\frac{\pi}{2}(k+1))=(-1)^{\frac{|k|}{2}}$.\\
+It is:
+\begin{align}
+	x_2[k]=0.
+\end{align}
+It also is $\sin(\frac{\pi}{2}(-1+1))=0$. \\
+Summary:
+\begin{align}
+	x[k]=\begin{cases}
+		\sin(\frac{\pi}{2}(k+1)), &k\geq 0 \\
+		0, &k<0
+	\end{cases}.
 \end{align}
 \subsubsection{Task f)}
 We shall find the time discret signal for
@@ -427,6 +503,7 @@ We shall find the time discret signal for
 	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
 \end{align}
 $1$ is a pole of order 2.
+
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},1)&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg [(z^4+z^3-6z-1)z^{k-1}\bigg]\nonumber\\
 	&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg[z^{k+3}+z^{k+2}-6z^k-z^{k-1}\bigg]\nonumber\\
