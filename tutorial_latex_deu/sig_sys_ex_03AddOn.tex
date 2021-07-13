@@ -1912,7 +1912,7 @@ come from.
 \subsubsection{Inverse Laplace Transform Using Residue Theorem}
 The inverse Laplace transform is defined as, cf.~\cite{UlrichWeber2017},
 \begin{align}
-	\mathcal{L}^{-1}[Y(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \min \bigg \{\Re \{\text{ROC}\} \bigg\}.
+\mathcal{L}^{-1}[F(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \underset{s \in \mathrm{ROC} \{ F(s) \} }{\min}\big \{ \Re \{ s \} \big \}.
 \end{align}
 %
 We choose a curve $C = C_1 + C_2$, where $C_1$ is a curve parallel to the imaginary axes through $\sigma$ from $\sigma -\im\omega_0$ to $\sigma + \im\omega_0$ and $C_2$ a part of a circle with radius $R$ and with center at $0$ from $\sigma +\im\omega_0$ to $\sigma - \im\omega_0$, cf.~\cite{UlrichWeber2017}.
