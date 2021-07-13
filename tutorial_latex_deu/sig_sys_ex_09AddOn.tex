@@ -99,6 +99,53 @@ We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
 \end{align}
+We polynomial division and partial fraction decomposition to make the achieve a term like in our correspondence table.
+\begin{align}
+	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}=1+\frac{-\frac{1}{2}z+\frac{7}{4}}{z^2-\frac{1}{2}z+\frac{1}{4}}
+\end{align}
+\begin{align}
+	\label{eq:TaskDPartialFractionDecomposition}
+	\frac{-\frac{1}{2}z+\frac{7}{4}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))}=\frac{A}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{B}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\quad\Bigg | \quad \cdot (z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))\nonumber\\
+	-\frac{1}{2}z+\frac{7}{4}=A(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))+B(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))=z(A+B)+A(-\frac{1}{4}+\im\frac{\sqrt{3}}{4})+B(-\frac{1}{4}-\im\frac{\sqrt{3}}{4})
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-\frac{1}{4}+\im\frac{\sqrt{3}}{4} & -\frac{1}{4}-\im\frac{\sqrt{3}}{4} 
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		-\frac{1}{2} \\
+		\frac{7}{4}
+	\end{pmatrix}
+\end{align}
+With techniquest like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+\begin{align}
+	A=-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}, \nonumber \\
+	B=-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}.
+\end{align}
+We use the correspondences
+\begin{align}
+	\delta[k]\quad\ztransf\quad1\quad\mathrm{ROC}=\mathbb{C},
+\end{align}
+\begin{align}
+	a^k\epsilon[k]\quad\ztransf\quad\frac{z}{z-a}\quad|z|>1
+\end{align}
+and
+\begin{align}
+	x[k-\kappa]\quad\ztransf\quad z^{-\kappa}.
+\end{align}
+This leads to
+\begin{align}
+	x[k]&=\delta[k]+\frac{-1-\im\frac{13}{\sqrt{3}}}{2\cdot2}\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\epsilon[k-1]+\frac{-1+\im\frac{13}{\sqrt{3}}}{2\cdot2}\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\epsilon[k-1] \nonumber\\
+	&=\delta[k]+\bigg(\frac{1}{2}\bigg)^{k}\Bigg[-\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}+\e^{-\im\frac{\pi}{3}(k-1)}\bigg)+\frac{13}{\sqrt{3}\cdot2\im}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}-\e^{-\im\frac{\pi}{3}(k-1)}\bigg)\Bigg ]\epsilon[k-1]\nonumber\\
+	&=\delta[k]+\bigg(\frac{1}{2}\bigg)^k\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\epsilon[k-1]
+\end{align}
 \begin{align}
 	\frac{X(z)}{z}=\frac{z^2-z+2}{z\cdot(z^2-\frac{1}{2})}
 \end{align}
@@ -399,7 +446,7 @@ $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are 
 	&=\frac{\frac{1}{4}(-\frac{1}{2}+\im\frac{\sqrt{3}}{2})-\frac{1}{2}(\frac{1}{2}+\im\frac{\sqrt{3}}{2})+2}{\im\frac{\sqrt{3}}{2}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=2\cdot\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{1}{8}+\im\frac{\sqrt{3}}{8}-\frac{1}{4}-\im\frac{\sqrt{3}}{4}+2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}
-\end{align}c 
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})&=\lim\limits_{z\rightarrow\frac{1}{4}-\im\frac{\sqrt{3}}{4}}\frac{z^2-z+2}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}z^{k-1}=\lim\limits_{z\rightarrow\frac{1}{2}\e^{-\im\frac{\pi}{3}}}\frac{z^2-z+2}{z-(\frac{1}{2}\e^{+\im\frac{\pi}{3}})}z^{k-1}\nonumber\\
 	&=\frac{\frac{1}{4}\e^{-\im\frac{2\pi}{3}}-\frac{1}{2}\e^{-\im\frac{\pi}{3}}+2}{\frac{1}{2}\e^{-\im\frac{\pi}{3}}-\frac{1}{2}\e^{+\im\frac{\pi}{3}}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
@@ -408,48 +455,57 @@ $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are 
 	&=2\cdot\frac{1}{\sqrt{3}}\cdot\bigg [\frac{1}{8}+\im\frac{\sqrt{3}}{8}+\frac{1}{4}-\im\frac{\sqrt{3}}{4}-2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}
 \end{align}
+We use partial fraction decomposition to make the differentiation easier. Take a look at \ref{eq:TaskDPartialFractionDecomposition} for the solution.
 \begin{align}
 	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}} \Bigg [ \frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}\cdot\frac{z^{|k|+1}}{z^{|k|+1}}\Bigg ]=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg [1+\frac{-\frac{1}{2}z+\frac{7}{4}}{z^2-\frac{1}{2}z+\frac{1}{4}} \Bigg]\nonumber\\
-\end{align}
-We use partial fraction decomposition to make the differentiation easier.
-\begin{align}
-\frac{-\frac{1}{2}z+\frac{7}{4}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))}=\frac{A}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{B}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\quad\Bigg | \quad \cdot (z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))\nonumber\\
--\frac{1}{2}z+\frac{7}{4}=A(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))+B(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))=z(A+B)+A(-\frac{1}{4}+\im\frac{\sqrt{3}}{4})+B(-\frac{1}{4}-\im\frac{\sqrt{3}}{4})
-\end{align}
-We get a system of linear equations. In matrix notation:
-\begin{align}
-	\begin{pmatrix}
-		1 & 1 \\
-		-\frac{1}{4}+\im\frac{\sqrt{3}}{4} & -\frac{1}{4}-\im\frac{\sqrt{3}}{4} 
-	\end{pmatrix}
-	\begin{pmatrix}
-		A \\
-		B
-	\end{pmatrix}
-	=
-	\begin{pmatrix}
-		-\frac{1}{2} \\
-		\frac{7}{4}
-	\end{pmatrix}
-\end{align}
-With techniquest like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
-\begin{align}
-	A=-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}, \nonumber \\
-	B=-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}.
 \end{align}
 \begin{align}
 	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg [1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\Bigg]\nonumber\\
 	&=\frac{\mathrm{d}^{|k|}1}{\mathrm{d}z^{|k|}}+\lim\limits_{z\rightarrow0}\frac{1}{|k|}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\Bigg] \nonumber \\
 	&=\begin{cases}
 		1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}-\im\frac{\sqrt{3}}{4}}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}+\im\frac{\sqrt{3}}{4}}, &k = 0 \\
-		\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))^{|k|+1}}\cdot(-1)^{|k|}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))^{|k|}\cdot(-1)^{|k|}}, &k <0
+		\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{(-\frac{1}{4}+\im\frac{\sqrt{3}}{4})^{|k|+1}}\cdot(-1)^{|k|}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{(-\frac{1}{4}-\im\frac{\sqrt{3}}{4})^{|k|+1}}\cdot(-1)^{|k|}, &k <0
 	\end{cases}
 \end{align}
 \begin{align}
-	x[k]&=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
+		\mathrm{Res}(X(z)z^{-1},0)&= 1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}-\im\frac{\sqrt{3}}{4}}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}+\im\frac{\sqrt{3}}{4}}=1+\frac{1+\im\frac{13}{\sqrt{3}}}{1+\im\sqrt{3}}\cdot\frac{1-\im\sqrt{3}}{1-\im\sqrt{3}}+\frac{1-\im\frac{13}{\sqrt{3}}}{1-\im\sqrt{3}}\cdot\frac{1+\im\sqrt{3}}{1+\im\sqrt{3}}\nonumber\\
+		&=1+\frac{1-\im\sqrt{3}+13+\im\frac{13}{\sqrt{3}}+1+\im\sqrt{3}-\im\frac{13}{\sqrt{3}}+13}{1+4}=8
+\end{align}
+\begin{align}
+	\underset{k<0}{\mathrm{Res}(X(z)z^{|k|+1},0)}&=4^{|k|}\Bigg[\frac{1+\im\frac{13}{\sqrt{3}}}{(1-\im\sqrt{3})^{|k|+1}}+\frac{1-\im\frac{13}{\sqrt{3}}}{(1+\im\sqrt{3})^{|k|+1}} \Bigg]=4^{|k|}\frac{(1+\im\frac{13}{\sqrt{3}})\cdot2^{|k|+1}\e^{+\im\frac{\pi}{3}(|k|+1)}+(1-\im\frac{13}{\sqrt{3}})2^{|k|+1}\e^{-\im\frac{\pi}{3}(|k|+1)}}{2^{|k|+1}\e^{-\im\frac{\pi}{3}(|k|+1)}2^{|k|+1}\e^{+\im\frac{\pi}{3}(|k|+1)}}\nonumber\\
+	&=\frac{2^{|k|}}{4}\Bigg [4\cdot\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}+\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)-\frac{52}{\sqrt{3}}\cdot\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}-\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		x_1[k], &k>0 \\
+		x_2[k], &k=0 \\
+		x_3[k], &k<0
+	\end{cases}
+\end{align}
+\begin{align}
+	x_1[k]&=\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}+\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
-	&=\bigg (\frac{1}{2}\bigg)^{k-1}\Bigg[ \frac{13}{2\cdot\sqrt{3}}\cdot\frac{1}{2\im}\bigg [\e^{+\im\frac{\pi}{3}(k-1)}-\e^{-\im\frac{\pi}{3}(k-1)}\bigg]-\frac{1}{2}\cdot\frac{1}{2}\bigg [\e^{+\im\frac{\pi}{3}(k-1)}+\e^{-\im\frac{\pi}{3}(k-1)}\bigg]\Bigg ]\nonumber\\
-	&=\bigg(\frac{1}{2}\bigg)^k\bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\bigg]
+	&=\bigg(\frac{1}{2}\bigg)^{k-1}\Bigg[-\frac{1}{2\cdot2}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}+\e^{-\im\frac{\pi}{3}(k-1)}\bigg)+\frac{13}{\im\sqrt{3}\cdot2\cdot2}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}-\e^{-\im\frac{\pi}{3}(k-1)}\bigg)\Bigg]\nonumber\\
+	&=\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]
+\end{align}
+\begin{align}
+	x_2[k]&=\mathrm{Res}(X(z)z^{-1},0)+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
+	&=8+x_1[k=0]=8+\frac{13}{\sqrt{3}}\sin(-\frac{\pi}{3})-\cos(-\frac{\pi}{3})=8+\frac{13}{\sqrt{3}}\cdot\frac{-\sqrt{3}}{2}-\frac{1}{2}=8-\frac{13}{2}-\frac{1}{2}\nonumber\\
+	&=8-\frac{14}{2}=8-7=1
+\end{align}
+\begin{align}
+	x_3[k]&=\underset{k<0}{\mathrm{Res}(X(z)z^{|k|+1},0)}+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
+	&=x_1[k]+2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]+\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\nonumber\\
+	&\underset{k<0}{=}2^{|k|}\Bigg[\cos(\frac{\pi}{3}(k-1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]=0
+\end{align}
+\begin{align}
+	x_[k]=\begin{cases}
+		\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg], &k>0 \\
+		1, &k=0 \\
+		0, &k<0
+	\end{cases}
 \end{align}
 \subsubsection{Task e)}
 We shall find the time-discret signal for 
