@@ -1707,7 +1707,8 @@ $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
 %##############################################################################
 %##############################################################################
 \newpage
-\subsection{Preliminaries for Inverse Laplace Transform Using Residue Theorem }
+\subsection{Preliminaries for Inverse Laplace Transform Using Residue Theorem}
+\label{sec:PrelimResidueTheorem}
 %
 %
 In the previous section we calculated the inverse Laplace transform by using partial fraction decomposition and correspondence tables. In this subsection we want to find the solution using the complex integral.
@@ -1715,7 +1716,7 @@ Before we start, we have to remember stuff from math lectures, most of all from 
 %
 We might have a look into \cite{Strang2007}, or its german translation \cite{Strang2010}.
 %
-The required math tools are summarised below following \cite{Fritzsche2019} and \cite{UlrichWeber2017}.
+The required math tools are summarised below, for which we follow \cite{Fritzsche2019} and \cite{UlrichWeber2017}.
 
 \subsubsection{Isolated Singularity}
 
@@ -1767,7 +1768,7 @@ because $c_k$ = 0 for $k<0$, cf.~\cite{Fritzsche2019}.
 	&\rightarrow \quad \mathrm{Res}(f(z),0)=c_{-1} = 0. \nonumber
 \end{align}
 
-If $z_0$ is a \textbf{pole of order m}, cf.~\cite{Fritzsche2019}, it follows
+\noindent If $z_0$ is a \textbf{pole of order m}, cf.~\cite{Fritzsche2019}, it follows
 \begin{align}
 \label{eq:ResTheorem_pole_order_m}
 	\mathrm{Res}(f(z),z_0)=\lim\limits_{z \rightarrow z_0}\frac{1}{(m-1)!}\frac{\mathrm{d}^{m-1}}{\mathrm{d} z^{m-1}}\bigg [f(z)\cdot (z-z_0)^m\bigg ].
@@ -1795,7 +1796,7 @@ we can write our function as a series:
 	\rightarrow \mathrm{Res}(f(z),2)=c_{-1}=1. \nonumber
 \end{align}
 
-If $z_0$ is an \textbf{essential singularity}, we have to find the residue by
+\noindent If $z_0$ is an \textbf{essential singularity}, we have to find the residue by
 Laurent series expansion.
 
 \noindent Example:
@@ -1829,10 +1830,10 @@ come from.
 \subsubsection{Inverse Laplace Transform Using Residue Theorem}
 The inverse Laplace transform is defined as, cf.~\cite{UlrichWeber2017},
 \begin{align}
-	\mathcal{L}^{-1}[Y(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \min \bigg \{\Re \{Kb\} \bigg\}.
+	\mathcal{L}^{-1}[Y(s)]:=\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s\quad\quad \sigma \geq \min \bigg \{\Re \{\text{ROC}\} \bigg\}.
 \end{align}
 %
-We choose a curve $C = C_1 + C_2$, where $C_1$ is a curve parallel to the imaginary axes through $\sigma$ from $\sigma -\im\omega_0$ to $\sigma + \im\omega_0$ and $C_2$ a part of a circle with center at $0$ from $\sigma +\im\omega_0$ to $\sigma - \im\omega_0$, cf.~\cite{UlrichWeber2017}.
+We choose a curve $C = C_1 + C_2$, where $C_1$ is a curve parallel to the imaginary axes through $\sigma$ from $\sigma -\im\omega_0$ to $\sigma + \im\omega_0$ and $C_2$ a part of a circle with radius $R$ and with center at $0$ from $\sigma +\im\omega_0$ to $\sigma - \im\omega_0$, cf.~\cite{UlrichWeber2017}.
 According to \cite[Fig.~3.5]{UlrichWeber2017}, the curves in parameter form are
 \begin{align}
 	&C_1:\quad s = \sigma+\im x \quad x \in [-\omega_0,\omega_0] \\
@@ -1848,16 +1849,17 @@ If we let $\omega_0\rightarrow\infty$, then also $R\rightarrow\infty$ and it can
 %
 Finally, we get
 \begin{align}
+\label{eq:InvLaplace2ResidueTheorem}
 	\frac{1}{2\pi\im}\oint_C F(s)\e^{st}\mathrm{d}s\underset{\omega_0\rightarrow\infty}{=}\frac{1}{2\pi\im}\int_{\sigma-\im\infty}^{\sigma+\im\infty}F(s)\e^{st}\mathrm{d}s=\mathcal{L}^{-1}[F(s)]=\sum_{k=1}^{n}\mathrm{Res}(F(s)\e^{st},z_k).
 \end{align}
-\subsubsection{Simple Example Inverse Laplace Transform Using Residue Theorem}
-Let us consider a pole with order 2 at $0$
+\subsubsection{Simple Example for Inverse Laplace Transform Using Residue Theorem}
+Let us consider a pole with order 2 at position $(0,0)$
 \begin{align}
 	F(s)=\frac{1}{s^2},
 \end{align}
 which is the only singularity of $F(s)$.
 %
-We aim at causal time signals, thus region of convergence $\Re\{\sigma\} > 0$.
+We aim at causal time signals, thus region of convergence $\Re\{s\} > 0$.
 %
 Then with \eqref{eq:ResTheorem_pole_order_m}
 \begin{align}
@@ -1869,100 +1871,116 @@ We achieve
 \end{align}
 Feel free to check the solution in a correspondence table.
 \pagebreak
-\subsection{Solutions Using Residue theorem}
-\subsubsection{Task a) inverse Laplace Transform with Residue theorem}
+\subsection{Solutions Using Residue Theorem}
+\label{sec:ResidueTheorem}
+\subsubsection{Task a) Inverse Laplace Transform with Residue Theorem}
 We shall find the inverse Laplace transform of
 \begin{align}
-	Y(s)=\frac{\frac{25}{16}}{s^2+\frac{24}{16}s+\frac{25}{16}}. \nonumber
+	Y(s)=\frac{\frac{25}{16}}{s^2+\frac{24}{16}s+\frac{25}{16}}
+\quad \text{ROC}: \Re(s) > -\frac{3}{4}
+	. \nonumber
 \end{align}
-First, we want to find all singularities.
+First, we want to find all singularities $s_i$.
 \begin{align}
 	Y(s)=\frac{25}{16}\cdot\frac{1}{s^2+\frac{24}{16}s+\frac{25}{16}}=\frac{25}{16}\cdot \frac{1}{(s-(-\frac{3}{4}+\im))\cdot(s-(-\frac{3}{4}-\im))}
 \end{align}
-Remember, that
+Recall from \eqref{eq:InvLaplace2ResidueTheorem}, that
 \begin{align}
-	\mathcal{L}\bigg [Y(s)\bigg ] = \sum_{i=1}^{n}\mathrm{Res}(Y(s)\e^{st},s_i). \nonumber
+	\mathcal{L}^{-1}\bigg [Y(s)\bigg ] = \sum_{i=1}^{n}\mathrm{Res}(Y(s)\e^{st},s_i). \nonumber
 \end{align}
+Utilizing \eqref{eq:ResTheorem_pole_order_m}, we get
 \begin{align}
-	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}+\im)=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}Y(s)\e^{st}\cdot(s-(-\frac{3}{4}+\im))=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}\frac{25}{16}\cdot\frac{\e^{st}}{s-(-\frac{3}{4}-\im)}=\frac{25}{16}\cdot\frac{\e^{-\frac{3}{4}+\im}}{2\im} \nonumber \\
-	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}-\im)=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}Y(s)\e^{st}\cdot(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}\frac{25}{16}\cdot\frac{\e^{st}}{s-(-\frac{3}{4}+\im)}=\frac{25}{16}\cdot\frac{\e^{-\frac{3}{4}-\im}}{-2\im}
+	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}+\im)=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}Y(s)\e^{st}\cdot(s-(-\frac{3}{4}+\im))=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}\frac{25}{16}\cdot\frac{\e^{st}}{s-(-\frac{3}{4}-\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im) t}}{2\im} \nonumber \\
+	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}-\im)=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}Y(s)\e^{st}\cdot(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}\frac{25}{16}\cdot\frac{\e^{st}}{s-(-\frac{3}{4}+\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im) t}}{-2\im}
 \end{align}
-We just have to add the residue and get the inverse Laplace transform.
+We add the residue to obtain the inverse Laplace transform as
 \begin{align}
 	y(t)=\mathcal{L}^{-1}\bigg [ Y(s) \bigg ]= \frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{2\im}+\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2\im} = \frac{25}{16}\e^{-\frac{3}{4}t}\bigg (\frac{1}{2\im}\e^{\im t}-\frac{1}{2\im}\e^{\im t} \bigg )=\frac{25}{16}\e^{-\frac{3}{4}t}\sin(t)\quad t\geq 0
 \end{align}
 
-\subsubsection{Task b) inverse Laplace Transform with Residue theorem}
+\subsubsection{Task b) Inverse Laplace Transform with Residue Theorem}
 We shall find the inverse Laplace transform of
 \begin{align}
-	Y(s) = \frac{1}{s}\cdot \frac{1}{\frac{16}{25}s^+\frac{24}{25}s+1}=\frac{25}{16}\cdot\frac{1}{s}\cdot\frac{1}{s^2+\frac{3}{2}s+\frac{25}{16}}=\frac{25}{16}\cdot\frac{1}{s\cdot(s-(-\frac{3}{4}+\im))\cdot(s-(-\frac{3}{4}-\im))}. \nonumber
+	Y(s) = \frac{1}{s}\cdot \frac{1}{\frac{16}{25}s^+\frac{24}{25}s+1}=\frac{25}{16}\cdot\frac{1}{s}\cdot\frac{1}{s^2+\frac{3}{2}s+\frac{25}{16}}=\frac{25}{16}\cdot\frac{1}{s\cdot(s-(-\frac{3}{4}+\im))\cdot(s-(-\frac{3}{4}-\im))}
+\quad \text{ROC}: \Re(s) > 0
+	. \nonumber
 \end{align}
-We have to find the residue of $Y(s)\e^{st}$ for $0, -\frac{3}{4}+\im$ and $-\frac{3}{4}-\im$.
+We have to find the residue of $Y(s)\e^{st}$ for $s_{i=1}=0, s_{i=2}=-\frac{3}{4}+\im$ and $s_{i=3}=-\frac{3}{4}-\im$.
+%
+Therefore:
+%
 \begin{align}
-	\mathrm{Res}(Y(s)\cdot\e^{st},0)=\lim\limits_{s\rightarrow 0}Y(s)\cdot\e^{st}s=\lim\limits_{s\rightarrow0}\frac{25}{16}\cdot\frac{\e^{st}}{s^2 +\frac{3}{2}s+\frac{25}{16}}=\frac{25}{16}\cdot\frac{e^0}{0^2+\frac{3}{2}\cdot0+\frac{25}{16}}=\frac{25}{16}\cdot\frac{16}{25}=1
+	\mathrm{Res}(Y(s)\cdot\e^{st},0)=\lim\limits_{s\rightarrow 0}Y(s)\cdot\e^{st} (s-0)=\lim\limits_{s\rightarrow0}\frac{25}{16}\cdot\frac{\e^{st}}{s^2 +\frac{3}{2}s+\frac{25}{16}}=\frac{25}{16}\cdot\frac{e^{0 \cdot t}}{0^2+\frac{3}{2}\cdot0+\frac{25}{16}}=\frac{25}{16}\cdot\frac{16}{25}=1
 \end{align}
 
 \begin{align}
-	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}+\im)=\lim\limits_{s\rightarrow -\frac{3}{4}+\im}Y(s)\cdot\e^{st}(s-(-\frac{3}{4}+\im))=\lim\limits_{s\rightarrow -\frac{3}{4}+\im}\frac{25}{16}\cdot\frac{\e^{st}}{s\cdot(s-(-\frac{3}{4}-\im))} = \nonumber \\
-	\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{(-\frac{3}{4}+\im)\cdot(-\frac{3}{4}+\im+\frac{3}{4}+\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{-2-\frac{3}{2}\im}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{-2-\frac{3}{2}\im}\cdot\frac{-2+\frac{3}{2}\im}{-2+\frac{3}{2}\im}=\frac{25}{16}\cdot\e^{(-\frac{3}{4}+\im)t}\cdot\frac{-2+\frac{3}{2}\im}{2^2+\big (\frac{3}{2}\big)^2}=\nonumber \\
-	\frac{25}{16}\cdot\e^{(-\frac{3}{4}+\im)t}\cdot\frac{-2+\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}+\im)t}(-2+\frac{3}{2}\im)
+&	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}+\im)=\lim\limits_{s\rightarrow -\frac{3}{4}+\im}Y(s)\cdot\e^{st}(s-(-\frac{3}{4}+\im))=\lim\limits_{s\rightarrow -\frac{3}{4}+\im}\frac{25}{16}\cdot\frac{\e^{st}}{s\cdot(s-(-\frac{3}{4}-\im))} = \nonumber \\
+&	\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{(-\frac{3}{4}+\im)\cdot(-\frac{3}{4}+\im+\frac{3}{4}+\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{-2-\frac{3}{2}\im}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}+\im)t}}{-2-\frac{3}{2}\im}\cdot\frac{-2+\frac{3}{2}\im}{-2+\frac{3}{2}\im}=\frac{25}{16}\cdot\e^{(-\frac{3}{4}+\im)t}\cdot\frac{-2+\frac{3}{2}\im}{2^2+\big (\frac{3}{2}\big)^2}=\nonumber \\
+&	\frac{25}{16}\cdot\e^{(-\frac{3}{4}+\im)t}\cdot\frac{-2+\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}+\im)t}(-2+\frac{3}{2}\im)
 \end{align}
 
 \begin{align}
-	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}-\im)=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}Y(s)\cdot\e^{st}(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}\frac{25}{16}\cdot\frac{\e^{st}}{s\cdot(s-(-\frac{3}{4}+\im))} = \nonumber \\
-\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{(-\frac{3}{4}-\im)\cdot(-\frac{3}{4}-\im+\frac{3}{4}-\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}\cdot\frac{-2-\frac{3}{2}\im}{-2-\frac{3}{2}\im}=\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{2^2+\big (\frac{3}{2}\big)^2}=\nonumber \\
-\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im)
+&	\mathrm{Res}(Y(s)\cdot\e^{st},-\frac{3}{4}-\im)=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}Y(s)\cdot\e^{st}(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow -\frac{3}{4}-\im}\frac{25}{16}\cdot\frac{\e^{st}}{s\cdot(s-(-\frac{3}{4}+\im))} = \nonumber \\
+& \frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{(-\frac{3}{4}-\im)\cdot(-\frac{3}{4}-\im+\frac{3}{4}-\im)}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-2+\frac{3}{2}\im}\cdot\frac{-2-\frac{3}{2}\im}{-2-\frac{3}{2}\im}=\frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{2^2+\big (\frac{3}{2}\big)^2}=\nonumber \\
+& \frac{25}{16}\cdot\e^{(-\frac{3}{4}-\im)t}\cdot\frac{-2-\frac{3}{2}\im}{\frac{25}{4}}=\frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im)
 \end{align}
-We just have to add the residue and get the inverse Laplace transform.
+We have to add the three residue to get the inverse Laplace transform as
 \begin{align}
 	y(t) = \mathcal{L}^{-1}\bigg [Y(s) \bigg]&=1+\frac{1}{4}\e^{(-\frac{3}{4}+\im)t}(-2+\frac{3}{2}\im)+\frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im)\nonumber \\
-	&=1+\frac{1}{4}\e^{-\frac{3}{4}t}\bigg (-2\e^{+\im t}-2\e^{-\im t}-\frac{3}{2\im}\e^{+\im}+\frac{3}{2\im}\e^{-\im t}\bigg )\nonumber \\
+	&=1+\frac{1}{4}\e^{-\frac{3}{4}t}\bigg (-2\e^{+\im t}-2\e^{-\im t}-\frac{3}{2\im}\e^{+\im t}+\frac{3}{2\im}\e^{-\im t}\bigg )\nonumber \\
 	&= 1+\frac{1}{4}\e^{-\frac{3}{4}t}\Bigg [-\frac{4}{2}\bigg (\e^{+\im t}+\e^{-\im t}\bigg )-\frac{3}{2\im}\bigg (\e^{+\im t}-\e^{-\im t} \bigg )\Bigg ] \nonumber \\
 	&=1-\e^{-\frac{3}{4}t}\Bigg [\cos(t)+\frac{3}{4}\sin(t) \Bigg ] \quad t \geq 0
 \end{align}
-\subsubsection{Task c) inverse Laplace Transform with Residum theorem}
+\subsubsection{Task c) Inverse Laplace Transform with Residue Theorem}
 We shall find the inverse Laplace transform for
 \begin{align}
-	Y(s) = \frac{\frac{16}{25}s+\frac{56}{25}}{\frac{16}{25}s^2+\frac{24}{25}s+1}.
+	Y(s) = \frac{\frac{16}{25}s+\frac{56}{25}}{\frac{16}{25}s^2+\frac{24}{25}s+1}
+\quad \text{ROC}: \Re(s) > -\frac{3}{4}
+	.
 \end{align}
-The singularities are again $-\frac{3}{4}+\im$ and $-\frac{3}{4}-\im$.
+The singularities are again $s_{i=1}=-\frac{3}{4}+\im$ and $s_{i=2}=-\frac{3}{4}-\im$.
 \begin{align}
 	\mathrm{Res}(Y(s)\e^{st},-\frac{3}{4}+\im)&=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}Y(s)\e^{st}(s-(-\frac{3}{4}+\im))=\lim\limits_{s\rightarrow-\frac{3}{4}+\im}\frac{s+\frac{7}{2}}{(s-(-\frac{3}{4}-\im))}\e^{st}\nonumber \\
 	&=\e^{(-\frac{3}{4}+\im)t}\frac{-\frac{3}{4}+\im+\frac{7}{2}}{-\frac{3}{4}+\im-(-\frac{3}{4}-\im)}=\frac{\frac{11}{4}+\im}{2\im}\e^{(-\frac{3}{4}+\im)t}
 \end{align}
 \begin{align}
 	\mathrm{Res}(Y(s)\e^{st},-\frac{3}{4}-\im)&=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}Y(s)\e^{st}(s-(-\frac{3}{4}-\im))=\lim\limits_{s\rightarrow-\frac{3}{4}-\im}\frac{s+\frac{7}{2}}{(s-(-\frac{3}{4}+\im))}\e^{st}\nonumber \\
-	&=\e^{(-\frac{3}{4}-\im)t}\frac{-\frac{3}{4}-\im+\frac{7}{2}}{-\frac{3}{4}-\im-(-\frac{3}{4}-\im)}=-\frac{\frac{11}{4}-\im}{2\im}\e^{(-\frac{3}{4}-\im)t}
+	&=\e^{(-\frac{3}{4}-\im)t}\frac{-\frac{3}{4}-\im+\frac{7}{2}}{-\frac{3}{4}-\im-(-\frac{3}{4}+\im)}=-\frac{\frac{11}{4}-\im}{2\im}\e^{(-\frac{3}{4}-\im)t}
 \end{align}
-To achieve the inverse Laplace transform, we now have to add all found residue:
+To obtain the inverse Laplace transform, we have to add both residue
 \begin{align}
 	y(t)=\mathcal{L}^{-1}\bigg [Y(s)\bigg]&=\frac{\frac{11}{4}+\im}{2\im}\e^{(-\frac{3}{4}+\im)t}-\frac{\frac{11}{4}-\im}{2\im}\e^{(-\frac{3}{4}-\im)t}\nonumber \\
 	&=\e^{-\frac{3}{4}t}\Bigg [\frac{1}{2}\bigg (\e^{+\im t}+\e^{-\im} \bigg )+\frac{11}{4}\cdot\frac{1}{2\im}\bigg (\e^{+\im t}-\e^{-\im t} \bigg )\Bigg ]\nonumber \\
 	&= \e^{-\frac{3}{4}t}\Bigg [\cos(t)+\frac{11}{4}\sin(t)\Bigg ] \quad t \geq 0
 \end{align}
-\subsubsection{Task d) inverse Laplace Transform with Residue theorem}
+\subsubsection{Task d) Inverse Laplace Transform with Residue Theorem}
 We shall find the inverse Laplace transform for
 \begin{align}
 	Y(s) = \frac{\frac{1}{s}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}+
-	\frac{\frac{16}{25} s + \frac{56}{25}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
+	\frac{\frac{16}{25} s + \frac{56}{25}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}
+\quad \text{ROC}: \Re(s) > 0
+	.
 \end{align}
-This is just a superposition of task b) and task c). Because of that, we can just add the residue of task b) and task c) to achieve the inverse Laplace transform for our function:
+This is a superposition of task b) and task c). Thus, we can add the residue of task b) and task c) to yield the inverse Laplace transform as
 \begin{align}
 	y(t) = \mathcal{L}^{-1}\bigg [Y(s)\bigg] &= 1 + \frac{1}{4}\e^{(-\frac{3}{4}+\im)t}(-2+\frac{3}{2}\im) + \frac{1}{4}\e^{(-\frac{3}{4}-\im)t}(-2-\frac{3}{2}\im) + \frac{\frac{11}{4}+\im}{2\im}\e^{(-\frac{3}{4}+\im)t} - \frac{\frac{11}{4}-\im}{2\im}\e^{(-\frac{3}{4}-\im)t} \nonumber \\
 	&= 1 + \e^{-\frac{3}{4}t}\Bigg [\e^{+\im t}\bigg (-\frac{1}{2}-\frac{3}{8\im} +\frac{11}{8\im}+\frac{1}{2}\bigg ) + \e^{-\im t} \bigg (-\frac{1}{2}+\frac{3}{8\im} -\frac{11}{8\im}+\frac{1}{2} \bigg ) \Bigg ] \nonumber \\
 	&= 1 + \e^{-\frac{3}{4}t}\Bigg [\frac{8}{8}\cdot\frac{2}{2\im}\e^{+\im t}-\frac{8}{8}\cdot\frac{2}{2\im}\e^{-\im t} \Bigg ] \nonumber \\
 	&= 1 + 2\e^{-\frac{3}{4}t}\sin(t) \quad t \geq 0.
 \end{align}
-\subsubsection{Task e) inverse Laplace Transform with Residue theorem}
+\subsubsection{Task e) Inverse Laplace Transform with Residue Theorem}
 We shall find the inverse Laplace transform for
 \begin{align}
-	Y(s) = \frac{\frac{1}{s^2 + 1^2}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}.
+	Y(s) = \frac{\frac{1}{s^2 + 1^2}}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}
+\quad \text{ROC}: \Re(s) > 0
+	.
 \end{align}
-Again we have to find all singularities.
+Here, we deal with the four singularities
+$s_{i=1}=+\im$, $s_{i=2}=-\im$, $s_{i=3}=-\frac{3}{4}+\im$ and $s_{i=4}=-\frac{3}{4}-\im$
 \begin{align}
 	Y(s) = \frac{1}{s^2+1^2}\cdot\frac{1}{\frac{16}{25}s^2+\frac{24}{25}s+1}=\frac{25}{16}\cdot\frac{1}{(s-\im)\cdot(s+\im)\cdot(s-(-\frac{3}{4}+\im))\cdot(s-(-\frac{3}{4}-\im))}
 \end{align}
-The singularities are $+\im$, $-\im$, $-\frac{3}{4}+\im$ and $-\frac{3}{4}-\im$.
+Therefore the individual residue are
 \begin{align}
 	\mathrm{Res}(Y(s)\e^{st},+\im)&=\lim\limits_{s\rightarrow+\im}Y(s)\e^{st}(s-\im)=\lim\limits_{s\rightarrow +\im} \frac{25}{16}\cdot\frac{\e^{st}}{(s+\im)\cdot(s-(-\frac{3}{4}+\im))\cdot(s-(-\frac{3}{4}-\im))} \nonumber \\
 	&= \frac{25}{16}\cdot\frac{\e^{+\im t}}{(\im+\im)\cdot(\im-(-\frac{3}{4}+\im))\cdot(\im-(-\frac{3}{4}-\im))}= \frac{25}{16}\cdot \frac{\e^{+\im t}}{2\im\cdot\frac{3}{4}\cdot(2\im+\frac{3}{4})} \nonumber \\
@@ -1983,7 +2001,7 @@ The singularities are $+\im$, $-\im$, $-\frac{3}{4}+\im$ and $-\frac{3}{4}-\im$.
 	&= \frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{(-\frac{3}{4}-\im+\im)\cdot(-\frac{3}{4}-\im-\im)\cdot(-\frac{3}{4}-\im-(-\frac{3}{4}+\im))}=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{-\frac{3}{4}\cdot(-\frac{3}{4}-2\im)\cdot(-2\im)} \nonumber \\
 	&=\frac{25}{16}\cdot\frac{\e^{(-\frac{3}{4}-\im)t}}{3-\frac{9}{8}\im}\cdot\frac{3+\frac{9}{8}\im}{3+\frac{9}{8}\im}=\frac{25}{16}\e^{(-\frac{3}{4}-\im)t}\frac{3+\frac{9}{8}\im}{\frac{657}{64}}= \frac{100}{657}\e^{(-\frac{3}{4}-\im)t}(3+\frac{9}{8}\im)
 \end{align}
-And a last time, we add all residue to achieve the inverse Laplace transform:
+Adding all residue leads to the inverse Laplace transform
 \begin{align}
 	y(t) = \mathcal{L}^{-1}\bigg [Y(s)\bigg ] &= \frac{100}{657}\e^{+\im t}(-3-\frac{9}{8}\im)+\frac{100}{657}\e^{-\im t}(-3+\frac{9}{8}\im)+\frac{100}{657}\e^{(-\frac{3}{4}+\im)t}(3-\frac{9}{8}\im)+\frac{100}{657}\e^{(-\frac{3}{4}-\im)t}(3+\frac{9}{8}\im)\nonumber \\
 	&=\frac{100}{657}\Bigg [-3\cdot\frac{2}{2}\bigg (\e^{+\im t}+\e^{-\im t}\bigg )+\frac{9\cdot 2}{8\cdot2\im}\bigg (\e^{+\im t}-\e^{-\im t}\bigg )\Bigg ]\nonumber \\
@@ -1991,7 +2009,8 @@ And a last time, we add all residue to achieve the inverse Laplace transform:
 	&=\frac{100}{657}\Bigg [-6\cos(t)+\frac{9}{4}\sin(t)]+\frac{100}{657}\e^{-\frac{3}{4}t}\Bigg [6\cos(t)+\frac{9}{4}\sin(t)\Bigg ] \nonumber \\
 	&= -\frac{200}{219}\cos(t)+\frac{25}{73}\sin(t)+\e^{-\frac{3}{4}}\Bigg [\frac{200}{219}\cos(t)+\frac{25}{73}\sin(t) \Bigg ]\quad t \geq 0
 \end{align}
-For the solutions of the inverse Laplace transforms, take a look at section \ref{sec:SolutionsUsingLaplaceTransform}.
+All results are precisely identical with those derived by help of well known Laplace transform correspondences,
+cf. Section \ref{sec:SolutionsUsingLaplaceTransform}.
 %##############################################################################
 %##############################################################################
 \clearpage
@@ -2055,6 +2074,11 @@ and
 \newpage
 \subsection*{Appendix B}
 TBD the big picture ODE 1st/2nd, cf. \cite[p.117]{Strang2014}
+
+\subsection*{Acknowledgement}
+Thanks to Robert Hauser (\url{https://github.com/robhau})
+for adding the sections \ref{sec:PrelimResidueTheorem}, \ref{sec:ResidueTheorem} and
+TBD: convolution.
 
 % \bibliography{literatur}
 % \end{document}
