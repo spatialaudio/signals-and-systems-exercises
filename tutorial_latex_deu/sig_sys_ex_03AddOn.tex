@@ -172,10 +172,11 @@ For other signals, initial conditions refer to the exact time instance $t=0$,
 excitation signals start at right limit $t=0+0$ (right limit).
 %
 
-The task shall be performed with help of the
+The calculations shall be performed with help of the
 \begin{itemize}
 \item \textbf{fundamental system of solutions}
-\item \textbf{Laplace transform}
+\item \textbf{Laplace transform with tabulated correspondence}
+\item \textbf{Laplace transform with residue theorem}
 \item \textbf{convolution integral}, i.e. particular solution for tasks b and e.
 \end{itemize}
 
@@ -1788,7 +1789,7 @@ $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
 \end{figure}
 %##############################################################################
 %##############################################################################
-\newpage
+\cleardoublepage
 \subsection{Preliminaries for Inverse Laplace Transform Using Residue Theorem}
 \label{sec:PrelimResidueTheorem}
 %
@@ -2099,12 +2100,13 @@ cf. Section \ref{sec:SolutionsUsingLaplaceTransform}.
 %##############################################################################
 %##############################################################################
 \subsection{Particular Solution Using the Convolution Integral}
+\label{sub:ConvSolutions}
 \subsubsection{Introduction}
 As mentioned on page~\pageref{pg:sig_sys_ex_03AddOn:convolution}, we can calculate
 the particular solution by convolving the inhomogeneous part with the impulse
 response of the LTI system (i.e. the Green's function of ODE).
 
-\subsubsection{Task b) with Convolution: Particular solution with x(t) = Unit Step}
+\subsubsection{Task b) Convolution: Particular Solution with x(t) = Unit Step}
 The general equation of the convolution is
 \begin{equation}
 	y(t) = x(t) \ast h(t) =
@@ -2185,7 +2187,7 @@ and finally
 %
 This needs to be and is in fact the same result as in \eq{eq:stepResponse} and \eq{eq:stepResponse_Laplace}.
 
-\subsubsection{Task e) with Convolution: Particular solution with x(t>0) = sin(t)}
+\subsubsection{Task e) Convolution: Particular Solution with x(t>0) = sin(t)}
 %
 In this task the convolution of the impulse response with the sine signal
 \begin{align}
@@ -2324,7 +2326,7 @@ TBD the big picture ODE 1st/2nd, cf. \cite[p.117]{Strang2014}
 \subsection*{Acknowledgement}
 Thanks to Robert Hauser (\url{https://github.com/robhau})
 for adding the sections \ref{sec:PrelimResidueTheorem}, \ref{sec:ResidueTheorem} and
-TBD: convolution.
+\ref{sub:ConvSolutions}.
 
 % \bibliography{literatur}
 % \end{document}
