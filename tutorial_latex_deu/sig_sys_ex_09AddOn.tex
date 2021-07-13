@@ -385,7 +385,13 @@ We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
 \end{align}
-The poles are $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$.
+$\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are poles of order 1.
+\begin{align}
+	0 \text{ is }\begin{cases}
+		\text{no isolated singularity}, &k>0 \\
+		\text{pole of order |k|+1}, &k\leq 0.
+	\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})&=\lim\limits_{z\rightarrow\frac{1}{4}+\im\frac{\sqrt{3}}{4}}\frac{z^2-z+2}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}z^{k-1}=\lim\limits_{z\rightarrow\frac{1}{2}\e^{+\im\frac{\pi}{3}}}\frac{z^2-z+2}{z-(\frac{1}{2}\e^{-\im\frac{\pi}{3}})}z^{k-1}\nonumber\\
 	&=\frac{\frac{1}{4}\e^{+\im\frac{2\pi}{3}}-\frac{1}{2}\e^{+\im\frac{\pi}{3}}+2}{\frac{1}{2}\e^{+\im\frac{\pi}{3}}-\frac{1}{2}\e^{-\im\frac{\pi}{3}}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
@@ -393,7 +399,7 @@ The poles are $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqr
 	&=\frac{\frac{1}{4}(-\frac{1}{2}+\im\frac{\sqrt{3}}{2})-\frac{1}{2}(\frac{1}{2}+\im\frac{\sqrt{3}}{2})+2}{\im\frac{\sqrt{3}}{2}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=2\cdot\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{1}{8}+\im\frac{\sqrt{3}}{8}-\frac{1}{4}-\im\frac{\sqrt{3}}{4}+2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}
-\end{align}
+\end{align}c 
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})&=\lim\limits_{z\rightarrow\frac{1}{4}-\im\frac{\sqrt{3}}{4}}\frac{z^2-z+2}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}z^{k-1}=\lim\limits_{z\rightarrow\frac{1}{2}\e^{-\im\frac{\pi}{3}}}\frac{z^2-z+2}{z-(\frac{1}{2}\e^{+\im\frac{\pi}{3}})}z^{k-1}\nonumber\\
 	&=\frac{\frac{1}{4}\e^{-\im\frac{2\pi}{3}}-\frac{1}{2}\e^{-\im\frac{\pi}{3}}+2}{\frac{1}{2}\e^{-\im\frac{\pi}{3}}-\frac{1}{2}\e^{+\im\frac{\pi}{3}}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
@@ -401,6 +407,43 @@ The poles are $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqr
 	&=\frac{\frac{1}{4}(-\frac{1}{2}-\im\frac{\sqrt{3}}{2})-\frac{1}{2}(\frac{1}{2}-\im\frac{\sqrt{3}}{2})+2}{-\im\frac{\sqrt{3}}{2}}\bigg(\frac{1}{2}\bigg )^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=2\cdot\frac{1}{\sqrt{3}}\cdot\bigg [\frac{1}{8}+\im\frac{\sqrt{3}}{8}+\frac{1}{4}-\im\frac{\sqrt{3}}{4}-2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}
+\end{align}
+\begin{align}
+	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}} \Bigg [ \frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}\cdot\frac{z^{|k|+1}}{z^{|k|+1}}\Bigg ]=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg [1+\frac{-\frac{1}{2}z+\frac{7}{4}}{z^2-\frac{1}{2}z+\frac{1}{4}} \Bigg]\nonumber\\
+\end{align}
+We use partial fraction decomposition to make the differentiation easier.
+\begin{align}
+\frac{-\frac{1}{2}z+\frac{7}{4}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))}=\frac{A}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{B}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\quad\Bigg | \quad \cdot (z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))\nonumber\\
+-\frac{1}{2}z+\frac{7}{4}=A(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))+B(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))=z(A+B)+A(-\frac{1}{4}+\im\frac{\sqrt{3}}{4})+B(-\frac{1}{4}-\im\frac{\sqrt{3}}{4})
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-\frac{1}{4}+\im\frac{\sqrt{3}}{4} & -\frac{1}{4}-\im\frac{\sqrt{3}}{4} 
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		-\frac{1}{2} \\
+		\frac{7}{4}
+	\end{pmatrix}
+\end{align}
+With techniquest like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+\begin{align}
+	A=-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}, \nonumber \\
+	B=-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}.
+\end{align}
+\begin{align}
+	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg [1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\Bigg]\nonumber\\
+	&=\frac{\mathrm{d}^{|k|}1}{\mathrm{d}z^{|k|}}+\lim\limits_{z\rightarrow0}\frac{1}{|k|}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\Bigg] \nonumber \\
+	&=\begin{cases}
+		1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}-\im\frac{\sqrt{3}}{4}}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}+\im\frac{\sqrt{3}}{4}}, &k = 0 \\
+		\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))^{|k|+1}}\cdot(-1)^{|k|}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))^{|k|}\cdot(-1)^{|k|}}, &k <0
+	\end{cases}
 \end{align}
 \begin{align}
 	x[k]&=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
@@ -416,7 +459,7 @@ We shall find the time-discret signal for
 $\im$ and $-\im$ are poles of order 1.
 \begin{align}
 	0 \text{ is }\begin{cases}
-		\text{no isolated singularity}, &k\geq 0,\\
+		\text{no isolated singularity}, &k> 0,\\
 		\text{removeable singularity}, &-1\leq k \leq 0,\\
 		\text{pole of order |k|-1}, &k<-1.
 	\end{cases}
