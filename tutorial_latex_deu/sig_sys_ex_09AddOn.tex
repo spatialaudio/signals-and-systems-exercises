@@ -129,6 +129,9 @@ With techniquest like Gaussian elimination or Cramer's rule, we can solute our s
 	A=-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}, \nonumber \\
 	B=-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}.
 \end{align}
+\begin{align}
+	X(z)=1+\frac{1}{z}\cdot\frac{(-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}})\cdot z}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{1}{z}\cdot\frac{(-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}})\cdot z}{z-(\frac{1}{4}z\im\frac{\sqrt{3}}{4})}=1+\frac{1}{4z}\cdot\frac{(-1-\im\frac{13}{\sqrt{3}})\cdot z}{z-(\frac{1}{2}\e^{+\im\frac{\pi}{4}}}+\frac{1}{4z}\cdot\frac{(-1+\im\frac{13}{\sqrt{3}})\cdot z}{z-(\frac{1}{2}\e^{-\im\frac{\pi}{3}})}
+\end{align}
 We use the correspondences
 \begin{align}
 	\delta[k]\quad\ztransf\quad1\quad\mathrm{ROC}=\mathbb{C},
@@ -469,12 +472,12 @@ We use partial fraction decomposition to make the differentiation easier. Take a
 \end{align}
 \begin{align}
 		\mathrm{Res}(X(z)z^{-1},0)&= 1+\frac{-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}-\im\frac{\sqrt{3}}{4}}+\frac{-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}}{-\frac{1}{4}+\im\frac{\sqrt{3}}{4}}=1+\frac{1+\im\frac{13}{\sqrt{3}}}{1+\im\sqrt{3}}\cdot\frac{1-\im\sqrt{3}}{1-\im\sqrt{3}}+\frac{1-\im\frac{13}{\sqrt{3}}}{1-\im\sqrt{3}}\cdot\frac{1+\im\sqrt{3}}{1+\im\sqrt{3}}\nonumber\\
-		&=1+\frac{1-\im\sqrt{3}+13+\im\frac{13}{\sqrt{3}}+1+\im\sqrt{3}-\im\frac{13}{\sqrt{3}}+13}{1+4}=8
+		&=1+\frac{1-\im\sqrt{3}+13+\im\frac{13}{\sqrt{3}}+1+\im\sqrt{3}-\im\frac{13}{\sqrt{3}}+13}{1+3}=8
 \end{align}
 \begin{align}
 	\underset{k<0}{\mathrm{Res}(X(z)z^{|k|+1},0)}&=4^{|k|}\Bigg[\frac{1+\im\frac{13}{\sqrt{3}}}{(1-\im\sqrt{3})^{|k|+1}}+\frac{1-\im\frac{13}{\sqrt{3}}}{(1+\im\sqrt{3})^{|k|+1}} \Bigg]=4^{|k|}\frac{(1+\im\frac{13}{\sqrt{3}})\cdot2^{|k|+1}\e^{+\im\frac{\pi}{3}(|k|+1)}+(1-\im\frac{13}{\sqrt{3}})2^{|k|+1}\e^{-\im\frac{\pi}{3}(|k|+1)}}{2^{|k|+1}\e^{-\im\frac{\pi}{3}(|k|+1)}2^{|k|+1}\e^{+\im\frac{\pi}{3}(|k|+1)}}\nonumber\\
-	&=\frac{2^{|k|}}{4}\Bigg [4\cdot\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}+\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)-\frac{52}{\sqrt{3}}\cdot\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}-\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)\Bigg]\nonumber\\
-	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]
+	&=\frac{2^{|k|}}{4}\Bigg [4\cdot\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}+\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)+\frac{52}{\sqrt{3}}\cdot\frac{1}{2\im}\bigg(\e^{+\im\frac{\pi}{3}(|k|+1)}-\e^{-\im\frac{\pi}{3}(|k|+1)}\bigg)\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]
 \end{align}
 \begin{align}
 	x[k]=\begin{cases}
@@ -490,15 +493,18 @@ We use partial fraction decomposition to make the differentiation easier. Take a
 	&=\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]
 \end{align}
 \begin{align}
-	x_2[k]&=\mathrm{Res}(X(z)z^{-1},0)+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
+	x_2[k]&=\mathrm{Res}(X(z)z^{-1},0)+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})\Bigg |_{k=0}+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\Bigg |_{k=0}\nonumber\\
 	&=8+x_1[k=0]=8+\frac{13}{\sqrt{3}}\sin(-\frac{\pi}{3})-\cos(-\frac{\pi}{3})=8+\frac{13}{\sqrt{3}}\cdot\frac{-\sqrt{3}}{2}-\frac{1}{2}=8-\frac{13}{2}-\frac{1}{2}\nonumber\\
 	&=8-\frac{14}{2}=8-7=1
 \end{align}
 \begin{align}
 	x_3[k]&=\underset{k<0}{\mathrm{Res}(X(z)z^{|k|+1},0)}+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}+\im\frac{\sqrt{3}}{4})+\mathrm{Res}(X(z)z^{k-1},\frac{1}{4}-\im\frac{\sqrt{3}}{4})\nonumber\\
-	&=x_1[k]+2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]\nonumber\\
-	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]+\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\nonumber\\
-	&\underset{k<0}{=}2^{|k|}\Bigg[\cos(\frac{\pi}{3}(k-1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]=0
+	&=x_1[k]+2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(|k|+1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(|k|+1))\Bigg]+\bigg(\frac{1}{2}\bigg)^{k}\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\nonumber\\
+	&\underset{k<0}{=}2^{|k|}\Bigg[\cos(\frac{\pi}{3}(1-k))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(1-k))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(-(k-1)))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(-(k-1)))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\nonumber\\
+	&=2^{|k|}\Bigg[\cos(\frac{\pi}{3}(k-1))-\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))+\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg] \nonumber\\
+	&=0
 \end{align}
 \begin{align}
 	x_[k]=\begin{cases}
@@ -556,7 +562,7 @@ We get a system of linear equations. In matrix notation:
 		1
 	\end{pmatrix}.
 \end{align}
-With techniques like Gaussian elimination or Cramers rule, we can solute our system of linear equations and achieve
+With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
 \begin{align}
 	A= -\frac{1}{2}\im, \nonumber \\
 	B = \frac{1}{2}\im.
@@ -602,22 +608,102 @@ We shall find the time discret signal for
 	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
 \end{align}
 $1$ is a pole of order 2.
-
 \begin{align}
-	\mathrm{Res}(X(z)z^{k-1},1)&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg [(z^4+z^3-6z-1)z^{k-1}\bigg]\nonumber\\
-	&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg[z^{k+3}+z^{k+2}-6z^k-z^{k-1}\bigg]\nonumber\\
-	&=\lim\limits_{z\rightarrow1}\bigg[(k+3)z^{k+2}+(k+2)z^{k+1}-6kz^{k-1}-(k-1)z^{k-2}\bigg ]\nonumber\\
-	&=(k+3)+(k+2)-6k-(k-1)=-5k+6
+	0\text{ is }\begin{cases}
+		\text{no isolated singularity}, &k>0\\
+		\text{pole of order |k|+1}, &k\leq0
+	\end{cases}
 \end{align}
 \begin{align}
-	x[k]=\mathcal{Z}^{-1}[X(z)]=\mathrm{Res}(X(z)z^{k-1},1)=6-5k
+	\mathrm{Res}(X(z)z^{k-1},1)&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg [(z^4+z^3-6z^2+6z-1)z^{k-1}\bigg]\nonumber\\
+	&=\lim\limits_{z\rightarrow1}\frac{\mathrm{d}}{\mathrm{d}z}\bigg[z^{k+3}+z^{k+2}-6z^{k+1}+6z^k-z^{k-1}\bigg]\nonumber\\
+	&=\lim\limits_{z\rightarrow1}\bigg[(k+3)z^{k+2}+(k+2)z^{k+1}-6(k+1)z^{k}+6kz^{k-1}-(k-1)z^{k-2}\bigg ]\nonumber\\
+	&=(k+3)+(k+2)-6(k+1)+6k-(k-1)=k
+\end{align}
+\begin{align}
+	\underset{\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{(|k|)!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[\frac{z^4+z^3-6z^2+6z-1}{(z-1)^2}\cdot\frac{z^{|k|+1}}{z^{|k|+1}}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|)!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[z^2+3z-1+\frac{z}{(z-1)^2}\Bigg]
+\end{align}
+We use partial fraction decomposition to make the differentiation of the last term easier.
+\begin{align}
+	\frac{z}{(z-1)\cdot(z-1)}=\frac{A}{z-1}+\frac{B}{(z-1)^2}\quad\Bigg | \quad \cdot(z-1)^2\nonumber\\
+	z=A(z-1)+B=z\cdot A+1(-A+B)
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 0 \\
+		-1 & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		1 \\
+		0
+	\end{pmatrix}
+\end{align}
+With techniques like Gaussian elimination or Cramer's rule (or in this case, with a good look), we can solute our system of linear equations and achieve
+\begin{align}
+	A = 1, \nonumber \\
+	B = 1.
+\end{align}
+\begin{align}
+	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|)!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[z^2+3z-1+\frac{1}{z-1}+\frac{1}{(z-1)^2}\Bigg]\nonumber\\
+	&=\begin{cases}
+		0^2+3\cdot0-1+\frac{1}{0-1}+\frac{1}{(0-1)^2}=-1, &k=0 \\
+		2\cdot0+3-\frac{1}{(0-1)^2}-\frac{2}{(0-1)^3}=4,&k=-1 \\
+		\frac{1}{2}\bigg(2+\frac{2}{(0-1)^3}+\frac{6}{(0-1)^4}\bigg)=3,&k=-2\\
+		\frac{1}{|k|}\bigg(\frac{(-1)^{|k|}\cdot (|k|)!}{(0-1)^{|k|+1}}+\frac{(-1)^{|k|}\cdot(|k|+1)!}{(0-1)^{|k|+2}}\bigg)=-1+(|k|+1)=|k|,&k<-2
+	\end{cases}
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		x_1[k],&k>0 \\
+		x_2[k], &k=0 \\
+		x_3[k], &k=-1 \\
+		x_4[k], &k=-2 \\
+		x_5[k], &k<-2
+	\end{cases}
+\end{align}
+\begin{align}
+	x_1[k]=\mathrm{Res}(X(z)z^{k-1},1)=k
+\end{align}
+\begin{align}
+	x_2[k]=\mathrm{Res}(X(z)z^{k-1},1)\Bigg |_{k=0}+\mathrm{Res}(X(z)z^{k-1},0)\Bigg |_{k=0}=x_1[k=0]-1=-1
+\end{align}
+\begin{align}
+	x_3[k]=\mathrm{Res}(X(z)z^{k-1},1)\Bigg |_{k=-1}+\mathrm{Res}(X(z)z^{k-1},0)\Bigg |_{k=-1}=x_1[k=-1]+4=3
+\end{align}
+\begin{align}
+	x_4[k]=\mathrm{Res}(X(z)z^{k-1},1)\Bigg |_{k=-2}+\mathrm{Res}(X(z)z^{k-1},0)\Bigg |_{k=-2}=x_1[k=-2]+3=1
+\end{align}
+\begin{align}
+	x_5[k]\underset{k <-2}{=}\mathrm{Res}(X(z)z^{k-1},1)+\mathrm{Res}(X(z)z^{k-1},0)=k+|k|=-|k|+|k|=0
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		k, &k>0 \\
+		-1, &k=0 \\
+		3, &k=-1 \\
+		1, &k=-2 \\
+		0, &k<-2
+	\end{cases}
 \end{align}
 \subsubsection{Task g)}
 We shall find the time-discret signal for
 \begin{align}
 	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}.
 \end{align}
-The poles are $\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$.
+$\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$ are poles of order 1.
+\begin{align}
+	0\text{ is }\begin{cases}
+		\text{no isolated singularity}, &k>0 \\
+		\text{removeable singularity}, &k=0 \\
+		\text{pole of order |k|}, &k<0
+	\end{cases}
+\end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})&=\lim\limits_{z\rightarrow\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}}\frac{z^2-z}{z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}\frac{z^2-z}{z-\e^{-\im\frac{\pi}{4}}}z^{k-1}\nonumber\\
 	&=\frac{\e^{+\im\frac{\pi}{2}}-\e^{+\im\frac{\pi}{4}}}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)}=\frac{\im-\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})}{\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})-\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})}\e^{+\im\frac{\pi}{4}(k-1)}\nonumber\\
@@ -629,8 +715,83 @@ The poles are $\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}
 	&=-\frac{-\frac{\sqrt{2}}{2}-\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}
 \end{align}
 \begin{align}
-	x[k]=\mathcal{Z}^{-1}&=\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})\nonumber\\
+	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-21!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg[\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}\cdot\frac{z^{|k|}}{z^{|k|+1}}\Bigg ]\nonumber\\
+	&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg[\frac{z-1}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\cdot(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}\Bigg ]
+\end{align}
+We use partial fraction decomposition to make the differentiation easier.
+\begin{align}
+	\frac{z-1}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\cdot(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}=\frac{A}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))}+\frac{B}{(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}\quad\Bigg|\quad\cdot (z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}} \nonumber
+\end{align}
+\begin{align}
+	z-1&=A(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))+B(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\nonumber \\
+	&=z(A+B)+(-A(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})-B(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))
+\end{align}
+We get a system of linear equations. In matrix notation:
+\begin{align}
+	\begin{pmatrix}
+		1 & 1 \\
+		-\e^{-\im\frac{\pi}{4}} & -\e^{+\im\frac{\pi}{4}} 
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B 
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		1 \\
+		-1 
+	\end{pmatrix}
+\end{align}
+With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+\begin{align}
+	A=\frac{-\e^{+\im\frac{\pi}{4}}+1}{-\sqrt{2}\im}=\frac{1}{2}+\frac{1-\sqrt{2}}{2\im}, \nonumber\\
+	B=-1+\e^{-\im\frac{\pi}{4}}=\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}.
+\end{align}
+\begin{align}
+	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg[\bigg(\frac{1}{2}+\frac{1-\sqrt{2}}{2\im}\bigg)\frac{1}{z-\e^{+\im\frac{\pi}{4}}}+\bigg(\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}\bigg)\frac{1}{z-\e^{-\im\frac{\pi}{4}}}\Bigg ]\nonumber\\
+	&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\Bigg[\bigg( \frac{1}{2}+\frac{1-\sqrt{2}}{2\im}\bigg)\frac{(-1)^{|k|-1}\cdot(|k|-1)!}{(z-\e^{+\im\frac{\pi}{4}})^{|k|}}+\bigg(\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}\bigg)\frac{(-1)^{|k|-1}\cdot(|k|-1)!}{(z-\e^{-\im\frac{\pi}{4}})^{|k|}}\Bigg] \nonumber\\
+	&=\bigg(\frac{1}{2}+\frac{1-\sqrt{2}}{2\im}\bigg)\frac{(-1)^{|k|-1}}{(-1)^{|k|}\e^{+\im\frac{\pi}{4}|k|}}\bigg(\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}\bigg)\frac{(-1)^{|k|-1}}{(-1)^{|k|}\e^{-\im\frac{\pi}{4}|k|}}\nonumber\\
+	&=-\bigg(\frac{1}{2}+\frac{1-\sqrt{2}}{2\im}\e^{-\im\frac{\pi}{4}(|k|)}-\bigg(\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}\bigg)\e^{+\im\frac{\pi}{4}(|k|)}\nonumber\\
+	&=-\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{4}(|k|)}+\e^{-\im\frac{\pi}{4}(|k|)}\bigg)+\frac{1-\sqrt{2}}{2\im}\bigg(\e^{+\im\frac{\pi}{4}(|k|)}-\e^{-\im\frac{\pi}{4}(|k|)}\bigg) \nonumber\\
+	&=(1-\sqrt{2})\sin(\frac{\pi}{4}(|k|))-\cos(\frac{\pi}{4}(|k|))
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		x_1[k], &k>=0\\
+		x_2[k], &k<0
+	\end{cases}
+\end{align}
+\begin{align}
+	x_1[k]=&=\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})\nonumber\\
 	&=\frac{-\frac{\sqrt{2}}{2}+\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{+\im\frac{\pi}{4}(k-1)}-\frac{-\frac{\sqrt{2}}{2}-\im(1-\frac{\sqrt{2}}{2})}{\im\sqrt{2}}\e^{-\im\frac{\pi}{4}(k-1)}\nonumber\\
 	&=\frac{1-\frac{\sqrt{2}}{2}}{\sqrt{2}}\cdot\frac{2}{2}\bigg[\e^{+\im\frac{\pi}{4}(k-1)}+\e^{-\im\frac{\pi}{4}(k-1)}\bigg ]-\frac{1}{2\im}\bigg[\e^{+\im\frac{\pi}{4}(k-1)}-\e^{-\im\frac{\pi}{4}(k-1)}\bigg]\nonumber\\
 	&=(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))
+\end{align}
+\begin{align}
+	\underset{k<0}{x_2[k]}&=\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})+\mathrm{Res}(X(z)z^{k-1},0)\nonumber\\
+	&=x_1[k]+(1-\sqrt{2})\sin(\frac{\pi}{4}(|k|))-\cos(\frac{\pi}{4}(|k|))\nonumber \\
+	&\underset{k<0}{=}(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))+(1-\sqrt{2})\sin(\frac{-\pi}{4}k)-\cos(\frac{-\pi}{4}k)\nonumber\\
+	&=(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)
+\end{align}
+It is (cf.~\cite{Bronstein2}):
+\begin{align}
+	\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+\end{align}
+and
+\begin{align}
+		\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta.
+\end{align}
+\begin{align}
+	\underset{k<0}{x_2[k]}&=(\sqrt{2}-1)\cos(\frac{\pi}{4}k-\frac{\pi}{4}))-\sin(\frac{\pi}{4}k-\frac{\pi}{4})-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)\nonumber\\
+	&=(\sqrt{2}-1)\bigg[\frac{\sqrt{2}}{2}\cos(\frac{\pi}{4}k)+\frac{\sqrt{2}}{2}\sin(\frac{\pi}{4}k)\bigg]-\bigg[\frac{\sqrt{2}}{2}\sin(\frac{\pi}{4}k)-\frac{\sqrt{2}}{2}\cos(\frac{\pi}{4}k)\bigg]\nonumber\\
+	&-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)\nonumber\\
+	&=\cos(\frac{\pi}{4}k)+\sin(\frac{\pi}{4}k)-\frac{\sqrt{2}}{2}(2\cos(\frac{\pi}{4}k)+2\sin(\frac{\pi}{4}k))\nonumber\\
+	&-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)\nonumber\\
+	&=\cos(\frac{\pi}{4}k)+(1-\sqrt{2})\sin(\frac{\pi}{4}k)-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)=0
+\end{align}
+\begin{align}
+	x[k]=\begin{cases}
+		(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1)), &k\geq0\\
+		0, &k<0
+	\end{cases}
 \end{align}
