@@ -35,7 +35,7 @@ Wir wollen das zeit-diskrete Signal für
 	X(z)&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z(\e^{+\im\frac{\pi}{4}}+\e^{-\im\frac{\pi}{4}})+1}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z\bigg[\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})+\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})\bigg ]+1}\nonumber\\
 	&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-2z\cos(\frac{\pi}{4})+1}=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}
 \end{align}
-finden.
+berechnen.
 %If we take a look at the correspondence table, we find following correspondence:
 Wenn wir einen Blick auf die Korrespondenztabelle werfen, finden wir folgende Korrespondenz:
 \begin{align}
@@ -53,7 +53,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}
 \end{align}
-finden.
+berechnen.
 %If we take a look at the correspondence table, we find following correspondence:
 Wenn wir einen Block auf die Korrespondenztabelle werfen, finden wir folgende Korrespondenz:
 \begin{align}
@@ -72,7 +72,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}
 \end{align}
-finden.
+berechnen.
 %Now we can not find a correspondence in our table. But it seems that a partial fraction decomposition could be helpful.
 Zunächst können wir keine passende Korrespondenz in unserer Tabelle finden. Aber es scheint, dass eine Partialbruchzerlegung hier hilfreich sein könnte.
 \begin{align}
@@ -126,7 +126,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}
 \end{align}
-finden.
+berechnen.
 %We use polynomial division and partial fraction decomposition to achieve a term like in our correspondence table.
 Wir nutzen Polynomdivision und Partialbruchzerlegung, um Terme aus unserer Korrespondenztabelle zu erhalten.
 \begin{align}
@@ -191,7 +191,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z^2}{z^2+1}
 \end{align}
-finden.
+berechnen.
 %If we look at the correspondence
 Wir werfen einen Blick auf die Korrespondenz 
 \begin{align}
@@ -220,7 +220,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}
 \end{align}
-finden.
+berechnen.
 %We can simplify the denominator to
 Wir können den Nenner vereinfachen:
 \begin{align}
@@ -259,7 +259,7 @@ Wir wollen des zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}
 \end{align}
-finden.
+berechnen.
 %We can reshape the function:
 Wir können die Funktion umformen:
 \begin{align}
@@ -290,7 +290,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}
 \end{align}
-finden.
+berechnen.
 %$\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$ are poles of order 1.\\
 $\e^{+\im\frac{\pi}{4}}$ und $\e^{-\im\frac{\pi}{4}}$ sind Polstellen erster Ordnung.\\
 %\begin{align}
@@ -300,14 +300,14 @@ $\e^{+\im\frac{\pi}{4}}$ und $\e^{-\im\frac{\pi}{4}}$ sind Polstellen erster Ord
 %	\text{removable singularity}, &k = 0, \\
 %	\text{pole of order }|k|, &k <0. 
 %\end{cases}
+%\end{align}
 \begin{align}
-	0\text{ is }
+	0\text{ ist }
 	\begin{cases}
 		\text{keine isolierte Singularität}, &k > 0, \\
 		\text{eine hebbare Singularität}, &k = 0, \\
 		\text{eine Polstelle }|k|\text{-ter Ordnung}, &k <0. 
 	\end{cases}
-\end{align}
 \end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})&=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{-\im\frac{\pi}{4}})}z^{k-1}=2\cdot\frac{\e^{+\im\frac{\pi}{4}}\cdot(\e^{+\im\frac{\pi}{4}}-\frac{1}{\sqrt{2}})}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)} \nonumber \\
@@ -411,7 +411,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}
 \end{align}
-finden.
+berechnen.
 %$\frac{1}{2}$ is a pole of order 1. \\
 $\frac{1}{2}$ ist eine Polstelle erster Ordnung. \\
 %\begin{align}
@@ -463,7 +463,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}
 \end{align}
-finden.
+berechnen.
 %$\frac{1}{2}$ and $1$ are poles of order $1$.
 $\frac{1}{2}$ und $1$ sind Polstellen erster Ordnung.
 %\begin{align}
@@ -556,7 +556,7 @@ Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}
 \end{align}
-finden.
+berechnen.
 %$\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are poles of order 1.
 $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ und $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ sind Polstellen erster Ordnung.
 %\begin{align}
@@ -644,13 +644,13 @@ Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen. Wir nutze
 	\end{cases}
 \end{align}
 %\subsubsection{Task e)}
-\subsubsection{Aufgabe )}
+\subsubsection{Aufgabe e )}
 %We shall find the time-discret signal for
 Wir wollen das zeit-diskrete Signal für 
 \begin{align}
 	X(z)=\frac{z^2}{z^2+1}
 \end{align}
-finden.
+berechnen.
 %$\im$ and $-\im$ are poles of order 1.
 $\im$ und $-\im$ sind Polstellen erster Ordnung.
 %\begin{align}
@@ -711,9 +711,13 @@ Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Elimin
 	&=\frac{1}{2}\im \cdot\frac{1}{(|k|-2)!}\Bigg [-\frac{(-1)^{|k|}\cdot(|k|-2)!}{(-\im)^{|k|-1}}+\frac{(-1)^{|k|}\cdot(|k|-2)!}{(\im)^{|k|-1}}\Bigg] \nonumber \\
 	&=\frac{1}{2}\im\Bigg[\frac{1}{(\im)^{|k|-1}}+\frac{(-1)^{k}}{(\im)^{|k|-1}}\Bigg ] \nonumber \\
 	&=\frac{1}{2}\im\cdot\frac{1+(-1)^{|k|}}{(\im)^{|k|-1}}=\frac{1}{2}\cdot\frac{1+(-1)^{|k|}}{(\im)^{|k|-2}}=-\frac{1}{2}(1+(-1)^{|k|})\im^{|k|}\cdot\im^{-2}=-\frac{1}{2}\cdot(1+(-1)^{|k|})\im^{|k|} \nonumber \\
+%	&=\begin{cases}
+%		-(-1)^{\frac{|k|}{2}}, &|k|\text{ even} \\
+%		0, &|k|\text{ odd}
+%	\end{cases}
 	&=\begin{cases}
-		-(-1)^{\frac{|k|}{2}}, &|k|\text{ even} \\
-		0, &|k|\text{ odd}
+		-(-1)^{\frac{|k|}{2}}, &|k|\text{ gerade} \\
+		0, &|k|\text{ ungerade}
 	\end{cases}
 \end{align}
 \begin{align}
@@ -732,30 +736,42 @@ Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Elimin
 		\sin(\frac{\pi}{2}(k+1)), &|k| \text{ odd}
 	\end{cases}
 \end{align}
-If $|k|$ is odd, $\frac{\pi}{2}(k+1)$ a multiple of $\pi$, so that $\sin(\frac{\pi}{2}(k+1))=0$.
-If $k<-1$ is even, $\sin(\frac{\pi}{2}(k+1))=(-1)^{\frac{|k|}{2}}$.\\
-It is:
+%If $|k|$ is odd, $\frac{\pi}{2}(k+1)$ a multiple of $\pi$, so that $\sin(\frac{\pi}{2}(k+1))=0$.
+%If $k<-1$ is even, $\sin(\frac{\pi}{2}(k+1))=(-1)^{\frac{|k|}{2}}$.\\
+%It is:
+Falls $|k|$ gerade ist, ist $\frac{\pi}{2}(k+1)$ ein Vielfaches von $\pi$, sodass $\sin(\frac{\pi}{2}(k+1))=0$ ist.
+Falls $k<-1$ ungerade ist, ist $\sin(\frac{\pi}{2}(k+1))=(-1)^{\frac{|k|}{2}}$.\\
+Somit gilt:
 \begin{align}
 	x_2[k]=0.
 \end{align}
-It also is $\sin(\frac{\pi}{2}(-1+1))=0$. \\
-Summary:
+Es ist außerdem $x_1[-1] =\sin(\frac{\pi}{2}(-1+1))=0$. \\
+Zusammenfassung:
 \begin{align}
 	x[k]=\begin{cases}
 		\sin(\frac{\pi}{2}(k+1))\underset{\text{\ref{eq:SinAlphaPlusMinusBeta}}}{=}\cos(\frac{\pi}{2}k), &k\geq 0 \\
 		0, &k<0
 	\end{cases}.
 \end{align}
-\subsubsection{Task f)}
-We shall find the time discret signal for
+%\subsubsection{Task f)}
+\subsubsection{Aufgabe f)}
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
+	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}
 \end{align}
-$1$ is a pole of order 2.
+berechnen.
+%$1$ is a pole of order 2.
+$1$ ist eine Polstelle zweiter Ordnung.
+%\begin{align}
+%	0\text{ is }\begin{cases}
+%		\text{no isolated singularity}, &k>0\\
+%		\text{pole of order }|k|+1, &k\leq0.
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0\text{ is }\begin{cases}
-		\text{no isolated singularity}, &k>0\\
-		\text{pole of order |k|+1}, &k\leq0
+	0\text{ ist }\begin{cases}
+		\text{keine isolierte Singularität}, &k>0\\
+		\text{eine Polstelle } (|k|+1)\text{-ter Ordnung}, &k\leq0.
 	\end{cases}
 \end{align}
 \begin{align}
@@ -767,12 +783,14 @@ $1$ is a pole of order 2.
 \begin{align}
 	\underset{\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{(|k|)!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[\frac{z^4+z^3-6z^2+6z-1}{(z-1)^2}\cdot\frac{z^{|k|+1}}{z^{|k|+1}}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|)!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg[z^2+3z-1+\frac{z}{(z-1)^2}\Bigg]
 \end{align}
-We use partial fraction decomposition to make the differentiation of the last term easier.
+%We use partial fraction decomposition to make the differentiation of the last term easier.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten des letzten Terms zu vereinfachen.
 \begin{align}
 	\frac{z}{(z-1)\cdot(z-1)}=\frac{A}{z-1}+\frac{B}{(z-1)^2}\quad\Bigg | \quad \cdot(z-1)^2\nonumber\\
 	z=A(z-1)+B=z\cdot A+1(-A+B)
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 0 \\
@@ -788,7 +806,8 @@ We get a system of linear equations. In matrix notation:
 		0
 	\end{pmatrix}
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule (or in this case, with a good look), we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule (or in this case, with a good look), we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A = 1, \nonumber \\
 	B = 1.
@@ -835,17 +854,28 @@ With techniques like Gaussian elimination or Cramer's rule (or in this case, wit
 		0, &k<-2
 	\end{cases}
 \end{align}
-\subsubsection{Task g)}
-We shall find the time-discret signal for
+%\subsubsection{Task g)}
+\subsubsection{Aufgabe g)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}.
+	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}
 \end{align}
-$\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$ are poles of order 1.
+berechnen.
+%$\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$ are poles of order 1.
+$\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ und $\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}$ sind Polstellen erster Ordnung.
+%\begin{align}
+%	0\text{ is }\begin{cases}
+%		\text{no isolated singularity}, &k>0 \\
+%		\text{removeable singularity}, &k=0 \\
+%		\text{pole of order }|k|, &k<0
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0\text{ is }\begin{cases}
-		\text{no isolated singularity}, &k>0 \\
-		\text{removeable singularity}, &k=0 \\
-		\text{pole of order |k|}, &k<0
+	0\text{ ist }\begin{cases}
+		\text{keine isolierte Singularität}, &k>0 \\
+		\text{hebbare Singularität}, &k=0 \\
+		\text{eine Polstelle } (|k|)\text{-ter Ordnung}, &k<0
 	\end{cases}
 \end{align}
 \begin{align}
@@ -862,7 +892,8 @@ $\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}$ and $\frac{\sqrt{2}}{2}-\im\frac{\sqr
 	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1},0)}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-21!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg[\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}\cdot\frac{z^{|k|}}{z^{|k|+1}}\Bigg ]\nonumber\\
 	&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg[\frac{z-1}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\cdot(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}\Bigg ]
 \end{align}
-We use partial fraction decomposition to make the differentiation easier.
+%We use partial fraction decomposition to make the differentiation easier.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen.
 \begin{align}
 	\frac{z-1}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\cdot(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}=\frac{A}{(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))}+\frac{B}{(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))}\quad\Bigg|\quad\cdot (z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}} \nonumber
 \end{align}
@@ -870,7 +901,8 @@ We use partial fraction decomposition to make the differentiation easier.
 	z-1&=A(z-(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2}))+B(z-(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))\nonumber \\
 	&=z(A+B)+(-A(\frac{\sqrt{2}}{2}-\im\frac{\sqrt{2}}{2})-B(\frac{\sqrt{2}}{2}+\im\frac{\sqrt{2}}{2}))
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1 \\
@@ -886,7 +918,8 @@ We get a system of linear equations. In matrix notation:
 		-1 
 	\end{pmatrix}
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A=\frac{-\e^{+\im\frac{\pi}{4}}+1}{-\sqrt{2}\im}=\frac{1}{2}+\frac{1-\sqrt{2}}{2\im}, \nonumber\\
 	B=-1+\e^{-\im\frac{\pi}{4}}=\frac{1}{2}+\frac{\sqrt{2}-1}{2\im}.
@@ -917,7 +950,8 @@ With techniques like Gaussian elimination or Cramer's rule, we can solute our sy
 	&\underset{k<0}{=}(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))+(1-\sqrt{2})\sin(\frac{-\pi}{4}k)-\cos(\frac{-\pi}{4}k)\nonumber\\
 	&=(\sqrt{2}-1)\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)
 \end{align}
-Remember \ref{eq:SinAlphaPlusMinusBeta} and \ref{eq:CosAlphaPlusMinusBeta}.
+%Remember \ref{eq:SinAlphaPlusMinusBeta} and \ref{eq:CosAlphaPlusMinusBeta}.
+Wir erinnern uns an \ref{eq:SinAlphaPlusMinusBeta} und \ref{eq:CosAlphaPlusMinusBeta}.
 \begin{align}
 	\underset{k<0}{x_2[k]}&=(\sqrt{2}-1)\cos(\frac{\pi}{4}k-\frac{\pi}{4}))-\sin(\frac{\pi}{4}k-\frac{\pi}{4})-(1-\sqrt{2})\sin(\frac{\pi}{4}k)-\cos(\frac{\pi}{4}k)\nonumber\\
 	&=(\sqrt{2}-1)\bigg[\frac{\sqrt{2}}{2}\cos(\frac{\pi}{4}k)+\frac{\sqrt{2}}{2}\sin(\frac{\pi}{4}k)\bigg]-\bigg[\frac{\sqrt{2}}{2}\sin(\frac{\pi}{4}k)-\frac{\sqrt{2}}{2}\cos(\frac{\pi}{4}k)\bigg]\nonumber\\
@@ -931,3 +965,58 @@ Remember \ref{eq:SinAlphaPlusMinusBeta} and \ref{eq:CosAlphaPlusMinusBeta}.
 		0, &k<0
 	\end{cases}
 \end{align}
+\subsection{Anhang A}
+Falls die selbst berechneten Lösungen syntaktisch nicht den nachfolgenden Lösungen in \ref{sec:AnhangB} entsprechen sollten, ist das noch kein Grund, dass die Lösung falsch sein muss. Es folgt ein kleines Beispiel, um zu zeigen, dass man schnell auf syntaktisch unterschiedliche Lösungen kommen kann.
+Sei
+\begin{align}
+	X(z) = \frac{z-1}{z-1}.
+\end{align}
+Ein geübter Mensch erkennt schnell, dass man durch Polynomdivision
+\begin{align}
+	X(z)= 1
+\end{align}
+erhält, was dem zeit-diskreten Signal
+\begin{align}
+	x[k] = \delta[k]
+\end{align}
+entspricht.
+Mit Blick auf den Nenner könnte man jedoch auch versuchen, die z-Transformierte auf die Korrespondenz
+\begin{align}
+	\epsilon[k]\quad\ztransf\quad\frac{z}{z-1}\quad |z| > 1
+\end{align}
+zurückzuführen:
+\begin{align}
+	X(z)=\frac{z-1}{z-1}=\frac{z}{z-1}-\frac{1}{z}\cdot\frac{z}{z-1}.
+\end{align}
+Wenn nun noch die Korrespondenz
+\begin{align}
+	x[k-\kappa]\quad\ztransf\quad\frac{1}{z^{\kappa}}X(z)
+\end{align}
+mit einbezogen wird, erhält man
+\begin{align}
+	x[k]=\epsilon[k]-\epsilon[k-1].
+\end{align}
+Die Lösungen sehen zunächst sehr unterschiedlich aus, jedoch erkennt man bei genauerem Hinsehen, dass nur für $k=0$ das Signal $1$ ist, während sich für $k>0$ die Sprungfunktionen aufheben und für $k<0$ beide noch $0$ sind.
+\subsection{Anhang B}
+\label{sec:AnhangB}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		$X(z)$ & $x[k]$ \\ [2ex]
+		\hline
+		$\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$ & $2\cos[\frac{\pi}{4}k]\epsilon[k]$ \\[2ex]
+		\hline
+		$\frac{z}{z-\frac{1}{2}}$ & $\bigg (\frac{1}{2} \bigg)^{k}\epsilon[k]$ \\[2ex]
+		\hline
+		$\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1} $ & $2-\bigg(\frac{1}{2}\bigg)^k\epsilon[k] $\\[2ex]
+		\hline
+		$\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}$ & $\delta[k]+\bigg(\frac{1}{2}\bigg)^k\Bigg[\frac{13}{\sqrt{3}}\sin[\frac{\pi}{3}(k-1)]-\cos[\frac{\pi}{3}(k-1)]\Bigg]\epsilon[k-1]$ \\[2ex]
+		\hline
+		$\frac{z^2}{z^2+1}$ & $\cos[\frac{\pi}{2}k]\epsilon[k-1]$\\[2ex]
+		\hline
+		$\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}$ & $\delta[k+2]+3\delta[k+1]-\delta[k]+k\epsilon[k-1]$\\[2ex]
+		\hline
+		$\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$ & $\Bigg[\cos[\frac{\pi}{4}k]+(1-\sqrt{2})\sin[\frac{\pi}{4}k]\Bigg] \epsilon[k]$\\[2ex]
+		\hline
+	\end{tabular}
+\end{center}
