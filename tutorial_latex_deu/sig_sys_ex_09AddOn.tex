@@ -2,7 +2,8 @@
 \section{UE 9: Inverse z-Transformation}
 
 \subsection{Task}
-Transform
+%Transform
+Transformieren Sie
 \begin{itemize}
 	\item[a )] $X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$
 	\item[b )] $X(z)=\frac{z}{z-\frac{1}{2}}$
@@ -12,53 +13,74 @@ Transform
 	\item[f )] $X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}$
 	\item[g )] $X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$
 \end{itemize}
-into time-discret signals.
-The task shall be performed with help of the
+%into time-discret signals.
+%The task shall be performed with help of the
+in zeit-diskrete Signale.
+Die Aufgabe soll gelöst werden mit Hilfe von
 \begin{itemize}
-	\item \textbf{correspondence table},
-	\item \textbf{Residue theorem}.
+	%\item \textbf{correspondence table},
+	%\item \textbf{Residue theorem}.
+	\item[i )] \textbf{Korrespondenztabelle},
+	\item[ii )] \textbf{Residuensatz}.
 \end{itemize}
-For a quick view there is a solution table at the end of the document.
-\subsection{Solution Using Correspondence Table/ Partial Fraction Decomposition}
-\subsubsection{Task a)}
-We shall find the time-discret signal for
+%For a quick view there is a solution table at the end of the document.
+Für einen kurzen Blick finden Sie am Ende des Dokumentes eine Lösungstabelle.
+%\subsection{Solution Using Correspondence Table}
+\subsection{Lösung mit Hilfe der Korrespondenztabelle}
+%\subsubsection{Task a)}
+\subsubsection{Aufgabe a)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
 	X(z)&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z(\e^{+\im\frac{\pi}{4}}+\e^{-\im\frac{\pi}{4}})+1}=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-z\bigg[\cos(\frac{\pi}{4})+\im\sin(\frac{\pi}{4})+\cos(\frac{\pi}{4})-\im\sin(\frac{\pi}{4})\bigg ]+1}\nonumber\\
-	&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-2z\cos(\frac{\pi}{4})+1}=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}.
+	&=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-2z\cos(\frac{\pi}{4})+1}=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}
 \end{align}
-If we take a look at the correspondence table, we find following correspondence:
+finden.
+%If we take a look at the correspondence table, we find following correspondence:
+Wenn wir einen Blick auf die Korrespondenztabelle werfen, finden wir folgende Korrespondenz:
 \begin{align}
 	\cos[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z^2-z\cos(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}.
 \end{align}
-So our solution is
+%So our solution is
+Also ist unsere Lösung
 \begin{align}
-	X(z)=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}\quad\Ztransf\quad x[k]=2\cdot\cos[\frac{\pi}{4}k]\epsilon[k]
+	X(z)=2\cdot\frac{z^2-z\cos(\frac{\pi}{4})}{z-2z\cos(\frac{\pi}{4})+1}\quad\Ztransf\quad x[k]=2\cdot\cos[\frac{\pi}{4}k]\epsilon[k].
 \end{align}
-\subsubsection{Task b)}
-We shall find the time-discret signal for
+%\subsubsection{Task b)}
+\subsubsection{Aufgabe b)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z}{z-\frac{1}{2}}.
+	X(z)=\frac{z}{z-\frac{1}{2}}
 \end{align}
-If we take a look at the correspondence table, we find following correspondence:
+finden.
+%If we take a look at the correspondence table, we find following correspondence:
+Wenn wir einen Block auf die Korrespondenztabelle werfen, finden wir folgende Korrespondenz:
 \begin{align}
 	\label{eq:GeometricProgression}
 	a^k\epsilon[k]\quad\ztransf\quad\frac{z}{z-a}.
 \end{align}
-So our solution is
+%So our solution is
+Also ist unsere Lösung
 \begin{align}
 	X(z)=\frac{z}{z-\frac{1}{2}}\quad\Ztransf\quad x[k]=\bigg (\frac{1}{2}\bigg)^k\epsilon[k].
 \end{align}
-\subsubsection{Task c)}
-We shall find the time-discret signal for
+%\subsubsection{Task c)}
+\subsubsection{Aufgabe c)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
+	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}
 \end{align}
-Now we can not find a correspondence in our table. But it seems that a partial fraction decomposition could be helpful.
+finden.
+%Now we can not find a correspondence in our table. But it seems that a partial fraction decomposition could be helpful.
+Zunächst können wir keine passende Korrespondenz in unserer Tabelle finden. Aber es scheint, dass eine Partialbruchzerlegung hier hilfreich sein könnte.
 \begin{align}
 	\frac{X(z)}{z}=\frac{1}{z-\frac{1}{2}}\cdot\frac{z}{z-1}=\frac{A}{z-\frac{1}{2}}+\frac{B}{z-1} \quad \Bigg | \quad\cdot (z-\frac{1}{2})\cdot(z-1)\nonumber\\
 	z=A\cdot(z-1)+B\cdot(z-\frac{1}{2})=z(A+B)-A-\frac{B}{2}
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1\\
@@ -74,7 +96,8 @@ We get a system of linear equations. In matrix notation:
 		0
 	\end{pmatrix}.
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A = -1 \nonumber \\
 	B = 2.
@@ -86,20 +109,26 @@ With techniques like Gaussian elimination or Cramer's rule we can solute our sys
 \begin{align}
 	X(z)=-1\cdot\frac{z}{z-\frac{1}{2}}+2\cdot\frac{z}{z-1}
 \end{align}
-Using the correspondence from \ref{eq:GeometricProgression} and 
+%Using the correspondence from \ref{eq:GeometricProgression} and
+Wir nutzen die Korrespondenz aus \ref{eq:GeometricProgression} sowie 
 \begin{align}
-	\epsilon[k]\quad\ztransf\quad\frac{z}{z-1}
+	\epsilon[k]\quad\ztransf\quad\frac{z}{z-1}.
 \end{align}
-we can find the time-discret signal:
+%We can find the time-discret signal:
+Damit können wir das zeit-diskrete Signal finden:
 \begin{align}
 	X(z)=-1\cdot\frac{1}{z-\frac{1}{2}}+2\cdot\frac{1}{z-1}\quad\Ztransf\quad x[k]=-\bigg(\frac{1}{2}\bigg)^k\epsilon[k]+2\epsilon[k].
 \end{align}
-\subsubsection{Task d)}
-We shall find the time-discret signal for
+%\subsubsection{Task d)}
+\subsubsection{Aufgabe d)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
+	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}
 \end{align}
-We polynomial division and partial fraction decomposition to make the achieve a term like in our correspondence table.
+finden.
+%We use polynomial division and partial fraction decomposition to achieve a term like in our correspondence table.
+Wir nutzen Polynomdivision und Partialbruchzerlegung, um Terme aus unserer Korrespondenztabelle zu erhalten.
 \begin{align}
 	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}=1+\frac{-\frac{1}{2}z+\frac{7}{4}}{z^2-\frac{1}{2}z+\frac{1}{4}}
 \end{align}
@@ -108,7 +137,8 @@ We polynomial division and partial fraction decomposition to make the achieve a 
 	\frac{-\frac{1}{2}z+\frac{7}{4}}{(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))}=\frac{A}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{B}{z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4})}\quad\Bigg | \quad \cdot (z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))\cdot(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))\nonumber\\
 	-\frac{1}{2}z+\frac{7}{4}=A(z-(\frac{1}{4}-\im\frac{\sqrt{3}}{4}))+B(z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4}))=z(A+B)+A(-\frac{1}{4}+\im\frac{\sqrt{3}}{4})+B(-\frac{1}{4}-\im\frac{\sqrt{3}}{4})
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1 \\
@@ -124,7 +154,8 @@ We get a system of linear equations. In matrix notation:
 		\frac{7}{4}
 	\end{pmatrix}
 \end{align}
-With techniquest like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+%With techniquest like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A=-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}}, \nonumber \\
 	B=-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}}.
@@ -132,67 +163,86 @@ With techniquest like Gaussian elimination or Cramer's rule, we can solute our s
 \begin{align}
 	X(z)=1+\frac{1}{z}\cdot\frac{(-\frac{1}{4}-\im\frac{13}{4\cdot\sqrt{3}})\cdot z}{z-(\frac{1}{4}+\im\frac{\sqrt{3}}{4})}+\frac{1}{z}\cdot\frac{(-\frac{1}{4}+\im\frac{13}{4\cdot\sqrt{3}})\cdot z}{z-(\frac{1}{4}z\im\frac{\sqrt{3}}{4})}=1+\frac{1}{4z}\cdot\frac{(-1-\im\frac{13}{\sqrt{3}})\cdot z}{z-(\frac{1}{2}\e^{+\im\frac{\pi}{4}}}+\frac{1}{4z}\cdot\frac{(-1+\im\frac{13}{\sqrt{3}})\cdot z}{z-(\frac{1}{2}\e^{-\im\frac{\pi}{3}})}
 \end{align}
-We use the correspondences
+%We use the correspondences
+Wir nutzen die Korrespondenzen
 \begin{align}
 	\delta[k]\quad\ztransf\quad1\quad\mathrm{ROC}=\mathbb{C},
 \end{align}
 \begin{align}
 	a^k\epsilon[k]\quad\ztransf\quad\frac{z}{z-a}\quad|z|>1
 \end{align}
-and
+%and
+und
 \begin{align}
 	x[k-\kappa]\quad\ztransf\quad z^{-\kappa}.
 \end{align}
-This leads to
+%This leads to
+Dies führt zu
 \begin{align}
 	x[k]&=\delta[k]+\frac{-1-\im\frac{13}{\sqrt{3}}}{2\cdot2}\bigg(\frac{1}{2}\bigg)^{k-1}\e^{+\im\frac{\pi}{3}(k-1)}\epsilon[k-1]+\frac{-1+\im\frac{13}{\sqrt{3}}}{2\cdot2}\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\epsilon[k-1] \nonumber\\
 	&=\delta[k]+\bigg(\frac{1}{2}\bigg)^{k}\Bigg[-\frac{1}{2}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}+\e^{-\im\frac{\pi}{3}(k-1)}\bigg)+\frac{13}{\sqrt{3}\cdot2\im}\bigg(\e^{+\im\frac{\pi}{3}(k-1)}-\e^{-\im\frac{\pi}{3}(k-1)}\bigg)\Bigg ]\epsilon[k-1]\nonumber\\
 	&=\delta[k]+\bigg(\frac{1}{2}\bigg)^k\Bigg[\frac{13}{\sqrt{3}}\sin(\frac{\pi}{3}(k-1))-\cos(\frac{\pi}{3}(k-1))\Bigg]\epsilon[k-1]
 \end{align}
 
-\subsubsection{Task e)}
-We shall find the time-discret signal for
+%\subsubsection{Task e)}
+\subsubsection{Aufgabe e)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z^2}{z^2+1}.
+	X(z)=\frac{z^2}{z^2+1}
 \end{align}
-If we look at the correspondence 
+finden.
+%If we look at the correspondence
+Wir werfen einen Blick auf die Korrespondenz 
 \begin{align}
 	\cos [\Omega_0k]\epsilon[k]\quad\ztransf\quad \frac{z^2-z\cos(\Omega_0))}{z^2-2z\cos(\Omega_0)+1}\quad\quad |z| > 1
 \end{align}
-we have the left site if we set
+%we have the left site if we set
+und erkennen, dass wir diese erreichen, indem wir
 \begin{align}
-	\cos(\Omega_0)=0.
+	\cos(\Omega_0)=0
 \end{align}
-We get
+setzen.
+%We get
+Wir erhalten
 \begin{align}
 	\Omega_0 = \frac{\pi}{2} \pm \pi \cdot m \quad m \in \mathbb{Z}.
 \end{align}
-At the end, our time-discret signal is
+%At the end, our time-discret signal is
+Somit erhalten wir unser zeit-diskretes Signal
 \begin{align}
 	x[k]=\cos[(\frac{\pi}{2}\pm \pi\cdot m)k]\epsilon[k]\quad m \in \mathbb{Z}.
 \end{align}
-\subsubsection{Task f)}
-We shall find the time-discret signal for
+%\subsubsection{Task f)}
+\subsubsection{Aufgabe f)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}.
+	X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}
 \end{align}
-We can simplify the denominator to
+finden.
+%We can simplify the denominator to
+Wir können den Nenner vereinfachen:
 \begin{align}
 	(z-1)^2.
 \end{align}
-If we take a look at the correspondences
+%If we take a look at the correspondences
+Mit den Korrespondenzen
 \begin{align}
 	k\epsilon[k]\quad\ztransf\quad\frac{z}{(z-1)^2}\quad |z|>1
 \end{align}
-and
+%and
+und
 \begin{align}
 	x[k-\kappa]\quad\ztransf\quad z^{-\kappa}X(z)
 \end{align}
-we rewrite our function to use these two:
+%we rewrite our function to use these two:
+können wir unsere Funktion umformen:
 \begin{align}
 	X(z)=z^3\cdot\frac{z}{z^2+1}+z^2\cdot\frac{z}{z^2+1}-6z\cdot\frac{z}{z^2+1}+6\frac{z}{z^2+1}-z^{-1}\cdot\frac{z}{z^2+1}.
 \end{align}
-So our time-discret signal is
+%So our time-discret signal is
+Somit können wir die Funktion in ein zeit-diskretes Signal transformieren:
 \begin{align}
 	X(z)=z^3\cdot\frac{z}{z^2+1}+z^2\cdot\frac{z}{z^2+1}-6z\cdot\frac{z}{z^2+1}+6\frac{z}{z^2+1}-z^{-1}\cdot\frac{z}{z^2+1} \nonumber
 \end{align}
@@ -202,42 +252,62 @@ So our time-discret signal is
 \begin{align}
 	x[k]=(k+3)\epsilon[k+3]+(k+2)\epsilon[k+2]-6(k+1)\epsilon[k+1]+6k\epsilon[k]-(k-1)\epsilon[k-1].
 \end{align}
-\subsubsection{Task g)}
-We shall find the time-discret signal for
+%\subsubsection{Task g)}
+\subsubsection{Aufgabe g)}
+%We shall find the time-discret signal for
+Wir wollen des zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}.
+	X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}
 \end{align}
-We can reshape the function:
+finden.
+%We can reshape the function:
+Wir können die Funktion umformen:
 \begin{align}
 	X(z)=\frac{z^2-z}{z^2-2z\cos(\frac{\pi}{4})+1}=\frac{z^2-z\cos(\frac{\pi}{4})}{z^2-2z\cos(\frac{\pi}{4})+1}-(1-\frac{\sqrt{2}}{2})\frac{z}{z^2-2z\cos(\frac{\pi}{4})+1}\cdot\frac{\sin(\frac{\pi}{4})}{\sin(\frac{\pi}{4})}.
 \end{align}
-Using the correspondeces
+%Using the correspondeces
+Wir nutzen die Korrespondenzen
 \begin{align}
 	\sin[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z\sin(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}\quad |z| > 1
 \end{align}
-and
+%and
+und
 \begin{align}
 	\cos[\Omega_0k]\epsilon[k]\quad\ztransf\quad\frac{z^2-z\cos(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}\quad |z| > 1
 \end{align}
-leads to
+%leads to
+und erhalten
 \begin{align}
 	X(z)\quad\Ztransf\quad x[k]=\cos[\frac{\pi}{4}k]\epsilon[k]+\sin[\frac{\pi}{4}k]\epsilon[k]-\sqrt{2}\sin[\frac{\pi}{4}k]\epsilon[k].
 \end{align}
 \subsection{Solution Using Residue Theorem}
-If all isolated singularities are surrounded by the ROC, then we can calculate the inverse z-Transformation using the Residue theorem.
-\subsubsection{Task a)}
-We shall find the time-discret signal for
+%If all isolated singularities are surrounded by the ROC, then we can calculate the inverse z-Transformation using the Residue theorem.
+Falls alle isolierten Singularitäten vom Konvergenzbereich eingeschlossen sind, können wir die inverse z-Transformation berechnen, indem wir den Residuensatz anwenden.
+%\subsubsection{Task a)}
+\subsubsection{Aufgabe a)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}.
+	X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}
 \end{align}
-$\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$ are poles of order 1.\\
+finden.
+%$\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$ are poles of order 1.\\
+$\e^{+\im\frac{\pi}{4}}$ und $\e^{-\im\frac{\pi}{4}}$ sind Polstellen erster Ordnung.\\
+%\begin{align}
+%	0\text{ is }
+%	\begin{cases}
+%	\text{no singularity}, &k > 0, \\
+%	\text{removable singularity}, &k = 0, \\
+%	\text{pole of order }|k|, &k <0. 
+%\end{cases}
 \begin{align}
 	0\text{ is }
 	\begin{cases}
-	\text{no singularity}, &k > 0, \\
-	\text{removable singularity}, &k = 0, \\
-	\text{pole of order }|k|, &k <0. 
-\end{cases}
+		\text{keine isolierte Singularität}, &k > 0, \\
+		\text{eine hebbare Singularität}, &k = 0, \\
+		\text{eine Polstelle }|k|\text{-ter Ordnung}, &k <0. 
+	\end{cases}
+\end{align}
 \end{align}
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\e^{+\im\frac{\pi}{4}})&=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{4}}}2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{-\im\frac{\pi}{4}})}z^{k-1}=2\cdot\frac{\e^{+\im\frac{\pi}{4}}\cdot(\e^{+\im\frac{\pi}{4}}-\frac{1}{\sqrt{2}})}{\e^{+\im\frac{\pi}{4}}-\e^{-\im\frac{\pi}{4}}}\e^{+\im\frac{\pi}{4}(k-1)} \nonumber \\
@@ -256,12 +326,14 @@ $\e^{+\im\frac{\pi}{4}}$ and $\e^{-\im\frac{\pi}{4}}$ are poles of order 1.\\
 	\underset{k<0}{\mathrm{Res}(X(z)z^{k-1}),0}&=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}z^{|k|-1}}\Bigg [2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{z^2-\sqrt{2}z+1}\cdot\frac{z^{|k|}}{z^{|k|+1}}\Bigg]\nonumber\\
 	&=\lim\limits_{z\rightarrow0}\frac{2}{(|k|-1)!}\frac{\mathrm{d}^{|k|-1}}{\mathrm{d}^{|k|-1}}\Bigg [\frac{z-\frac{1}{\sqrt{2}}}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}\Bigg]
 \end{align}
-We use partial fraction decomposition to make the differentiation easier.
+%We use partial fraction decomposition to make the differentiation easier.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen.
 \begin{align}
 	\frac{z-\frac{1}{\sqrt{2}}}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}=\frac{A}{z-\e^{+\im\frac{\pi}{4}}}+\frac{B}{z-\e^{-\im\frac{\pi}{4}}}\quad\Bigg | \quad \cdot(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}}) \nonumber\\
 	z-\frac{}{\sqrt{2}}=A(z-\e^{-\im\frac{\pi}{4}})+B(z-\e^{-\im\frac{\pi}{4}})=z(A+B)+(-A\e^{-\im\frac{\pi}{4}}-B\e^{+\im\frac{\pi}{4}})
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1 \\
@@ -277,7 +349,8 @@ We get a system of linear equations. In matrix notation:
 		-\frac{1}{\sqrt{2}}
 	\end{pmatrix}
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A=\frac{1}{2} \nonumber \\
 	B=\frac{1}{2}
@@ -306,12 +379,14 @@ With techniques like Gaussian elimination or Cramer's rule we can solute our sys
 	&=x_1[k]+-2\cos(\frac{\pi}{4}|k|) \nonumber\\
 	&=\sqrt{2}\bigg(\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))\bigg)-2\cos(\frac{\pi}{4}|k|)
 \end{align}
-It is (cf.~\cite{Bronstein2}):
+%It is (cf.~\cite{Bronstein2}):
+Es gelten (cf.~\cite{Bronstein2}):
 \begin{align}
 	\label{eq:SinAlphaPlusMinusBeta}
 	\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta
 \end{align}
-and
+%and
+und
 \begin{align}
 	\label{eq:CosAlphaPlusMinusBeta}
 	\cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\sin\alpha\sin\beta.
@@ -329,21 +404,32 @@ and
 		0, &k<0
 	\end{cases}
 \end{align}
-\subsubsection{Task b)}
-We shall find the time-discret signal for
+%\subsubsection{Task b)}
+\subsubsection{Aufgabe b)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z}{z-\frac{1}{2}}.
+	X(z)=\frac{z}{z-\frac{1}{2}}
 \end{align}
-$\frac{1}{2}$ is a pole of order 1. \\
+finden.
+%$\frac{1}{2}$ is a pole of order 1. \\
+$\frac{1}{2}$ ist eine Polstelle erster Ordnung. \\
+%\begin{align}
+%	0\text{ is }
+%	\begin{cases}
+%		\text{no isolated singularity}, &k > 0 \\
+%		\text{removable singularity}, &k=0 \\
+%		\text{pole of order }|k|, &k < 0.
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0\text{ is }
+	0\text{ ist }
 	\begin{cases}
-		\text{no isolated singularity}, &k > 0 \\
-		\text{removable singularity}, &k=0 \\
-		\text{pole of order }|k|, &k < 0.
+		\text{keine isolierte Singularität}, &k > 0 \\
+		\text{eine hebbare Singularität}, &k=0 \\
+		\text{eine Polstelle }|k|\text{-ter Ordnung}, &k < 0.
 	\end{cases}
 \end{align}
-
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}z\cdot z^{k-1}=\bigg (\frac{1}{2} \bigg)^k
 \end{align}
@@ -370,22 +456,32 @@ $\frac{1}{2}$ is a pole of order 1. \\
 		0, &k<0
 	\end{cases}
 \end{align}
-\subsubsection{Task c)}
-We shall find the time-discret signal for 
+%\subsubsection{Task c)}
+\subsubsection{Aufgabe c)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für 
 \begin{align}
-	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}.
+	X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}
 \end{align}
-
-$\frac{1}{2}$ and $1$ are poles of order $1$.
+finden.
+%$\frac{1}{2}$ and $1$ are poles of order $1$.
+$\frac{1}{2}$ und $1$ sind Polstellen erster Ordnung.
+%\begin{align}
+%	0\text{ is }
+%	\begin{cases}
+%		\text{no isolated singularity}, &k>0 \\
+%		\text{removeable singularity}, &-1\leq k \leq0 \\
+%		\text{pole of order }|k|-1, &k < -1.
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0\text{ is }
+	0\text{ ist }
 	\begin{cases}
-		\text{no isolated singularity}, &k>0 \\
-		\text{removeable singularity}, &-1\leq k \leq0 \\
-		\text{pole of order }|k|-1, &k < -1.
+		\text{keine isolierte Singularität}, &k>0 \\
+		\text{eine hebbare Singularität}, &-1\leq k \leq0 \\
+		\text{eine Polstelle }(|k|-1)\text{-ter Ordnung}, &k < -1.
 	\end{cases}
 \end{align}
-
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})=\lim\limits_{z\rightarrow\frac{1}{2}}\frac{z^2}{z-1}z^{k-1}=\frac{\bigg (\frac{1}{2}\bigg)^{k+1}}{\frac{1}{2}-1}=-\bigg (\frac{1}{2}\bigg)^k
 \end{align}
@@ -395,12 +491,14 @@ $\frac{1}{2}$ and $1$ are poles of order $1$.
 \begin{align}
 	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}\frac{1}{z^{|k|+1}}\cdot z^{|k|-1}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{1}{(z-1)\cdot(z-\frac{1}{2})}\Bigg]
 \end{align}
-We use partial fraction decomposition to make the differentiation easier.
+%We use partial fraction decomposition to make the differentiation easier.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen.
 \begin{align}
 	\frac{1}{(z-\frac{1}{2})\cdot(z-1)}=\frac{A}{z-\frac{1}{2}}+\frac{B}{z-1}\quad \Bigg | \quad \cdot(z-1)\cdot(z-\frac{1}{2}) \nonumber \\
 	1 = A(z-1)+B(z-\frac{1}{2})=z(A+B)+(-A-\frac{B}{2})
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1 \\
@@ -416,7 +514,8 @@ We get a system of linear equations. In matrix notation:
 		1
 	\end{pmatrix}
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A = -2, \nonumber \\
 	B = 2.
@@ -440,8 +539,9 @@ With techniques like Gaussian elimination or Cramer's rule we can solute our sys
 \begin{align}
 	\underset{k<0}{x_2[k]}=\mathrm{Res}(X(z)z^{k-1},\frac{1}{2})+\mathrm{Res}(X(z)z^{k-1},1)+\mathrm{Res}(X(z)z^{k-1},0)=2-\bigg (\frac{1}{2})^k+2^{|k|}-2=0
 \end{align}
-It also is $2-\bigg (\frac{1}{2}\bigg)^{-1}=0$. \\
-Summary:
+%It also is $2-\bigg (\frac{1}{2}\bigg)^{-1}=0$. \\
+Es gilt außerdem: $2-\bigg (\frac{1}{2}\bigg)^{-1}=0$.
+Zusammenfassung:
 \begin{align}
 	x[k]=
 	\begin{cases}
@@ -449,16 +549,26 @@ Summary:
 		0, &k< 0
 	\end{cases}
 \end{align}
-\subsubsection{Task d)}
-We shall find the time-discret signal for
+%\subsubsection{Task d)}
+\subsubsection{Aufgabe d)}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für
 \begin{align}
-	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}.
+	X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}
 \end{align}
-$\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are poles of order 1.
+finden.
+%$\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are poles of order 1.
+$\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ und $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ sind Polstellen erster Ordnung.
+%\begin{align}
+%	0 \text{ is }\begin{cases}
+%		\text{no isolated singularity}, &k>0 \\
+%		\text{pole of order } |k|+1, &k\leq 0.
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0 \text{ is }\begin{cases}
-		\text{no isolated singularity}, &k>0 \\
-		\text{pole of order |k|+1}, &k\leq 0.
+	0 \text{ ist }\begin{cases}
+		\text{keine Singularität}, &k>0 \\
+		\text{eine Polstelle} (|k|+1)\text{-ter Ordnung}, &k\leq 0.
 	\end{cases}
 \end{align}
 \begin{align}
@@ -477,7 +587,8 @@ $\frac{1}{4}+\im\frac{\sqrt{3}}{4}$ and $\frac{1}{4}-\im\frac{\sqrt{3}}{4}$ are 
 	&=2\cdot\frac{1}{\sqrt{3}}\cdot\bigg [\frac{1}{8}+\im\frac{\sqrt{3}}{8}+\frac{1}{4}-\im\frac{\sqrt{3}}{4}-2\bigg]\bigg(\frac{1}{2}\bigg )^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}\nonumber\\
 	&=\frac{1}{\im\sqrt{3}}\cdot\bigg [-\frac{13}{4}-\im\frac{\sqrt{3}}{4}\bigg]\bigg(\frac{1}{2}\bigg)^{k-1}\e^{-\im\frac{\pi}{3}(k-1)}
 \end{align}
-We use partial fraction decomposition to make the differentiation easier. Take a look at \ref{eq:TaskDPartialFractionDecomposition} for the solution.
+%We use partial fraction decomposition to make the differentiation easier. Take a look at \ref{eq:TaskDPartialFractionDecomposition} for the solution.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen. Wir nutzen die Lösung aus \ref{eq:TaskDPartialFractionDecomposition}.
 \begin{align}
 	\underset{k\leq0}{\mathrm{Res}(X(z)z^{k-1},0)}=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}} \Bigg [ \frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}\cdot\frac{z^{|k|+1}}{z^{|k|+1}}\Bigg ]=\lim\limits_{z\rightarrow0}\frac{1}{|k|!}\frac{\mathrm{d}^{|k|}}{\mathrm{d}z^{|k|}}\Bigg [1+\frac{-\frac{1}{2}z+\frac{7}{4}}{z^2-\frac{1}{2}z+\frac{1}{4}} \Bigg]\nonumber\\
 \end{align}
@@ -532,20 +643,30 @@ We use partial fraction decomposition to make the differentiation easier. Take a
 		0, &k<0
 	\end{cases}
 \end{align}
-\subsubsection{Task e)}
-We shall find the time-discret signal for 
+%\subsubsection{Task e)}
+\subsubsection{Aufgabe )}
+%We shall find the time-discret signal for
+Wir wollen das zeit-diskrete Signal für 
 \begin{align}
-	X(z)=\frac{z^2}{z^2+1}.
+	X(z)=\frac{z^2}{z^2+1}
 \end{align}
-$\im$ and $-\im$ are poles of order 1.
+finden.
+%$\im$ and $-\im$ are poles of order 1.
+$\im$ und $-\im$ sind Polstellen erster Ordnung.
+%\begin{align}
+%	0 \text{ is }\begin{cases}
+%		\text{no isolated singularity}, &k> 0,\\
+%		\text{removeable singularity}, &-1\leq k \leq 0,\\
+%		\text{pole of order } |k|-1, &k<-1.
+%	\end{cases}
+%\end{align}
 \begin{align}
-	0 \text{ is }\begin{cases}
-		\text{no isolated singularity}, &k> 0,\\
-		\text{removeable singularity}, &-1\leq k \leq 0,\\
-		\text{pole of order |k|-1}, &k<-1.
+	0 \text{ ist }\begin{cases}
+		\text{keine isolierte Singularität}, &k> 0,\\
+		\text{eine hebbare Singularität}, &-1\leq k \leq 0,\\
+		\text{eine Polstelle } (|k|-1)\text{-ter Ordnung}, &k<-1.
 	\end{cases}
 \end{align}
-
 \begin{align}
 	\mathrm{Res}(X(z)z^{k-1},\im)=\lim\limits_{z\rightarrow\im}\frac{z^2}{z+\im}z^{k-1}=\lim\limits_{z\rightarrow\e^{+\im\frac{\pi}{2}}}\frac{z^{k+1}}{z+\im}=\frac{1}{2\im}\e^{+\im\frac{\pi}{2}(k+1)}
 \end{align}
@@ -555,12 +676,14 @@ $\im$ and $-\im$ are poles of order 1.
 \begin{align}
 	\underset{k<-1}{\mathrm{Res}(X(z)z^{k-1},0})=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathrm{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{z^2}{z^2+1} \cdot\frac{z^{|k|-1}}{z^{|k|+1}}\Bigg]=\lim\limits_{z\rightarrow0}\frac{1}{(|k|-2)!}\frac{\mathbb{d}^{|k|-2}}{\mathrm{d}z^{|k|-2}}\Bigg [\frac{1}{z^2+1}\Bigg]
 \end{align}
-We us partial fraction decomposition to make the differentiation easier.
+%We us partial fraction decomposition to make the differentiation easier.
+Wir nutzen Partialbruchzerlegung, um uns das Ableiten zu vereinfachen.
 \begin{align}
 	\frac{1}{(z-\im)\cdot(z+\im)}=\frac{A}{z-\im}+\frac{B}{z+\im}\quad\Bigg | \quad \cdot(z-\im)\cdot(z+\im) \nonumber \\
 	1=A(z+\im)+B(z-\im)=z(A+B)+(\im A -\im B)
 \end{align}
-We get a system of linear equations. In matrix notation:
+%We get a system of linear equations. In matrix notation:
+Wir erhalten ein lineares Gleichungssystem, hier dargestellt in der Matrixnotation:
 \begin{align}
 	\begin{pmatrix}
 		1 & 1 \\
@@ -576,7 +699,8 @@ We get a system of linear equations. In matrix notation:
 		1
 	\end{pmatrix}.
 \end{align}
-With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+%With techniques like Gaussian elimination or Cramer's rule, we can solute our system of linear equations and achieve
+Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Eliminationsverfahren oder der Cramerschen Regel lösen und wir erhalten
 \begin{align}
 	A= -\frac{1}{2}\im, \nonumber \\
 	B = \frac{1}{2}\im.
