@@ -1,21 +1,22 @@
 \clearpage
 \section{UE 9: Inverse z-Transformation}
 
-\subsection{Task}
+%\subsection{Task}
+\subsection{Aufgabe}
 %Transform
 Transformieren Sie
 \begin{itemize}
-	\item[a )] $X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$
+	\item[a )] $X(z)=2\cdot\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$	
 	\item[b )] $X(z)=\frac{z}{z-\frac{1}{2}}$
 	\item[c )] $X(z)=\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1}$
 	\item[d )] $X(z)=\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}$
 	\item[e )] $X(z)=\frac{z^2}{z^2+1}$
 	\item[f )] $X(z)=\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}$
-	\item[g )] $X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$
+	\item[g )] $X(z)=\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$ 
 \end{itemize}
 %into time-discret signals.
 %The task shall be performed with help of the
-in zeit-diskrete Signale.
+in zeit-diskrete Signale. Der Konvergenzbereich sei bei allen Aufgaben bis auf c) $|z|>1$ und bei Aufgabe c) $|z|>\frac{1}{2}$.
 Die Aufgabe soll gelöst werden mit Hilfe von
 \begin{itemize}
 	%\item \textbf{correspondence table},
@@ -23,10 +24,19 @@ Die Aufgabe soll gelöst werden mit Hilfe von
 	\item[i )] \textbf{Korrespondenztabelle},
 	\item[ii )] \textbf{Residuensatz}.
 \end{itemize}
+Berechen Sie außerdem die inverse z-Transformation von
+\begin{itemize}
+	\item[h )] $X(z)=\e^{1/z}$
+\end{itemize}
+mit Hilfe des 
+\begin{itemize}
+	\item[ii )] \textbf{Residuensatz}.
+\end{itemize}
 %For a quick view there is a solution table at the end of the document.
 Für einen kurzen Blick finden Sie am Ende des Dokumentes eine Lösungstabelle.
 %\subsection{Solution Using Correspondence Table}
 \subsection{Lösung mit Hilfe der Korrespondenztabelle}
+Es wird die Korrespondenztabelle der Vorlesung, die im StudIp zur Verfügung steht, genutzt. Diese deckt zwar nur allgemeine Fälle ab, ist damit jedoch übersichtlicher gehalten. In anderen Büchern (z.B. \cite[S. 1147-1149]{Bronstein} oder \cite[S. 237-238]{UlrichWeber} ) gibt es weit umfangreichere Korrespondenztabellen, diese können jedoch nicht in der Prüfung verwendet werden.
 %\subsubsection{Task a)}
 \subsubsection{Aufgabe a)}
 %We shall find the time-discret signal for
@@ -280,9 +290,16 @@ und erhalten
 \begin{align}
 	X(z)\quad\Ztransf\quad x[k]=\cos[\frac{\pi}{4}k]\epsilon[k]+\sin[\frac{\pi}{4}k]\epsilon[k]-\sqrt{2}\sin[\frac{\pi}{4}k]\epsilon[k].
 \end{align}
-\subsection{Solution Using Residue Theorem}
+\newpage
+%\subsection{Solution Using Residue Theorem}
+\subsection{Lösung mit Hilfe des Residuensatz}
 %If all isolated singularities are surrounded by the ROC, then we can calculate the inverse z-Transformation using the Residue theorem.
-Falls alle isolierten Singularitäten vom Konvergenzbereich eingeschlossen sind, können wir die inverse z-Transformation berechnen, indem wir den Residuensatz anwenden.
+Allgemein berechnet sich die inverse z-Transformation durch ein komplexes Kurvenintegral entlang einer geschlossenen Kurve $C$ im Konvergenzbereich (vgl. \cite[S. 192]{UlrichWeber2} ).
+\begin{align}
+	x[k]=\mathcal{Z}^{-1}\{X(z)\}=\frac{1}{2\pi\im}\oint_C X(z)z^{k-1}\mathrm{d}z
+\end{align}
+Das komplexe Kurvenintegral kann mit Hilfe des Residuensatz berechnet werden.\\
+Für die Berechnung der Residuen finden sich z.B. in \cite[S. 767-768]{Bronstein3}, \cite[S. 37-38]{UlrichWeber2} oder \cite[S. 137-138]{Fritzsche2019}.
 %\subsubsection{Task a)}
 \subsubsection{Aufgabe a)}
 %We shall find the time-discret signal for
@@ -380,7 +397,7 @@ Das lineare Gleichungssystem lässt sich mit Techniken wie dem Gaußschem Elimin
 	&=\sqrt{2}\bigg(\cos(\frac{\pi}{4}(k-1))-\sin(\frac{\pi}{4}(k-1))\bigg)-2\cos(\frac{\pi}{4}|k|)
 \end{align}
 %It is (cf.~\cite{Bronstein2}):
-Es gelten (cf.~\cite{Bronstein2}):
+Es gelten (vgl. \cite[S. 81]{Bronstein2}):
 \begin{align}
 	\label{eq:SinAlphaPlusMinusBeta}
 	\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta
@@ -965,6 +982,53 @@ Wir erinnern uns an \ref{eq:SinAlphaPlusMinusBeta} und \ref{eq:CosAlphaPlusMinus
 		0, &k<0
 	\end{cases}
 \end{align}
+\subsubsection{Aufgabe h)}
+Wir wollen das zeit-diskrete Signal für 
+\begin{align}
+	X(z)=\e^{\frac{1}{z}}
+\end{align}
+finden. $0$ ist hier eine wesentliche Singularität, weil es eine isolierte Singularität und weder eine hebbare Singularität noch eine Polstelle ist. Wir müssen also die Laurent Reihe bilden und uns den Koeffizient $c_{-1}$ anschauen. \\
+Die Exponentialfunktion lässt sich auch als Potenzreihe schreiben (vgl. \cite[S. 1077]{Bronstein}):
+\begin{align}
+	\e^{z}=1+z+\frac{z^2}{2!}+\frac{z^3}{3!}+\cdot\cdot\cdot+\frac{z^{n}}{n!}+\cdot\cdot\cdot=\sum_{i=0}^{+\infty}\frac{z^i}{i!}\quad |z| < \infty.
+\end{align}
+Wenn wir nun $z$ durch $\frac{1}{z}$ substituieren, können wir unsere Funktion als Laurent-Reihe schreiben:
+\begin{align}
+	X(z)=\sum_{i=0}^{+\infty}\frac{z^{-i}}{i!}=1+z^{-1}+\frac{z^{-2}}{2!}+\frac{z^{-3}}{3!}+\cdot\cdot\cdot+\frac{z^{-n}}{n!}\quad|z|>0.
+\end{align}
+Das Residuum von $X(z)z^{k-1}$ finden wir nun, indem wir uns für alle $k$ den Koeffizienten $c_{-1}$ der Laurent Reihe, die um $0$ entwickelt wurde, anschauen.
+\begin{align}
+	X(z)z^{k-1}=\sum_{i=0}^{\infty}\frac{z^k}{z^{i+1}\cdot i!}
+\end{align}
+Wir betrachten zunächst den Fall, dass $k\geq0$ ist. In diesem Fall ist liegt der Koeffizient $c_{-1}$ an der Stelle, an dem $k=i$ ist, denn
+\begin{align}
+	\frac{z^k}{z^{i+1}}\underset{k=i}{=}\frac{1}{z}=z^{-1}.
+\end{align}
+Somit ist
+\begin{align}
+	\mathrm{Res}(X(z)z^{k-1},0)\underset{k\geq}{=}\frac{1}{k!}
+\end{align}
+Betrachten wir nun den Fall, dass $k<0$ ist.
+\begin{align}
+	X(z)z^{k-1}\underset{k<0}{=}\sum_{i=0}^{\infty}\frac{1}{z^{|k|+i+1}\cdot i!}
+\end{align}
+Damit in der Reihe $c_{-1}\neq 0$ ist, muss folgende Gleichung erfüllt sein:
+\begin{align}
+	|k|+i+1 = 1.
+\end{align}
+Also muss $|k| = -i$ erfüllt sein. Weil $|k|$ immer positiv ist und $k<0$, müsste in diesem Fall gelten:
+\begin{align}
+	k = i.
+\end{align}
+Damit wäre $i$ aber negativ. $i$ beginnt in unserer Reihe jedoch mit $0$. Somit ist für $k<0$ der Koeffizient $c_{-1}=0$ und somit ist auch $\mathrm{Res}(X(z)z^{k-1},0)\underset{k<0}{=}0$.
+Zusammenfassung:
+\begin{align}
+	x[k]=\mathrm{Res}(X(z)z^{k-1},0)=\begin{cases}
+		\frac{1}{k!}, &k\geq0 \\
+		0, &k<0
+	\end{cases}
+\end{align}
+\newpage
 \subsection{Anhang A}
 Falls die selbst berechneten Lösungen syntaktisch nicht den nachfolgenden Lösungen in \ref{sec:AnhangB} entsprechen sollten, ist das noch kein Grund, dass die Lösung falsch sein muss. Es folgt ein kleines Beispiel, um zu zeigen, dass man schnell auf syntaktisch unterschiedliche Lösungen kommen kann.
 Sei
@@ -997,26 +1061,29 @@ mit einbezogen wird, erhält man
 	x[k]=\epsilon[k]-\epsilon[k-1].
 \end{align}
 Die Lösungen sehen zunächst sehr unterschiedlich aus, jedoch erkennt man bei genauerem Hinsehen, dass nur für $k=0$ das Signal $1$ ist, während sich für $k>0$ die Sprungfunktionen aufheben und für $k<0$ beide noch $0$ sind.
+\newpage
 \subsection{Anhang B}
 \label{sec:AnhangB}
 \begin{center}
-	\begin{tabular}{|c|c|}
+	\begin{tabular}{|l|l|}
 		\hline
-		$X(z)$ & $x[k]$ \\ [2ex]
+		$\mathbf{X(z)}$ & $\mathbf{x[k]}$ \\ 
 		\hline
-		$\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$ & $2\cos[\frac{\pi}{4}k]\epsilon[k]$ \\[2ex]
+		$\frac{z\cdot(z-\frac{1}{\sqrt{2}})}{(z-\e^{+\im\frac{\pi}{4}})\cdot(z-\e^{-\im\frac{\pi}{4}})}$ & $2\cos[\frac{\pi}{4}k]\epsilon[k]$ \\
 		\hline
-		$\frac{z}{z-\frac{1}{2}}$ & $\bigg (\frac{1}{2} \bigg)^{k}\epsilon[k]$ \\[2ex]
+		$\frac{z}{z-\frac{1}{2}}$ & $\bigg (\frac{1}{2} \bigg)^{k}\epsilon[k]$ \\
 		\hline
 		$\frac{z}{z-\frac{1}{2}}\cdot\frac{z}{z-1} $ & $2-\bigg(\frac{1}{2}\bigg)^k\epsilon[k] $\\[2ex]
 		\hline
-		$\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}$ & $\delta[k]+\bigg(\frac{1}{2}\bigg)^k\Bigg[\frac{13}{\sqrt{3}}\sin[\frac{\pi}{3}(k-1)]-\cos[\frac{\pi}{3}(k-1)]\Bigg]\epsilon[k-1]$ \\[2ex]
+		$\frac{z^2-z+2}{z^2-\frac{1}{2}z+\frac{1}{4}}$ & $\delta[k]+\bigg(\frac{1}{2}\bigg)^k\Bigg[\frac{13}{\sqrt{3}}\sin[\frac{\pi}{3}(k-1)]-\cos[\frac{\pi}{3}(k-1)]\Bigg]\epsilon[k-1]$ \\
 		\hline
-		$\frac{z^2}{z^2+1}$ & $\cos[\frac{\pi}{2}k]\epsilon[k-1]$\\[2ex]
+		$\frac{z^2}{z^2+1}$ & $\cos[\frac{\pi}{2}k]\epsilon[k-1]$\\
 		\hline
-		$\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}$ & $\delta[k+2]+3\delta[k+1]-\delta[k]+k\epsilon[k-1]$\\[2ex]
+		$\frac{z^4+z^3-6z^2+6z-1}{z^2-2z+1}$ & $\delta[k+2]+3\delta[k+1]-\delta[k]+k\epsilon[k-1]$\\
 		\hline
-		$\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$ & $\Bigg[\cos[\frac{\pi}{4}k]+(1-\sqrt{2})\sin[\frac{\pi}{4}k]\Bigg] \epsilon[k]$\\[2ex]
+		$\frac{z\cdot(z-1)}{z^2-\sqrt{2}z+1}$ & $\Bigg[\cos[\frac{\pi}{4}k]+(1-\sqrt{2})\sin[\frac{\pi}{4}k]\Bigg] \epsilon[k]$\\
+		\hline
+		$\e^{\frac{1}{z}}$ & $\frac{1}{k!}\epsilon[k]$ \\ 
 		\hline
 	\end{tabular}
 \end{center}
