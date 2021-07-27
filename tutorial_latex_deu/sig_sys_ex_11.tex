@@ -1866,7 +1866,7 @@ Big Data und Machine Learning Probleme gilt, vgl. \cite{Strang2019}.
 %
 Die DFT und die Singulärwertzerlegung (englisch
 Singular Value Decomposition (SVD)) sind im Zeitalter der Data Science fundamentale
-Werkzeuge die wir im Schlaf beherrschen müssen!!
+Werkzeuge, die wir im Schlaf beherrschen müssen!!
 %
 
 Da nun $x[k]$ und $X[\mu]$ periodisch in ihrer Länge $N$ aufgefasst werden,
@@ -2136,7 +2136,7 @@ woraus
 \end{align}
 folgt.
 Wenn wir nun noch zur Kenntnis nehmen, dass $\bm{F}$ eine symmetrische Matrix ist,
-also $\bm{F}=\bm{F}^T$ können wir den $^H$-Operator (für die adjungierte
+also $\bm{F}=\bm{F}^T$, können wir den $^H$-Operator (für die adjungierte
 Matrix), also konjugiert-komplex und transponiert benutzen
 \begin{align}
 \bm{F}\bm{F}^H = N \bm{I},\qquad
@@ -2144,8 +2144,8 @@ Matrix), also konjugiert-komplex und transponiert benutzen
 \bm{F}^{-1} = \frac{1}{N} \bm{F}^H.
 \end{align}
 Die letzte Eigenschaft ist sehr wichtig, weil wir die Inverse durch eine
-gewichtete Adjungierte darstellen können, das ist für Computerberechnungen
-sehr sinnvoll, weil viel effizienter zu rechnen. Das Ausnutzen dieser
+gewichtete Adjungierte darstellen können. Das ist für Computerberechnungen
+sehr sinnvoll, weil es sich viel effizienter rechnet. Das Ausnutzen dieser
 Matrixeigenschaft hat den Erfolg der digitalen
 Signalverarbeitung maßgeblich geprägt.
 %
@@ -2199,13 +2199,12 @@ Was jetzt verbleibt ist zu verstehen, warum diese beiden Matrix-Operationen
 genau der inversen DFT und der DFT entsprechen, also hinter den Zahlen
 das Wesen der angelegten Matrizen kennenzulernen.
 %
-Gilbert Strang hat das---wie alles was er didaktisch auf den Prüfstand
+Gilbert Strang hat das---wie alles, was er didaktisch auf den Prüfstand
 stellt---herausragend in seinen Büchern
 \cite{Strang2010, Strang2016, Strang2019}
 aufgeschrieben; (Alters)-Weisheit und progressiver Blick in die konstruktive
 Zukunft bestens vereint. Algebra löst viel
-mehr heutiger Ingenieursprobleme als Analysis, und wenn wir in der Lage sind
-die Algorithmen des maschinellen Lernens und 'klassische' SigSys in der Welt
+mehr heutiger Ingenieursprobleme als Analysis, und wenn wir in der Lage sind, die Algorithmen des maschinellen Lernens und 'klassische' SigSys in der Welt
 der linearen Algebra zu verorten, sind wir für zukünftige Ingenieursberufsprofile
 bestens vorbereitet. Genau dieses didaktische Konzept verfolgt Strang seit vielen
 Jahren mit Erfolg am MIT, daher sehr zu empfehlende Lektüre.
@@ -2403,7 +2402,7 @@ wir immer mit der gleichen orthogonalen, $N$-dimensionalen Basis
 für Folgen der Länge $N$ operieren, weil der aufspannbare Vektorraum
 offensichtlich sehr elegant ist. Bei der komplexen Fourierreihe hatten wir die Basisfunktionen $\e^{\pm\im\omega_0 \mu t}$ aus ähnlicher Motivation gewählt.
 Die Fouriermatrix ist im Wesen die Analogie für (zeit-/frequenzdiskrete)
-Folgen die periodisch aufgefasst werden.
+Folgen, die periodisch aufgefasst werden.
 
 Für unser Beispiel $N=4$ können wir das Gleichungssystem aufstellen
 \begin{align}
@@ -2485,7 +2484,7 @@ neue zyklische Matrix erzeugen, z.B.
 \bm{C}\bm{D} =
 \begin{bmatrix}
 11 & 25 & 9\\
-9 &  11&  2\\
+9 &  11&  25\\
 25 &  9&  11
 \end{bmatrix}
 \end{align}
@@ -2522,7 +2521,7 @@ eben weil wir zyklische Matrizen benutzen.
 
 Einer der wichtigsten Zusammenhänge der SigSys findet sich natürlich auch
 in der Algebra wieder. Es ist der Link zwischen Zeit- und Bildbereich, oder
-anders: zwischen Vektor und Eigenwert der zyklischen Matrix die von diesem
+anders: zwischen Vektor und Eigenwert der zyklischen Matrix, die von diesem
 Vektor erzeugt wird:
 \begin{align}
 \bm{F}(\bm{c} \circledast_N \bm{d}) = (\bm{F}\bm{c})  \odot (\bm{F}\bm{d})
