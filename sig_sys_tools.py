@@ -52,6 +52,7 @@ def plot_zplane(z, p, k):
     plt.grid(True)
 
 
+
 def interpolate_dft2dtft(X, W):
     """DFT to DTFT interpolation.
 
@@ -184,3 +185,191 @@ def plot_dtlti_analysis(z, p, k, fs=1, Nf=2**10, Nt=2**5):
     plot_zplane(sys.zeros, sys.poles, sys.gain)  # see function above
 
     # plt.tight_layout(True)
+
+def plot_splane(z, p, k):
+    """Plot pole/zero/gain plot of continuous-time, linear-time-invariant system.
+
+    Note that the for-loop handling might be not very efficient
+    for very long FIRs
+
+    z...array of zeros in s-plane
+    p...array of poles in s-zplane
+    k...gain factor
+
+    """
+    
+    try: 
+        xmax = np.amax(np.real(z))
+        xmin = np.amin(np.real(z))
+        ymax = np.amax(np.imag(z))
+        ymin = np.amin(np.imag(z))
+    except ValueError: #z is empty
+        xmax = ymax = 2
+        xmin = ymin = -2
+    try:
+        pp = np.amax(np.real(p)) 
+        xmax = max(xmax,pp)
+        xmin = min(xmin,np.amin(np.real(p)))
+        ymax = max(ymax,np.amax(np.imag(p)))
+        ymin = min(ymin,np.amin(np.imag(p)))
+    except ValueError: #p is empty
+        pp = 1j
+
+    zu, zc = np.unique(z, return_counts=True)  # find and count unique zeros
+    for zui, zci in zip(zu, zc):  # plot them individually
+        plt.plot(np.real(zui), np.imag(zui), ms=7,
+                 color='C0', marker='o', fillstyle='none')
+        if zci > 1:  # if multiple zeros exist then indicate the count
+            plt.text(np.real(zui), np.imag(zui), zci)
+
+    pu, pc = np.unique(p, return_counts=True)  # find and count unique poles
+    for pui, pci in zip(pu, pc):  # plot them individually
+        plt.plot(np.real(pui), np.imag(pui), ms=7,
+                 color='C3', marker='x')
+        if pci > 1:  # if multiple poles exist then indicate the count
+            plt.text(np.real(pui), np.imag(pui), pci)
+    eps = 2
+    if np.abs(xmax - xmin) <2:
+        xmax = xmin + np.abs(xmax-xmin)/2+eps
+        xmin = xmax - 2*eps
+    else:
+        a = np.abs(xmax-xmin)/2
+        xmin = xmin - a
+        xmax = xmax + a
+    if np.abs(ymax-ymin) <2:
+        ymax = ymin + np.abs(ymax-ymin)/2 + eps
+        ymin = ymax - 2*eps
+    else:
+        a = np.abs(ymax -ymin)/2
+        ymax = ymax + a
+        ymin = ymin - a
+    plt.axis([xmin,xmax,ymin,ymax])
+    if np.imag(pp)==0:
+        plt.plot([pp,pp],[2*ymin,2*ymax],color='brown')
+        plt.fill_between([pp,2*xmax],[2*ymax,2*ymax],2*ymin,color='yellowgreen',label='ROC')
+    else:
+        plt.fill_between([-2*xmax,2*xmax],[2*ymax,2*ymax],2*ymin,color='yellowgreen',label='ROC')
+    plt.xlabel(r'$\Re\{s\}$')
+    plt.ylabel(r'$\Im\{s\}$')
+    plt.legend()
+    plt.text(xmin+np.abs(xmin)/5,ymin+np.abs(ymin)/5,'k=%f' %k)
+    plt.grid(True)
+
+def group_delay(z,p,w):
+    """
+    group delay of a system function
+
+    Parameters
+    -----------
+        z:  array, zeros in s-plane
+        p:  array, poles in s-plane
+        w:  array, angular frequencies
+
+    Returns
+    -----------
+        w:  array, angular frequencies
+        gd: float, group delay
+    """
+    if z.size == 0 and p.size == 0:
+        return w, np.zeros(w.size)
+    gd = 0
+    for i in z:
+        gd += np.real(i)/((w-np.imag(i))**2+np.real(i)**2)
+    for i in p:
+        gd -= np.real(i)/((w-np.imag(i))**2+np.real(i)**2)
+    return w, gd
+def plot_clti_analysis(z, p, k,):
+    """Plot linear, time-invariant, discrete-time system.
+
+    Parameter
+    ------------
+        z:  array, zeros of system function
+        p:  array, poles of system function
+        k:  float, gain factor
+    Return
+    ------------
+        impulse response plot
+        step response plot
+        frequency response (level/phase/group delay)
+        s-plane of transfer function H(s) given as zeros/poles/gain desciption
+    """
+    # still hard coded, TBD:
+    # figure size
+
+    plt.figure(figsize=(9, 9), tight_layout=True)
+
+    
+
+    sys = signal.lti(z, p, k)
+    sys_ba = signal.TransferFunction(sys)
+    b = sys_ba.num   # we need coeff b,a for group_delay()
+    a = sys_ba.den
+
+    [W, H] = signal.lti.freqresp(sys)
+    F = W/(2*np.pi)
+    gd = group_delay(z=z,p=p,w=W)[1]  # gd in samples
+    h = signal.impulse(sys)
+    he = signal.step(sys)
+
+    # plot frequency response: level
+    ax1 = plt.subplot(3, 2, 1)
+    ax1t = ax1.twiny()
+
+    ax1.grid(True, color='lavender', which='major')
+
+    ax1.plot(W/(2*np.pi), 20*np.log10(np.abs(H)), color='C0', lw=2)
+    ax1.set_xscale('linear')
+    ax1.set_xlim([F[0],F[F.size-1]])
+    ax1.tick_params(axis='x', labelcolor='C0')
+    ax1.set_xlabel(r'$f$ $/$ Hz', color='C0')
+    ax1.set_ylabel('level in dB   or   20 lg|H| / dB', color='k')
+    ax1.set_axisbelow(True)
+
+    ax1t.plot(W/(2*np.pi), 20*np.log10(np.abs(H)), color='C3', lw=2)
+    ax1t.set_xscale('log')
+    ax1t.set_xlim([F[0], F[F.size-1]])
+    ax1t.tick_params(axis='x', labelcolor='C3')
+    ax1t.set_xlabel('$f$ $/$ Hz', color='C3')
+    ax1t.set_axisbelow(True)
+
+    # plot impulse response
+    ax2 = plt.subplot(3, 2, 2)
+    ax2.plot(np.squeeze(h[0]), np.squeeze(h[1]))
+    ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax2.grid(True)
+    ax2.set_xlabel(r'$t$ $/$ $s$')
+    ax2.set_ylabel(r'impulse response $h(t)$')
+
+    # plot frequency response: phase
+    ax3 = plt.subplot(3, 2, 3)
+    ax3.plot(W/(2*np.pi), np.unwrap(np.angle(H)))
+    ax3.set_xlabel(
+        r'$f$ $/$ Hz')
+    ax3.set_ylabel(r'phase in radian   or $\angle$ H / rad')
+    ax3.set_xlim([F[0],F[F.size-1]])
+    ax3.grid(True)
+
+    # plot step response
+    ax4 = plt.subplot(3, 2, 4)
+    ax4.plot(np.squeeze(he[0]), np.squeeze(he[1]))
+    ax4.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax4.grid(True)
+    ax4.set_xlabel(r'$t$ $/$ $s$')
+    ax4.set_ylabel(r'step response $h_\epsilon(t)$')
+
+    # plot frequency response: group delay
+    ax5 = plt.subplot(3, 2, 5)
+    ax5.plot(W,gd)
+    ax5.set_xscale('log')
+    ax5.set_xlim([W[0],W[W.size-1]])
+    ax5.set_xlabel(r'$\omega$ $/$ $\frac{\mathrm{rad}}{s}$')
+    ax5.set_ylabel(r'group delay in seconds   or   $\tau_\mathrm{GD}$ / s')
+    ax5.grid(True, which='both')
+
+    # splane
+    ax6 = plt.subplot(3, 2, 6)
+    plot_splane(sys.zeros, sys.poles, sys.gain)  # see function above
+
+    # plt.tight_layout(True)
+    return W, H
+
