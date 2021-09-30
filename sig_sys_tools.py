@@ -192,12 +192,26 @@ def plot_splane(z, p, k):
     Note that the for-loop handling might be not very efficient
     for very long FIRs
 
-    z...array of zeros in s-plane
-    p...array of poles in s-zplane
+    z...numpy array of zeros in s-plane
+    p...numpy array of poles in s-zplane
     k...gain factor
 
     """
-    
+    z = np.array(z)
+    p = np.array(p)
+    i = 0
+    j = 0
+    while i < z.size:
+        while j < p.size:
+            if z[i]==p[j]:
+                z = np.delete(z,i)
+                p = np.delete(p,j)
+                i = i -1
+                break
+            else:
+                j = j+1
+        j = 0
+        i = i +1
     try: 
         xmax = np.amax(np.real(z))
         xmin = np.amin(np.real(z))
@@ -293,6 +307,8 @@ def plot_clti_analysis(z, p, k,):
         frequency response (level/phase/group delay)
         s-plane of transfer function H(s) given as zeros/poles/gain desciption
     """
+    z = np.array(z)
+    p = np.array(p)
     # still hard coded, TBD:
     # figure size
 
