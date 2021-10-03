@@ -1,0 +1,142 @@
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes.misc}
+\tikzset{cross/.style={cross out, draw,minimum size=2*(#1-\pgflinewidth),inner sep=0pt, outer sep=0pt}}
+\pgfkeys{/pgfplots/axis style/.code={\pgfkeysalso{/pgfplots/every axis/.append style={#1}}}}
+\pgfplotsset{
+mathaxis/.style={
+axis lines=center,
+xtick=\empty,
+ytick=\empty,
+xlabel style=right,
+ylabel style=above,
+% Make sure the origin is shown (http://tex.stackexchange.com/a/91253)
+before end axis/.code={
+\addplot [draw=none, forget plot] coordinates {(0,0)};
+},
+anchor=origin,
+},
+stemaxis/.style={
+mathaxis,
+x=.8em,
+y=6ex,
+enlarge x limits={abs=1.2em},
+enlarge y limits={abs=1.2em},
+}
+}
+\tikzstyle{stem}=[ycomb,mark=*,mark size=10\pgflinewidth,color=C0,ultra thick]
+\tikzstyle{stem2}=[ycomb,mark=*,mark size=5\pgflinewidth,color=C0,ultra thick]
+
+\newcommand{\eq}[1]{Glg. (\ref{#1})} %ref equation
+\newcommand{\fig}[1]{Abb. \ref{#1}} %ref figure
+
+%math
+\newcommand\fsd{\mathrm{d}} %der/int operator
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\sysH}[1]{\mathcal{H}{\{#1\}}}  % system operator
+\renewcommand{\vec}[1]{\mathbf{#1}} %vector
+
+%Sha symbol:
+\DeclareFontFamily{U}{wncy}{}
+\DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
+\DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
+\DeclareMathSymbol{\Sha}{\mathord}{mcy}{"58}
+%\newcommand{\Sha}{$\bot \!\! \bot \!\! \bot$}
+
+\DeclareMathOperator{\rectOP}{\text{rect}}
+\newcommand{\rectN}[2]{\ensuremath{\rectOP_{#1} \left[ #2 \right]}}
+
+%matplotlib colors:
+\definecolor{C0}{HTML}{1f77b4}
+\definecolor{C1}{HTML}{ff7f0e}
+\definecolor{C2}{HTML}{2ca02c}
+\definecolor{C3}{HTML}{d62728}
+\definecolor{C7}{HTML}{7f7f7f}
+%other useful colors:
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\ured}[1]{\textcolor{red}{\underline{#1}}}
+\newcommand{\ublue}[1]{\textcolor{blue}{\underline{#1}}}
+\newcommand{\ugreen}[1]{\textcolor{green}{\underline{#1}}}
+\newcommand{\uorange}[1]{\textcolor{orange}{\underline{#1}}}
+\newcommand{\umagenta}[1]{\textcolor{magenta}{\underline{#1}}}
+\newcommand{\ublack}[1]{\textcolor{black}{\underline{#1}}}
+\newcommand{\ubrown}[1]{\textcolor{brown}{\underline{#1}}}
+
+%transform symbols:
+%https://ctan.org/tex-archive/macros/latex/contrib/trfsigns?lang=en
+%needs \rmfamily instead of \rm in trfsigns package
+\renewcommand{\ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              \put(18,3){\circle*{4}}%
+                            \end{picture}%
+                           }
+                      }
+\renewcommand{\Ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                            \end{picture}%
+                           }
+                      }
+
+\newcommand{\dtft}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              %\put(18,3){\circle*{4}}%
+                            \end{picture}%
+                           }
+                      }
+\newcommand{\DTFT}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              %\put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                            \end{picture}%
+                           }
+                      }
+
+
+\newcommand{\mydft}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              \put(2,3){\circle{4}}%
+                              \put(4,3){\line(1,0){4.75}}%
+                              \multiput(8.625,3.15)(0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(17,3){\line(-1,0){5.75}}%
+                              %\put(18,3){\circle*{4}}%
+                              \put(6,-4){\scriptsize $N$}
+                            \end{picture}%
+                           }
+                      }
+
+\newcommand{\myDFT}{\mbox{\setlength{\unitlength}{0.1em}%
+                            \begin{picture}(20,10)%
+                              %\put(2,3){\circle*{4}}%
+                              \put(3,3){\line(1,0){5.75}}%
+                              \multiput(11.375,3.15)(-0.25,0.25){11}{%
+                                \makebox(0,0){\rmfamily\tiny .}}%
+                              \put(16,3){\line(-1,0){4.75}}%
+                              \put(18,3){\circle{4}}%
+                              \put(6,-4){\scriptsize $N$}
+                            \end{picture}%
+                           }
+                      }
