@@ -1,0 +1,319 @@
+\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage[utf8]{inputenc}
+\usepackage{fouriernc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{trfsigns}
+\usepackage{marvosym}
+\usepackage{nicefrac}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{comment}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usepackage{bm}
+\usepackage{cancel}
+\bibliographystyle{dinat}
+
+\usepackage{../sig_sys_macros}
+
+%------------------------------------------------------------------------------
+\ohead{Signal- und Systemtheorie Übung}
+\cfoot{\pagemark}
+\ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
+\begin{document}
+	%
+	\noindent Signal- und Systemtheorie Übung\footnote{This tutorial is provided as
+		Open Educational Resource (OER), to be found at
+		\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+		accompanying the OER lecture
+		\url{https://github.com/spatialaudio/signals-and-systems-lecture}.
+		%
+		Both are licensed under a) the Creative Commons Attribution 4.0 International
+		License for text and graphics and b) the MIT License for source code.
+		%
+		Please attribute material from the tutorial as \textit{Frank Schultz,
+			Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
+			Computational Examples, University of Rostock} with
+		\texttt{main file, github URL, commit SHA number and/or version tag, year}
+		.}---Frank Schultz, Sascha Spors,
+	Institut für Nachrichtentechnik (INT),
+	Fakultät für Informatik und Elektrotechnik (IEF),
+	Universität Rostock \&
+	Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
+	%
+	%
+	% random hex to link tasks and jupyter notebooks:
+% CEF5164788
+% C75A2BFFBA
+% FB93908026
+% 687C91AB3B
+% 79446829E3
+% 802DCFC440
+% 8E7F7674AE
+% C7D49E1546
+% F4236112D3
+% C05FCB36EF
+% 30D32CBA97
+% 5BDC418471
+% 0A04E3FD9B
+% 910FE14236
+% 3D29E13E26
+% 1BD323D2B3
+% C3AB7BCE83
+% CD0DFC919B
+% 2D8C8747E6
+% 7F0FA6A2AF
+% BD4740E5E3
+% D846423FBD
+% FE7335DCB0
+% 1087B93852
+% B7A1099DA9
+% 513D86FD55
+% 1AE0F6563C
+% 399986BA92
+% 09F4B2D1F4
+% E9F56F88A6
+	
+\section{Aufgabe}
+Gegeben sei folgende Differentialgleichung eines LRC-Schwingkreises (hergeleitet in \url{https://github.com/spatialaudio/signals-and-systems-exercises/blob/master/tutorial_latex_deu/sig_sys_ex_03AddOn.tex}):
+\begin{gather}
+	LC \frac{\mathrm{d} ^2}{\mathrm{d} t^2}y(t)+RC\frac{\mathrm{d}}{\mathrm{d} t}y(t)+y(t)=x(t).
+\end{gather}
+Leiten Sie aus dieser Differentialgleichung eine Differenzengleichung für diskrete Signale, die mit $T$ abgetastet werden, ab!\\
+Berechnen Sie anschließend
+\begin{itemize}
+	\item[a) ] die Impuls- und Sprungantwort des kontinuierlichen Systems!
+	\item[b) ] die Impuls- und Sprungantwort des diskreten Systems! 
+\end{itemize}
+Folgende Werte sollen dabei verwendet werden:
+\begin{gather}
+	R=2L=3C=1,
+	T\leq\frac{1}{10}
+\end{gather}
+\section{Lösung}
+	
+\subsection{Herleitung Differenzengleichung}
+Mit einer zeitlichen Ableitung wird der Anstieg zum Zeitpunkt $t$ ermittelt. Während es für algebraische Funktionen viele Techniken zum ableiten gibt, basiert die Idee auf Differenzenquotienten. Man legt zwischen zwei Punkten eine Gerade an und bestimmt dessen Anstieg. Dabei verringert man immer weiter den Abstand $h$ zwischen den Punkten. Beim Übergang $h\rightarrow0$ erhält man dann die Ableitung. Dabei gibt es verschiedene Möglichkeiten, wo genau die Gleichung angelegt wird:\\
+\begin{itemize}
+	\item eine Gerade $G_1$ von $(t-h,y(t-h))$ nach $(t,y(t))$,
+	\item eine Gerade $G_2$ von $(t,y(t))$ nach $(t+h,y(t+h))$.
+\end{itemize}
+Der Anstieg der Geraden berechnet sich wie folgt:
+\begin{gather}
+	m_1=\frac{\Delta y}{\Delta x}=\frac{y(t)-y(t-h)}{t-(t-h)}=\frac{y(t)-y(t-h)}{h},\\
+	m_2=\frac{\Delta y}{\Delta x}=\frac{y(t+h)-y(t)}{(t+h)-t}=\frac{y(t+t)-y(t)}{h}.
+\end{gather}
+Wie oben bereits erwähnt, erhält man beim Grenzübergang $h\rightarrow0$ die Ableitung zum Zeitpunkt $t$:
+\begin{align}
+	\frac{\mathrm{d}}{\mathrm{d}t}y(t)=\lim\limits_{h\rightarrow0}\frac{y(t)-y(t-h)}{h}=\lim\limits_{h\rightarrow0}\frac{y(t+h)-y(t)}{h}.
+\end{align}
+Wir haben es aber nun mit diskreten Signalen zu tun, d.h. wir können $h$ nicht unendlich klein werden lassen, sondern maximal eine Abtastperiode $T$ klein. Die beiden Differenzenquotienten lauten damit
+\begin{gather}
+	\frac{\mathrm{d}}{\mathrm{d}t}y(t)=\frac{y(t)-y(t-T)}{T},\\
+	\frac{\mathrm{d}}{\mathrm{d}t}y(t)=\frac{y(t+T)-y(t)}{T}.
+\end{gather}
+Wir bilden noch das arithmetische Mittel aus beiden Quotienten und definieren uns einen Differenzenquotienten für diskrete Signale:
+\begin{gather}
+	\frac{\mathrm{d}}{\mathrm{d}t}y(t)=\frac{\frac{y(t)-y(t-T)}{T}+\frac{y(t+T)-y(t)}{T}}{2}=\frac{y(t+T)-y(t-T)}{2T}.
+\end{gather}
+Diesen nennt man auch den zentralen Differenzenquotienten erster Ordnung.\\
+Des weiteren gilt bei diskreten Signalen $t=kT$ bzw. $y(kT)=y[k]$. Wir können unseren Differenzenquotienten somit noch etwas einfacher fassen:
+\begin{gather}
+	\frac{\mathrm{d}}{\mathrm{d}t}y(t)=\frac{y[k+1]-y[k-1]}{2T}.
+\end{gather}
+\\
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	\draw[red, thick] (-4.5,-0.5).. controls (-1.5,4) and (1.5,-5) ..(4.5,0.5);
+	\draw[blue, ultra thick] (-4.5,-2) -- (-4.5,2);
+	\draw[blue, ultra thick] (-4.5,-2) -- (4.5,-2);
+	\filldraw[blue] (-2.5,0.8) circle (2pt) node[above] {$y(t-h)$};
+	\filldraw[blue] (0.3,-0.55) circle (2pt) node[above] {$y(t)$};
+	\filldraw[blue] (3.1,-1.125) circle (2pt) node[above] {$y(t+h)$};
+	\draw[blue] (-2.5,-2+0.15) -- (-2.5,-2-0.15) node[below] {$t-h$};
+	\draw[blue] (0.3,-2+0.15) -- (0.3,-2-0.15) node[below] {$t$};
+	\draw[blue] (3.1,-2+0.15) -- (3.1,-2-0.15) node[below] {$t+h$};
+	\draw[green, thick] (-2.5,0.8) -- (0.3,-0.55);
+	\draw[green, thick] (0.3,-0.55)-- (3.1,-1.125);
+\end{tikzpicture}
+\end{figure}
+\\
+Der zentrale Differenzenquotient zweiter Ordnung lautet (zu finden u.a. in \cite[Kap. 5, S. 138]{Reinhardt2012}, \cite[Kap. 5, S. 149]{MeisterSonar2019} oder \cite[Kap. 8, S. 184]{Scholz2016})
+\begin{gather}
+	\frac{\mathrm{d}^2}{\mathrm{d}t^2}y(t)=\frac{y(t+T)-2y(t)+y(t-T)}{T^2}
+\end{gather}
+bzw. unter der Berücksichtigung, dass $t=kT$,
+\begin{gather}
+	\frac{\mathrm{d}^2}{\mathrm{d}t^2}y(t)=\frac{y[k+1]-2y[k]+y[k-1]}{T^2}
+\end{gather}
+Wir setzen die Differenzenquotienten nun in die Differentialgleichung ein:
+\begin{gather}
+	\frac{1}{6}\frac{\mathrm{d}^2}{\mathrm{d}t^2}y(t)+\frac{1}{3}\frac{\mathrm{d}}{\mathrm{d}t}y(t)+y(t)=x(t)\\
+	\underset{t=kT}{=}\nonumber\\
+	\frac{1}{6}\frac{y[k+1]-2y[k]+y[k-1]}{T^2}+\frac{1}{6}\frac{y[k+1]-y[k-1]}{T}+y[k]=x[k]\\
+	\Longleftrightarrow\nonumber\\
+	\frac{1}{6}\frac{y[k]-2y[k-1]+y[k-2]}{T^2}+\frac{1}{6}\frac{y[k]-y[k-2]}{T}+y[k-1]=x[k-1]\\
+	\Longleftrightarrow\nonumber\\
+	\frac{1}{6T}\left(\frac{1}{T}+1\right)y[k]+\left(1-\frac{1}{3T^2}\right)y[k-1]+\frac{1}{6T}\left(\frac{1}{T}-1\right)y[k-2]=x[k-1]
+\end{gather}
+\subsection{Aufgabe a)}
+Es stehen viele Werkzeuge zum Berechnen der Impuls- und Sprungantwort zur Verfügung. Wir werden an dieser Stelle die Laplace-Transformation nutzen.
+\begin{gather}
+	LC \frac{\mathrm{d} ^2}{\mathrm{d} t^2}y(t)+RC\frac{\mathrm{d}}{\mathrm{d} t}y(t)+y(t)=x(t)\\
+	\laplace\nonumber\\
+	LCs^2Y(s)+RCsY(s)+Y(s)=X(s)\\
+	\Longleftrightarrow\nonumber\\
+	Y(s)(LCs^2+RCs+1)=X(s)\\
+	\Longleftrightarrow\nonumber\\
+	H(s)=\frac{Y(s)}{X(s)}=\frac{1}{LCs^2+RCs+1}=\frac{1}{LC}\frac{1}{s^2+\frac{R}{L}s+\frac{1}{LC}}\\
+	s^2+\frac{R}{L}s+\frac{1}{LC}=0\\
+	\Longleftrightarrow\nonumber\\
+	s_{1,2}=-\frac{R}{2L}\pm\sqrt{\frac{R^2}{4L^2}-\frac{1}{LC}}
+\end{gather}
+Wir setzen nun die Werte der Aufgabenstellung ein.
+\begin{gather}
+	s_{1,2}=-1\pm\sqrt{1-6}=-1\pm\im\sqrt{5}
+\end{gather}
+Unter der Wurzel befand sich der Ausdruck $-5<0$, wodurch wir es mit komplexen Nullstellen zu tun haben. Wir wenden nun einen Trick an: $6 = 1 + 5$: das bedeutet, wir nutzen zur Faktorisierung nur die $1$ aus der $6$, die 5 belassen wir extra.
+\begin{align}
+	H(s)=6\frac{1}{(s^2+2s+1)+5}=6\frac{1}{(s+1)^2+5}
+\end{align}
+Somit können wir folgende Korrespondenz nutzen:
+\begin{gather}
+	\e^{s_0t}\sin(\omega_0 t)\epsilon(t)\quad\laplace\quad\frac{\omega_0}{(s-s_0)^2+\omega_0^2}.
+\end{gather}
+\begin{gather}
+	H(s)=\frac{6}{\sqrt{5}}\frac{\sqrt{5}}{(s+1)^2+5}\\
+	\Laplace\nonumber\\
+	h(t)=\frac{6}{\sqrt{5}}\e^{-t}\sin(\sqrt{5}t)\epsilon(t)
+\end{gather}
+Für die Sprungantwort müssen wir unsere Systemfunktion nur mit $\frac{1}{s}$ multiplizieren und dann eine PZB anwenden.
+\begin{gather}
+	H_e(s)=\frac{1}{s}H(s)=6\frac{1}{s}\frac{1}{(s+1)^2+5}=\frac{A}{s}+\frac{Bs+C}{(s+1)^2+5}\\
+	6=A((s+1)^2+5)+(Bs+C)s=A(s^2+2s+6)+Bs^2+Cs=s^2(A+B)+s(2A+C)+6A\\
+	z^2:\quad0=A+B\\
+	z^1:0=2A+C\\
+	z^0:6=6A
+\end{gather}
+Daraus folgt:
+\begin{gather}
+	A=1,\\
+	B=-A=-1,\\
+	C=-2A=-2.
+\end{gather}
+Somit haben wir die Laplace-Transformierte unserer Sprungantwort berechnet, es fehlt nur noch die Rücktrafo:
+\begin{gather}
+	H_e(s)=\frac{1}{s}-\frac{s}{(s+1)^2+5}-\frac{2}{(s+1)^2+5}\\
+	\Longleftrightarrow\nonumber\\
+	H_e(s)\frac{1}{s}-\frac{(s+1)-1}{(s+1)^2+5}-\frac{2}{(s+1)^2+5}\\
+	\Longleftrightarrow\nonumber\\
+	H_e(s)=\frac{1}{s}-\frac{s+1}{(s+1)^2+5}-\frac{1}{(s+1)^2+5}\\
+	\Longleftrightarrow\nonumber\\
+	H_e(s)=\frac{1}{s}-\frac{s+1}{(s+1)+5}-\frac{1}{\sqrt{5}}\frac{\sqrt{5}}{(s+1)^2+5}\\
+	\Laplace\nonumber\\
+	h_e(t)=\epsilon(t)-\e^{-t}\cos(\sqrt{5}t)-\frac{1}{\sqrt{5}}\e^{-t}\sin(\sqrt{5}t)
+\end{gather}
+\subsection{Aufgabe b)}
+Wir wollen nun die Impuls- und Sprungantwort aus folgender Differenzengleichung berechnen:
+\begin{gather}
+	\frac{1}{6T}\left(\frac{1}{T}+1\right)y[k]-\left(1-\frac{1}{3T^2}\right)y[k-1]+\frac{1}{6T}\left(\frac{1}{T}-1\right)y[k-2]=x[k-1].
+\end{gather}
+Wie gewohnt transformieren wir die Differenzengleichung zunächst in den $z$-Bereich:
+\begin{gather}
+	\frac{1}{6T}\left(\frac{1}{T}+1\right)Y(z)+\left(1-\frac{1}{3T^2}\right)z^{-1}Y(z)+\frac{1}{6T}\left(\frac{1}{T}-1\right)z^{-2}Y(z)=z^{-1}X(z)
+	\Longleftrightarrow\nonumber\\
+	H(z)=\frac{Y(z)}{X(z)}=\frac{z^{-1}}{\frac{1}{6T}\left(\frac{1}{T}+1\right)+\left(1-\frac{1}{3T^2}\right)z^{-1}+\frac{1}{6T}\left(\frac{1}{T}-1\right)z^{-2}}\\
+	\Longleftrightarrow\nonumber\\
+	H(z)=6T\frac{z}{\frac{1+T}{T}z^2+\left(6T-\frac{2}{T}\right)z+\frac{1-T}{T}}\\
+	\Longleftrightarrow\nonumber\\
+	H(z)=\frac{6T^2}{1+T}\frac{z}{z^2+\frac{6T^2-2}{1+T}z+\frac{1-T}{1+T}}
+\end{gather}
+Wir zerlegen den Nenner in die einzelnen Pole:
+\begin{gather}
+	z^2+\frac{6T^2-2}{1+T}z+\frac{1-T}{1+T}=0\\
+	\Longleftrightarrow\nonumber\\
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\sqrt{\frac{(1-3T^2)}{(1+T)^2}+\frac{T-1}{T+1}}\\
+	\Longleftrightarrow\nonumber\\
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\sqrt{\frac{1-6T^2+9T^4}{(1+T)^2}+\frac{T^2-1}{(T+1)^2}}\\
+	\Longleftrightarrow\nonumber\\
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\sqrt{\frac{1-6T^2+9T^4+T^2-1}{(1+T)^2}}\\
+	\Longleftrightarrow\nonumber\\
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\sqrt{\frac{9T^4-5T^2}{(1+T)^2}}\\
+	\Longleftrightarrow\nonumber\\
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\sqrt{\frac{T^2(9T^2-5)}{(1+T)^2}}\\
+\end{gather}
+Je nachdem, wie $T$ gewählt wird, ergeben sich unter der Wurzel Werte $>0$, $=0$ oder $<0$.
+\begin{gather}
+	9T^2-5>0\\
+	9T^2>5
+	T^2>\frac{5}{9}\\
+	T>\frac{\sqrt{5}}{3}\approx0.745
+\end{gather}
+Für $T<\frac{\sqrt{5}}{3}$ haben wir komplexe Polstellen. Wir nehmen weiterhin an, dass $T<\frac{\sqrt{5}}{3}$ ist.
+\begin{gather}
+	z_{1,2}=\frac{1-3T^2}{1+T}\pm\im\frac{T}{1+T}\sqrt{5-9T^2}
+\end{gather}
+In Null-/Polstellenform lautet die Übertragungsfunktion somit
+\begin{gather}
+	H(z)=\frac{6T^2}{1+T}\frac{z}{(z-1)(z-\frac{1-T}{1+T})}
+\end{gather}
+Wir wenden eine Partialbruchzerlegung an.
+\begin{gather}
+	H(z)=\frac{6T^2}{1+T}\frac{z}{(z-1)(z-\frac{1-T}{1+T})}=\frac{A}{z-1}+\frac{B}{z-\frac{1-T}{1+T}}\\
+	\Longleftrightarrow\nonumber\\
+	\frac{6T^2z}{1+T}A(z-\frac{1-T}{1+T})+B(z-1)=z(A+B)+A\frac{T-1}{T+1}+B(-1)\\
+	\Longleftrightarrow\nonumber\\
+	z^1:\quad \frac{6T^2}{1+T}=A+B\\
+	z^0:\quad 0=\frac{T-1}{T+1}A+B(-1)\\
+	\begin{pmatrix}
+		1 & 1\\
+		\frac{T-1}{T+1} & -1
+	\end{pmatrix}
+	\begin{pmatrix}
+		A \\
+		B
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\nicefrac{6T^2}{(T+1)} \\
+		0
+	\end{pmatrix}
+\end{gather}
+Zum Lösen des LGS nutzen wir die Cramersche Regel:
+\begin{gather}
+	A=\frac{\begin{vmatrix}
+			\nicefrac{6T^2}{(T+1)} & 1 \\
+			0 & -1
+	\end{vmatrix}}{\begin{vmatrix}
+		1 & 1\\
+		\frac{T-1}{T+1} & -1
+	\end{vmatrix}}
+	=\frac{-\frac{6T^2}{T+1}}{-1+\frac{1-T}{1+T}}=\frac{-6T^2}{-1(T+1)+1-T}=\frac{-6T^2}{-T-1+1-T}=\frac{-6T^2}{-2T}=3T\\
+	B=\frac{\begin{vmatrix}
+		1 & \nicefrac{6T^2}{(T+1)} \\
+		\frac{T-1}{T+1} & 0
+\end{vmatrix}}{\begin{vmatrix}
+		1 & 1\\
+		\frac{T-1}{T+1} & -1
+\end{vmatrix}}
+=\frac{-\frac{T-1}{T+1}\frac{6T^2}{T+1}}{-1+\frac{1-T}{1+T}}=\frac{-\frac{(T-1)6T^2}{(T+1)^2}}{\frac{-1-T+1-T}{1+T}}=\frac{-\frac{(T-1)6T^2}{T+1}}{-2T}=3T\frac{T-1}{T+1}\\
+H(z)=3T\frac{1}{z-1}+3T\frac{T-1}{T+1}\frac{1}{z-\frac{1-T}{1+T}}\\
+\Ztransf\nonumber\\
+h[k]=3T\epsilon[k-1]+3T\frac{T-1}{T+1}\left(\frac{1-T}{1+T}\right)^{k-1}\epsilon[k-1]
+\end{gather}
+\renewcommand{\refname}{Buchzitate}
+\clearpage
+\bibliography{../tutorial_latex_deu/literatur}
+\end{document}
