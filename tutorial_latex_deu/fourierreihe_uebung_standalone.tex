@@ -287,12 +287,12 @@ Wir definieren eine periodische Funktion mit der Periode $T\in\mathbb{R}^+\setmi
 \begin{align}
 	x(t)=x(t+T).
 \end{align}
-Die reelle Fourierreihe der Funktion $x(t)$ mit der Periode $T$ und der Kreisfrequenz $\omega=\frac{2\pi}{T}$ hat die Form(vgl. \cite[Kap. 7, S. 488]{Bronstein})
+Die reelle Fourierreihe der Funktion $x(t)$ mit der Periode $T$ und der Kreisfrequenz $\omega=\frac{2\pi}{T}$ hat die Form(bspw. ausgeschrieben in \cite[Kap. 7, S. 474]{Bronstein2015})
 \begin{align}
 	\label{eq:RealFourierSeries}
 	x(t)=\frac{a_0}{2}+\sum_{k=1}^{+\infty}\Bigg [ a_k\cos(k\omega t)+b_k\sin(k\omega t)\Bigg ].
 \end{align}
-Die Koeffizienten berechnen sich dabei durch folgende Formeln (vgl. \cite[Kap. 7, S. 487]{Bronstein})
+Die Koeffizienten berechnen sich dabei durch folgende Formeln (vgl. \cite[Kap. 7, S. 474]{Bronstein2015})
 \begin{gather}
 	\label{eq:Koeff}
 	a_k=\frac{2}{T}\int_{t_0}^{t_0+T}x(t)\cos(k\omega t)\diff t \\
@@ -303,7 +303,7 @@ Der Koeffizient $a_0$ nimmt bei der Berechnung eine Sonderstellung ein, denn fü
 	\label{eq:A0}
 	a_0=2\cdot\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\diff t.
 \end{align}
-Fall es sich um ungerade oder gerade Funktionen handeln sollte, vereinfacht sich die Berechnung der Koeffizienten (vgl. \cite[Kap.7, S. 489]{Bronstein}):
+Fall es sich um ungerade oder gerade Funktionen handeln sollte, vereinfacht sich die Berechnung der Koeffizienten (vgl. \cite[Kap.7, S. 476]{Bronstein2015}):
 
 \begin{itemize}
 	\item Die Funktion ist gerade, d.h. $x(t)=x(-t)$:
@@ -1232,21 +1232,21 @@ Die Fourierkoeffizienten sind also alle $0$.
 	c_k\underset{\frac{T_h}{T}=1}{=}0
 \end{align}
 Die Koeffizienten haben nun für alle $4$ Fälle die gleiche Form (für $\frac{T_h}{T}=1$ steht in den Sinus-Termen nur noch ein Vielfaches von $\pi$). Wir vermuten daher an dieser Stelle, dass es einen Zusammenhang zwischen $x_{a}(t)$, $x_{b}(t)$ und $c_k$ gibt.\\
-Tatsächlich ergibt sich der Fourierkoeffizient einer Faltung zweier gleich periodischer Funktionen aus der Multiplikation der Koeffizienten, skaliert mit der Periode $T$ (vgl. \cite[S. 208]{Oppenheim1997_2}).\\
+Tatsächlich ergibt sich der Fourierkoeffizient einer Faltung zweier gleich periodischer Funktionen aus der Multiplikation der Koeffizienten, skaliert mit der Periode $T$ (vgl. \cite[Kap. 3, S. 208]{Oppenheim1997}).\\
 Wir können das ja einmal anhand unserer Funktionen überprüfen.
 \begin{align}
 	c_0=T\cdot A\frac{T_h}{T}\cdot 0 =0
 \end{align}
-\begin{align}
+\begin{gather}
 	c_k=T\cdot \frac{A}{k\pi}\sin(k\pi\frac{T_h}{T})\cdot\frac{A}{\im k \pi}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg )=\frac{A^2T}{\im k ^2\pi^2}\bigg(\sin(k\pi\frac{T_h}{T})-\sin(k\pi\frac{T_h}{T})\cos(k\pi\frac{T_h}{T})\bigg )
-\end{align}
+\end{gather}
 Es gilt (vgl. \cite[Kap.2, S. 83]{Bronstein}):
-\begin{align}
-	\sin(\alpha)\cos(\alpha)=\frac{1}{2}\bigg [\sin(\alpha-\beta)+\sin(\alpha+\beta)\bigg ].
-\end{align}
-\begin{align}
+\begin{gather}
+	\sin(\alpha)\cos(\beta)=\frac{1}{2}\bigg [\sin(\alpha-\beta)+\sin(\alpha+\beta)\bigg ].
+\end{gather}
+\begin{gather}
 	c_k=\frac{A^2T}{\im k^2\pi^2}\bigg (\sin(k\pi\frac{T_h}{T})-\frac{1}{2}\sin(0)-\sin(k2\pi\frac{T_h}{T})\bigg )=\im\frac{A^2T}{2k^2\pi^2}\bigg (\sin(k2\pi\frac{T_h}{T})-2\sin(k\pi\frac{T_h}{T})\bigg )
-\end{align}
+\end{gather}
 Wir hätten uns also das (lästige) Falten sparen und direkt die Koeffizienten multiplizieren können. Wir halten also als nächste Korrespondenz folgendes fest:
 \begin{align}
 	x(t)\circledast y(t)\quad\fourier\quad T\cdot X_k\cdot Y_k
@@ -1420,7 +1420,7 @@ Der Gleichanteil $c_0=0$, denn innerhalb einer Periode heben sich die Flächenin
 	&=\frac{1}{T}\Bigg [\frac{A^2}{\im k \omega}-\frac{2A^2}{T_hk^2\omega^2}+\frac{2A^2}{T_hk^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{\im k \omega}-\frac{2A^2}{T_h k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}+\frac{2A^2}{T_hk^2\omega^2}\Bigg ]\nonumber \\
 	&=\frac{1}{T}\Bigg [\frac{2A^2}{\im k \omega}+\frac{2A^2}{T_h k^2\omega^2}\bigg (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\bigg )\Bigg ]=\frac{A^2}{\im k \pi}+\im \frac{A^2T}{T_hk^2\pi^2}\sin(k\pi\frac{T_h}{T})
 \end{align}
-Bei einer Multiplikation zweier Funktionen mit gleicher Periode $T$ ergeben sich der Fourierkoeffizient aus der diskreten Faltung der Koeffizienten beider Funktionen (vgl. \cite[S. 208]{Oppenheim1997_2}).\\
+Bei einer Multiplikation zweier Funktionen mit gleicher Periode $T$ ergeben sich der Fourierkoeffizient aus der diskreten Faltung der Koeffizienten beider Funktionen (vgl. \cite[Kap. 3, S. 208]{Oppenheim1997}).\\
 Die Diskrete Faltung ist folgendermaßen definiert:
 \begin{align}
 	X_k\ast Y_k=\sum_{\kappa = -\infty}^{+\infty}X_{\kappa}\cdot Y_{k-\kappa}=\sum_{\kappa =-\infty}^{+\infty}X_{k-\kappa}\cdot Y_{\kappa }
@@ -1491,7 +1491,7 @@ Wenn wir den Index von $c_k$ zu $-k$ verändern, können wir in der komplexen Ex
 \begin{align}
 	x^*(t)=\sum_{k=-\infty}^{+\infty}c_{-k}^*\e^{+\im k \omega t}
 \end{align}
-Wir merken uns also als Korrespondenz (auch zu finden in \cite[S. 208]{Oppenheim1997_2}):
+Wir merken uns also als Korrespondenz (auch zu finden in \cite[Kap. 3, S. 208]{Oppenheim1997}):
 \begin{align}
 	x^*(t)\quad\fourier\quad X_{-k}^*
 \end{align}
