@@ -220,7 +220,7 @@ Robert Hauser, Universität Rostock---Version: \today
 
 \section*{Formelsammlung Fourierreihe}
 
-Komplexe Schreibweise der Fourierreihe (vgl. \cite[S. 488]{Bronstein}):
+Komplexe Schreibweise der Fourierreihe (zu finden z.B. in \cite[Kap. 7, S. 475]{Bronstein2015}):
 
 \begin{align}
 	x(t)=\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\text{, wobei }X_k=\frac{1}{T}\int_{0}^{T}x(t)\e^{-\im k \omega t}\mathrm{d}t
@@ -294,13 +294,13 @@ Multiplikation
 	&=\sum_{k=-\infty}^{k=+\infty}\bigg (\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{k-\kappa}\bigg)\e^{+\im\omega k t}\\
 	&=\sum_{k=-\infty}^{+\infty}(X_k\ast H_k) \e^{+\im\omega k t}
 \end{align}
-Skalierung (vgl. \cite{Butz2012} S. 22)\\
+Skalierung (vgl. \cite[Kap. 1, S. 22]{Butz2012})\\
 $y(t) = x(a\cdot t)$	\\
 $a>0$: $C_k$ ändert sich nicht, $\omega_y = \omega_x \cdot a$.\\
 $a<0$: $C_{k_y} = C_{-k_x}$, $\omega_y = \omega_x \cdot |a|$.\\
-Parseval`sches Theorem (vgl. \cite{KressKaufhold2010} S.45 ):
+Parseval`sches Theorem (Erklärung bspw. in \cite[Kap. 2, S. 27-28]{Meyer2017} ):
 \begin{align}
-	\frac{1}{T}\int_{0}^{T}x(t)\mathrm{d}t=\sum_{k=-\infty}^{+\infty}|X_k|^2
+	\frac{1}{T}\int_{0}^{T}\left|x(t)\right|^2\mathrm{d}t=\sum_{k=-\infty}^{+\infty}\left|X_k\right|^2
 \end{align}
 Alle Funktionen in folgender Tabelle sind $T$-periodisch.\\
 \begin{tabular}{|lcc|}
@@ -325,7 +325,7 @@ Alle Funktionen in folgender Tabelle sind $T$-periodisch.\\
 		X_{-k},|a|\cdot\omega, &a<0
 	\end{cases}$\\
 	Verschiebung $(\tau \in \mathbb{R})$ & $x(t-\tau)$& $\e^{-\im\omega k \tau}X_k$\\&& \\
-	Modulation $(n \in \mathbb{Z})$& $\e^{-\im n \omega t}x(t)$ & $X_{k-\omega_0}$ \\&& \\
+	Modulation $(n \in \mathbb{Z})$& $\e^{\im n \omega t}x(t)$ & $X_{k-n}$ \\&& \\
 	Differentiation & $\frac{\mathrm{d}}{\mathrm{d}t}x(t)$ & $\im\omega k X_k$\\&& \\
 	unbestimmtes Integral &$\int x(t)\mathrm{d}t $ & $\frac{1}{\im\omega k}X_k$\\&& \\
 	Parselval`sches Theorem & $\frac{1}{T}\int_0^T|x(t)|^2\mathrm{d}t$ & $\sum_{k=-\infty}^{+\infty}|X_k|^2$\\&& \\
