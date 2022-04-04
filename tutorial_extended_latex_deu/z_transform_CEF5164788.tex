@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fouriernc}
 \usepackage[T1]{fontenc}
-\usepackage[german]{babel}
+\usepackage[ngerman]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{natbib}
 \usepackage{url}
@@ -87,8 +87,11 @@ Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 % 09F4B2D1F4
 % E9F56F88A6
 
-\section*{Aufgabe: Kausale Systeme im z-Bereich (Klausuraufgabe aus dem Sommersemester 2021)}
-\vspace{-0.4cm}{\tiny 41B4F6D3A2} %insert unique hex hash from above
+\section*{Aufgabe: Kausale Systeme im z-Bereich (Aufgabe 5 Klausur 31.08.2021)-Verschiedene Lösungswege führen zum gleichen Ergebnis.}
+\vspace{-0.4cm}{\tiny CEF5164788, file: z\_transform\_CEF5164788.tex}\\ %insert unique hex hash from above
+Aufgabendesign \& Musterlösung: Frank Schultz\\
+ausführliche Rechnungen \& Text: Robert Hauser\\
+Korrekturen / Check: Frank Schultz
 \\
 \quad
 \begin{minipage}{0.5\textwidth}
@@ -98,14 +101,14 @@ Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 		\tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
 		\tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
 		%\begin{footnotesize}
-		
+
 		\def \bNull {$1$}
 		\def \bEins {$0$}
 		\def \bZwei {$-\frac{9}{16}$}
 		\def \einsDurchANull {$1$}
 		\def \minusAEins {$1$}
 		\def \minusAZwei {$\frac{3}{4}$}
-		
+
 		\matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
 			\node (input) [anchor=center]{$x[k]$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
 			& \node (a0) [filtBlock]{\einsDurchANull}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
@@ -139,13 +142,13 @@ Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 \quad
 \begin{minipage}{0.5\textwidth}
 	\begin{itemize}
-		\item[Geg.:] Linkes Blockschaltbild eines zeitdiskreten\\Systems ohne Anfangsbedingungen
+		\item[Geg.:] Linkes Blockschaltbild eines zeitdiskreten Systems ohne Anfangsbedingungen
 		\item[Ges.: a)] Zeigen Sie analytisch, dass
 		\begin{align*}
 			h_1[k] =& \frac{3}{4} \delta[k] - \frac{5}{16}\left(-\frac{1}{2}\right)^k \epsilon[k] + \frac{9}{16}\left(\frac{3}{2}\right)^k \epsilon[k]\\
 			h_2[k] =& \delta[k] + \frac{5}{32}\left(-\frac{1}{2}\right)^{k-1} \epsilon[k-1] + \frac{27}{32}\left(\frac{3}{2}\right)^{k-1} \epsilon[k-1]
 		\end{align*}
-		die Impulsantwort $h_1[k]=h_2[k]=h[k]$ des Systems ist.
+		die Impulsantwort $h_1[k]=h_2[k]=h[k]$ des Systems ist.\\
 		%
 		Es reicht die Rechnung für $h_1[k]$ \underline{oder} $h_2[k]$ durchzuführen.
 		%
@@ -161,7 +164,7 @@ Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 %
 \subsection*{Lösung Aufgabe a) Vorwärts}
 \subsubsection*{Lösung mit $\frac{1}{z}$ Trick}
-Zunächst leiten wir die Differenzengleichung aus dem Blockschaltbild ab. 
+Zunächst leiten wir die Differenzengleichung aus dem Blockschaltbild ab.
 Dabei nutzen wir folgende Korrespondenzen:
 %
 %
@@ -175,25 +178,25 @@ Dabei nutzen wir folgende Korrespondenzen:
 %
 Ein $z^{-1}$ steht bspw. für einen Time-Shift nach rechts, das $+$ bedeutet
 eine Addition und $-\frac{9}{16}$ eine Multiplikation des diskreten Signals mit
-$-\frac{9}{16}$. 
+$-\frac{9}{16}$.
 %
-In dem Blockschaltbild gucken wir uns nun an, aus welchen Signalen das 
-Ausgangssystem $y[k]$ gebildet wird.\\
+In dem Blockschaltbild schauen wir uns nun an, aus welchen Teilsignalen das
+Ausgangssignal $y[k]$ gebildet wird.\\
 %
-Zunächst wird einmal das gewöhnliche Eingangssignal $x[k]$ einbezogen. 
+Zunächst wird einmal das gewöhnliche Eingangssignal $x[k]$ einbezogen.
 %
-Es spaltet sich bei $x[k]$ auch ein Signalstrang ab, der zweimal das Kästchen 
-mit $z^{-1}$ passiert. Das bedeutet einer Verschiebung des diskreten Signals um 
-$2$ nach rechts, bzw. anders gesagt: das Eingangssignal von vor $2$ 
-Abtastpunkten hat auch eine Auswirkung auf das aktuelle Ausgangssignal. 
+Es spaltet sich bei $x[k]$ auch ein Signalstrang ab, der zweimal das Kästchen
+mit $z^{-1}$ passiert. Das bedeutet einer Verschiebung des diskreten Signals um
+$2$ nach rechts, bzw. anders gesagt: das Eingangssignal von vor $2$
+Abtastpunkten hat auch eine Auswirkung auf das aktuelle Ausgangssignal.
 %
-Mit der $-\frac{9}{16}$ wird $x[k-2]$ noch multipliziert und dann mit $x[k]$ 
+Mit der $-\frac{9}{16}$ wird $x[k-2]$ noch multipliziert und dann mit $x[k]$
 addiert.\\
 %
 Von der rechten Seite, dem Ausgangssignal, gehen aber auch zwei Stränge ab.
 %
-Das System ist also rückgekoppelt, ältere Ausgangssignale werden auch 
-berücksichtigt. 
+Das System ist also rückgekoppelt, ältere Ausgangssignale werden auch
+berücksichtigt.
 %
 Das Ausgangssignal passiert einmal ein $z^{-1}$ Kästchen und spaltet sich dann
 wieder auf.
@@ -201,7 +204,7 @@ wieder auf.
 $y[k-1]$ wird einmal hinzuaddiert und auch noch einmal um $1$ nach rechts
 verschoben, mit $\frac{3}{4}$ multipliziert und noch einmal hinzuaddiert.
 %
-Die Differenzengleichung lautet also:
+Die Differenzengleichung lautet also:\label{pg:DGL}
 %
 %
 %
@@ -231,13 +234,12 @@ Nun transformieren wird die DGL in den $z$-Bereich:
 %
 %
 %
-Die Übertragungsfunktion $H(z)=\frac{Y(z)}{X(z)}$ erreichen wir dadurch, dass 
-wir $Y(z)$ und $X(z)$ ausklammern, sodass folgender Ausdruck erzielt wird:
+Die Übertragungsfunktion $H(z)=\frac{Y(z)}{X(z)}$ erhalten wir durch Ausklammern
 %
 \begin{gather}
 	Y(z)p(z)=X(z)q(z).\\
 	%
-	Y(z) \underbrace{\left(1 - z^{-1} - \frac{3}{4} z^{-2}\right)}_{p(z)} 
+	Y(z) \underbrace{\left(1 - z^{-1} - \frac{3}{4} z^{-2}\right)}_{p(z)}
 	= X(z) \underbrace{\left(1 - \frac{9}{16} z^{-2}\right)}_{q(z)}
 \end{gather}
 %
@@ -254,7 +256,7 @@ bzw.
 %
 %
 \begin{gather}
-	H(z) = \frac{Y(z)}{X(z)} 
+	H(z) = \frac{Y(z)}{X(z)}
 	=\frac{1 - \frac{9}{16} z^{-2}}{1 - z^{-1} - \frac{3}{4} z^{-2}}
 	= \frac{z^2 - \frac{9}{16}}{z^2 - z - \frac{3}{4}}.
 \end{gather}
@@ -305,17 +307,23 @@ Verstärkungsfaktor $g=1$
 		\end{scope}
 	\end{tikzpicture}
 \end{center}
-Nun müssen wir die z-Transformation unserer Systemfunktion wieder zurück 
-transformieren, um sie mit der gegebenen Impulsantwort zu vergleichen. 
+Nun müssen wir die z-Transformation unserer Systemfunktion zurück
+transformieren.
+%
+Wir wollen einen geschlossenen Ausdruck der Impulsantwort erhalten, um sie
+mit der gegebenen Impulsantwort zu vergleichen.
+%
+Rücktrafo zur Differenzengleichung bringt uns ja hier nichts zur Lösung der
+Aufgabe.
 %
 Wir nutzen die Partialbruchzerlegung, um einfache Korrespondenzen aus unserer
 Formelsammlung zu erhalten.\\
 %
-Wir nutzen hier den $H(z)$/$z$-Trick. 
+Wir nutzen hier den $H(z)$/$z$-Trick.
 %
 Bei diesem Trick wird zunächst die Partialbruchzerlegung aus $\frac{H(z)}{z}$
 %
-gebildet, denn der Grad des Nennerpolynoms ist gleich dem Grad des 
+gebildet, denn der Grad des Nennerpolynoms ist gleich dem Grad des
 Zählerpolynoms.\\
 %
 Die Übertragungsfunktion umgeschrieben für die Partialbruchzerlegung lautet:
@@ -330,23 +338,23 @@ Ansatz PZB
 %
 %
 \begin{gather}
-	\frac{H(z)}{z} = 
+	\frac{H(z)}{z} =
 	1 \cdot \frac{\left(z - \frac{3}{4}\right)\left(z + \frac{3}{4}\right)}
-	{z \cdot \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right)} 
-	=1 \cdot \frac{z^2 - \frac{9}{16}}{z \cdot \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right)} 
+	{z \cdot \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right)}
+	=1 \cdot \frac{z^2 - \frac{9}{16}}{z \cdot \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right)}
 	=\frac{A}{z} + \frac{B}{z+\frac{1}{2}} + \frac{C}{z-\frac{3}{2}}\\
 	%
-	z^2 - \frac{9}{16} 
-	=A \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right) 
+	z^2 - \frac{9}{16}
+	=A \left(z+\frac{1}{2}\right)\left(z-\frac{3}{2}\right)
 	+ B z \left(z-\frac{3}{2}\right) + C z \left(z+\frac{1}{2}\right)\\
 	%
-	z^2 - \frac{9}{16} 
+	z^2 - \frac{9}{16}
 	=A z^2 - A z - \frac{3}{4} A + B z^2 - \frac{3}{2} B z + C z^2 + \frac{1}{2} C z
 \end{gather}
 %
 %
 %
-Durch den Koeffizientenvergleich ergeben sich $3$ Gleichungen für $3$ 
+Durch den Koeffizientenvergleich ergeben sich $3$ Gleichungen für $3$
 Unbekannte.
 %
 %
@@ -371,7 +379,7 @@ Anschließend setzen wir $A$ und das $C$ aus dem $z^2$-Term in den $z^1$-Term
 ein, um eine Lösung für $B$ zu finden.
 %
 \begin{gather}
-	0 = - \frac{3}{4} -\frac{3}{2}B + \frac{1}{2} (\frac{1}{4} - B) 
+	0 = - \frac{3}{4} -\frac{3}{2}B + \frac{1}{2} (\frac{1}{4} - B)
 	=- \frac{3}{4} -\frac{3}{2}B + \frac{1}{8} - \frac{1}{2} B\\
 	%
 	\frac{3}{4} - \frac{1}{8} =  - \frac{3}{2}B - \frac{1}{2} B \rightarrow\frac{5}{8} =  -  2 B
@@ -390,8 +398,9 @@ Mit $B$ lässt sich nun $C$ berechnen.
 	C = \frac{1}{4} - B = \frac{4}{16} + \frac{5}{16} = \frac{9}{16}
 \end{gather}
 %
-Alternativ können wir das LGS in Matrixform aufschreiben und mit Hilfe der 
+Alternativ können wir das LGS in Matrixform aufschreiben und mit Hilfe der
 Cramerschen Regel lösen.
+
 \begin{gather}
 	\begin{pmatrix}
 		1 & 1 & 1 \\
@@ -420,7 +429,7 @@ Cramerschen Regel lösen.
 		\begin{vmatrix}
 			1 & 1 & 1 \\
 			0 & -\nicefrac{3}{2} & \nicefrac{1}{2} \\
-			-\nicefrac{9}{16} &0& 0
+			-\nicefrac{9}{16} & 0 & 0
 		\end{vmatrix}
 	}
 	{
@@ -430,11 +439,23 @@ Cramerschen Regel lösen.
 			-\nicefrac{3}{4} & 0 & 0
 		\end{vmatrix}
 	}
-	%Zähler
-	&=\frac{1\cdot \left(-\frac{3}{2}\right) \cdot 0 + 1\cdot \frac{1}{2} \cdot\left(-\frac{9}{16}\right) +1\cdot 0 \cdot 0- \left(-\frac{9}{16}\right)\cdot \left(-\frac{3}{2}\right)\cdot 1-0\cdot \frac{1}{2}\cdot 1 - 0 \cdot 0 \cdot 1}
-	%Nenner
-	{1\cdot \left(-\frac{3}{2}\right)\cdot 0 +1\cdot \frac{1}{2}\cdot \left(-\frac{3}{4}\right)+1\cdot \left(-1\right) \cdot 0- \left(-\frac{3}{4}\right)\cdot \left(-\frac{3}{2}\right)\cdot 1 -0\cdot \frac{1}{2}\cdot 1 + 0\cdot \left(-1\right) \cdot 1}\nonumber \\
-	%
+	&=\frac
+	{%Zähler
+	1 \cdot \left(-\frac{3}{2}\right) \cdot 0 +
+	1 \cdot \frac{1}{2} \cdot\left(-\frac{9}{16}\right) +
+	1 \cdot 0 \cdot 0 -
+	\left(-\frac{9}{16}\right) \cdot \left(-\frac{3}{2}\right) \cdot 1 -
+	0 \cdot \frac{1}{2} \cdot 1 -
+	0 \cdot 0 \cdot 1
+	}
+	{%Nenner
+	1 \cdot \left(-\frac{3}{2}\right) \cdot 0 +
+	1\cdot \frac{1}{2} \cdot \left(-\frac{3}{4}\right) +
+	1\cdot \left(-1\right) \cdot 0 -
+	\left(-\frac{3}{4}\right) \cdot \left(-\frac{3}{2}\right) \cdot 1 -
+	0 \cdot \frac{1}{2} \cdot 1 +
+	0 \cdot \left(-1\right) \cdot 1
+	}\nonumber \\
 	&=\frac{-\frac{4}{2}\cdot\frac{9}{16}}{-\frac{4}{2}\cdot\frac{3}{4}}=\frac{9}{16}\cdot\frac{4}{3}=\frac{3}{4}
 \end{align}
 %
@@ -456,14 +477,29 @@ Cramerschen Regel lösen.
 			-\nicefrac{3}{4} & 0 & 0
 		\end{vmatrix}
 	}
-	&=
-	%Zähler
-	\frac{1\cdot 0 \cdot 0+ 1 \cdot \frac{1}{2}\cdot \left(-\frac{3}{4}\right)+1\cdot \left(-1\right)\cdot \left(-\frac{9}{16}\right)-\left(-\frac{3}{4}\right)\cdot 0 \cdot 1 -\left(-\frac{9}{16}\right)\cdot \frac{1}{2}\cdot 1 - 0\cdot \left(-1\right)\cdot 1}
-	%Nenner
-	{1\cdot \left(-\frac{3}{2}\right)\cdot 0 +1\cdot \frac{1}{2}\cdot \left(-\frac{3}{4}\right)+1\cdot \left(-1\right) \cdot 0- \left(-\frac{3}{4}\right)\cdot \left(-\frac{3}{2}\right)\cdot 1 -0\cdot \frac{1}{2}\cdot 1 + 0\cdot \left(-1\right) \cdot 1}\nonumber \\
+	&=\frac
+	{%Zähler
+	1\cdot 0 \cdot 0 +
+	1 \cdot \frac{1}{2} \cdot \left(-\frac{3}{4}\right) +
+	1\cdot \left(-1\right) \cdot \left(-\frac{9}{16}\right) -
+	\left(-\frac{3}{4}\right)\cdot 0 \cdot 1 -
+	\left(-\frac{9}{16}\right)\cdot \frac{1}{2}\cdot 1 -
+	0\cdot \left(-1\right)\cdot 1
+	}
+	{%Nenner
+	1 \cdot \left(-\frac{3}{2}\right)\cdot 0 +
+	1 \cdot \frac{1}{2}\cdot \left(-\frac{3}{4}\right) +
+	1 \cdot \left(-1\right) \cdot 0 -
+	\left(-\frac{3}{4}\right)\cdot \left(-\frac{3}{2}\right) \cdot 1 -
+	0 \cdot \frac{1}{2}\cdot 1 +
+	0 \cdot \left(-1\right) \cdot 1
+	}\nonumber \\
 	%
 	&=\frac{-\frac{3}{8}+\frac{27}{32}}{-\frac{4}{2}\cdot\frac{3}{4}}=\frac{\frac{-12+27}{32}}{-\frac{3}{2}}=-\frac{15}{32}\cdot\frac{2}{3}=-\frac{5}{16}
 \end{align}
+%
+%
+%
 \begin{align}
 	C=
 	\frac{
@@ -480,11 +516,23 @@ Cramerschen Regel lösen.
 			-\nicefrac{3}{4} & 0 & 0
 		\end{vmatrix}
 	}
-	&=
-	%Zähler
-	\frac{1\cdot\left(-\frac{3}{2}\right)\cdot\left(-\frac{9}{16}\right)+1\cdot 0 \cdot \left(-\frac{3}{4}\right)+1\cdot \left(-1\right)\cdot 0-\left(-\frac{3}{4}\right)\cdot \left(-\frac{3}{2}\right)\cdot 1 -0 \cdot 0 \cdot 1 - \left(-\frac{9}{16}\right)\cdot \left(-1\right)\cdot 1}
-	%Nenner
-	{1\cdot \left(-\frac{3}{2}\right)\cdot 0 +1\cdot \frac{1}{2}\cdot \left(-\frac{3}{4}\right)+1\cdot \left(-1\right) \cdot 0- \left(-\frac{3}{4}\right)\cdot \left(-\frac{3}{2}\right)\cdot 1 -0\cdot \frac{1}{2}\cdot 1 + 0\cdot \left(-1\right) \cdot 1}\nonumber \\
+	&=\frac
+	{%Zähler
+	1 \cdot \left(-\frac{3}{2}\right) \cdot \left(-\frac{9}{16}\right) +
+	1 \cdot 0 \cdot \left(-\frac{3}{4}\right) +
+	1 \cdot \left(-1\right)\cdot 0 -
+	\left(-\frac{3}{4}\right) \cdot \left(-\frac{3}{2}\right) \cdot 1 -
+	0 \cdot 0 \cdot 1 -
+	\left(-\frac{9}{16}\right) \cdot \left(-1\right)\cdot 1
+	}
+	{%Nenner
+	1 \cdot \left(-\frac{3}{2}\right)\cdot 0 +
+	1 \cdot \frac{1}{2} \cdot \left(-\frac{3}{4}\right) +
+	1 \cdot \left(-1\right) \cdot 0 -
+	\left(-\frac{3}{4}\right) \cdot \left(-\frac{3}{2}\right) \cdot 1 -
+	0 \cdot \frac{1}{2} \cdot 1 +
+	0 \cdot \left(-1\right) \cdot 1
+	}\nonumber \\
 	%
 	&=
 	\frac{\frac{9}{32}-\frac{9}{8}}{-\frac{4}{2}\cdot\frac{3}{4}}=\frac{\frac{9-36}{32}}{-\frac{3}{2}}=\frac{27}{32}\cdot \frac{2}{3}=\frac{9}{16}
@@ -514,7 +562,7 @@ Auch mit dem Gauß-Algorithmus lässt sich das LGS lösen.
 %
 %
 %
-Zuerst werden die 3. und die 1. Spalte vertauscht.
+Zuerst werden die 3. und die 1. Spalte vertauscht (wg. Pivotelemente nicht Null!).
 %
 %
 %
@@ -604,7 +652,7 @@ Nun folgt $\mathrm{II}:=\mathrm{II}-\frac{3}{8}\mathrm{III}$
 %
 %
 %
-Wir teilen zum Schluss jede Zeile noch durch den Faktor, der auf 
+Wir teilen zum Schluss jede Zeile noch durch den Faktor, der auf
 der linken Seite steht
 %
 %
@@ -635,7 +683,7 @@ und können nun die Lösungen aus dem rechten Spaltenvektor auslesen:
 	C=\frac{9}{16}.
 \end{gather}
 %
-Wir schreiben uns die Systemfunktion noch einmal auf. 
+Wir schreiben uns die Systemfunktion mit den gefundenen $A,B,C$ noch einmal auf.
 %
 Dabei darf nicht vergessen werden, dass sie durch $z$ dividiert wurde.
 %
@@ -663,15 +711,15 @@ und
 erhalten wir die Impulsantwort
 %
 \begin{gather}
-	h[k] = 
+	h[k] =
 	\frac{3}{4} \delta[k] - \frac{5}{16}\left(-\frac{1}{2}\right)^k \epsilon[k] + \frac{9}{16}\left(\frac{3}{2}\right)^k \epsilon[k].
 \end{gather}
 %
 \newpage
 \subsubsection*{Lösung mit Polynomdivision und $\frac{z}{z}$-Erweiterung}
 %
-Alternativ kann man auch zunächst eine Polynomdivision durchführen, 
-um den Grad des Zählerpolynoms kleiner als den Grad des Nennerpolynoms 
+Alternativ kann man auch zunächst eine Polynomdivision durchführen,
+um den Grad des Zählerpolynoms kleiner als den Grad des Nennerpolynoms
 zu kriegen.
 %
 \begin{gather}
@@ -730,7 +778,7 @@ Daraus folgt auch
 	A=1-B=1-\frac{27}{32}=\frac{5}{32}.
 \end{gather}
 %
-Das LGS lässt sich auch in Matrixform darstellen:
+Das LGS lässt sich auch wieder in Matrixform darstellen:
 %
 \begin{gather}
 	\begin{pmatrix}
@@ -751,7 +799,7 @@ Das LGS lässt sich auch in Matrixform darstellen:
 Mit der Cramerschen Regel ist die Lösung schnell gefunden.
 %
 \begin{align}
-	A = 
+	A =
 	\frac{
 		\begin{vmatrix}
 			1 & 1\\
@@ -783,7 +831,7 @@ Mit der Cramerschen Regel ist die Lösung schnell gefunden.
 %
 %
 %
-Auch der Gauß-Algorithmus führt zur Lösung.
+Und natürlich muss auch der Gauß-Algorithmus zur gleichen Lösung führen.
 %
 %
 \begin{gather}
@@ -871,7 +919,7 @@ Die Systemfunktion lautet also
 	H(z)=1+\frac{5}{32}\cdot\frac{1}{z+\frac{1}{2}}+\frac{27}{32}\cdot\frac{1}{z-\frac{3}{2}}.
 \end{gather}
 %
-Wir nutzen folgende Korrespondenzen zum rücktransformieren:
+Wir nutzen folgende Korrespondenzen zum zurücktransformieren:
 %
 \begin{gather}
 	Ax[k]+By[k]\quad \ztransf\quad AX(z)+BY(z),\\
@@ -898,7 +946,7 @@ Wir erweitern die Brüche mit $\frac{z}{z}$, um die Korrespondenz aus \eqref{eq:
 %
 \newpage
 \subsubsection*{Lösen der linearen Differenzengleichung}
-Wir haben zu Beginn folgende Rekursionsgleichung aufgestellt:
+Wir haben zu Beginn folgende Rekursionsgleichung (= Differenzengleichung) aufgestellt:
 %
 \begin{gather}
 	y[k]-y[k-1]-\frac{3}{4}y[k-2]=x[k]-\frac{9}{16}x[k-2].
@@ -918,17 +966,17 @@ sowie der Gleichung
 %
 ist $y[k]=h[k]$, wenn $x[k]=\delta[k]$, denn $\delta[k]\quad\ztransf\quad 1$.
 %
-Äquivalent zu den kontinuierlichen Systemen müssen wir also nur einen 
-Impuls/eine Anregung zum Zeitpunkt $t=0$ (denn $k=\frac{t}{T}=0$) haben, 
-um am Ausgang die Impulsantwort des diskreten Systems zu beobachten. 
+Äquivalent zu den kontinuierlichen Systemen müssen wir also nur einen
+Impuls/eine Anregung zum Zeitpunkt $t=0$ (denn $k=\frac{t}{T}=0$) haben,
+um am Ausgang die Impulsantwort des diskreten Systems zu beobachten.
 %
-Weil es sich um ein kausales System handelt, ist $y[k]\underset{k<0}{=}0$. 
+Weil es sich um ein kausales System handelt, ist $y[k]\underset{k<0}{=}0$.
 %
-Somit können wir für das Lösen der Differenzengleichung auch die Technik zum 
-Lösen von Differenzengleichungen für Zahlenfolgen 
+Somit können wir für das Lösen der Differenzengleichung auch die Technik zum
+Lösen von Differenzengleichungen für Zahlenfolgen
 $y:\mathbb{N}\cup\{0\}\rightarrow\mathbb{R}$ anwenden.
 %
-Die nun folgende angewandte Technik zum Lösen von Differenzengleichungen stammt 
+Die nun folgende angewandte Technik zum Lösen von Differenzengleichungen stammt
 aus \cite[Kap. 5]{Witt2013}.\\
 %
 Eine lineare Differenzengleichung $n$-ter Ordnung hat die Form
@@ -937,22 +985,22 @@ Eine lineare Differenzengleichung $n$-ter Ordnung hat die Form
 	\sum_{i=0}^na_iy[k+i]=g[k]\quad \text{vgl. \cite[Kap. 5 S. 80]{Witt2013}}.
 \end{gather}
 %
-Bei uns ist es die zweite Ordnung, denn durch einen Time-Shift hat unsere 
-Differenzengleichung die Form 
+Bei uns ist es die zweite Ordnung, denn durch einen Time-Shift hat unsere
+Differenzengleichung die Form
 $$y[k+2]-y[k+1]-\frac{3}{4}y[k]=x[k+2]-\frac{9}{16}x[k].$$
 %
-Die rechte Seite der Differenzengleichung ist ungleich $0$, 
-somit handelt es sich um eine inhomogene Differenzengleichung. 
+Die rechte Seite der Differenzengleichung ist ungleich $0$,
+somit handelt es sich um eine inhomogene Differenzengleichung.
 %
-Des weiteren ergibt sich die allgemeine Lösung der inhomogenen 
-Differenzengleichung aus der Addition der homogenen Lösung der 
-Differenzengleichung sowie einer speziellen Lösung der inhomogenen 
+Des weiteren ergibt sich die allgemeine Lösung der inhomogenen
+Differenzengleichung aus der Addition der homogenen Lösung der
+Differenzengleichung sowie einer speziellen Lösung der inhomogenen
 Differenzengleichung (vgl. \cite[Kap. 5 S. 83]{Witt2013}).\\
 %
-Das Lösungsverfahren für homogene Differenzen ist ausführlich 
+Das Lösungsverfahren für homogene Differenzen ist ausführlich
 in \cite[Kap. 5 S. 84-85]{Witt2013} beschrieben.\\
 %
-Zuerst stellen wir die charakteristische Gleichung auf. 
+Zuerst stellen wir die charakteristische Gleichung auf.
 %
 Dies erfolgt äquivalent zur Differentialgleichung.\\
 %
@@ -968,19 +1016,19 @@ besitzt, dann lautet die charakteristische Gleichung
 	a_n\lambda^n+a_{n-1}\lambda^{n-1}+\dots+a_1\lambda+a_0=0.
 \end{gather}
 %
-Diese muss dann nach $\lambda$ gelöst werden. 
+Diese muss dann nach $\lambda$ gelöst werden.
 %
-Wenn die charakteristische Gleichung $n$ paarweise verschiedene Nullstellen hat, 
+Wenn die charakteristische Gleichung $n$ paarweise verschiedene Nullstellen hat,
 dann lautet die homogene Lösung der Differenzengleichung
 %
 \begin{gather}
 	y_h[k]=C_1\lambda_1^k+C_2\lambda_2^k+\dots+C_n\lambda_n^k,
 \end{gather}
 %
-wobei $C_1$, $C_2$, $\dots$, $C_n$ frei wählbare Parameter sind 
+wobei $C_1$, $C_2$, $\dots$, $C_n$ frei wählbare Parameter sind
 (vgl. \cite[Kap. 5, S. 85]{Witt2013}).
 %
-Wenn nun die Nullstelle $\lambda_0$ $m$-fach vorkommt, 
+Wenn nun die Nullstelle $\lambda_0$ $m$-fach vorkommt,
 dann sind folgende Terme Lösungen der homogenen Differenzengleichung:
 %
 \begin{gather}
@@ -989,8 +1037,8 @@ dann sind folgende Terme Lösungen der homogenen Differenzengleichung:
 %
 \textbf{Beispiel}\\
 %
-Nehmen wir an, wir haben eine charakteristische Gleichung aufgestellt und 
-die Nullstellen berechnet. 
+Nehmen wir an, wir haben eine charakteristische Gleichung aufgestellt und
+die Nullstellen berechnet.
 %
 Diese lauten
 %
@@ -1015,7 +1063,9 @@ Unsere charakteristische Gleichung lautet
 	\lambda^2-\lambda-\frac{3}{4}=0.
 \end{gather}
 %
-Mit der $p$-$q$-Formel aus Schulzeiten ist die Lösung schnell gefunden.
+Mit der $p$-$q$-Formel aus Schulzeiten ist die Lösung schnell gefunden
+(wir haben diese Zahlen auch vorher schon mal ausgerechnet, es sind die
+Polstellen des Systems).
 %
 \begin{gather}
 	\lambda_{1,2}=\frac{1}{2}\pm \sqrt{\frac{1}{4}+\frac{3}{4}}=\frac{1}{2}\pm 1\\
@@ -1029,14 +1079,14 @@ Die allgemeine Lösung der homogenen Differenzengleichung lautet also
 	y[k]=C_1\left(\frac{3}{2}\right)^k+C_2\left(-\frac{1}{2}\right)^k.
 \end{gather}
 %
-Nun müssen wir eine spezielle Lösung der inhomogenen Differenzengleichung 
-finden. 
+Nun müssen wir eine spezielle Lösung der inhomogenen Differenzengleichung
+finden.
 %
 Dabei hilft folgender Satz (vgl. \cite[Kap. 5 S. 83]{Witt2013}):\\
 %
-Ist $y_1$ eine Lösung der Differenzengleichung $\sum_{i=0}^na_iy[k+i]=x_1[k]$ 
-und $y_2$ eine Lösung der Differenzengleichung $\sum_{i=0}^na_iy[k+i]=x_2[k]$, 
-dann ist $y_1+y_2$ eine Lösung der Differenzengleichung 
+Ist $y_1$ eine Lösung der Differenzengleichung $\sum_{i=0}^na_iy[k+i]=x_1[k]$
+und $y_2$ eine Lösung der Differenzengleichung $\sum_{i=0}^na_iy[k+i]=x_2[k]$,
+dann ist $y_1+y_2$ eine Lösung der Differenzengleichung
 $\sum_{i=0}^{n}a_iy[k+i]=x_1[k]+x_2[k]$.\\
 %
 Wir suchen zunächst eine Lösung für
@@ -1045,11 +1095,11 @@ Wir suchen zunächst eine Lösung für
 	y[k+2]-y[k+1]-\frac{3}{4}y[k]=x[k+2]=\delta[k+2].
 \end{gather}
 %
-Für $k<0$ ist $y[k]=0$, da es sich um kausale Systeme/Signale handelt. 
+Für $k<0$ ist $y[k]=0$, da es sich um kausale Systeme/Signale handelt.
 %
-Ab $k=0$ ist die rechte Seite immer $0$, denn der verschobene Dirac Impuls wäre 
-nur bei $k=-2$ $1$. Wir müssen tatsächlich also nur eine spezielle Lösung für 
-eine homogene Differenzengleichung finden. 
+Ab $k=0$ ist die rechte Seite immer $0$, denn der verschobene Dirac Impuls wäre
+nur bei $k=-2$ Eins. Wir müssen tatsächlich also nur eine spezielle Lösung für
+eine homogene Differenzengleichung finden.
 %
 Wir wählen die triviale Lösung,
 %
@@ -1063,13 +1113,13 @@ Die zweite inhomogene Differenzengleichung lautet
 	y[k+2]-y[k+1]-\frac{3}{4}y[k]=-\frac{9}{16}x[k]=-\frac{9}{16}\delta[k].
 \end{gather}
 %
-Für $k<0$ ist $y[k]$ wieder $0$ und für $k>0$ ist die rechte Seite $0$. 
+Für $k<0$ ist $y[k]$ wieder $0$ und für $k>0$ ist die rechte Seite $0$.
 %
-Somit wäre für $k>0$ auch wieder $y_2[k]$ eine spezielle Lösung. 
+Somit wäre für $k>0$ auch wieder $y_2[k]$ eine spezielle Lösung.
 %
-Für $k=0$ ist die rechte Seite jedoch $-\frac{9}{16}$. 
+Für $k=0$ ist die rechte Seite jedoch $-\frac{9}{16}$.
 %
-Wir nehmen also an, dass eine spezielle Lösung von $y_2[k]$ ein 
+Wir nehmen also an, dass eine spezielle Lösung von $y_2[k]$ ein
 Dirac-Impuls ist.
 %
 \begin{gather}
@@ -1082,7 +1132,7 @@ Diesen Ansatz setzen wir nun in die inhomogene Differenzengleichung ein.
 	y[k+2]-y[k+1]-\frac{3}{4}y[k]=a\delta[k+2]-a\delta[k+1]-a\frac{3}{4}\delta[k]=-\frac{9}{16}\delta[k]
 \end{gather}
 %
-Wir wissen, dass $y_2[k<0]=y_2[k>0]=0$ ist. Wir untersuchen die 
+Wir wissen, dass $y_2[k<0]=y_2[k>0]=0$ ist. Wir untersuchen die
 Differenzengleichung also für $k=0$.
 %
 %
@@ -1102,14 +1152,14 @@ Die allgemeine Lösung der inhomogenen Differenzengleichung lautet
 	\frac{3}{4}\delta[k]+C_1\left(\frac{3}{2}\right)^k+C_2\left(-\frac{1}{2}\right)^k.
 \end{gather}
 %
-Wir betrachten nun noch einmal die ursprüngliche Differenzengleichung 
+Wir betrachten nun noch einmal die ursprüngliche Differenzengleichung
 (also wieder Timeshift um 2 nach rechts):
 %
 \begin{gather}
 	y[k]-y[k-1]-\frac{3}{4}y[k-2]=x[k]-\frac{9}{16}x[k-2].
 \end{gather}
 %
-Wir wissen wegen Kausalität, dass $y[k<0]=0$ gilt. 
+Wir wissen wegen Kausalität, dass $y[k<0]=0$ gilt.
 %
 Außerdem ist $x[k]=\delta[k]$. Somit lassen sich Anfangsbedingungen finden.\\
 %
@@ -1132,8 +1182,8 @@ Zusammengefasst:
 	y[1]=1.
 \end{gather}
 %
-Wir setzen nun $k=0$ und $k=1$ in die allgemeine Lösung der inhomogenen 
-Differenzengleichung ein und erhalten dann ein LGS, um die Koeffizienten 
+Wir setzen nun $k=0$ und $k=1$ in die allgemeine Lösung der inhomogenen
+Differenzengleichung ein und erhalten dann ein LGS, um die Koeffizienten
 auszurechnen.
 %
 %
@@ -1151,7 +1201,7 @@ auszurechnen.
 	\frac{3}{2}C_1-\frac{1}{2}C_2=1
 \end{gather}
 %
-Aus der ersten Gleichung folgt 
+Aus der ersten Gleichung folgt
 %
 \begin{gather}
 	C_1=\frac{1}{4}-C_2.
@@ -1199,11 +1249,11 @@ Das LGS lässt sich auch in Matrixform aufschreiben,
 	\begin{pmatrix}
 		\nicefrac{1}{4} \\
 		1
-	\end{pmatrix}
+	\end{pmatrix},
 \end{gather}
 %
 %
-, und mit der Cramerschen Regel bzw. dem Gauß-Algorithmus lösen.\\
+und mit der Cramerschen Regel bzw. dem Gauß-Algorithmus lösen.\\
 %
 Cramersche Regel:
 %
@@ -1325,7 +1375,7 @@ Die Lösungen lassen sich aus dem rechten Spaltenvektor ablesen:
 	C_2=-\frac{5}{16}.\nonumber
 \end{gather}
 %
-Die Lösung der inhomogenen Differenzengleichung mit Anfangsbedingungen lautet 
+Die Lösung der inhomogenen Differenzengleichung mit Anfangsbedingungen lautet
 somit
 %
 %
@@ -1336,24 +1386,42 @@ somit
 \end{gather}
 %
 %
+Dieser Lösungsweg ist didaktisch elegant, weil er den gleichen Formalismus
+wie zum Lösen von Differentialgleichungen benutzt.
+%
+Letzteres haben wir ausführlich in Mathe gelernt und jetzt hier adaptiert.
+%
+Die vorhergehenden SigSys-artigen Lösungen scheinen (für dieses Beispiel)
+weniger Rechenaufwand aufzuweisen und verpackt viele der Mathe-Details/Formalismen
+in für Ingenieursproblematik relevante Interpetationen
+(z.B. Aussagekraft von Polen und Nullstellen).
+%
+Deswegen gibt es SigSys als zugeschnittene Mathematik für lineare, zeitinvariante
+Systeme, und speziell für zeitdiskrete Systeme/Signale haben die aktuell wichtigen
+Softwarepakete (Matlab, scipy.signal) eine eher SigSys-orientierte API.
+
 \newpage
 \subsection*{Lösung Aufgabe a) Vorwärts Rückwärts}
+\label{eq:H1equalH2}
 %
-Wir verfolgen nun die Aufgabe a) ab dem Zeitpunkt, ab dem wir die 
-Systemfunktion im z-Bereich hergeleitet haben. 
+Wir verfolgen nun die Aufgabe a) ab dem Zeitpunkt, ab dem wir die
+Systemfunktion im z-Bereich hergeleitet haben.
 %
-Wir transformieren diese nun nicht zurück, sondern bilden die z-Transformierte 
-der vorgegebenen Impulsantworten, um diese dann mit der Hergeleiteten zu 
-vergleichen. 
+Wir transformieren diese nun nicht zurück, sondern bilden die z-Transformierte
+der vorgegebenen Impulsantworten, um diese dann mit der Hergeleiteten zu
+vergleichen.
 %
 Am Ende muss $H(z)-\mathcal{Z}[h[k]]=0$ gelten.
+%
+Das ist eine mögliche Variante (völlig legitime, weil ingenieurige Herangehensweise),
+die wir in der Klausur nutzen könnten, wenn uns die Rücktrafo nicht sofort gelingt.
 %
 \begin{gather}
 	H_1(z)=\frac{3}{4}-\frac{5}{16}\frac{z}{z+\frac{1}{2}}+\frac{9}{16}\frac{z}{z-\frac{3}{2}}\\
 	H_2(z)=1+\frac{5}{32}\frac{1}{z+\frac{1}{2}}+\frac{27}{32}\frac{1}{z-\frac{3}{2}}
 \end{gather}
 %
-Zum transformieren von $h_1[k]$ und $h_2[k]$ nutzen wir folgende 
+Zum transformieren von $h_1[k]$ und $h_2[k]$ nutzen wir folgende
 Korrespondenzen:
 %
 \begin{gather}
@@ -1373,7 +1441,7 @@ Korrespondenzen:
 \end{gather}
 %
 %
-Die Terme auf beiden Seiten sind offensichtlich gleich. 
+Die Terme auf beiden Seiten sind offensichtlich gleich.
 %
 Wir wiederholen das ganze mit $h_2[k]$.
 %
@@ -1422,7 +1490,7 @@ Es folgt eine Sortierung anhand der $z^k$ Terme.
 %
 \begin{gather}
 	z^2(\frac{3}{4}-\frac{5}{16}+\frac{9}{16})+z(-\frac{3}{4}+\frac{15}{32}+\frac{9}{32})-\frac{9}{16}
-	=z^2+z(-1+\frac{5}{32}+\frac{27}{32})-\frac{3}{4}-\frac{15}{16}+\frac{27}{64}
+	=z^2+z(-1+\frac{5}{32}+\frac{27}{32})-\frac{3}{4}-\frac{15}{64}+\frac{27}{64}
 \end{gather}
 %
 %
@@ -1432,44 +1500,46 @@ Nun noch die Terme zu den jeweiligen $z^k$ Termen zusammenfassen.
 	z^2-\frac{9}{16}=z^2-\frac{9}{16}
 \end{gather}
 %
-Man sieht auch, dass $\mathcal{Z}\left[h_2[k]\right]=H_2(z)$ ist. 
+Man sieht auch, dass $\mathcal{Z}\left[h_2[k]\right]=H_2(z)$ ist.
 %
-Somit brauchen wir den Test hiernach nicht nochmal mit $H_2(z)$ wiederholen. 
+Somit brauchen wir den Test hiernach nicht nochmal mit $H_2(z)$ wiederholen.
 %
-Weil $H_1(z)=\mathcal{Z}\left[h_1[k]\right]$ und 
+Weil $H_1(z)=\mathcal{Z}\left[h_1[k]\right]$ und
 $H_1(z)=\mathcal{Z}\left[h_2[k]\right]$, ist auch $h_1[k]=h_2[k]$ und wir haben
 somit die Zusatzaufgabe gelöst.\\
 %
 \newpage
 \subsection*{Lösung a) Rückwärts}
 \subsubsection*{Einsetzen in die lineare Differenzengleichung}
-Als wir die Impulsantwort mit der Differenzengleichung gelöst haben, besprachen 
-wir schon, dass am Systemausgang die Impulsantwort beobachtet werden kann, wenn 
-am Eingang ein Dirac-Impuls anliegt, also falls $x[k]=\delta[k]$, dann 
-$y[k]=h[k]$. 
+Als wir die Impulsantwort mit der Differenzengleichung gelöst haben, besprachen
+wir schon, dass am Systemausgang die Impulsantwort beobachtet werden kann, wenn
+am Eingang ein Dirac-Impuls anliegt, also falls $x[k]=\delta[k]$, dann
+$y[k]=h[k]$.
 %
-Wenn die Differenzengleichung das System beschreibt, dann lassen sich 
-$y[k]=h[k]$ und $x[k]=\delta[k]$ in die Gleichung einsetzen und es entsteht 
+Wenn die Differenzengleichung das System beschreibt, dann lassen sich
+$y[k]=h[k]$ und $x[k]=\delta[k]$ in die Gleichung einsetzen und es entsteht
 kein Widerspruch.\\
 %
-Es  gilt:
+Wir haben die DLG auf S.~\pageref{pg:DGL} gefunden, sie lautet
 %
 \begin{gather}
 	y[k]-y[k-1]-\frac{3}{4}y[k-2]=x[k]-\frac{9}{16}x[k-2]
 \end{gather}
 %
 %
+Einsetzen der Impulsantwort bzgl. $y[k], y[k-1], y[k-2]$ und des Diracs als Eingang
+bzgl. $x[k], x[k-2]$ führt zu
 %
 \begin{align}
 	&\frac{3}{4}\delta[k]-\frac{5}{16}\left(-\frac{1}{2}\right)^k\epsilon[k]+\frac{9}{16}\left(\frac{3}{2}\right)^k\epsilon[k]-\frac{3}{4}\delta[k-1]+\frac{5}{16}\left(-\frac{1}{2}\right)^{k-1}\epsilon[k-1]-\frac{9}{16}\left(\frac{3}{2}\right)^{k-1}\epsilon[k-1]\nonumber \\
 	%
-	&-\frac{9}{16}\delta[k-2]+\frac{15}{64}\left(-\frac{1}{2}\right)^{k-2}\epsilon[k-2]-\frac{27}{64}\left(\frac{3}{2}\right)^{k-2}\epsilon[k-2]=\delta[k]-\frac{9}{16}\delta[k]
+	&-\frac{9}{16}\delta[k-2]+\frac{15}{64}\left(-\frac{1}{2}\right)^{k-2}\epsilon[k-2]-\frac{27}{64}\left(\frac{3}{2}\right)^{k-2}\epsilon[k-2]=\delta[k]-\frac{9}{16}\delta[k-2]
 \end{align}
 %
 %
 %
-Für $k=0$ ist die rechte Seite $1$, für $k=2$ ist die rechte Seite 
-$-\frac{9}{16}$, ansonsten ist die rechte Seite $0$.\\
+Für $k=0$ ist die rechte Seite $1$, für $k=2$ ist die rechte Seite
+$-\frac{9}{16}$, für alle anderen $k$ ist die rechte Seite $0$.\\
 %
 Die linke Seite ist für $k<0$ offensichtlich auch 0.\\
 %
@@ -1542,7 +1612,7 @@ Für $k>2$ beträgt die rechte Seite
 %
 %
 %
-Auch für $k>2$ sind beide Seiten gleich. Somit ist $h[k]$ eine Lösung der 
+Auch für $k>2$ sind beide Seiten gleich. Somit ist $h[k]$ eine Lösung der
 Differenzengleichung mit $x[k]=\delta[k]$ und damit die Impulsantwort.\\
 %
 Für $h_2[k]$ ist das Vorgehen analog.
@@ -1550,8 +1620,8 @@ Für $h_2[k]$ ist das Vorgehen analog.
 \newpage
 \subsubsection*{Herleiten der Differenzengleichung aus der Impulsantwort}
 %
-Nun wollen wir die Differenzengleichung aus der Impulsantwort $h_1[k]$ 
-herleiten. 
+Nun wollen wir die Differenzengleichung aus der Impulsantwort $h_1[k]$
+herleiten.
 %
 Für $h_2[k]$ würde man analog vorgehen.\\
 %
@@ -1578,13 +1648,14 @@ Wir bringen nun die Systemfunktion auf einen gemeinsamen Nenner.
 	}
 \end{align}
 %
-Wir multiplizieren aus und sortieren ein weg.
+Wir multiplizieren aus und sortieren ein wenig. Wenn wir vorne angefangen haben
+zu rechnen, kommt uns das Ergebnis sehr bekannt vor.
 %
 \begin{gather}
 	H(z)=\frac{z^2-\frac{9}{16}}{z^2-z-\frac{3}{4}}
 \end{gather}
 %
-Die Systemfunktion ergab sich ja auch aus der Division der $z$-Transformierten 
+Die Systemfunktion ergab sich ja auch aus der Division der $z$-Transformierten
 des Ausgangssignals durch die $z$-Transformierte des Eingangsignals.
 %
 \begin{gather}
@@ -1597,12 +1668,12 @@ des Ausgangssignals durch die $z$-Transformierte des Eingangsignals.
 Wir schieben Differenzengleichung noch um $2$ nach rechts,
 %
 \begin{align}
-	y[k]-y[k-1]-\frac{3}{4}y[k]=x[k]-\frac{9}{16}x[k-2]
+	y[k]-y[k-1]-\frac{3}{4}y[k]=x[k]-\frac{9}{16}x[k-2],
 \end{align}
 %
-, und erhalten unsere am Anfang aufgestellte Differenzengleichung. 
+und erhalten unsere am Anfang aufgestellte Differenzengleichung.
 %
-Wenn man $H(z)$ noch mit $\frac{z^{-2}}{z^{-2}}$ erweitert hätte, 
+Wenn man $H(z)$ noch mit $\frac{z^{-2}}{z^{-2}}$ erweitert hätte,
 dann würde später die Verschiebung wegfallen.
 %
 \newpage
@@ -1611,7 +1682,7 @@ dann würde später die Verschiebung wegfallen.
 Instabilität sieht man
 %
 \begin{itemize}
-	\item ein Pol außerhalb des Einheitskreises, KB schliesst Einheitskreis nicht ein
+	\item an einem Pol der außerhalb des Einheitskreises liegt, der KB (für das kausale System) schliesst Einheitskreis nicht ein
 	%
 	\item $\left(\frac{3}{2}\right)^k \epsilon[k]$ ist eine aufklingende Folge, die nicht von anderen Termen in $h[k]$ kompensiert wird, daher wächst $h[k]$ und auch $h_\epsilon[k]$ über alle Grenzen
 	%
@@ -1660,7 +1731,8 @@ Also gilt $h_2[k]=h_1[k]$
 	%
 	\mathcal{Z}[h_1[k]]\overset{!}{=}\mathcal{Z}[h_2[k]]\\
 	%
-	\frac{3}{4}-\frac{5}{16}\frac{z}{z+\frac{1}{2}}+\frac{9}{16}\frac{z}{z-\frac{3}{2}}=1+\frac{5}{32}\frac{1}{z+\frac{1}{2}}+\frac{27}{32}\frac{1}{z-\frac{3}{2}}
+	\frac{3}{4}-\frac{5}{16}\frac{z}{z+\frac{1}{2}}+\frac{9}{16}\frac{z}{z-\frac{3}{2}}
+	=1+\frac{5}{32}\frac{1}{z+\frac{1}{2}}+\frac{27}{32}\frac{1}{z-\frac{3}{2}}
 \end{gather}
 %
 Nun werden beiden Seiten auf den gleichen Nenner gebracht.
@@ -1699,7 +1771,9 @@ Wir können noch ein wenig sortieren und erhalten
 %
 Beide Seiten sind gleich. Somit haben wir gezeigt, dass $h_1[k]=h_2[k]$.
 %
+So ähnlich kennen wir das auch schon von der Rechnung auf S.~\pageref{eq:H1equalH2}.
+%
 \renewcommand{\refname}{Buchzitate}
-\clearpage
+%\clearpage
 \bibliography{../tutorial_latex_deu/literatur}
 \end{document}
