@@ -16,14 +16,14 @@ in den \cite[Kapiteln 1-3]{Marinescu2020}
 \begin{itemize}
   \item Ohmsches Gesetz
   \item Kirchhoffsche Gleichungen/Regeln, also Maschenumlauf ergibt Spannung Null,
-  Summe alle Ströme rein/raus Knoten muss Null sein
+  Summe alle Ströme rein/raus per Knoten muss Null sein
   \item für Widerstand: Reihenschaltung (R1+R2) mit gleichem Strom,
   Parallelschaltung (1/R1+1/R2) mit gleicher Spannung
 \end{itemize}
 Dann in \cite[Kapitel 9]{Marinescu2020}
 \begin{itemize}
 \item Konzept Induktivität u = L di/dt, ideales Bauelement Spule
-\item Konzept Kapazität i = C du/dt, ideale Bauelement Kondensator
+\item Konzept Kapazität i = C du/dt, ideales Bauelement Kondensator
 \item Sinusschwingung, Effektivwert
 \item Phasenunterschied zwischen Strom/Spannung bei Widerstand, Spule, Kondensator
 \item Kapitel 9.7 / 9.8 beinhaltet Rechnerei an
@@ -41,13 +41,13 @@ an elektrischen Netzwerken verhalten entweder im stationären Zustand
 oder speziell den Ein-/Ausschaltvorgang von Gleich-/Wechselgrößen.
 %
 Dies sind in der Welt der SigSys Spezialfälle für die Analyse des LTI-Systems
-'elektrisches Netzwerk mit idealen Bauelementen'.
+'elektrisches Netzwerk mit idealen, konzentrierten Bauelementen'.
 
 Im Folgenden ein Versuch die Essenz kompakt zusammenzufassen.
 
 \subsection{Strom i(t) / Spannung u(t) an passiven Bauelementen}
 
-vgl. \cite[Kap. 10.2.2]{Marinescu2020}
+vgl. \cite[Kap. 10.2.2]{Marinescu2020}, Integrationskonstanten Null, d.h. ohne AB
 
 \begin{align}
 \text{Widerstand} \qquad & u(t) = R i(t) \qquad& i(t) = \frac{1}{R} u(t)\\
@@ -309,8 +309,8 @@ werden. Wir können dann finden, dass die Fälle $\omega\ll\omega_\text{RC}$ und
 $\omega\gg\omega_\text{RC}$ asymptotisch wichtige Grenzfälle sind, der Speziallfall
 $\omega=\omega_\text{RC}$ sehr wichtig ist und zur Erkenntnis kommen, dass
 das System nur die Amplitude (Effektivwert) und Phasenlage zwischen Aus- und Eingang
-ändern kann. All das machen wir auch in einer Elektrotechnik VL, in SigSys
-ist es eingebettet in den größeren Kontext. Vorgriff:
+ändern kann. All das machen wir auch in einer Elektrotechnik VL/UE, in SigSys
+ist es aber eingebettet in den größeren Kontext. Vielleicht spannender Vorgriff:
 In Abb.~\ref{fig:bodeplot_examples_pt1_element_AppB}
 sieht man, wie das Systemverhalten SigSys-typisch grafisch aufbereitet wird,
 das kommt in UE 5 ausführlich.
@@ -396,7 +396,7 @@ Die Lösung wird in \cite[Lap. 15.4.4]{Marinescu2020} ausführlich diskutiert.
 Zum Zeitpunkt $t=0$ sei der Kondensator auf die Spannung $U$ aufgeladen und
 der Eingang der Schaltung wird bei $t=0$ mit einem Kabel kurzgeschlossen.
 Der daraufhin einsetzende Stromfluss entlädt den Kondensator.
-Wie verhält sich die Spannung $u_a(t)$ über dem Kondensator.
+Wie verhält sich die Spannung $u_a(t)$ über dem Kondensator?
 
 Diese Lösung wird auch in \cite[Lap. 15.4.4, S. 371]{Marinescu2020} diskutiert.
 

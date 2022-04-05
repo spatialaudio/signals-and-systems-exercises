@@ -47,11 +47,11 @@ für spezielles $\tau=4$
 \cos(\frac{\pi}{4} t) \, \delta(t-4) = \cos(\pi) \, \delta(t-4) = -\delta(t-4)
 \end{align}
 %
-Austasteigenschaft zur Faltung:
+Von der Austasteigenschaft zur Faltung:
 \begin{align}
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(\tau-t) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , ausgehend von \eq{eq:AppA_SifitingCT} mit } t \leftrightarrow \tau\nonumber\\
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , weil }\delta(t)=\delta(-t)\nonumber\\
-&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-\tau+t) \, \fsd \tau \stackrel{\mathrm{def}}= x(t) \text{ , Variante Austasteigenschaft, Faltung mit Neutralelement}\nonumber\\
+&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-\tau+t) \, \fsd \tau \stackrel{\mathrm{def}}= x(t) \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, h(-\tau+t) \, \fsd \tau = y(t) \text{ , Faltungsintegral mit LTI-System Impulsantwort}
 \end{align}
 
@@ -61,7 +61,7 @@ Austasteigenschaft zur Faltung:
 %
 \newpage
 \subsection{Zeitdiskret}
-Dirac Impuls (Folge) definiert als
+Dirac Impuls (Folge) diesmal als exaktes Signal definiert als
 \begin{align}
 \delta[k] =
 \begin{cases}
@@ -116,10 +116,10 @@ für spezielles $\kappa=4$
 \cos(\frac{\pi}{4} k) \, \delta[k-4] = \cos(\pi) \, \delta[k-4] = -\delta[k-4]
 \end{align}
 
-Austasteigenschaft zur Faltung:
+Von der Austasteigenschaft zur zeitdiskreten Faltung:
 \begin{align}
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[\kappa-k] = x[\kappa=k]\text{ , ausgehend von \eq{eq:AppA_SifitingDT} mit } k \leftrightarrow \kappa\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-(\kappa-k)] = x[\kappa=k]\text{ , weil }\delta[k]=\delta[-k]\nonumber\\
-&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-\kappa+k] = x[k] \text{ , Variante Austasteigenschaft, Faltung mit Neutralelement}\nonumber\\
+&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-\kappa+k] = x[k] \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, h[-\kappa+k] = y[k] \text{ , Faltungsintegral mit LTI-System Impulsantwort}
 \end{align}
