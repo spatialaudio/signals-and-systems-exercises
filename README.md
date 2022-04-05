@@ -18,7 +18,7 @@ The [Anaconda distribution](https://www.anaconda.com/distribution/) is a very co
 
 - get at least python 3.9x, numpy, sympy, scipy, matplotlib, notebook, jupyterlab, ipykernel, the other packages are very useful tools for convenience
 
-`conda create -n mydsp python=3.9 pip numpy sympy scipy matplotlib notebook ipykernel jupyterlab pydocstyle pycodestyle autopep8 flake8 nb_conda jupyter_nbextensions_configurator jupyter_contrib_nbextensions`
+`conda create -n mydsp python=3.9 pip numpy sympy scipy matplotlib notebook ipykernel jupyterlab ipympl pydocstyle pycodestyle autopep8 flake8 nb_conda jupyter_nbextensions_configurator jupyter_contrib_nbextensions`
 
 - activate this environment with
 
@@ -38,7 +38,7 @@ The [Anaconda distribution](https://www.anaconda.com/distribution/) is a very co
 
 If the above steps still lead to problems, the following lines created the working environment `mydsp`
 - using `conda 4.12.0`, `conda-build 3.21.8`
-- `conda create -n mydsp python=3.9.12 pip=22.0.4 numpy=1.22.3 sympy=1.10.1 scipy=1.8.0 matplotlib=3.5.1 notebook=6.4.10 ipykernel=6.11.0 jupyterlab=3.3.2 pydocstyle=6.1.1 pycodestyle=2.8.0 autopep8=1.6.0 flake8=4.0.1 nb_conda=2.2.1 jupyter_nbextensions_configurator=0.4.1 jupyter_contrib_nbextensions=0.5.1`
+- `conda create -n mydsp python=3.9.12 pip=22.0.4 numpy=1.22.3 sympy=1.10.1 scipy=1.8.0 matplotlib=3.5.1 notebook=6.4.10 ipykernel=6.12.1 jupyterlab=3.3.2 ipympl=0.8.8 pydocstyle=6.1.1 pycodestyle=2.8.0 autopep8=1.6.0 flake8=4.0.1 nb_conda=2.2.1 jupyter_nbextensions_configurator=0.4.1 jupyter_contrib_nbextensions=0.5.1`
 - `pip install soundfile`
 
 ## German Version
