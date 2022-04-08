@@ -30,16 +30,16 @@ und Differentialgleichungen. Die vergleichsweise einfach gehaltenen
 %
 \begin{Ziel}
 Wir wollen für die Fourierreihe den wichtigen Zusammenhang zwischen der Rechteckfunktion
-und der Spaltfunktion anhand eines fundamentalen Beispiels erfassen. Zudem enthält die
+und der Spaltfunktion anhand eines fundamental wichtigen Beispiels erfassen. Zudem enthält die
 ausführliche Rechnung Schritte und Umformungen, welche wir so oder in ähnlicher Form
 immer wieder brauchen werden.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D1483A84E2}: Berechnen Sie die komplexe Fourier-Reihe für
 \begin{itemize}
-\item axialsymmetrische periodische Rechteckschwingung $x(t)$ mit Periode $T$
+\item axialsymmetrische periodische Rechteckschwingung $x(t)$ mit Periode $T>0$ s
 und Amplitude $A$
-\item Tastverhältnis $0<\frac{T_h}{T}\leq 1$
-\item Grundkreisfrequenz $\omega_0 = \frac{2\pi}{T}$ mit $\omega_0>0$
+\item Tastverhältnis $0<\frac{T_h}{T}\leq 1$, woraus folgt $0 < T_h \leq T$
+\item Grundkreisfrequenz $\omega_0 = \frac{2\pi}{T}$ mit $\omega_0>0$ rad/s
 \end{itemize}
 %
 \begin{figure}[h!]
@@ -60,15 +60,18 @@ und Amplitude $A$
 \end{figure}
 %
 \begin{Werkzeug}
-Synthese mit komplexer Fourierreihe
+Synthese eines Zeitsignals $x(t)$ mit komplexer Fourierreihe
 %
-\begin{equation}
-x(t) = \sum\limits_{k=-\infty}^{+\infty} c_k \cdot \e^{+\im \omega_0 k t}
-\end{equation}
+\begin{align}
+x(t)
+&= \sum\limits_{k=-\infty}^{+\infty} \left(\frac{1}{T} X_k\right) \cdot \e^{+\im \omega_0 k t}\\
+&= \frac{1}{T}\sum\limits_{k=-\infty}^{+\infty} X_k \cdot \e^{+\im \omega_0 k t}
+\end{align}
 %
-Analyse mit komplexer Fourierreihe
+Analyse eines Zeitsignals $x(t)$ mit komplexer Fourierreihe über eine Periode, i.e.
+Berechnung der komplexen Fourierkoeffizienten $X_k$
 \begin{equation}
-c_k = \frac{1}{T} \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \omega_0 k t} \mathrm{d}t
+X_k =  \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \omega_0 k t} \mathrm{d}t
 \end{equation}
 %
 Hinweis: Wir verwenden hier nie die Fourierreihe mit
@@ -83,6 +86,10 @@ Wechselstromrechnung eingeführt.
 %
 Zudem gestaltet sich das Aufzeigen der Verknüpfungen zu den anderen
 Fourier-Transformationen mit der komplexen Variante deutlich eleganter.
+%
+Deshalb werden die Koeffizienten $X_k$ auch erst bei der Synthese der
+Fourierreihe mit $\frac{1}{T}$ gewichtet und die Fourier Analyse erfolgt über
+den Zeitraum $-T/2$ bis $T/2$ also axialsymmetrisch zum Ursprung.
 \end{Werkzeug}
 
 \begin{Ansatz}
@@ -92,7 +99,7 @@ die Funktion nicht Null ist. Am einfachsten ist das, wenn wir den
 Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und daher nur von $-T_h/2$ bis $+T_h/2$
 integrieren.
 \begin{equation}
-c_k = \frac{1}{T} \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm{d}t
+X_k =  \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm{d}t
 \end{equation}
 %
 \end{Ansatz}
@@ -100,31 +107,34 @@ c_k = \frac{1}{T} \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm
 \begin{ExCalc}
 Integrieren
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{-\im \omega_0 k t}}{-\im \omega_0 k }\bigg|_{-T_h/2}^{+T_h/2}
+X_k = A \frac{\e^{-\im \omega_0 k t}}{-\im \omega_0 k }\bigg|_{-T_h/2}^{+T_h/2}
 \end{equation}
 Grenzen einsetzen
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{-\im \omega_0 k T_h/2} - \e^{+\im \omega_0 k T_h/2}}{-\im \omega_0 k }
+X_k = A \frac{\e^{-\im \omega_0 k T_h/2} - \e^{+\im \omega_0 k T_h/2}}{-\im \omega_0 k }
 \end{equation}
 Vorzeichen
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k }
+X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k }
 \end{equation}
-Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$ und zu unserer Definition der Spalt- bzw. Sinc-Funktion $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$ und zu unserer Definition der Spalt- bzw. Sinc-Funktion
+$$\mathrm{sinc}(x):=\frac{\sin(x)}{x}$$
+
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k } \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k } \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{equation}
 Umsortieren, Kürzen
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot \frac{T_h/2}{1} \cdot \frac{2}{1}
+X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot \frac{T_h/2}{1} \cdot \frac{2}{1}
 \end{equation}
 %
 \begin{equation}
-c_k = \frac{A}{T} \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot T_h
+X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot T_h
 \end{equation}
 %
+Ergebnis
 \begin{equation}
-c_k = A \frac{T_h}{T} \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
+X_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
 \end{equation}
 \end{ExCalc}
 
@@ -132,7 +142,7 @@ c_k = A \frac{T_h}{T} \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
 %
 \begin{equation}
 \label{eq:D1483A84E2_Loesung}
-T \cdot c_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2}) = A T_h \cdot \mathrm{sinc}(k \pi \frac{T_h}{T})
+ X_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2}) = A T_h \cdot \mathrm{sinc}(k \pi \frac{T_h}{T})
 \end{equation}
 %
 Wir sollten uns mit der Spaltfunktion
@@ -146,24 +156,27 @@ und den Verlauf der lokalen Maxima / Minima grob auf dem Schirm zu haben.
 %
 Besonders relevant für die aktuelle Aufgabe ist, dass die Spaltfunktion
 breiter und schmaler bzgl. des gleichen Ausschnitts
-$-K \leq k \leq +K$ gemacht wird, wenn wir am Tastverhältnis rumschrauben.
+$-K \leq k \leq +K$ gemacht wird, wenn wir am Tastverhältnis des Rechtecksignals
+rumschrauben.
 
 Zunächst halten wir fest: a) eine periodische Rechteckfunktion hat eine sinc-artige,
-komplexe Fourierreihe, b) die Fourierkoeffizienten sind reell, das ist
-hier ein Spezialfall der komplexen Fourierreihe, c) die Spalt-Funktion wird
+komplexe Fourierreihe, b) die Fourierkoeffizienten sind hier reell, das ist
+hier ein Spezialfall der komplexen Fourierreihe, weil Auswertung eines
+axialsymmetrischen Signals, c) die Spalt-Funktion wird
 wegen diskretem $k$ nur an bestimmten Stellen ausgewertet.
 Die Fourierreihe ist also als Folge
-über alle $k$ der komplexen Fourierkoeffizienten $c_k$ aufzufassen. Wir werden
+über alle $k$ der komplexen Fourierkoeffizienten $X_k$ aufzufassen. Wir werden
 das später Linienspektrum bezeichnen.
 
 Grafische Darstellungen helfen uns das Verhalten der komplexen Fourierreihe und
 Fourier-Synthese besser zu verstehen.
 %
 Dafür wurde für die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}
-jeweils Fourierkoeffizienten die entlang einer sinc-Funktion verlaufen (links)
+jeweils die Fourierkoeffizienten $X_k$ die auf einer sinc-Funktion liegen (links)
 und das rechteck-förmige Signal über die Zeit
-(rechts) dargestellt, das Tastverhältnis $T_h$ wurde
-variiert, die Amplitude zu $A = 1/T_h$ gewählt, sowie $T=1$ s konstant gehalten.
+(rechts) dargestellt.
+Das Tastverhältnis $T_h$ wurde
+variiert, die Amplitude zu $A = 1/T_h$ gewählt, sowie $T=2$ s konstant gehalten.
 %
 Die Fouriersynthese erfolgt mit $-40 \leq k \leq +40$.
 %
@@ -171,10 +184,11 @@ Wir erkennen, dass die Breite der Spalt-Funktion für steigendes Tastverhältnis
 $\frac{T_h}{T}$ abnimmt.
 %
 Im Extremfall $\frac{T_h}{T} = 1$ resultiert ein Gleichsignal, und daher
-nur $c_0 \neq 0$, alle anderen $c_k=0$.
+nur $X_0 \neq 0$, alle anderen $X_k=0$.
 %
-Spannend ist zudem der Fall $\frac{T_h}{T} = 1/2$: hier ist jeder zweite $c_k=0$,
-weil wir da eine Nullstelle der Spalt-Funktion auswerten.
+Spannend ist zudem der Fall $\frac{T_h}{T} = 1/2$ in \fig{fig:D1483A84E2_2}:
+hier ist (ausgenommen vom Hauptpeak in der Mitte) jeder zweite $X_k=0$,
+weil wir da in Nullstellen der Spalt-Funktion landen.
 
 Sehr vereinfacht, aber vom Wesen wichtig:
 Je mehr Gleichsignal, desto mehr Fourierkoeffizienten sind sehr klein bzw. in der Tat $0$,
@@ -183,6 +197,9 @@ Je mehr impulshafte Änderung
 $\frac{T_h}{T} \to  0$, desto mehr relevante Fourierkoeffizienten gibt es,
 also desto breiter das sinc-förmige Linienspektrum.
 %
+Noch salopper: viel Impuls braucht viele Koeffizienten (große spektrale Bandbreite);
+wenig Impulshaftiges, also langsam schwingendes braucht wenig Koeffizienten
+(kleine spektrale Bandbreite).
 
 
 \end{Loesung}
@@ -190,43 +207,45 @@ also desto breiter das sinc-förmige Linienspektrum.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_0.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
-$T=1$ s, $T_h=0.1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=2$ s, $T_h=0.2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_0}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_1.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
-$T=1$ s, $T_h=0.2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=2$ s, $T_h=0.4$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_1}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_2.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
-$T=1$ s, $T_h=0.5$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=2$ s, $T_h=1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_2}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_3.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
-$T=1$ s, $T_h=0.8$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=2$ s, $T_h=1.6$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_3}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_4.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $c_k$ (links) und Synthese $x(t)$ (rechts) für
-$T=1$ s, $T_h=1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
+\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+$T=2$ s, $T_h=2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}. Extremfall: für die
+Darstellung eines Gleichanteils braucht es nur $X_{k=0}$, alle anderen Fourier Koeffizienten
+$X_{k \neq 0}$ sind Null, weil ja nichts schwingt.}
 \label{fig:D1483A84E2_4}
 \end{figure}
 
 
 
 
-\newpage
+\clearpage
 \subsection{Fourier-Transformation Beispiel Rechteckfunktion}
 \label{sec:8C3958BE4F}
 \begin{Ziel}
@@ -361,11 +380,11 @@ dünne Rechnerei mit wenig Vertändnis.
 
 Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
 Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
-hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $T \cdot c_k$
+hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $X_k$
 \eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
 mit den Werten von $X(\im\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
-$\omega_0 k = \omega$. Dies ist kein Zufall. Das werden wir später als Abtastung
-kennenlernen.
+$\frac{2\pi}{T} k = \omega_0 k = \omega$.
+Dies ist kein Zufall. Das werden wir später als Abtastung kennenlernen.
 
 
 
