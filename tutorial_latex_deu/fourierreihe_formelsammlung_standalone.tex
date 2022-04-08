@@ -196,7 +196,7 @@
 \ohead{Signal- und Systemtheorie Übung}
 \cfoot{\pagemark}
 \ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
-
+\newcommand{\diff}{\mathrm{d}}
 \begin{document}
 \noindent Signal- und Systemtheorie Übung\footnote{This tutorial is provided as
 Open Educational Resource (OER), to be found at
@@ -216,110 +216,226 @@ Institut für Nachrichtentechnik (INT),
 Fakultät für Informatik und Elektrotechnik (IEF),
 Universität Rostock \&
 Robert Hauser, Universität Rostock---Version: \today
+%
 
+\noindent Main author: https://github.com/robhau, check: https://github.com/fs446
 
-\section*{Formelsammlung Fourierreihe}
+\section*{Formelsammlung Komplexe Fourierreihe}
+%
+Beweise aus \url{https://github.com/spatialaudio/signals-and-systems-exercises/blob/master/tutorial_latex_deu/fourierreihe_uebung_standalone.tex}
+%
 
-Komplexe Schreibweise der Fourierreihe (zu finden z.B. in \cite[Kap. 7, S. 475]{Bronstein2015}):
+\noindent Komplexe Schreibweise der Fourierreihe und hinfort notwendige Annahme,
+dass $x(t) = x(t+T)$, also periodisch mit Periodendauer $T$.
 
+\textbf{Zeitsignal-Synthese}
 \begin{align}
-	x(t)=\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\text{, wobei }X_k=\frac{1}{T}\int_{0}^{T}x(t)\e^{-\im k \omega t}\mathrm{d}t
+	x(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}
 \end{align}
 
-
-
-
-Differentiation( falls $x(t)$ diffbar)
+\textbf{Zeitsignal-Analyse}, i.e. Berechnung der Fourierkoeffizienten
+\begin{gather}
+	X_k=\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\mathrm{d}t
+\end{gather}
+%
+%
+%
+\textbf{Differentiation} (falls $x(t)$ differenzierbar)
+%
+%
+\begin{gather}
+	\frac{\mathrm{d}}{\mathrm{d}t}x(t)
+	=\frac{\mathrm{d}}{\mathrm{d}t}\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\frac{\mathrm{d}}{\mathrm{d}t}\e^{+\im k \omega t}
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\im\omega kX_k\e^{+\im k \omega t}
+\end{gather}
+%
+%
+\textbf{Integration} (unbestimmt)
+%
+%
 \begin{align}
-	\frac{\mathrm{d}}{\mathrm{d}t}x(t)=\frac{\mathrm{d}}{\mathrm{d}t}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}=\sum_{k=-\infty}^{+\infty}X_k\frac{\mathrm{d}}{\mathrm{d}t}\e^{+\im k \omega t}=\sum_{k=-\infty}^{+\infty}X_k\im\omega k\e^{+\im k \omega t}=_k
+	\int x(t)\mathrm{d}t&=\int\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\mathrm{d}t \\
+	&= \frac{1}{T}\sum_{k=-\infty}^{-1}\bigg [X_k\int\e^{+\im k \omega t}\mathrm{d}t\bigg ]+\frac{1}{T}\sum_{k=1}^{+\infty}\bigg [X_k\int\e^{+\im k \omega t}\mathrm{d}t\bigg ]+\int X_0\mathrm{d}t\\
+	&=\frac{1}{T}\sum_{k=-\infty}^{-1}\frac{1}{\im\omega k}X_k\e^{+\im k \omega t}+\frac{1}{T}\sum_{k=1}^{+\infty}\frac{1}{\im\omega k}X_k\e^{+\im k \omega t}+\int X_0\mathrm{d}t
 \end{align}
-unbestimmte Integration:
-\begin{align}
-	\int x(t)\mathrm{d}t&=\int\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\mathrm{d}t \\
-	&= \sum_{k=-\infty}^{-1}\bigg [X_k\int\e^{+\im k \omega t}\mathrm{d}t\bigg ]+\sum_{k=1}^{+\infty}\bigg [X_k\int\e^{+\im k \omega t}\mathrm{d}t\bigg ]+\int X_0\mathrm{d}t\\
-	&=\sum_{k=-\infty}^{-1}\frac{1}{\im\omega k}X_k\e^{+\im k \omega t}+\sum_{k=1}^{+\infty}\frac{1}{\im\omega k}X_k\e^{+\im k \omega t}+t\cdot X_0+C
-\end{align}
-Modulation
-\begin{align}
+\textbf{Modulation}
+\begin{gather}
 	y(t)=\e^{\im n\omega t}x(t) \quad n\in\mathbb{Z}\\
-	Y_k=\frac{1}{T}\int_0^Tx(t)\e^{-\im(k-n)\omega t}\mathrm{d}t\quad\Bigg | \quad m = k-n \\
-	Y_{m+n}=\frac{1}{T}\int_0^Tx(t)\e^{-\im  m \omega t}\mathrm{d}t=X_m \\
+	Y_k=\int_0^Tx(t)\e^{-\im(k-n)\omega t}\mathrm{d}t\quad\Bigg | \quad m = k-n \\
+	Y_{m+n}=\int_0^Tx(t)\e^{-\im  m \omega t}\mathrm{d}t=X_m \\
 	Y_{k}=X_{k-n}
-\end{align}
-Verschiebung
-\begin{align}
+\end{gather}
+\textbf{Verschiebung}
+\begin{gather}
 	y(t)=x(t-\tau)\quad\tau\in\mathbb{R}\\
-	Y_k=\frac{1}{T}\int_0^{T}y(t)\e^{-\im\omega k t}\mathrm{d}t=\frac{1}{T}\int_0^{T}x(t-\tau)\e^{-\im k \omega t}\mathrm{d}t \quad \Bigg | \quad l = t-\tau\\
-	Y_k=\frac{1}{T}\int_{-\tau}^{T-\tau}x(l)\e^{-\im\omega k (l+\tau)}\mathrm{d}l=\e^{-\im \omega k \tau}\int_{0}^{T}x(l)\e^{-\im\omega k l}\mathrm{d}l \\
+	Y_k=\int_0^{T}y(t)\e^{-\im\omega k t}\mathrm{d}t
+	=\int_0^{T}x(t-\tau)\e^{-\im k \omega t}\mathrm{d}t \quad \Bigg | \quad l = t-\tau\\
+	Y_k=\int_{-\tau}^{T-\tau}x(l)\e^{-\im\omega k (l+\tau)}\mathrm{d}l=\e^{-\im \omega k \tau}\int_{0}^{T}x(l)\e^{-\im\omega k l}\mathrm{d}l \\
 	Y_k=\e^{-\im\omega k \tau}X_k
-\end{align}
-Zeitumkehr
+\end{gather}
+\textbf{Zeitumkehr}
+\begin{gather}
+	y(t)=x(-t) \\
+	Y_k=\int_0^{T}y(t)\e^{-\im\omega k t}\mathrm{d}t=\int_0^{T}x(-t)\e^{-\im\omega k t}\mathrm{d}t\quad\Bigg | \quad \tau = -t \\
+	Y_k=-\int_0^{-T}x(\tau)\e^{\im\omega k t}\mathrm{d}\tau=\int_{-T}^{0}x(\tau)\e^{\im\omega k t}\mathrm{d}\tau \quad \Bigg |\quad m = -k \\
+	Y_{-m}=\int_{-T}^{0}x(\tau)\e^{-\im\omega m t}\mathrm{d}\tau \\
+	Y_{-m}=X_m \\
+	Y_{k}=X_{-k}
+\end{gather}
+\textbf{Komplex konjugiert}
 \begin{align}
-	&y(t)=x(-t) \\
-	&Y_k=\frac{1}{T}\int_0^{T}y(t)\e^{-\im\omega k t}\mathrm{d}t=\frac{1}{T}\int_0^{T}x(-t)\e^{-\im\omega k t}\mathrm{d}t\quad\Bigg | \quad \tau = -t \\
-	&Y_k=-\frac{1}{T}\int_0^{-T}x(\tau)\e^{\im\omega k t}\mathrm{d}\tau=\frac{1}{T}\int_{-T}^{0}x(\tau)\e^{\im\omega k t}\mathrm{d}\tau \quad \Bigg |\quad m = -k \\
-	&Y_{-m}=\frac{1}{T}\int_{-T}^{0}x(\tau)\e^{-\im\omega m t}\mathrm{d}\tau \\
-	&Y_{-m}=X_m \\
-	&Y_{k}=X_{-k}
+	x^*(t)&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\right ]^*=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}(\Re\{c_k\}+\im\Im\{c_k\})(\cos(k\omega t)+\im\sin(k\omega t))\right ]^*\nonumber \\
+	&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)+\im (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)) \right ]^*\nonumber \\
+	&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\right )+\im\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\right )\right ]^*\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\right )-\im\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\right )\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t-\im(\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t))\right )\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left(\Re\{c_k\}-\im\Im\{c_k\}\right)\left(\cos(\omega k t)-\im\sin(k\omega t) \right)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k^*\e^{-\im k \omega t}
+	= \frac{1}{T}\sum_{k=-\infty}^{+\infty}c_{-k}^*\e^{+\im k \omega t}
 \end{align}
-Komplex konjugiert
+\textbf{Faltung} (zyklisch in $T$)
 \begin{align}
-	y(t)=x^*(t) \\
-	Y_k=\frac{1}{T}\int_0^{T}y(t)\e^{+\im\omega k t}\mathrm{d}t=\frac{1}{T}\int_0^Tx^*(t)\e^{-\im\omega k t}\mathrm{d}t\underset{Beleg benötigt}{=}\frac{1}{T}\Bigg[\int_0^Tx(t)\e^{+\im\omega k t}\mathrm{d}t\Bigg ]^*\quad \Bigg | \quad k = -m \\
-	Y_k=\Bigg[\frac{1}{T}\int_0^Tx(t)\e^{-\im\omega m \tau}\mathrm{d}t\Bigg]^*\\
-	Y_k=-X_m^*\\
-	Y_k=X_{-k}^*
+	y(t)&=x(t)\circledast h(t)
+	=\int_{-\frac{T}{2}}^{\frac{T}{2}}x(\tau)h(t-\tau)\diff \tau
+	=\int_{-\frac{T}{2}}^{\frac{T}{2}}\left (\frac{1}{T}\sum_{k=-\infty}^{\infty}X_k\e^{+\im k \omega \tau}\right )\cdot \left (\frac{1}{T}\sum_{i=-\infty}^{+\infty}H_i\e^{+\im i \omega (t-\tau)}\right )\diff \tau\nonumber \\
+	&=\frac{1}{T^2}\int_{-\frac{T}{2}}^{\frac{T}{2}}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{+\im k \omega \tau}\e^{+\im i \omega (t-\tau)}\right )\diff \tau
+	=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (\int_{-\frac{T}{2}}^{\frac{T}{2}}X_kH_i\e^{+\im (k-i) \omega \tau}\e^{+\im i \omega t}\diff \tau\right )\nonumber \\
+	&=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \right )
 \end{align}
-Faltung
+Für $k=i$ ergibt das Integral $T$.
+%
+%
 \begin{align}
-	y(t)&=h(t)\ast x(t)=\int_0^Tx(\tau)h(t-\tau)\mathrm{d}\tau\\
-	Y_k&=\frac{1}{T}\int_0^Ty(t)\e^{-\im\omega k t}\mathrm{d}t\\&=\frac{1}{T}\int_0^T\bigg (\int_0^Tx(\tau)h(t-\tau)\mathrm{d}\tau\bigg )\e^{-\omega k t}\mathrm{d}t\\
-	Y_k&=\frac{1}{T}\int_0^Tx(\tau)\bigg (\frac{T}{T}\int_0^Th(t-\tau)\e^{-\im \omega k t}\mathrm{d}t\bigg)\mathrm{d}\tau\quad\Bigg | \quad l=t-\tau \\
-	Y_k&=\frac{1}{T}\int_0^Tx(\tau)\bigg (\frac{T}{T} \int_{-\tau}^{T-\tau}(h(l)\e^{-\im \omega k (l+\tau)}\mathrm{d}l\bigg)\mathrm{d}\tau=\frac{T}{T}\int_0^Tx(\tau)H_k\e^{-\im\omega k \tau}\mathrm{d}\tau=T\cdot X_k\cdot H_k \\
-	Y_k&=T\cdot X_k\cdot Y_k
+	\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega \tau}\diff \tau \underset{k=i}{=}\int_{-\frac{T}{2}}^{+\frac{T}{2}}1\diff \tau =\tau \Bigg |_{\tau=-\frac{T}{2}}^{\tau=+\frac{T}{2}}=T
 \end{align}
-Multiplikation
+%
+%
+Für $k\neq i$ ergibt das Integral $0$ (i.e. die Nullstellen einer gewichteten Spaltfunktion)
+%
+%
 \begin{align}
-	y(t)&=x(t)\cdot h(t) = \bigg (\sum_{k=-\infty}^{+\infty}X_k\e^{+\im\omega k t}\bigg )\cdot\bigg (\sum_{k=-\infty}{+\infty}H_k\e^{+\im\omega k t}\bigg )\\
-	&=(\cdot\cdot\cdot+X_{-3}\e^{-\im\omega 3 t}+X_{-2}\e^{-\im\omega 2 t}+X_{-1}\e^{-\im\omega t}+X_0+X_{1}\e^{+\im\omega t}+X_{2}\e^{+\im\omega 2 t}+X_{3}\e^{+\im\omega 3 t}+\cdot\cdot\cdot)\cdot\\&(\cdot\cdot\cdot +H_{-3}\e^{-\im\omega 3 t}+H_{-2}\e^{-\im\omega 2 t}+H_{-1}\e^{-\im\omega  t}+H_0+H_{1}\e^{+\im\omega  t}+H_{2}\e^{\im\omega 2 t}+H_{3}\e^{\im\omega 3 t}+\cdot\cdot\cdot)\\
-	&=\cdot\cdot\cdot+(\cdot\dot\cdot+H_{-3}\cdot X_{-3}+\cdot\cdot\cdot)\e^{-\im\omega 6 t}+(\cdot\cdot\cdot+H_{-3}\cdot X_{-2}+H_{-2}\cdot X_{-3}+\cdot\cdot\cdot)\e^{-\im\omega 5 t}+\\
-	&(\cdot\cdot\cdot+X_{-3}\cdot H_{-1}+X_{-2}\cdot H_{-2}+X_{-1}\cdot H_{-3}+\cdot\cdot\cdot)\e^{-\im\omega 4 t}+\\
-	&(\cdot\cdot\cdot+X_{-3}\cdot H_0+X_{-2}\cdot H_{-1}+X_{-1}\cdot H_{-2}+X_0\cdot H_{-3}+\cdot\cdot\cdot)\e^{-\im 3 t}+\\
-	&(\cdot\cdot\cdot X_{-3}\cdot H_1+X_{-2}\cdot H_0+X_{-1}\cdot H_{-1}+X_0\cdot H_{-1}+X_{1}\cdot H_{-3}+\cdot\cdot\cdot)\e^{-\im\omega 2 t}+\\
-	&\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{-1-\kappa}\e^{-\im\omega t}+\\
-	&\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{-\kappa}+\\
-	&\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{1-\kappa}\e^{\im\omega t}+\\
-	&\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{2-\kappa}\e^{\im\omega 2t}+\\
-	&\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{3-\kappa}\e^{\im\omega 3t}+\cdot\cdot\cdot\\
-	&=\sum_{k=-\infty}^{k=+\infty}\bigg (\sum_{\kappa=-\infty}^{+\infty}X_{\kappa}\cdot H_{k-\kappa}\bigg)\e^{+\im\omega k t}\\
-	&=\sum_{k=-\infty}^{+\infty}(X_k\ast H_k) \e^{+\im\omega k t}
+	\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega \tau}\diff \tau &\underset{k\neq i}{=}\frac{\e^{+\im (k-i)\omega \tau}}{+\im (k-i)\omega}\Bigg |_{\tau=-\frac{T}{2}}^{\tau=+\frac{T}{2}}
+	=\frac{1}{\im (k-i)\omega }\left (\e^{+\im (k-i)\frac{2\pi}{T}\frac{T}{2}}-\e^{-\im (k-i)\frac{2\pi}{T}\frac{T}{2}}\right )\nonumber \\
+	&=\frac{2}{ (k-i)\omega}\sin((k-i)\pi)=0
 \end{align}
-Skalierung (vgl. \cite[Kap. 1, S. 22]{Butz2012})\\
+%
+Da sich also nur die Koeffizientenpaare addieren, bei denen der Index gleich ist, können wir die Doppelsumme auch als eine einfache Summe schreiben.
+%
+%
+\begin{align}
+	\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \right )
+	=\frac{1}{T^2}\sum_{k=i=-\infty}^{+\infty}TX_kH_i\e^{+\im i\omega t}
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_kH_k\e^{+\im k \omega t}
+\end{align}
+%
+Daher zusammenfassend
+\begin{align}
+y(t) = x(t)\circledast h(t) = \frac{1}{T}\sum_{k=-\infty}^{+\infty} Y_k \e^{+\im k \omega t} = \frac{1}{T}\sum_{k=-\infty}^{+\infty}X_kH_k\e^{+\im k \omega t}
+\end{align}
+
+
+\textbf{Multiplikation}
+%
+\begin{align}
+	y(t)&=x(t)\cdot h(t)
+	=\left (\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\right )\cdot\left ( \frac{1}{T}\sum_{\kappa=-\infty}^{+\infty}H_{\kappa}\e^{+\im \kappa \omega t}\right )
+	=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{\kappa=-\infty}^{+\infty}X_kH_{\kappa}\e^{\im (k+\kappa)\omega t}\nonumber \\
+	&=\cdots +\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_{-1}H_{\kappa}\e^{+\im(\kappa-1)\omega t}+\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_0H_{\kappa}\e^{+\im \kappa \omega t}+\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_1H_{\kappa}\e^{+\im(i+1)\omega t}+\cdots\nonumber \\
+	&=\frac{1}{T}\Bigg [\cdots+\frac{1}{T}X_{-1}H_{-1}\e^{-2\im \omega }+\frac{1}{T}X_{-1}H_0\e^{-\im \omega t}+\frac{1}{T}X_{-1}H_1+\cdots+\frac{1}{T}X_0H_{-1}\e^{-\im \omega t}+\frac{1}{T}X_0H_0\nonumber\\
+	&+\frac{1}{T}X_0H_1\e^{+\im  \omega t}
+	+\cdots+\frac{1}{T}X_1H_{-1}+\frac{1}{T}X_1H_0\e^{+\im \omega t}
+	+\frac{1}{T}X_1H_1\e^{+2\im \omega t}+\cdots\Bigg]
+\end{align}
+%
+%
+Noch einmal die allgemeine Form der Fourierreihe:
+%
+\begin{align}
+	x(t)=\frac{1}{T}\sum_{n=-\infty}^{+\infty}c_n\e^{+\im n \omega t}.
+\end{align}
+%
+Für $n=0$ beträgt $c_n$
+%
+\begin{align}
+	c_n=\cdots + \frac{1}{T}X_{-1}H_{1}+\frac{1}{T}X_0H_0+\frac{1}{T}X_1H_{-1}.
+\end{align}
+%
+Dabei durchläuft der Index von $X$ $\mathbb{Z}$ und der Index von $H$ ist eine
+Lösung der Gleichung
+%
+\begin{align}
+	\kappa = n-k.
+\end{align}
+%
+Also
+%
+\begin{align}
+	y(t)=x(t)\cdot h(t)=\frac{1}{T}\sum_{n=-\infty}^{+\infty}\left(\sum_{k=-\infty}^{+\infty}\frac{1}{T}X_kH_{n-k}\right)\e^{\im n \omega t}.
+\end{align}
+
+Der Ausdruck in der großen Klammer ist eine diskrete Faltungssumme, hier werden
+also zwei Koeffizientenfolgen miteinander gefaltet.
+
+%
+\textbf{Skalierung} (vgl. \cite[Kap. 1, S. 22]{Butz2012})\\
 $y(t) = x(a\cdot t)$	\\
 $a>0$: $C_k$ ändert sich nicht, $\omega_y = \omega_x \cdot a$.\\
 $a<0$: $C_{k_y} = C_{-k_x}$, $\omega_y = \omega_x \cdot |a|$.\\
-Parseval`sches Theorem (Erklärung bspw. in \cite[Kap. 2, S. 27-28]{Meyer2017} ):
+\textbf{Parseval`sches Theorem}:
 \begin{align}
-	\frac{1}{T}\int_{0}^{T}\left|x(t)\right|^2\mathrm{d}t=\sum_{k=-\infty}^{+\infty}\left|X_k\right|^2
+	z\cdot z^*=(a+\im b)\cdot (a-\im b)=a^2+b^2=|z|^2.
 \end{align}
-Alle Funktionen in folgender Tabelle sind $T$-periodisch.\\
+%
+%
+\begin{align}
+	\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t
+	&=\int_{t_0}^{t_0+T}x_b(t)\cdot x_b^*(t)\diff t
+	=\int_{t_0}^{t_0+T}\left (\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\right )\cdot \left (\frac{1}{T}\sum_{i=-\infty}^{+\infty}c_i^*\e^{-\im i \omega t}\right )\diff t\nonumber \\
+	&=\frac{1}{T^2}\int_{t_0}^{t_0+T}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}c_kc_i^*\e^{\im (k-i)\omega t}\diff t =\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\int_{t_0}^{t_0+T}c_kc_i^*\e^{\im (k-i)\omega t}\diff t
+\end{align}
+%
+Es müssen 2 Fälle unterschieden werden: $k=i$ und $k\neq i$.
+%
+\begin{align}
+	\int_{t_0}^{t_0+T}c_kc_i^*\e^{+\im (k-i)\omega t}\diff t \underset{k=i}{=}c_kc_k^*t\Bigg |_{t=t_0}^{t=t_0+T}=Tc_kc_k^*=T|c_k|^2
+\end{align}
+%
+\begin{align}
+	\int_{t_0}^{t_0+T}c_kc_i^*\e^{+\im (k-i)\omega t}\diff t
+	&\underset{k\neq i}{=}\frac{c_kc_i^*}{\im (k-i) \omega }\e^{+\im (k-i)\omega t}\Bigg |_{t=t_0}^{t=t_0+T}
+	=\frac{c_kc_i^*}{\im (k-i) \omega }\left (\e^{+\im (k-i)\omega (t_0+T)}-\e^{+\im (k-i)\omega t_0}\right )\nonumber \\
+	&=\frac{c_kc_i^*}{\im (k-i) \omega }\left (\e^{+\im ((k-i)\omega t_0+(k-i)2\pi)}-\e^{+\im (k-i)\omega t_0}\right )=0
+\end{align}
+Es werden also nur die Terme addiert, bei denen $k=i$ gilt.
+%
+
+Wir können die Doppelsumme vereinfachen und folgende Korrespondenz aufstellen:
+%
+\begin{align}
+	\int_{t_0}^{t_0+T}|x(t)|^2\diff t
+	\quad\fourier\quad\frac{1}{T}\sum_{k=-\infty}^{+\infty}|c_k|^2.
+\end{align}
+\newpage
+Alle Zeit-Funktionen in folgender Tabelle sind $T$-periodisch, mit zugehöriger
+Grundschwingungs-Kreisfrequenz $\omega = \frac{2\pi}{T}$.\\
 \begin{tabular}{|lcc|}
 	\hline
 	&&\\
-	&\textbf{Fourierreihe}& \\
+	&\textbf{Komplexe Fourierreihe, Fourier Series (FS)}& \\
 	\hline
 	&&\\
-	& $x(t)=\sum_{k=-\infty}^{+\infty}X_k\e^{+\im\omega k t} $ & $X_k=\frac{1}{T}\int_0^Tx(t)\e^{-\im\omega k t}\mathrm{d}t $ \\&&\\
+	& $x(t)=\frac{1}{T}\sum\limits_{k=-\infty}^{+\infty}X_k\e^{+\im\omega k t} $
+	& $X_k=\frac{1}{T}\int\limits_0^Tx(t)\e^{-\im\omega k t}\mathrm{d}t $ \\&&\\
 	\hline
 	&&\\
 	\textbf{Eigenschaften} & & \\
-	Linearität & $Af(t)+Bg(t)$ & $AF_k+BG_K$\\&& \\
+	Linearität & $Af(t)+Bg(t)$ & $AF_k+BG_k$\\&& \\
 	Symmetrien & $x(-t)$ & $X_{-k}$ \\ &&\\
 	& $x^*(t)$ & $X^*_{-k}$ \\ &&\\
 	\hline
 	\textbf{Sätze} & & \\&& \\
-	Faltung & $x(t)\ast h(t)$ & $T\cdot X_k\cdot H_k$ \\&& \\
-	Multiplikation & $x(t)\cdot h(t)$ & $X_k \ast H_k $ \\&& \\
+	Faltung & $x(t)\circledast h(t)$ & $X_k\cdot H_k$ \\&& \\
+	Multiplikation & $x(t)\cdot h(t)$ & $\frac{1}{T}X_k \ast H_k $ \\&& \\
 	Zeitskalierung $(a\in\mathbb{R}\setminus\{0\})$& $x(a\cdot t)$ & $\begin{cases}
 		X_k,a\cdot\omega, &a>0\\
 		X_{-k},|a|\cdot\omega, &a<0
@@ -328,7 +444,7 @@ Alle Funktionen in folgender Tabelle sind $T$-periodisch.\\
 	Modulation $(n \in \mathbb{Z})$& $\e^{\im n \omega t}x(t)$ & $X_{k-n}$ \\&& \\
 	Differentiation & $\frac{\mathrm{d}}{\mathrm{d}t}x(t)$ & $\im\omega k X_k$\\&& \\
 	unbestimmtes Integral &$\int x(t)\mathrm{d}t $ & $\frac{1}{\im\omega k}X_k$\\&& \\
-	Parselval`sches Theorem & $\frac{1}{T}\int_0^T|x(t)|^2\mathrm{d}t$ & $\sum_{k=-\infty}^{+\infty}|X_k|^2$\\&& \\
+	Parselval`sches Theorem & $\int\limits_0^T|x(t)|^2\mathrm{d}t$ & $\frac{1}{T}\sum\limits_{k=-\infty}^{+\infty}|X_k|^2$\\&& \\
 	\hline
 \end{tabular}
 

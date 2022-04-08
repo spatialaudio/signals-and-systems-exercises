@@ -74,7 +74,7 @@
 \newcommand{\ublack}[1]{\textcolor{black}{\underline{#1}}}
 \newcommand{\ubrown}[1]{\textcolor{brown}{\underline{#1}}}
 \newcommand{\diff}{\mathrm{d}}
-
+\newcommand{\sinc}{\mathrm{sinc}}
 % %Sha symbol:
 % \DeclareFontFamily{U}{wncy}{}
 % \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
@@ -225,160 +225,274 @@ Fakultät für Informatik und Elektrotechnik (IEF),
 Universität Rostock \&
 Robert Hauser, Universität Rostock---Version: \today
 
+\noindent main author: https://github.com/robhau, check: TBD
+
 \section*{Übung: Fourier-Reihe}
 \begin{Ziel}
-	In dieser Lerneinheit wollen wir uns tiefer mit Fourier-Reihen beschäftigen. Zunächst werden wir mit Hilfe der reellen Fourier-Reihe einige periodische Signale darstellen. Danach schauen wir uns die komplexe Fourier-Reihe an und werden neben der Darstellung periodischer Signale als komplexe Fourier-Reihe auch beobachten, wie sich die Koeffizienten bspw. bei einer Zeitverschiebung verhalten.
+	In dieser Lerneinheit wollen wir uns tiefer mit Fourier-Reihen beschäftigen. Zunächst werden wir mit Hilfe der reellen Fourier-Reihe einige periodische Signale darstellen.
+	%
+	Danach schauen wir uns die komplexe Fourier-Reihe an und werden neben der Darstellung periodischer Signale als komplexe Fourier-Reihe auch beobachten, wie sich die Koeffizienten bspw. bei einer Zeitverschiebung verhalten.
 \end{Ziel}
 
 \subsection*{Aufgaben}
+%
 Berechnen Sie die Koeffizienten für die reelle sowie für die komplexe Fourierreihe für
+%
+%
 \begin{itemize}
-	\item[a) ] $x_{a}(t)=\begin{cases}A &,|t|\leq\frac{T_h}{2}\\0 &,\text{sonst}\end{cases}$\\$0<\frac{T_h}{T}\leq 1,$
-	\item[b) ] $x_{b}(t)=\begin{cases}
-		-A &,-\frac{T_h}{2}\leq t < 0\\
-		A &,0 \leq t \leq +\frac{T_h}{2}\\
-		0 &,\text{sonst}
-	\end{cases}$\\$0 < \frac{T_h}{T} \leq 1$
-	\item[c) ] $x_c(t)=\begin{cases}
-		\frac{2A}{T_h}t+A&,-\frac{T_h}{2}\leq t <0\\
-		-\frac{2A}{T_h}t+A&,0\leq t \leq +\frac{T_h}{2}\\
-		0&,\text{sonst}
-	\end{cases}$\\
-	$0<\frac{T_h}{T}\leq 1$
+	%
+	\item[a) ] $x_{a}(t)=
+				\begin{cases}
+					A &,|t|\leq\frac{T_h}{2}\\
+					0 &,\text{sonst}
+				\end{cases}$\\
+				$0<\frac{T_h}{T}\leq 1,$
+	%
+	\item[b) ] $x_{b}(t)=
+				\begin{cases}
+					-A &,-\frac{T_h}{2}\leq t < 0\\
+					A &,0 \leq t \leq +\frac{T_h}{2}\\
+					0 &,\text{sonst}
+				\end{cases}$\\
+				$0 < \frac{T_h}{T} \leq 1$
+	%
+	\item[c) ] $x_c(t)=
+				\begin{cases}
+					\frac{2A}{T_h}t+A&,-\frac{T_h}{2}\leq t <0\\
+					-\frac{2A}{T_h}t+A&,0\leq t \leq +\frac{T_h}{2}\\
+					0&,\text{sonst}
+				\end{cases}$\\
+				$0<\frac{T_h}{T}\leq 1$
+	%
 \end{itemize}
+%
+%
 Berechnen Sie die Koeffizienten für die komplexe Fourierreihe für
+%
 \begin{itemize}
+	%
 	\item[d) ] $x_d(t) = ax_{a}(t)+bx_{b}(t)$\\
-	$a,b\in\mathbb{C}$
-	\item[e) ] $x_{e}(t)=\begin{cases}
-		A, &0\leq t\leq T_h\\
-		0, &\text{sonst}
-	\end{cases}$\\$0< \frac{T}{T_h}\leq 1$
-	\item[f)] $x_{f}(t)=\e^{+\im\omega_0 t}x_{a}(t)$\\
-	$\omega_0 = n\cdot \omega \quad \quad n\in\mathbb{Z}$
-	\item[g) ] $x_{g}(t) = \begin{cases}
-		A &, -\frac{T_h}{2}\leq t \leq 0 \\
-		-A &, 0<t\leq \frac{T_h}{2}\\
-		0 &,\text{ sonst}
-	\end{cases}$\\
-	$0<\frac{T_h}{T}\leq 1$
+				$a,b\in\mathbb{C}$
+	%
+	\item[e) ] $x_{e}(t)=
+				\begin{cases}
+					A, &0\leq t\leq T_h\\
+					0, &\text{sonst}
+				\end{cases}\\
+				0< \frac{T}{T_h}\leq 1$
+	%
+	\item[f) ] $x_{f}(t)=\e^{+\im\omega_0 t}x_{a}(t)\\
+			  	\omega_0 = n\cdot \omega \quad \quad n\in\mathbb{Z}$
+	%
+	\item[g) ] $x_{g}(t) =
+				\begin{cases}
+					A &, -\frac{T_h}{2}\leq t \leq 0 \\
+					-A &, 0<t\leq \frac{T_h}{2}\\
+					0 &,\text{ sonst}
+				\end{cases}\\
+				0<\frac{T_h}{T}\leq 1$
+	%
 	\item[h) ] $x_{h}(t) = x_{a}(t)\circledast x_{b}(t)$
+	%
 	\item[i) ]$x_{i}(t)=\frac{\diff x_{c}(t)}{\diff t}$
-	\item[j) ] $x_{j}(t)=x(at)$\\
-	$a\in\mathbb{R}\setminus\{0\}$
+	%
+	\item[j) ] $x_{j}(t)=x(at)\\
+				a\in\mathbb{R}\setminus\{0\}$
+	%
 	\item[k) ]$x_{k}(t)=1$
+	%
 	\item[l) ] $x_{k}(t)=x_{b}(t)\cdot x_{c}(t)$
 \end{itemize}
-Skizzieren Sie für $T=4$, $T_h=2$, $A=1$, $B=\im$, $n= 3$, $a=\frac{1}{2}$ und $C=-\frac{A}{2}\frac{T_h}{2}$ (Integrationskonstante):
+%
+Skizzieren Sie für $T=4$, $T_h=2$, $A=1$, $B=\im$, $n= 2$, $a=\frac{1}{2}$ und $C=-\frac{A}{2}\frac{T_h}{2}$ (Integrationskonstante):
+%
 \begin{itemize}
-	\item die Koeffizienten der reellen Fourierreihen über $0\leq k! \leq 5$,
-	\item Betrag und Phase der Koeffizienten der komplexen Fourierreihe über $-5\leq k \leq 5$!
+	\item die Koeffizienten der reellen Fourierreihen über $0\leq k \leq 5$!
+	\item Betrag und Phase der Koeffizienten der komplexen Fourierreihe über
+	$-5\leq k \leq 5$!
 \end{itemize}
+%
 \begin{itemize}
-	\item[m) ] Untersuchen Sie den Zusammenhang der Fourierkoeffizienten einer integrierten Funktion!
-	\item[n) ] Untersuchen Sie den Zusammenhang der Fourierkoeffizienten einer komplex konjugierten Funktion!
-	\item[o) ] Berechnen $\frac{1}{T}\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t$!
+	\item[m) ] Untersuchen Sie den Zusammenhang der Fourierkoeffizienten einer
+	integrierten Funktion!
+	\item[n) ] Untersuchen Sie den Zusammenhang der Fourierkoeffizienten einer
+	komplex konjugierten Funktion!
+	\item[o) ] Berechnen Sie $\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t$!
 \end{itemize}
-Die Definition einer Funktion gilt immer für eine Periode $T$.
+%
+Die Definition einer Zeit-Funktion gilt immer für eine Periode $T$ und resultierende
+Grundschwingung $\omega = \frac{2\pi}{T}$.
+
+Hinweis: Die Musterlösungen sind noch nicht vollständig gegengeprüft, vielleicht
+sind noch ein paar kleine Typos drin, Feedback sehr willkommen.
 \newpage
 \subsection*{Reelle Fourierreihe}
 \subsubsection*{Einleitung Reelle Fourierreihe}
-Wir definieren eine periodische Funktion mit der Periode $T\in\mathbb{R}^+\setminus\{0\}$ wie folgt:
+%
+Wir definieren eine periodische Funktion mit der Periode
+%
+$T\in\mathbb{R}^+\setminus\{0\}$
+%
+wie folgt:
+%
 \begin{align}
 	x(t)=x(t+T).
 \end{align}
-Die reelle Fourierreihe der Funktion $x(t)$ mit der Periode $T$ und der Kreisfrequenz $\omega=\frac{2\pi}{T}$ hat die Form(bspw. ausgeschrieben in \cite[Kap. 7, S. 474]{Bronstein2015})
+%
+Die reelle Fourierreihe der Funktion $x(t)$ mit der Periode $T$ und der
+Grundschwingungs-Kreisfrequenz $\omega=\frac{2\pi}{T}$ hat die Form (bspw. ausgeschrieben in
+\cite[Kap. 7, S. 474]{Bronstein2015}).
+%
 \begin{align}
 	\label{eq:RealFourierSeries}
-	x(t)=\frac{a_0}{2}+\sum_{k=1}^{+\infty}\Bigg [ a_k\cos(k\omega t)+b_k\sin(k\omega t)\Bigg ].
+	x(t)=\frac{a_0}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}\big[ a_k\cos(k\omega t)+b_k\sin(k\omega t)\big]
 \end{align}
-Die Koeffizienten berechnen sich dabei durch folgende Formeln (vgl. \cite[Kap. 7, S. 474]{Bronstein2015})
+%
+Die Koeffizienten berechnen sich dabei durch folgende Formeln
+(vgl. \cite[Kap. 7, S. 474]{Bronstein2015}).
+%
 \begin{gather}
 	\label{eq:Koeff}
-	a_k=\frac{2}{T}\int_{t_0}^{t_0+T}x(t)\cos(k\omega t)\diff t \\
-	b_k=\frac{2}{T}\int_{t_0}^{t_0+T}x(t)\sin(k\omega t)\diff t.
+	a_k=2\int_{t_0}^{t_0+T}x(t)\cos(k\omega t)\diff t \\
+	b_k=2\int_{t_0}^{t_0+T}x(t)\sin(k\omega t)\diff t
 \end{gather}
-Der Koeffizient $a_0$ nimmt bei der Berechnung eine Sonderstellung ein, denn für $k=0$ verschwindet die Cosinus-Schwingung aus dem Integranden und wir berechnen nur noch den (doppelten) Gleichanteil der Funktion:
+%
+Die Mittelungs-Gewichtung der Koeffizienten mit $\frac{1}{T}$ findet bei
+unser hier benutzten Konvention in der
+Synthese der Fourierreihe in \eqref{eq:RealFourierSeries} statt.
+%
+Dadurch lassen sich die Ergebnisse leichter mit anderen Werkzeugen
+der Fourieranalyse vergleichen, bzw. sind konsistenter mit der
+später kennenzulernenden Fourier Transformation (FT), Fouriertransformation für
+zeitdiskrete Signale (DTFT), sowie Diskrete Fourier Transformation (DFT).
+%
+
+Der Koeffizient $a_0$ nimmt bei der Berechnung eine Sonderstellung ein, denn für
+$k=0$ verschwindet die Cosinus-Schwingung aus dem Integranden und wir berechnen
+den (doppelten) Gleichanteil der Funktion:
+%
 \begin{align}
 	\label{eq:A0}
-	a_0=2\cdot\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\diff t.
+	a_0=2\int_{t_0}^{t_0+T}x(t)\diff t.
 \end{align}
-Fall es sich um ungerade oder gerade Funktionen handeln sollte, vereinfacht sich die Berechnung der Koeffizienten (vgl. \cite[Kap.7, S. 476]{Bronstein2015}):
-
+%
+Fall es sich um ungerade oder gerade Funktionen handeln sollte, vereinfacht sich
+die Berechnung der Koeffizienten (vgl. \cite[Kap.7, S. 476]{Bronstein2015}): (Achtung obere Integralgrenze)
+%
 \begin{itemize}
 	\item Die Funktion ist gerade, d.h. $x(t)=x(-t)$:
 \end{itemize}
+%
 \begin{gather}
 	\label{eq:KoeffGerade}
-	a_k=\frac{4}{T}\int_0^{\frac{T}{2}}x(t)\cos(k \omega t)\diff t,\\
+	a_k=4\int_0^{\frac{T}{2}}x(t)\cos(k \omega t)\diff t,\\
 	b_k=0.
 \end{gather}
+%
 \begin{itemize}
 	\item Die Funktion ist ungerade, d.h. $x(t)=-x(-t)$:
 \end{itemize}
+%
 \begin{gather}
 	\label{eq:KoeffUngerade}
 	a_k = 0,\\
-	b_k=\frac{4}{T}\int_0^{\frac{T}{2}}x(t)\sin(k \omega t)\diff t.
+	b_k=4\int_0^{\frac{T}{2}}x(t)\sin(k \omega t)\diff t.
 \end{gather}
+%
 \newpage
 \subsubsection*{Aufgabe a) mit reeller Fourierreihe}
 \label{sec:TaskAReal}
-Wir wollen zunächst die Koeffizienten der reellen Fourierreihe folgender $T$-periodischer Funktion berechnen:
+%
+Wir wollen zunächst die Koeffizienten der reellen Fourierreihe der
+$T$-periodischen Funktion $x_a(t)$ berechnen.
 \begin{gather}
 	x_{a}(t)=
-	\begin{cases}
-		A &,|t| \leq \frac{T_h}{2} \\
-		0 &,\text{ sonst}
-	\end{cases}\\
+		\begin{cases}
+			A &,|t| \leq \frac{T_h}{2} \\
+			0 &,\text{ sonst}
+		\end{cases}\\
 	t\in[-\frac{T}{2},+\frac{T}{2}]\nonumber
 \end{gather}
 %
 \begin{figure}[h!]
-\centering
-\begin{tikzpicture}[domain=0:2]
-	\def\T{0.4}
-	\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
-	\draw[->] (0,0) -- (0,1.5) node[above] {$x_{a}(t)$};
-	\foreach \pos in {-2,...,2} {
-		\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
-	};
-	\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
-	\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
-	\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
-	\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
-	\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
-\end{tikzpicture}
+	\centering
+	\begin{tikzpicture}[domain=0:2]
+		\def\T{0.4}
+		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
+		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{a}(t)$};
+		\foreach \pos in {-2,...,2} {
+			\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1)
+			-- (\pos+\T,0) -- (\pos+1-\T,0);
+		};
+		\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
+		\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
+		\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
+		\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
+		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
+	\end{tikzpicture}
 \end{figure}
-\\
+%
 Wir sehen, dass die Funktion gerade ist, also dass $x_{a}(t)=x_{a}(-t)$.
-Wir können uns also die Berechnung von $b_k$ sparen und brauchen nur $a_k$ betrachten.\\
+Wir können uns also die Berechnung von $b_k$ sparen und brauchen nur $a_k$ betrachten.
+
 Zunächst berechnen wir den Gleichanteil:
 \begin{align}
-	\frac{a_0}{2}=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\diff t = \frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t=\frac{A}{T}\cdot t \Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}}=A\cdot\frac{T_h}{T}.
+	\frac{a_0} {2} = \int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\diff t =
+	\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t
+	=A t \Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}}
+	=AT_h
 \end{align}
-Danach folgt die Berechnung der übrigen Koeffizienten $a_k$. Wir nutzen die vereinfachte Berechnungsmethode aus \ref{eq:KoeffGerade}:
-\begin{align}
-	a_k=\frac{4}{T}\int_0^{\frac{T}{2}}x_{a}(t)\cos(k\omega t)\diff t=4\cdot\frac{4}{T}\int_0^{\frac{T_h}{2}}A\cos(k\frac{2\pi}{T} t)\diff t=4\cdot\frac{A}{T}\cdot\frac{T}{2\pi k}\sin(k\frac{2\pi}{T} t)\Bigg |_{t=0}^{t=\frac{T_h}{2}}=2\cdot\frac{A}{\pi k}\sin(k\pi \frac{T_h}{T}).
-\end{align}
+%
+Danach folgt die Berechnung der übrigen Koeffizienten $a_k$.
+%
+Wir nutzen die vereinfachte Berechnungsmethode aus \ref{eq:KoeffGerade}:
+%
+\begin{gather}
+	a_k=4\int_0^{\frac{T}{2}}x_{a}(t)\cos(k\omega t)\diff t
+	=4\int_0^{\frac{T_h}{2}}A\cos\left(k\frac{2\pi}{T} t\right)\diff t
+	=4A\frac{T}{2\pi k}\sin\left(k\frac{2\pi}{T} t\right)\Bigg |_{t=0}^{t=\frac{T_h}{2}}\\\nonumber
+	=2A\frac{T}{\pi k}\frac{T_h}{T_h}\sin\left(k\pi \frac{T_h}{T}\right)
+	=2AT_h\sinc\left(k\pi\frac{T_h}{T} \right).
+\end{gather}
+%
 $x_{a}(t)$ als reelle Fourierreihe geschrieben lautet also:
+%
 \begin{align}
-	x_{a}(t)=A\cdot\frac{T_h}{T}+\sum_{k=1}^{+\infty}\frac{2\cdot A}{\pi k}\sin(k\pi\frac{T_h}{T})\cos(k\omega t).
+	x_{a}(t)=A\cdot\frac{T_h}{T}+\frac{1}{T}\sum_{k=1}^{+\infty}2AT_h\sinc\left(k\pi\frac{T_h}{T}\right)\cos(k\omega t).
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_0.pdf}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_0.pdf}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_0}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_0}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_a(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$0\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe b) mit reeller Fourierreihe}
-Nun wollen wir die Koeffizienten der Fourierreihe folgender für eine Periode $T$ definierter Funktion berechnen:
+%
+Nun wollen wir die Koeffizienten der Fourierreihe folgender für
+eine Periode $T$ definierter Funktion berechnen:
+%
+%
 \begin{gather}
-	x_{b}(t)=\begin{cases}
-		-A &,-\frac{T_h}{2}\leq t < 0\\
-		A &,0\leq t \leq +\frac{T_h}{2}\\
-		0 &,\text{ sonst}
-	\end{cases}\\
+	x_{b}(t)=
+		\begin{cases}
+			-A &,-\frac{T_h}{2}\leq t < 0\\
+			A &,0\leq t \leq +\frac{T_h}{2}\\
+			0 &,\text{ sonst}
+		\end{cases}\\
 	t \in [-\frac{T}{2},+\frac{T}{2}] \nonumber
 \end{gather}
+%
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -394,21 +508,54 @@ Nun wollen wir die Koeffizienten der Fourierreihe folgender für eine Periode $T
 		\draw[-, black, ultra thick] (2,0) node[below] {$2 T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
-\end{figure}\\
-Wir sehen, dass die Funktion ungerade ist, also $x_{b}(t)=-x_{b}(-t)$. Daher können wir die Regel aus \ref{eq:KoeffUngerade} verwenden:
+\end{figure}
+%
+Wir sehen, dass die Funktion ungerade ist, also $x_{b}(t)=-x_{b}(-t)$.
+%
+Daher können wir die Regel aus \ref{eq:KoeffUngerade} verwenden:
+%
 \begin{align}
-	b_k&=\frac{4}{T}\int_0^{\frac{T}{2}}x_{b}(t)\sin(k\cdot\frac{2\pi}{T}\cdot t)\diff t=\frac{4}{T}\int_0^{\frac{T_h}{2}}A\sin(k\cdot\frac{2\pi}{T}\cdot t)\diff t\\&=-\frac{4A}{T}\cdot\frac{T}{2\pi k}\cos(k\frac{2\pi}{T}\cdot t)\Bigg |_0^{\frac{T_h}{2}}=\frac{2A}{\pi k}(1-\cos(\pi k \frac{T_h}{T})).
+	b_k&=4\int_0^{\frac{T}{2}}x_{b}(t)\sin\left(k\frac{2\pi}{T} t\right)\diff t
+	=4\int_0^{\frac{T_h}{2}}A\sin\left(k\frac{2\pi}{T} t\right)\diff t\\
+	&=-4A\frac{T}{2\pi k}\cos\left(k\frac{2\pi}{T} t\right)\Bigg |_0^{\frac{T_h}{2}}
+	=2A\frac{T}{\pi k}\left(1-\cos\left(\pi k \frac{T_h}{T}\right)\right).
 \end{align}
+%
+Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
+%
+\begin{gather}
+	\label{eq:sinsquaredcosinus}
+	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
+\end{gather}
+%
+Somit kann $b_k$ noch zusammengefasst werden.
+\begin{gather}
+	2A\frac{T}{\pi k}\frac{2}{2}\left(1-\cos\left(\pi k\frac{T_h}{T}\right)\right)
+	=4A\frac{T^2}{\pi^2 k^2}\frac{\pi k}{T}\frac{T_h^2}{T_h^2}\sin^2\left(\pi k \frac{T_h}{2T}\right)
+	=\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)
+\end{gather}
+%
 $x_{b}(t)$ als reelle Fourierreihe dargestellt sieht also folgendermaßen aus:
 \begin{align}
-	x_{b}(t)=\sum_{k=1}^{+\infty}\frac{2\cdot A}{\pi k}(1-\cos(k\pi \frac{T_h}{T}))\sin(k\omega t).
+	x_{b}(t)=\frac{1}{T}\sum_{k=1}^{+\infty}\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)\sin(k\omega t).
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_1.pdf}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_1.pdf}
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_1}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_1}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_b(t)$ für $A=1$, $T=4$, $T_h=2$ und $0\leq k\leq 5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe c) mit reeller Fourierreihe}
-Als letzte Aufgabe im Bereich der reellen Fourierkoeffizienten wollen wir uns die Dreieckschwingung mit Spalt angucken.
+%
+Als letzte Aufgabe im Bereich der reellen Fourierkoeffizienten wollen wir uns
+die Dreieckschwingung mit Spalt angucken.
 %
 \begin{figure}[h!]
 	\centering
@@ -426,198 +573,437 @@ Als letzte Aufgabe im Bereich der reellen Fourierkoeffizienten wollen wir uns di
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
-Es handelt sich um eine gerade Funktion, also $x_{c}(t)=x_{c}(-t)$. Wir können also die Berechnung mit Hilfe von \eqref{eq:KoeffGerade} vereinfachen.
+%
+Es handelt sich um eine gerade Funktion, also $x_{c}(t)=x_{c}(-t)$.
+%
+Wir können also die Berechnung mit Hilfe von \eqref{eq:KoeffGerade} vereinfachen.
+%
+%
+%
 \begin{align}
-	\frac{a_0}{2}&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{c}(t)\diff t=\frac{2}{T}\int_0^{+\frac{T_h}{2}}-\frac{2A}{T_h}t+A\diff t =\frac{2}{T}\Bigg [-\frac{At^2}{T_h}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}+At\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{2}{T}\Bigg [-\frac{AT_h^2}{4T_h}+\frac{AT_h}{2}\Bigg ]=\frac{2}{T}\Bigg [\frac{AT_h}{4}+\frac{AT_h}{2}\Bigg ]=\frac{2}{T}\Bigg [\frac{AT_h}{4}\Bigg ]=A\frac{T_h}{2T}
+	\frac{a_0}{2}
+	&=\int_{t_0}^{t_0+T}x_{c}(t)\diff t
+	=2\int_0^{+\frac{T_h}{2}}\left(-\frac{2A}{T_h}t+A\right)\diff t
+	=2\left [-\frac{At^2}{T_h}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}+At\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
+	&=2\left (-\frac{AT_h^2}{4T_h}+\frac{AT_h}{2}\right )
+	=2\left (\frac{AT_h}{4}+\frac{AT_h}{2}\right )
+	=2\frac{AT_h}{4}
+	=\frac{AT_h}{2}
 \end{align}
+%
+%
+%
 \begin{align}
-	a_k&=\frac{2}{T}\int_{t_0}^{t_0+T}x_{c}(t)\cos(k\omega t)\diff t=\frac{4}{T}\int_0^{+\frac{T_h}{2}}\bigg (-\frac{2A}{T_h}t+A\bigg )\cos(k\omega t)\diff t\nonumber \\
-	&=\frac{4}{T}\Bigg [\frac{ (-\frac{2A}{T_h}t+A)}{k\omega}\sin(k\omega t)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}-\frac{2A}{T_hk\omega}\sin(k\omega t)\diff t\Bigg ]\nonumber \\
-	&=\frac{4}{T}\Bigg [\frac{(-\frac{2A}{T_h}\frac{T_h}{2}+A)}{k\omega}\sin(k\omega \frac{T_h}{2})-0-\frac{2A}{T_hk^2\omega^2}\cos(k\omega t)\diff t\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{4}{T}\Bigg [\frac{2AT^2}{T_hk^24\pi^2}\bigg (1-\cos(k\pi\frac{T_h}{T}\bigg )\Bigg ]=\frac{2AT}{T_hk^2\pi^2}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg )
+	a_k
+	&=2\int_{t_0}^{t_0+T}x_{c}(t)\cos(k\omega t)\diff t
+	=4\int_0^{+\frac{T_h}{2}}\bigg (-\frac{2A}{T_h}t+A\bigg )\cos(k\omega t)\diff t\nonumber \\
+	&=4\left [\frac{ \left( -\frac{2A}{T_h}t+A\right) }{k\omega}\sin(k\omega t)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}-\frac{2A}{T_hk\omega}\sin(k\omega t)\diff t\right ]\nonumber \\
+	&=4\left [\frac{\left( -\frac{2A}{T_h}\frac{T_h}{2}+A\right) }{k\omega}\sin\left( k\omega \frac{T_h}{2}\right) -0-\frac{2A}{T_hk^2\omega^2}\cos(k\omega t)\diff t\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
+	&=4\left [\frac{2AT^2}{T_hk^24\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right )\right)\right ]
+	=\frac{2AT^2}{T_hk^2\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
 \end{align}
+%
+%
+%
+Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
+%
+\begin{gather}
+	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
+\end{gather}
+%
+Somit kann $a_k$ vereinfacht werden.
+\begin{gather}
+	\frac{2AT^2}{T_hk^2\pi^2}\frac{2}{2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
+	=\frac{4AT^2}{T_hk^2\pi^2}\frac{T_h}{T_h}\sin^2\left(k\pi\frac{T_h}{2T}\right)
+	=AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+\end{gather}
+%
 Zum Schluss stellen wir $x_{c}(t)$ noch als Fourierreihe dar:
+%
 \begin{align}
-	x_{c}(t)=\frac{A}{2}\frac{T_h}{T}+\sum_{k=1}^{+\infty}\frac{2AT}{T_hk^2\pi^2}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg ).
+	x_{c}(t)
+	=A\frac{T_h}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right).
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_2}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_2}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_2}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_2}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_c(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$0\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsection*{Komplexe Fourierreihe}
 \subsubsection*{Einleitung komplexe Fourierreihe}
-Wenn wir uns die Mathematik Vorlesungen in Erinnerung rufen, dann erinnern wir uns bestimmt an die Eulersche Identität:
+%
+Wenn wir uns die Mathematik Vorlesungen in Erinnerung rufen, dann erinnern wir
+uns bestimmt an die Eulersche Identität:
+%
 \begin{gather}
 	\label{eq:EulerIdentity}
 	\e^{\im z}=\cos(z)+\im\sin(z)\\
 	\label{eq:ConjugatedEulerIdenity}
 	\e^{-\im z}=\cos(z)-\im\sin(z)
 \end{gather}
+%
 Mit dessen Hilfe lassen sich $\cos(\omega t)$ und $\sin(\omega t)$ auch in komplexer Form darstellen:
+%
 \begin{gather}
 	\label{eq:CosComplex}
-	\cos(\omega t)=\frac{1}{2}\bigg (\e^{+\im\omega t}+\e^{-\im\omega t}\bigg)\\
+	\cos(\omega t)=\frac{1}{2}\left (\e^{+\im\omega t}+\e^{-\im\omega t}\right)\\
 	\label{eq:SinComplex}
-	\sin(\omega t)=\frac{1}{2\im}\bigg (\e^{+\im\omega t}-\e^{-\im\omega t}\bigg )
+	\sin(\omega t)=\frac{1}{2\im}\left (\e^{+\im\omega t}-\e^{-\im\omega t}\right )
 \end{gather}
-Wenn wir nun \eqref{eq:CosComplex} und \eqref{eq:SinComplex} in \eqref{eq:RealFourierSeries} einsetzen, lässt sich die Fourierreihe auch anders darstellen:
+%
+Wenn wir nun die Gleichungen \eqref{eq:CosComplex} und \eqref{eq:SinComplex} in
+\eqref{eq:RealFourierSeries} einsetzen, lässt sich die Fourierreihe auch anders
+darstellen:
+%
 \begin{align}
-	x(t)&=\frac{a_0}{2}+\sum_{k=1}^{+\infty}\Bigg [a_k\cdot\frac{1}{2}\bigg (\e^{+\im k \omega t}+\e^{-\im k \omega t})+b_k\cdot\frac{1}{2\im}\bigg (\e^{+\im k \omega t}-\e^{-\im k \omega t}\bigg )\Bigg ]\\
-	&=\frac{a_0}{2}+\sum_{k=1}^{+\infty}\Bigg [\frac{1}{2}(a_k-\im b_k)\e^{+\im k \omega t}+\frac{1}{2}(a_k+\im b_k)\e^{-\im k \omega t}\Bigg ].
+	x(t)
+	&=\frac{a_0}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}\left [a_k\cdot\frac{1}{2}\left (\e^{+\im k \omega t}+\e^{-\im k \omega t}\right)+b_k\cdot\frac{1}{2\im}\left (\e^{+\im k \omega t}-\e^{-\im k \omega t}\right )\right ]\\
+	&=\frac{a_0}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}\left [\frac{1}{2}\left(a_k-\im b_k\right)\e^{+\im k \omega t}+\frac{1}{2}\left(a_k+\im b_k\right)\e^{-\im k \omega t}\right ].
 \end{align}
+%
 Wenn wir nun die Terme vor den komplexen Zeigern zusammenfassen, ergibt sich folgende Darstellung:
+%
 \begin{align}
-	x(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}
+	x(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}
 \end{align}
+%
 mit
+%
 \begin{align}
 	\label{eq:ComplexRealCoeffConnection}
-	c_k=\begin{cases}
-		\frac{a_0}{2} &,k=0 ,\\
-		\frac{1}{2}(a_k-\im b_k) &k,>0,\\
-		\frac{1}{2}(a_{|k|}+\im b_{|k|}) &,k<0.
-	\end{cases}
+	c_k=
+		\begin{cases}
+			\frac{a_0}{2} &,k=0 ,\\
+			\frac{1}{2}(a_k-\im b_k) &,k>0,\\
+			\frac{1}{2}(a_{|k|}+\im b_{|k|}) &,k<0.
+		\end{cases}
 \end{align}
-Im Gegensatz zur reellen Schreibweise können die Koeffizienten nun auch komplex sein, also $c_k\in\mathbb{C}$.\\
-Es stellt sich nun die Frage, ob man $c_k$ direkt berechnen kann oder den (evtl. umständlichen) Weg über $a_k$ und $b_k$ gehen muss.\\
-$c_0$ ergibt sich offensichtlich aus \eqref{eq:A0}:
+%
+Im Gegensatz zur reellen Schreibweise können die Koeffizienten nun auch komplex
+sein, also $c_k\in\mathbb{C}$.
+%
+Wir nehmen zur Kenntnis, dass auch unser Zeitsignal durchaus auch
+komplex-wertig dfiniert sein kann $x(t)\in\mathbb{C}$.
+%
+Komplex-wertiges Signal und komplex-wertige Fourerreihenkoeffizienten bilden
+ein Transformationspaar.
+
+%
+Es stellt sich nun die Frage, ob man $c_k$ direkt berechnen kann oder den (evtl.
+umständlichen) Weg über $a_k$ und $b_k$ gehen muss.
+
+$c_0$ ergibt sich offensichtlich aus Gleichung \eqref{eq:A0}:
+%
 \begin{align}
-	c_0=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\diff t.
+	c_0=\int_{t_0}^{t_0+T}x(t)\diff t.
 \end{align}
-Nun schauen wir, ob sich auch für $k\neq0$ die Koeffizientenbestimmung vereinfacht.
-Betrachten wir zunächst den Fall $k>0$:
+%
+Nun schauen wir, ob sich auch für $k\neq0$ die Koeffizientenbestimmung
+vereinfacht.
+%
+Betrachten wir nun den Fall $k>0$:
+%
 \begin{align}
-	c_k&\underset{k>0}{=}\frac{1}{2}(a_k-\im b_k)=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\cos(k \omega t)\diff t-\frac{\im}{T}\int_{t_0}^{t_0+T}x(t)\sin(k \omega t)\diff t\nonumber\\&=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\bigg (\cos(k\omega t)-\im\sin(k\omega t) \bigg )\diff t\nonumber\\
-	&\underset{\eqref{eq:ConjugatedEulerIdenity}}{=}\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
+	c_k&\underset{k>0}{=}\frac{1}{2}(a_k-\im b_k)
+	=\int_{t_0}^{t_0+T}x(t)\cos(k \omega t)\diff t-\im\int_{t_0}^{t_0+T}x(t)\sin(k \omega t)\diff t\nonumber\\
+	&=\int_{t_0}^{t_0+T}x(t)\left (\cos(k\omega t)-\im\sin(k\omega t) \right )\diff t\nonumber\\
+	&\underset{\eqref{eq:ConjugatedEulerIdenity}}{=}\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
 \end{align}
+%
 Zum Schluss berechnen wir noch die Koeffizienten $c_k$ für $k<0$:
+%
 \begin{align}
-	\underset{k<0}{=}\frac{1}{2}(a_{|k|}+\im b_{|k|})=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\cos(|k|\omega)\diff t+\frac{\im}{T}\int_{t_0}^{t_0+T}x(t)\sin(|k| \omega t)\diff t.
+	\underset{k<0}{=}\frac{1}{2}(a_{|k|}+\im b_{|k|})
+	=\int_{t_0}^{t_0+T}x(t)\cos(|k|\omega)\diff t+\im\int_{t_0}^{t_0+T}x(t)\sin(|k| \omega t)\diff t.
 \end{align}
-$\cos(|k| \omega t)$ ist eine gerade Funktion, also können wir die Betragsstriche weglassen.\\
-$sin(|k| \omega t)$ ist eine ungerade Funktion. Wir können die Betragsstriche weglassen, wenn wir die Funktion mit $-1$ multiplizieren:
+%
+$\cos(|k| \omega t)$ ist eine gerade Funktion, also können wir die Betragsstriche
+weglassen.
+%
+$\sin(|k| \omega t)$ ist eine ungerade Funktion. Wir können die Betragsstriche
+weglassen, wenn wir die Funktion mit $-1$ multiplizieren:
+%
 \begin{align}
-	c_k&\underset{k<0}{=}\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\cos(|k|\omega)\diff t+\frac{\im}{T}\int_{t_0}^{t_0+T}x(t)\sin(|k| \omega t)\diff t\nonumber\\
-	&=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\cos(k\omega)\diff t-\frac{\im}{T}\int_{t_0}^{t_0+T}x(t)\sin(k \omega t)\diff t\nonumber\\
-	&=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\bigg (\cos(k\omega t)-\im\sin(k\omega t)\bigg )\diff t\nonumber\\
-	&=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
+	c_k&\underset{k<0}{=}\int_{t_0}^{t_0+T}x(t)\cos(|k|\omega)\diff t+\im\int_{t_0}^{t_0+T}x(t)\sin(|k| \omega t)\diff t\nonumber\\
+	&=\int_{t_0}^{t_0+T}x(t)\cos(k\omega)\diff t-\im\int_{t_0}^{t_0+T}x(t)\sin(k \omega t)\diff t\nonumber\\
+	&=\int_{t_0}^{t_0+T}x(t)\left (\cos(k\omega t)-\im\sin(k\omega t)\right )\diff t\nonumber\\
+	&=\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
 \end{align}
-Für $k<0$ und $k>0$ gleichen sich die Berechnungsvorschriften. Für $k=0$ würde $\e^{-\im k \omega t}=1$ ergeben, weshalb wir allgemein folgende Gleichung aufstellen können:
+%
+Für $k<0$ und $k>0$ gleichen sich die Berechnungsvorschriften. Für $k=0$ würde
+$\e^{-\im k \omega t}=1$ ergeben, weshalb wir allgemein folgende Gleichung
+aufstellen können:
+%
 \begin{align}
-	c_k=\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
+	c_k=\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
 \end{align}
+%
 \newpage
 \subsubsection*{Aufgabe a) mit komplexer Fourierreihe}
-Nun wollen wir die Koeffizienten der komplexen Fourierreihe zu Aufgabe a) berechnen. Den Gleichanteil $c_0$ kennen wir schon aus \ref{sec:TaskAReal}.
+Nun wollen wir die Koeffizienten der komplexen Fourierreihe zu Aufgabe a)
+berechnen. Den Gleichanteil $c_0$ kennen wir schon aus \ref{sec:TaskAReal}.
+%
 Wir müssen also nur noch die Koeffizienten $c_k$ für $k\neq 0$ bestimmen.
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{a}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_a(t)\e^{-\im k \frac{2\pi}{T}t}\diff t\nonumber\\
-	&=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im k \frac{2\pi}{T}t}\diff t=\frac{A}{T}\cdot\frac{T}{-\im 2\pi k}\e^{-\im k \frac{2\pi}{T}t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}\nonumber\\
-	&=\frac{A}{\pi k}\cdot\frac{1}{2\im}\bigg (\e^{\im k \pi \frac{T_h}{T}}-\e^{-\im k \pi \frac{T_h}{T}}\bigg )=\frac{A}{\pi k}\sin(k\pi\frac{T_h}{T})
+	c_k&=\int_{t_0}^{t_0+T}x_{a}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_a(t)\e^{-\im k \frac{2\pi}{T}t}\diff t\nonumber\\
+	&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im k \frac{2\pi}{T}t}\diff t
+	=A\frac{T}{-\im 2\pi k}\e^{-\im k \frac{2\pi}{T}t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}\nonumber\\
+	&=A\frac{T}{\pi k}\cdot\frac{1}{2\im}\left (\e^{\im k \pi \frac{T_h}{T}}-\e^{-\im k \pi \frac{T_h}{T}}\right )
+	=A\frac{T}{\pi k}\frac{T_h}{T_h}\sin\left(k\pi\frac{T_h}{T}\right)\nonumber\\
+	&=AT_h\sinc\left(k\pi\frac{T_h}{T}\right)
 \end{align}
-Zum Schluss schreiben wir $x_{a}(t)$ noch einmal als komplexe Fourierreihe:
+%
+$\sinc(k)$ konvergiert für $k\rightarrow0$ gegen 1.
+%
+Daher können $c_0$ und $c_{k\neq0}$ zusammengefasst werden.
+%
+Zum Schluss schreiben wir $x_{a}(t)$ noch einmal als komplexe Fourierreihe.
+%
 \begin{align}
-	x_{a}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
-		A\cdot\frac{T_h}{T} &,k=0,\\
-		\frac{A}{k\pi}\sin(k\pi\frac{T_h}{T}) &,k\neq0.
-	\end{cases}
+	x_{a}(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}AT_h\sinc\left(k\pi\frac{T_h}{T}\right)\e^{+\im k \omega t}
 \end{align}
-Nun wollen wir noch Betrag und Phase skizzieren. Weil die Koeffizienten alle reellwertig sind, beträgt die Phase entweder $0$ oder $\pi$ (wahlweise auch $-\pi$, man kann ja auf die Phase beliebig oft $2\pi$ addieren), je nach Vorzeichen.
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_3}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_3}
+%
+
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_3}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_3}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_a(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe b) mit komplexer Fourierreihe}
-Als nächstes stehen die Koeffizienten der komplexen Fourierreihe zu Aufgabe b) auf dem Plan. Der Gleichanteil ist uns schon aus der reellen Fourierreihe bekannt, nämlich $0$. Wir können das aber auch aus der Graphik ableiten, denn die Flächen oberhalb und unterhalb der Zeitachse innerhalb einer Periode heben sich auf. Wir müssen also nur noch die Koeffizienten $c_k$ für $k\neq 0$ bestimmen:
+Als nächstes stehen die Koeffizienten der komplexen Fourierreihe zu Aufgabe b) auf dem Plan.
+%
+Der Gleichanteil ist uns schon aus der reellen Fourierreihe bekannt, nämlich $0$. %
+Wir können das aber auch aus der Graphik ableiten, denn die Flächen oberhalb und
+unterhalb der Zeitachse innerhalb einer Periode heben sich auf.
+%
+Wir müssen also nur noch die Koeffizienten $c_k$ für $k\neq 0$ bestimmen:
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{b}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{b}(t)\e^{-\im k \omega t}\diff t \nonumber \\
-	&=\frac{1}{T}\Bigg [ \int_{-\frac{T_h}{2}}^{0}(-A)\e^{-\im k \omega t}\diff t+\int_{0}^{+\frac{T_h}{2}}A\e^{-\im k \omega t}\diff t \Bigg ] \nonumber \\
-	&=\frac{1}{T}\Bigg [ \frac{-A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ] \nonumber \\
-	&=\frac{1}{T}\Bigg [ \frac{AT}{-\im k 2\pi }\bigg (\e^{\im k \frac{2\pi}{T}\cdot \frac{T_h}{2}}-1\bigg )+\frac{AT}{-\im k 2\pi}\bigg (\e^{-\im\frac{2\pi}{T}\cdot\frac{T_h}{2}}-1\bigg )\Bigg ]\nonumber \\
-	&=\frac{A}{\im k 2 \pi}\bigg (2 -\e^{\im\pi\frac{T_h}{T}}-\e^{-\im\pi\frac{T_h}{T}} \bigg )\nonumber \\
+	c_k&=\int_{t_0}^{t_0+T}x_{b}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{b}(t)\e^{-\im k \omega t}\diff t \nonumber \\
+	%
+	&= \int_{-\frac{T_h}{2}}^{0}(-A)\e^{-\im k \omega t}\diff t+\int_{0}^{+\frac{T_h}{2}}A\e^{-\im k \omega t}\diff t  \nonumber \\
+	%
+	&= \frac{-A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}} \nonumber \\
+	%
+	&= \frac{AT}{-\im k 2\pi }\left (\e^{\im k \frac{2\pi}{T}\cdot \frac{T_h}{2}}-1\right )+\frac{AT}{-\im k 2\pi}\left (\e^{-\im\frac{2\pi}{T}\cdot\frac{T_h}{2}}-1\right )\nonumber \\
+	%
+	&=\frac{AT}{\im k 2 \pi}\left (2 -\e^{\im\pi\frac{T_h}{T}}-\e^{-\im\pi\frac{T_h}{T}} \right )\nonumber \\
+	%
 	\label{eq:CKTaskBComplex}
-	&=\frac{A}{\im k \pi}\bigg ( 1-\cos(k\pi\frac{T_h}{T})\bigg ).
+	&=\frac{AT}{\im k \pi}\left ( 1-\cos(k\pi\frac{T_h}{T})\right ).
 \end{align}
+%
+%
+%
+Mit Gleichung \ref{eq:sinsquaredcosinus} lässt sich der Term noch
+vereinfachen.
+%
+\begin{gather}
+	\frac{AT}{\im k \pi}\frac{2}{2}\left ( 1-\cos(k\pi\frac{T_h}{T})\right )
+	=2\frac{AT}{\im k\pi}\frac{T_h^2}{T_h^2}\frac{T}{T}\frac{2k\pi}{2k\pi}\sin^2\left(k\pi\frac{T_h}{2T}\right)
+	= Ak\pi\frac{T_h^2}{2T} \sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{-\im\frac{\pi}{2}}
+\end{gather}
+%
+Für $k=0$ ist oberer Term gleich $0$, somit stellt er auch eine Beschreibung von
+$c_k$ für $k=0$ da.
+%
 Die komplexe Fourierreihe hat also folgende Form:
 \begin{align}
-	x_{b}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{\im k \omega t}\quad \text{mit }c_k=\begin{cases}
-		0 &, k= 0, \\
-		\frac{A}{\im k \pi}\bigg (1-\cos(k \pi \frac{T_h}{T})\bigg ) &, k\neq 0.
-	\end{cases}
+	x_{b}(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}Ak\pi\frac{T_h^2}{2T} \sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{-\im\frac{\pi}{2}}\e^{\im k \omega t}
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_4}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_4}
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_4}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_4}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_b(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
+%
 \newpage
 \subsubsection*{Aufgabe c) mit komplexer Fourierreihe}
-Auch hier haben wir den Gleichanteil ($c_0=\frac{a_0}{2}$) schon berechnet, es fehlen nur noch die Koeffizienten $c_k$ für $k\neq 0$:
+%
+Auch hier haben wir den Gleichanteil ($c_0=\frac{a_0}{2}$) schon berechnet,
+es fehlen nur noch die Koeffizienten $c_k$ für $k\neq 0$:
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{c}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0\bigg (\frac{2A}{T_h}t+A\bigg )\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}\bigg (-\frac{2A}{T_h}t+A\bigg )\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [ \frac{\frac{2A}{T_h}t+A}{-\im k \omega}\e^{-\im k \omega}\Bigg|_{t=-\frac{T_h}{2}}^{t=0}+\int_{-\frac{T_h}{2}}^0\frac{2A}{T_h\im k\omega}\e^{-\im k \omega t}\diff t+\frac{-\frac{2A}{T_h}t+A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}\frac{2A}{T_h\im k\omega}\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [-\frac{A}{\im k \omega}+0+\frac{2A}{T_h k^2\omega^2}-\frac{2A}{T_hk^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A}{\im k \omega}-\frac{2A}{T_hk^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}+\frac{A}{k^2\omega^2}\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{4AT^2}{T_hk^24\pi^2}-\frac{2AT^2}{T_hk^24\pi^2}\bigg (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}+\e^{-\im k\frac{2\pi}{T}\frac{T_h}{T}}\bigg ) \Bigg ]=\frac{AT}{T_hk^2\pi^2}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg ).
+	c_k&=\int_{t_0}^{t_0+T}x_{c}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T_h}{2}}^0\left (\frac{2A}{T_h}t+A\right )\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}\left (-\frac{2A}{T_h}t+A\right )\e^{-\im k \omega t}\diff t\nonumber \\
+	&= \frac{\frac{2A}{T_h}t+A}{-\im k \omega}\e^{-\im k \omega}\Bigg|_{t=-\frac{T_h}{2}}^{t=0}+\int_{-\frac{T_h}{2}}^0\frac{2A}{T_h\im k\omega}\e^{-\im k \omega t}\diff t+\frac{-\frac{2A}{T_h}t+A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}\frac{2A}{T_h\im k\omega}\e^{-\im k \omega t}\diff t\nonumber \\
+	&=-\frac{A}{\im k \omega}+0+\frac{2A}{T_h k^2\omega^2}-\frac{2A}{T_hk^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A}{\im k \omega}-\frac{2A}{T_hk^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}+\frac{A}{k^2\omega^2}\nonumber \\
+	&=\frac{4AT^2}{T_hk^24\pi^2}-\frac{2AT^2}{T_hk^24\pi^2}\left (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}+\e^{-\im k\frac{2\pi}{T}\frac{T_h}{T}}\right )
+	=A\frac{T^2}{T_hk^2\pi^2}\left (1-\cos(k\pi\frac{T_h}{T})\right ).
 \end{align}
+%
+%
+%
+Wie fast schon gewohnt können wir den Koeffizienten noch vereinfachen
+mit Hilfe von Gleichung \ref{eq:sinsquaredcosinus}.
+%
+%
+\begin{gather}
+	c_k=A\frac{T^2}{T_hk^2\pi^2}\frac{2}{2}\left (1-\cos(k\pi\frac{T_h}{T})\right )
+	=2A\frac{T^2}{T_hk^2\pi^2}\frac{2T_h}{2T_h}\sin\left(k\pi\frac{T_h}{2T}\right)
+	=\frac{AT_h}{2}\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+\end{gather}
+%
+%
+Für $k\rightarrow0$ konvergiert die $\sinc$-Funktion gegen $1$.
+%
+Somit kann $c_0$ auch mit dem oberen Term beschrieben werden.
+%
 Die komplexe Fourierreihe von $x_{c}(t)$ hat folgende Form:
+%
+%
 \begin{align}
-	x_{c}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
-		\frac{AT_h}{2T}&,k=0,\\
-		\frac{AT}{T_hk^2\pi^2}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg )&,k\neq 0.
-	\end{cases}
+	x_{c}(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\frac{AT_h}{2}\sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{+\im k \omega t}
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_5}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_5}
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_5}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_5}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_c(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe d) mit komplexer Fourierreihe}
-In diesem Abschnitt beschäftigen wir uns mit einer gewichteten Superposition zweier periodischer Funktionen.
+%
+In diesem Abschnitt beschäftigen wir uns mit einer gewichteten Superposition zweier
+periodischer Funktionen.
+%
+%
 \begin{align}
-	x_d=\begin{cases}
-		A(a-b)&,-\frac{T_h}{2}\leq t \leq 0 \\
-		A(a+b)&,0\leq t \leq +\frac{T_h}{2}\\
-		0&,\text{ sonst}
-	\end{cases}
+	x_d=
+		\begin{cases}
+			A(a-b)&,-\frac{T_h}{2}\leq t \leq 0 \\
+			A(a+b)&,0\leq t \leq +\frac{T_h}{2}\\
+			0&,\text{ sonst}
+		\end{cases}
 \end{align}
+%
+%
 \begin{align}
-	c_0&=\frac{1}{T}\int_{t_0}^{t_0+T}x_d(t)\diff t=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0A(a-b)\diff t+\int_0^{+\frac{T_h}{2}}A(a+b)\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [A(a-b)t\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+A(a+b)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ]=\frac{1}{T}\Bigg[A(a-b)\frac{T_h}{2}+A(a+b)\frac{T_h}{2}\Bigg ]=a\cdot A\frac{T_h}{T}
+	c_0&=\int_{t_0}^{t_0+T}x_d(t)\diff t
+	=\int_{-\frac{T_h}{2}}^0A(a-b)\diff t+\int_0^{+\frac{T_h}{2}}A(a+b)\diff t\nonumber \\
+	&=A(a-b)t\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+A(a+b)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}
+	=A(a-b)\frac{T_h}{2}+A(a+b)\frac{T_h}{2}=a\cdot A\frac{T_h}{T}
 \end{align}
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{\diff (t)\diff t}=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0A(a-b)\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}A(a+b)\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{A(a-b)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{A(a+b)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{A(a-b)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}-\frac{A(a-b)}{\im k \omega}+\frac{A(a+b)}{\im k \omega}-\frac{A(a+b)}{\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{AT}{T\im k 2\pi}\Bigg [-a+b+a+b+a\bigg (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\bigg )-b\bigg (\e^{+\im k \frac{2\pi}{T}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\bigg )\Bigg ]\nonumber \\
-	&=\frac{A}{\im k\pi}\bigg (b+a\im\sin(k\pi\frac{T_h}{T})-b\cos(k\pi\frac{T_h}{T})\bigg )
+	c_k&=\int_{t_0}^{t_0+T}x_{\diff (t)\diff t}
+	=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0A(a-b)\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}A(a+b)\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
+	&=\frac{A(a-b)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{A(a+b)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\nonumber \\
+	&=\frac{A(a-b)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}-\frac{A(a-b)}{\im k \omega}+\frac{A(a+b)}{\im k \omega}-\frac{A(a+b)}{\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}\nonumber \\
+	&=A\frac{T}{\im k 2\pi}\left [-a+b+a+b+a\left (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\right )-b\left (\e^{+\im k \frac{2\pi}{T}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\right )\right ]\nonumber \\
+	&=A\frac{T}{\im k\pi}\left [a\im\sin\left(k\pi\frac{T_h}{T}\right)+b\frac{2}{2}\left(1-\cos\left(k\pi\frac{T_h}{T}\right)\right)\right ]\nonumber\\
+	&\underset{\ref{eq:sinsquaredcosinus}}{=}A\frac{T}{\im k\pi}\left[a\im\sin\left(k\pi\frac{T_h}{T}\right)+2b\sin^2\left(k\pi\frac{T_h}{2T}\right)\right]\nonumber\\
+	&=Aa\frac{T}{k\pi}\frac{T_h}{T_h}\sin\left(k\pi\frac{T_h}{T}\right)+2Ab\frac{T}{\im k\pi}\frac{2k\pi T_h^2T}{2k\pi T_h^2T}\sinc\left(k\pi\frac{T_h}{2T}\right)\nonumber\\
+	&=AaT_h\sinc\left(k\pi\frac{T_h}{T}\right)+Abk\pi\frac{T_h^2}{2T}\sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{-\im\frac{\pi}{2}}
 \end{align}
-Bei genauerer Betrachtung erkennt man, dass es sich hierbei um die mit $a$ bzw. $b$ multiplizierte Addition der Koeffizienten von $x_a(t)$ und $x_{b(t)}$ handelt. Wir prüfen, ob dies auch immer so stimmt.
+%
+%
+%
+Die Fourierreihe lautet
+%
+\begin{gather}
+	x_d(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left[AaT_h\sinc\left(k\pi\frac{T_h}{T}\right)+Abk\pi\frac{T_h^2}{2T}\sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{-\im\frac{\pi}{2}}\right]\e^{+\im k \omega t}
+\end{gather}
+%
+Bei genauerer Betrachtung erkennt man, dass es sich hierbei um die mit $a$ bzw. $b$
+multiplizierte Addition der Koeffizienten von $x_a(t)$ und $x_{b(t)}$ handelt.
+%
+Wir prüfen, ob dies auch immer so stimmt.
+%
 \begin{align}
-	c_k\frac{1}{T}\int_{t_0}^{t_0+T}\big (a\cdot x(t)+b\cdot y(t)\big )\e^{-\im k \omega t}\diff t
+	c_k=\int_{t_0}^{t_0+T}\left (a\cdot x(t)+b\cdot y(t)\right )\e^{-\im k \omega t}\diff t
 \end{align}
+%
 Wir können nun die Linearität des Integrals anwenden sowie Konstanten nach vorne ziehen:
 \begin{align}
-	c_k=a\cdot\frac{1}{T}\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t+b\cdot\frac{1}{T}\int_{t_0}^{t_0+T}y(t)\e^{-\im k \omega t}\diff t=aX_k+bY_k.
+	c_k=a\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t+b\int_{t_0}^{t_0+T}y(t)\e^{-\im k \omega t}\diff t=aX_k+bY_k.
 \end{align}
+%
 Wir merken uns also folgende Korrespondenz:
+%
 \begin{align}
-	Ax(t)+By(t)\quad\fourier\quad AX_k+BY_k.
+	Ax(t)+By(t)\quad\fourier\quad AX_k+BY_k
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_6}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_6}
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_6}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_6}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_d(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe e) mit komplexer Fourierreihe}
+%
 Nun wollen wir die Koeffizienten der komplexen Fourierreihe von
+%
 \begin{gather}
 	x_{e}(t)=
-	\begin{cases}
-		A &,0\leq t \leq T_h \\
-		0 &,\text{ sonst}
-	\end{cases}\\
-	t \in [0,T]\nonumber
-\end{gather},
-wobei $0 < \frac{T_h}{T} \leq 1$ gelten soll, beschäftigen.\\
+		\begin{cases}
+			A &,0\leq t \leq T_h \\
+			0 &,\text{ sonst}
+		\end{cases}\\
+		t \in [0,T]\nonumber
+\end{gather}
+berechnen, wobei $0 < \frac{T_h}{T} \leq 1$ gelten soll, beschäftigen.\\
 Folgend ist es noch einmal als Graphik dargestellt:
+%
 %
 \begin{figure}[h!]
 	\centering
@@ -635,17 +1021,37 @@ Folgend ist es noch einmal als Graphik dargestellt:
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
-Wir erkennen schnell, dass dies die Funktion aus Aufgabe a) ist, jedoch um $\frac{T_h}{2}$ nach rechts verschoben. Das bedeutet, dass $x_{e}(t) = x_{a}(t-\frac{T_h}{2})$. Die Koeffizienten würden sich an dieser Stelle ziemlich leicht berechnen, indem man das Integrationsintervall klug von $0$ bis $T_h$ wählen würde. Wir wollen es uns aber an dieser Stelle nicht ganz so einfach machen und zunächst den allgemeinen verschobene Fall, also $x_{a}(t-\tau)$, berechnen und dann $\frac{T_h}{2}$ für $\tau$ einsetzen, um $x_{e}(t)$ zu erhalten. Für das Lösen der Aufgabe wäre natürlich die direkte Berechnung der Koeffizienten für $x_{e}(t)$ ausreichend.
+%
+Wir erkennen schnell, dass dies die Funktion aus Aufgabe a) ist, jedoch um
+$\frac{T_h}{2}$ nach rechts verschoben.
+%
+Das bedeutet, dass $x_{e}(t) = x_{a}(t-\frac{T_h}{2})$.
+%
+Die Koeffizienten würden sich an dieser Stelle ziemlich leicht berechnen,
+indem man das Integrationsintervall klug von $0$ bis $T_h$ wählen würde.
+%
+Wir wollen es uns aber an dieser Stelle nicht ganz so einfach machen und
+zunächst den allgemeinen verschobene Fall, also $x_{a}(t-\tau)$, berechnen
+und dann $\frac{T_h}{2}$ für $\tau$ einsetzen, um $x_{e}(t)$ zu erhalten.
+%
+Für das Lösen der Aufgabe wäre natürlich die direkte Berechnung der
+Koeffizienten für $x_{e}(t)$ ausreichend.
+%
+%
 \begin{gather}
 	x_{a}(t-\tau)=
-	\begin{cases}
-		A &,-\frac{T_h}{2}+\tau \leq t \leq +\frac{T_h}{2}+\tau \\
-		0 &,\text{sonst}
-	\end{cases}\\
-	t \in [-\frac{T}{2}+\tau,+\frac{T}{2}+\tau]\nonumber
+		\begin{cases}
+			A &,-\frac{T_h}{2}+\tau \leq t \leq +\frac{T_h}{2}+\tau \\
+			0 &,\text{sonst}
+		\end{cases}\\
+		t \in [-\frac{T}{2}+\tau,+\frac{T}{2}+\tau]\nonumber
 \end{gather}
-Wir schauen uns noch einmal die Graphik von $x_{a}(t)$ an, bloß nun um $\tau$ nach rechts verschoben.\\
+%
+%
+Wir schauen uns noch einmal die Graphik von $x_{a}(t)$ an, bloß nun um $\tau$
+nach rechts verschoben.
+%
+%
 %
 \begin{figure}[h!]
 	\centering
@@ -663,101 +1069,194 @@ Wir schauen uns noch einmal die Graphik von $x_{a}(t)$ an, bloß nun um $\tau$ n
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-Für die Berechnung der Koeffizienten ändert sich nun nicht viel. Wir müssen bloß die verschobenen Grenzen beachten.
+%
+%
+%
+Für die Berechnung der Koeffizienten ändert sich nun nicht viel.
+%
+Wir müssen bloß die verschobenen Grenzen beachten.
+%
+%
+%
 \begin{align}
-	c_k&\underset{k\neq 0}{=}\frac{1}{T}\int_{t0}^{t_0+T}x_{e}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}+\tau}^{+\frac{T}{2}+\tau}x_a(t-\tau)\e^{-\im k \omega t}\diff t\nonumber \\
-	&=\frac{1}{T}\int_{-\frac{T_h}{2}+\tau}^{+\frac{T_h}{2}+\tau}A\diff t\nonumber \\
-	&=\frac{AT}{-\im  k 2\pi T}\e^{-\im k \frac{2\pi}{T}t}\Bigg |_{t=-\frac{T_h}{2}+\tau}^{t=+\frac{T_h}{2}+\tau}\nonumber \\
-	&=\frac{A}{\im k 2 \pi}\bigg [\e^{\im k \pi \frac{T_h}{T}-\im k \frac{2\pi}{T}\tau}-\e^{-\im k \pi \frac{T_h}{T}-\im k \frac{2\pi}{T}\tau}\bigg ]
+	c_k&\underset{k\neq 0}{=}\int_{t0}^{t_0+T}x_{e}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T}{2}+\tau}^{+\frac{T}{2}+\tau}x_a(t-\tau)\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\int_{-\frac{T_h}{2}+\tau}^{+\frac{T_h}{2}+\tau}A\diff t\nonumber \\
+	&=A\frac{T}{-\im  k 2\pi }\e^{-\im k \frac{2\pi}{T}t}\Bigg |_{t=-\frac{T_h}{2}+\tau}^{t=+\frac{T_h}{2}+\tau}\nonumber \\
+	&=A\frac{T}{\im k 2 \pi }\bigg [\e^{\im k \pi \frac{T_h}{T}-\im k \frac{2\pi}{T}\tau}-\e^{-\im k \pi \frac{T_h}{T}-\im k \frac{2\pi}{T}\tau}\bigg ]
 \end{align}
-Wir können nun den Faktor $\e^{-\im k \frac{2\pi}{T}}\tau$ ausklammern und die restliche komplexe Exponentialfunktionen mit Hilfe der eulerschen Identität zusammenfassen.
+%
+%
+Wir können nun den Faktor $\e^{-\im k \frac{2\pi}{T}}\tau$ ausklammern und die
+restliche komplexe Exponentialfunktionen mit Hilfe der eulerschen Identität
+zusammenfassen.
+%
 \begin{align}
-	c_k=\e^{-\im k \omega \tau}\frac{A}{k\pi}\sin(k \pi \frac{T_h}{T})
+	c_k=\e^{-\im k \omega \tau}A\frac{T}{k\pi}\frac{T_h}{T_h}\sin(k \pi \frac{T_h}{T})=\e^{-\im k \omega t}AT_h\sinc\left(k\pi\frac{T_h}{T}\right)
 \end{align}
+%
 Es fehlt nur noch der Gleichanteil.
+%
+%
 \begin{align}
-	c_0&=\frac{1}{T}\int_{-\frac{T_h}{2}+\tau}^{+\frac{T_h}{2}+\tau}A\diff t=\frac{A}{T}
-	t\Bigg |_{t=-\frac{T_h}{2}+\tau}^{t=+\frac{T_h}{2}+\tau} \nonumber \\
-	&=\frac{A}{T}\bigg [\bigg (+\frac{T_h}{2}+\tau\bigg )- \bigg (-\frac{T_h}{2}+\tau\bigg )\bigg ]=A\cdot\frac{T_h}{T}\nonumber \\
-	&=\e^{-\im 0 \omega \tau}A\frac{T_h}{T}
+	c_0&=\int_{-\frac{T_h}{2}+\tau}^{+\frac{T_h}{2}+\tau}A\diff t
+	=At\Bigg |_{t=-\frac{T_h}{2}+\tau}^{t=+\frac{T_h}{2}+\tau} \nonumber \\
+	&=A\bigg [\bigg (+\frac{T_h}{2}+\tau\bigg )- \bigg (-\frac{T_h}{2}+\tau\bigg )\bigg ]
+	=AT_h\nonumber \\
+	&=\e^{-\im 0 \omega \tau}AT_h
 \end{align}
-Wir erkennen also, dass eine zeitliche Verschiebung der Funktion einer Modulation der Koeffizienten der komplexen Fourierreihe entspricht. Falls $x(t)$ eine Funktion ist und $X_k$ der zu dieser Funktion entsprechende $k$-te Koeffizient der Komplexen Fourierreihe, können wir folgende Korrespondenz aufstellen:
+%
+%
+Wir erkennen also, dass eine zeitliche Verschiebung der Funktion einer
+Modulation der Koeffizienten der komplexen Fourierreihe entspricht.
+%
+Außerdem können alle Koeffizienten in $c_k$ zusammengefasst werden
+wegen der Konvergenz von $\sinc$.
+%
+Falls $x(t)$ eine Funktion ist und $X_k$ der zu dieser Funktion entsprechende
+$k$-te Koeffizient der Komplexen Fourierreihe, können wir folgende
+Korrespondenz aufstellen:
+%
+%
 \begin{align}
 	x(t-\tau)\quad\fourier\quad\e^{-\im k \omega \tau}X_k\quad\quad\tau\in\mathbb{R}
 \end{align}
+%
+%
 Beweis:
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x(t-\tau)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{(t_0-\tau)}^{(t_0-\tau)+T}x(l)\e^{-\im k \omega (l+\tau)}\diff l = \e^{-\im k \omega \tau}\frac{1}{T}\int_{(t_0-\tau)}^{(t_0-\tau)+T}x(l)\e^{-\im k \omega l}x(l)\diff l\nonumber \\
+	c_k&=\int_{t_0}^{t_0+T}x(t-\tau)\e^{-\im k \omega t}\diff t
+	=\int_{(t_0-\tau)}^{(t_0-\tau)+T}x(l)\e^{-\im k \omega (l+\tau)}\diff l
+	= \e^{-\im k \omega \tau}\int_{(t_0-\tau)}^{(t_0-\tau)+T}x(l)\e^{-\im k \omega l}x(l)\diff l\nonumber \\
 	&=\e^{-\im k \omega \tau}X_k
 \end{align}
-Wir setzen nun $\frac{T_h}{2}$ für $\tau$ ein und erhalten die Fourierreihe für $x_{e}(t)$. Wir kürzen $\e^{-\im k \omega \frac{T_h}{2}}$ zu $\e^{-\im k \pi \frac{T_h}{T}}$.
+%
+%
+Wir setzen nun $\frac{T_h}{2}$ für $\tau$ ein und erhalten die Fourierreihe für
+$x_{e}(t)$.
+%
+Wir kürzen $\e^{-\im k \omega \frac{T_h}{2}}$ zu $\e^{-\im k \pi
+\frac{T_h}{T}}$.
+%
+%
 \begin{align}
-	x_{e}(t)=x_a(t-\frac{T_h}{2})=\sum_{k=-\infty}^{+\infty}c_k\e^{\im k \omega t}\quad\text{mit } c_k=\begin{cases}
-		A\cdot\frac{T_h}{T}&,k=0, \\
-		\e^{-\im k \pi \frac{T_h}{T}}\frac{A}{k\pi}\sin(k\pi\frac{T_h}{T})&,k\neq0.
-	\end{cases}
+	x_{e}(t)=x_a(t-\frac{T_h}{2})
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\e^{-\im k\omega \frac{T_h}{2}}AT_h\sinc\left(k\pi\frac{T_h}{T}\right)\e^{\im k \omega t}
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_7}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_7}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_7}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_7}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_e(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe f) mit komplexer Fourierreihe}
+%
 \label{sec:TaskDComplex}
-Die nächste Funktion ergibt sich aus der Modulation von $x_{a}(t)$. Wir berechnen zunächst den Gleichanteil:
-\begin{align}
-	c_0&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{f}(t)\diff t=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\e^{+\im\omega_0 t}x_{a}(t)\diff t\nonumber \\
-	&=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\e^{+\im\omega_0 t}A\diff t \nonumber \\
-	&=\frac{A}{\im\omega_0 T}\e^{+\im \omega_0 t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}} \nonumber \\
-	&=\frac{A}{\im\omega_0 T}\Bigg [\e^{\im\omega_0\frac{T_h}{2}}-\e^{-\im\omega_0\frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{2A}{\omega_0 T}\sin(\omega_0\frac{T_h}{2}).
-\end{align}
-Nun berechnen wir die Koeffizienten für $k\neq 0$:
+%
+Die nächste Funktion ergibt sich aus der Modulation von $x_{a}(t)$.
+%
+%
+%
 \begin{align}
 	\label{eq:TaskDSubstituteXA}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{f}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\e^{+\im\omega_0 t}A\e^{-\im k \omega t}x_a(t)\diff t \\
-	&=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im t(k\omega -\omega_0)}\diff t.
+	c_k&=\int_{t_0}^{t_0+T}x_{f}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\e^{+\im\omega_0 t}A\e^{-\im k \omega t}x_a(t)\diff t \\
+	&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im t(k\omega -\omega_0)}\diff t
 \end{align}
-Sei nun $\omega_0=n\cdot\omega$, wobei $n\in\mathbb{Z}$. Dann lässt sich der Ausdruck $k\omega -\omega_0$ zu $(k-n)\omega$ zusammenfassen.
+%
+Sei nun $\omega_0=n\cdot\omega$, wobei $n\in\mathbb{Z}$.
+%
+Dann lässt sich der Ausdruck $k\omega -\omega_0$ zu $(k-n)\omega$
+zusammenfassen.
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im (k-n)\omega t} \nonumber \\
-	&\underset{k\neq n}{=}\frac{AT}{-\im T(k-n) 2\pi}\e^{-\im (k-n)\omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}} \nonumber \\
-	&=\frac{A}{\im (k-n)2 \pi}\Bigg [\e^{\im (k-n)\pi\frac{T_h}{T}}-\e^{-\im (k-n)\pi \frac{T_h}{T}}\Bigg ] = \frac{T}{(k-n)\pi}\sin((k-n)\pi\frac{T_h}{T})
+	c_k&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\e^{-\im (k-n)\omega t} \nonumber \\
+	&\underset{k\neq n}{=}A\frac{T}{-\im (k-n) 2\pi}\e^{-\im (k-n)\omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}} \nonumber \\
+	&=A\frac{T}{\im (k-n)2 \pi}\Bigg [\e^{\im (k-n)\pi\frac{T_h}{T}}-\e^{-\im (k-n)\pi \frac{T_h}{T}}\Bigg ]
+	= A\frac{T}{(k-n)\pi}\frac{T_h}{T_h}\sin\left((k-n)\pi\frac{T_h}{T}\right)\nonumber\\
+	&=AT_h\sinc\left((k-n)\pi\frac{T_h}{T}\right)
 \end{align}
+%
 bzw.
+%
 \begin{align}
-	c_k\underset{k=n}{=}\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t=A\cdot\frac{T_h}{T}
+	c_k\underset{k=n}{=}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t=AT_h
 \end{align}
-Tatsächlich sind die Koeffizienten von $x_{f}(t)$ die gleichen wie von $x_{a}(t)$, jedoch um $n$ nach rechts verschoben. Wir hätten $x_{a}(t)$ in \eqref{eq:TaskDSubstituteXA} gar nicht einsetzen brauchen. Wir könnten auch $m=k-n$ substituieren.
+%
+Tatsächlich sind die Koeffizienten von $x_{f}(t)$ die gleichen wie von
+$x_{a}(t)$, jedoch um $n$ nach rechts verschoben.
+%
+Wir hätten $x_{a}(t)$ in \eqref{eq:TaskDSubstituteXA} gar nicht einsetzen brauchen.
+%
+Wir könnten auch $m=k-n$ substituieren.
+%
 \begin{align}
-	c_{k+m}=\frac{1}{T}\int_{x_0}^{x_0+T}x_{a}(t)\e^{-\im m \omega t}\diff t
+	c_{k+m}=\int_{x_0}^{x_0+T}x_{a}(t)\e^{-\im m \omega t}\diff t
 \end{align}
-Also ist der $m+n$-te Koeffizient von $x_{f}(t)$ der $m$-te Koeffizient von $x_{a}(t)$. Wenn wir nun wieder zurück substituieren ($m=k-n$), dann sehen wir, dass der $k$-te Koeffizient von $x_{f}(t)$ der $k-n$-te Koeffizient von $x_{a}(t)$ ist.
+Also ist der $m+n$-te Koeffizient von $x_{f}(t)$ der $m$-te Koeffizient von
+$x_{a}(t)$.
+%
+Wenn wir nun wieder zurück substituieren ($m=k-n$), dann sehen wir, dass der $k$-te Koeffizient von $x_{f}(t)$ der $k-n$-te Koeffizient von $x_{a}(t)$ ist.
+%
 Also können wir uns als nächste allgemeine Korrespondenz folgendes notieren:
+%
+%
 \begin{align}
 	\label{eq:CorrespondenceModulation}
 	\e^{+\im n \omega t}x(t)\quad\fourier\quad X_{k-n}\quad\quad n\in\mathbb{Z}.
 \end{align}
+%
+%
 Die Fourierreihe können wir nun wie folgt aufschreiben:
+%
+%
 \begin{align}
-	x_{f}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
-		A\cdot\frac{T_h}{T} &,k=n,\\
-		\frac{A}{(k-n)\pi}\sin((k-n)\pi\frac{T_h}{T}) &,k\neq n.
-	\end{cases}
+	x_{f}(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}AT_h\sinc\left((k-n)\pi\frac{T_h}{T}\right)\e^{+\im k \omega t}
 \end{align}
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_8}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_8}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_f(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_8}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_8}
-\newpage
+%
 \subsubsection*{Aufgabe g) mit komplexer Fourierreihe}
 Als nächstes berechnen wir die die komplexen Fourierkoeffizienten von
+%
 \begin{gather}
-	x_{g}(t) = \begin{cases}
-		A &, -\frac{T_h}{2}\leq t \leq 0 \\
-		-A &, 0<t\leq \frac{T_h}{2}\\
-		0 &,\text{ sonst}
-	\end{cases} \\
+	x_{g}(t) =
+		\begin{cases}
+			A &, -\frac{T_h}{2}\leq t \leq 0 \\
+			-A &, 0<t\leq \frac{T_h}{2}\\
+			0 &,\text{ sonst}
+		\end{cases} \\
 	t\in[-\frac{T}{2},+\frac{T}{2}]\nonumber
 \end{gather}
+%
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -773,55 +1272,129 @@ Als nächstes berechnen wir die die komplexen Fourierkoeffizienten von
 		\draw[-, black, ultra thick] (2,0) node[below] {$2 T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
-\end{figure}\\
-Die Berechnung des Gleichanteils sparen wir uns an dieser Stelle, denn man sieht an Hand der Graphik, dass sich innerhalb einer Periode die Flächen unter den Rechtecken wieder aufheben bzw. es sich um eine ungerade Funktion handelt und somit $a_0=0$ (siehe \ref{eq:KoeffUngerade})  wäre, womit auch $c_0=0$ ist.\\
+\end{figure}
+%
+%
+%
+Die Berechnung des Gleichanteils sparen wir uns an dieser Stelle, denn man
+sieht an Hand der Graphik, dass sich innerhalb einer Periode die Flächen unter den Rechtecken wieder aufheben bzw. es sich um eine ungerade Funktion handelt
+und somit $a_0=0$ (siehe \ref{eq:KoeffUngerade})  wäre, womit auch $c_0=0$
+ist.
+%
+
+%
 Wir berechnen also nur die Koeffizienten für $k\neq0$:
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{g}(t)\diff t=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}x_{g}(t)\diff t \nonumber \\
-	&=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0A\e^{-\im k \omega t}\diff t+ \int_0^{-\frac{T_h}{2}}-A\e^{-\im k\omega t}\diff t \Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{-A}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\Bigg ]\nonumber \\
-	&=\frac{A}{\im 2\pi k}\Bigg [\e^{\im k \frac{2\pi}{T} \frac{T_h}{2}}-1-1+\e^{-\im k \frac{2\pi}{T} \frac{T_h}{2}}\Bigg ] \nonumber \\
+	c_k&=\int_{t_0}^{t_0+T}x_{g}(t)\diff t
+	=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}x_{g}(t)\diff t \nonumber \\
+	&=\int_{-\frac{T_h}{2}}^0A\e^{-\im k \omega t}\diff t+ \int_0^{-\frac{T_h}{2}}-A\e^{-\im k\omega t}\diff t \nonumber \\
+	&=\frac{A}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}+\frac{-A}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\nonumber \\
+	&=A\frac{T}{\im k2\pi}\left [\e^{\im k \frac{2\pi}{T} \frac{T_h}{2}}-1-1+\e^{-\im k \frac{2\pi}{T} \frac{T_h}{2}}\right ] \nonumber \\
 	\label{eq:CKTaskEComplex}
-	&=\frac{A}{\im \pi k}\Bigg (\cos(k\pi\frac{T_h}{T})-1\Bigg ).
+	&=A\frac{T}{\im k\pi}\frac{2}{2}\left (\cos(k\pi\frac{T_h}{T})-1\right )
+	=\underset{\ref{eq:sinsquaredcosinus}}{=}-2A\frac{T}{\im k\pi}\frac{2k\pi T}{2k\pi T}\frac{T_h^2}{T_h^2}\sin^2\left(k\pi\frac{T_h}{2T}\right)\nonumber\\
+	&=jAk\pi \frac{T_h^2}{2T}\sinc\left(k\pi\frac{T_h}{2T}\right)
 \end{align}
+%
+%
+%
 Zum Schluss schreiben wir $x_{g}(t)$ noch als Fourierreihe auf:
+%
 \begin{align}
-	x_{g}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
-		0&,k=0,\\
-		\frac{A}{\im k \pi}\bigg (\cos(k\pi\frac{T_h}{T})-1\bigg )&,k\neq 0.
-	\end{cases}
+	x_{g}(t)=\sum_{k=-\infty}^{+\infty}jAk\pi\frac{T_h^2}{2T}\sinc\left(k\pi\frac{T_h}{2T}\right)\e^{+\im k \omega t}
 \end{align}
-Wir sollten bemerkt haben, dass sich $x_{b}(t)$ und $x_{g}(t)$ sehr stark ähneln. Tatsächlich ergibt sich $x_{g}(t)$ daraus, dass man $x_{b}(t)$ an der Ordinate (bzw. der $y$-Achse) spiegelt. $x_{g}(t)$ erhält man also durch Zeitumkehr aus $x_{b}(t)$, d.h. $x_{g}(t)$ = $x_{b}(-t)$. Wir wollen an dieser Stelle schauen, ob sich die Koeffizienten von $x_{g}(t)$ evtl. aus $x_{b}(t)$ ergeben und wir auf die Berechnung verzichten hätten können. \eqref{eq:CKTaskEComplex} und \eqref{eq:CKTaskBComplex} gleichen sich schon sehr, jedoch muss man einen Ausdruck jeweils mit $(-1)$ multiplizieren, um den anderen zu erhalten. Wir versuchen wie in \ref{sec:TaskDComplex} $x_{g}(t)$ mit einer anderen Funktion, von dem die Fourierkoeffizienten schon bekannt sind, zu substituieren, um eine Korrespondenz aufzustellen.
+%
+Wir sollten bemerkt haben, dass sich $x_{b}(t)$ und $x_{g}(t)$ sehr stark
+ähneln.
+%
+Tatsächlich ergibt sich $x_{g}(t)$ daraus, dass man $x_{b}(t)$ an der Ordinate
+(bzw. der $y$-Achse) spiegelt.
+%
+$x_{g}(t)$ erhält man also durch Zeitumkehr aus $x_{b}(t)$, d.h. $x_{g}(t)$ =
+$x_{b}(-t)$.
+%
+Wir wollen an dieser Stelle schauen, ob sich die Koeffizienten von $x_{g}(t)$
+evtl. aus $x_{b}(t)$ ergeben und wir auf die Berechnung verzichten hätten
+können.
+%
+\eqref{eq:CKTaskEComplex} und \eqref{eq:CKTaskBComplex} gleichen sich schon
+sehr, jedoch muss man einen Ausdruck jeweils mit $(-1)$ multiplizieren, um den
+anderen zu erhalten.
+%
+Wir versuchen wie in \ref{sec:TaskDComplex} $x_{g}(t)$ mit einer anderen
+Funktion, von dem die Fourierkoeffizienten schon bekannt sind, zu
+substituieren, um eine Korrespondenz aufzustellen.
+%
 \begin{align}
-	c_k=\frac{1}{T}\int_{t_0}^{t_0+T}x_{g}(t)\e^{-\im k \omega t}\diff t = \frac{1}{T}\int_{t_0}^{t_0+T}x_{b}(-t)\e^{-\im k \omega t}\diff t
+	c_k=\int_{t_0}^{t_0+T}x_{g}(t)\e^{-\im k \omega t}\diff t
+	= \int_{t_0}^{t_0+T}x_{b}(-t)\e^{-\im k \omega t}\diff t
 \end{align}
-Wir substituieren nun $t$ mit $-\tau$:
+%
+Wir substituieren nun $t$ mit $-\tau$.
+%
 \begin{align}
-	c_k=-\frac{1}{T}\int_{-t_0}^{-t_0-T}x_{b}(\tau)\e^{+\im k \omega \tau}\diff \tau.
+	c_k=-\int_{-t_0}^{-t_0-T}x_{b}(\tau)\e^{+\im k \omega \tau}\diff \tau
 \end{align}
-Nun müssen wir die Grenzen tauschen. Somit wird wieder über eine Periode $T$ integriert:
+%
+Nun müssen wir die Grenzen tauschen. Somit wird wieder über eine Periode $T$
+integriert.
+%
 \begin{align}
-	c_k=\frac{1}{T}\int_{-t_0-T}^{-t_0}x_{b}(\tau)\e^{+\im k \omega \tau}\diff \tau.
+	c_k=\int_{-t_0-T}^{-t_0}x_{b}(\tau)\e^{+\im k \omega \tau}\diff \tau
 \end{align}
-Anschließend substituieren wir $k$ mit $-m$, um wieder ein Minus-Zeichen in der komplexen Exponentialfunktion zu erhalten:
+%
+Anschließend substituieren wir $k$ mit $-m$, um wieder ein Minus-Zeichen in der
+komplexen Exponentialfunktion zu erhalten.
+%
 \begin{align}
-	c_{-m}=\frac{1}{T}\int_{-t_0-T}{-t_0}x_{b}(\tau)\e^{-\im m \omega \tau}\diff \tau.
+	c_{-m}=\int_{-t_0-T}{-t_0}x_{b}(\tau)\e^{-\im m \omega \tau}\diff \tau
 \end{align}
-Also ist der $-m$-te Koeffizient von $x_{g}(t)$ der $m$-te Koeffizient von $x_{b}(t)$. Wir substituieren wieder zurück ($k=-m$) und merken uns folgende Korrespondenz:
+%
+Also ist der $-m$-te Koeffizient von $x_{g}(t)$ der $m$-te Koeffizient von
+$x_{b}(t)$.
+%
+Wir substituieren wieder zurück ($k=-m$) und merken uns folgende Korrespondenz.
 \begin{align}
 	x(-t)\quad\fourier\quad X_{-k}.
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_9}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_9}
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_9}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_9}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_g(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
 \newpage
 \subsubsection*{Aufgabe h) mit komplexer Fourierreihe}
-In diesem Abschnitt wollen wir uns die Fourierkoeffizienten einer Funktion angucken, die aus der zyklischen Faltung zweier $T$-periodischer Funktionen entsteht. Dabei ist die zyklische Faltung wie folgt definiert:
+In diesem Abschnitt wollen wir uns die Fourierkoeffizienten einer Funktion
+angucken, die aus der zyklischen Faltung zweier $T$-periodischer Funktionen
+entsteht.
+%
+Dabei ist die zyklische Faltung wie folgt definiert:
+%
 \begin{align}
 	x(t)\circledast h(t)=\int_{t_0}^{t_0+T}x(\tau)h(t-\tau)\diff \tau=\int_{t_0}^{t_0+T}x(t-\tau)h(\tau)\diff \tau.
 \end{align}
-Wir werden zunächst die Fourierkoeffizienten direkt aus dem Faltungsprodukt berechnen. Anschließend schauen wir, ob sich aus den gegebenen Fourierkoeffizienten der beteiligten Funktionen direkt der Fourierkoeffizient des Faltungsproduktes ermitteln lässt.\\
-Wir zeichnen uns zunächst noch einmal die Funktionen $x_{a}(t)$ und $x_{b}(t)$ über eine Periode auf.
+%
+Wir werden zunächst die Fourierkoeffizienten direkt aus dem Faltungsprodukt
+berechnen.
+%
+Anschließend schauen wir, ob sich aus den gegebenen Fourierkoeffizienten der
+beteiligten Funktionen direkt der Fourierkoeffizient des Faltungsproduktes
+ermitteln lässt.
+
+Wir zeichnen uns zunächst noch einmal die Funktionen $x_{a}(t)$ und $x_{b}(t)$
+über eine Periode auf.
+%
 %
 \begin{figure}[h!]
 	\centering
@@ -839,7 +1412,8 @@ Wir zeichnen uns zunächst noch einmal die Funktionen $x_{a}(t)$ und $x_{b}(t)$ 
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -855,9 +1429,11 @@ Wir zeichnen uns zunächst noch einmal die Funktionen $x_{a}(t)$ und $x_{b}(t)$ 
 		\draw[-, black, ultra thick] (-1,0) node[below] {$-T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
-\end{figure}\\
-\newpage
-Wir substituieren nun $t$ mit $\tau$ und verschieben danach noch $x_{a}(\tau)$ um $t$.
+\end{figure}
+
+Wir substituieren nun $t$ mit $\tau$ und verschieben danach noch $x_{a}(\tau)$
+um $t$.
+%
 %
 \begin{figure}[h!]
 	\centering
@@ -875,7 +1451,8 @@ Wir substituieren nun $t$ mit $\tau$ und verschieben danach noch $x_{a}(\tau)$ u
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -891,97 +1468,221 @@ Wir substituieren nun $t$ mit $\tau$ und verschieben danach noch $x_{a}(\tau)$ u
 		\draw[-, black, ultra thick] (-1,0) node[below] {$-T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
-\end{figure}\\
-\\
-Es lassen sich vier verschiedene Fälle betrachten.\\
-Der erste Fall liegt vor, wenn bei der Faltung sich nur in einer Periode überlappt wird. Dafür muss die linke Seite ( mit der linken Seite von $x_{a}(t)$ wird an dieser Stelle vom Sprung von $0$ zu $A$ und bei der rechten vom Sprung von $A$ zu $0$ geredet) zu Beginn schon hinter $-T+\frac{T_h}{2}$ liegen, damit $x_a(t)$ sich nicht mit der vorherigen Periode von $x_b(t)$ überlappt. Dies kann man auch als Ungleichung ausdrücken:
+\end{figure}
+%
+%
+%
+
+Es lassen sich vier verschiedene Fälle betrachten.
+
+Der erste Fall liegt vor, wenn bei der Faltung sich nur in einer Periode überlappt wird.
+%
+Dafür muss die linke Seite ( mit der linken Seite von $x_{a}(t)$ wird an dieser Stelle vom Sprung von $0$ zu $A$ und bei der rechten vom Sprung von $A$ zu $0$ geredet) zu Beginn schon hinter $-T+\frac{T_h}{2}$ liegen, damit $x_a(t)$ sich nicht mit der vorherigen Periode von $x_b(t)$ überlappt.
+%
+Dies kann man auch als Ungleichung ausdrücken.
+%
+%
+\begin{gather}
+	-T+\frac{T_h}{2}\leq -\frac{T_h}{2}+t\Bigg |_{t=-\frac{T}{2}}\nonumber\\
+	-\frac{T_h}{2}-\frac{T}{2}\quad\Bigg |\quad +T+\frac{T_h}{2}\nonumber \\
+	T_h\leq \frac{T}{2}\quad\Bigg |\quad \cdot\frac{1}{T}\nonumber \\
+	\frac{T_h}{T}\leq\frac{1}{2}
+\end{gather}
+%
+%
+Beim zweiten Fall liegt die linke Seite von $x_{a}(t)$ bereits vor
+$-T+\frac{T_h}{2}$, bei der Faltung überlappt $x_{a}(t)$ mit der vorherigen
+Periode von $x_b(t)$.
+%
+Nun wollen wir, dass beim schieben nach rechts die linke Seite von $x_{a}(t)$
+$-T+\frac{T_h}{2}$ erreicht und die rechte Seite höchstens bei $0$ liegt.
+%
+Die linke Seite liegt auf $-T+\frac{T_h}{2} \Leftrightarrow
+-T+\frac{T_h}{2}=-\frac{T_h}{2}+t$, also $t=T_h-T$. Wir können wieder eine
+Ungleichung aufstellen.
+%
+%
+%
+\begin{gather}
+	+\frac{T_h}{2}+t\Bigg |_{t=T_h-T}\nonumber\\
+	\frac{3}{2}T_h-T\leq 0\quad\Bigg |\quad+T\nonumber \\
+	\frac{3}{2}T_h\leq T\quad\Bigg | \quad\cdot\frac{2}{3}\cdot\frac{1}{T}\nonumber\\
+	\frac{T_h}{T}\leq \frac{2}{3}
+\end{gather}
+%
+%
+%
+Der dritte Fall ist schnell erledigt, wir begrenzen $\frac{T_h}{T}$ nach oben,
+also $\frac{2}{3}<\frac{T_h}{T}<1$, denn für $\frac{T_h}{T}$ wäre $x_a(t)=1$,
+und die Faltung würde $0$ ergeben (wird später erklärt).
+
+\textbf{Fall 1:}
+
+Von $-\frac{T}{2}\leq t \leq -T_h$ und $T_h \leq t \leq \frac{T}{2}$ überlappen
+sich $x_{a}(t-\tau)$ und $x_{b}(\tau)$ nicht.
+
+Wir können folgende Fälle unterscheiden.
+\begin{gather}
+	x_{h}(t)=
+		\begin{cases}
+			0 &, -\frac{T}{2}\leq t \leq -T_h \\
+			y_1(t) &,-T_h\leq t \leq -\frac{T_h}{2} \\
+			y_2(t) &, -\frac{T_h}{2} \leq t \leq 0 \\
+			y_3(t) &, 0 \leq t \leq +\frac{T_h}{2} \\
+			y_4(t) &, \frac{T_h}{2}\leq T_h \\
+			0 &, T_h \leq t \leq \frac{T}{2}
+		\end{cases}
+\end{gather}
+%
+%
+\begin{gather}
+	y_1(t)=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau
+	= -A^2\tau \Bigg |_{\tau=-\frac{T_h}{2}}^{\tau=\frac{T_h}{2}+t}
+	=-A^2(\frac{T_h}{2}+t+\frac{T_h}{2})
+	=-A^2(t+T_h)
+\end{gather}
+%
+%
+%
 \begin{align}
-	-T+\frac{T_h}{2}&\leq -\frac{T_h}{2}+t\Bigg |_{t=-\frac{T}{2}}=-\frac{T_h}{2}-\frac{T}{2}\quad\Bigg |\quad +T+\frac{T_h}{2}\nonumber \\
-	T_h&\leq \frac{T}{2}\quad\Bigg |\quad \cdot\frac{1}{T}\nonumber \\
-	\frac{T_h}{T}&\leq\frac{1}{2}
+	y_2(t)=-A^2\frac{T_h}{2}+\int_{0}^{\frac{T_h}{2}+t}A^2\diff \tau
+	= -A^2\frac{T_h}{2}+A^2\tau\Bigg |_{\tau=0}^{\tau=\frac{T_h}{2}+t}
+	=-A^2\frac{T_h}{2}+A^2\left(\frac{T_h}{2}+t\right)
+	=A^2t
 \end{align}
-Beim zweiten Fall liegt die linke Seite von $x_{a}(t)$ bereits vor $-T+\frac{T_h}{2}$, bei der Faltung überlappt $x_{a}(t)$ mit der vorherigen Periode von $x_b(t)$. Nun wollen wir, dass beim schieben nach rechts die linke Seite von $x_{a}(t)$ $-T+\frac{T_h}{2}$ erreicht und die rechte Seite höchstens bei $0$ liegt. Die linke Seite liegt auf $-T+\frac{T_h}{2} \Leftrightarrow -T+\frac{T_h}{2}=-\frac{T_h}{2}+t$, also $t=T_h-T$. Wir können wieder eine Ungleichung aufstellen:
+%
+%
 \begin{align}
-	+\frac{T_h}{2}+t\Bigg |_{t=T_h-T}=\frac{3}{2}T_h-T&\leq 0\quad\Bigg |\quad+T\nonumber \\
-	\frac{3}{2}T_h&\leq T\quad\Bigg | \quad\cdot\frac{2}{3}\cdot\frac{1}{T}\nonumber\\
-	\frac{T_h}{T}&\leq \frac{2}{3}
+	y_3(t)=A^2\frac{T_h}{2}+\int_{t-\frac{T_h}{2}}^{0}-A^2\diff \tau
+	=A^2\frac{T_h}{2}-A^2\tau\Bigg |_{\tau=t-\frac{T_h}{2}}^{\tau=0}
+	=A^2\frac{T_h}{2}+A^2\left(t-\frac{T_h}{2}\right)
+	=A^2t
 \end{align}
-Der dritte Fall ist schnell erledigt, wir begrenzen $\frac{T_h}{T}$ nach oben, also $\frac{2}{3}<\frac{T_h}{T}<1$, denn für $\frac{T_h}{T}$ wäre $x_a(t)=1$, und die Faltung würde $0$ ergeben (wird später erklärt).\\
-\textbf{Fall 1:}\\
-Von $-\frac{T}{2}\leq t \leq -T_h$ und $T_h \leq t \leq \frac{T}{2}$ überlappen sich $x_{a}(t-\tau)$ und $x_{b}(\tau)$ nicht.\\
-Wir können folgende Fälle unterscheiden: \\
+%
+%
 \begin{align}
-	x_{h}(t)=\begin{cases}
-		0 &, -\frac{T}{2}\leq t \leq -T_h, \\
-		y_1(t) &,-T_h\leq t \leq -\frac{T_h}{2}, \\
-		y_2(t) &, -\frac{T_h}{2} \leq t \leq 0, \\
-		y_3(t) &, 0 \leq t \leq +\frac{T_h}{2}, \\
-		y_4(t) &, \frac{T_h}{2}\leq T_h, \\
-		0 &, T_h \leq t \leq \frac{T}{2}.
-	\end{cases}
+	y_4(t)=\int_{t-\frac{T_h}{2}}^{\frac{T_h}{2}}A^2\diff \tau
+	=A^2\Bigg |_{\tau=t-\frac{T_h}{2}}^{\tau=\frac{T_h}{2}}
+	=A^2\left(\frac{T_h}{2}-t+\frac{T-h}{2}\right)
+	=A^2(-t+T_h)
 \end{align}
-\begin{align}
-	y_1(t)=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau = -A^2\tau \Bigg |_{\tau=-\frac{T_h}{2}}^{\tau=\frac{T_h}{2}+t}=-A^2(\frac{T_h}{2}+t+\frac{T_h}{2})=-A^2(t+T_h)
-\end{align}
-\begin{align}
-	y_2(t)=-A^2\cdot\frac{T_h}{2}+\int_{0}^{\frac{T_h}{2}+t}A^2\diff \tau = -A^2\cdot\frac{T_h}{2}+A^2\tau\Bigg |_{\tau=0}^{\tau=\frac{T_h}{2}+t}=-A^2\cdot\frac{T_h}{2}+A^2(\frac{T_h}{2}+t)=A^2t
-\end{align}
-\begin{align}
-	y_3(t)=A^2\cdot\frac{T_h}{2}+\int_{t-\frac{T_h}{2}}^{0}-A^2\diff \tau=A^2\cdot\frac{T_h}{2}-A^2\tau\Bigg |_{\tau=t-\frac{T_h}{2}}^{\tau=0}=A^2\cdot\frac{T_h}{2}+A^2(t-\frac{T_h}{2})=A^2t
-\end{align}
-\begin{align}
-	y_4(t)=\int_{t-\frac{T_h}{2}}^{\frac{T_h}{2}}A^2\diff \tau=A^2\Bigg |_{\tau=t-\frac{T_h}{2}}^{\tau=\frac{T_h}{2}}=A^2(\frac{T_h}{2}-t+\frac{T-h}{2})=A^2(-t+T_h)
-\end{align}
-Die endgültige Funktion lautet:
-\begin{align}
-	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)\underset{0<\frac{T_h}{T}\leq\frac{1}{2}}{=}\begin{cases}
-		0 &, -\frac{T}{2}\leq t \leq -T_h, \\
-		-A^2(t+T_h) &,-T_h\leq t \leq -\frac{T_h}{2}, \\
-		A^2t &, -\frac{T_h}{2} \leq t \leq +\frac{T_h}{2}, \\
-		A^2(-t+T_h) &, \frac{T_h}{2}\leq T_h, \\
-		0 &, T_h \leq t \leq \frac{T}{2}.
-	\end{cases}
-\end{align}
+%
+%
+Somit ergibt sich folgende Funktion.
+\begin{gather}
+	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)
+	\underset{0<\frac{T_h}{T}\leq\frac{1}{2}}{=}
+		\begin{cases}
+			0 &, -\frac{T}{2}\leq t \leq -T_h \\
+			-A^2(t+T_h) &,-T_h\leq t \leq -\frac{T_h}{2} \\
+			A^2t &, -\frac{T_h}{2} \leq t \leq +\frac{T_h}{2} \\
+			A^2(-t+T_h) &, \frac{T_h}{2}\leq T_h \\
+			0 &, T_h \leq t \leq \frac{T}{2}
+		\end{cases}
+\end{gather}
+%
+%
 Nun folgt die Berechnung der Koeffizienten der Fourierreihe.
+%
+%
+%
 \begin{align}
-	c_0&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\diff t=\frac{1}{T}\int_{-T_h}^{+T_h}x_{a}(t)\circledast x_{b}(t)\diff t \nonumber \\
-	&=\frac{1}{T}\Bigg [\int_{-T_h}^{-\frac{T_h}{2}}-A^2(t+T_h)\diff t+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\diff t+\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [-A^2(\frac{t^2}{2}+T_ht)\Bigg |_{t=-T_h}^{t=-\frac{T_h}{2}}+A^2\frac{t^2}{2}\Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}} + A^2(-\frac{t^2}{2}+T_ht)\Bigg |_{t=+\frac{T_h}{2}}^{t=+T_h}\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [-A^2(\frac{T_h^2}{8}-\frac{T_h^2}{2}-\frac{T_h^2}{2}+T_h^2)+A^2(\frac{T_h^2}{8}-\frac{T_h^2}{8})+A^2(-\frac{T_h^2}{2}+T_h^2+\frac{T_h^2}{8}-\frac{T_h^2}{2})\Bigg ] \nonumber \\
-	&=\frac{1}{T} \Bigg [A^2\bigg (-\frac{T_h^2}{8}+\frac{T_h^2}{8}\bigg )\Bigg ]=0
+	c_0&=\int_{t_0}^{t_0+T}x_{h}(t)\diff t=\frac{1}{T}\int_{-T_h}^{+T_h}x_{a}(t)\circledast x_{b}(t)\diff t \nonumber \\
+	&=\int_{-T_h}^{-\frac{T_h}{2}}-A^2(t+T_h)\diff t+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\diff t+\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\diff t\nonumber \\
+	&=-A^2\left(\frac{t^2}{2}+T_ht\right)\Bigg |_{t=-T_h}^{t=-\frac{T_h}{2}}+A^2\frac{t^2}{2}\Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}} + A^2\left(-\frac{t^2}{2}+T_ht\right)\Bigg |_{t=+\frac{T_h}{2}}^{t=+T_h} \nonumber \\
+	&=-A^2\left(\frac{T_h^2}{8}-\frac{T_h^2}{2}-\frac{T_h^2}{2}+T_h^2\right)+A^2\left(\frac{T_h^2}{8}-\frac{T_h^2}{8}\right)+A^2\left(-\frac{T_h^2}{2}+T_h^2+\frac{T_h^2}{8}-\frac{T_h^2}{2}\right) \nonumber \\
+	&=A^2\left (-\frac{T_h^2}{8}+\frac{T_h^2}{8}\right )=0
 \end{align}
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t\underset{0<\frac{T_h}{T}\leq \frac{1}{2}}{=}\frac{1}{T}\int_{-T_h}^{+T_h}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t \nonumber \\
-	&=\frac{1}{T}\Bigg [\underbrace{\int_{-T_h}^{-\frac{T_h}{2}}-A^2(t+T_h)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t}_C\Bigg ]
+	c_k&=\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t
+	\underset{0<\frac{T_h}{T}\leq \frac{1}{2}}{=}\int_{-T_h}^{+T_h}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t \nonumber \\
+	&=\underbrace{\int_{-T_h}^{-\frac{T_h}{2}}-A^2(t+T_h)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t}_C
 \end{align}
+%
+
+%
 \begin{align}
 	A&=\int_{-T_h}^{-\frac{T_h}{2}}-A^2(t+T_h)\e^{-\im k \omega t}\diff t=\frac{A^2(t+T_h)}{\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=-T_h}^{t=-\frac{T_h}{2}}-\int_{-T_h}^{-\frac{T_h}{2}}\frac{A^2}{\im k \omega }\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2T_h}{2\im k \omega }\e^{\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{\im k \omega T_h}
 \end{align}
+%
+
+%
 \begin{align}
-	B&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t=\frac{A^2t}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}-\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\frac{A^2}{-\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
+	B&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t
+	=\frac{A^2t}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}-\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\frac{A^2}{-\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=-\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2}{ k^2 \omega^2}\e^{+\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+
+%
 \begin{align}
-	C&=\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t=\frac{A^2(-t+T_h)}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=+\frac{T_h}{2}}^{t=+T_h}-\int_{+\frac{T_h}{2}}^{+T_h}\frac{-A^2}{-\im k \omega }\e^{-\im k \omega t}\diff t\nonumber \\
+	C&=\int_{+\frac{T_h}{2}}^{+T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t
+	=\frac{A^2(-t+T_h)}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=+\frac{T_h}{2}}^{t=+T_h}-\int_{+\frac{T_h}{2}}^{+T_h}\frac{-A^2}{-\im k \omega }\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega T_h}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+
+%
 \begin{align}
 	A+C&=\frac{A^2T_h}{2\im k \omega }\e^{\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{\im k \omega T_h}+\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega T_h}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}\nonumber \\
-	&=\e^{\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\bigg )+\e^{-\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}\bigg )+\e^{\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg )-\e^{-\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg )
+	&=\e^{\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\right )+\e^{-\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}\right )+\e^{\im k \omega T_h}\frac{A^2}{k^2\omega^2}-\e^{-\im k \omega T_h}\frac{A^2}{k^2\omega^2}
 \end{align}
+%
+
+%
 \begin{align}
-	(A+C)+B&=\e^{\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\bigg )+\e^{-\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}\bigg )+\e^{\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg )-\e^{-\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg ) \nonumber \\
+	(A+C)+B&=\e^{\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\right )+\e^{-\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}\right )+\e^{\im k \omega T_h}\left (\frac{A^2}{k^2\omega^2}\right )-\e^{-\im k \omega T_h}\left (\frac{A^2}{k^2\omega^2}\right ) \nonumber \\
 	&-\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2}{ k^2 \omega^2}\e^{+\im k \omega \frac{T_h}{2}}\nonumber \\
-	&=\e^{\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}-\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\bigg )+\e^{-\im k \omega \frac{T_h}{2}}\bigg (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}-\frac{A^2T_h}{2 \im k \omega}+\frac{A^2}{k^2\omega^2}\bigg )\nonumber \\
-	&+\e^{\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg )-\e^{-\im k \omega T_h}\bigg (\frac{A^2}{k^2\omega^2}\bigg )=\frac{A^2}{k^2\omega^2}\bigg (2\im\sin(k\omega T_h)-4\im\sin(k\omega \frac{T_h}{2})\bigg )
+	&=\e^{\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}-\frac{A^2T_h}{2\im k \omega}-\frac{A^2}{k^2\omega^2}\right )+\e^{-\im k \omega \frac{T_h}{2}}\left (\frac{A^2T_h}{2\im k \omega}+\frac{A^2}{k^2\omega^2}-\frac{A^2T_h}{2 \im k \omega}+\frac{A^2}{k^2\omega^2}\right )\nonumber \\
+	&+\e^{\im k \omega T_h}\left (\frac{A^2}{k^2\omega^2}\right )-\e^{-\im k \omega T_h}\left (\frac{A^2}{k^2\omega^2}\right )=\frac{A^2}{k^2\omega^2}\left [2\im\sin\left(k\omega T_h\right)-4\im\sin\left(k\omega \frac{T_h}{2}\right)\right ]
 \end{align}
+%
+
+%
 \begin{align}
-	c_k=\frac{1}{T}\Bigg [\frac{A^2T^2}{k^24\pi^2}\bigg (2\im\sin(k\omega T_h)-4\im\sin(k\omega \frac{T_h}{2})\bigg )\Bigg ]=\im\frac{A^2T}{2k^2\pi^2}\bigg (\sin(2\pi k \frac{T_h}{T}-2\sin(\pi k \frac{T_h}{T})\bigg )
+	c_k=\frac{A^2T^2}{k^24\pi^2}\left[2\im\sin\left(k\omega T_h\right)-4\im\sin\left(k\omega \frac{T_h}{2}\right)\right ]
+	=\im\frac{A^2T^2}{2k^2\pi^2}\left[\sin\left(2\pi k \frac{T_h}{T}\right)-2\sin\left(\pi k \frac{T_h}{T}\right)\right]
 \end{align}
+%
+%
+Es gilt (vgl. \cite[Kap. 2 S. 81, 84]{Bronstein2015}):
+%
+\begin{gather}
+	\sin(2\alpha)=2\sin(\alpha)\cos(\alpha),\\
+	\sin^2(\alpha)=\frac{1}{2}\left(1-\cos(2\alpha)\right).
+\end{gather}
+%
+%
+Somit können wir $c_k$ vereinfachen.
+%
+%
+\begin{align}
+	c_k
+	&=\im\frac{A^2T^2}{2k^2\pi^2}\left[2\sin\left(k\pi\frac{T_h}{T}\right)\cos\left(k\pi\frac{T_h}{T}\right)-2\sin\left(k\pi\frac{T_h}{T}\right)\right]\nonumber\\
+	%
+	&=\im\frac{A^2T^2}{k^2\pi^2}\sin\left(k\pi\frac{T_h}{T}\right)\left[\cos\left(k\pi\frac{T_h}{T}\right)-1\right]\nonumber\\
+	%
+	&=-\im2\frac{A^2T^2}{k^2\pi^2}\frac{T}{T}\frac{T_h^3}{T_h^3}\frac2{k\pi}{2k\pi}\sin\left(k\pi\frac{T_h}{T}\right)\sin^2\left(k\pi\frac{T_h}{2T}\right)\nonumber\\
+	%
+	&=\e^{-\im\frac{\pi}{2}}A^2T_h^2\frac{T_h}{2T}k\pi\sinc\left(k\pi\frac{T_h}{T}\right)\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+\end{align}
+%
+%
 \newpage
 \textbf{Fall 2:}\\
-Nun gilt, dass $\frac{1}{2}\leq \frac{T_h}{T} \leq \frac{2}{3}$. Dadurch überlappt eine jeweilige Periode sich jeweils mit der unmittelbar rechts und links daneben liegenden. Beim schieben nach rechts verschwindet aber die Überlappung mit der linken Periode eher, bevor die rechte Kante von $x_{a}(t-\tau)$ an der $y$-Achse liegt.
+Nun gilt, dass $\frac{1}{2}\leq \frac{T_h}{T} \leq \frac{2}{3}$.
+%
+Dadurch überlappt eine jeweilige Periode sich jeweils mit der unmittelbar rechts
+und links daneben liegenden.
+%
+Beim schieben nach rechts verschwindet aber die Überlappung mit der linken
+Periode eher, bevor die rechte Kante von $x_{a}(t-\tau)$ an der $y$-Achse liegt.
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -998,7 +1699,8 @@ Nun gilt, dass $\frac{1}{2}\leq \frac{T_h}{T} \leq \frac{2}{3}$. Dadurch überla
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
+%
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -1014,10 +1716,16 @@ Nun gilt, dass $\frac{1}{2}\leq \frac{T_h}{T} \leq \frac{2}{3}$. Dadurch überla
 		\draw[-, black, ultra thick] (-1,0) node[below] {$-T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
-\end{figure}\\
+\end{figure}
+%
+%
 Es ergeben sich folgende Teilfunktionen:
+%
+%
 \begin{align}
-	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)\underset{\frac{1}{2}<\frac{T_h}{T}\leq \frac{2}{3}}{=}\begin{cases}
+	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)
+	\underset{\frac{1}{2}<\frac{T_h}{T}\leq \frac{2}{3}}{=}
+	\begin{cases}
 		y_5(t)&,-\frac{T}{2}\leq t \leq T_h-T, \\
 		y_6(t)&,T_h-T\leq t \leq -\frac{T_h}{2}, \\
 		y_7(t)&,-\frac{T_h}{2}\leq t\leq 0, \\
@@ -1026,99 +1734,172 @@ Es ergeben sich folgende Teilfunktionen:
 		y_{10}(t)&,T-T_h\leq t \leq \frac{T}{2}.
 	\end{cases}
 \end{align}
-Man sieht direkt, dass $y_7(t)=y_8(t)=y_3(t)=y_4(t)$. Wir können also 2 Berechnungen aussparen.
+%
+%
+Man sieht direkt, dass $y_7(t)=y_8(t)=y_3(t)=y_4(t)$. Wir können also zwei
+Berechnungen aussparen.
+%
 \begin{align}
 	y_5(t)&=\int_{-\frac{T_h}{2}+t}^{\frac{T_h}{2}-T}A^2\diff \tau+\int_{-\frac{T_h}{2}}^{\frac{T_h}{2}+t}-A^2\diff \tau=A^2\tau \Bigg |_{\tau=-\frac{T_h}{2}+t}^{\frac{T_h}{2}-T}+-A^2\tau \Bigg |_{\tau=-\frac{T_h}{2}}^{\tau=\frac{T_h}{2}+t}\nonumber \\
-	&=A^2(\frac{T_h}{2}-T+\frac{T_h}{2}-t)-A^2(\frac{T_h}{2}+t+\frac{T_h}{2})\nonumber \\
-	&=A^2 (T_h-T-t-t-T_h)=A^2(-2t-T)
+	&=A^2\left(\frac{T_h}{2}-T+\frac{T_h}{2}-t\right)-A^2\left(\frac{T_h}{2}+t+\frac{T_h}{2}\right)\nonumber \\
+	&=A^2 \left(T_h-T-t-t-T_h\right)=A^2\left(-2t-T\right)
 \end{align}
+%
+%
 \begin{align}
 	y_6(t)=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau=-A^2\tau \Bigg |_{\tau=-\frac{T_h}{2}}^{\tau=+\frac{T_h}{2}+t}=-A^2 (t+T_h)
 \end{align}
+%
+%
 \begin{align}
 	y_9(t)=\int_{-\frac{T_h}{2}+t}^{\frac{T_h}{2}}A^2\diff \tau=A^2\tau\Bigg |_{-\frac{T_h}{2}+t}^{\frac{T_h}{2}}=A^2(-t+T_h)
 \end{align}
+%
+%
 \begin{align}
 	y_{10}(t)&=\int_{-\frac{T_h}{2}+t}^{\frac{T_h}{2}}A^2\diff \tau+\int_{T-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau=A^2\tau\Bigg |_{\tau=-\frac{T_h}{2}+t}^{+\frac{T_h}{2}}-A^2\tau\Bigg |_{T-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}\nonumber \\
 	&=A^2(-t+T_h)-A^2(t-T+T_h)=A^2(-2t+T)
 \end{align}
+%
+%
 Die endgültige Funktion lautet :
+%
+%
 \begin{align}
-	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)\underset{\frac{1}{2}<\frac{T_h}{T}\leq \frac{2}{3}}{=}\begin{cases}
+	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)
+	\underset{\frac{1}{2}<\frac{T_h}{T}\leq \frac{2}{3}}{=}
+	\begin{cases}
 		A^2(-2t-T) &,-\frac{T}{2}\leq t\leq  T_h-T, \\
 		A^2(-t-T_h)&,T_h-T\leq t \leq -\frac{T_h}{2},\\
 		A^2t &,-\frac{T_h}{2}\leq t \leq +\frac{T_h}{2},\\
 		A^2(-t+T_h) &,+\frac{T_h}{2}\leq t \leq T-T_h, \\
 		A^2(-2t+T) &,T-T_h \leq t \leq +\frac{T}{2}.
-		\end{cases}
+	\end{cases}
 \end{align}
+%
+%
 Wir berechnen nun die Koeffizienten. Wie gewohnt fangen wir mit dem Gleichanteil an.
+%
+%
 \begin{align}
-	c_0&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\diff t \nonumber \\
-	&=\frac{1}{T}\Bigg [\int_{-\frac{T}{2}}^{T_h-T}A^2(-2t-T)\diff t+\int_{T_h-T}^{-\frac{T_h}{2}}A^2(-t-T_h)\diff t+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\diff t+\int_{+\frac{T_h}{2}}^{T-T_h}A^2(-t+T_h)\diff t\nonumber \\
-	&+\int_{T-T_h}^{+\frac{T}{2}}A^2(-2t+T)\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [A^2(-t^2-Tt)\Bigg |_{t=-\frac{T}{2}}^{t=T_h-T}+A^2(-\frac{t^2}{2}-T_ht)\Bigg |_{t=T_h-T}^{t=-\frac{T_h}{2}}+A^2\frac{t^2}{2}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}+A^2(-\frac{t^2}{2}+T_ht)\Bigg |_{t=+\frac{T_h}{2}}^{T-T_h}\nonumber \\
-	&+A^2(-t^2+Tt)\Bigg |_{t=T-T_h}^{t=+\frac{T}{2}}\Bigg ] \nonumber \\
-	&=\frac{A^2}{T}\Bigg [\ured{-T_h^2}+\ublue{2T_hT}-\ugreen{T^2}-\uorange{TT_h}+\ugreen{T^2}+\umagenta{\frac{T^2}{4}}-\ublack{\frac{T^2}{2}}-\ubrown{\frac{T_h^2}{8}}+\frac{T_h^2}{2}+\frac{T_h^2}{2}-T_hT+\ublack{\frac{T^2}{2}}+T_h^2-TT_h\nonumber \\
-	&+\frac{T_h^2}{8}-\frac{T_h^2}{8}-\frac{T^2}{2}+T_hT-\frac{T_h^2}{2}+T_hT-T_h^2+\ubrown{\frac{T_h^2}{8}}-\frac{T_h^2}{2}-\umagenta{\frac{T^2}{4}}+\frac{T^2}{2}+T^2-\ublue{2T_hT}+\ured{T_h^2}-T^2+\uorange{TT_h}\Bigg ]\nonumber \\
-	&=\frac{A^2}{T}\Bigg [\ured{\frac{T_h^2}{2}}+\ublue{\frac{T_h^2}{2}}-\ugreen{T_hT}+\uorange{T_h^2}-\umagenta{TT_h}+\ubrown{\frac{T_h^2}{8}}-\ubrown{\frac{T_h^2}{8}}-\frac{T^2}{2}+\ugreen{T_hT}-\ured{\frac{T_h^2}{2}}+\umagenta{T_hT}-\uorange{T_h^2}-\ublue{\frac{T_h^2}{2}}+\frac{T^2}{2}+T^2-T^2\Bigg ] \nonumber \\
-	&=\frac{A^2}{T}\Bigg [-\ured{\frac{T^2}{2}}+\ured{\frac{T^2}{2}}+\ublue{T^2}-\ublue{T^2}\Bigg] = 0
+	c_0&=\int_{t_0}^{t_0+T}x_{h}(t)\diff t=
+	\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\diff t \nonumber \\
+	&=\int_{-\frac{T}{2}}^{T_h-T}A^2(-2t-T)\diff t+\int_{T_h-T}^{-\frac{T_h}{2}}A^2(-t-T_h)\diff t
+	+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\diff t
+	+\int_{+\frac{T_h}{2}}^{T-T_h}A^2(-t+T_h)\diff t\nonumber \\
+	&+\int_{T-T_h}^{+\frac{T}{2}}A^2(-2t+T)\diff t\nonumber \\
+	&=A^2(-t^2-Tt)\Bigg |_{t=-\frac{T}{2}}^{t=T_h-T}
+	+A^2\left(-\frac{t^2}{2}-T_ht\right)\Bigg |_{t=T_h-T}^{t=-\frac{T_h}{2}}
+	+A^2\frac{t^2}{2}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}
+	+A^2\left(-\frac{t^2}{2}+T_ht\right)\Bigg |_{t=+\frac{T_h}{2}}^{T-T_h}\nonumber \\
+	&+A^2(-t^2+Tt)\Bigg |_{t=T-T_h}^{t=+\frac{T}{2}} \nonumber \\
+	&=A^2 \ured{-T_h^2}+\ublue{2T_hT}-\ugreen{T^2}-\uorange{TT_h}+\ugreen{T^2}+\umagenta{\frac{T^2}{4}}-\ublack{\frac{T^2}{2}}-\ubrown{\frac{T_h^2}{8}}+\frac{T_h^2}{2}+\frac{T_h^2}{2}-T_hT+\ublack{\frac{T^2}{2}}+T_h^2-TT_h\nonumber \\
+	&+\frac{T_h^2}{8}-\frac{T_h^2}{8}-\frac{T^2}{2}+T_hT-\frac{T_h^2}{2}+T_hT-T_h^2+\ubrown{\frac{T_h^2}{8}}-\frac{T_h^2}{2}-\umagenta{\frac{T^2}{4}}+\frac{T^2}{2}+T^2-\ublue{2T_hT}+\ured{T_h^2}-T^2+\uorange{TT_h}\nonumber \\
+	&=A^2\ured{\frac{T_h^2}{2}}+\ublue{\frac{T_h^2}{2}}-\ugreen{T_hT}+\uorange{T_h^2}-\umagenta{TT_h}+\ubrown{\frac{T_h^2}{8}}-\ubrown{\frac{T_h^2}{8}}-\frac{T^2}{2}+\ugreen{T_hT}-\ured{\frac{T_h^2}{2}}+\umagenta{T_hT}-\uorange{T_h^2}-\ublue{\frac{T_h^2}{2}}+\frac{T^2}{2}+T^2-T^2 \nonumber \\
+	&=A^2\left [-\ured{\frac{T^2}{2}}+\ured{\frac{T^2}{2}}+\ublue{T^2}-\ublue{T^2}\right] = 0
 \end{align}
+%
+%
+%
 Es folgt die Berechnung der Koeffizienten $c_k$ für $k\neq 0$.
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t\nonumber \\
-	&=\frac{1}{T}\Bigg [\underbrace{\int_{-\frac{T}{2}}^{T_h-T}A^2(-2t-T)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{T_h-T}^{-\frac{T_h}{2}}A^2(-t-T_h)\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t}_C\nonumber \\
-	&+\underbrace{\int_{+\frac{T_h}{2}}^{T-T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t}_D +\underbrace{\int_{T-T_h}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t}_E\Bigg ]
+	c_k&=\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t
+	=\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\underbrace{\int_{-\frac{T}{2}}^{T_h-T}A^2(-2t-T)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{T_h-T}^{-\frac{T_h}{2}}A^2(-t-T_h)\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega t}\diff t}_C\nonumber \\
+	&+\underbrace{\int_{+\frac{T_h}{2}}^{T-T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t}_D +\underbrace{\int_{T-T_h}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t}_E
 \end{align}
+%
+%
+%
 \begin{align}
 	A&=\int_{-\frac{T}{2}}^{T_h-T}A^2(-2t-T)\e^{-\im k \omega t}\diff t=\frac{A^2(-2t-T)}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=-\frac{T}{2}}^{t=T_h-T}-\int_{-\frac{T}{2}}^{T_h-T}\frac{2A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2}{\im k \omega}(2T_h-T)\e^{-\im k \omega (T_h-T)}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T
 		}{2}}^{t=T_h-T}\nonumber \\
 	&=\frac{A^2}{\im k \omega}(2T_h-T)\e^{-\im k \omega (T_h-T)}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	B&=\int_{T_h-T}^{-\frac{T_h}{2}}A^2(-t-T_h)\e^{-\im k \omega t}\diff t=\frac{A^2(-t-T_h)}{-\im k \omega}\e^{-\im k \omega t}\e^{-\im k \omega t}\Bigg |_{t=T_h-T}^{t=-\frac{T_h}{2}}-\int_{T_h-T}^{-\frac{T_h}{2}}\frac{A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2(-2T_h+T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}-\frac{A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}
 \end{align}
+%
+%
+%
 \begin{align}
 	C&=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2t\e^{-\im k \omega }\diff t=\frac{A^2t}{-\im k \omega t}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}\frac{A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=-\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	D&=\int_{+\frac{T_h}{2}}^{T-T_h}A^2(-t+T_h)\e^{-\im k \omega t}\diff t=\frac{A^2(-t+T_h)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=+\frac{T_h}{2}}^{t=T-T_h}-\int_{+\frac{T_h}{2}}^{T-T_h}\frac{A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2(2T_h-T)}{\im k \omega}\e^{-\im k \omega (T-T_h)}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}+\frac{A^2}{ k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	E&=\int_{T-T_h}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t=\frac{A^2(-2t+T)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=T-T_h}^{+\frac{T}{2}}\int_{T-T_h}^{+\frac{T}{2}}\frac{2A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2}{\im k \omega}(2T_h-T)\e^{-\im k \omega (T-T_h)}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}
 \end{align}
+%
+%
+%
 \begin{align}
 	A+B&=\ured{\frac{A^2}{\im k \omega}(2T_h-T)\e^{-\im k \omega (T_h-T)}}-\ublue{\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}+\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}\nonumber \\
 	&+\ured{\frac{A^2(-2T_h+T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}}-\frac{A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\ublue{\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}}\nonumber \\
 	&=\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}+\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{+\im k \omega\frac{T_h}{2}}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}
 \end{align}
+%
+%
+%
 \begin{align}
 	(D+E)&=\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\ured{\frac{A^2(2T_h-T)}{\im k \omega}\e^{-\im k \omega (T-T_h)}}-\ublue{\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}}+\frac{A^2}{ k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}\nonumber \\
 	&+\ured{\frac{A^2}{\im k \omega}(2T_h-T)\e^{-\im k \omega (T-T_h)}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\ublue{\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}}\nonumber\\
 	&=\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}+\frac{A^2}{ k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}
 \end{align}
+%
+%
+%
 \begin{align}
 	(A+B)+C+(D+E)&=\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}+\ured{\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}}-\umagenta{\frac{A^2}{k^2\omega^2}\e^{+\im k \omega\frac{T_h}{2}}}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}\nonumber \\
 	&+\ublue{\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}}+\uorange{\frac{A^2}{ k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}\nonumber \\
 	&-\ublue{\frac{A^2T_h}{2\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}}-\ured{\frac{A^2T_h}{2\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}}+\uorange{\frac{A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}}-\umagenta{\frac{A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}}\nonumber \\
-	&=\frac{A^2}{k^2\omega^2}\Bigg [2\e^{+\im k \omega\frac{T}{2}}-2\e^{-\im k \omega \frac{T}{2}}-\bigg (2\e^{+\im k \omega \frac{T_h}{2}}-2\e^{-\im k \omega \frac{T_h}{2}}\bigg )+\e^{+\im k \omega(T-h-T)}-\e^{-\im k \omega(T_h-T)}\Bigg ]\nonumber \\
-	&=\frac{A^2}{k^2\omega^2}\Bigg [\underbrace{4\im\sin(k\frac {2\pi}{T}\frac{T}{2})}_{=0}-4\im\sin(k \frac{2\pi}{T}\frac{T_h}{2})+2\im\sin(k\frac{2\pi}{T}T_h-2k\pi\frac{T}{T}) \Bigg ]\nonumber \\
-	&=\frac{A^2T^2}{k^24\pi^2}\Bigg [2\im\sin(2\pi k \frac{T_h}{T})-4\im\sin(k\pi\frac{T_h}{T})\Bigg ]\nonumber \\
-	&=\frac{A^2T^2}{2k^2\pi^2}\Bigg [\im\sin(k2\pi\frac{T_h}{T})-2\im\sin(k\pi\frac{T_h}{T})\Bigg ]
+	&=\frac{A^2}{k^2\omega^2}\left [2\e^{+\im k \omega\frac{T}{2}}-2\e^{-\im k \omega \frac{T}{2}}-\left (2\e^{+\im k \omega \frac{T_h}{2}}-2\e^{-\im k \omega \frac{T_h}{2}}\right )+\e^{+\im k \omega(T-h-T)}-\e^{-\im k \omega(T_h-T)}\right ]\nonumber \\
+	&=\frac{A^2}{k^2\omega^2}\left [\underbrace{4\im\sin\left(k\frac {2\pi}{T}\frac{T}{2}\right)}_{=0}-4\im\sin\left(k \frac{2\pi}{T}\frac{T_h}{2}\right)+2\im\sin\left(k\frac{2\pi}{T}T_h-2k\pi\frac{T}{T}\right) \right ]\nonumber \\
+	&=\frac{A^2T^2}{k^24\pi^2}\left [2\im\sin\left(2\pi k \frac{T_h}{T}\right)-4\im\sin\left(k\pi\frac{T_h}{T}\right)\right ]\nonumber \\
+	&=\frac{A^2T^2}{2k^2\pi^2}\left [\im\sin\left(k2\pi\frac{T_h}{T}\right)-2\im\sin\left(k\pi\frac{T_h}{T}\right)\right ]
 \end{align}
+%
+%
+%
 \begin{align}
-	c_k=\im\frac{A^2T}{2k^2\pi^2}\Bigg [\sin(k2\pi\frac{T_h}{T})-2\sin(k\pi\frac{T_h}{T})\Bigg]
+	c_k=\im\frac{A^2T}{2k^2\pi^2}\left [\sin\left(k2\pi\frac{T_h}{T}\right)-2\sin\left(k\pi\frac{T_h}{T}\right)\right]=\e^{-\im\frac{\pi}{2}}A^2T_h^2\frac{T_h}{2T}k\pi\sinc\left(k\pi\frac{T_h}{T}\right)\sinc^2\left(k\pi\frac{T_h}{2T}\right)
 \end{align}
-Interessanterweise sind die Koeffizienten aus \textbf{Fall 1} und \textbf{Fall 2} gleich. Das könnte bedeuten, dass die Koeffizienten nur von den Koeffizienten von $x_{a}(t)$ und $x_{b}(t)$ abhängen, aber nicht vom Verhältnis $\frac{T_h}{T}$.\\
+%
+%
+Interessanterweise sind die Koeffizienten aus \textbf{Fall 1} und
+\textbf{Fall 2} gleich.
+%
+Das könnte bedeuten, dass die Koeffizienten nur von den Koeffizienten von
+$x_{a}(t)$ und $x_{b}(t)$ abhängen, aber nicht vom Verhältnis $\frac{T_h}{T}$.
+%
+\\
 \textbf{Fall 3}
-Es gilt nun $\frac{2}{3} < \frac{T_h}{T} < 1$. Wie immer bilden wir zunächst die Grenzen für die Faltung:\\
+Es gilt nun $\frac{2}{3} < \frac{T_h}{T} < 1$. Wie immer bilden wir zunächst die
+Grenzen für die Faltung:
+%
+%
 \begin{align}
-	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)\underset{\frac{2}{3}<\frac{T_h}{T}\leq\frac{2}{3}}{=}\begin{cases}
+	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)
+	\underset{\frac{2}{3}<\frac{T_h}{T}\leq\frac{2}{3}}{=}
+	\begin{cases}
 		y_{11}(t)&,-\frac{T}{2}\leq t \leq -\frac{T_h}{2}, \\
 		y_{12}(t)&,-\frac{T_h}{2}\leq t \leq T_h-T, \\
 		y_{13}(t)&,T_h-T\leq t \leq 0, \\
@@ -1127,193 +1908,355 @@ Es gilt nun $\frac{2}{3} < \frac{T_h}{T} < 1$. Wie immer bilden wir zunächst di
 		y_{16}(t)&,+\frac{T_h}{2}\leq t \leq +\frac{T}{2}. \\
 	\end{cases}
 \end{align}
+%
+%
 \begin{align}
 	y_{11}(t)=\int_{-\frac{T_h}{2}+t}^{-T+\frac{T_h}{2}}A^2\diff \tau+\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau=A^2(-2t-T)
 \end{align}
+%
+%
 \begin{align}
 	y_{12}(t)&=\int_{-\frac{T_h}{2}+t}^{-T+\frac{T_h}{2}}A^2\diff \tau-\frac{A^2T_h}{2}+\int_0^{+\frac{T_h}{2}+t}A^2\diff \tau\nonumber \\
-	&=A^2(-\frac{T_h}{2}-T+\frac{T_h}{2}+\frac{T_h}{2}-t+\frac{T_h}{2}+t)=A^2(T_h-T)
+	&=A^2\left(-\frac{T_h}{2}-T+\frac{T_h}{2}+\frac{T_h}{2}-t+\frac{T_h}{2}+t\right)=A^2(T_h-T)
 \end{align}
+%
+%
 \begin{align}
-	y_{13}(t)=-\frac{A^2T_h}{2}+\int_0^{\frac{T_h}{2}+t}A^2\diff \tau=A^2(-\frac{T_h}{2}+\frac{T_h}{2}+t)=A^2t
+	y_{13}(t)=-\frac{A^2T_h}{2}+\int_0^{\frac{T_h}{2}+t}A^2\diff \tau=A^2\left(-\frac{T_h}{2}+\frac{T_h}{2}+t\right)=A^2t
 \end{align}
+%
+%
 \begin{align}
-	y_{14}(t)=\int_{-\frac{T_h}{2}+t}^{0}-A^2\diff \tau+\frac{A^2T_h}{2}=A^2(-\frac{T_h}{2}+t+\frac{T_h}{2})=A^2t
+	y_{14}(t)=\int_{-\frac{T_h}{2}+t}^{0}-A^2\diff \tau+\frac{A^2T_h}{2}=A^2\left(-\frac{T_h}{2}+t+\frac{T_h}{2}\right)=A^2t
 \end{align}
+%
+%
 \begin{align}
 	y_{15}(t)&=\int_{-\frac{T_h}{2}+t}^0-A^2\diff \tau+\frac{A^2T_h}{2}+\int_{T-\frac{T_h}{2}}^{\frac{T_h}{2}+t}-A^2\diff \tau\nonumber \\
-	&=A^2(-\frac{T_h}{2}+t+\frac{T_h}{2}-\frac{T_h}{2}-t+T-\frac{T_h}{2})=A^2(T-T_h)
+	&=A^2\left(-\frac{T_h}{2}+t+\frac{T_h}{2}-\frac{T_h}{2}-t+T-\frac{T_h}{2}\right)=A^2(T-T_h)
 \end{align}
+%
+%
 \begin{align}
 	y_{16}(t)=\int_{-\frac{T_h}{2}+t}^{+\frac{T_h}{2}}A^2\diff \tau+\int_{T-\frac{T_h}{2}}^{+\frac{T_h}{2}+t}-A^2\diff \tau=A^2(-2t+T)
 \end{align}
+%
+%
 Wir schreiben es noch einmal komplett auf:
+%
+%
 \begin{align}
-	x_{\mathring{h}}(t)=x_{a}(t)\circledast x_{b}(t)=\begin{cases}
+	x_{\mathring{h}}(t)=x_{a}(t)\circledast x_{b}(t)
+	=
+	\begin{cases}
 		A^2(-2t-T)&,-\frac{T}{2}\leq t \leq -\frac{T_h}{2}, \\
 		A^2(T_h-T)&,-\frac{T_h}{2}\leq t \leq T_h-T, \\
 		A^2t &,T_h-T\leq t \leq T-T_h, \\
 		A^2(T-T_h)&,T-T_h\leq t \leq +\frac{T_h}{2}, \\
-		A^2(-2t+T)&,+\frac{T_h}{2}\leq t \leq +\frac{T}{2},
+		A^2(-2t+T)&,+\frac{T_h}{2}\leq t \leq +\frac{T}{2}.
 	\end{cases}
 \end{align}
-Es folgt wieder die Berechnung der Koeffizienten $c_k$, zunächst der Gleichanteil, danach für $k\neq 0$.
+%
+%
+Es folgt wieder die Berechnung der Koeffizienten $c_k$, zunächst der
+Gleichanteil, danach für $k\neq 0$.
+%
+%
 \begin{align}
-	c_0&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\diff t\nonumber \\
-	&=\frac{1}{T}\Bigg [\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}A^2(-2t-T)\diff t+\int_{-\frac{T_h}{2}}^{T_h-T}A^2(T_h-T)\diff t+\int_{T_h-T}^{T-T_h}A^2t\diff t\nonumber \\
-	&+\int_{T-T_h}^{+\frac{T_h}{2}}A^2(T-T_h)\diff t+\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}A^2(-2t+T)\diff t\Bigg ]\nonumber \\
-	&=\frac{A^2}{T}\Bigg [(-t^2-Tt)\Bigg |_{t=-\frac{T}{2}}^{-\frac{T_h}{2}}+(T_ht-Tt)\Bigg |_{t-\frac{T_h}{2}}^{t=T_h-T}+(\frac{t^2}{2})\Bigg |_{t=T_h-T}^{T-T_h}\nonumber \\
-	&+(Tt-T_ht)\Bigg |_{t=T-T_h}^{t=+\frac{T_h}{2}}+(-t^2+Tt)\Bigg |_{t=+\frac{T_h}{2}}^{+\frac{T}{2}}\Bigg ]\nonumber \\
-	=\frac{A^2}{T}\Bigg [&\underbrace{-\frac{T_h^2}{4}+\frac{TT_h}{2}+\frac{T^2}{4}-\frac{T^2}{2}}_{-\frac{T_h^2}{4}+\frac{TT_h}{2}-\frac{T^2}{4}}\nonumber \\
+	c_0&=\int_{t_0}^{t_0+T}x_{h}(t)\diff t
+	=\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\diff t\nonumber \\
+	&=\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}A^2(-2t-T)\diff t+\int_{-\frac{T_h}{2}}^{T_h-T}A^2(T_h-T)\diff t+\int_{T_h-T}^{T-T_h}A^2t\diff t\nonumber \\
+	&+\int_{T-T_h}^{+\frac{T_h}{2}}A^2(T-T_h)\diff t+\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}A^2(-2t+T)\diff t\nonumber \\
+	&=A^2\Bigg[\left(-t^2-Tt\right)\Bigg |_{t=-\frac{T}{2}}^{-\frac{T_h}{2}}+\left(T_ht-Tt\right)\Bigg |_{t-\frac{T_h}{2}}^{t=T_h-T}+\left(\frac{t^2}{2}\right)\Bigg |_{t=T_h-T}^{T-T_h}\nonumber \\
+	&+\left(Tt-T_ht\right)\Bigg |_{t=T-T_h}^{t=+\frac{T_h}{2}}+\left(-t^2+Tt\right)\Bigg |_{t=+\frac{T_h}{2}}^{+\frac{T}{2}}\Bigg]\nonumber \\
+	%
+	%
+	=A^2\Bigg [&\underbrace{-\frac{T_h^2}{4}+\frac{TT_h}{2}+\frac{T^2}{4}-\frac{T^2}{2}}_{-\frac{T_h^2}{4}+\frac{TT_h}{2}-\frac{T^2}{4}}\nonumber \\
 	&\underbrace{+T_h^2-TT_h-TT_h+T^2+\frac{T_h^2}{2} -\frac{TT_h}{2}}_{T^2+\frac{3T_h^2}{2}-\frac{5TT_h}{2}}\nonumber \\
 	&\underbrace{+\frac{T^2}{2}-TT_h+\frac{T_h^2}{2}-\frac{T_h^2}{2}+TT_h-\frac{T^2}{2}}_{0}\nonumber \\
 	&\underbrace{+\frac{TT_h}{2}-\frac{T_h^2}{2}-T^2+TT_h+TT_h-T_h^2}_{-T^2-\frac{3T_h^2}{2}+\frac{5TT_h}{2}}\nonumber \\
 	&\underbrace{-\frac{T^2}{4}+\frac{T^2}{2}+\frac{T_h^2}{4}-\frac{TT_h}{2}}_{\frac{T_h^2}{4}-\frac{TT_h}{2}+\frac{T^2}{4}}\Bigg ]\nonumber \\
 	&= 0
 \end{align}
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t\nonumber \\
-	&=\frac{1}{T}\Bigg [\underbrace{\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}A^2(-2t-T)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{-\frac{T_h}{2}}^{T_h-T}A^2(T_h-T)\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{T_h-T}^{T-T_h}A^2t\e^{-\im k \omega t}\diff t}_C\nonumber \\
-	&+\underbrace{\int_{T-T_h}^{+\frac{T_h}{2}}A^2(T-T_h)\e^{-\im k \omega t}\diff t}_D+\underbrace{\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t}_E\Bigg ]
+	c_k&=\int_{t_0}^{t_0+T}x_{h}(t)\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\circledast x_{b}(t)\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\underbrace{\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}A^2(-2t-T)\e^{-\im k \omega t}\diff t}_A+\underbrace{\int_{-\frac{T_h}{2}}^{T_h-T}A^2(T_h-T)\e^{-\im k \omega t}\diff t}_B+\underbrace{\int_{T_h-T}^{T-T_h}A^2t\e^{-\im k \omega t}\diff t}_C\nonumber \\
+	&+\underbrace{\int_{T-T_h}^{+\frac{T_h}{2}}A^2(T-T_h)\e^{-\im k \omega t}\diff t}_D+\underbrace{\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t}_E
 \end{align}
+%
+%
+%
 \begin{align}
 	A&=\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}A^2(-2t-T)\e^{-\im k \omega t}\diff t=\frac{A^2(-2t-T)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T}{2}}^{t=-\frac{T_h}{2}}-\int_{-\frac{T}{2}}^{-\frac{T_h}{2}}\frac{2A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2(T_h-T)}{-\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2(T-T)}{\im k \omega}\e^{+\im k \omega \frac{T}{2}}-\frac{2A^2}{k^2\omega^2}\e^{\im k \omega \frac{T_h}{2}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}\nonumber \\
 	&=-\frac{A^2(T_h-T)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}-\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	B&=\int_{-\frac{T_h}{2}}^{T_h-T}A^2(T_h-T)\e^{-\im k \omega t}\diff t = \frac{A^2(T_h-T)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{T_h-T}\nonumber \\
 	&=\frac{A^2(T_h-T)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}-\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}
 \end{align}
+%
+%
+%
 \begin{align}
 	C&=\int_{T_h-T}^{T-T_h}A^2t\e^{-\im k \omega t}\diff t=\frac{A^2t}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=T_h-T}^{t=T-T_h}+\int_{T_h-T}^{T-T_h}\frac{A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}-\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega (T-T_h)}+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}
 \end{align}
+%
+%
+%
 \begin{align}
 	D&=\int_{T-T_h}{+\frac{T_h}{2}}A^2(T-T_h)\e^{-\im k \omega t}\diff t=\frac{A^2(T-T_h)}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=T-T_h}^{t=+\frac{T_h}{2}}\nonumber \\
 	&=\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega(T-T_h)}-\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	E&=\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}A^2(-2t+T)\e^{-\im k \omega t}\diff t=\frac{A^2(-2t+T)}{-\im k \omega }\e^{-\im k \omega t}\Bigg |_{t=+\frac{T_h}{2}}^{t=+\frac{T}{2}}-\int_{+\frac{T_h}{2}}^{+\frac{T}{2}}\frac{2A^2}{\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
 	&=\frac{A^2(-T_h+T)}{\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}-\frac{A^2(-T+T)}{\im k \omega}\e^{-\im k \omega \frac{T}{2}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}\nonumber \\
 	&=\frac{A^2(-T_h+T)}{\im k \omega}\e^{-\im k\omega \frac{T_h}{2}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	A+B&=\ured{-\frac{A^2(T_h-T)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}}-\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}\nonumber \\
 	&\ured{+\frac{A^2(T_h-T)}{\im k \omega}\e^{+\im k \omega \frac{T_h}{2}}}-\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}\nonumber \\
 	&=-\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}-\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}
 \end{align}
+%
+%
+%
 \begin{align}
 	D+E&=\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega(T-T_h)}-\ured{\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega \frac{T_h}{2}}}\nonumber \\
 	&\ured{+\frac{A^2(-T_h+T)}{\im k \omega}\e^{-\im k\omega \frac{T_h}{2}}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}\nonumber \\
 	&=\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega(T-T_h)}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}
 \end{align}
+%
+%
+%
 \begin{align}
 	(A+B)+C+(D+E)&=-\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{2A^2}{k^2\omega^2}\e^{+\im k \omega \frac{T}{2}}\ured{-\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}}\nonumber \\
 	&\umagenta{+\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega(T-T_h)}}-\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T}{2}}+\frac{2A^2}{k^2\omega^2}\e^{-\im k \omega \frac{T_h}{2}}\nonumber\\
 	&\ublue{+\frac{A^2(T_h-T)}{\im k \omega}\e^{-\im k \omega (T_h-T)}}\umagenta{-\frac{A^2(T-T_h)}{\im k \omega}\e^{-\im k \omega (T-T_h)}}\nonumber \\
 	&+\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T-T_h)}-\frac{A^2}{k^2\omega^2}\e^{-\im k \omega (T_h-T)}\nonumber \\
-	&=\frac{A^2}{k^2\omega^2}\Bigg [-2\bigg (\e^{+\im k \omega \frac{T_h}{2}}-\e^{-\im k \omega \frac{T_h}{2}}\bigg )+2\bigg (\e^{+\im k \omega \frac{T}{2}}-\e^{-\im k \omega \frac{T}{2}}\bigg )\nonumber \\
-	&\bigg (\e^{+\im k \omega (T_h-T)}-\e^{-\im k \omega (T_h-T)}\bigg )\Bigg ]\nonumber \\
-	&=\frac{A^2T^2}{k^24\pi^2}\Bigg (-4\im \sin(k\frac{2\pi}{T}\frac{T_h}{2})+4\im\underbrace{\sin(k\frac{2\pi}{T}\frac{T}{2})}_{=0}+2\im\sin(k\frac{2\pi}{T}T_h-k\frac{2\pi}{T}T)\Bigg )\nonumber \\
-	&=\im\frac{A^2T^2}{2k^2\pi^2}\bigg (\sin(2\pi k\frac{T_h}{T})-2\sin(k\pi \frac{T_h}{T})\bigg )
+	&=\frac{A^2}{k^2\omega^2}\Bigg [-2\left (\e^{+\im k \omega \frac{T_h}{2}}-\e^{-\im k \omega \frac{T_h}{2}}\right )+2\left (\e^{+\im k \omega \frac{T}{2}}-\e^{-\im k \omega \frac{T}{2}}\right )\nonumber \\
+	&\left (\e^{+\im k \omega (T_h-T)}-\e^{-\im k \omega (T_h-T)}\right )\Bigg ]\nonumber \\
+	&=\frac{A^2T^2}{k^24\pi^2}\left [-4\im \sin\left(k\frac{2\pi}{T}\frac{T_h}{2}\right)+4\im\underbrace{\sin\left(k\frac{2\pi}{T}\frac{T}{2}\right)}_{=0}+2\im\sin\left(k\frac{2\pi}{T}T_h-k\frac{2\pi}{T}T\right)\right ]\nonumber \\
+	&=\im\frac{A^2T^2}{2k^2\pi^2}\left [\sin\left(2\pi k\frac{T_h}{T}\right)-2\sin\left(k\pi \frac{T_h}{T}\right)\right ]
 \end{align}
+%
+%
+%
 \begin{align}
-	c_k=\im\frac{A^2T}{2k^2\pi^2}\bigg (\sin(k2\pi\frac{T_h}{T})-2\sin(k\pi\frac{T_h}{T})\bigg )
+	c_k=\im\frac{A^2T^2}{2k^2\pi^2}\left [\sin\left(k2\pi\frac{T_h}{T}\right)-2\sin\left(k\pi\frac{T_h}{T}\right)\right ]
+	=\e^{-\im\frac{\pi}{2}}A^2T_h^2\frac{T_h}{2T}k\pi\sinc\left(k\pi\frac{T_h}{T}\right)\sinc^2\left(k\pi\frac{T_h}{2T}\right)
 \end{align}
+%
 \textbf{Fall 4}
-Zum Schluss schauen wir uns noch kurz an, was passiert, wenn $\frac{T_h}{T}=1$ gilt. Dann ist nämlich $x_{a}(t)$ eine Konstante und wir integrieren im Faltungsintegral
+%
+Zum Schluss schauen wir uns noch kurz an, was passiert, wenn $\frac{T_h}{T}=1$
+gilt.
+%
+Dann ist nämlich $x_{a}(t)$ eine Konstante und wir integrieren im
+Faltungsintegral
+%
 \begin{align}
-	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)=\int_{t_0}^{t_0+T}x_{a}(t-\tau)x_{b}(\tau)\diff \tau=\int_{t_0}^{t_0+T}1\cdot x_{b}(t)\diff \tau = 0
+	x_{h}(t)=x_{a}(t)\circledast x_{b}(t)
+	=\int_{t_0}^{t_0+T}x_{a}(t-\tau)x_{b}(\tau)\diff \tau
+	=\int_{t_0}^{t_0+T}1\cdot x_{b}(t)\diff \tau = 0
 \end{align}
-nur eine periodische Funktion über eine Periode. Daraus ergibt sich der Gleichanteil, skaliert um die Periode $T$: $c_0T$. Im Fall $x_b(t)$ ist $T\cdot c_0=0$, denn $c_0=0$.\
+%
+nur eine periodische Funktion über eine Periode.
+%
+Daraus ergibt sich der Gleichanteil, skaliert um die Periode $T$: $c_0T$. Im Fall $x_b(t)$ ist $T\cdot c_0=0$, denn $c_0=0$.\
 Die Fourierkoeffizienten sind also alle $0$.
+%
+%
 \begin{align}
 	c_k\underset{\frac{T_h}{T}=1}{=}0
 \end{align}
-Die Koeffizienten haben nun für alle $4$ Fälle die gleiche Form (für $\frac{T_h}{T}=1$ steht in den Sinus-Termen nur noch ein Vielfaches von $\pi$). Wir vermuten daher an dieser Stelle, dass es einen Zusammenhang zwischen $x_{a}(t)$, $x_{b}(t)$ und $c_k$ gibt.\\
-Tatsächlich ergibt sich der Fourierkoeffizient einer Faltung zweier gleich periodischer Funktionen aus der Multiplikation der Koeffizienten, skaliert mit der Periode $T$ (vgl. \cite[Kap. 3, S. 208]{Oppenheim1997}).\\
-Wir können das ja einmal anhand unserer Funktionen überprüfen.
+%
+%
+Die Koeffizienten haben nun für alle $4$ Fälle die gleiche Form (für
+$\frac{T_h}{T}=1$ steht in den Sinus-Termen nur noch ein Vielfaches von $\pi$).
+%
+Wir vermuten daher an dieser Stelle, dass es einen Zusammenhang zwischen
+$x_{a}(t)$, $x_{b}(t)$ und $c_k$ gibt.
+%
+Tatsächlich ergibt sich der Fourierkoeffizient einer Faltung zweier gleich
+periodischer Funktionen aus der Multiplikation der Koeffizienten (in \cite[Kap. 3, S. 208]{Oppenheim1997} wird das Produkt noch mit $T$ skaliert, denn die Koeffizienten werden im Gegensatz zu hier mit dem Faktor $\frac{1}{T}$ versehen, während wir diesen erst wieder bei der Synthese der Fourierreihe beachten).
+%
+Dies ist auch bei uns der Fall.
+%
+Wir hätten uns also das (lästige) Falten sparen und direkt die Koeffizienten
+multiplizieren können. Wir halten also als nächste Korrespondenz folgendes fest:
+%
 \begin{align}
-	c_0=T\cdot A\frac{T_h}{T}\cdot 0 =0
+	x(t)\circledast y(t)\quad\fourier\quad X_k\cdot Y_k
 \end{align}
-\begin{gather}
-	c_k=T\cdot \frac{A}{k\pi}\sin(k\pi\frac{T_h}{T})\cdot\frac{A}{\im k \pi}\bigg (1-\cos(k\pi\frac{T_h}{T})\bigg )=\frac{A^2T}{\im k ^2\pi^2}\bigg(\sin(k\pi\frac{T_h}{T})-\sin(k\pi\frac{T_h}{T})\cos(k\pi\frac{T_h}{T})\bigg )
-\end{gather}
-Es gilt (vgl. \cite[Kap.2, S. 83]{Bronstein}):
-\begin{gather}
-	\sin(\alpha)\cos(\beta)=\frac{1}{2}\bigg [\sin(\alpha-\beta)+\sin(\alpha+\beta)\bigg ].
-\end{gather}
-\begin{gather}
-	c_k=\frac{A^2T}{\im k^2\pi^2}\bigg (\sin(k\pi\frac{T_h}{T})-\frac{1}{2}\sin(0)-\sin(k2\pi\frac{T_h}{T})\bigg )=\im\frac{A^2T}{2k^2\pi^2}\bigg (\sin(k2\pi\frac{T_h}{T})-2\sin(k\pi\frac{T_h}{T})\bigg )
-\end{gather}
-Wir hätten uns also das (lästige) Falten sparen und direkt die Koeffizienten multiplizieren können. Wir halten also als nächste Korrespondenz folgendes fest:
+%
+Diese Korrespondenz ist sehr wichtig in der Signal- und Systemtheorie und wird
+uns später noch oft über den Weg laufen.
+%
+Wir wollen uns an dieser Stelle die Zeit nehmen und die Korrektheit der
+Korrespondenz zeigen.
+%
+%
 \begin{align}
-	x(t)\circledast y(t)\quad\fourier\quad T\cdot X_k\cdot Y_k
+	y(t)&=x(t)\circledast h(t)
+	=\int_{-\frac{T}{2}}^{\frac{T}{2}}x(\tau)h(t-\tau)\diff \tau
+	=\int_{-\frac{T}{2}}^{\frac{T}{2}}\left (\frac{1}{T}\sum_{k=-\infty}^{\infty}X_k\e^{+\im k \omega \tau}\right )\cdot \left (\frac{1}{T}\sum_{i=-\infty}^{+\infty}H_i\e^{+\im i \omega (t-\tau)}\right )\diff \tau\nonumber \\
+	&=\frac{1}{T^2}\int_{-\frac{T}{2}}^{\frac{T}{2}}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{+\im k \omega \tau}\e^{+\im i \omega (t-\tau)}\right )\diff \tau
+	=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (\int_{-\frac{T}{2}}^{\frac{T}{2}}X_kH_i\e^{+\im (k-i) \omega \tau}\e^{+\im i \omega t}\diff \tau\right )\nonumber \\
+	&=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \right )
 \end{align}
-Diese Korrespondenz ist sehr wichtig in der Signal- und Systemtheorie und wird uns später noch oft über den Weg laufen.
-Wir wollen uns an dieser Stelle die Zeit nehmen und die Korrektheit der Korrespondenz zeigen.
-\begin{align}
-	y(t)&=x(t)\circledast h(t)=\int_{-\frac{T}{2}}^{\frac{T}{2}}x(\tau)h(t-\tau)\diff \tau=\int_{-\frac{T}{2}}^{\frac{T}{2}}\bigg (\sum_{k=-\infty}^{\infty}X_k\e^{+\im k \omega \tau}\bigg )\cdot \bigg (\sum_{i=-\infty}^{+\infty}H_i\e^{+\im i \omega (t-\tau)}\bigg )\diff \tau\nonumber \\
-	&=\int_{-\frac{T}{2}}^{\frac{T}{2}}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\bigg (X_kH_i\e^{+\im k \omega \tau}\e^{+\im i \omega (t-\tau)}\bigg )\diff \tau=\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\bigg (\int_{-\frac{T}{2}}^{\frac{T}{2}}X_kH_i\e^{+\im (k-i) \omega \tau}\e^{+\im i \omega t}\diff \tau\bigg )\nonumber \\
-	&=\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\bigg (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \bigg )
-\end{align}
+%
+%
 Für $k=i$ ergibt das Integral $T$.
+%
+%
 \begin{align}
 	\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega \tau}\diff \tau \underset{k=i}{=}\int_{-\frac{T}{2}}^{+\frac{T}{2}}1\diff \tau =\tau \Bigg |_{\tau=-\frac{T}{2}}^{\tau=+\frac{T}{2}}=T
 \end{align}
+%
+%
 Für $k\neq i$ ergibt das Integral $0$.
+%
+%
 \begin{align}
-	\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega \tau}\diff \tau &\underset{k\neq i}{=}\frac{\e^{+\im (k-i)\omega \tau}}{+\im (k-i)\omega}\Bigg |_{\tau=-\frac{T}{2}}^{\tau=+\frac{T}{2}}=\frac{1}{\im (k-i)\omega }\bigg (\e^{+\im (k-i)\frac{2\pi}{T}\frac{T}{2}}-\e^{-\im (k-i)\frac{2\pi}{T}\frac{T}{2}}\bigg )\nonumber \\
+	\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega \tau}\diff \tau &\underset{k\neq i}{=}\frac{\e^{+\im (k-i)\omega \tau}}{+\im (k-i)\omega}\Bigg |_{\tau=-\frac{T}{2}}^{\tau=+\frac{T}{2}}
+	=\frac{1}{\im (k-i)\omega }\left (\e^{+\im (k-i)\frac{2\pi}{T}\frac{T}{2}}-\e^{-\im (k-i)\frac{2\pi}{T}\frac{T}{2}}\right )\nonumber \\
 	&=\frac{2}{ (k-i)\omega}\sin((k-i)\pi)=0
 \end{align}
-Da sich also nur die Koeffizientenprodukte addieren, bei denen der Index gleich ist, können wir die Doppelsumme auch als eine einfache Summe schreiben.
+%
+%
+Da sich also nur die Koeffizientenpaare addieren, bei denen der Index gleich ist, können wir die Doppelsumme auch als eine einfache Summe schreiben.
+%
+%
 \begin{align}
-	\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\bigg (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \bigg )=\sum_{k=i=-\infty}^{+\infty}TX_kH_i\e^{+\im i\omega t}=\sum_{k=-\infty}^{+\infty}TX_kH_k\e^{+\im k \omega t}
+	\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\left (X_kH_i\e^{-\im i \omega t}\int_{-\frac{T}{2}}^{+\frac{T}{2}}\e^{+\im (k-i)\omega t}\diff \tau \right )
+	=\frac{1}{T^2}\sum_{k=i=-\infty}^{+\infty}TX_kH_i\e^{+\im i\omega t}
+	=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}X_kH_k\e^{+\im k \omega t}
 \end{align}
-Somit haben wir gezeigt, dass die Korrespondenz wirklich stimmt.
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_10}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_10}
+Somit haben wir die Korrespondenz bewiesen.
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_10}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_10}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_h(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
+%
 \newpage
 \subsubsection*{Aufgabe i) mit komplexer Fourierreihe}
-In diesem Abschnitt untersuchen wir die Fourierreihe in Verbindung mit der zeitlichen Ableitung.
+%
+%
+In diesem Abschnitt untersuchen wir die Fourierreihe in Verbindung mit der
+zeitlichen Ableitung.
+%
+%
 \begin{align}
-	x_{i}(t)=\frac{\diff x_{c}(t)}{\diff t}=\begin{cases}
+	x_{i}(t)=\frac{\diff x_{c}(t)}{\diff t}
+	=
+	\begin{cases}
 		\frac{2A}{T_h}&,-\frac{T_h}{2}\leq t < 0\\
 		-\frac{2A}{T_h}&,0<t\leq \frac{T_h}{2} \\
 		0&,\text{ sonst}
 	\end{cases}
 \end{align}
+%
+%
 Wir nutzen die aufgestellten Korrespondenz (denn $x_{i}(t)=-\frac{2}{T_h}x_{b})$
+%
 \begin{gather}
 	Ax(t)\quad\fourier\quad AX_{k}
 \end{gather}
+%
 und erhalten
+%
 \begin{align}
-	x_{i}(t)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
-	0&,k=0\\
-	\frac{2A}{\im k\pi T_h}\bigg (\cos(k\pi\frac{T_h}{T})-1\bigg )
-	\end{cases}
+	x_{i}(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\im Ak\pi\frac{T_h}{T} \sinc^2\left(k\pi\frac{T_h}{2T}\right)\e^{\im k \omega t}
 \end{align}
-Mit der vorhandenen Korrespondenz konnten wir uns ziemlich viel Rechnerei ersparen. Die Koeffizienten von $x_{i}(t)$ und $x_{c}(t)$ ähneln sich sehr stark. Wir überprüfen daher, ob es einen Zusammenhang zwischen den beiden gibt. Dafür differenzieren wir einmal direkt die Fourierreihe von $x_{c}(t)$.
+%
+%
+Mit der vorhandenen Korrespondenz konnten wir uns ziemlich viel Rechnerei
+ersparen.
+%
+Die Koeffizienten von $x_{i}(t)$ und $x_{c}(t)$ ähneln sich sehr stark.
+%
+Wir überprüfen daher, ob es einen Zusammenhang zwischen den beiden gibt.
+%
+Dafür differenzieren wir einmal direkt die Fourierreihe von $x_{c}(t)$.
+%
+%
 \begin{align}
-	x_{i}(t)=\frac{\diff x_{c}(t)}{\diff t}=\frac{\diff }{\diff t}\bigg [\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\Bigg ]=\sum_{k=-\infty}^{+\infty}\frac{\diff }{\diff t}X_k\e^{+\im k \omega t}=\sum_{k=-\infty}^{+\infty}\im k \omega X_k\e^{+\im k \omega t}
+	x_{i}(t)=\frac{\diff x_{c}(t)}{\diff t}
+	=\frac{\diff }{\diff t}\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\right ]
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\frac{\diff }{\diff t}X_k\e^{+\im k \omega t}
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\im k \omega X_k\e^{+\im k \omega t}
 \end{align}
-Also können wir ganz einfach die Fourierreihe einer Ableitung aufstellen, in dem wir die Koeffizienten der zu ableitenden Funktion mit $\im k \omega$ multiplizieren. Wir merken uns:
+%
+%
+Also können wir ganz einfach die Fourierreihe einer Ableitung aufstellen,
+in dem wir die Koeffizienten der zu ableitenden Funktion mit $\im k \omega$
+multiplizieren.
+%
+Wir merken uns:
+%
 \begin{align}
-	\frac{\diff x(t)}{\diff t}\quad\fourier\quad\im k \omega X_k
+	\frac{\diff x(t)}{\diff t}\quad\fourier\quad\im k \omega X_k.
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_11}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_11}
+%
+Wir überprüfen es einmal mit den Koeffizienten von $x_c(t)$.
+%
+\begin{gather}
+	c_k=\im k\omega \frac{AT_h}{2}\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+	=\im k\frac{2\pi}{T}\frac{AT_h}{2}\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+	=\im Ak\pi\frac{T_h}{T} \sinc^2\left(k\pi\frac{T_h}{2T}\right)
+\end{gather}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_11}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_11}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_i(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
 \newpage
 \subsubsection*{Aufgabe j) mit komplexer Fourierreihe}
-In diesem Abschnitt untersuchen wir, wie sich eine Zeitskalierung auf die Fourierreihe auswirkt.
+In diesem Abschnitt untersuchen wir, wie sich eine Zeitskalierung auf die
+Fourierreihe auswirkt.
+%
 \begin{align}
 	x_{j}(t)=x_{a}(at)\quad\quad a\in\mathbb{R}\setminus\{0\}
 \end{align}
+%
 Dabei sind zwei Fälle zu beachten: $a>0$ und $a<0$.
+%
 Wir starten mit $a>0$.
 %
 \begin{figure}[h!]
@@ -1332,63 +2275,154 @@ Wir starten mit $a>0$.
 		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
 	\end{tikzpicture}
 \end{figure}
-\\
-Nun ist auch zu beachten, dass sich die Periode verändert hat. Sie beträgt nun $\frac{T}{a}$.
-Den Gleichanteil berechnen wir nun durch Ausrechnen des Flächeninhalts des Rechteckes innerhalb einer Periode.
+%
+Nun ist auch zu beachten, dass sich die Periode verändert hat.
+%
+Sie beträgt nun $\frac{T}{a}$.
+%
+Den Gleichanteil berechnen wir nun durch Ausrechnen des Flächeninhalts des
+Rechteckes innerhalb einer Periode.
+%
 \begin{align}
-	c_0=\frac{a}{T}A\cdot\frac{T_h}{a}=A\frac{T_h}{T}
+	c_0=aA\cdot\frac{T_h}{a}=AT_h
 \end{align}
+%
 Es folgen noch die Koeffizienten $c_k$ für $k\neq0$.
+%
 \begin{align}
-	c_k&=\frac{a}{T}\int_{t_0}^{t_0+\frac{T}{a}}x_{j}(t)\e^{-\im k a\omega t}\diff t=\frac{a}{T}\int_{-\frac{T_h}{2a}}^{+\frac{T_h}{2a}}A\e^{-\im k a\omega }\diff t=\frac{aA}{-T\im k a\omega }\e^{-\im k a \omega t}\Bigg |_{t=-\frac{T_h}{2a}}^{t=+\frac{T_h}{2a}}\nonumber \\
-	&=\frac{AT}{T\im k 2\pi}\bigg (\e^{+\im k a \frac{2\pi}{T}\frac{T_h}{2a}}-\e^{-\im k a \frac{2\pi}{T}\frac{T_h}{2a}}\bigg )=\frac{A}{k\pi}\sin(k\pi\frac{T_h}{T})
+	c_k&=a\int_{t_0}^{t_0+\frac{T}{a}}x_{j}(t)\e^{-\im k a\omega t}\diff t
+	=a\int_{-\frac{T_h}{2a}}^{+\frac{T_h}{2a}}A\e^{-\im k a\omega }\diff t
+	=\frac{aA}{-\im k a\omega }\e^{-\im k a \omega t}\Bigg |_{t=-\frac{T_h}{2a}}^{t=+\frac{T_h}{2a}}\nonumber \\
+	&=\frac{AT}{\im k 2\pi}\left (\e^{+\im k a \frac{2\pi}{T}\frac{T_h}{2a}}-\e^{-\im k a \frac{2\pi}{T}\frac{T_h}{2a}}\right )
+	=\frac{AT}{k\pi}\frac{T_h}{T_h}\sin\left(k\pi\frac{T_h}{T}\right)
+	=AT_h\sinc\left(k\pi\frac{T_h}{T}\right)
 \end{align}
-Für $a<0$ hat die Funktion $x_{j}(t)$ die gleiche Form, weil sie gerade ist. Der Gleichanteil ist gleich. Die Periode beträgt nun $\frac{T}{|a|}$.
+%
+%
+Für $a<0$ hat die Funktion $x_{j}(t)$ die gleiche Form, weil sie gerade ist.
+%
+Der Gleichanteil ist gleich.
+%
+Die Periode beträgt nun $\frac{T}{|a|}$.
+%
+%
 \begin{align}
-	c_k&=\frac{|a|}{T}\int_{t_0}^{t_0+\frac{T}{|a|}}A\e^{-\im k |a|\omega t}\diff t=\frac{|a|A}{-T\im k |a| \omega }\e^{-\im k |a| \omega t}\Bigg |_{t=-\frac{T_h}{2|a|}}^{t=+\frac{T_h}{2|a|}}=\frac{AT}{T\im k 2\pi}\bigg (\e^{+\im k |a|\frac{2\pi}{T}\frac{T_h}{2a}}-\e^{-\im k |a|\frac{2\pi}{T}\frac{T_h}{2|a|}}\bigg )\nonumber\\
-	&=\frac{A}{k\pi}\sin(k\pi\frac{T_h}{T})
+	c_k&=|a|\int_{t_0}^{t_0+\frac{T}{|a|}}A\e^{-\im k |a|\omega t}\diff t
+	=\frac{|a|A}{-\im k |a| \omega }\e^{-\im k |a| \omega t}\Bigg |_{t=-\frac{T_h}{2|a|}}^{t=+\frac{T_h}{2|a|}}
+	=\frac{AT}{\im k 2\pi}\left (\e^{+\im k |a|\frac{2\pi}{T}\frac{T_h}{2a}}-\e^{-\im k |a|\frac{2\pi}{T}\frac{T_h}{2|a|}}\right )\nonumber\\
+	&=\frac{AT}{k\pi}\frac{T_h}{T_h}\sin\left(k\pi\frac{T_h}{T}\right)=AT_h\sinc\left(k\pi\frac{T_h}{T}\right)
 \end{align}
-Die beiden Fourierkoeffizienten gleichen sich und stimmen sogar mit den Koeffizienten von $x_{a}(t)$ überein. Den Fall $a<0$ hätten wir gar berechnen müssen, denn das wäre das selbe wie $a>0$ zu lassen und mit $-1$ zu multiplizieren, was eine Zeitumkehr ist, für die wir schon eine Korrespondenz haben. Wir setzen nun $a$ direkt in die Fourierreihe ein, um zu untersuchen, ob sich auch eine Korrespondenz für Zeitskalierungen aufstellen lässt.
+%
+%
+Die beiden Fourierkoeffizienten gleichen sich und stimmen sogar mit den
+Koeffizienten von $x_{a}(t)$ überein.
+%
+Den Fall $a<0$ hätten wir gar berechnen müssen, denn das wäre das selbe wie
+$a>0$ zu lassen und mit $-1$ zu multiplizieren, was eine Zeitumkehr ist,
+für die wir schon eine Korrespondenz haben.
+%
+Wir setzen nun $a$ direkt in die Fourierreihe ein, um zu untersuchen,
+ob sich auch eine Korrespondenz für Zeitskalierungen aufstellen lässt.
+%
 \begin{align}
-	x_{j}(t)=x_{a}(at)=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega at}
+	x_{j}(t)=x_{a}(at)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega at}
 \end{align}
-Für $a>0$ müssen wir die Koeffizienten also nicht ändern, sondern nur die Winkelgeschwindigkeit mit $a$ skalieren. Für $a<0$ müssen wir die Winkelgeschwindigkeit mit $|a|$ skalieren und die positiven Koeffizienten mit den negativen Koeffizienten vertauschen, was der Zeitumkehr entspricht. Wir stellen also nur eine Korrespondenz für $a>0$ auf, denn für $a<0$ haben wir schon eine, die Zeitumkehr (zuerst mit $|a|$ skalieren, danach Zeitumkehr).
+%
+Für $a>0$ müssen wir die Koeffizienten also nicht ändern, sondern nur die
+Winkelgeschwindigkeit mit $a$ skalieren.
+%
+Für $a<0$ müssen wir die Winkelgeschwindigkeit mit $|a|$ skalieren und die
+positiven Koeffizienten mit den negativen Koeffizienten vertauschen, was der
+Zeitumkehr entspricht.
+%
+Wir stellen also nur eine Korrespondenz für $a>0$ auf, denn für $a<0$ haben wir
+schon eine, die Zeitumkehr (zuerst mit $|a|$ skalieren, danach Zeitumkehr).
+%
+%
 \begin{align}
 	x(at)\quad a\in\mathbb{R}^+\setminus\{0\}\quad\fourier\quad \frac{T}{a}
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_12}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_12}
+%
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_12}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_12}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_j(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
 \newpage
 \subsubsection*{Aufgabe k) mit komplexer Fourierreihe}
-Die nächste Funktion unterscheidet sich doch ziemlich von den anderen, denn hier haben wir es mit einer Konstante zu tun.
-Wie gewohnt, berechnen wir zuerst den Gleichanteil, dann die übrigen Koeffizienten $c_k$ für $k\neq 0$.
+%
+%
+Die nächste Funktion unterscheidet sich doch ziemlich von den anderen, denn hier
+haben wir es mit einer Konstante zu tun.
+%
+Wie gewohnt, berechnen wir zuerst den Gleichanteil, danach die übrigen
+Koeffizienten $c_k$ für $k\neq 0$.
+%
 \begin{align}
-	c_0=\frac{1}{T}\int_{t_0}^{t_0+T}x_{k}\diff t=\frac{1}{T}\int_{t_0}^{t_0+T}1\diff t=\frac{T+t_0-t_0}{T}=1
+	c_0=\int_{t_0}^{t_0+T}x_{k}\diff t
+	=\int_{t_0}^{t_0+T}1\diff t
+	=T+t_0-t_0=T
 \end{align}
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{k}\e^{-\im k \omega t}\diff t=\frac{1}{T}\int_{t_0}^{t_0+T}1\e^{-\im k \omega t}\diff t=\frac{\e^{-\im k \omega t}}{-\im k \omega T}\Bigg |_{t=t_0}^{t=t_0+T}=\frac{1}{\im k \omega T}\bigg (\e^{-\im k \omega t_0}-\e^{-\im k \frac{2\pi}{T}(t_0+T)}\bigg )\nonumber \\
-	&=\frac{1}{\im k \omega T}\bigg (\e^{-\im k \omega t_0}-\e^{-\im (k \omega t_0+k2\pi )}\bigg )=0
+	c_k&=\frac{1}{T}\int_{t_0}^{t_0+T}x_{k}\e^{-\im k \omega t}\diff t
+	=\int_{t_0}^{t_0+T}1\e^{-\im k \omega t}\diff t
+	=\frac{\e^{-\im k \omega t}}{-\im k \omega T}\Bigg |_{t=t_0}^{t=t_0+T}
+	=\frac{1}{\im k \omega }\left (\e^{-\im k \omega t_0}-\e^{-\im k \frac{2\pi}{T}(t_0+T)}\right )\nonumber \\
+	&=\frac{1}{\im k \omega}\left (\e^{-\im k \omega t_0}-\e^{-\im (k \omega t_0+k2\pi )}\right )=0
 \end{align}
+%
 Wir stellen folgende Korrespondenz auf:
+%
 \begin{align}
-	1 \quad \fourier \quad c_0 = 1,c_k=0\forall k \neq 0.
+	1 \quad \fourier \quad c_0 = T,c_k=0\quad\forall k \neq 0.
 \end{align}
-In Verbindung mit \eqref{eq:CorrespondenceModulation} lässt sich auch folgende Korrespondenz aufstellen:
+%
+In Verbindung mit Gleichung \eqref{eq:CorrespondenceModulation} lässt sich auch
+folgende Korrespondenz aufstellen:
+%
 \begin{align}
-	\e^{+n\omega t}\quad n\in\mathbb{Z}\quad \fourier\quad c_n=1,c_k=0\forall k\neq 0
+	\e^{+n\omega t}\quad n\in\mathbb{Z}\quad \fourier\quad c_n=T,c_k=0\quad\forall k\neq n
 \end{align}
-Wenn wir nun bspw. $cos(t)$ mit Hilfe der Eulerschen Identität betrachten, dann ist das bereits eine Fourierreihe.
+%
+Wenn wir nun bspw. $\cos(t)$ mit Hilfe der Eulerschen Identität betrachten,
+dann ist das bereits eine Fourierreihe.
+%
 \begin{align}
-	\cos(t)=\frac{1}{2}\e^{+\im t}+\frac{1}{2}\e^{-\im t}
+	\cos(t)=\frac{1}{2}\e^{+\im t}+\frac{1}{2}\e^{-\im t}=\frac{1}{2\pi}\left(\pi\e^{+\im t}+\pi\e^{-\im t}\right)
 \end{align}
-Hier bei ist $c_{-1}=c_1=\frac{1}{2}$ und $c_k=0\forall k \not\in\{-1,1\}$.
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_13}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_13}
+%
+Hier bei ist $c_{-1}=c_1=\pi$ und $c_k=0\forall k \not\in\{-1,1\}$.
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_13}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_13}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_k(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
 \newpage
 \subsubsection*{Aufgabe l) mit komplexer Fourierreihe}
+%
 Nun untersuchen wir die Multiplikation zweier $T$-periodischer Funktionen.
+%
 \begin{align}
 	x_{l}(t)=x_{b}(t)\cdot x_{c}(t)=\begin{cases}
 		-\frac{2A^2}{T_h}t-A^2&,-\frac{T_h}{2}\leq t <0 \\
@@ -1396,6 +2430,7 @@ Nun untersuchen wir die Multiplikation zweier $T$-periodischer Funktionen.
 		0&,\text{ sonst}
 	\end{cases}
 \end{align}
+%
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[domain=0:2]
@@ -1411,118 +2446,217 @@ Nun untersuchen wir die Multiplikation zweier $T$-periodischer Funktionen.
 		\draw[-, black, ultra thick] (2,0) node[below] {$2 T$};
 		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A^2$};
 	\end{tikzpicture}
-\end{figure}\\
-Der Gleichanteil $c_0=0$, denn innerhalb einer Periode heben sich die Flächeninhalte unter den Dreiecken gegenseitig auf.
+\end{figure}
+%
+Der Gleichanteil $c_0=0$, denn innerhalb einer Periode heben sich die
+Flächeninhalte unter den Dreiecken gegenseitig auf.
+%
+%
+%
 \begin{align}
-	c_k&=\frac{1}{T}\int_{t_0+T}^{t_0+T}x_{l}(t)\e^{-\im k \omega t}\diff t= \frac{1}{T}\int_{t_0}^{t_0+T}x_{b}(t)\cdot x_{c}\e^{-\im k \omega t}\diff t\nonumber \\
-	&=\frac{1}{T}\Bigg [\int_{-\frac{T_h}{2}}^0(-\frac{2A^2}{T_h}t-A^2)\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}(-\frac{2A^2}{T_h}t+A^2)\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{-\frac{2A^2}{T_h}t-A^2}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}-\int_{-\frac{T_h}{2}}^0\frac{2A^2}{T_h\im k \omega}\e^{-\im k \omega t}\diff t +\frac{-\frac{2A^2}{T_h}t+A^2}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}\frac{2A^2}{T_h\im k \omega}\e^{-\im k \omega t}\diff t\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{A^2}{\im k \omega}-\frac{2A^2}{T_hk^2\omega^2}+\frac{2A^2}{T_hk^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{\im k \omega}-\frac{2A^2}{T_h k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}+\frac{2A^2}{T_hk^2\omega^2}\Bigg ]\nonumber \\
-	&=\frac{1}{T}\Bigg [\frac{2A^2}{\im k \omega}+\frac{2A^2}{T_h k^2\omega^2}\bigg (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\bigg )\Bigg ]=\frac{A^2}{\im k \pi}+\im \frac{A^2T}{T_hk^2\pi^2}\sin(k\pi\frac{T_h}{T})
+	c_k&=\int_{t_0+T}^{t_0+T}x_{l}(t)\e^{-\im k \omega t}\diff t= \frac{1}{T}\int_{t_0}^{t_0+T}x_{b}(t)\cdot x_{c}\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\int_{-\frac{T_h}{2}}^0\left(-\frac{2A^2}{T_h}t-A^2\right)\e^{-\im k \omega t}\diff t+\int_0^{+\frac{T_h}{2}}\left(-\frac{2A^2}{T_h}t+A^2\right)\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\frac{-\frac{2A^2}{T_h}t-A^2}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=-\frac{T_h}{2}}^{t=0}-\int_{-\frac{T_h}{2}}^0\frac{2A^2}{T_h\im k \omega}\e^{-\im k \omega t}\diff t +\frac{-\frac{2A^2}{T_h}t+A^2}{-\im k \omega}\e^{-\im k \omega t}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}\frac{2A^2}{T_h\im k \omega}\e^{-\im k \omega t}\diff t\nonumber \\
+	&=\frac{A^2}{\im k \omega}-\frac{2A^2}{T_hk^2\omega^2}+\frac{2A^2}{T_hk^2\omega^2}\e^{+\im k \omega \frac{T_h}{2}}+\frac{A^2}{\im k \omega}-\frac{2A^2}{T_h k^2 \omega^2}\e^{-\im k \omega \frac{T_h}{2}}+\frac{2A^2}{T_hk^2\omega^2}\nonumber \\
+	&=\frac{2A^2}{\im k \omega}+\frac{2A^2}{T_h k^2\omega^2}\left (\e^{+\im k \frac{2\pi}{T}\frac{T_h}{2}}-\e^{-\im k \frac{2\pi}{T}\frac{T_h}{2}}\right )
+	=\frac{A^2T}{\im k \pi}+\im \frac{A^2T^2}{T_hk^2\pi^2}\sin\left(k\pi\frac{T_h}{T}\right)\nonumber\\
+	&=\im\frac{A^2T}{k\pi}\left[\sinc\left(k\pi\frac{T_h}{T}\right)-1\right]
 \end{align}
-Bei einer Multiplikation zweier Funktionen mit gleicher Periode $T$ ergeben sich der Fourierkoeffizient aus der diskreten Faltung der Koeffizienten beider Funktionen (vgl. \cite[Kap. 3, S. 208]{Oppenheim1997}).\\
-Die Diskrete Faltung ist folgendermaßen definiert:
+%
+%
+%
+Bei einer Multiplikation zweier Funktionen mit gleicher Periode $T$ ergeben sich
+der Fourierkoeffizient aus der diskreten Faltung der Koeffizienten beider
+Funktionen, skaliert mit dem Faktor $\frac{1}{T}$ (vgl. auch \cite[Kap. 3, S. 208]{Oppenheim1997}).
+
+Die diskrete Faltung ist folgendermaßen definiert:
 \begin{align}
-	X_k\ast Y_k=\sum_{\kappa = -\infty}^{+\infty}X_{\kappa}\cdot Y_{k-\kappa}=\sum_{\kappa =-\infty}^{+\infty}X_{k-\kappa}\cdot Y_{\kappa }
+	X_k\ast H_k=\sum_{\kappa = -\infty}^{+\infty}X_{\kappa}\cdot H_{k-\kappa}=\sum_{\kappa =-\infty}^{+\infty}X_{k-\kappa}\cdot H_{\kappa }
 \end{align}
+%
 Also merken wir uns folgende Korrespondenz:
+%
 \begin{align}
-	x(t)\cdot h(t)\quad\fourier\quad X_k \ast H_k.
+	x(t)\cdot h(t)\quad\fourier\quad \frac{1}{T}X_k \ast H_k.
 \end{align}
-Wir versuchen, dies einmal nachzuprüfen.
+%
+Wir prüfen das einmal nach.
+%
+%
 \begin{align}
-	y(t)&=x(t)\cdot h(t)=\Bigg (\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\Bigg )\cdot\Bigg ( \sum_{\kappa=-\infty}^{+\infty}H_{\kappa}\e^{+\im \kappa \omega t}\Bigg )=\sum_{k=-\infty}^{+\infty}\sum_{\kappa=-\infty}^{+\infty}X_kH_{\kappa}\e^{\im (k+\kappa)\omega t}\nonumber \\
-	&=\cdots +\sum_{\kappa=-\infty}^{+\infty}X_{-1}H_{\kappa}\e^{+\im(\kappa-1)\omega t}+\sum_{\kappa=-\infty}^{+\infty}X_0H_{\kappa}\e^{+\im \kappa \omega t}+\sum_{\kappa=-\infty}^{+\infty}X_1H_{\kappa}\e^{+\im(i+1)\omega t}+\cdots\nonumber \\
-	&=\cdots+X_{-1}H_{-1}\e^{-2\im \omega }+X_{-1}H_0\e^{-\im \omega t}+X_{-1}H_1+\cdots+X_0H_{-1}\e^{-\im \omega t}+X_0H_0+X_0H_1\e^{+\im  \omega t}+\cdots +X_1H_{-1}\nonumber \\
-	&+X_1H_0\e^{+\im \omega t}+X_1H_1\e^{+2\im \omega t}+\cdots
+	y(t)&=x(t)\cdot h(t)
+	=\left (\frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\right )\cdot\left ( \frac{1}{T}\sum_{\kappa=-\infty}^{+\infty}H_{\kappa}\e^{+\im \kappa \omega t}\right )
+	=\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{\kappa=-\infty}^{+\infty}X_kH_{\kappa}\e^{\im (k+\kappa)\omega t}\nonumber \\
+	&=\cdots +\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_{-1}H_{\kappa}\e^{+\im(\kappa-1)\omega t}+\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_0H_{\kappa}\e^{+\im \kappa \omega t}+\frac{1}{T^2}\sum_{\kappa=-\infty}^{+\infty}X_1H_{\kappa}\e^{+\im(i+1)\omega t}+\cdots\nonumber \\
+	&=\frac{1}{T}\Bigg [\cdots+\frac{1}{T}X_{-1}H_{-1}\e^{-2\im \omega }+\frac{1}{T}X_{-1}H_0\e^{-\im \omega t}+\frac{1}{T}X_{-1}H_1+\cdots+\frac{1}{T}X_0H_{-1}\e^{-\im \omega t}+\frac{1}{T}X_0H_0\nonumber\\
+	&+\frac{1}{T}X_0H_1\e^{+\im  \omega t}
+	+\cdots+\frac{1}{T}X_1H_{-1}+\frac{1}{T}X_1H_0\e^{+\im \omega t}
+	+\frac{1}{T}X_1H_1\e^{+2\im \omega t}+\cdots\Bigg]
 \end{align}
+%
+%
 Noch einmal die allgemeine Form der Fourierreihe:
+%
 \begin{align}
-	f(t)=\sum_{n=-\infty}^{+\infty}c_n\e^{+\im n \omega t}.
+	x(t)=\frac{1}{T}\sum_{n=-\infty}^{+\infty}c_n\e^{+\im n \omega t}.
 \end{align}
+%
 Für $n=0$ beträgt $c_n$
+%
 \begin{align}
-	c_n=\cdots + X_{-1}H_{1}+X_0H_0+X_1H_{-1}.
+	c_n=\cdots + \frac{1}{T0}X_{-1}H_{1}+\frac{1}{T}X_0H_0+\frac{1}{T}X_1H_{-1}.
 \end{align}
-Dabei durchläuft der Index von $X$ $\mathbb{Z}$ und der Index von $H$ ist eine Lösung der Gleichung
+%
+Dabei durchläuft der Index von $X$ $\mathbb{Z}$ und der Index von $H$ ist eine
+Lösung der Gleichung
+%
 \begin{align}
 	\kappa = n-k.
 \end{align}
+%
 Also
+%
 \begin{align}
-	y(t)=x(t)\cdot h(t)=\sum_{n=-\infty}^{+\infty}\sum_{k=-\infty}^{+\infty}X_kH_{n-k}\e^{\im n \omega t}.
+	y(t)=x(t)\cdot h(t)=\frac{1}{T}\sum_{n=-\infty}^{+\infty}\sum_{k=-\infty}^{+\infty}\frac{1}{T}X_kH_{n-k}\e^{\im n \omega t}.
 \end{align}
-\newpage
-\includegraphics[width=\textwidth]{../fs/Fourierseries_14}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_14}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_14}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_14}
+		\caption{Betrag und Phase der Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_l(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$-5\leq k\leq5$.}
+\end{figure}
+%
 \newpage
 \subsubsection*{Aufgabe m) mit komplexer Fourierreihe}
-Wir setzen die Integration direkt in die Definition der Fourierreihe ein, um zu schauen, ob es eine Korrespondenz gibt.
+%
+Wir setzen die Integration direkt in die Definition der Fourierreihe ein, um zu
+schauen, ob es eine Korrespondenz gibt.
+%
+%
 \begin{align}
-	x_m(t)&=\int x_b(t)\diff t=\int\bigg ( \sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\bigg )\diff t=\sum_{k=-\infty}^{+\infty}\bigg (\int X_k\e^{+\im k \omega t}\diff t\bigg )\nonumber \\
-	&=\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k=\begin{cases}
+	x_m(t)&=\int x_b(t)\diff t
+	=\int\left ( \frac{1}{T}\sum_{k=-\infty}^{+\infty}X_k\e^{+\im k \omega t}\right )\diff t
+	=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\int X_k\e^{+\im k \omega t}\diff t\right )\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\quad\text{mit }c_k
+	=
+	\begin{cases}
 		C\in\mathbb{R}&,X_0=0,k=0,\\
 		X_0t&,X_0\neq 0,k=0,\\
 		\frac{1}{\im k \omega}X_k&,k\neq 0.
 	\end{cases}
 \end{align}
-$c_{k\neq 0}$ entspricht also $\frac{1}{\im k \omega }X_k$, wobei $X_k$ der Koeffizient der komplexen Fourierreihe der zu integrierenden Funktion ist. Wir merken uns folgende Korrespondenz:
+%
+%
+$c_{k\neq 0}$ entspricht also $\frac{1}{\im k \omega }X_k$, wobei $X_k$ der
+Koeffizient der komplexen Fourierreihe der zu integrierenden Funktion ist.
+%
+Wir merken uns folgende Korrespondenz:
+%
 \begin{align}
-	\int x(t)\diff t\quad\fourier\quad \frac{1}{\im k \omega }X_k\quad k\neq 0
+	\int x(t)\diff t\quad\fourier\quad \frac{1}{\im k \omega }X_k\quad k\neq 0.
 \end{align}
-Für können also für die Stammfunktion durch eine Korrespondenz grundsätzlich nur die Koeffizienten für $k\neq 0$ berechnen. Für $X_0\neq 0$ muss der Gleichanteil nur mit $t$ multipliziert werden für die neue Funktion, bei $X_0=0$ muss der neue Mittelwert händisch ausgerechnet werden.
-\newpage
-Hier wurde dies einmal auf $x_b(t)$ angewandt. Dabei wurde $c_k=0$ gesetzt.\\
-\includegraphics[width=\textwidth]{../fs/Fourierseries_15}
-\includegraphics[width=\textwidth]{../fs/Fourierseriescoeff_15}
+%
+Für können also für die Stammfunktion durch eine Korrespondenz grundsätzlich nur
+die Koeffizienten für $k\neq 0$ berechnen.
+%
+Für $X_0\neq 0$ muss der Gleichanteil nur mit $t$ multipliziert werden für die
+neue Funktion, bei $X_0=0$ muss der neue Mittelwert händisch ausgerechnet
+werden.
+%
 \newpage
 \subsubsection*{Aufgabe n) mit komplexer Fourierreihe}
-Als vorletzten Punkt untersuchen wir den Zusammenhang zwischen den Koeffizienten einer Funktion und ihrer komplex konjugierten.
+%
+Als vorletzten Punkt untersuchen wir den Zusammenhang zwischen den Koeffizienten
+einer Funktion und ihrer komplex konjugierten.
+%
+%
 \begin{align}
-	x^*(t)&=\Bigg [\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\Bigg ]^*=\Bigg [\sum_{k=-\infty}^{+\infty}(\Re\{c_k\}+\im\Im\{c_k\})(\cos(k\omega t)+\im\sin(k\omega t))\Bigg ]^*\nonumber \\
-	&=\Bigg [\sum_{k=-\infty}^{+\infty}\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)+\im (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)) \Bigg ]^*\nonumber \\
-	&=\Bigg [\sum_{k=-\infty}^{+\infty}\bigg (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\bigg )+\im\sum_{k=-\infty}^{+\infty}\bigg (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\bigg )\Bigg ]^*\nonumber \\
-	&=\sum_{k=-\infty}^{+\infty}\bigg (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\bigg )-\im\sum_{k=-\infty}^{+\infty}\bigg (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\bigg )\nonumber \\
-	&=\sum_{k=-\infty}^{+\infty}\bigg (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t-\im(\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t))\bigg )\nonumber \\
+	x^*(t)&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\right ]^*=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}(\Re\{c_k\}+\im\Im\{c_k\})(\cos(k\omega t)+\im\sin(k\omega t))\right ]^*\nonumber \\
+	&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)+\im (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)) \right ]^*\nonumber \\
+	&=\left [\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\right )+\im\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\right )\right ]^*\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t)\right )-\im\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t)\right )\nonumber \\
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left (\Re\{c_k\}\cos(k\omega t)-\Im\{c_k\}\sin(k\omega t-\im(\Re\{c_k\}\sin(k\omega t)+\Im\{c_k\}\cos(k\omega t))\right )\nonumber \\
 	\label{eq:ComplexConjugatedFourierSeries}
-	&=\sum_{k=-\infty}^{+\infty}(\Re\{c_k\}-\im\Im\{c_k\})(\cos(\omega k t)-\im\sin(k\omega t) )=\sum_{k=-\infty}^{+\infty}c_k^*\e^{-\im k \omega t}
+	&=\frac{1}{T}\sum_{k=-\infty}^{+\infty}\left(\Re\{c_k\}-\im\Im\{c_k\}\right)\left(\cos(\omega k t)-\im\sin(k\omega t) \right)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k^*\e^{-\im k \omega t}
 \end{align}
-Wenn wir den Index von $c_k$ zu $-k$ verändern, können wir in der komplexen Exponentialfunktion wieder ein +-Zeichen schreiben.
+%
+%
+%
+Wenn wir den Index von $c_k$ zu $-k$ verändern, können wir in der komplexen
+Exponentialfunktion wieder ein +-Zeichen schreiben.
+%
+%
 \begin{align}
-	x^*(t)=\sum_{k=-\infty}^{+\infty}c_{-k}^*\e^{+\im k \omega t}
+	x^*(t)=\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_{-k}^*\e^{+\im k \omega t}
 \end{align}
+%
+%
 Wir merken uns also als Korrespondenz (auch zu finden in \cite[Kap. 3, S. 208]{Oppenheim1997}):
+%
 \begin{align}
 	x^*(t)\quad\fourier\quad X_{-k}^*
 \end{align}
+%
 \newpage
 \subsubsection*{Aufgabe o) mit komplexer Fourierreihe}
-Zum Schluss wollen wir noch ein Integral einer periodischen Funktion berechnen. Dabei lösen wir dieses erst im Zeitbereich und prüfen danach, ob sich das Integral auch mittels der Fourierreihe lösen lässt.
+%
+Zum Schluss wollen wir noch ein Integral einer periodischen Funktion berechnen.
+%
+Dabei lösen wir dieses erst im Zeitbereich und prüfen danach, ob sich das
+Integral auch mittels der Fourierreihe lösen lässt.
+%
 \begin{align}
-	\frac{1}{T}\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t=\frac{1}{T}\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2\diff t = \frac{A^2}{T}t\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}=A^2\frac{T_h}{T}
+	\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t
+	=\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A^2\diff t
+	= A^2t\Bigg |_{t=-\frac{T_h}{2}}^{t=+\frac{T_h}{2}}=A^2T_h
 \end{align}
-Nun setzen wir für $x_b(t)$ die Fourierreihe ein. Dabei nutzen wir folgende Identität:
+%
+Nun setzen wir für $x_b(t)$ die Fourierreihe ein.
+%
+Dabei nutzen wir folgende Identität:
+%
 \begin{align}
 	z\cdot z^*=(a+\im b)\cdot (a-\im b)=a^2+b^2=|z|^2.
 \end{align}
+%
+%
 \begin{align}
-	\frac{1}{T}\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t&=\frac{1}{T}\int_{t_0}^{t_0+T}x_b(t)\cdot x_b^*(t)\diff t \underset{\eqref{eq:ComplexConjugatedFourierSeries}}{=}\frac{1}{T}\int_{t_0}^{t_0+T}\bigg (\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\bigg )\cdot \bigg (\sum_{i=-\infty}^{+\infty}c_i^*\e^{-\im i \omega t}\bigg )\diff t\nonumber \\
-	&=\frac{1}{T}\int_{t_0}^{t_0+T}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}c_kc_i^*\e^{\im (k-i)\omega t}\diff t =\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\int_{t_0}^{t_0+T}\frac{c_kc_i^*}{T}\e^{\im (k-i)\omega t}\diff t
+	\int_{t_0}^{t_0+T}|x_b(t)|^2\diff t
+	&=\int_{t_0}^{t_0+T}x_b(t)\cdot x_b^*(t)\diff t
+	=\int_{t_0}^{t_0+T}\left (\frac{1}{T}\sum_{k=-\infty}^{+\infty}c_k\e^{+\im k \omega t}\right )\cdot \left (\frac{1}{T}\sum_{i=-\infty}^{+\infty}c_i^*\e^{-\im i \omega t}\right )\diff t\nonumber \\
+	&=\frac{1}{T^2}\int_{t_0}^{t_0+T}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}c_kc_i^*\e^{\im (k-i)\omega t}\diff t =\frac{1}{T^2}\sum_{k=-\infty}^{+\infty}\sum_{i=-\infty}^{+\infty}\int_{t_0}^{t_0+T}c_kc_i^*\e^{\im (k-i)\omega t}\diff t
 \end{align}
+%
 Es müssen 2 Fälle unterschieden werden: $k=i$ und $k\neq i$.
+%
 \begin{align}
-	\int_{t_0}^{t_0+T}\frac{c_kc_i^*}{T}\e^{+\im (k-i)\omega t}\diff t \underset{k=i}{=}\frac{1}{T}c_kc_k^*t\Bigg |_{t=t_0}^{t=t_0+T}=\frac{T}{T}c_kc_k^*=|c_k|^2
+	\int_{t_0}^{t_0+T}c_kc_i^*\e^{+\im (k-i)\omega t}\diff t \underset{k=i}{=}c_kc_k^*t\Bigg |_{t=t_0}^{t=t_0+T}=Tc_kc_k^*=T|c_k|^2
 \end{align}
+%
 \begin{align}
-	\int_{t_0}^{t_0+T}\frac{c_kc_i^*}{T}\e^{+\im (k-i)\omega t}\diff t &\underset{k\neq i}{=}\frac{c_kc_i^*}{\im k \omega T}\e^{+\im (k-i)\omega t}\Bigg |_{t=t_0}^{t=t_0+T}=\frac{c_kc_i^*}{\im k \omega T}\bigg (\e^{+\im (k-i)\omega (t_0+T)}-\e^{+\im (k-i)\omega t}\bigg )\nonumber \\
-	&=frac{c_kc_i^*}{\im k \omega T}\bigg (\e^{+\im ((k-i)\omega t_0+(k-i)2\pi)}-\e^{+\im (k-i)\omega t}\bigg )=0
+	\int_{t_0}^{t_0+T}c_kc_i^*\e^{+\im (k-i)\omega t}\diff t
+	&\underset{k\neq i}{=}\frac{c_kc_i^*}{\im k \omega }\e^{+\im (k-i)\omega t}\Bigg |_{t=t_0}^{t=t_0+T}
+	=\frac{c_kc_i^*}{\im k \omega }\left (\e^{+\im (k-i)\omega (t_0+T)}-\e^{+\im (k-i)\omega t}\right )\nonumber \\
+	&=\frac{c_kc_i^*}{\im k \omega }\left (\e^{+\im ((k-i)\omega t_0+(k-i)2\pi)}-\e^{+\im (k-i)\omega t}\right )=0
 \end{align}
-Es werden also nur die Terme addiert bei $k=i$.
+Es werden also nur die Terme addiert, bei denen $k=i$ gilt.
+%
+
 Wir können die Doppelsumme vereinfachen und folgende Korrespondenz aufstellen:
+%
 \begin{align}
-	\frac{1}{T}\int_{t_0}^{t_0+T}|x(t)|^2\diff t=\sum_{k=-\infty}^{+\infty}|c_k|^2.
+	\int_{t_0}^{t_0+T}|x(t)|^2\diff t
+	\quad\fourier\quad\frac{1}{T}\sum_{k=-\infty}^{+\infty}|c_k|^2.
 \end{align}
-Dies nennt man auch das Parsevalsche Theorem.
+Diese Korrespondenz ist auch als Parselvalsches Theorem bekannt.
 
 
 
