@@ -1115,7 +1115,7 @@ kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
 war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D410BDAAE0}:
-Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ und
+Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ sowie
 $x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$
 \begin{Werkzeug}
 Führen wir für $\xi\in\mathbb{N}^+$ eine Funktion $\delta_\xi(t)$ ein, die entweder
@@ -1152,7 +1152,7 @@ größer werdendem $\xi\to \infty$ um das Funktionsargument $0$ herum
 immer schmaler und höher werden und sich
 einem Impuls annähern, siehe \fig{fig:D410BDAAE0}.
 %
-Die Mathematik\footnote{\url{https://dlmf.nist.gov/1.17} bzw. Bücher
+Die Mathematik\footnote{\url{https://dlmf.nist.gov/1.17} bzw. Bücher wie
 \cite[Kapitel 1.15]{Arfken2005}, \cite{Burg2013}}
 liefert uns nun eine Lösung im Sinne eines Grenzwerts für eine
 Sequenz von Integralen über $\delta_\xi(t)$, $\xi=1,2,3,...$
@@ -1181,8 +1181,8 @@ Einführung des sogenannten Dirac-Impulses $\delta(t)$
 \end{equation}
 %
 Die rechte Seite ist \textbf{kein} klassisches Riemann-Integral, sondern eine
-\textbf{Definition} (nämlich die des linken Grenzwerts!, sollte man nicht vergessen,
-wird aber oft vergessen ;-) ),
+\textbf{Definition} (nämlich die des Grenzwerts für das linke Integral!,
+sollte man nicht vergessen, wird aber oft vergessen ;-) ),
 für uns aber eine nützliche \text{Rechenregel} und Grundeigenschaft des
 Dirac-Impulses. Diese ist als \textbf{Austasteigenschaft} oder
 \textbf{Ausblendeigenschaft} (in englisch sifting property, obacht: nicht shifting)
@@ -1224,7 +1224,7 @@ Statt Fläche, sprechen wir deswegen hinfort vom Gewicht 1 des Dirac-Impulses.
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
   \caption{Rechteck- (oben) und normalisierte Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
-  Durch die Normierung verhalten sich Breite und Höhe umgekehrt proportional und
+  Durch die Normierung auf Fläche 1 verhalten sich Breite und Höhe umgekehrt proportional und
   gehen daher in den Grenzfällen zu einem unendlich kleinem Gleichsignal oder einem unendlich kurzen und hohen
   Impuls über. Diese beiden Funktionen gehen im Grenzfall $\xi\to\infty$
   in einen Dirac-Impuls \eq{eq:DiracDistrDef} über.
@@ -1319,7 +1319,7 @@ Wesentlich ist, dass ein Dirac-Impuls alle Frequenzen gleich gewichtet enthält
 (\fig{fig:D410BDAAE0_Korrespondenzen} oben)
 und dass ein Gleichsignal, nur einen Dirac-Impuls bei $\omega=0$ enthält
 (\fig{fig:D410BDAAE0_Korrespondenzen} unten).
-Weil hier nichts schwingt, gibt es nur ein Dirac-Gewicht, welches den
+Weil hier eben nichts schwingt, gibt es nur ein Dirac-Gewicht, welches den
 Gleichanteil repräsentiert.
 \end{Loesung}
 
@@ -1381,7 +1381,7 @@ gestellt.
 Wir betrachten hier einleitend nun den \textbf{SigSys-Teil: Systemanalyse und -synthese}.
 Dafür werden wir die Laplace-Transformation (für zeitkontinuierliche Signale, Systeme)
 und die $z$-Transformation (für zeitdiskrete Signale/Systeme) kennenlernen, um
-Differentialgleichungen und Differenzengleichungen elegant lösbar zu machen.
+Differentialgleichungen und Differenzengleichungen elegant(er) lösbar zu machen.
 %
 Signale und Systeme sind natürlich sehr eng verknüpft, die hier aufgespannte
 Trennung sollten wir daher nicht dogmatisch verfolgen, sondern sie dient als grober
@@ -1391,15 +1391,16 @@ In Mathe haben wir das Konzept der Differentialgleichung (DGL) kennengelernt.
 %
 Wir haben verschiedene Lösungsmöglichkeiten kennengelernt (Variation
 der Konstanten, Variablentrennung, Eigenlösungen und charakteristisches Polynom,
-Störgliedansätze, usw. Ich persönlich fand das in meinem Studium damals
-ziemlich wirr, Rechnen konnte man damit irgendwann, aber Verstehen hat erst
-später eingesetzt. Das muss eigentlich nicht so sein, wie das Buch
-\cite{Strang2014} zeigt. Es gibt Unmengen Bücher, aber: lesen Sie die Bücher
-von Gilbert Strang, das ist ganz große Didaktik Kunst. Anyway...).
+Störgliedansätze, usw.). Erschien uns vielleicht ziemlich wirr, weil rechnen
+ja, verstehen eher hm...nein. Dass das eigentlich nicht so sein muss zeigt
+das Buch \cite{Strang2014}. Es gibt Unmengen Bücher,
+aber die Bücher von Gilbert Strang sollten wir unbedingt zur Kenntnis nehmen;
+auch die MIT OCW Vorlesungen von ihm sind sehr zu empfehlen.
 
-Lineare DLG mit konstanten (also \textbf{nicht zeitveränderliche}n) Koeffizienten der
+
+Lineare DGL mit konstanten (also \textbf{nicht zeitveränderliche}n) Koeffizienten der
 ersten und zweiten Ordnung sind die wichtigsten Vertreter, die wir in SigSys
-brauchen, weil man damit beeindruckend viele Dinge bauen und modellieren
+zunächst brauchen, weil man damit beeindruckend viele Dinge bauen und modellieren
 kann, Feder-Masse-Dämpfer und RLC-Schwingkreis sind die beiden Klassiker.
 %
 In den Grundlagen der E-Technik lernten wir alles erst zu Fuß zu lösen, also
@@ -1414,12 +1415,11 @@ integrierendem, usw. Verhalten.
 %
 Die Brücke zwischen E-Technik und Nachrichten-/Regelungstechnik (und auch
 ganz vielen anderen Disziplinen in denen wir mit Signalen agieren) ist SigSys!
-Das sollten wir immer im Hinterkopf behalten.
 
-Wir werden daher in der SigSys eine elegante Form finden,
+Wir werden uns daher in der SigSys einen eleganten Formalismus erarbeiten,
 diesen DGL-Typ für beliebige Störgliedansätze zu lösen (am Ende des Tages
 müssen wir ja praktisch vorkommende Signale verarbeiten und können uns nicht
-auf schicke Störgliedformeln beschränken)
+auf schicke, auf Papier lösbare Störgliedformeln beschränken)
 und das Konzept der Eigenlösungen und des charakteristischen
 Polynoms vertiefen bzw. aus anderem Blickwinkel betrachten (am Ende des Tages
 wollen wir für eine bestimmte Aufgabe eine Lösung mit gewünschter Genauigkeit
@@ -1434,7 +1434,7 @@ Zum Auffrischen sei \cite{Burg2013} sehr empfohlen, das ist SigSys aus Sicht von
 Mathematiker*innen.
 %
 \subsubsection{Lineare DGL 2. Ordnung mit konstanten Koeffizienten}
-Betrachten wir beispielhaft die lineare DGL
+Betrachten wir beispielhaft die lineare DGL 2. Ordnung
 \begin{align}
 \label{eq:A7BEE9E24E_DGL}
 A \frac{\fsd^2 y(t)}{\fsd t^2} + B \frac{\fsd y(t)}{\fsd t} + C y(t) = x(t),
@@ -1779,7 +1779,7 @@ linksseitigen, verschwindenden Anfangsbedingungen.
 In SigSys bezeichnen wir diese Lösung als \textbf{Impulsantwort} $h(t)$
 eines Systems (das ist die Antwort der Systembeschreibung mittels DGL auf den
 Dirac Impuls mit Gewicht 1, Mathematiker*innen
-bezeichnen diese Lösung als \textbf{Green'sche Funktion})
+bezeichnen diese Lösung auch gerne als \textbf{Green'sche Funktion})
 \begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 h(t) =

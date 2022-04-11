@@ -8,7 +8,7 @@ machen, siehe \verb|fundamental_signals_CT.pdf| im StudIP unter Formelsammlung.
 Diese sind
 \begin{itemize}
   \item Exponentialfunktion
-  $\e^{s_0 \, t}$ mit $s=\sigma_0 + \im\omega_0, s_0\in\mathbb{C}, \sigma_0\in\mathbb{R}, \omega_0\in\mathbb{C}$
+  $\e^{s_0 \, t}$ mit $s=\sigma_0 + \im\omega_0, s_0\in\mathbb{C}, \sigma_0\in\mathbb{R}, \omega_0\in\mathbb{R}$
   \item Rechtecksignal $\mathrm{rect}(t)$ (Konvention: Fläche 1)
   \item Dreiecksignal $\mathrm{tri}(t)$  (Konvention: Fläche 1)
   \item Spaltfunktion $\mathrm{sinc}(t):=\frac{\sin t}{t}$
@@ -84,7 +84,8 @@ Ordinate vornehmen können. Das heißt wir manipulieren den Gleichanteil.
 %
 Signale mit Gleichanteil werden in den meisten signallastigen
 Ingenieursdisziplinen vermieden, weil man den Gleichanteil schlecht
-(elektrische Dauerlast, Wärme) oder gar nicht (z.B. über Luft) übertragen kann.
+(elektrische Dauerlast, Wärme) oder gar nicht (z.B. Gleichstrom über Luft?!)
+übertragen kann.
 %
 Wir benutzen das daher in den SigSys-UE seltener.
 
@@ -104,8 +105,10 @@ Lösung von Wolfram Alpha angeboten.
 Hinweis: die Sprungfunktion erhalten wir mit \verb|step(t)|
 und die Dreieckfunktion mit \verb|tri(t)|, damit können wir eigene einfache
 Experimente zur Signalskalierung und -verschiebung machen.
+%
+Das sollten wir in jedem Fall mal machen in einer Mußestunde!
 
-Mit UE 1.1 aus dem SS2019 können wir noch mehr üben.
+%Mit UE 1.1 aus dem SS2019 können wir noch mehr üben.
 \end{Loesung}
 
 \begin{figure*}[h!]
@@ -525,8 +528,8 @@ x(t) = \cos(4\pi t) \cdot \mathrm{rect}(\frac{t}{4})\\
 \draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[left]{$x'(t)$};
 \foreach \x in {\xmin,...,3}{\draw (\x,0.05) -- (\x,-0.05);}
 \draw(2.2,0.5) node[below]{\small $2$};
-\draw(2.3,-0.25) node[below]{$(1)$};
-\draw(-2.3,+0.25) node[above]{$(1)$};
+\draw(2.3,-0.25) node[below]{$(-1)$};
+\draw(-2.3,+0.25) node[above]{$(+1)$};
 \draw(-1.9,1) node[above]{$4\pi$};
 \begin{scope}
 \draw[C0, ultra thick,domain=-2:2,variable=\t,samples=100,smooth] plot(\t,{\scale*-4*pi*sin(4*pi*\t r)});
@@ -635,7 +638,7 @@ xmajorgrids=true
 coordinates {(-4,0)(-1,0)(-1,1)};
 \end{axis}
 \end{tikzpicture}
-\caption{Ausgangspunkt: abfallende, vorauseilende Exp-Funktion.}
+\caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
 %\label{fig:}
 \end{subfigure}
 %
@@ -732,7 +735,7 @@ xmajorgrids=true
 coordinates {(-4,0)(-1,0)(-1,1)};
 \end{axis}
 \end{tikzpicture}
-\caption{Ausgangspunkt: abfallende, vorauseilende Exp-Funktion.}
+\caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
 %\label{fig:}
 \end{subfigure}
 %
@@ -952,7 +955,7 @@ Skalierungseigenschaft : nicht ok
 \sysH{a \cdot x(t)}= a \cdot 2 x(t) + 1\\
 a \cdot \sysH{x(t)}= a \cdot (2 x(t) + 1)
 \end{align}
-\textbf{nicht linear}, Beispiel/Anwendung: xxx
+\textbf{nicht linear}, Beispiel/Anwendung: Verstärker mit Offset
 %------------------------------------------------------------------------------
 \item  \underline{System 3}:
 \begin{equation}
@@ -1006,7 +1009,7 @@ Skalierungseigenschaft ok:
 a \cdot \sysH{x(t)}= a \cdot (x(t) \cos(\omega_0 t))
 \end{align}
 \textbf{linear}, Beispiel/Anwendung: Modulator, für die MusikerInnen unter uns:
-Chorus, Flanger Effekte, Vibrato, für NTlerInnen: Amplitudenmodulation, CB-Funk
+Chorus, Flanger Effekte, Vibrato, für NTler*innen: Amplitudenmodulation, CB-Funk
 (das analoge Verfahren ist ein wenig aus der Mode gekommen)
 %------------------------------------------------------------------------------
 \item  \underline{System 6}:
@@ -1681,7 +1684,7 @@ Bei anderen schwierigeren Signalverläufen macht das Integral zwar immer noch
 das gleiche, aber das sehen wir dann uU nicht mehr sofort.
 
 An dem Beispiel können wir noch mehr Sachen elegant validieren:
-Eine stückweise lineare Gerade (vgl. $h(t)$) und Konstante (vgl. $x(t)$)
+Eine stückweise lineare Gerade (vgl. $h(t)$) und eine stückweise Konstante (vgl. $x(t)$)
 im Faltungsintegral führt
 bei den Lösungen der Teilüberlappungen zu Polynomen der Ordnung 2, also für
 $y_1(t)$ und $y_3(t)$. Das sollte uns nicht überraschen,
@@ -1927,7 +1930,8 @@ Diese Aufgabe ist sehr ähnlich zu Aufgabe \ref{sec:1D3D68B312}.
 Nur die Funktion von $h(t)$ ist verändert, alle Grenzen und
 Längenbetrachtungen bleiben jedoch gleich. Das hat einen didaktischen
 Hintergrund: Wir wollen hier zu der Erkenntnis kommen, dass eine exp()-Funktion
-das Faltungsergebnis an den Sprungstellen anders 'glättet' als der Dreiecksimpuls.
+das Faltungsergebnis an den Sprungstellen anders 'glättet' als der Dreiecksimpuls
+vorher.
 Wenn wir $h(t)$ wieder als Impulsantwort eines LTI-System auffassen wollen,
 heisst das, dass dieses System im Wesen ähnliche Dinge macht, aber im Detail
 leicht anderes System-Verhalten hat.
@@ -2240,7 +2244,7 @@ Nehmen wir das an dieser Stelle mal hin, aber bemerken auch, dass wir
 diese Art Formel beim Kondensator eh schon mal gesehen haben, mutmaßlich aber
 nicht im Kontext einer Impulsantwort.
 
-\noindent\textbf{Hinweis 2}: In der ET verwenden wir gerne $\tau$ für die Zeitkonstante, weil das
+\noindent\textbf{Hinweis 2}: In der ET verwenden wir gerne $\tau$ für die Zeitkonstante. Weil das
 aber unsere Hilfsvariable in der Faltung ist, geben wir der Zeitkonstante des RC-Glieds die Variable
 $T_\mathrm{RC}$.
 
@@ -2365,7 +2369,7 @@ Annäherung an den Endzustand.
 Spannende Frage zum Sinnieren oder vielleicht sogar Rechnen:
 Wie schaut das Ausgangssignal $y(t)$ aus, wenn man den Rechtecksprung sehr,
 sehr, sehr kurz macht und vielleicht sogar Fläche 1 sicherstellt?
- 
+
 Spannender Link I: Wir haben mit
 \begin{align}
 y_1(t) =
