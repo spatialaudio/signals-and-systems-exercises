@@ -4,6 +4,8 @@ clearlogs.sh
 tmp
 
 ## rendered pdf files
+exercises_latex_deu/*.pdf
+sig_sys_task_template.pdf
 laplace_transform/*.pdf
 laplace_system_analysis/*.pdf
 fs/*.pdf
