@@ -6,13 +6,10 @@
 % 
 % # Tutorial Signals and Systems (Signal- und Systemtheorie)
 % 
-% Summer Semester 2021 (Bachelor Course #24015)
+% Summer Semester 2022 (Bachelor Course #24015)
 % 
 % - lecture: https://github.com/spatialaudio/signals-and-systems-lecture
 % - tutorial: https://github.com/spatialaudio/signals-and-systems-exercises
-% 
-% WIP...
-% The project is currently under heavy development while adding new material for the summer semester 2021
 % 
 % Feel free to contact lecturer [frank.schultz@uni-rostock.de](https://orcid.org/0000-0002-3010-0294)
 
@@ -68,4 +65,4 @@ ylabel('y[k]=x[k]*h[k]')
 % Please attribute material from the tutorial as *Frank Schultz,
 % Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
 % Computational Examples, University of Rostock* with
-% ``main file, github URL, commit number and/or version tag, year``.
+% ``github URL, commit number and/or version tag, year, (file name and/or content)``.

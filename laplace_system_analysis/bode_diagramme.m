@@ -101,3 +101,17 @@ function lti_bode_plot(sys, txt, full_analysis_flag)
         end
     end
 end
+
+
+% ## Copyright
+% 
+% This tutorial is provided as Open Educational Resource (OER), to be found at
+% https://github.com/spatialaudio/signals-and-systems-exercises
+% accompanying the OER lecture
+% https://github.com/spatialaudio/signals-and-systems-lecture.
+% Both are licensed under a) the Creative Commons Attribution 4.0 International
+% License for text and graphics and b) the MIT License for source code.
+% Please attribute material from the tutorial as *Frank Schultz,
+% Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
+% Computational Examples, University of Rostock* with
+% ``github URL, commit number and/or version tag, year, (file name and/or content)``.
