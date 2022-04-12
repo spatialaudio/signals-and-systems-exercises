@@ -1,42 +1,39 @@
-\documentclass[a4paper,11pt,oneside]{scrartcl}
+\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+\usepackage{scrlayer-scrpage}
 \usepackage[utf8]{inputenc}
+\usepackage{fouriernc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\KOMAoptions{DIV=14}
-\usepackage[english]{babel}
-%
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
-%
-\usepackage{chngcntr}
-\counterwithout{figure}{section}
-\counterwithout{table}{section}
-%
-\usepackage{xcolor}
+\usepackage[german]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
 \usepackage{url}
-%
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{trfsigns}
+\usepackage{marvosym}
 \usepackage{nicefrac}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{xcolor}
 \usepackage{comment}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usepackage{bm}
 \usepackage{cancel}
-%
+\bibliographystyle{dinat}
+
+
 \usepackage{tikz}
 \usetikzlibrary{shapes.misc}
 \tikzset{cross/.style={cross out, draw,
-         minimum size=2*(#1-\pgflinewidth),
-         inner sep=0pt, outer sep=0pt}}
+        minimum size=2*(#1-\pgflinewidth),
+        inner sep=0pt, outer sep=0pt}}
 \usepackage{circuitikz}
-%
-\newcommand{\eq}[1]{Eq. (\ref{#1})}
-%
-\newcommand{\fscom}[2][red]{\textcolor{#1}{#2}}
-\definecolor{CalcColor}{rgb}{0.0,0.0,0.5}
-\newcommand{\ExCalcCol}[2][CalcColor]{\textcolor{#1}{#2}}
-%\excludecomment{calc}
-\includecomment{calc}
 
+\usepackage{../sig_sys_macros}
 
 \newcommand\uc{u_\mathrm{C}}
 \newcommand\duc{\dot{u}_\mathrm{C}}
@@ -59,37 +56,51 @@
 \newcommand\dy{\dot{y}}
 \newcommand\ddy{\ddot{y}}
 
-%\renewcommand\c{\imath}
-%\newcommand\dc{\dot{\imath}}
-%\newcommand\ddc{\ddot{\imath}}
 \renewcommand\c{I}
 \newcommand\dc{\dot{I}}
 \newcommand\ddc{\ddot{I}}
 
 
-\newcommand\fsd{\mathrm{d}}
+%------------------------------------------------------------------------------
+\ohead{Signal- und Systemtheorie Übung}
+\cfoot{\pagemark}
+\ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
 
-%
-\title{Electric RLC circuit to 2nd order ordinary differential equation (ODE)
-with constant coefficients}
-\author{Frank Schultz, fs446}
-%
 \begin{document}
 %
-\noindent Uni Rostock, IEF, INT, Signal- \& Systemtheorie, \#24015, SS2019,
-\today, CC BY 4.0
+\noindent Signal- und Systemtheorie Übung\footnote{This tutorial is provided as
+Open Educational Resource (OER), to be found at
+\url{https://github.com/spatialaudio/signals-and-systems-exercises}
+accompanying the OER lecture
+\url{https://github.com/spatialaudio/signals-and-systems-lecture}.
+%
+Both are licensed under a) the Creative Commons Attribution 4.0 International
+License for text and graphics and b) the MIT License for source code.
+%
+Please attribute material from the tutorial as \textit{Frank Schultz,
+Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
+Computational Examples, University of Rostock} with
+\texttt{github URL, commit number and/or version tag, year, (file name and/or
+content)}.}---Frank Schultz, Till Rettberg, Sascha Spors,
+Institut für Nachrichtentechnik (INT),
+Fakultät für Informatik und Elektrotechnik (IEF),
+Universität Rostock \&
+Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
+%
 
-\noindent Prof. Sascha Spors, Frank Schultz, Till Rettberg
+\noindent Main author: https://github.com/robhau, check: https://github.com/fs446
 
-\noindent \textbf{Electric RLC circuit to 2nd order ordinary differential equation (ODE)
+\section{Electric RLC circuit to 2nd order ordinary differential equation (ODE)
 with constant coefficients}
 
+
+
 %##############################################################################
 %##############################################################################
-\section{Problem Statement}
+\subsection{Problem Statement}
 
 \begin{minipage}{0.5\textwidth}
-Find differential equation $f(\dx,\ddx,y,\dy,\ddy)=0$ and from that
+Find the differential equation $f(\dx,\ddx,y,\dy,\ddy)=0$ and from that the
 Laplace system function $H(s)=\frac{Y(s)}{X(s)}$  of the
 electric RLC circuit shown right for input voltage $x(t)$ and output voltage $y(t)$.
 %
@@ -113,7 +124,7 @@ $R_1$, $R_2$ denote resistors, $C$ a capacitor and $L$ an inductor.
 \end{center}
 \end{minipage}
 
-\section{Solution}
+\subsection{Solution}
 %
 We use notation $\dot{u} = \frac{\fsd u}{\fsd t}$, $\ddot{u} = \frac{\fsd^2 u}{\fsd t^2}$
 for temporal derivatives. We use large $I$ to indicate the current $i(t)$ for
@@ -128,11 +139,11 @@ The voltage / current relations for $R$, $L$ and $C$ are
 &\c = \frac{\uri}{R_1}, \quad \c = \frac{\urii}{R_2}, \quad \c = \frac{1}{L} \int \ul \fsd t, \quad \c = C \duc
 \end{align*}
 
-\subsection{Method I: Complex Voltage Divider}
+\subsubsection{Method I: Complex Voltage Divider}
 %
 If we are not at all interested in (i) initial conditions of voltage and
 current and (ii) in the ODE, we can simply apply the complex voltage
-divider between $Y(\omega)$ and $X(\omega)$
+divider between $Y(\omega)$ and $X(\omega)$ (a sloppy way of doing it)
 %
 \begin{align}
 H(\omega) = \frac{Y(\omega)}{X(\omega)} =
@@ -148,7 +159,7 @@ and substitute $\im \omega \rightarrow s = \sigma + \im\omega$
 %
 to obtain the Laplace system function.
 %
-\subsection{Method II: ODE with the Current as Intermediate Variable}
+\subsubsection{Method II: ODE with the Current as Intermediate Variable}
 %
 Here, we derive ODEs, but we are not interested in initial conditions.
 With above voltage / current relations, we can state ODEs following from mesh
@@ -179,7 +190,7 @@ H(s)& = \frac{Y(s)}{X(s)} = \frac{s^2 + \frac{R_2}{L} s}{s^2 + \frac{R_1+R_2}{L}
 %
 results by canceling the current $I(s)$.
 
-\subsection{Method III: ODE}
+\subsubsection{Method III: ODE}
 %
 The most tedious derivation aims at finding the full ODE $f(\dx,\ddx,y,\dy,\ddy)=0$
 without any intermediate variable, such as the current involved.
@@ -336,6 +347,5 @@ H(s) = \frac{Y(s)}{X(s)} =
 }.
 \end{align}
 %
-\bibliographystyle{IEEEtranSA.bst}
-\bibliography{literature}
+%\bibliography{../tutorial_latex_deu/literatur}
 \end{document}
