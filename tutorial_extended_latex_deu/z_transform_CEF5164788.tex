@@ -54,7 +54,10 @@ Fakultät für Informatik und Elektrotechnik (IEF),
 Universität Rostock \&
 Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 
-\section*{Aufgabe: Kausale Systeme im z-Bereich (Aufgabe 5 Klausur 31.08.2021)-Verschiedene Lösungswege führen zum gleichen Ergebnis.}
+\tableofcontents
+
+\newpage
+\section{Aufgabe: Kausale Systeme im z-Bereich (Aufgabe 5 Klausur 31.08.2021)-Verschiedene Lösungswege führen zum gleichen Ergebnis.}
 \vspace{-0.4cm}{\tiny CEF5164788, file: z\_transform\_CEF5164788.tex}\\ %insert unique hex hash from above
 Aufgabendesign \& Musterlösung: Frank Schultz\\
 ausführliche Rechnungen \& Text: Robert Hauser\\
@@ -125,12 +128,12 @@ Korrekturen / Check: Frank Schultz
 \quad
 \newpage
 %
-\section*{Lösung}
+\section{Lösung}
 %
 %
 %
-\subsection*{Lösung Aufgabe a) Vorwärts}
-\subsubsection*{Lösung mit $\frac{1}{z}$ Trick}
+\subsection{Lösung Aufgabe a) Vorwärts}
+\subsubsection{Lösung mit $\frac{1}{z}$ Trick}
 Zunächst leiten wir die Differenzengleichung aus dem Blockschaltbild ab.
 Dabei nutzen wir folgende Korrespondenzen:
 %
@@ -683,7 +686,7 @@ erhalten wir die Impulsantwort
 \end{gather}
 %
 \newpage
-\subsubsection*{Lösung mit Polynomdivision und $\frac{z}{z}$-Erweiterung}
+\subsubsection{Lösung mit Polynomdivision und $\frac{z}{z}$-Erweiterung}
 %
 Alternativ kann man auch zunächst eine Polynomdivision durchführen,
 um den Grad des Zählerpolynoms kleiner als den Grad des Nennerpolynoms
@@ -912,7 +915,7 @@ Wir erweitern die Brüche mit $\frac{z}{z}$, um die Korrespondenz aus \eqref{eq:
 %
 %
 \newpage
-\subsubsection*{Lösen der linearen Differenzengleichung}
+\subsubsection{Lösen der linearen Differenzengleichung}
 Wir haben zu Beginn folgende Rekursionsgleichung (= Differenzengleichung) aufgestellt:
 %
 \begin{gather}
@@ -1368,7 +1371,7 @@ Systeme, und speziell für zeitdiskrete Systeme/Signale haben die aktuell wichti
 Softwarepakete (Matlab, scipy.signal) eine eher SigSys-orientierte API.
 
 \newpage
-\subsection*{Lösung Aufgabe a) Vorwärts Rückwärts}
+\subsection{Lösung Aufgabe a) Vorwärts Rückwärts}
 \label{eq:H1equalH2}
 %
 Wir verfolgen nun die Aufgabe a) ab dem Zeitpunkt, ab dem wir die
@@ -1476,8 +1479,8 @@ $H_1(z)=\mathcal{Z}\left[h_2[k]\right]$, ist auch $h_1[k]=h_2[k]$ und wir haben
 somit die Zusatzaufgabe gelöst.\\
 %
 \newpage
-\subsection*{Lösung a) Rückwärts}
-\subsubsection*{Einsetzen in die lineare Differenzengleichung}
+\subsection{Lösung a) Rückwärts}
+\subsubsection{Einsetzen in die lineare Differenzengleichung}
 Als wir die Impulsantwort mit der Differenzengleichung gelöst haben, besprachen
 wir schon, dass am Systemausgang die Impulsantwort beobachtet werden kann, wenn
 am Eingang ein Dirac-Impuls anliegt, also falls $x[k]=\delta[k]$, dann
@@ -1585,7 +1588,7 @@ Differenzengleichung mit $x[k]=\delta[k]$ und damit die Impulsantwort.\\
 Für $h_2[k]$ ist das Vorgehen analog.
 %
 \newpage
-\subsubsection*{Herleiten der Differenzengleichung aus der Impulsantwort}
+\subsubsection{Herleiten der Differenzengleichung aus der Impulsantwort}
 %
 Nun wollen wir die Differenzengleichung aus der Impulsantwort $h_1[k]$
 herleiten.
@@ -1644,7 +1647,7 @@ Wenn man $H(z)$ noch mit $\frac{z^{-2}}{z^{-2}}$ erweitert hätte,
 dann würde später die Verschiebung wegfallen.
 %
 \newpage
-\subsection*{b)}
+\subsection{b)}
 %
 Instabilität sieht man
 %
@@ -1658,11 +1661,11 @@ Instabilität sieht man
 \end{itemize}
 %
 \newpage
-\subsection*{Zusatzaufgabe}
+\subsection{Zusatzaufgabe}
 %
 Hier soll $h_1[k]=h_2[k]$ gezeigt werden.
 %
-\subsubsection*{Direkter Vergleich der Impulsantworten}
+\subsubsection{Direkter Vergleich der Impulsantworten}
 %
 Für $k<0$ gilt offensichtlich $h_1[k]=h_2[k]$.\\
 %
@@ -1691,7 +1694,7 @@ Zum Schluss $k>0$. Dafür formen wir $h_2[k]$ etwas um.
 %
 Also gilt $h_2[k]=h_1[k]$
 %
-\subsubsection*{Vergleich der z-Transformierten der Impulsantworten}
+\subsubsection{Vergleich der z-Transformierten der Impulsantworten}
 %
 \begin{gather}
 	h_1[k]\overset{!}{=}h_2[k]\\
@@ -1740,7 +1743,7 @@ Beide Seiten sind gleich. Somit haben wir gezeigt, dass $h_1[k]=h_2[k]$.
 %
 So ähnlich kennen wir das auch schon von der Rechnung auf S.~\pageref{eq:H1equalH2}.
 %
-\renewcommand{\refname}{Buchzitate}
+%\renewcommand{\refname}{Buchzitate}
 %\clearpage
 \bibliography{../tutorial_latex_deu/literatur}
 \end{document}

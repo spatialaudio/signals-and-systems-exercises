@@ -11,193 +11,29 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{trfsigns}
-\usepackage{bm}
 \usepackage{marvosym}
 \usepackage{nicefrac}
-%\usepackage{graphicx}
-%\usepackage{subcaption}
-%\usepackage{xcolor}
-%\usepackage{comment}
-%\usepackage{mdframed}
-%\usepackage{tikz}
-%\usepackage{circuitikz}
-%\usepackage{pgfplots}
-%\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{comment}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usepackage{bm}
+\usepackage{cancel}
 \bibliographystyle{dinat}
 
-%\numberwithin{equation}{section}
-%\numberwithin{figure}{section}
-
-% \usetikzlibrary{calc}
-% \usetikzlibrary{positioning}
-% \usetikzlibrary{matrix}
-% \usetikzlibrary{chains}
-% \usetikzlibrary{shapes.misc}
-% \tikzset{cross/.style={cross out, draw,minimum size=2*(#1-\pgflinewidth),inner sep=0pt, outer sep=0pt}}
-% \pgfkeys{/pgfplots/axis style/.code={\pgfkeysalso{/pgfplots/every axis/.append style={#1}}}}
-% \pgfplotsset{
-% mathaxis/.style={
-% axis lines=center,
-% xtick=\empty,
-% ytick=\empty,
-% xlabel style=right,
-% ylabel style=above,
-% % Make sure the origin is shown (http://tex.stackexchange.com/a/91253)
-% before end axis/.code={
-% \addplot [draw=none, forget plot] coordinates {(0,0)};
-% },
-% anchor=origin,
-% },
-% stemaxis/.style={
-% mathaxis,
-% x=.8em,
-% y=6ex,
-% enlarge x limits={abs=1.2em},
-% enlarge y limits={abs=1.2em},
-% }
-% }
-% \tikzstyle{stem}=[ycomb,mark=*,mark size=10\pgflinewidth,color=C0,ultra thick]
-% \tikzstyle{stem2}=[ycomb,mark=*,mark size=5\pgflinewidth,color=C0,ultra thick]
-
-%\newcommand\fsd{\mathrm{d}} %der/int operator
-%\newcommand{\sysH}[1]{\mathcal{H}{\{#1\}}}  % system operator
-%\renewcommand{\vec}[1]{\mathbf{#1}} %vector
-%\newcommand{\eq}[1]{Glg. (\ref{#1})} %ref equation
-%\newcommand{\fig}[1]{Abb. \ref{#1}} %ref figure
-%\newcommand{\red}{\textcolor{red}}
-%\newcommand{\blue}{\textcolor{blue}}
-
-% %Sha symbol:
-% \DeclareFontFamily{U}{wncy}{}
-% \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
-% \DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
-% \DeclareMathSymbol{\Sha}{\mathord}{mcy}{"58}
-% %\newcommand{\Sha}{$\bot \!\! \bot \!\! \bot$}
-
-%\DeclareMathOperator{\rectOP}{\text{rect}}
-%\newcommand{\rectN}[2]{\ensuremath{\rectOP_{#1} \left[ #2 \right]}}
-
-%matplotlib colors:
-% \definecolor{C0}{HTML}{1f77b4}
-% \definecolor{C1}{HTML}{ff7f0e}
-% \definecolor{C2}{HTML}{2ca02c}
-% \definecolor{C3}{HTML}{d62728}
-% \definecolor{C7}{HTML}{7f7f7f}
-
-% \specialcomment{Ziel}{\begin{mdframed}[backgroundcolor=C2!10] \textit{Lernziel}\\\noindent}{\end{mdframed}\noindent}
-% \specialcomment{Werkzeug}{\begin{mdframed}[backgroundcolor=C7!10] \textit{Werkzeug}\\\noindent}{\end{mdframed}\noindent}
-% \specialcomment{Ansatz}{\begin{mdframed}[backgroundcolor=C3!10] \textit{Ansatz}\\\noindent}{\end{mdframed}\noindent}
-% \specialcomment{ExCalc}{\begin{mdframed}[backgroundcolor=C1!10]\noindent \textit{Ausführliche Rechnung}\\\noindent}{\end{mdframed}\noindent}
-% \specialcomment{Loesung}{\begin{mdframed}[backgroundcolor=C0!10] \textit{Lösung}\\\noindent}{\end{mdframed}\noindent}
-
-%https://ctan.org/tex-archive/macros/latex/contrib/trfsigns?lang=en
-%needs \rmfamily instead of \rm in trfsigns package
-% \renewcommand{\ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               \put(18,3){\circle*{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-% \renewcommand{\Ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-
-% \newcommand{\dtft}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               %\put(18,3){\circle*{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-% \newcommand{\DTFT}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               %\put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-
-
-% \newcommand{\mydft}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               %\put(18,3){\circle*{4}}%
-%                               \put(6,-4){\scriptsize $N$}
-%                             \end{picture}%
-%                            }
-%                       }
-%
-% \newcommand{\myDFT}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               %\put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                               \put(6,-4){\scriptsize $N$}
-%                             \end{picture}%
-%                            }
-%                       }
+\usepackage{../sig_sys_macros}
 
 %------------------------------------------------------------------------------
-% \title{Übung Signal- und Systemtheorie\thanks{
-% This tutorial is provided as Open Educational Resource (OER), to be found at
-% \url{https://github.com/spatialaudio/signals-and-systems-exercises}
-% accompanying the OER lecture
-% \url{https://github.com/spatialaudio/signals-and-systems-lecture}.
-% %
-% Both are licensed under a) the Creative Commons Attribution 4.0 International
-% License for text and graphics and b) the MIT License for source code.
-% %
-% Please attribute material from the tutorial as \textit{Frank Schultz,
-% Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
-% Computational Examples, University of Rostock} with
-% \texttt{main file, github URL, commit SHA number and/or version tag, year}.
-% }
-% \\
-% \small Vst.-Nr. 24015}
-% %
-% \author{Frank Schultz, Sascha Spors\\
-% \small Institut für Nachrichtentechnik (INT)\\
-% \small Fakultät für Informatik und Elektrotechnik (IEF)\\
-% \small Universität Rostock
-% }
-% %
-% \date{\today}
-%------------------------------------------------------------------------------
-
-%\ihead{Aufgabe \thesubsection}
 \ohead{Signal- und Systemtheorie Übung}
 \cfoot{\pagemark}
 \ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
-\newcommand{\diff}{\mathrm{d}}
+
 \begin{document}
+%
 \noindent Signal- und Systemtheorie Übung\footnote{This tutorial is provided as
 Open Educational Resource (OER), to be found at
 \url{https://github.com/spatialaudio/signals-and-systems-exercises}
@@ -210,12 +46,12 @@ License for text and graphics and b) the MIT License for source code.
 Please attribute material from the tutorial as \textit{Frank Schultz,
 Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
 Computational Examples, University of Rostock} with
-\texttt{main file, github URL, commit SHA number and/or version tag, year}
-.}---Frank Schultz, Sascha Spors,
+\texttt{github URL, commit number and/or version tag, year, (file name and/or
+content)}.}---Frank Schultz, Sascha Spors,
 Institut für Nachrichtentechnik (INT),
 Fakultät für Informatik und Elektrotechnik (IEF),
 Universität Rostock \&
-Robert Hauser, Universität Rostock---Version: \today
+Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
 %
 
 \noindent Main author: https://github.com/robhau, check: https://github.com/fs446
@@ -226,7 +62,8 @@ Beweise aus \url{fourier_series_1A3C796704.tex}
 %
 
 \noindent Komplexe Schreibweise der Fourierreihe und hinfort notwendige Annahme,
-dass $x(t) = x(t+T)$, also periodisch mit Periodendauer $T$.
+dass $x(t) = x(t+T)$, also periodisch mit Periodendauer $T$ und
+Grundschwingungs-Kreisfrequenz $\omega=\frac{2\pi}{T}$.
 
 \textbf{Zeitsignal-Synthese}
 \begin{align}
@@ -454,8 +291,8 @@ Grundschwingungs-Kreisfrequenz $\omega = \frac{2\pi}{T}$.\\
 
 
 
-\renewcommand{\refname}{Buchzitate}
+%\renewcommand{\refname}{Buchzitate}
 %\cite{*}
 \clearpage
-\bibliography{literatur}
+\bibliography{../tutorial_latex_deu/literatur}
 \end{document}

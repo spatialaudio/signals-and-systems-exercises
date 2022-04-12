@@ -11,201 +11,30 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{trfsigns}
-%\usepackage{bm}
 \usepackage{marvosym}
-%\usepackage{nicefrac}
+\usepackage{nicefrac}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage{comment}
 \usepackage{mdframed}
 \usepackage{tikz}
-%\usepackage{circuitikz}
-%\usepackage{pgfplots}
-%\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+\usepackage{bm}
+\usepackage{cancel}
 \bibliographystyle{dinat}
 
-%\numberwithin{equation}{section}
-%\numberwithin{figure}{section}
-
-% \usetikzlibrary{calc}
-% \usetikzlibrary{positioning}
-% \usetikzlibrary{matrix}
-% \usetikzlibrary{chains}
-% \usetikzlibrary{shapes.misc}
-% \tikzset{cross/.style={cross out, draw,minimum size=2*(#1-\pgflinewidth),inner sep=0pt, outer sep=0pt}}
-% \pgfkeys{/pgfplots/axis style/.code={\pgfkeysalso{/pgfplots/every axis/.append style={#1}}}}
-% \pgfplotsset{
-% mathaxis/.style={
-% axis lines=center,
-% xtick=\empty,
-% ytick=\empty,
-% xlabel style=right,
-% ylabel style=above,
-% % Make sure the origin is shown (http://tex.stackexchange.com/a/91253)
-% before end axis/.code={
-% \addplot [draw=none, forget plot] coordinates {(0,0)};
-% },
-% anchor=origin,
-% },
-% stemaxis/.style={
-% mathaxis,
-% x=.8em,
-% y=6ex,
-% enlarge x limits={abs=1.2em},
-% enlarge y limits={abs=1.2em},
-% }
-% }
-% \tikzstyle{stem}=[ycomb,mark=*,mark size=10\pgflinewidth,color=C0,ultra thick]
-% \tikzstyle{stem2}=[ycomb,mark=*,mark size=5\pgflinewidth,color=C0,ultra thick]
-
-%\newcommand\fsd{\mathrm{d}} %der/int operator
-%\newcommand{\sysH}[1]{\mathcal{H}{\{#1\}}}  % system operator
-%\renewcommand{\vec}[1]{\mathbf{#1}} %vector
-%\newcommand{\eq}[1]{Glg. (\ref{#1})} %ref equation
-%\newcommand{\fig}[1]{Abb. \ref{#1}} %ref figure
-\newcommand{\red}{\textcolor{red}}
-\newcommand{\blue}{\textcolor{blue}}
-\newcommand{\ured}[1]{\textcolor{red}{\underline{#1}}}
-\newcommand{\ublue}[1]{\textcolor{blue}{\underline{#1}}}
-\newcommand{\ugreen}[1]{\textcolor{green}{\underline{#1}}}
-\newcommand{\uorange}[1]{\textcolor{orange}{\underline{#1}}}
-\newcommand{\umagenta}[1]{\textcolor{magenta}{\underline{#1}}}
-\newcommand{\ublack}[1]{\textcolor{black}{\underline{#1}}}
-\newcommand{\ubrown}[1]{\textcolor{brown}{\underline{#1}}}
-\newcommand{\diff}{\mathrm{d}}
+\usepackage{../sig_sys_macros}
 \newcommand{\sinc}{\mathrm{sinc}}
-% %Sha symbol:
-% \DeclareFontFamily{U}{wncy}{}
-% \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
-% \DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
-% \DeclareMathSymbol{\Sha}{\mathord}{mcy}{"58}
-%\newcommand{\Sha}{$\bot \!\! \bot \!\! \bot$}
-
-%\DeclareMathOperator{\rectOP}{\text{rect}}
-%\newcommand{\rectN}[2]{\ensuremath{\rectOP_{#1} \left[ #2 \right]}}
-
-%matplotlib colors:
-\definecolor{C0}{HTML}{1f77b4}
-\definecolor{C1}{HTML}{ff7f0e}
-\definecolor{C2}{HTML}{2ca02c}
-\definecolor{C3}{HTML}{d62728}
-\definecolor{C7}{HTML}{7f7f7f}
-
-\specialcomment{Ziel}{\begin{mdframed}[backgroundcolor=C2!10] \textit{Lernziel}\\\noindent}{\end{mdframed}\noindent}
-%\specialcomment{Werkzeug}{\begin{mdframed}[backgroundcolor=C7!10] \textit{Werkzeug}\\\noindent}{\end{mdframed}\noindent}
-%\specialcomment{Ansatz}{\begin{mdframed}[backgroundcolor=C3!10] \textit{Ansatz}\\\noindent}{\end{mdframed}\noindent}
-%\specialcomment{ExCalc}{\begin{mdframed}[backgroundcolor=C1!10]\noindent \textit{Ausführliche Rechnung}\\\noindent}{\end{mdframed}\noindent}
-%\specialcomment{Loesung}{\begin{mdframed}[backgroundcolor=C0!10] \textit{Lösung}\\\noindent}{\end{mdframed}\noindent}
-
-%https://ctan.org/tex-archive/macros/latex/contrib/trfsigns?lang=en
-%needs \rmfamily instead of \rm in trfsigns package
-% \renewcommand{\ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               \put(18,3){\circle*{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-% \renewcommand{\Ztransf}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-%
-% \newcommand{\dtft}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               %\put(18,3){\circle*{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-% \newcommand{\DTFT}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               %\put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                             \end{picture}%
-%                            }
-%                       }
-%
-%
-% \newcommand{\mydft}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               \put(2,3){\circle{4}}%
-%                               \put(4,3){\line(1,0){4.75}}%
-%                               \multiput(8.625,3.15)(0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(17,3){\line(-1,0){5.75}}%
-%                               %\put(18,3){\circle*{4}}%
-%                               \put(6,-4){\scriptsize $N$}
-%                             \end{picture}%
-%                            }
-%                       }
-%
-% \newcommand{\myDFT}{\mbox{\setlength{\unitlength}{0.1em}%
-%                             \begin{picture}(20,10)%
-%                               %\put(2,3){\circle*{4}}%
-%                               \put(3,3){\line(1,0){5.75}}%
-%                               \multiput(11.375,3.15)(-0.25,0.25){11}{%
-%                                 \makebox(0,0){\rmfamily\tiny .}}%
-%                               \put(16,3){\line(-1,0){4.75}}%
-%                               \put(18,3){\circle{4}}%
-%                               \put(6,-4){\scriptsize $N$}
-%                             \end{picture}%
-%                            }
-%                       }
 
 %------------------------------------------------------------------------------
-% \title{Übung Signal- und Systemtheorie\thanks{
-% This tutorial is provided as Open Educational Resource (OER), to be found at
-% \url{https://github.com/spatialaudio/signals-and-systems-exercises}
-% accompanying the OER lecture
-% \url{https://github.com/spatialaudio/signals-and-systems-lecture}.
-% %
-% Both are licensed under a) the Creative Commons Attribution 4.0 International
-% License for text and graphics and b) the MIT License for source code.
-% %
-% Please attribute material from the tutorial as \textit{Frank Schultz,
-% Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
-% Computational Examples, University of Rostock} with
-% \texttt{main file, github URL, commit SHA number and/or version tag, year}.
-% }
-% \\
-% \small Vst.-Nr. 24015}
-% %
-% \author{Frank Schultz, Sascha Spors\\
-% \small Institut für Nachrichtentechnik (INT)\\
-% \small Fakultät für Informatik und Elektrotechnik (IEF)\\
-% \small Universität Rostock
-% }
-% %
-% \date{Sommersemester 2021, Version II: \today}
-%------------------------------------------------------------------------------
-
-%\ihead{Aufgabe \thesubsection}
 \ohead{Signal- und Systemtheorie Übung}
 \cfoot{\pagemark}
 \ofoot{\tiny\url{https://github.com/spatialaudio/signals-and-systems-exercises}}
 
 \begin{document}
+%
 \noindent Signal- und Systemtheorie Übung\footnote{This tutorial is provided as
 Open Educational Resource (OER), to be found at
 \url{https://github.com/spatialaudio/signals-and-systems-exercises}
@@ -218,23 +47,31 @@ License for text and graphics and b) the MIT License for source code.
 Please attribute material from the tutorial as \textit{Frank Schultz,
 Continuous- and Discrete-Time Signals and Systems - A Tutorial Featuring
 Computational Examples, University of Rostock} with
-\texttt{main file, github URL, commit SHA number and/or version tag, year}
-.}---Frank Schultz, Sascha Spors,
+\texttt{github URL, commit number and/or version tag, year, (file name and/or
+content)}.}---Frank Schultz, Sascha Spors,
 Institut für Nachrichtentechnik (INT),
 Fakultät für Informatik und Elektrotechnik (IEF),
 Universität Rostock \&
-Robert Hauser, Universität Rostock---Version: \today
+Robert Hauser, Universität Rostock---Sommersemester 2022, Version: \today
+%
 
-\noindent main author: https://github.com/robhau, check: TBD
+\noindent Main author: https://github.com/robhau, check: TBD
 
-\section*{Übung: Fourier-Reihe}
-\begin{Ziel}
-	In dieser Lerneinheit wollen wir uns tiefer mit Fourier-Reihen beschäftigen. Zunächst werden wir mit Hilfe der reellen Fourier-Reihe einige periodische Signale darstellen.
-	%
-	Danach schauen wir uns die komplexe Fourier-Reihe an und werden neben der Darstellung periodischer Signale als komplexe Fourier-Reihe auch beobachten, wie sich die Koeffizienten bspw. bei einer Zeitverschiebung verhalten.
-\end{Ziel}
+\tableofcontents
 
-\subsection*{Aufgaben}
+\section{Übung: Fourier-Reihe}
+In dieser Lerneinheit wollen wir uns tiefer mit Fourier-Reihen beschäftigen.
+Zunächst werden wir mit Hilfe der reellen Fourier-Reihe einige periodische Signale
+darstellen.
+%
+Danach schauen wir uns die komplexe Fourier-Reihe an und werden neben der
+Darstellung periodischer Signale als komplexe Fourier-Reihe auch beobachten,
+wie sich die Koeffizienten bspw. bei einer Zeitverschiebung verhalten.
+
+Hinweis: Die Musterlösungen sind noch nicht vollständig gegengeprüft, vielleicht
+sind noch ein paar kleine Typos drin, Feedback sehr willkommen.
+
+\subsection{Aufgaben}
 %
 Berechnen Sie die Koeffizienten für die reelle sowie für die komplexe Fourierreihe für
 %
@@ -323,11 +160,8 @@ Skizzieren Sie für $T=4$, $T_h=2$, $A=1$, $B=\im$, $n= 2$, $a=\frac{1}{2}$ und 
 Die Definition einer Zeit-Funktion gilt immer für eine Periode $T$ und resultierende
 Grundschwingung $\omega = \frac{2\pi}{T}$.
 
-Hinweis: Die Musterlösungen sind noch nicht vollständig gegengeprüft, vielleicht
-sind noch ein paar kleine Typos drin, Feedback sehr willkommen.
-\newpage
-\subsection*{Reelle Fourierreihe}
-\subsubsection*{Einleitung Reelle Fourierreihe}
+
+\subsection{Einleitung Reelle Fourierreihe}
 %
 Wir definieren eine periodische Funktion mit der Periode
 %
@@ -399,248 +233,8 @@ die Berechnung der Koeffizienten (vgl. \cite[Kap.7, S. 476]{Bronstein2015}): (Ac
 	b_k=4\int_0^{\frac{T}{2}}x(t)\sin(k \omega t)\diff t.
 \end{gather}
 %
-\newpage
-\subsubsection*{Aufgabe a) mit reeller Fourierreihe}
-\label{sec:TaskAReal}
-%
-Wir wollen zunächst die Koeffizienten der reellen Fourierreihe der
-$T$-periodischen Funktion $x_a(t)$ berechnen.
-\begin{gather}
-	x_{a}(t)=
-		\begin{cases}
-			A &,|t| \leq \frac{T_h}{2} \\
-			0 &,\text{ sonst}
-		\end{cases}\\
-	t\in[-\frac{T}{2},+\frac{T}{2}]\nonumber
-\end{gather}
-%
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}[domain=0:2]
-		\def\T{0.4}
-		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
-		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{a}(t)$};
-		\foreach \pos in {-2,...,2} {
-			\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1)
-			-- (\pos+\T,0) -- (\pos+1-\T,0);
-		};
-		\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
-		\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
-		\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
-		\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
-		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
-	\end{tikzpicture}
-\end{figure}
-%
-Wir sehen, dass die Funktion gerade ist, also dass $x_{a}(t)=x_{a}(-t)$.
-Wir können uns also die Berechnung von $b_k$ sparen und brauchen nur $a_k$ betrachten.
 
-Zunächst berechnen wir den Gleichanteil:
-\begin{align}
-	\frac{a_0} {2} = \int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\diff t =
-	\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t
-	=A t \Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}}
-	=AT_h
-\end{align}
-%
-Danach folgt die Berechnung der übrigen Koeffizienten $a_k$.
-%
-Wir nutzen die vereinfachte Berechnungsmethode aus \ref{eq:KoeffGerade}:
-%
-\begin{gather}
-	a_k=4\int_0^{\frac{T}{2}}x_{a}(t)\cos(k\omega t)\diff t
-	=4\int_0^{\frac{T_h}{2}}A\cos\left(k\frac{2\pi}{T} t\right)\diff t
-	=4A\frac{T}{2\pi k}\sin\left(k\frac{2\pi}{T} t\right)\Bigg |_{t=0}^{t=\frac{T_h}{2}}\\\nonumber
-	=2A\frac{T}{\pi k}\frac{T_h}{T_h}\sin\left(k\pi \frac{T_h}{T}\right)
-	=2AT_h\sinc\left(k\pi\frac{T_h}{T} \right).
-\end{gather}
-%
-$x_{a}(t)$ als reelle Fourierreihe geschrieben lautet also:
-%
-\begin{align}
-	x_{a}(t)=A\cdot\frac{T_h}{T}+\frac{1}{T}\sum_{k=1}^{+\infty}2AT_h\sinc\left(k\pi\frac{T_h}{T}\right)\cos(k\omega t).
-\end{align}
-%
-\begin{figure}
-	\centering
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_0}
-		\caption{Zeitbereich}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_0}
-		\caption{Fourierkoeffizienten}
-	\end{subfigure}
-	\caption{Synthese der Fourierreihe von $x_a(t)$ für $A=1$, $T=4$, $T_h=2$ und
-		$0\leq k\leq5$.}
-\end{figure}
-\newpage
-\subsubsection*{Aufgabe b) mit reeller Fourierreihe}
-%
-Nun wollen wir die Koeffizienten der Fourierreihe folgender für
-eine Periode $T$ definierter Funktion berechnen:
-%
-%
-\begin{gather}
-	x_{b}(t)=
-		\begin{cases}
-			-A &,-\frac{T_h}{2}\leq t < 0\\
-			A &,0\leq t \leq +\frac{T_h}{2}\\
-			0 &,\text{ sonst}
-		\end{cases}\\
-	t \in [-\frac{T}{2},+\frac{T}{2}] \nonumber
-\end{gather}
-%
-%
-%
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}[domain=0:2]
-		\def\T{0.4}
-		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
-		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{b}(t)$};
-		\foreach \pos in {-2,...,2} {
-			\draw[-, red, ultra thick] (\pos-\T,0) -- (\pos-\T,-1)--(\pos,-1)--(\pos,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
-		};
-		\draw[-, black, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
-		\draw[-, black, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
-		\draw[-, black, ultra thick] (1,0) node[below] {$T$};
-		\draw[-, black, ultra thick] (2,0) node[below] {$2 T$};
-		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
-	\end{tikzpicture}
-\end{figure}
-%
-Wir sehen, dass die Funktion ungerade ist, also $x_{b}(t)=-x_{b}(-t)$.
-%
-Daher können wir die Regel aus \ref{eq:KoeffUngerade} verwenden:
-%
-\begin{align}
-	b_k&=4\int_0^{\frac{T}{2}}x_{b}(t)\sin\left(k\frac{2\pi}{T} t\right)\diff t
-	=4\int_0^{\frac{T_h}{2}}A\sin\left(k\frac{2\pi}{T} t\right)\diff t\\
-	&=-4A\frac{T}{2\pi k}\cos\left(k\frac{2\pi}{T} t\right)\Bigg |_0^{\frac{T_h}{2}}
-	=2A\frac{T}{\pi k}\left(1-\cos\left(\pi k \frac{T_h}{T}\right)\right).
-\end{align}
-%
-Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
-%
-\begin{gather}
-	\label{eq:sinsquaredcosinus}
-	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
-\end{gather}
-%
-Somit kann $b_k$ noch zusammengefasst werden.
-\begin{gather}
-	2A\frac{T}{\pi k}\frac{2}{2}\left(1-\cos\left(\pi k\frac{T_h}{T}\right)\right)
-	=4A\frac{T^2}{\pi^2 k^2}\frac{\pi k}{T}\frac{T_h^2}{T_h^2}\sin^2\left(\pi k \frac{T_h}{2T}\right)
-	=\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)
-\end{gather}
-%
-$x_{b}(t)$ als reelle Fourierreihe dargestellt sieht also folgendermaßen aus:
-\begin{align}
-	x_{b}(t)=\frac{1}{T}\sum_{k=1}^{+\infty}\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)\sin(k\omega t).
-\end{align}
-\begin{figure}
-	\centering
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_1}
-		\caption{Zeitbereich}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_1}
-		\caption{Fourierkoeffizienten}
-	\end{subfigure}
-	\caption{Synthese der Fourierreihe von $x_b(t)$ für $A=1$, $T=4$, $T_h=2$ und $0\leq k\leq 5$.}
-\end{figure}
-\newpage
-\subsubsection*{Aufgabe c) mit reeller Fourierreihe}
-%
-Als letzte Aufgabe im Bereich der reellen Fourierkoeffizienten wollen wir uns
-die Dreieckschwingung mit Spalt angucken.
-%
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}[domain=0:2]
-		\def\T{0.4}
-		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
-		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{c}(t)$};
-		\foreach \pos in {-2,...,2} {
-			\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
-		};
-		\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
-		\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
-		\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
-		\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
-		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
-	\end{tikzpicture}
-\end{figure}
-%
-Es handelt sich um eine gerade Funktion, also $x_{c}(t)=x_{c}(-t)$.
-%
-Wir können also die Berechnung mit Hilfe von \eqref{eq:KoeffGerade} vereinfachen.
-%
-%
-%
-\begin{align}
-	\frac{a_0}{2}
-	&=\int_{t_0}^{t_0+T}x_{c}(t)\diff t
-	=2\int_0^{+\frac{T_h}{2}}\left(-\frac{2A}{T_h}t+A\right)\diff t
-	=2\left [-\frac{At^2}{T_h}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}+At\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
-	&=2\left (-\frac{AT_h^2}{4T_h}+\frac{AT_h}{2}\right )
-	=2\left (\frac{AT_h}{4}+\frac{AT_h}{2}\right )
-	=2\frac{AT_h}{4}
-	=\frac{AT_h}{2}
-\end{align}
-%
-%
-%
-\begin{align}
-	a_k
-	&=2\int_{t_0}^{t_0+T}x_{c}(t)\cos(k\omega t)\diff t
-	=4\int_0^{+\frac{T_h}{2}}\bigg (-\frac{2A}{T_h}t+A\bigg )\cos(k\omega t)\diff t\nonumber \\
-	&=4\left [\frac{ \left( -\frac{2A}{T_h}t+A\right) }{k\omega}\sin(k\omega t)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}-\frac{2A}{T_hk\omega}\sin(k\omega t)\diff t\right ]\nonumber \\
-	&=4\left [\frac{\left( -\frac{2A}{T_h}\frac{T_h}{2}+A\right) }{k\omega}\sin\left( k\omega \frac{T_h}{2}\right) -0-\frac{2A}{T_hk^2\omega^2}\cos(k\omega t)\diff t\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
-	&=4\left [\frac{2AT^2}{T_hk^24\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right )\right)\right ]
-	=\frac{2AT^2}{T_hk^2\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
-\end{align}
-%
-%
-%
-Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
-%
-\begin{gather}
-	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
-\end{gather}
-%
-Somit kann $a_k$ vereinfacht werden.
-\begin{gather}
-	\frac{2AT^2}{T_hk^2\pi^2}\frac{2}{2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
-	=\frac{4AT^2}{T_hk^2\pi^2}\frac{T_h}{T_h}\sin^2\left(k\pi\frac{T_h}{2T}\right)
-	=AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right)
-\end{gather}
-%
-Zum Schluss stellen wir $x_{c}(t)$ noch als Fourierreihe dar:
-%
-\begin{align}
-	x_{c}(t)
-	=A\frac{T_h}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right).
-\end{align}
-%
-\begin{figure}
-	\centering
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_2}
-		\caption{Zeitbereich}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_2}
-		\caption{Fourierkoeffizienten}
-	\end{subfigure}
-	\caption{Synthese der Fourierreihe von $x_c(t)$ für $A=1$, $T=4$, $T_h=2$ und
-		$0\leq k\leq5$.}
-\end{figure}
-\newpage
-\subsection*{Komplexe Fourierreihe}
-\subsubsection*{Einleitung komplexe Fourierreihe}
+\subsection{Einleitung komplexe Fourierreihe}
 %
 Wenn wir uns die Mathematik Vorlesungen in Erinnerung rufen, dann erinnern wir
 uns bestimmt an die Eulersche Identität:
@@ -748,8 +342,255 @@ aufstellen können:
 	c_k=\int_{t_0}^{t_0+T}x(t)\e^{-\im k \omega t}\diff t.
 \end{align}
 %
+
+
+
 \newpage
-\subsubsection*{Aufgabe a) mit komplexer Fourierreihe}
+\subsection{Lösungen Reelle Fourierreihe}
+
+\subsubsection{Aufgabe a) mit reeller Fourierreihe}
+\label{sec:TaskAReal}
+%
+Wir wollen zunächst die Koeffizienten der reellen Fourierreihe der
+$T$-periodischen Funktion $x_a(t)$ berechnen.
+\begin{gather}
+	x_{a}(t)=
+		\begin{cases}
+			A &,|t| \leq \frac{T_h}{2} \\
+			0 &,\text{ sonst}
+		\end{cases}\\
+	t\in[-\frac{T}{2},+\frac{T}{2}]\nonumber
+\end{gather}
+%
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[domain=0:2]
+		\def\T{0.4}
+		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
+		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{a}(t)$};
+		\foreach \pos in {-2,...,2} {
+			\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1)
+			-- (\pos+\T,0) -- (\pos+1-\T,0);
+		};
+		\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
+		\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
+		\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
+		\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
+		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
+	\end{tikzpicture}
+\end{figure}
+%
+Wir sehen, dass die Funktion gerade ist, also dass $x_{a}(t)=x_{a}(-t)$.
+Wir können uns also die Berechnung von $b_k$ sparen und brauchen nur $a_k$ betrachten.
+
+Zunächst berechnen wir den Gleichanteil:
+\begin{align}
+	\frac{a_0} {2} = \int_{-\frac{T}{2}}^{+\frac{T}{2}}x_{a}(t)\diff t =
+	\int_{-\frac{T_h}{2}}^{+\frac{T_h}{2}}A\diff t
+	=A t \Bigg |_{t=-\frac{T_h}{2}}^{t=\frac{T_h}{2}}
+	=AT_h
+\end{align}
+%
+Danach folgt die Berechnung der übrigen Koeffizienten $a_k$.
+%
+Wir nutzen die vereinfachte Berechnungsmethode aus \ref{eq:KoeffGerade}:
+%
+\begin{gather}
+	a_k=4\int_0^{\frac{T}{2}}x_{a}(t)\cos(k\omega t)\diff t
+	=4\int_0^{\frac{T_h}{2}}A\cos\left(k\frac{2\pi}{T} t\right)\diff t
+	=4A\frac{T}{2\pi k}\sin\left(k\frac{2\pi}{T} t\right)\Bigg |_{t=0}^{t=\frac{T_h}{2}}\\\nonumber
+	=2A\frac{T}{\pi k}\frac{T_h}{T_h}\sin\left(k\pi \frac{T_h}{T}\right)
+	=2AT_h\sinc\left(k\pi\frac{T_h}{T} \right).
+\end{gather}
+%
+$x_{a}(t)$ als reelle Fourierreihe geschrieben lautet also:
+%
+\begin{align}
+	x_{a}(t)=A\cdot\frac{T_h}{T}+\frac{1}{T}\sum_{k=1}^{+\infty}2AT_h\sinc\left(k\pi\frac{T_h}{T}\right)\cos(k\omega t).
+\end{align}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_0}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_0}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_a(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$0\leq k\leq5$.}
+\end{figure}
+\newpage
+\subsubsection{Aufgabe b) mit reeller Fourierreihe}
+%
+Nun wollen wir die Koeffizienten der Fourierreihe folgender für
+eine Periode $T$ definierter Funktion berechnen:
+%
+%
+\begin{gather}
+	x_{b}(t)=
+		\begin{cases}
+			-A &,-\frac{T_h}{2}\leq t < 0\\
+			A &,0\leq t \leq +\frac{T_h}{2}\\
+			0 &,\text{ sonst}
+		\end{cases}\\
+	t \in [-\frac{T}{2},+\frac{T}{2}] \nonumber
+\end{gather}
+%
+%
+%
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[domain=0:2]
+		\def\T{0.4}
+		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
+		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{b}(t)$};
+		\foreach \pos in {-2,...,2} {
+			\draw[-, red, ultra thick] (\pos-\T,0) -- (\pos-\T,-1)--(\pos,-1)--(\pos,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
+		};
+		\draw[-, black, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
+		\draw[-, black, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
+		\draw[-, black, ultra thick] (1,0) node[below] {$T$};
+		\draw[-, black, ultra thick] (2,0) node[below] {$2 T$};
+		\draw[-, black, ultra thick] (-2-\T,1) node[left] {$A$};
+	\end{tikzpicture}
+\end{figure}
+%
+Wir sehen, dass die Funktion ungerade ist, also $x_{b}(t)=-x_{b}(-t)$.
+%
+Daher können wir die Regel aus \ref{eq:KoeffUngerade} verwenden:
+%
+\begin{align}
+	b_k&=4\int_0^{\frac{T}{2}}x_{b}(t)\sin\left(k\frac{2\pi}{T} t\right)\diff t
+	=4\int_0^{\frac{T_h}{2}}A\sin\left(k\frac{2\pi}{T} t\right)\diff t\\
+	&=-4A\frac{T}{2\pi k}\cos\left(k\frac{2\pi}{T} t\right)\Bigg |_0^{\frac{T_h}{2}}
+	=2A\frac{T}{\pi k}\left(1-\cos\left(\pi k \frac{T_h}{T}\right)\right).
+\end{align}
+%
+Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
+%
+\begin{gather}
+	\label{eq:sinsquaredcosinus}
+	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
+\end{gather}
+%
+Somit kann $b_k$ noch zusammengefasst werden.
+\begin{gather}
+	2A\frac{T}{\pi k}\frac{2}{2}\left(1-\cos\left(\pi k\frac{T_h}{T}\right)\right)
+	=4A\frac{T^2}{\pi^2 k^2}\frac{\pi k}{T}\frac{T_h^2}{T_h^2}\sin^2\left(\pi k \frac{T_h}{2T}\right)
+	=\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)
+\end{gather}
+%
+$x_{b}(t)$ als reelle Fourierreihe dargestellt sieht also folgendermaßen aus:
+\begin{align}
+	x_{b}(t)=\frac{1}{T}\sum_{k=1}^{+\infty}\frac{A\pi kT_h^2}{T}\sinc^2\left(\pi k\frac{T_h}{2T}\right)\sin(k\omega t).
+\end{align}
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_1}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_1}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_b(t)$ für $A=1$, $T=4$, $T_h=2$ und $0\leq k\leq 5$.}
+\end{figure}
+\newpage
+\subsubsection{Aufgabe c) mit reeller Fourierreihe}
+%
+Als letzte Aufgabe im Bereich der reellen Fourierkoeffizienten wollen wir uns
+die Dreieckschwingung mit Spalt angucken.
+%
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[domain=0:2]
+		\def\T{0.4}
+		\draw[->] (-3,0) -- (3,0) node[below right] {$t$};
+		\draw[->] (0,0) -- (0,1.5) node[above] {$x_{c}(t)$};
+		\foreach \pos in {-2,...,2} {
+			\draw[-, C0, ultra thick] (\pos-\T,0) -- (\pos,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
+		};
+		\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-T_h}{2}$};
+		\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{+T_h}{2}$};
+		\draw[-, C0, ultra thick] (1,0) node[below] {$T$};
+		\draw[-, C0, ultra thick] (2,0) node[below] {$2 T$};
+		\draw[-, C0, ultra thick] (-2-\T,1) node[left] {$A$};
+	\end{tikzpicture}
+\end{figure}
+%
+Es handelt sich um eine gerade Funktion, also $x_{c}(t)=x_{c}(-t)$.
+%
+Wir können also die Berechnung mit Hilfe von \eqref{eq:KoeffGerade} vereinfachen.
+%
+%
+%
+\begin{align}
+	\frac{a_0}{2}
+	&=\int_{t_0}^{t_0+T}x_{c}(t)\diff t
+	=2\int_0^{+\frac{T_h}{2}}\left(-\frac{2A}{T_h}t+A\right)\diff t
+	=2\left [-\frac{At^2}{T_h}\Bigg |_{t=0}^{t=+\frac{T_h}{2}}+At\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
+	&=2\left (-\frac{AT_h^2}{4T_h}+\frac{AT_h}{2}\right )
+	=2\left (\frac{AT_h}{4}+\frac{AT_h}{2}\right )
+	=2\frac{AT_h}{4}
+	=\frac{AT_h}{2}
+\end{align}
+%
+%
+%
+\begin{align}
+	a_k
+	&=2\int_{t_0}^{t_0+T}x_{c}(t)\cos(k\omega t)\diff t
+	=4\int_0^{+\frac{T_h}{2}}\bigg (-\frac{2A}{T_h}t+A\bigg )\cos(k\omega t)\diff t\nonumber \\
+	&=4\left [\frac{ \left( -\frac{2A}{T_h}t+A\right) }{k\omega}\sin(k\omega t)\Bigg |_{t=0}^{t=+\frac{T_h}{2}}-\int_0^{+\frac{T_h}{2}}-\frac{2A}{T_hk\omega}\sin(k\omega t)\diff t\right ]\nonumber \\
+	&=4\left [\frac{\left( -\frac{2A}{T_h}\frac{T_h}{2}+A\right) }{k\omega}\sin\left( k\omega \frac{T_h}{2}\right) -0-\frac{2A}{T_hk^2\omega^2}\cos(k\omega t)\diff t\Bigg |_{t=0}^{t=+\frac{T_h}{2}}\right ]\nonumber \\
+	&=4\left [\frac{2AT^2}{T_hk^24\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right )\right)\right ]
+	=\frac{2AT^2}{T_hk^2\pi^2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
+\end{align}
+%
+%
+%
+Es gilt (vgl. \cite[Kap. 2, S. 82]{Bronstein2015}):
+%
+\begin{gather}
+	\sin^2\left(\frac{\alpha}{2}\right)=\frac{1}{2}(1-\cos(\alpha)).
+\end{gather}
+%
+Somit kann $a_k$ vereinfacht werden.
+\begin{gather}
+	\frac{2AT^2}{T_hk^2\pi^2}\frac{2}{2}\left (1-\cos\left(k\pi\frac{T_h}{T}\right)\right )
+	=\frac{4AT^2}{T_hk^2\pi^2}\frac{T_h}{T_h}\sin^2\left(k\pi\frac{T_h}{2T}\right)
+	=AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right)
+\end{gather}
+%
+Zum Schluss stellen wir $x_{c}(t)$ noch als Fourierreihe dar:
+%
+\begin{align}
+	x_{c}(t)
+	=A\frac{T_h}{2T}+\frac{1}{T}\sum_{k=1}^{+\infty}AT_h\sinc^2\left(k\pi\frac{T_h}{2T}\right).
+\end{align}
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_timedomain_2}
+		\caption{Zeitbereich}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth,keepaspectratio]{../fs/FB93908026_frequence_2}
+		\caption{Fourierkoeffizienten}
+	\end{subfigure}
+	\caption{Synthese der Fourierreihe von $x_c(t)$ für $A=1$, $T=4$, $T_h=2$ und
+		$0\leq k\leq5$.}
+\end{figure}
+
+\newpage
+\subsection{Lösungen Komplexe Fourierreihe}
+
+\subsubsection{Aufgabe a) mit komplexer Fourierreihe}
 Nun wollen wir die Koeffizienten der komplexen Fourierreihe zu Aufgabe a)
 berechnen. Den Gleichanteil $c_0$ kennen wir schon aus \ref{sec:TaskAReal}.
 %
@@ -791,7 +632,7 @@ Zum Schluss schreiben wir $x_{a}(t)$ noch einmal als komplexe Fourierreihe.
 		$-5\leq k\leq5$.}
 \end{figure}
 \newpage
-\subsubsection*{Aufgabe b) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe b) mit komplexer Fourierreihe}
 Als nächstes stehen die Koeffizienten der komplexen Fourierreihe zu Aufgabe b) auf dem Plan.
 %
 Der Gleichanteil ist uns schon aus der reellen Fourierreihe bekannt, nämlich $0$. %
@@ -854,7 +695,7 @@ Die komplexe Fourierreihe hat also folgende Form:
 %
 %
 \newpage
-\subsubsection*{Aufgabe c) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe c) mit komplexer Fourierreihe}
 %
 Auch hier haben wir den Gleichanteil ($c_0=\frac{a_0}{2}$) schon berechnet,
 es fehlen nur noch die Koeffizienten $c_k$ für $k\neq 0$:
@@ -909,7 +750,7 @@ Die komplexe Fourierreihe von $x_{c}(t)$ hat folgende Form:
 		$-5\leq k\leq5$.}
 \end{figure}
 \newpage
-\subsubsection*{Aufgabe d) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe d) mit komplexer Fourierreihe}
 %
 In diesem Abschnitt beschäftigen wir uns mit einer gewichteten Superposition zweier
 periodischer Funktionen.
@@ -989,7 +830,7 @@ Wir merken uns also folgende Korrespondenz:
 		$-5\leq k\leq5$.}
 \end{figure}
 \newpage
-\subsubsection*{Aufgabe e) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe e) mit komplexer Fourierreihe}
 %
 Nun wollen wir die Koeffizienten der komplexen Fourierreihe von
 %
@@ -1159,8 +1000,9 @@ Wir kürzen $\e^{-\im k \omega \frac{T_h}{2}}$ zu $\e^{-\im k \pi
 	\caption{Synthese der Fourierreihe von $x_e(t)$ für $A=1$, $T=4$, $T_h=2$ und
 		$-5\leq k\leq5$.}
 \end{figure}
-\newpage
-\subsubsection*{Aufgabe f) mit komplexer Fourierreihe}
+
+\cleardoublepage
+\subsubsection{Aufgabe f) mit komplexer Fourierreihe}
 %
 \label{sec:TaskDComplex}
 %
@@ -1242,7 +1084,7 @@ Die Fourierreihe können wir nun wie folgt aufschreiben:
 \end{figure}
 \newpage
 %
-\subsubsection*{Aufgabe g) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe g) mit komplexer Fourierreihe}
 Als nächstes berechnen wir die die komplexen Fourierkoeffizienten von
 %
 \begin{gather}
@@ -1374,7 +1216,7 @@ Wir substituieren wieder zurück ($k=-m$) und merken uns folgende Korrespondenz.
 		$-5\leq k\leq5$.}
 \end{figure}
 \newpage
-\subsubsection*{Aufgabe h) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe h) mit komplexer Fourierreihe}
 In diesem Abschnitt wollen wir uns die Fourierkoeffizienten einer Funktion
 angucken, die aus der zyklischen Faltung zweier $T$-periodischer Funktionen
 entsteht.
@@ -2165,7 +2007,7 @@ Somit haben wir die Korrespondenz bewiesen.
 %
 %
 \newpage
-\subsubsection*{Aufgabe i) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe i) mit komplexer Fourierreihe}
 %
 %
 In diesem Abschnitt untersuchen wir die Fourierreihe in Verbindung mit der
@@ -2247,7 +2089,7 @@ Wir überprüfen es einmal mit den Koeffizienten von $x_c(t)$.
 \end{figure}
 %
 \newpage
-\subsubsection*{Aufgabe j) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe j) mit komplexer Fourierreihe}
 In diesem Abschnitt untersuchen wir, wie sich eine Zeitskalierung auf die
 Fourierreihe auswirkt.
 %
@@ -2359,7 +2201,7 @@ schon eine, die Zeitumkehr (zuerst mit $|a|$ skalieren, danach Zeitumkehr).
 \end{figure}
 %
 \newpage
-\subsubsection*{Aufgabe k) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe k) mit komplexer Fourierreihe}
 %
 %
 Die nächste Funktion unterscheidet sich doch ziemlich von den anderen, denn hier
@@ -2419,7 +2261,7 @@ Hier bei ist $c_{-1}=c_1=\pi$ und $c_k=0\forall k \not\in\{-1,1\}$.
 \end{figure}
 %
 \newpage
-\subsubsection*{Aufgabe l) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe l) mit komplexer Fourierreihe}
 %
 Nun untersuchen wir die Multiplikation zweier $T$-periodischer Funktionen.
 %
@@ -2535,7 +2377,7 @@ Also
 \end{figure}
 %
 \newpage
-\subsubsection*{Aufgabe m) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe m) mit komplexer Fourierreihe}
 %
 Wir setzen die Integration direkt in die Definition der Fourierreihe ein, um zu
 schauen, ob es eine Korrespondenz gibt.
@@ -2572,7 +2414,7 @@ neue Funktion, bei $X_0=0$ muss der neue Mittelwert händisch ausgerechnet
 werden.
 %
 \newpage
-\subsubsection*{Aufgabe n) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe n) mit komplexer Fourierreihe}
 %
 Als vorletzten Punkt untersuchen wir den Zusammenhang zwischen den Koeffizienten
 einer Funktion und ihrer komplex konjugierten.
@@ -2606,7 +2448,7 @@ Wir merken uns also als Korrespondenz (auch zu finden in \cite[Kap. 3, S. 208]{O
 \end{align}
 %
 \newpage
-\subsubsection*{Aufgabe o) mit komplexer Fourierreihe}
+\subsubsection{Aufgabe o) mit komplexer Fourierreihe}
 %
 Zum Schluss wollen wir noch ein Integral einer periodischen Funktion berechnen.
 %
@@ -2662,7 +2504,6 @@ Diese Korrespondenz ist auch als Parselvalsches Theorem bekannt.
 
 
 %------------------------------------------------------------------------------
-\renewcommand{\refname}{Buchzitate}
 \clearpage
-\bibliography{literatur}
+\bibliography{../tutorial_latex_deu/literatur}
 \end{document}
