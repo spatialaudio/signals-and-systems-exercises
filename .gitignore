@@ -4,34 +4,35 @@ clearlogs.sh
 tmp
 
 ## rendered pdf files
-exercises_latex_deu/*.pdf
-sig_sys_task_template.pdf
-laplace_transform/*.pdf
-laplace_system_analysis/*.pdf
+convolution_ct/*.pdf
+convolution_dt/*.pdf
+dft/*.pdf
+dirac_impulse_ct/*.pdf
+dirac_impulse_dt/*.pdf
+dtft/*.pdf
 fs/*.pdf
 ft/*.pdf
-dtft/*.pdf
-dirac_impulse_ct/*.pdf
-system_properties_ct/*.pdf
-sampling/*.pdf
-convolution_dt/*.pdf
+fundamental_signals_ct/*.pdf
 fundamental_signals_dt/*.pdf
+jupyter/*.pdf
+laplace_system_analysis/*.pdf
+laplace_transform/*.pdf
+sampling/*.pdf
+signal_operations_ct/*.pdf
+signal_operations_dt/*.pdf
+system_properties_ct/*.pdf
+system_properties_dt/*.pdf
 z_system_analysis/*.pdf
-dft/*.pdf
+z_transform/*.pdf
 
-## for tutorial_latex_deu
-tutorial_latex_deu/sig_sys_ex.pdf
-tutorial_extended_latex_deu/sig_sys_task_template.pdf
-sig_sys_ex_figures_on_slides.pdf
+exercises_latex_deu/*.pdf
+tutorial_extended_latex_deu/*.pdf
+tutorial_latex_deu/*.pdf
+tutorial_latex_eng/*.pdf
 
-series_vs_parallel_bode_level_081294E23C.png
+## tmp store for live teaching
 convolution_ct_example3_C964DD7400 copy 2.ipynb
 convolution_ct_example3_C964DD7400 copy.ipynb
-
-z_transform_CEF5164788.pdf
-laplace_transform_839973EF5D.pdf
-
-klausur.tex
 
 ## ipynb stuff
 *-checkpoint.ipynb
@@ -55,18 +56,6 @@ __pycache__
 *.cb2
 .*.lb
 
-## Intermediate documents:
-*.dvi
-*.xdv
-*-converted-to.*
-# these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
-
-## Generated if empty string is given at "Please type another file name for output:"
-.pdf
-
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
@@ -83,203 +72,3 @@ __pycache__
 *.synctex.gz(busy)
 *.pdfsync
 
-## Auxiliary and intermediate files from other packages:
-# algorithms
-*.alg
-*.loa
-
-# achemso
-acs-*.bib
-
-# amsthm
-*.thm
-
-# beamer
-*.nav
-*.pre
-*.snm
-*.vrb
-
-# changes
-*.soc
-
-# cprotect
-*.cpt
-
-# elsarticle (documentclass of Elsevier journals)
-*.spl
-
-# endnotes
-*.ent
-
-# fixme
-*.lox
-
-# feynmf/feynmp
-*.mf
-*.mp
-*.t[1-9]
-*.t[1-9][0-9]
-*.tfm
-
-#(r)(e)ledmac/(r)(e)ledpar
-*.end
-*.?end
-*.[1-9]
-*.[1-9][0-9]
-*.[1-9][0-9][0-9]
-*.[1-9]R
-*.[1-9][0-9]R
-*.[1-9][0-9][0-9]R
-*.eledsec[1-9]
-*.eledsec[1-9]R
-*.eledsec[1-9][0-9]
-*.eledsec[1-9][0-9]R
-*.eledsec[1-9][0-9][0-9]
-*.eledsec[1-9][0-9][0-9]R
-
-# glossaries
-*.acn
-*.acr
-*.glg
-*.glo
-*.gls
-*.glsdefs
-
-# gnuplottex
-*-gnuplottex-*
-
-# gregoriotex
-*.gaux
-*.gtex
-
-# htlatex
-*.4ct
-*.4tc
-*.idv
-*.lg
-*.trc
-*.xref
-
-# hyperref
-*.brf
-
-# knitr
-*-concordance.tex
-# TODO Comment the next line if you want to keep your tikz graphics files
-*.tikz
-*-tikzDictionary
-
-# listings
-*.lol
-
-# makeidx
-*.idx
-*.ilg
-*.ind
-*.ist
-
-# minitoc
-*.maf
-*.mlf
-*.mlt
-*.mtc[0-9]*
-*.slf[0-9]*
-*.slt[0-9]*
-*.stc[0-9]*
-
-# minted
-_minted*
-*.pyg
-
-# morewrites
-*.mw
-
-# nomencl
-*.nlg
-*.nlo
-*.nls
-
-# pax
-*.pax
-
-# pdfpcnotes
-*.pdfpc
-
-# sagetex
-*.sagetex.sage
-*.sagetex.py
-*.sagetex.scmd
-
-# scrwfile
-*.wrt
-
-# sympy
-*.sout
-*.sympy
-sympy-plots-for-*.tex/
-
-# pdfcomment
-*.upa
-*.upb
-
-# pythontex
-*.pytxcode
-pythontex-files-*/
-
-# thmtools
-*.loe
-
-# TikZ & PGF
-*.dpth
-*.md5
-*.auxlock
-
-# todonotes
-*.tdo
-
-# easy-todo
-*.lod
-
-# xmpincl
-*.xmpi
-
-# xindy
-*.xdy
-
-# xypic precompiled matrices
-*.xyc
-
-# endfloat
-*.ttt
-*.fff
-
-# Latexian
-TSWLatexianTemp*
-
-## Editors:
-# WinEdt
-*.bak
-*.sav
-
-# Texpad
-.texpadtmp
-
-# Kile
-*.backup
-
-# KBibTeX
-*~[0-9]*
-
-# auto folder when using emacs and auctex
-./auto/*
-*.el
-
-# expex forward references with \gathertags
-*-tags.tex
-
-# standalone packages
-*.sta
-
-# generated if using elsarticle.cls
-*.spl
