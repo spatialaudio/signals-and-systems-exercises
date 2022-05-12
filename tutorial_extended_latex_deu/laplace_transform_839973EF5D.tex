@@ -1369,11 +1369,105 @@ impulse response
 Feel free to double check this solution at Wolfram Alpha with input
 \begin{verbatim}
 InverseLaplaceTransform[1/(16/25*s^2+24/25*s+1)]
+Inverse Laplace Transform (25/16)/( (s-(-3/4+1i)) * (s-(-3/4-1i)) )
 \end{verbatim}
 
 We should make ourselves comfortable with the Laplace transform pairs of sine, cosine
 functions and its exponentially damped versions in the Appendix.
-These will often appear as solutions for ODEs under discussion.
+These will often appear as solutions for ODEs under our discussion.
+%
+As a good exercise on that, we should derive a more general solution for
+complex-conjugate poles as this occurs always for such systems
+with lowpass character.
+%
+Our special example has the poles $s_{\infty,1,2}=-\frac{3}{4}\pm \im$, so let
+us work with the more general notation of $s_{\infty,2} = s_{\infty,1}^*$
+and let us make the general Ansatz
+%
+\begin{align}
+H(s)
+= \frac{K}{(s-s_{\infty,1}) \cdot (s-s_{\infty,1}^*)}
+= \frac{K\cdot A}{(s-s_{\infty,1})} + \frac{K \cdot B}{(s-s_{\infty,1}^*)}
+\end{align}
+%
+for partial fraction decomposition.
+%
+From
+%
+\begin{align}
+K = K \cdot A (s-s_{\infty,1}^*) + K \cdot B (s-s_{\infty,1})
+\end{align}
+%
+we get
+\begin{align}
+%0 \cdot s^1 + 1 \cdot s^0=  A s - A s_{\infty,1}^* + B s - B s_{\infty,1}\\
+0 \cdot s^1 + 1 \cdot s^0=  (A+B) s^1 - A s_{\infty,1}^* - B s_{\infty,1},
+\end{align}
+which by comparing coefficients leads to
+\begin{align}
+&A = -B\\
+&1 = - A s_{\infty,1}^* + A s_{\infty,1}\\
+%&1 = A (s_{\infty,1} - s_{\infty,1}^*)\\
+&A = +\frac{1}{s_{\infty,1} - s_{\infty,1}^*} = + \frac{1}{2 \im \Im\{s_{\infty,1}\}}\\
+&B = -\frac{1}{s_{\infty,1} - s_{\infty,1}^*}= - \frac{1}{2 \im \Im\{s_{\infty,1}\}}
+\end{align}
+We insert the found coefficients into our Ansatz
+\begin{align}
+H(s) = \frac{1}{2 \im \Im\{s_{\infty,1}\}}\frac{K}{(s-s_{\infty,1})} - \frac{1}{2 \im \Im\{s_{\infty,1}\}} \frac{K}{(s-s_{\infty,1}^*)}\\
+H(s) = \frac{K}{2 \im \Im\{s_{\infty,1}\}} \left(\frac{1}{(s-s_{\infty,1})} - \frac{1}{(s-s_{\infty,1}^*)}\right).
+\end{align}
+Using the correspondence
+\begin{align}
+\e^{s_0 t} \epsilon(t)\quad \laplace \quad \frac{1}{s-s_0} \quad \text{ROC}: \Re(s)>\Re(s_0)
+\end{align}
+we derive
+\begin{align}
+h(t) = \frac{K}{2 \im \Im\{s_{\infty,1}\}} \left( \e^{s_{\infty,1} t}   - \e^{s_{\infty,1}^* t} \right).
+\end{align}
+Splitting into real and imaginary part we can rewrite
+\begin{align}
+h(t) = \frac{K}{\Im\{s_{\infty,1}\}} \cdot \e^{\Re\{s_{\infty,1}\} t} \cdot \frac{\e^{\im \Im\{s_{\infty,1}\} t}   - \e^{-\im \Im\{s_{\infty,1}\} t}}{2\im} \cdot \epsilon(t)
+=
+\frac{K}{\Im\{s_{\infty,1}\}} \cdot \e^{\Re\{s_{\infty,1}\} t} \cdot \sin(\Im\{s_{\infty,1}\} t) \cdot \epsilon(t)
+\end{align}
+%
+This nice general notation allows for convenient interpretation.
+%
+The gain factor of the system $K$ is scaled by the angular frequency of the sine, which
+is encoded in $\Im\{s_{\infty,1}\}$.
+%
+The poles should be in the left $s$-plane, hence $\Re\{s_{\infty,1}\}<0$, such that
+the exponential function is decaying and not uprising.
+%
+Then the impulse response of a system with complex-conjugate
+pole pair always comprises of an exponentially decaying sine oscillation,
+where decaying time is determined by the real part of the pole of the system
+and the angular frequency of the sine is determined by the imaginary part of the
+pole(s).
+
+Let us finally check, if we get the correct result for our example.
+%
+For $s_{\infty,1,2}=-\frac{3}{4}\pm \im$ we grab $\Re\{s_{\infty,1}\} = -\frac{3}{4}$
+and $\Im\{s_{\infty,1}\} = 1$ and insert
+\begin{align}
+h(t)
+=
+\frac{\nicefrac{25}{16}}{1} \cdot \e^{\nicefrac{-3}{4} t} \cdot \sin(1 \cdot t) \cdot \epsilon(t),
+\end{align}
+leading to the correct result.
+
+The choice of $\pm$ for $s_{\infty,1,2}$ is obviously arbitrarily, therefore
+for $s_{\infty,1,2}=-\frac{3}{4}\mp \im$ our solution must also work.
+%
+So, inserting $\Re\{s_{\infty,1}\} = -\frac{3}{4}$ and $\Im\{s_{\infty,1}\} = -1$
+yields
+%
+\begin{align} 
+h(t)
+=
+\frac{\nicefrac{25}{16}}{-1} \cdot \e^{\nicefrac{-3}{4} t} \cdot \sin(-1 \cdot t) \cdot \epsilon(t),
+\end{align}
+which resolves to the correct solution as $-\sin(-x) = \sin(x)$.
 
 
 %##############################################################################
@@ -1761,7 +1855,7 @@ state of a system.
 \includegraphics[width=0.75\textwidth]{../laplace_transform/frequency_response_mag_phase_839973EF5D}
 \caption{Frequency response for the ODE with Laplace function
 $H(s) = \left[ \frac{16}{25} s^2 + \frac{24}{25} s + 1 \right]^{-1}$.}
-\label{fig:frequency_response_mag_phase} 
+\label{fig:frequency_response_mag_phase}
 \end{figure}
 %##############################################################################
 %##############################################################################
