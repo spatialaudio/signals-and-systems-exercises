@@ -2,7 +2,8 @@
 \section{UE 4: Fourier Transformation}
 
 \textbf{Definitionsgleichungen} der Integraltransformation (SigSys Konvention:
-exp(-) bei der Hintrafo, $2\pi$-Normierung und exp(+) bei der Rücktrafo)
+exp(-...) bei der Hintransformation, $2\pi$-Normierung und exp(+...) bei der
+Rücktransformation)
 \begin{align}
 X(\im\omega) = \int\limits_{-\infty}^{+\infty} x(t) \e^{-\im \omega t} \fsd t
 &\qquad
@@ -14,11 +15,11 @@ Wir benutzen sehr häufig die verkürzte (weitgehend standardisierte)
 X(\im\omega) = \mathcal{F}\{x(t)\}&\qquad x(t) = \mathcal{F}^{-1}\{X(\im\omega)\}\\
 x(t) \,\fourier\, X(\im\omega) &\qquad X(\im\omega) \,\Fourier\, x(t)
 \end{align}
-Hinweis: Hintrafo $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
+Hinweis: Hintrafo Laplace $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
 $\fourier$, Rücktrafo Fourier $\Fourier$.
 Wir finden oft auch $\laplace$ bei der Fourier Trafo, dann muss im Kontext klar werden,
 welche Trafo benutzt wird. In der Formelsammlung und Übung 1 ist das z.B. eindeutig, weil
-wir dort keine Laplace Transformation verwenden.
+wir dort keine Laplace, sondern nur die Fourier Transformation verwenden.
 %
 
 \noindent \textbf{Wichtigste Eigenschaften und Korrespondenzen}
@@ -257,7 +258,7 @@ Bevor wir rechnen, sollten wir uns die Zeit nehmen und die verschiedenen
 möglichen Fälle
 $T_0<T_h$, $T_0=T_h$, $T_0>T_h$ als Grafik in Gedanken durchspielen.
 Das Spektrum, also die Fourier Transformierte von $x(t)$ ist entscheidend davon
-geprägt wie groß $T_0$ und wie viele Schwingungen die Rechteckfunktion 'heraus'
+geprägt wie groß $T_0$ ist und wie viele Schwingungen die Rechteckfunktion 'heraus'
 multipliziert.
 
 Außerdem sollten wir uns schon hier klarmachen, dass für $T_h\to\infty$ das Signal
@@ -280,9 +281,9 @@ X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_0 t) \, \e^{-\im \om
 %
 %
 \begin{ExCalc}
-\textbf{Lösungsweg I}: Sturr das Integral lösen.
+\textbf{Lösungsweg I}: Stur das Integral lösen.
 Dieser Weg ist der mathematischste, aber wegen des Integraloperators vielleicht auch
-der un-intuitivste; und ohne Erwartungshaltung Rechnen ist auch nicht die beste
+der un-intuitivste; und ohne Erwartungshaltung Drauflos-Rechnen ist auch nicht die beste
 Vorgehensweise. Anyway...Wir müssen das Integral schon sehr lange anstarren, um das Wesen
 dahinter zu entlocken. Das wird uns mit den Lösungswegen II und III eleganter gelingen.
 Lösen wir aber erst einmal das Integral, das gelingt ganz ähnlich wie in Übung 1.
@@ -337,8 +338,8 @@ kein wesentlich neuer Erkenntnisgewinn: $A=1$ .
 Die Grafik oben zeigt das Signal $x(t)$ in grün.
 In der unteren Grafik sind die beiden Teilspektren von \eq{eq:610482EF57_Xjw}
 getrennt dargestellt.
-Superposition ergibt die Fouriertransformierte $X(\im\omega)$, der schwarze
-Graph in der mittleren Grafik.
+Superposition ergibt die Fouriertransformierte $X(\im\omega)$, das ist der schwarze
+Verlauf in der mittleren Grafik.
 
 Wir haben hier ein Spezialfall der Aufgabe 1.5 vorliegen, nämlich die Modulation
 eines Signals im Zeitbereich führt zur Verschiebung des Spektrums.
@@ -395,7 +396,7 @@ X(\im \omega) =
 A \pi \frac{\sin\left( \frac{[\omega-\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega-\omega_0]} +
 A \pi \frac{\sin\left( \frac{[\omega+\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega+\omega_0]}
 \end{align}
-weil wir jetzt einen Ausdruck ähnlich $\sin(\frac{\omega}{\epsilon})$ stehen haben.
+damit wir einen Ausdruck ähnlich $\sin(\frac{\omega}{\epsilon})$ bekommen.
 %
 Die Mathematik schenkt uns den Grenzübergang
 \begin{align}
@@ -414,11 +415,11 @@ und dessen Fourier Transformierte
 \begin{align}
 X(\im \omega) =
 \lim_{T_h\to\infty}
-A \pi \frac{\sin\left( \frac{[\omega-\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega-\omega_0]} +
-A \pi \frac{\sin\left( \frac{[\omega+\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega+\omega_0]} =
+\left(A \pi \frac{\sin\left( \frac{[\omega-\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega-\omega_0]} +
+A \pi \frac{\sin\left( \frac{[\omega+\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega+\omega_0]} \right)=
 A \pi \delta(\omega-\omega_0) + A \pi \delta(\omega+\omega_0)
 \end{align}
-schreiben, woraus für $A=1$ die Korrespondenz
+schreiben, woraus dann für die Wahl $A=1$ die uns gut bekannte Korrespondenz
 \begin{align}
 \cos(\omega_0 t) \quad\fourier\quad \pi \, \delta(\omega-\omega_0) + \pi \, \delta(\omega+\omega_0)
 \end{align}
@@ -427,11 +428,12 @@ folgt.
 Die Fourier-Transformation des Cosinus besteht daher aus zwei mit $\pi$ gewichteten
 Dirac-Impulsen, die verschoben sind. Falls $\omega_0>0$, ist der erste
 Dirac-Impuls $\delta(\omega-\omega_0)$ bei $+\omega_0$ eine positive Kreisfrequenz
-(rechtsverschoben)
+(rechtsverschobener Dirac)
 und der zweite Dirac $\delta(\omega+\omega_0)$ ist bei $-\omega_0$ eine
-negative Kreisfrequenz (linksverschoben).
+negative Kreisfrequenz (linksverschobener Dirac).
 %
-Grafisch veranschaulichen können wir uns das mit \fig{fig:ue4_cos_sin_ft}.
+Grafisch veranschaulichen können wir uns das mit \fig{fig:ue4_cos_sin_ft}
+in der Einleitung dieser Übung.
 %
 Zudem sind die beiden Dirac Impulse in der mittleren Grafik von
 \fig{fig:rect_cos_610482EF57_1} für das spezielle Beispiel eingemalt.
@@ -454,7 +456,7 @@ heisst
 \textcolor{C0}{ideales} Dirac-Spektrum
 \textcolor{C3}{verschleifen}, i.e. aus \textbf{Sicht der Signalanalyse, Fensterung}
 
-Für diesen Ansatz benutzen wir die Multiplikation / Faltung Dualität
+Für diesen Ansatz benutzen wir die Dualität der Multiplikation / Faltung
 \begin{align}
 x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\im\omega) \ast_\omega X_2(\im\omega),
 \end{align}
@@ -472,8 +474,8 @@ Mit der Skalierungseigenschaft
 \begin{align}
 x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X(\frac{\im\omega}{a})
 \end{align}
-(wir rufen uns in Erinnerung: schnellere Zeitfunktion $a>1$ bedeutet breiteres Spektrum,
-langsamere Zeitfunktion $0<a<1$ bedeutet schmaleres Spektrum)
+(wir rufen uns in Erinnerung: 'schnellere' Zeitfunktion $a>1$ bedeutet breiteres Spektrum,
+'langsamere' Zeitfunktion $0<a<1$ bedeutet schmaleres Spektrum)
 %
 und dem Einheitsrechteckimpuls
 \begin{align}
@@ -498,8 +500,9 @@ Der Vorfaktor $\textcolor{C3}{\frac{1}{2\pi}}$ bei der Faltung wird gerne verges
 den müssen wir aber berücksichtigen, damit alles sauber aufgeht.
 
 In SigSys versuchen wir so oft es geht die Faltung durch eine einfachere Operation
-zu ersetzen (siehe Laplace).
-Hier gelingt die Lösung sehr elegant aber eben genau mit der Faltung.
+zu ersetzen (siehe Umweg mit der Laplace Transformation, UE 3).
+Hier gelingt die Lösung nun aber sehr elegant eben genau mit der Faltung (Grund:
+weil wir mit Diracs falten, da ist Faltung immer sehr einfach zu überschauen).
 Die Faltung ist distributiv, also können wir schreiben
 \begin{align}
 X(\im\omega) = \frac{1}{2\pi}
@@ -516,7 +519,7 @@ Integral selber interessiert sich ja nicht, welche Variablenabhängigkeit die
 beiden zu faltenden Funktionen haben.
 Führen wir $\nu\in\mathbb{R}$ als Variable für die Frequenzumkehr und
 -verschiebung ein, so
-gelten die äquivalenten Faltungsintegrale für die zwei Fouriertransformierten
+gelten die äquivalenten Faltungsintegrale für zwei Fouriertransformierte
 $X_1$ und $X_2$
 \begin{equation}
 X(\omega)  =
@@ -542,7 +545,7 @@ was wir zunächst kürzen und leicht umformulieren
 \end{equation}
 %
 Anstatt das obige Faltungsintegral tatsächlich zu lösen, benutzen wir
-die Austasteigenschaft des Dirac Impulses. Diese lautet für die benutzten Variablen
+die Austasteigenschaft des Dirac Impulses. Diese ausgeschrieben für die benutzten Variablen
 \begin{equation}
 \int\limits_{-\infty}^{+\infty} \delta(\nu-\omega_0) \cdot f(\nu) \, \fsd \nu \stackrel{\mathrm{def}}= f(\omega_0),
 \end{equation}
@@ -588,21 +591,22 @@ im Kopf durchführen zu können. Der Dirac ist ja das Neutralelement der Faltung
 Ein zeitlich verschobener Dirac in der Faltung kann also
 nur die zeitlich verschobene Funktion zurückliefern.
 Wir haben das hier in aller Ausführlichkeit neu erfunden, wir könnten zum Merken
-kurz notieren
+kurz notieren die Faltung im Zeitbereich (Operator $\ast_t$)
 \begin{equation}
-  \delta(t-\tau) \ast x(t) = x(t-\tau),
+  \delta(t-\tau) \ast_t x(t) = x(t-\tau),
 \end{equation}
-was sich auch in der Formelsammlung findet. Wir haben diese Eigenschaft im
-Frequenzbereich verwendet, also bzgl. der Verschiebung um $\omega_0$
+was sich auch in der Formelsammlung findet. Wir haben die Faltung im
+Frequenzbereich verwendet (Operator $\ast_\omega$),
+also bzgl. der Verschiebung um $\omega_0$
 \begin{equation}
-  \delta(\omega-\omega_0) \ast X(\omega) = X(\omega-\omega_0),
+  \delta(\omega-\omega_0) \ast_\omega X(\omega) = X(\omega-\omega_0).
 \end{equation}
-Verschiebung von Funktionen (in SigSys: Signalen, Spektren) bzgl. des Arguments
-(Zeit, Frequenz) wird also sehr oft gebraucht.
+Die Verschiebung von Funktionen (in SigSys: Signale, Spektren) bzgl. des
+Arguments (Zeit, (Kreis)-Frequenz) wird also sehr oft gebraucht.
 
 Machen wir uns nun das \textbf{Wesen von Lösungsweg II} klar: Die unendliche
 Cosinus-Schwingung bringt als Fourier Transformation, d.h. als Spektrum zwei
-mit $\pi$ gewichtete Dirac Impulse hervor an den Frequenzen $\pm\omega_0$.
+mit $\pi$ gewichtete Dirac Impulse hervor an den Kreisfrequenzen $\pm\omega_0$.
 Wichtig: Die Frequenzvariable $\omega$ ist kontinuierlich, das Spektrum unterscheidet sich
 wegen der Diracs nur an zwei Frequenzen von Null.
 Sobald nun dieses Cosinussignal zeitlich begrenzt wird---in unserem Beispiel
@@ -622,7 +626,7 @@ digitale Signale die mit Rechnern verarbeitet werden: Eine zeitliche Begrenzung
 (auch Fensterung genannt),
 welche notwendig ist, damit die Fouriertransformation mit einem Rechner
 praktikabel ist,
-hat unweigerlich zu Folge, dass das wirkliche Signal durch den Faltungsprozess
+hat unweigerlich zu Folge, dass das wirkliche Spektrum durch den Faltungsprozess
 verschliffen wird. Wir müssen uns daher immer fragen, was ein guter Zeitausschnitt
 des zu analysierenden Signals ist und ob die Rechteckfunktion mit dem
 Sinc-Spektrum das optimale Signal zur Signalbegrenzung ist. Mehr dazu dann im Kapitel
@@ -674,10 +678,10 @@ hier also $\e^{+\im\omega_0 t}$, moduliert, wobei typischerweise $\omega_0$ sehr
 die Bandbreite des Signals ist. In unserem Beispiel des nicht bandbegrenzten Sinc-Spektrums
 könnten wir annehmen, dass die zunehmend kleiner werdenden Amplituden des Sincs
 immer unbedeutender für das Aussehen des Zeitsignals sind, wir könnten also praktisch eine
-endliche Bandbreite definieren. Quiz Frage: wie sieht der Rechteckimpuls aus, wenn
-wir das Sinc-Spektrum tatsächlich hart band-begrenzen würden? vgl. Analogie Fourierreihe.
+endliche Bandbreite definieren. Quiz Frage: wie sieht der Rechteckimpuls über der Zeit aus, wenn
+wir das Sinc-Spektrum tatsächlich hart band-begrenzen würden? vgl. Analogie Fourierreihe, Gibbsches Phänomen.
 
-Übertragungskanäle können in der Praxis nur mit reellen Signalen operieren
+Physikalische Übertragungskanäle können in der Praxis nur mit reellen Signalen operieren
 (komplexe Zahlen sind ja 'nur' ein Hilfskonstrukt um die Rechnerei wesentlich zu
 vereinfachen), daher
 erweitern wir das Modulationstheorem gemäß Euleridentität
@@ -789,9 +793,9 @@ Es hilft sich klarzumachen, dass
 \begin{equation}
   \delta(t-\tau_1) \ast \delta(t-\tau_2) = \delta(t-(\tau_1+\tau_2))
 \end{equation}
-gilt, was wir mit der Neutralelement-Regel deduzieren könnten.
-Es hilft durchaus wenn wir uns das mal aufmalen und die grafische Methode der
-Faltung durchspielen.
+gilt, was wir mit der Neutralelement-Regel deduzieren könnten. Ausschreiben des
+Faltungsintegrals und Sinnieren über die Austasteigenschaft des Diracs
+hilft uns sehr für's Verständnis.
 \end{Werkzeug}
 \begin{Ansatz}
 \begin{equation}
@@ -808,11 +812,11 @@ können wir den Ansatz machen
 was wir mit den Erkenntnissen aus der vorherigen Aufgabe lösen können.
 \end{Ansatz}
 \begin{ExCalc}
-Die Korrespondenz für den Sinus ist (siehe \fig{fig:ue4_cos_sin_ft})
+Die Korrespondenz für den Sinus ist (siehe \fig{fig:ue4_cos_sin_ft} in der Einleitung dieser Übung)
 \begin{align}
 \sin(\omega_0 t) &\quad \fourier \quad \frac{\pi}{\im} \delta(\omega -\omega_0) - \frac{\pi}{\im} \delta(\omega + \omega_0)
 \end{align}
-Einsetzen und sukzessive Vereinfachen und Dirac Faltungsregel anwenden
+Einsetzen, sukzessives Vereinfachen und Dirac Faltungsregel anwenden:
 \begin{equation}
   X(\im\omega) = \frac{1}{2\pi}
   \left(\frac{\pi}{\im} \delta(\omega -\omega_0) - \frac{\pi}{\im} \delta(\omega + \omega_0)\right)
@@ -828,7 +832,7 @@ Einsetzen und sukzessive Vereinfachen und Dirac Faltungsregel anwenden
 \begin{align}
   X(\im\omega) =
   &\frac{1}{2\im} \delta(\omega -\omega_0) \ast \frac{\pi}{\im} \delta(\omega -\omega_0)\\\nonumber
-  &\frac{1}{2\im} \delta(\omega -\omega_0) \ast - \frac{\pi}{\im} \delta(\omega + \omega_0)\\\nonumber
+  &+ \frac{1}{2\im} \delta(\omega -\omega_0) \ast - \frac{\pi}{\im} \delta(\omega + \omega_0)\\\nonumber
   &- \frac{1}{2\im} \delta(\omega + \omega_0) \ast \frac{\pi}{\im} \delta(\omega -\omega_0)\\\nonumber
   &- \frac{1}{2\im} \delta(\omega + \omega_0) \ast - \frac{\pi}{\im} \delta(\omega + \omega_0)
 \end{align}
@@ -901,10 +905,11 @@ für $\omega_0>0$.}
 \label{sec:04ADD03866}
 \begin{Ziel}
 Erinnern wir uns, dass die Laplace Transformation genau davon lebt, den
-Ableitungsoperator zu vereinfachen $\frac{\fsd}{\fsd t}(\cdot) \laplace s(\cdot)$.
+Ableitungsoperator zu vereinfachen $\frac{\fsd}{\fsd t}(\cdot) \laplace s(\cdot)$
+(Anfangsbedingungen hier nicht mit notiert!).
 Nachdem  die Fourier Transformation der Spezialfall von $s=\sigma+\im\omega$ für
 $\sigma=0$ ist, falls!!! die Laplace Transformierte für $\sigma=0$ existiert
-(Konvergenzbereich muss $\Im\{s\}$ enthalten),
+(Konvergenzbereich muss die imaginäre Achse der $s$-Ebene, also $\Im\{s\}$ enthalten),
 gilt hier $\frac{\fsd}{\fsd t}(\cdot) \fourier \im\omega(\cdot)$. Diesen Zusammenhang
 hatten wir auch schon bei eingeschwungenen Zuständen in der komplexen Wechselstromtechnik
 bemüht.
@@ -935,11 +940,11 @@ Zeitverschiebung und -skalierung nochmal aufzufrischen)
 \end{Ansatz}
 
 \begin{ExCalc}
-Nun mit $\epsilon'(t) = \delta(t)$
+Nun anwenden von $\epsilon'(t) = \delta(t)$
 \begin{equation}
 \frac{\fsd}{\fsd t} \mathrm{rect}\left(\frac{t}{T_h}\right) = \delta(t+\frac{T_h}{2}) - \delta(t-\frac{T_h}{2})
 \end{equation}
-Mit den mittlerweile gut bekannten Korrespondenzen
+Mit den uns mittlerweile gut bekannten Korrespondenzen
 \begin{align}
 \delta(t) &\quad \fourier \quad 1\\
 x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\im\omega)
@@ -949,11 +954,12 @@ finden wir
 X(\im\omega) = \e^{+\im\omega\frac{T_h}{2}}\cdot 1 - \e^{-\im\omega\frac{T_h}{2}}\cdot 1
 = \frac{2\im}{2\im}(\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}})
 = 2\im \sin(\omega\frac{T_h}{2})
+= 2\sin(\omega\frac{T_h}{2}) \e^{\im \nicefrac{\pi}{2}}
 \end{equation}
 \end{ExCalc}
 
 \begin{Ansatz}
-Im \textbf{Frequenzbereich} benutzen wir die Korrespondenzen
+Für die Lösung im \textbf{Frequenzbereich} benutzen wir die Korrespondenzen
 \begin{align}
 &\mathrm{rect}(\frac{t}{T_h}) \quad \fourier \quad |T_h| \mathrm{sinc}\left(\frac{\omega T}{2}\right)\\
 &\frac{\fsd}{\fsd t} x(t) \quad\fourier\quad \im\omega X(\im\omega)
@@ -968,6 +974,7 @@ Spaltfunktion ausgeschrieben und $T_h>0$ beachtet
 \begin{align}
 \frac{\fsd}{\fsd t} \mathrm{rect}(\frac{t}{T_h}) &\quad \fourier \quad \im\omega T_h \frac{\sin (\frac{\omega T_h}{2})}{\frac{\omega T_h}{2}}
 =2\im\sin (\frac{\omega T_h}{2})
+=2\sin(\frac{\omega T_h}{2}) \e^{\im \nicefrac{\pi}{2}}
 \end{align}
 bringt das gleiche Ergebnis wie im Zeitbereich.
 \end{ExCalc}
@@ -992,7 +999,7 @@ schreiben bzw. wenn wir die Amplitudenskalierung anders wählen
 \sin(\frac{\omega T_h}{2})
 \end{equation}
 Hier können wir uns sehr schön ein Beispiel für Symmetrien der Korrespondenzen
-klarmachen, siehe dazu Vorlesungsfolie 5-13.
+klarmachen, siehe dazu Vorlesungsfolie 5-13 "'Symmetrien für allgemeine Zeitsignale"`.
 %
 Für \eq{eq:04ADD03866_Sym1} ist das Zeitsignal rein reell und ungerade, korrespondierend
 mit rein imaginärer und ungerader Fouriertransformierten.
@@ -1039,7 +1046,7 @@ mit einem plakativen Beispiel merken.
 x(t) = \frac{1}{2} \mathrm{rect}(\frac{1}{2}t - 1) \quad\fourier\quad X(\im\omega)=\e^{-2 \im \omega} \cdot \mathrm{sinc}(\omega)
 \end{equation}
 gilt.
-Berechnen Sie dann die Signalenergie, sowohl im Zeit- als auch im Bildbereich mit dem
+Berechnen Sie dann die Signalenergie, sowohl im Zeit- als auch im Frequenzbereich mit dem
 Parseval'schen Theorem.
 \begin{Werkzeug}
 \begin{align}
@@ -1056,7 +1063,7 @@ Signalenergie, i.e. \textbf{Parseval'schen Theorem}
 \begin{Ansatz}
 \textbf{Fourier Korrespondenz}
 
-In der Formelsammlung finden wir die mittlerweile gut bekannte
+In der Formelsammlung finden wir die uns gut bekannte
 \begin{equation}
 \mathrm{rect}(t) \quad\fourier\quad \mathrm{sinc}\left(\frac{\omega}{2}\right)
 \end{equation}
@@ -1105,8 +1112,8 @@ wenn schon dann das Quadrat in der Amplitude berücksichtigen.
 \begin{Ansatz}
 \textbf{Signalenergie im Frequenzbereich} ist vergleichsweise unangenehm.
 
-Das wird uns oft begegnen und genau deswegen benutzen wir Zeit- UND
-Bildbereichslösungen:
+Das wird uns oft begegnen und genau deswegen benutzen wir Zeit- \textbf{und}
+Frequenzbereichslösungen:
 in einem Bereich ist eine Lösung fast trivial im anderen Bereich artet das in
  Rechnerei aus.
 %
@@ -1114,12 +1121,13 @@ Die bequemere Lösung können wir dann in der Praxis bevorzugen.
 %
 
 Dieses ausartende Rechenbeispiel hilft uns das \textbf{Parsevalsche Theorem}
-zu erinnern, sprich die Signalenergie ist sowohl im Zeitbereichs- als auch im
-Bildbereichssignal vollständig codiert und je nachdem was vorliegt oder einfacher
-zu rechnen ist, benutzen wir entweder den Zeit- oder Bildbereich.
+zu erinnern, sprich die Signalenergie ist sowohl im Zeitsignal als auch im
+Spektrum vollständig codiert und je nachdem was vorliegt oder einfacher
+zu rechnen ist, benutzen wir entweder den Zeit- oder Frequenzbereich.
 
-Hier also wegen gewünschter Didaktik, der Bildbereich. Für die Energiebetrachtung spielt die
+Hier also wegen gewünschter Didaktik, der Frequenzbereich. Für die Energiebetrachtung spielt die
 Phase keine Rolle.
+Daher nun unser Ansatz im Frequenzbereich
 \begin{align}
 \label{eq:0A13DD5E57_Energie_Freq_Ansatz}
 E = \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |\e^{-2 \im \omega} \mathrm{sinc}(\omega)|^2 \fsd \omega
@@ -1137,7 +1145,7 @@ E = \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |\e^{-2 \im \omega} \mathrm{si
 
 
 \begin{ExCalc}
-Wir brauchen zur Lösung den Integralsinus
+Wir brauchen zur Lösung des obigen Integrals den Integralsinus
 \begin{equation}
   \mathrm{Si}(\omega) := \int_{0}^{\omega} \frac{\sin \nu}{\nu} \fsd \nu
 \end{equation}
@@ -1149,7 +1157,7 @@ Es gilt
 was wir aus \fig{fig:sine_intergral_0A13DD5E57} auch erahnen könnten.
 
 Wir wollen also das Integral in \eq{eq:0A13DD5E57_Energie_Freq_Ansatz} lösen,
-um die Signalenergie im Bildbereich zu ermitteln.
+um die Signalenergie im Frequenzbereich zu ermitteln.
 %
 Dies gelingt mit partieller Integration und nachfolgend einer Variablensubstitution
 bei einem Integral, siehe auch \url{https://calculus.subwiki.org/wiki/Sinc-squared_function}.
