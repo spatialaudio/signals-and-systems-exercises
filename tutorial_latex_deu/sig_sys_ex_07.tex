@@ -4,25 +4,36 @@
 Wir lernen in dieser Übungseinheit die sogenannte äquidistante Abtastung bezüglich
 der Variable Zeit (Aufgabe 1) und der Variable (Kreis)-Frequenz (Aufgabe 2) kennen.
 %
-Dies ist einerseits wichtig, um den Übergang zur zeitdiskreten Signalverarbeitung
-herstellen zu können: Sehr viele Signale, die in der Natur vorkommen, sind
-ja trotz Digital Age, nach wie vor (zum Glück)
-zeit- und wertekontinuierlich. Um sie mit einem
-Rechner verarbeiten zu können, müssen wir diese bzgl. der Zeit diskretisieren
-(abtasten) und bzgl. der Werte diskretisieren (quantisieren), beide Prozesse
-zusammen erzeugen ein digitales Signal.
-Daher müssen wir uns mit der Abtastung und Quantisierung von Zeitsignalen
-beschäftigen.
-Hier in SigSys werden wir zunächst nur die Abtastung kennenlernen, im Mastermodul
+
+Dies ist wichtig, um den Übergang zur zeitdiskreten Signalverarbeitung
+herstellen zu können.
+%
+Die meisten (wenn nicht alle?!) natürlich vorkommenden Signale sind zeit- und
+wertekontinuierlich.
+%
+Um die Signale mit einem Rechner verarbeiten zu können, müssen wir sie bzgl. der
+Zeit (oder einer anderen Variable, z.B. Ort bei Bild/Video)
+diskretisieren (also abtasten) und bzgl. der Werte diskretisieren
+(also quantisieren).
+%
+Nach Abtasten und Quantisieren erhält man ein digitales Signal.
+%
+Hier in SigSys werden wir nun zunächst die Abtastung kennenlernen, im Mastermodul
 Digital Signal Processing folgt dann die Quantisierung.
 %
+
 Ein anderer wichtiger Punkt ideale Abtastung und die Rekonstruktion zurück
-zu kontinuierlichen Signalen als SigSys Werkzeug einzuführen, ist
-die Verknüpfung von verschiedenen Fourier Transformationen. Es gibt im Grunde
-ja keine verschiedenen Fourier Transformationen, sondern eigentlich vielmehr
-4 verschiedene Typen, die jeweils für eine bestimmte Signal/Spektrum-Charakteristik
-gelten. Wir kennen bisher die Fourier Reihe und die Fourier Transformation.
-Wir werden lernen sie mittels Abtastung und Rekonstruktion elegant zu verknüpfen.
+zu kontinuierlichen Signalen (oder Spektren) als SigSys Werkzeug einzuführen, ist
+die Verknüpfung von verschiedenen Fourier Transformationen.
+%
+Es gibt im Grunde ja keine verschiedenen Fourier Transformationen, sondern
+eigentlich 'nur' mindest 4 verschiedene Typen, die jeweils für eine bestimmte
+Signal/Spektrum-Charakteristik gelten.
+%
+Wir kennen bisher die Fourier Reihe und die Fourier Transformation.
+%
+Wir werden lernen die beiden über Abtastung und Rekonstruktion elegant zu
+verknüpfen, siehe die Vorbetrachtung vor Aufgabe~\ref{sec:45C76AFB33}.
 
 %
 \begin{figure}[h]
@@ -63,7 +74,7 @@ Wir werden lernen sie mittels Abtastung und Rekonstruktion elegant zu verknüpfe
 \end{scope}
 \end{tikzpicture}
 \caption{Abtastung und Rekonstruktion für \textbf{zeitliche Signale} mit Dirac Impuls Kamm
-Dualität $s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t)$.}
+$s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t) \fourier H_\mathrm{r}(\im \omega)$.}
 \label{fig:sampling_model_time_domain_signals}
 \end{figure}
 %
@@ -105,20 +116,20 @@ Dualität $s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t
 \end{scope}
 \end{tikzpicture}
 \caption{Abtastung und Rekonstruktion für \textbf{Frequenz-Spektren} mit Dirac Impuls Kamm
-Dualität $S(\im\omega) \Fourier s(t)$ und Rekonstruktionsspektrum $H_\mathrm{r}(\im\omega)$.}
+$S(\im\omega) \Fourier s(t)$ und Rekonstruktionsspektrum $H_\mathrm{r}(\im\omega) \Fourier h_\mathrm{r}(t)$.}
 \label{fig:sampling_model_frequency_domain_signals}
 \end{figure}
 
 
 
-\section*{Werkzeuge zur Abtastung / Rekonstruktion}
+\subsection*{Werkzeuge für Abtastung / Rekonstruktion}
 
 Wir brauchen drei wesentliche Zutaten: i) ein Modell als Signalflussgraph und
 zwei fundamentale Signale/Spektren: ii) den Dirac Impuls Kamm (Variable $s$ bzw. $S$)
 um die Abtastung zu modellieren und iii) Impulsantwort/Fenster bzw. deren
-Spektren für die Rekonstruktion.
+Spektren (Variable $h_\mathrm{r}$ bzw. $H_\mathrm{r}$) für die Rekonstruktion.
 
-\subsection*{i) Modell zur Abtastung und Rekonstruktion}
+\subsubsection*{i) Modell für Abtastung und Rekonstruktion}
 Die Modelle sind in \fig{fig:sampling_model_time_domain_signals}
 und \fig{fig:sampling_model_frequency_domain_signals} dargestellt. Sie leben
 von der Dualität Faltung vs. Multiplikation.
@@ -126,7 +137,7 @@ Die Multiplikation des abzutastenden Signals/Spektrums mit einem Dirac Impuls Ka
 bestimmt, in welchem Bereich wir abtasten.
 Daher sehen wir in \fig{fig:sampling_model_time_domain_signals} die Abtastung
 von Zeitsignalen mit Dirac-Kamm $s(t)$. In \fig{fig:sampling_model_frequency_domain_signals}
-sehen wir die Abtastung von Spektren, also Abtastung der Fouriertransformation
+sehen wir die Abtastung von Spektren, also Abtastung einer Fouriertransformierten
 mit Dirac-Kamm $S(\im\omega)$.
 
 
@@ -137,7 +148,7 @@ mit Dirac-Kamm $S(\im\omega)$.
 
 
 
-\subsection*{ii) Dirac Impuls Kamm}
+\subsubsection*{ii) Abtastung als Multiplikation mit Dirac Impuls Kamm}
 %
 In der Übung 4 zur Fouriertransformation hatten wir ein wichtiges
 Signalpaar und gleichzeitig eine wichtige Dualität (absichtlich) unterschlagen.
@@ -233,7 +244,7 @@ $a=\frac{1}{\omega_\mathrm{s}}$
 Damit lässt sich jetzt der Link zum Scha-Operator herstellen
 \begin{equation}
 \omega_s \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s) =
-\sum_{\nu=-\infty}^{+\infty} \delta(\frac{\omega}{\omega_s}-\nu) =
+\frac{\omega_s}{\omega_s} \sum_{\nu=-\infty}^{+\infty} \delta(\frac{\omega}{\omega_s}-\nu) =
 {\Sha}(\frac{\omega}{\omega_s}).
 \end{equation}
 %
@@ -242,7 +253,7 @@ In der Formelsammlung ist 'nur' die Korrespondenz
   \Sha(t) \quad\fourier\quad \Sha(\frac{\omega}{2\pi})
 \end{align}
 gegeben, die wir nun allgemein auch ohne genaue Kenntnis des Scha-Operators zeitlich
-skalieren können, also genauso wie wir das z.B bei der rect()-Funktion machen würden,
+skalieren können, also genauso wie wir das z.B. bei der rect()-Funktion machen würden,
 \begin{align}
   \Sha(\frac{t}{T_\mathrm{s}}) \quad\fourier\quad
   T_\mathrm{s} \Sha(\frac{\omega T_\mathrm{s}}{2\pi}).
@@ -261,8 +272,7 @@ Damit erhalten wir zusammenfassend die äquivalenten Korrespondenzen
 %{\Sha}(\frac{\Omega}{2 \pi})
 \end{equation}
 \end{mdframed}
-(für Skizzen und tatsächliche Rechnungen, kann man / sollte man aber nicht
-auswendig lernen)
+Für Skizzen und tatsächliche Rechnungen ist eventuell anschaulicher
 \begin{mdframed}
 \begin{equation}
 \sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s}) \quad\fourier\quad
@@ -311,6 +321,7 @@ müssen.
 %
 %
 %
+
 \caption{Korrespondenz der Fourier Transformation für den Dirac Impuls Kamm.
 Dirac Impulse sind äquidistant bzgl. der Zeitachse (links) und
 der Frequenzachse (rechts). Zeit-Austast-Intervall $T_\mathrm{s}$.
@@ -323,9 +334,9 @@ Dirac Gewichte 1 im Zeitbereich. Dirac Gewichte $\omega_\text{s}$ im Spketralber
 
 \textbf{Hinweis I:} In der Praxis arbeiten und denken wir wahrscheinlich
 lieber mit der physikalischen
-Frequenz $f$ als mit der Kreisfrequenz $\omega$. Es bietet jedoch hier an, bei der Denke
+Frequenz $f$ als mit der Kreisfrequenz $\omega$. Es bietet sich jedoch hier an, bei der Denke
 mit Kreisfrequenzen zu bleiben, weil wir dann konsistent in unserer SigSys-Welt
-weitermachen können. Anders herum: jetzt bei der Abtastung von Zeitsignalen
+weitermachen können. Andere Argumentation: jetzt bei der Abtastung von Zeitsignalen
 die physikalische Frequenz $f$ zu benutzen, erscheint vielleicht elegant,
 weil zunächst einfacher vorstellbar und praxisbezogener,
 aber macht wegen vielen Umnormierungen mehr Arbeit und bietet Raum für
@@ -336,7 +347,7 @@ Transferleistung zu physikalischen Frequenzen $f$ vergleichsweise einfach, z.B.
 ganz am Schluss von Rechnungen bei der grafischen Darstellung.
 
 
-\subsection*{iii) Rekonstruktion}
+\subsubsection*{iii) Rekonstruktion}
 Aus der Formelsammlung und den bisher behandelten Themen kennen wir vier
 Korrespondenzen der Fourier Transformation die für eine Rekonstruktion
 in Frage kommen könnten (vgl. \fig{fig:ReconstructionSplines})
@@ -361,8 +372,8 @@ h_\mathrm{r}(t) = \frac{1}{\pi}\text{sinc}(t)
 H_\mathrm{r}(\im\omega) = \text{rect}\left(\frac{\omega}{2}\right).
 \end{align}
 Wenn wir $h_\mathrm{r}(t)$ als Impulsantwort eines LTI-Systems auffassen (laut
-Modell falten wir mit diesem Signal), können wir
-dessen Spektrum als ideales Tiefpassfilter mit Grenzfrequenz $\omega_c=1$ rad/s auffassen.
+Modell in Abb.~\ref{fig:sampling_model_time_domain_signals} falten wir mit diesem Signal), können wir
+dessen Spektrum als ideales Tiefpassfilter mit Grenzfrequenz $\omega_c=1$ rad/s auffassen (vgl. gestreckte Rechteckfunktion).
 %
 
 Für die \textbf{ideale Abtastung und Rekonstruktion im Frequenzbereich} benutzen
@@ -373,7 +384,8 @@ H_\mathrm{r}(\im\omega) = \text{sinc}\left( \frac{\omega}{2} \right)
 h_\mathrm{r}(t)  = \text{rect}(t)
 \end{align}
 Wir können $h_\mathrm{r}(t)$ als Zeitfenster um $t=0$ mit Breite 1 auffassen,
-weil wir laut Modell damit multiplizieren.
+weil wir laut Modell in Abb.~\ref{fig:sampling_model_frequency_domain_signals}
+damit multiplizieren.
 Mit diesen Rekonstruktionen wurde das Abtasttheorem initial eingeführt und
 bewiesen. Eine historische Abhandlung und wie diese Rekonstruktion
 aus einer verallgemeinernden Sichtweise einzuordnen ist, findet sich in
@@ -401,13 +413,11 @@ Konzept. Daher unser didaktischer Faden in der Vorlesung und hier in der
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../sampling/ReconstructionSplines.pdf}
-  \caption{Für die Abtastung im Zeitbereich: Impulsantworten (links) und
+  \caption{Für die \textbf{Abtastung im Zeitbereich}: Impulsantworten (links) und
   Spektren (rechts) von
   Rekonstruktionsfiltern. In blau, links die Sinc-Impulsantwort des idealen
-  Tiefpassfilters mit Rechtecksprektrum (rechts),
-  womit das Abtasttheorem 1915 / 1933 / 1948 'erfunden' bzw. bewiesen wurde,
-  vgl. \url{https://en.wikipedia.org/wiki/Nyquist-Shannon_sampling_theorem} und
-  \url{https://doi.org/10.1109/35.755459}}
+  Tiefpassfilters mit zugehörigem Rechtecksprektrum (rechts),
+  \texttt{ReconstructionSplines.ipynb}}
   \label{fig:ReconstructionSplines}
 \end{figure}
 
@@ -425,7 +435,8 @@ Ergebnisse in einem Bereich, schwer zugängliche Darstellungen im anderen Bereic
 bedingen. Hier wird uns der Frequenzbereich eine deutlich anschaulichere Lösung
 liefern. Quasi während unserer Rechnerei werden wir auf die
 Sinc-Interpolationsformel im Zeitbereich stoßen, die als Grundlage des
-Abtasttheorems 1925 (Whittaker) bzw. 1933 (Kotelnikov) streng bewiesen wurde.
+Abtasttheorems 1925 (Whittaker) bzw. 1933 (Kotelnikov) streng bewiesen wurde, vgl.
+\url{https://en.wikipedia.org/wiki/Nyquist-Shannon_sampling_theorem}
 \end{Ziel}
 \textbf{Aufgabe} {\tiny EF235EE3D8}:
 Für das dargestellte zeitliche Abtast- und Rekonstruktionsmodell
@@ -523,7 +534,7 @@ $\omega_\mathrm{s} = \frac{2 \pi}{T_\mathrm{s}} = \frac{2 \pi}{\frac{\pi}{2}} = 
 herauslesen und damit die Korrespondenz
 \begin{equation}
 s(t) = \frac{2}{\pi} {\Sha}(\frac{2 t}{\pi}) =
-\sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s})
+\sum_{m=-\infty}^{+\infty} \delta(t-m \frac{\pi}{2})
 \quad\fourier\quad
 S(\mathrm{j}\omega) = {\Sha}(\frac{\omega}{4}) =
 4 \sum_{\nu=-\infty}^{+\infty} \delta(\omega-4 \nu)
@@ -535,7 +546,7 @@ für den Dirac Impuls eingeführt haben.
 
 In \fig{fig:EF235EE3D8_TimeDomain} ist der Dirac Impuls Kamm $s(t)$ des Zeitbereichs
 in rot dargestellt. Hier erfolgt die Darstellung der Dirac Impulse leicht abgewandelt
-mit eine Raute. Es ist leichter in dem Diagramm alle beteiligten Signale einheitlich
+mit einer Raute. Es ist leichter in dem Diagramm alle beteiligten Signale einheitlich
 zu programmieren und wir stellen so die Verknüpfung zur sogenannten
 \texttt{stem}-Darstellung von diskreten Folgen her, auch wenn $s(t)$ streng genommen
 noch keine zeitdiskrete Folge ist.
@@ -599,7 +610,7 @@ X_\mathrm{s}(\im\omega) = \frac{1}{2\pi}
 \end{equation}
 %
 Hier im gewählten Beispiel haben wir es wieder einmal mit der Faltung zweier
-Dirac Impulse zu tun. Es hilft uns nun wieder die Beziehung (vgl. Glg. (4.59))
+Dirac Impulse zu tun. Es hilft uns nun wieder die Beziehung (vgl. Glg. (4.63))
 \begin{align}
 \delta(\omega-\omega_1) \ast_\omega \delta(\omega-\omega_2)=
 \delta(\omega-[\omega_1+\omega_2]).
@@ -672,7 +683,7 @@ X_\mathrm{s}(\im\omega) =
 -2\im\sum_{\nu=0}^{+\infty} \delta(\omega - [4\nu+3]).
 \end{align}
 Zu Erinnerung: die Zahl $4$ ist unsere Abtast-Kreisfrequenz und die Zahl $3$
-die Kreisfrequenz des Sinus, also Parameter aus der Aufgabenstellung.
+die Kreisfrequenz des Sinus, also die gegebenen Parameter aus der Aufgabenstellung.
 
 Damit können wir uns nun klarmachen, wie
 \fig{fig:Sampling_03_DiscreteSine_EF235EE3D8} entsteht. Wir haben das Gesamtspektrum
@@ -710,35 +721,35 @@ der Ausdruck
 \end{equation}
 nicht Null ist. Das Tiefpassfilter unterdrückt alle Frequenzen $|(\mp 3)+4\nu|>2$,
 und weil $\nu\in\mathbb{Z}$ bleiben nur die beiden Frequenzanteile bei $\nu=\pm 1$,
-die sowohl innerhalb des Durchlassbereichs des Rekonstruktionsfilters liegen
-und gleichzeitig durch die Austasteigenschaft des Diracs eine Rolle im Spektrum
-spielen. Es verbleiben also die Summen-Anteile
+die innerhalb des Durchlassbereichs des Rekonstruktionsfilters liegen
+und daher eine Rolle im Spektrum spielen. Es verbleiben also die Summen-Anteile
 \begin{equation}
 \pm \im \pi  \delta(\omega - [(\mp 3)+4 \cdot (\pm 1)]) \rightarrow
 + \im \pi  \delta(\omega - [-3+4]) - \im \pi  \delta(\omega - [3-4])=
 \im \pi  \delta(\omega - 1) - \im \pi  \delta(\omega + 1),
 \end{equation}
-und somit das rekonstruierte Spektrum
+und somit das rekonstruierte Spektrum (rein imaginär, punktsymmetrisch)
 \begin{align}
 X_\mathrm{r}(\im\omega) = \im \pi  \delta(\omega - 1) - \im \pi  \delta(\omega + 1),
 \end{align}
 welches in \fig{fig:Sampling_07_ReconstructedSine_EF235EE3D8} dargestellt ist.
 Wir finden das korrespondierende rekonstruierte Zeitsignal ohne viel Mühe, weil
-es eine gut bekannte Korrespondenz (nur mit mit invertierter Polarität, Skalierungseigenschaft LTI System!) ist, also
+es eine gut bekannte Korrespondenz (nur mit mit invertierter Polarität, vgl.
+Skalierungseigenschaft LTI System!) ist, also
 \begin{equation}
 x_r(t) = -\quad\sin(1\cdot t) \quad\fourier\quad X_r(\mathrm{j} \omega) =
  -\quad\mathrm{j} \pi [\delta(\omega+1) - \delta(\omega-1)].
 \end{equation}
 In \fig{fig:TimeSignals_EF235EE3D8} ist es das orangfarbene Sinussignal.
 Aus $x(t)=\sin(3\,t)$ ist nach dieser Abtastung und Rekonstruktion mit idealem
-Tiefpassfilter $x_r(t) = -\sin(1\cdot t)$ geworden. Falls wir uns nicht verrechnet
+Tiefpassfilter das Signal $x_r(t) = -\sin(1\cdot t)$ geworden. Falls wir uns nicht verrechnet
 haben (sollten wir nicht, es könnten nur irgendwo unbeabsichtigte Typos am Start sein),
 müssen wir also konstatieren, dass die Rekonstruktion nicht fehlerfrei gelingt,
 weil offensichtlich $x(t) \neq x_r(t)$.
 
 Im \textbf{Zeitbereich} ist die Rechnerei ein wenig komplizierter (es ist aber
 nichts Neues, sondern Anwendung bekannter SigSys Werkzeuge), die Interpretation
-ist leider deutlich komplexer.
+ist deutlich komplizierter.
 Machen wir zunächst den Ansatz gemäß Signalflussgraph
 \begin{align}
 &x_\mathrm{s}(t) =
@@ -748,8 +759,8 @@ Machen wir zunächst den Ansatz gemäß Signalflussgraph
 \end{align}
 Wir erinnern uns, dass wir die Faltung eigentlich umgehen wollen, indem
 wir die Multiplikationsdualität verwenden (haben wir im Frequenzbereich
-ja bereits gemacht), hier aber didaktisch explizit gewollt.
-Also schreiben wir das Faltungsintegral tatsächlich hin
+ja gerade gemacht), hier aber jetzt didaktisch explizit gewollt.
+Also schreiben wir das Faltungsintegral tatsächlich hin (zeiltiche Spiegelung beim sinc)
 \begin{align}
 x_\mathrm{r}(t) =&
 \mathrm{sinc}(2 t)
@@ -767,8 +778,8 @@ x_\mathrm{r}(t) =&
 \sum_{m=-\infty}^{+\infty} \sin(3 m \frac{\pi}{2}) \cdot \mathrm{sinc}(2 [-m \frac{\pi}{2} + t]),
 \label{eq:EF235EE3D8_SincSpecialResult}
 \end{align}
-wobei letzteres der Austasteigenschaft zu verdanken ist. Das Faltungsintegral selber
-war also gar nicht so schlimm.
+wobei letzteres der Austasteigenschaft des Diracs zu verdanken ist.
+Das Faltungsintegral selber war also gar nicht so schlimm.
 %
 Wir erinnern uns, dass wir die Parameter Abtastintervall, $T_\mathrm{s}=\frac{\pi}{2}$ s,
 Abtast-Kreisfrequenz $\omega_\mathrm{s}=4$  rad/s, Grenzfrequenz ideales
@@ -797,8 +808,8 @@ x_\mathrm{r}(t)=
 \sum_{m=-\infty}^{+\infty} x(m T_\mathrm{s}) \cdot \mathrm{sinc}(\frac{\omega_\mathrm{s}}{2} [-m T_\mathrm{s} + t])=
 \sum_{m=-\infty}^{+\infty} x(m T_\mathrm{s}) \cdot \mathrm{sinc}\left(\pi \cdot \frac{t-m T_\mathrm{s}}{T_\mathrm{s}}\right)
 \end{align}
-schreiben. Diese Formel gilt zunächst immer noch allgemein, 'nur' mit der
-fixen Verknüpfung der Grenzfrequenz des idealen Tiefpasses mit der halben Abtastfrequenz.
+schreiben. Diese Formel gilt zunächst immer noch allgemein, 'nur' jetzt mit der
+fixen Verknüpfung der Grenzfrequenz des idealen Tiefpasses mit der \textbf{halben Abtastfrequenz}.
 Nehmen wir nun weiter an, dass das abzutastende Signal $x(t)$ nur Frequenzen
 \begin{align}
 \textbf{2.}:\quad<\omega_\mathrm{c}\quad\text{also}\quad<\frac{\omega_\mathrm{s}}{2}
@@ -925,7 +936,7 @@ zusammen.
 \caption{Rekonstruierter Ausgang $X_\mathrm{r}(\im\omega)$.}
 \label{fig:Sampling_07_ReconstructedSine_EF235EE3D8}
 \end{subfigure}
-\caption{Aufgabe \ref{sec:EF235EE3D8} Frequenzbereich.}
+\caption{Aufgabe \ref{sec:EF235EE3D8} Frequenzbereich. \texttt{IdealSamplingReconstruction\_EF235EE3D8.ipynb}}
 \label{fig:EF235EE3D8_FrequencyDomain}
 \end{figure*}
 
@@ -948,7 +959,7 @@ zusammen.
 schwarz: Abtastversion $x_\mathrm{s}(t)$, orange: rekonstruierter Ausgang $x_\mathrm{r}(t)$}
 \label{fig:TimeSignals_EF235EE3D8}
 \end{subfigure}
-\caption{Aufgabe \ref{sec:EF235EE3D8} Zeitbereich.}
+\caption{Aufgabe \ref{sec:EF235EE3D8} Zeitbereich. \texttt{IdealSamplingReconstruction\_EF235EE3D8.ipynb}}
 \label{fig:EF235EE3D8_TimeDomain}
 \end{figure*}
 
@@ -972,7 +983,7 @@ Bedingung 1. und 2. eingehalten.}
 \label{fig:SincInterpolation_NoAliasing_EF235EE3D8}
 \end{subfigure}
 \caption{Aufgabe \ref{sec:EF235EE3D8} Zeitbereich.
-Darstellung der Sinc-Interpolation.}
+Darstellung der Sinc-Interpolation. \texttt{IdealSamplingReconstruction\_EF235EE3D8.ipynb}}
 \label{fig:SincInterpolation_EF235EE3D8}
 \end{figure*}
 
@@ -997,13 +1008,16 @@ gegeben
 \end{align}
 Wir bezeichnen hier die Fourierkoeffizienten mit der Schreibweise
 $X[\nu\,\omega_s]$,
-dann sind wir mit dem Großbuchstaben $X$ wieder in unserer SigSys-Welt und mit
+dann sind wir mit dem Großbuchstaben $X$ besser in unserer SigSys-Welt unterwegs und mit
 dem Term $\nu\,\omega_s$ können wir sofort sehen,
-welche tatsächliche Frequenz $\omega$ welcher Harmonischen $\nu$ zuzuordnen ist.
+welche tatsächliche Kreisfrequenz $\omega$ welcher Harmonischen $\nu$ zuzuordnen ist.
 Die eckigen Klammern sollen andeuten, dass
 es abzählbare $\nu$ gibt, also dass die 'Funktion' $X[\nu\omega_s]$
-als Zahlenfolge aufzufassen ist. Das ist dann auch für das Kapitel zeitdiskrete
-Signale- und Systeme eine Schreibweise die wir oft benutzen.
+als Zahlenfolge von Fourierkoeffizienten aufzufassen ist.
+Wir hatten das bei der Fourierreihe
+als Linienspektrum bezeichnet.
+Diese Schreibweise werden wir für das Kapitel zeitdiskrete
+Signale- und Systeme oft benutzen.
 %
 Nehmen wir ein weiteres Signal
 \begin{align}
@@ -1049,7 +1063,7 @@ Das lässt sich umstellen und ausrechnen zu
 \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot T_s \cdot
 \mathrm{sinc}\left((\omega-\nu\omega_s)\frac{T_s}{2}\right).
 \end{align}
-Wenn wir mit $T_s=\frac{2\pi}{\omega_s}$ noch umschreiben
+Wenn wir mit $T_s=\frac{2\pi}{\omega_s}$ den sinc noch umschreiben
 \begin{align}
 \label{eq:SamplingFreqSincInterp}
 X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} \left(T_s X[\nu\,\omega_s]\right) \cdot
@@ -1087,7 +1101,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg. (1.10): $X[\nu\,\omega_s] = A \frac{T_h}{T_s} \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg. (1.12): $X[\nu\,\omega_s] = A \frac{T_h}{T_s} \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
@@ -1104,7 +1118,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg. (1.21): $X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg. (1.22): $X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -1121,7 +1135,7 @@ in Gedanken durch (wir rechnen es gleich im Detail aus):
   also für den Zeitbereich Faltung mit dem Dirac Impuls Kamm, dadurch
   entstehen periodische Wiederholungen
   des zeitlich begrenzten Signals, es entsteht ein periodisches Zeitsignal
-  $\tilde{x}(t)$ (orange, vgl. Aufgabe 1.1)
+  $\tilde{x}(t)$ (orange Abb. oben, vgl. Aufgabe 1.1)
   \item wir wissen, dass periodische Zeitsignale mit einer
   komplexen Fourierreihe beschrieben werden können, der Bildbereich der Fourierreihe
   ist ein Linienspektrum und enthält die Spektrums-Information nach der Abtastung
@@ -1140,12 +1154,12 @@ beinhaltet das Linienspektrum der Fourierreihe \textbf{alle} Information,
 um das Spektrum der Fouriertransformation
 des zeitlich begrenzten Signalausschnitts beschreiben zu können. Dafür gibt es
 nur einen einzig möglichen Verlauf, der mittels der Sinc-Interpolationsformel
-definiert ist. Das ist das Abtasttheorem für zeitlich begrenzte Signal um den
-Nullpunkt $t=0$.
+definiert ist. Diese Erkenntnis ist verpackt im Abtasttheorem für
+zeitlich begrenzte Signale um den Nullpunkt $t=0$.
 
 Ähnlich wie in der vorhergehenden Aufgabe, kann man in der Sinc-Interpolationsformel
 wieder nicht sehen, dass perfekt rekonstruiert werden kann, was in dem anderen
-Bereich (hier der Zeitbereich) schnell und übersichtlich offenbart wird.
+Bereich (hier jetzt der Zeitbereich) schnell und übersichtlich offenbart wird.
 
 \newpage
 \subsection{Abtastung und Rekonstruktion eines Spektrums: Sinc}
@@ -1213,8 +1227,8 @@ die Abtastung von $X(\im\omega)$ und die Rekonstruktion zu $X_\mathrm{r}(\im\ome
 berechnet und skizziert werden.
 
 \begin{itemize}
-  \item Berechnen / Skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
-  \item Berechnen / Skizzieren Sie alle Spektren, d.h.  $X(\im\omega)$, $S(\im\omega)$, $X_\mathrm{s}(\im\omega)$, $H_\mathrm{r}(\im\omega)$ und $X_\mathrm{r}(\im\omega)$
+  \item Berechnen und skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
+  \item Berechnen und skizzieren Sie alle Spektren, d.h.  $X(\im\omega)$, $S(\im\omega)$, $X_\mathrm{s}(\im\omega)$, $H_\mathrm{r}(\im\omega)$ und $X_\mathrm{r}(\im\omega)$
   \item Ist die Rekonstruktion des Spektrums erfolgreich?
 \end{itemize}
 
@@ -1237,7 +1251,7 @@ X(\im\omega) = \mathrm{sinc}(\frac{\omega}{4})
 %
 \textbf{Abtastung, Signal und Spektrum}:
 Fundament für eine sinnvolle Bearbeitung solcher Abtastaufgaben ist zunächst die
-Dualität fehlerfrei niederzuschreiben
+Dirac Impuls Kamm Dualität fehlerfrei niederzuschreiben
 \begin{align}
 \frac{1}{T_\mathrm{s}} {\Sha}(\frac{t}{T_\mathrm{s}}) \quad\fourier\quad
 {\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi}) =
@@ -1281,19 +1295,23 @@ aufschreiben, ganz ohne Zeitskalierung, nur mit Linearitätseigenschaft.
 \end{ExCalc}
 \begin{Loesung}
 %
-Im \textbf{Zeitbereich} ist die Abtastung des Spektrums
+Die Abtastung/Rekonstruktion des Spektrums ist mit \textbf{Lösung im Zeitbereich}
+vergleichsweise einfach einzusehen, vor allem mit der begleitenden Grafik unten.
+Wir sehen, dass in diesem Fall perfekte Rekonstruktion möglich ist.
+
+\noindent Dirac Impulskamm
 \begin{align}
-x_\mathrm{s}(t) = x(t) \ast_t s(t) = \frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1])
+x_\mathrm{s}(t) = x(t) \ast_t s(t) = \frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1\cdot m])
 \end{align}
-und die Spektren-Rekonstruktion
+Rekonstruktion
 \begin{align}
 x_\mathrm{r}(t) = h_\mathrm{r}(t) \cdot x_\mathrm{s}(t) =
 2\pi \mathrm{rect}(t) \cdot \left(
-\frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1])
+\frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1 \cdot m])
 \right) = 2\mathrm{rect}(2t) \equiv x(t)
 \end{align}
-vergleichsweise einfach einzusehen, vor allem mit der zugehörigen Grafik unten.
-Wir sehen, dass in diesem Fall perfekte Rekonstruktion möglich ist.
+
+
 %
 \begin{center}
 \begin{tikzpicture}[domain=0:2]
@@ -1368,8 +1386,8 @@ Wir sehen, dass in diesem Fall perfekte Rekonstruktion möglich ist.
 %
 %
 
-Die Abtastung eines Spektrums und dessen Rekonstruktion ist im
-\textbf{Frequenzbereich} deutlich frickeliger.
+Die Abtastung eines Spektrums und dessen Rekonstruktion ist mit
+\textbf{Lösung im Frequenzbereich} deutlich frickeliger.
 Es ist im Grunde aber die gleiche Rechnung wie in der vorangegangenen Aufgabe,
 wir müssen auch wieder das Faltungsintegral explizit aufschreiben (als
 Frequenzhilfsvariable $o$ für das Faltungsintegral, also da wo wir sonst $\tau$ nehmen)
@@ -1403,9 +1421,13 @@ X_r(\im\omega) =& \frac{1}{2\pi} X_s(\im\omega) \ast_\omega H_r(\im\omega)\\
 \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4})\cdot
 \mathrm{sinc}(\pi\cdot\frac{\omega-\nu 2 \pi}{2\pi})
 \end{align}
+In der zweiten Formel-Zeile Dirac Multiplikationseigenschaft, für die fünfte Zeile
+Dirac Austasteigenschaft, sinc ist die zeitgespiegelte Funktion im Faltungsintegral...
+Anwendung bekannter Sachen.
+
 Dieses Ergebnis kennen wir in allgemeiner Form aus \eq{eq:SamplingFreqSincInterp}.
 %
-Wir können aus Übung 1 Glg. (1.10) leicht ermitteln, dass die Koeffizienten
+Wir können mit Glg.~(1.12) aus Übung 1 leicht ermitteln, dass die Koeffizienten
 der komplexen Fourierreihe für unser gewähltes Signal $x_\mathrm{s}(t)$ mit
 $\frac{T_h}{2} = \frac{T_s}{4}$ und $A=2$
 \begin{equation}
@@ -1417,8 +1439,8 @@ T_s \cdot X[\nu\,\omega_s] = 1 \cdot \mathrm{sinc}(2\pi \nu \frac{1}{4}).
 \end{equation}
 Dies ist genau der Term, der in unserer Lösung als Gewicht für die Sinc-Interpolation
 vorkommt. Sprich, wir benutzen die Koeffizienten der Fourierreihe
-(periodische Rechteckfunktion im Zeitbereich) um damit
-zur Fouriertransformierten (einmaliger Rechteckimpuls) zur interpolieren.
+(Zeitsignal ist eine periodische Rechteckfunktion) um damit
+zur Fouriertransformierten (Zeitsignal ist ein einmaliger Rechteckimpuls) zur interpolieren.
 Wir sehen der Sinc-Interpolationsformel die perfekte Rekonstruktion wieder nicht an,
 in der mit Computer errechneten Grafik \fig{fig:SpectrumSampling_Th_Ts1_2_45C76AFB33},
 können wir das gut herauslesen, auch wenn dort nur über endliche Anzahl der
@@ -1456,7 +1478,7 @@ der zur Verfügung stehenden (zu wenigen) Abtastwerte eben nicht zum originalen 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{../sampling/SpectrumSampling_Th_Ts1_2_45C76AFB33.pdf}
-\caption{Aufgabe \ref{sec:45C76AFB33}: Frequenzbereich.}
+\caption{Aufgabe \ref{sec:45C76AFB33}. Frequenzbereich. \texttt{IdealSamplingReconstruction\_45C76AFB33.ipynb}}
 \label{fig:SpectrumSampling_Th_Ts1_2_45C76AFB33}
 \end{figure}
 
@@ -1472,7 +1494,7 @@ der zur Verfügung stehenden (zu wenigen) Abtastwerte eben nicht zum originalen 
 
 \begin{subfigure}{0.75\textwidth}
 \includegraphics[width=\textwidth]{../sampling/SpectrumSampling_Th_Ts4_3_45C76AFB33.pdf}
-\caption{Rekonstruktion nicht perfekt, Unterabtastung, weil $\frac{T_h}{2}>\frac{T_s}{2}$.}
+\caption{Rekonstruktion (gestrichelt) nicht perfekt, Unterabtastung, weil $\frac{T_h}{2}>\frac{T_s}{2}$.}
 \label{fig:SpectrumSampling_Th_Ts4_3_45C76AFB33}
 \end{subfigure}
 % \begin{subfigure}{0.49\textwidth}
@@ -1482,6 +1504,6 @@ der zur Verfügung stehenden (zu wenigen) Abtastwerte eben nicht zum originalen 
 % nötig ist.}
 % \label{fig:SpectrumSampling_Th_Ts1_1_45C76AFB33}
 % \end{subfigure}
-\caption{Spektrenabtastung- und rekonstruktion.}
+\caption{Spektrenabtastung- und rekonstruktion. \texttt{IdealSamplingReconstruction\_45C76AFB33.ipynb}}
 \label{fig:SpectrumSampling_Th_TsXX45C76AFB33}
 \end{figure*}
