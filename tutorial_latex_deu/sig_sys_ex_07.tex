@@ -1001,9 +1001,9 @@ Abtastung \& Rekonstruktion eines Fourier-Transformation-Spektrums}
 Betrachten wir die komplexe Fourierreihe für die Periodendauer
 $T_s$ und die Grundkreisfrequenz $\omega_s=\frac{2\pi}{T_s}$.
 Dann ist die Signalsynthese für ein $T_s$-periodisches Signal mittels Fourierreihe
-gegeben
+gegeben %, vgl. Glg.~(1.2)
 \begin{align}
-  \tilde{x}(t) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
+  \tilde{x}(t) = \frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
   \e^{+\im\,(\omega_s \nu)\cdot t}.
 \end{align}
 Wir bezeichnen hier die Fourierkoeffizienten mit der Schreibweise
@@ -1040,33 +1040,31 @@ Nun können wir für $x(t)$ die Syntheseformel der komplexen Fourierreihe einset
 also
 \begin{align}
 X(\im\omega) = \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}
-\left(\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \e^{\im\,(\omega_s \nu)\cdot t}\right)
+\left(\frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \e^{\im\,(\omega_s \nu)\cdot t}\right)
 \e^{-\im\omega t} \fsd t.
 \end{align}
 Das lässt sich umstellen und ausrechnen zu
 \begin{align}
-&X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
+&X(\im\omega) = \frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
 \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}
 \e^{-\im (\omega-\nu\omega_s) t} \fsd t=
-\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
+\frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
 \frac{\e^{-\im (\omega-\nu\omega_s) t}}{-\im (\omega-\nu\omega_s)}
 \bigg|_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}\\
 %\end{align}
 %Grenzen einsetzen und wie üblich (siehe Übung 1) vereinfachen
 %\begin{align}
 &X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]\left(
--\frac{\e^{-\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{\im (\omega-\nu\omega_s)}+
-\frac{\e^{\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{\im (\omega-\nu\omega_s)}\right)
-\cdot \frac{2}{2} \cdot \frac{\frac{T_s}{2}}{\frac{T_s}{2}} =
-%\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot T_s \cdot
-%\frac{\sin\left((\omega-\nu\omega_s)\frac{T_s}{2}\right)}{(\omega-\nu\omega_s)\frac{T_s}{2}}=
-\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot T_s \cdot
+-\frac{\e^{-\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{2 \im (\omega-\nu\omega_s) \frac{T_s}{2}}+
+\frac{\e^{\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{2 \im (\omega-\nu\omega_s) \frac{T_s}{2}}\right)
+=
+\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot
 \mathrm{sinc}\left((\omega-\nu\omega_s)\frac{T_s}{2}\right).
 \end{align}
 Wenn wir mit $T_s=\frac{2\pi}{\omega_s}$ den sinc noch umschreiben
 \begin{align}
 \label{eq:SamplingFreqSincInterp}
-X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} \left(T_s X[\nu\,\omega_s]\right) \cdot
+X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot
 \mathrm{sinc}\left(\pi\cdot\frac{\omega-\nu\omega_s}{\omega_s}\right),
 \end{align}
 dann erkennen wir eine \textbf{verblüffende Ähnlichkeit mit der Sinc-Interpolation
@@ -1101,7 +1099,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg. (1.12): $X[\nu\,\omega_s] = A \frac{T_h}{T_s} \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg. (1.12): $X[\nu\,\omega_s] = A T_h \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
@@ -1127,21 +1125,19 @@ Spielen wir die Abtastung eines Spektrums nun mal mit den beiden Grafiken
 in Gedanken durch (wir rechnen es gleich im Detail aus):
 \begin{itemize}
   \item es gibt ein zeitlich begrenztes Signal $x(t)$ (blau)
-  und dazu gehört ein nicht bandbegrenztes Spektrum im Bildbereich der
-  Fouriertransformation, wir wissen, dass es ein sinc-förmiges Spektrum ist (Abb. 1.6)
-  \item dieses Spektrum wird nun im Frequenzbereich mit einem Dirac Impuls Kamm
-  abgetastet, es entsteht ein sogenanntes Linienspektrum, vgl. Abb. 1.1 blaue Punkte
-  \item Abtastung heißt im anderen Bereich Faltung:
-  also für den Zeitbereich Faltung mit dem Dirac Impuls Kamm, dadurch
-  entstehen periodische Wiederholungen
+  und dazu gehört ein nicht bandbegrenztes, kontinuierliches Spektrum
+  (Fouriertransformation), wir wissen, dass es ein sinc-förmiges Spektrum ist (Abb. 1.6)
+  \item dieses Spektrum wird nun abgetastet, es entsteht ein sogenanntes
+  Linienspektrum, vgl. Abb. 1.1 blaue Punkte
+  \item Abtastung ist Multiplikation mit Dirac Impulskamm, im anderen Bereich
+  Faltung mit Dirac Impulskamm:
+  hiere also im Zeitbereich periodische Wiederholungen
   des zeitlich begrenzten Signals, es entsteht ein periodisches Zeitsignal
   $\tilde{x}(t)$ (orange Abb. oben, vgl. Aufgabe 1.1)
-  \item wir wissen, dass periodische Zeitsignale mit einer
-  komplexen Fourierreihe beschrieben werden können, der Bildbereich der Fourierreihe
-  ist ein Linienspektrum und enthält die Spektrums-Information nach der Abtastung
+  \item periodische Zeitsignale haben ein Linienspektrum (komplexe Fourierreihe)
   \item Bei der Rekonstruktion wird mittels der oben gefundenen Sinc-Interpolation
   \eq{eq:SamplingFreqSincInterp}
-  aus diesem Linienspektrum wieder eine kontinuierliches Spektrum, im besten
+  aus diesem Linienspektrum wieder ein kontinuierliches Spektrum, im besten
   Fall (d.h. perfekter Rekonstruktion) erhalten wir das originale Spektrum zurück
   \item im Zeitbereich bedeutet dies äquivalent, dass alle periodischen
   Wiederholungen weggeschnitten werden und wieder nur das zeitlich begrenzte,
@@ -1158,7 +1154,7 @@ definiert ist. Diese Erkenntnis ist verpackt im Abtasttheorem für
 zeitlich begrenzte Signale um den Nullpunkt $t=0$.
 
 Ähnlich wie in der vorhergehenden Aufgabe, kann man in der Sinc-Interpolationsformel
-wieder nicht sehen, dass perfekt rekonstruiert werden kann, was in dem anderen
+wieder nicht sofort sehen, dass perfekt rekonstruiert werden kann, was in dem anderen
 Bereich (hier jetzt der Zeitbereich) schnell und übersichtlich offenbart wird.
 
 \newpage
@@ -1217,14 +1213,14 @@ Für das dargestellte Abtast- und Rekonstruktionsmodell von Spektren
 \end{center}
 soll für
 \begin{align}
-X(\im\omega) = \mathrm{sinc}(\frac{\omega}{4})\qquad
+X(\im\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})\qquad
 %
-S(\im\omega)=\frac{1}{2\pi} \Sha(\frac{\omega}{2\pi})\qquad
+S(\im\omega)=\frac{1}{\omega_s}\Sha(\frac{\omega}{\omega_s})\qquad
 %
-h_r(t) = 2\pi\mathrm{rect}(t)
+h_r(t) = \frac{2\pi}{T_s}\mathrm{rect}(\frac{t}{T_s})
 \end{align}
 die Abtastung von $X(\im\omega)$ und die Rekonstruktion zu $X_\mathrm{r}(\im\omega)$
-berechnet und skizziert werden.
+mit $\omega_s = 3 \pi$ berechnet und skizziert werden.
 
 \begin{itemize}
   \item Berechnen und skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
@@ -1234,6 +1230,7 @@ berechnet und skizziert werden.
 
 \begin{Werkzeug}
 Siehe Aufgabe \ref{sec:EF235EE3D8}.
+$$\omega_s = \frac{2\pi}{T_s}$$
 \end{Werkzeug}
 \begin{Ansatz}
 Siehe Aufgabe \ref{sec:EF235EE3D8}, in Gedanken müssen wir hier Faltung und
@@ -1242,11 +1239,18 @@ aber mal durchgespielt haben, werden wir mit einem
 universellen Blick auf die Dinge belohnt.
 \end{Ansatz}
 \begin{ExCalc}
+$$T_s = \frac{2\pi}{\omega_s} = \frac{2}{3}$$
 \textbf{Eingang, Signal und Spektrum}:
 \begin{align}
-x(t) = 2 \mathrm{rect}(2 t)
+x(t) = \frac{9}{2} \mathrm{rect}(3 t)
 \quad\fourier\quad
-X(\im\omega) = \mathrm{sinc}(\frac{\omega}{4})
+X(\im\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})
+\end{align}
+allgemeiner mit $A = \frac{9}{2}$ und $T_h=\frac{1}{3}$:
+\begin{align}
+x(t) = A \mathrm{rect}(\frac{t}{T_h})
+\quad\fourier\quad
+X(\im\omega) = A T_h\mathrm{sinc}(\frac{\omega T_h}{2})
 \end{align}
 %
 \textbf{Abtastung, Signal und Spektrum}:
@@ -1259,63 +1263,73 @@ Dirac Impuls Kamm Dualität fehlerfrei niederzuschreiben
 \sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s}) \quad\fourier\quad
 \omega_s \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s).
 \end{align}
-Aus ${\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi})$ ermitteln wir
-$T_\mathrm{s} = 1$ s und damit $\omega_\mathrm{s}=\frac{2\pi}{T_s} = 2\pi$ rad/s.
-Die Abtast-(kreis)-frequenz $\omega_\mathrm{s}=\frac{2\pi}{T_s} = 2\pi$ rad/s
-hätten wir auch direkt aus der Darstellung $\Sha(\frac{\omega}{\omega_\mathrm{s}})$
-ermitteln können.
 %
 Der Dirac Impuls Kamm im Frequenzbereich aus der Aufgabenstellung ist nun noch
-gewichtet mit $\frac{1}{2\pi}$, was wir beidseitig einführen (Linearitätseigenschaft)
+(intentional für resultierendes Dirac Gewicht 1) gewichtet mit $\frac{1}{\omega_s}$,
+was wir beidseitig einführen (Linearitätseigenschaft)
 \begin{align}
-s(t) = \frac{1}{2\pi}\cdot\frac{1}{T_\mathrm{s}} {\Sha}(\frac{t}{T_\mathrm{s}}) \quad\fourier\quad
-S(\im\omega) = \frac{1}{2\pi}\cdot{\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi}) =
-\frac{1}{2\pi}\cdot\Sha(\frac{\omega}{\omega_\mathrm{s}})\\
-s(t) = \frac{1}{2\pi}\cdot\sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s}) \quad\fourier\quad
-S(\im\omega) = \frac{1}{2\pi}\cdot\omega_s \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
-\end{align}
-%
-Gegebene Zahlenwerte berücksichtigt
-\begin{align}
-\frac{1}{2\pi}\cdot\frac{1}{1} {\Sha}(\frac{t}{1}) \quad\fourier\quad
-\frac{1}{2\pi}\cdot{\Sha}(\frac{\omega \cdot 1}{2 \pi}) =
-\frac{1}{2\pi}\cdot\Sha(\frac{\omega}{2\pi})\\
-\frac{1}{2\pi}\cdot\sum_{m=-\infty}^{+\infty} \delta(t-m \cdot 1) \quad\fourier\quad
-\frac{1}{2\pi}\cdot 2\pi \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu 2\pi)
+s(t) = \frac{1}{\omega_s}\cdot\frac{1}{T_\mathrm{s}} {\Sha}(\frac{t}{T_\mathrm{s}}) &\quad\fourier\quad
+S(\im\omega) = \frac{1}{\omega_s} {\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi}) =
+\frac{1}{\omega_s}\Sha(\frac{\omega}{\omega_\mathrm{s}})\\
+s(t) = \frac{1}{\omega_s} \sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s}) &\quad\fourier\quad
+S(\im\omega) = \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
 \end{align}
 %
 Für das \textbf{Rekonstruktionszeitfenster} können wir direkt aus der Formelsammlung
 \begin{align}
-h_r(t) = 2\pi\mathrm{rect}(t)
+h_r(t) = \frac{2\pi}{T_s}\mathrm{rect}(\frac{t}{T_s})
 \quad\fourier\quad
-H_r(\im\omega) = 2\pi\mathrm{sinc}(\frac{\omega}{2})
+H_r(\im\omega) = 2\pi \mathrm{sinc}(\frac{\omega T_s}{2})
 \end{align}
-aufschreiben, ganz ohne Zeitskalierung, nur mit Linearitätseigenschaft.
+ableiten...auch eine sehr bekannte Korrespondenz.
 %
 \end{ExCalc}
 \begin{Loesung}
 %
 Die Abtastung/Rekonstruktion des Spektrums ist mit \textbf{Lösung im Zeitbereich}
 vergleichsweise einfach einzusehen, vor allem mit der begleitenden Grafik unten.
-Wir sehen, dass in diesem Fall perfekte Rekonstruktion möglich ist.
+Wir sehen, dass in diesem Fall perfekte Rekonstruktion möglich ist, also
+$x_\mathrm{r}(t) \equiv x(t)$.
 
-\noindent Dirac Impulskamm
+\noindent Faltung mit Dirac Impulskamm
 \begin{align}
-x_\mathrm{s}(t) = x(t) \ast_t s(t) = \frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1\cdot m])
+x_\mathrm{s}(t) = x(t) \ast_t s(t) = \int\limits_{-\infty}^{+\infty} x(-\tau+t) \cdot s(\tau) \fsd\tau
+= \int\limits_{-\infty}^{+\infty} A \mathrm{rect}(\frac{1}{T_h}[-\tau + t]) \cdot \frac{1}{\omega_s} \sum_{m=-\infty}^{+\infty} \delta(\tau-m T_\mathrm{s}) \fsd\tau
 \end{align}
-Rekonstruktion
+Reihenfolge Integral und Summe
+\begin{align}
+x_\mathrm{s}(t) = \frac{A}{\omega_s} \sum_{m=-\infty}^{+\infty} \int\limits_{-\infty}^{+\infty} \mathrm{rect}(\frac{1}{T_h}[-\tau + t]) \delta(\tau-m T_\mathrm{s}) \fsd\tau
+\end{align}
+Austasteigenschaft Dirac
+\begin{align}
+x_\mathrm{s}(t)
+= \frac{A}{\omega_s} \sum_{m=-\infty}^{+\infty} \mathrm{rect}(\frac{1}{T_h}[-m T_\mathrm{s} + t])
+= \frac{A}{\omega_s} \sum_{m=-\infty}^{+\infty} \mathrm{rect}(\frac{1}{T_h}[t - m T_\mathrm{s}])
+\end{align}
+Das ergibt also um $T_s$ verschobene Rechteckpulse.
+
+\noindent Rekonstruktion
 \begin{align}
 x_\mathrm{r}(t) = h_\mathrm{r}(t) \cdot x_\mathrm{s}(t) =
-2\pi \mathrm{rect}(t) \cdot \left(
-\frac{1}{2\pi} \sum_{m=-\infty}^{+\infty} 2\mathrm{rect}(2[t-1 \cdot m])
-\right) = 2\mathrm{rect}(2t) \equiv x(t)
+\left(\frac{2\pi}{T_s}\mathrm{rect}(\frac{t}{T_s})\right) \cdot
+\left(\frac{A}{\omega_s} \sum_{m=-\infty}^{+\infty} \mathrm{rect}(\frac{1}{T_h}[t - m T_\mathrm{s}]))\right)
 \end{align}
-
+Falls $T_h < T_s$ bzw. $\frac{T_h}{2} < \frac{T_s}{2}$
+(dies ist im Zahlenbeispiel erfüllt),
+bleibt von der Summe über $m$ nur die Rechteckfunktion bei $m=0$ übrig.
+Alle anderen $m$-Beiträge macht die erste Rect-Funktion zu Null.
+%
+Weil $\frac{2\pi}{T_s \omega_s} = \frac{2\pi}{2\pi} = 1$ verbleibt also
+\begin{align}
+x_\mathrm{r}(t) = A \mathrm{rect}(\frac{t}{T_h}) \equiv x(t)
+\end{align}
+in allgemeiner Schreibweise aber unter Berücksichtigung unseres Zahlenbeispiels.
+Ohne Zahlen sieht man aber schöner, was die Variablen während der Rechnung machen.
 
 %
 \begin{center}
 \begin{tikzpicture}[domain=0:2]
-\def\T{0.25}
+\def\T{0.1667}
 %
 \begin{scope}[shift={(0,0)}]
 \draw[->] (-3,0) -- (3,0) node[below right] {$t$};
@@ -1323,48 +1337,48 @@ x_\mathrm{r}(t) = h_\mathrm{r}(t) \cdot x_\mathrm{s}(t) =
 \foreach \pos in {-0,...,0} {
 \draw[-, C0, ultra thick] (\pos-\T-2,0) -- (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T+2,0);
 };
-\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-1}{4}$};
-\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{1}{4}$};
-\draw[-, C0, ultra thick] (1,0) node[below] {$1$};
-\draw[-, C0, ultra thick] (2,0) node[below] {$2$};
-\draw[-, C0, ultra thick] (-\T,1) node[left] {$2$};
+\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-1}{6}$};
+\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{1}{6}$};
+\draw[-, C0, ultra thick] (0.667,0) node[below] {$\frac{2}{3}$};
+\draw[-, C0, ultra thick] (2*0.667,0) node[below] {$\frac{4}{3}$};
+\draw[-, C0, ultra thick] (-\T,1) node[left] {$\frac{9}{2}$};
 \end{scope}
 %
 \begin{scope}[shift={(7,0)}]
 \draw[->] (-3,0) -- (3,0) node[below right] {$t$};
 \draw[->] (0,0) -- (0,1.5) node[above] {$s(t)$};
 \foreach \pos in {-2,...,2} {
-\draw[->, black, ultra thick] (\pos,0) -- (\pos,1);
+\draw[->, black, ultra thick] (\pos*2/3,0) -- (\pos*2/3,1);
 };
-\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-1}{4}$};
-\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{1}{4}$};
-\draw[-, black, ultra thick] (1,0) node[below] {$1$};
-\draw[-, black, ultra thick] (2,0) node[below] {$2$};
-\draw[-, black, ultra thick] (-2-\T,1) node[left] {$(\frac{1}{2\pi})$};
+\draw[-, C0, ultra thick] (-\T,0) node[below] {$\frac{-1}{6}$};
+\draw[-, C0, ultra thick] (+\T,0) node[below] {$\frac{1}{6}$};
+\draw[-, black, ultra thick] (0.667,0) node[below] {$\frac{2}{3}$};
+\draw[-, black, ultra thick] (1.334,0) node[below] {$\frac{4}{3}$};
+\draw[-, black, ultra thick] (-2*2/3-\T,1) node[left] {$(\frac{1}{3\pi})$};
 \end{scope}
 %
 \begin{scope}[shift={(0,-3)}]
 \draw[->] (-3,0) -- (3,0) node[below right] {$t$};
-\draw[->] (0,0) -- (0,1.5) node[above] {$x_\mathrm{s}(t) = x(t)\ast s(t)$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x_\mathrm{s}(t) = x(t)\ast_t s(t)$};
 \foreach \pos in {-2,...,2} {
-\draw[-, C1, ultra thick] (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T,0);
+\draw[-, C1, ultra thick] (\pos*2/3-\T,0) -- (\pos*2/3-\T,1) -- (\pos*2/3+\T,1) -- (\pos*2/3+\T,0) -- (\pos*2/3+1*2/3-\T,0);
 };
-\draw[-, C1, ultra thick] (-\T,0) node[below] {$\frac{-1}{4}$};
-\draw[-, C1, ultra thick] (+\T,0) node[below] {$\frac{1}{4}$};
-\draw[-, C1, ultra thick] (1,0) node[below] {$1$};
-\draw[-, C1, ultra thick] (2,0) node[below] {$2$};
-\draw[-, C1, ultra thick] (-2-\T,1) node[left] {$\frac{2}{2\pi}$};
+\draw[-, C1, ultra thick] (-\T,0) node[below] {$\frac{-1}{6}$};
+\draw[-, C1, ultra thick] (+\T,0) node[below] {$\frac{1}{6}$};
+\draw[-, C1, ultra thick] (1*2/3,0) node[below] {$\frac{2}{3}$};
+\draw[-, C1, ultra thick] (2*2/3,0) node[below] {$\frac{4}{3}$};
+\draw[-, C1, ultra thick] (-2*2/3-\T,1) node[left] {$\frac{9}{2} \cdot \frac{1}{3\pi}$};
 \end{scope}
 %
 \begin{scope}[shift={(7,-3)}]
 \draw[->] (-3,0) -- (3,0) node[below right] {$t$};
 \draw[->] (0,0) -- (0,1.5) node[above] {$h_\mathrm{r}(t)$};
-\draw[-, C2, ultra thick] (-3,0) -- (-1/2,0) -- (-1/2,1) -- (+1/2,1) -- (+1/2,0) -- (3,0);
-\draw[-, C2, ultra thick] (-1/2,0) node[below] {$\frac{-1}{2}$};
-\draw[-, C2, ultra thick] (+1/2,0) node[below] {$\frac{+1}{2}$};
-\draw[-, C2, ultra thick] (1,0) node[below] {$1$};
-\draw[-, C2, ultra thick] (2,0) node[below] {$2$};
-\draw[-, C2, ultra thick] (-1/2,1) node[left] {$2\pi$};
+\draw[-, C2, ultra thick] (-3,0) -- (-1/3,0) -- (-1/3,1) -- (+1/3,1) -- (+1/3,0) -- (3,0);
+\draw[-, C2, ultra thick] (-1/3,0) node[below] {$\frac{-1}{3}$};
+\draw[-, C2, ultra thick] (+1/3,0) node[below] {$\frac{1}{3}$};
+\draw[-, C2, ultra thick] (2/3,0) node[below] {$\frac{2}{3}$};
+\draw[-, C2, ultra thick] (4/3,0) node[below] {$\frac{4}{3}$};
+\draw[-, C2, ultra thick] (-1/2,1) node[left] {$\frac{2\pi}{\nicefrac{2}{3}}$};
 \end{scope}
 %
 \begin{scope}[shift={(3.5,-6)}]
@@ -1373,11 +1387,11 @@ x_\mathrm{r}(t) = h_\mathrm{r}(t) \cdot x_\mathrm{s}(t) =
 \foreach \pos in {-0,...,0} {
 \draw[densely dashed, C3, ultra thick] (\pos-\T-2,0) -- (\pos-\T,0) -- (\pos-\T,1) -- (\pos+\T,1) -- (\pos+\T,0) -- (\pos+1-\T+2,0);
 };
-\draw[-, C3, ultra thick] (-\T,0) node[below] {$\frac{-1}{4}$};
-\draw[-, C3, ultra thick] (+\T,0) node[below] {$\frac{1}{4}$};
-\draw[-, C3, ultra thick] (1,0) node[below] {$1$};
-\draw[-, C3, ultra thick] (2,0) node[below] {$2$};
-\draw[-, C3, ultra thick] (-\T,1) node[left] {$2$};
+\draw[-, C3, ultra thick] (-\T,0) node[below] {$\frac{-1}{6}$};
+\draw[-, C3, ultra thick] (+\T,0) node[below] {$\frac{1}{6}$};
+\draw[-, C3, ultra thick] (1*2/3,0) node[below] {$\frac{2}{3}$};
+\draw[-, C3, ultra thick] (2*2/3,0) node[below] {$\frac{4}{3}$};
+\draw[-, C3, ultra thick] (-\T,1) node[left] {$\frac{9}{2}$};
 \end{scope}
 %
 \end{tikzpicture}
@@ -1388,80 +1402,119 @@ x_\mathrm{r}(t) = h_\mathrm{r}(t) \cdot x_\mathrm{s}(t) =
 
 Die Abtastung eines Spektrums und dessen Rekonstruktion ist mit
 \textbf{Lösung im Frequenzbereich} deutlich frickeliger.
-Es ist im Grunde aber die gleiche Rechnung wie in der vorangegangenen Aufgabe,
-wir müssen auch wieder das Faltungsintegral explizit aufschreiben (als
-Frequenzhilfsvariable $o$ für das Faltungsintegral, also da wo wir sonst $\tau$ nehmen)
-und so umformen, dass
-nur die Summe über alle $\nu$ bleibt. Das ist dann wieder die Sinc-Interpolation,
-diesmal im Frequenzbereich.
-\begin{align}
-X_r(\im\omega) =& \frac{1}{2\pi} X_s(\im\omega) \ast_\omega H_r(\im\omega)\\
-=&\frac{1}{2\pi}
-\left(\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4}) \delta(\omega-\nu 2 \pi)\right)
-\ast_\omega
-\left(2\pi\mathrm{sinc}(\frac{\omega}{2})\right)\\
-=&\int\limits_{-\infty}^{+\infty}
-\frac{1}{2\pi}
-\left(\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4}) \delta(o-\nu 2 \pi)\right)
-\left(2\pi\mathrm{sinc}(\frac{-o+\omega}{2}\right)
-\fsd o\\
-=&
-\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4})
-\int\limits_{-\infty}^{+\infty}
-\delta(o-\nu 2 \pi)\cdot
-\mathrm{sinc}(\frac{-o+\omega}{2})
-\fsd o\\
-=&
-\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4})\cdot
-\mathrm{sinc}(\frac{-\nu 2 \pi+\omega}{2})\\
-%=&
-%\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4})\cdot
-%\mathrm{sinc}(\frac{\omega-\nu 2 \pi}{2})\\
-=&
-\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{2\pi\nu}{4})\cdot
-\mathrm{sinc}(\pi\cdot\frac{\omega-\nu 2 \pi}{2\pi})
-\end{align}
-In der zweiten Formel-Zeile Dirac Multiplikationseigenschaft, für die fünfte Zeile
-Dirac Austasteigenschaft, sinc ist die zeitgespiegelte Funktion im Faltungsintegral...
-Anwendung bekannter Sachen.
+Es ist im Grunde aber die gleiche Rechnung wie in der vorangegangenen Aufgabe.
 
-Dieses Ergebnis kennen wir in allgemeiner Form aus \eq{eq:SamplingFreqSincInterp}.
+Abtastung eines Spektrums ist Multiplikation mit Dirac Impulskamm im Frequenzbereich:
+\begin{align}
+X_s(\im\omega)
+&= X(\im\omega) \cdot S(\im\omega)\\
+&= A T_h\mathrm{sinc}(\frac{\omega T_h}{2}) \cdot \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
+\end{align}
+Das schreit nach Multiplikationseigenschaft beim Dirac
+\begin{align}
+X_s(\im\omega)
+&= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\omega T_h}{2}) \delta(\omega-\nu \omega_s)\\
+&= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)
+\end{align}
+und ergibt offenbar ein Linienspektrum, dagestellt als verschobene Dirac Impulse (bei Vielfachen von $\omega_s$)
+und mit den Gewichten $A T_h \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})$. Diese Gewichte
+entsprechen den Fourierreihenkoeffizienten aus Aufgabe 1.1, siehe Glg.~(1.12).
+
+Nun folgt die Rekonstruktion. Wir müssen wieder das Faltungsintegral explizit aufschreiben (als
+Frequenzhilfsvariable $\xi$ für das Faltungsintegral, also da wo wir sonst $\tau$ nehmen)
+und geschickt umformen zur Sinc-Interpolation, diesmal im Frequenzbereich.
 %
-Wir können mit Glg.~(1.12) aus Übung 1 leicht ermitteln, dass die Koeffizienten
-der komplexen Fourierreihe für unser gewähltes Signal $x_\mathrm{s}(t)$ mit
-$\frac{T_h}{2} = \frac{T_s}{4}$ und $A=2$
-\begin{equation}
-X[\nu\,\omega_s] = \mathrm{sinc}(\omega_s \nu \frac{T_s}{4})
-\end{equation}
-lauten und weil $T_\mathrm{s}=1$ s, $\omega_\mathrm{s}=2\pi$ rad/s folgt
-\begin{equation}
-T_s \cdot X[\nu\,\omega_s] = 1 \cdot \mathrm{sinc}(2\pi \nu \frac{1}{4}).
-\end{equation}
-Dies ist genau der Term, der in unserer Lösung als Gewicht für die Sinc-Interpolation
-vorkommt. Sprich, wir benutzen die Koeffizienten der Fourierreihe
-(Zeitsignal ist eine periodische Rechteckfunktion) um damit
-zur Fouriertransformierten (Zeitsignal ist ein einmaliger Rechteckimpuls) zur interpolieren.
+Also, Ansatz
+\begin{align}
+X_r(\im\omega)
+=& \frac{1}{2\pi} X_s(\im\omega) \ast_\omega H_r(\im\omega)\\
+=& \frac{1}{2\pi} \left(A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)\right)
+\ast_\omega \left(2\pi \mathrm{sinc}(\frac{\omega T_s}{2})\right)
+\end{align}
+
+Faltungsintegral im Frequenzbereich allgemein ($H_r(\omega)$ spiegeln und über
+die Frequenzachse schieben scheint eleganter)
+\begin{align}
+X_r(\omega) = \int\limits_{\xi=-\infty}^{+\infty} X_s(\xi) \cdot H_r(-\xi + \omega) \fsd\xi
+\end{align}
+ausformuliert
+\begin{align}
+X_r(\im\omega)
+=& \frac{1}{2\pi} \int\limits_{\xi=-\infty}^{+\infty}
+\left(A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\xi-\nu \omega_s)\right)
+\left(2\pi \mathrm{sinc}(\frac{(-\xi + \omega) T_s}{2})\right)
+\fsd\xi
+\end{align}
+Die $2\pi$ kürzen sich raus, das war intentional so gewollt, damit wir amplitudengetreu rekonstruieren können.
+\begin{align}
+X_r(\im\omega)
+=& A T_h \int\limits_{\xi=-\infty}^{+\infty}
+\left(\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\xi-\nu \omega_s)\right)
+\left(\mathrm{sinc}(\frac{(-\xi + \omega) T_s}{2})\right)
+\fsd\xi
+\end{align}
+Reihenfolge Integral und Summe
+\begin{align}
+X_r(\im\omega)
+=& A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})
+\int\limits_{\xi=-\infty}^{+\infty}
+ \delta(\xi-\nu \omega_s)
+\mathrm{sinc}(\frac{(-\xi + \omega) T_s}{2})
+\fsd\xi
+\end{align}
+Austasteigenschaft Dirac
+\begin{align}
+X_r(\im\omega)
+=& A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})
+\mathrm{sinc}(\frac{(-\nu \omega_s + \omega) T_s}{2})
+\end{align}
+Im Argument der zweiten Sinc-Funktion noch mit $\pi$ erweitern bringt uns
+\begin{align}
+X_r(\im\omega)
+=& \sum_{\nu=-\infty}^{+\infty} \underbrace{A T_h \mathrm{sinc}\left(\nu \omega_s \frac{T_h}{2}\right)}_{\text{Koeff Fourier Reihe}}
+\mathrm{sinc}\left(\pi \frac{\omega -\nu \omega_s}{\omega_s}\right)
+\equiv A T_h \mathrm{sinc}\left(\omega \frac{T_h}{2}\right) = X(\im\omega)
+\end{align}
+und damit zu \eqref{eq:SamplingFreqSincInterp}. Die Gleichheit $X_r(\im\omega)
+\equiv X(\im\omega)$ gilt nur, wenn $T_h < T_s$, das ist in unserem Fall erfüllt.
+Der mathematisch strenge Beweis zu dieser Formel wurde erstmal von Kotelnikov 1933 geführt, der
+heute als Urheber des Abtasttheorems gilt.
+
+Koeffizienten der Fourierreihe (die das periodisierte Signal $x(t)$ beschreiben, vgl. Aufgabe 1.1, Glg.~(1.12))
+werden genutzt um zwischen den Stützfrequenzen
+$\mu \omega_s$ für beliebige Frequenzen $\omega$ das Spektrum zu interpolieren.
+Der Interpolator ist die in der Formel hintere Sinc Funktion in der $\omega$ und
+$\mu \omega_s$ als Terme im Argument auftauchen (müssen, wenn man eine Interpolation bauen will).
+
+Wenn das Abtasttheorem für den Bereich $\omega$ eingehalten wird---wir wissen aus
+vorheriger Rechnung, dass es für unser Zahlenbeispiel so ist---
+kann aus den Fourreihekoeffizienten der periodisierten Zeitfunktion
+das eindeutige Spektrum der Fouriertransformatio vom einmaligen Rechteckimpuls $x(t)$
+interpoliert (rekonstruiert werden). Genau das haben wir in der Vorbetrachtung und
+jetzt am speziellen Beispiel gemacht.
+
+Es ist wichtig sich klarzumachen, dass die Interpolationsformel immer gilt,
+der Sinc Interpolator weiss ja nix davon, ob ein Abtasttheorem eingehalten wird.
+Die Information korrekter Abtastung kann also nur in den Fourierreihenkoeffizienten stecken.
+
 Wir sehen der Sinc-Interpolationsformel die perfekte Rekonstruktion wieder nicht an,
 in der mit Computer errechneten Grafik \fig{fig:SpectrumSampling_Th_Ts1_2_45C76AFB33},
 können wir das gut herauslesen, auch wenn dort nur über endliche Anzahl der
 wichtigsten $\nu$ summiert wurde.
 
-In grau sind die einzelnen $\mathrm{sinc}(\pi\cdot\frac{\omega-\nu 2 \pi}{2\pi})$
+In grau sind die einzelnen $\mathrm{sinc}(\pi\cdot\frac{\omega-\nu 3 \pi}{3\pi})$
 gewichtet mit ihrem zugehörigen Abtastwert dagestellt.
-Diese Sinc-Funktionen haben jeweils ihr absolutes Maximum bei $\nu 2 \pi$ (durch
+Diese Sinc-Funktionen haben jeweils ihr absolutes Maximum bei $\nu 3 \pi$ (durch
 Verschiebung entlang der Frequenzachse). Durch ihre spezielle Frequenzskalierung
 besitzen sie Nullstellen für alle anderen $\nu$. Deswegen
-berücksichtigt $\mathrm{sinc}(\pi\cdot\frac{\omega-\nu 2 \pi}{2\pi})$
-exakt nur den Abtastwert bei $\nu 2 \pi$. Das ist die Grundidee der Rekonstruktion
+berücksichtigt $\mathrm{sinc}(\pi\cdot\frac{\omega-\nu 3 \pi}{3\pi})$
+exakt nur den Abtastwert bei $\nu 3 \pi$. Das ist die Grundidee der Rekonstruktion
 mit unendlich langer Sinc-Funktion. Die Überlagerung (dessen Ergebnis wir eben nur schwer
 in der Summen-Formel sehen, früher wurde mühsam mit tabelliertem Sinc per Hand summiert)
 aller Sinc-Funktionen liefert dann die kontinuierliche Funktion,
 hier das Spektrum der Fourier Transformation.
 
-Also merken wir uns: Wenn das Abtasttheorem für den Bereich $\omega$ eingehalten wird,
-kann aus den Fourreihekoeffizienten das eindeutige Spektrum der Fouriertransformation
-interpoliert (rekonstruiert werden). Genau das haben wir in der Vorbetrachtung und
-jetzt am speziellen Beispiel gemacht.
+
 
 %
 In \fig{fig:SpectrumSampling_Th_TsXX45C76AFB33} sind zwei weitere Beispiele
