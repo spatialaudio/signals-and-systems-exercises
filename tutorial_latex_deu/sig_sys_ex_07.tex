@@ -27,7 +27,7 @@ zu kontinuierlichen Signalen (oder Spektren) als SigSys Werkzeug einzuführen, i
 die Verknüpfung von verschiedenen Fourier Transformationen.
 %
 Es gibt im Grunde ja keine verschiedenen Fourier Transformationen, sondern
-eigentlich 'nur' mindest 4 verschiedene Typen, die jeweils für eine bestimmte
+eigentlich 'nur' mindestens 4 verschiedene Typen, die jeweils für eine bestimmte
 Signal/Spektrum-Charakteristik gelten.
 %
 Wir kennen bisher die Fourier Reihe und die Fourier Transformation.
@@ -758,9 +758,9 @@ Machen wir zunächst den Ansatz gemäß Signalflussgraph
 &x_\mathrm{r}(t) = h_\mathrm{r}(t) \ast_t x_\mathrm{s}(t)
 \end{align}
 Wir erinnern uns, dass wir die Faltung eigentlich umgehen wollen, indem
-wir die Multiplikationsdualität verwenden (haben wir im Frequenzbereich
+wir die Multiplikation/Faltung-Dualität verwenden (haben wir im Frequenzbereich
 ja gerade gemacht), hier aber jetzt didaktisch explizit gewollt.
-Also schreiben wir das Faltungsintegral tatsächlich hin (zeiltiche Spiegelung beim sinc)
+Also schreiben wir das Faltungsintegral tatsächlich hin (zeitliche Spiegelung beim sinc)
 \begin{align}
 x_\mathrm{r}(t) =&
 \mathrm{sinc}(2 t)
@@ -1131,7 +1131,7 @@ in Gedanken durch (wir rechnen es gleich im Detail aus):
   Linienspektrum, vgl. Abb. 1.1 blaue Punkte
   \item Abtastung ist Multiplikation mit Dirac Impulskamm, im anderen Bereich
   Faltung mit Dirac Impulskamm:
-  hiere also im Zeitbereich periodische Wiederholungen
+  hier also im Zeitbereich periodische Wiederholungen
   des zeitlich begrenzten Signals, es entsteht ein periodisches Zeitsignal
   $\tilde{x}(t)$ (orange Abb. oben, vgl. Aufgabe 1.1)
   \item periodische Zeitsignale haben ein Linienspektrum (komplexe Fourierreihe)
@@ -1416,7 +1416,7 @@ X_s(\im\omega)
 &= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\omega T_h}{2}) \delta(\omega-\nu \omega_s)\\
 &= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)
 \end{align}
-und ergibt offenbar ein Linienspektrum, dagestellt als verschobene Dirac Impulse (bei Vielfachen von $\omega_s$)
+und ergibt offenbar ein Linienspektrum, dargestellt als verschobene Dirac Impulse (bei Vielfachen von $\omega_s$)
 und mit den Gewichten $A T_h \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})$. Diese Gewichte
 entsprechen den Fourierreihenkoeffizienten aus Aufgabe 1.1, siehe Glg.~(1.12).
 
@@ -1431,11 +1431,11 @@ X_r(\im\omega)
 =& \frac{1}{2\pi} \left(A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)\right)
 \ast_\omega \left(2\pi \mathrm{sinc}(\frac{\omega T_s}{2})\right)
 \end{align}
-
+%
 Faltungsintegral im Frequenzbereich allgemein ($H_r(\omega)$ spiegeln und über
 die Frequenzachse schieben scheint eleganter)
 \begin{align}
-X_r(\omega) = \int\limits_{\xi=-\infty}^{+\infty} X_s(\xi) \cdot H_r(-\xi + \omega) \fsd\xi
+X_r(\omega) = \frac{1}{2\pi}\int\limits_{\xi=-\infty}^{+\infty} X_s(\xi) \cdot H_r(-\xi + \omega) \fsd\xi
 \end{align}
 ausformuliert
 \begin{align}
@@ -1489,12 +1489,12 @@ $\mu \omega_s$ als Terme im Argument auftauchen (müssen, wenn man eine Interpol
 Wenn das Abtasttheorem für den Bereich $\omega$ eingehalten wird---wir wissen aus
 vorheriger Rechnung, dass es für unser Zahlenbeispiel so ist---
 kann aus den Fourreihekoeffizienten der periodisierten Zeitfunktion
-das eindeutige Spektrum der Fouriertransformatio vom einmaligen Rechteckimpuls $x(t)$
+das eindeutige Spektrum der Fouriertransformation vom einmaligen Rechteckimpuls $x(t)$
 interpoliert (rekonstruiert werden). Genau das haben wir in der Vorbetrachtung und
 jetzt am speziellen Beispiel gemacht.
 
 Es ist wichtig sich klarzumachen, dass die Interpolationsformel immer gilt,
-der Sinc Interpolator weiss ja nix davon, ob ein Abtasttheorem eingehalten wird.
+der Sinc Interpolator weiss ja nichts davon, dass/ob ein Abtasttheorem eingehalten wird.
 Die Information korrekter Abtastung kann also nur in den Fourierreihenkoeffizienten stecken.
 
 Wir sehen der Sinc-Interpolationsformel die perfekte Rekonstruktion wieder nicht an,
@@ -1523,7 +1523,7 @@ In \fig{fig:SpectrumSampling_Th_Ts4_3_45C76AFB33} sehen wir den Fall der
 Unterabtastung des Spektrums, im Zeitbereich überlappen sich jetzt die
 Rechteckimpulse (das malen wir uns am besten in Ruhe mal auf).
 Genau deswegen, kann keine fehlerfreie Rekonstruktion gelingen. Die Sinc-Interpolation
-interpoliert zwar fleißig (sie weiß ja nix von einer Unterabtastung), aber aufgrund
+interpoliert zwar fleißig (sie weiß ja nichts von einer Unterabtastung), aber aufgrund
 der zur Verfügung stehenden (zu wenigen) Abtastwerte eben nicht zum originalen Spektrum.
 \end{Loesung}
 
