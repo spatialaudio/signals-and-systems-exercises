@@ -116,8 +116,8 @@ ein wenig zugänglicher, weil wir viel näher an der numerischen Auswertung
 mit Computerhilfe sind.
 %
 Das Probieren und Testen mit kleinen eigenen Signalverarbeitungsprogrammen
-ist mutmaßlich einladender, als symbolische Computeralgebra oder gar
-ganz old school manuelles Rechnen zu betreiben.
+ist mutmaßlich einladender, als symbolische Computeralgebra oder
+manuelles Rechnen zu betreiben.
 %
 Jedoch sollten wir uns klarmachen, dass wir viel mehr Probleme geschlossen analytisch
 in der zeitkontinuierlichen SigSys durchdringen können, als es bei zeitdiskreter
@@ -126,7 +126,7 @@ SigSys der Fall ist.
 Es gibt deutlich mehr analytische Lösungen von Integralen als von
 Summen.
 %
-Summen sind aber aus irgendeinem Grund am Anfang des Studiums beliebter als
+Summen sind aber erfahrungsgemäß am Anfang des Studiums beliebter als
 Integrale, obwohl Summen mathematisch mehr Stress bedeuten.
 %
 Wir werden (hoffentlich) in SigSys beide Welten zu schätzen wissen.
@@ -335,7 +335,7 @@ analytisches Rechnen mit praxisfernen Systemen/Signalen,
 praxisnahe Systeme eher simulieren mit dem Rechner. Damit Zweiteres fehlerfrei und
 sicher wird, müssen wir Ersteres beherrschen. Nur dann sind wir in der
 Lage, Software mit analytischen Referenzlösungen zu validieren.
-Ohne dieses wissenschaftliche Vorgehen wäre es nur Bastelei mit Computern.
+Ohne dieses wissenschaftliche Vorgehen wäre es nur Bastelei mit Computern...sehr gefährlich gerade im Bereich Machine Learning!
 \item Ein System mit \textbf{endlicher Impulsantwort}, also wie das hier einführende Beispiel
 vgl. Aufgabe 2.7, ist eine Spezialität das
 \textbf{praktisch} sinnvoll \textbf{nur zeitdiskret} zu realisieren geht. In der Literatur
@@ -355,7 +355,7 @@ vergrößerter Ausschnitt und aufgetragen über $k$ und $t=k T_s$.}
 \end{figure}
 
 \subsection*{Lernziel}
-In dieser Übungen werden wir Abtastung verlinken mit Folgen.
+In dieser Übung werden wir Abtastung verlinken mit Folgen.
 Zu einem Ingenieursstudiengang gehört das erfolgreiche Erarbeiten
 der Faltung, und weil im Digital Age überaus praxisrelevant,
 werden wir auch den zeitdiskreten Fall vertieft üben.
@@ -711,7 +711,7 @@ Methode II ist vorteilhaft für die Faltungssumme.}
 %
 %
 \begin{Ansatz}
-Die Signale sind endlich, daher ist auch das Ergebnis $y[k]$endlich.
+Die Signale sind endlich, daher ist auch das Ergebnis $y[k]$ endlich.
 Es gilt allgemein die Formel
 \begin{align}
 N_y = N_x + N_h-1
@@ -719,8 +719,8 @@ N_y = N_x + N_h-1
 %$N_y = N_x + N_h-1$
 mit den Längen $N$ für $y,x,h$.
 Das Signal $y[k]$ 'beginnt' bei $k_y=k_x+k_h$, wenn $k_x$ und $k_h$ die
-sich von Null unterscheidenden Startwerte
-der beiden Signale für $x$ und $h$ sind.
+sich zeitlichen Startwerte der beiden Signale $x$ und $h$ sind, wo die Samples
+nicht Null sind, also die Signale 'losgehen'.
 
 Hier also: $k_x=1$, $k_h = 0$, d.h. $k_y=k_x+k_h = 1$ und
 $N_x = 4$, $N_h=3$, d.h. $N_y = N_x+N_h-1 = 6$.
@@ -1025,6 +1025,320 @@ Das grafische Lösungsschema ist auf den nächsten Seiten aufbereitet.
 \end{tikzpicture}
 \end{center}
 
+\noindent\textbf{Alternative Lösungsmöglichkeit: Einzel Diracs / Toeplitz Matrix}
+
+\noindent Statt Papierstreifen rumzuschieben, können wir die Faltung auch anders lösen.
+%
+Dies ist vielleicht sogar der erhellendere, schnellere und weniger fehlerträchtige Weg.
+%
+Wir wissen, dass der Dirac Impuls das Neutralelement der Faltung ist, d.h. es gilt
+\begin{align}
+x[k - \kappa] = x[k] \ast_k \delta[k-\kappa]
+\end{align}
+Wir können dem Dirac ein Gewicht $a$ geben
+\begin{align}
+a \cdot x[k - \kappa] = x[k] \ast_k (a \cdot \delta[k-\kappa])
+\end{align}
+und es resultiert das mit $a$ gewichtete $x[k - \kappa]$ Signal.
+%
+Wenn wir die Samples aus $h[k]$ als Gewichte nehmen, können wir die Teilsignale
+\begin{align}
+y_\kappa = h[\kappa] \cdot x[k - \kappa] = x[k] \ast_k (h[\kappa] \cdot \delta[k-\kappa])
+\end{align}
+erzeugen, die das Eingangssignal $x[k]$ um $\kappa$ verschoben und um $h[\kappa]$ gewichtet beinhalten.
+%
+Die Summe aller Teilsignale ist nun das gesuchte Faltungsergebnis
+\begin{align}
+\label{eq:LinKombDiskFaltung}
+y[k] = \sum\limits_{\kappa} y_\kappa = \sum\limits_{\kappa} h[\kappa] \cdot x[-\kappa + k],
+\end{align}
+weil ja im letzten Term wieder die Faltungssummenformel rauskommt.
+%
+Wir können uns das mit dem gewählten Zahlenbeispiel mit der nächsten Grafik durchdenken.
+
+\newpage
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\begin{scope}[xshift=11cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[k]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\begin{scope}[xshift=11cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[0] \cdot \delta[k-0]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,0) (2,0) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\begin{scope}[xshift=19cm]
+\draw[help lines, C7!25, step=1cm] (0,-3) grid (6,4);
+\draw[->] (-1.5,0) -- (7.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,4.5) node[above]{$y_{0} = x[k] \ast_k (h[0] \cdot \delta[k-0])$};
+\foreach \y in {-1,1,2,3,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{(0,0) (1,2) (2,2) (3,4) (4,-2) (5,0) (6,0) (7,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\begin{scope}[xshift=11cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[1] \cdot \delta[k-1]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,0) (1,1) (2,0) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\begin{scope}[xshift=19cm]
+\draw[help lines, C7!25, step=1cm] (0,-3) grid (6,4);
+\draw[->] (-1.5,0) -- (7.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,4.5) node[above]{$y_{1} = x[k] \ast_k (h[1] \cdot \delta[k-1])$};
+\foreach \y in {-1,1,2,3,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{(0,0) (1,0) (2,1) (3,1) (4,2) (5,-1) (6,0) (7,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\begin{scope}[xshift=11cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[2] \cdot \delta[k-2]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,0) (1,0) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\begin{scope}[xshift=19cm]
+\draw[help lines, C7!25, step=1cm] (0,-3) grid (6,4);
+\draw[->] (-1.5,0) -- (7.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,4.5) node[above]{$y_{2} = x[k] \ast_k (h[2] \cdot \delta[k-2])$};
+\foreach \y in {-1,1,2,3,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{(0,0) (1,0) (2,0) (3,-1) (4,-1) (5,-2) (6,+1) (7,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\def\tic{0.1};
+\def\k{7}
+\begin{scope}
+\draw[help lines, C7!25, step=1cm] (0,-3) grid (6,4);
+\foreach \y in {-3,-2,-1,0,1,2,3,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$3$};
+\draw (4,\tic) -- (4,-\tic)  node[above]{$4$};
+\draw (5,\tic) -- (5,-\tic)  node[above]{$5$};
+\draw (6,\tic) -- (6,-\tic)  node[below]{$6$};
+\draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[above]{$y[k] = y_0 + y_1 + y_2$};
+\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\draw[stem] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+Richtig elegant für händisches Rechnen statt Malen wird es,
+wenn wir die Summe \eqref{eq:LinKombDiskFaltung} als
+Linearkombination auffassen und
+sie tatsächlich als Matrix-Vektor Produkt rechnen. Wir wissen, dass $N_y=N_x+N_h-1=4+3-1=6$.
+%
+Die von Null verschiedenen Samples von $x[k]$
+bauen wir in eine \textbf{Toeplitz Matrix} mit Dimension $N_y \times N_h = 6 \times 3$.
+%
+Da $N_y > N_x$ füllen wir mit Nullen in der ersten Spalte auf und diese werden
+dann gemäß Toeplitz-Matrix Eigenschaft diagonalisiert.
+%
+Diese Matrix realisiert in den Spalten die verschobenen $x[k-\kappa]$ Signale.
+%
+Die Folge $h$ kommt in einen Spaltenvektor, also Dimension $N_h \times 1 = 3 \times 1$,
+und realisiert die Gewichte.
+%
+Produkt von Toeplitz-Matrix und Gewichtungsvektor ergibt das Faltungsergebnis,
+wobei das erste Element davon dem Zeitindex $k_y = k_x + k_h = 1 + 0 = 1$ zuzuordnen
+ist, so wie wir das oben schon diskutiert haben.
+%
+Die Linearkombination von Toeplitz-Matrix-Spaltenvektoren erscheint hier sehr geeignet,
+das Ergebnis auf sehr übersichtliche Weise zu berechnen:
+%
+\begin{align}
+\begin{pmatrix}
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+2 & 1 & 1 \\
+-1 & 2 & 1 \\
+0 & -1 & 2 \\
+0 & 0 & -1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+2\\1\\-1
+\end{pmatrix}
+=
+(2) \cdot
+\begin{pmatrix}
+1\\
+1\\
+2\\
+-1\\
+0 \\
+0
+\end{pmatrix}
+\quad+\quad
+(1) \cdot
+\begin{pmatrix}
+0\\
+1\\
+1\\
+2\\
+-1\\
+0
+\end{pmatrix}
+\quad+\quad
+(-1) \cdot
+\begin{pmatrix}
+0 \\
+0 \\
+1 \\
+1 \\
+2 \\
+-1
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 \\
+3 \\
+4 \\
+-1 \\
+-3 \\
+1
+\end{pmatrix}
+\end{align}
+
+Wenn wir die $k_y = k_x + k_h$ Regel nicht mögen, können wir auch beide Signale
+beim Index Null anfangen zu betrachten, dann beginnt das Faltungsergebnis automatisch
+beim Zeitindex $k_y = 0 + 0$. Das geht natürlich nur, wenn
+die Signale wirklich Null sind für $k<0$ und es ist u.U. sehr aufwändig, wenn
+sehr viele Nullen ab $k=0$ auftauchen, bevor die Signale 'richtig losgehen'. Hier im
+Beispiel ist es vergleichsweise überschaubar, weil wir nur das zusätzliche
+Sample bei $x[k=0]$ mit in der Toeplitz Matrix berücksichtigen müssen.
+Also, $N_x = 5$, $N_h = 3$, daher Faltungsergebnis mit der Länge $N_y = N_x + N_h -1 = 7$ und
+daher Toeplitz-Dimension $N_y \times N_h = 7 \times 3$.
+%
+Erneut Linearkombination
+\begin{align}
+\begin{pmatrix}
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+2 & 1 & 1 \\
+-1 & 2 & 1 \\
+0 & -1 & 2 \\
+0 & 0 & -1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+2\\1\\-1
+\end{pmatrix}
+=
+(2) \cdot
+\begin{pmatrix}
+0 \\
+1\\
+1\\
+2\\
+-1\\
+0 \\
+0
+\end{pmatrix}
+\quad+\quad
+(1) \cdot
+\begin{pmatrix}
+0 \\
+0\\
+1\\
+1\\
+2\\
+-1\\
+0
+\end{pmatrix}
+\quad+\quad
+(-1) \cdot
+\begin{pmatrix}
+0 \\
+0 \\
+0 \\
+1 \\
+1 \\
+2 \\
+-1
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\
+2 \\
+3 \\
+4 \\
+-1 \\
+-3 \\
+1
+\end{pmatrix}
+\end{align}
+%
+bringt im Ergebnisspaltenvektor das Signal $y[k]$ für $0 \leq k \leq 6$.
+
+Wir sehen, dass die diskrete Faltung sehr eng verküpft ist mit linearer Algebra, speziell
+mit Toeplitz-Matrizen. Das ist gut so, denn dann ist die Faltung auf ganz natürliche Weise
+eingebettet in die Mathematik und keine reine SigSys-Erfindung.
 
 
 
@@ -1035,6 +1349,8 @@ Das grafische Lösungsschema ist auf den nächsten Seiten aufbereitet.
 \begin{Ziel}
 Nochmal eine Faltungssumme zweier endlicher Signale. Diesmal analytische
 Rechnerei in aller Ausführlichkeit, damit wir sehen, was die Formel macht.
+Nachdem wir die Toeplitz-Matrix Methode aus der vorhigen Aufgabe kennen, wird
+uns das hier vielleicht sehr umständlich vorkommen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 4CBF4358D5}: Berechnen Sie die Faltung $y[k] = x[k] * h[k]$
 für
