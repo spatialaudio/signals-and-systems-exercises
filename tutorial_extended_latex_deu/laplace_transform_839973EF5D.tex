@@ -1382,7 +1382,9 @@ with lowpass character.
 %
 Our special example has the poles $s_{\infty,1,2}=-\frac{3}{4}\pm \im$, so let
 us work with the more general notation of $s_{\infty,2} = s_{\infty,1}^*$
-and let us make the general Ansatz
+and let us make the
+
+\noindent \textbf{general Ansatz}
 %
 \begin{align}
 H(s)
@@ -1433,11 +1435,11 @@ h(t) = \frac{K}{\Im\{s_{\infty,1}\}} \cdot \e^{\Re\{s_{\infty,1}\} t} \cdot \fra
 %
 This nice general notation allows for convenient interpretation.
 %
-The gain factor of the system $K$ is scaled by the angular frequency of the sine, which
-is encoded in $\Im\{s_{\infty,1}\}$.
+The gain factor of the system $K$ is scaled by the inverse angular frequency, which
+itself is encoded in $\Im\{s_{\infty,1}\}$.
 %
 The poles should be in the left $s$-plane, hence $\Re\{s_{\infty,1}\}<0$, such that
-the exponential function is decaying and not uprising.
+the exponential function is decaying.
 %
 Then the impulse response of a system with complex-conjugate
 pole pair always comprises of an exponentially decaying sine oscillation,
@@ -1462,7 +1464,7 @@ for $s_{\infty,1,2}=-\frac{3}{4}\mp \im$ our solution must also work.
 So, inserting $\Re\{s_{\infty,1}\} = -\frac{3}{4}$ and $\Im\{s_{\infty,1}\} = -1$
 yields
 %
-\begin{align} 
+\begin{align}
 h(t)
 =
 \frac{\nicefrac{25}{16}}{-1} \cdot \e^{\nicefrac{-3}{4} t} \cdot \sin(-1 \cdot t) \cdot \epsilon(t),
