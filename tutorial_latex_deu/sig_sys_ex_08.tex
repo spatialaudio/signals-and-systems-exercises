@@ -554,7 +554,7 @@ Signal-Abtastung gilt.}
 
 
 
-
+ 
 
 
 
@@ -564,7 +564,7 @@ Signal-Abtastung gilt.}
 
 
 \clearpage
-\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Grafische Lösung}
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Lösungsweg I, II \& III}
 \label{sec:FD58EEB1EC}
 \begin{Ziel}
 Wir wollen uns die Faltung von (endlichen) zeitdiskreten Signalen erarbeiten.
@@ -731,7 +731,7 @@ $N_x = 4$, $N_h=3$, d.h. $N_y = N_x+N_h-1 = 6$.
 %\end{ExCalc}
 \begin{Loesung}
 %
-Das grafische Lösungsschema ist auf den nächsten Seiten aufbereitet.
+Das grafische Lösungsschema (Lösungsweg I) ist auf den nächsten Seiten aufbereitet.
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \def\tic{0.1};
@@ -1025,9 +1025,10 @@ Das grafische Lösungsschema ist auf den nächsten Seiten aufbereitet.
 \end{tikzpicture}
 \end{center}
 
-\noindent\textbf{Alternative Lösungsmöglichkeit: Einzel Diracs / Toeplitz Matrix}
+\noindent\textbf{Lösungsweg II: Einzel Diracs / Toeplitz Matrix}
 
-\noindent Statt Papierstreifen rumzuschieben, können wir die Faltung auch anders lösen.
+\noindent Statt Papierstreifen (gedanklich) rumzuschieben, können wir die Faltung
+auch anders lösen.
 %
 Dies ist vielleicht sogar der erhellendere, schnellere und weniger fehlerträchtige Weg.
 %
@@ -1340,17 +1341,62 @@ Wir sehen, dass die diskrete Faltung sehr eng verküpft ist mit linearer Algebra
 mit Toeplitz-Matrizen. Das ist gut so, denn dann ist die Faltung auf ganz natürliche Weise
 eingebettet in die Mathematik und keine reine SigSys-Erfindung.
 
+\newpage
+\noindent\textbf{Lösungsweg III: Mit Umweg über die z-Transformation}
 
+\noindent Dieser Lösungsweg passt eigentlich hier didaktisch nicht, weil wir bestimmtes
+Wissen noch nicht haben.
+Er ist aber hin und wieder in der Klausur benutzt worden und führt, wenn man sich
+beim Ausmultiplizieren nicht vertut, auch vergleichsweise schnell zum Ergebnis.
+Daher soll er hier der Vollständigkeit und als Ausblick wo es hingeht, mit betrachtet werden.
+
+Zunächst schreiben wir die beiden Signale in Form gewichteter Dirac Impulse, also
+%
+\begin{align}
+&x[k] = 1 \cdot \delta[k-1] + 1 \cdot \delta[k-2] + 2 \cdot \delta[k-3]  - 1 \cdot \delta[k-4]\\
+&h[k] = 2 \cdot \delta[k] + 1 \cdot \delta[k-1] - 1 \cdot \delta[k-2]
+\end{align}
+%
+Mit den Korrespondenzen (vom Wesen bekannt: Dirac ist neutral,
+zeitliche Verschiebung dreht Phase)
+$$\delta[k] \ztransf 1$$
+$$x[k - \kappa] \ztransf X(z) z^{-\kappa}$$
+und der Dualität (Faltung vs. Multiplikation)
+$$x[k] \ast_k h[k] \ztransf X(z) \cdot H(z)$$
+können wir zunächst z-transformieren
+\begin{align}
+&X(z) = 1 \cdot z^{-1} + 1 \cdot z^{-2} + 2 \cdot z^{-3}  - 1 \cdot z^{-4}\\
+&H(z) = 2 \cdot z^{0} + 1 \cdot z^{-1} - 1 \cdot z^{-2}
+\end{align}
+und dann (Konzentration beim Ausmultiplizieren und gleiche Potenzen zusammensammeln)
+\begin{align}
+Y(z) = X(z)\cdot H(z) =
+&(1 \cdot z^{-1} + 1 \cdot z^{-2} + 2 \cdot z^{-3}  - 1 \cdot z^{-4}) \cdot
+(2 \cdot z^{0} + 1 \cdot z^{-1} - 1 \cdot z^{-2})\\
+=
+&2  z^{-1} + 3 z^{-2} + 4 z^{-3} - z^{-4} - 3 z^{-5} + z^{-6}
+\end{align}
+und dann mit inverser z-Transformation
+\begin{align}
+y[k] =
+2  \delta[k-1] + 3 \delta[k-2] + 4 \delta[k-3] - \delta[k-4] - 3 \delta[k-5] + \delta[k-6]
+\end{align}
+finden.
+Streng genommen, müssten wir hier noch Konvergenzbereichbetrachtungen durchführen,
+was wir uns mal für später aufheben.
 
 
 \newpage
-\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Analytische Lösung}
+\subsection{Faltungssumme für zwei endliche, zeitdiskrete Signale---Lösungsweg IV}
 \label{sec:4CBF4358D5}
 \begin{Ziel}
 Nochmal eine Faltungssumme zweier endlicher Signale. Diesmal analytische
 Rechnerei in aller Ausführlichkeit, damit wir sehen, was die Formel macht.
-Nachdem wir die Toeplitz-Matrix Methode aus der vorhigen Aufgabe kennen, wird
-uns das hier vielleicht sehr umständlich vorkommen.
+Nachdem wir die Toeplitz-Matrix Methode und den Umweg über z-Transformation
+aus der vorhigen Aufgabe kennen, wird
+uns das hier vielleicht sehr umständlich vorkommen. Es komplettiert aber die
+Sicht auf die Dinge.
+Damit es ein bisschen spannend bleibt, nehmen wir nun mal zwei andere Signale.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 4CBF4358D5}: Berechnen Sie die Faltung $y[k] = x[k] * h[k]$
 für
@@ -1364,9 +1410,9 @@ für
 %\end{align}
 und skizzieren Sie die Signale $x[k]$, $h[k]$, $y[k]$.
 
-Es ist sinnvoll auch den grafischen Lösungsweg aus Aufgabe \ref{sec:FD58EEB1EC}
-für die beiden hier Signale durchzuspielen. Jede Klausur hat eine Faltungsaufgabe
-zum Üben, check mit Python/Matlab, vgl. \texttt{convolution\_discrete\_4CBF4358D5.ipynb}.
+Es ist sinnvoll auch die Lösungswege aus Aufgabe \ref{sec:FD58EEB1EC}
+für die beiden Signale durchzuspielen. Jede Klausur hat eine Faltungsaufgabe
+zum Üben, checken können wir mit Python/Matlab, vgl. \texttt{convolution\_discrete\_4CBF4358D5.ipynb}.
 
 %\begin{Werkzeug}
 %\end{Werkzeug}
@@ -1419,9 +1465,8 @@ zum Üben, check mit Python/Matlab, vgl. \texttt{convolution\_discrete\_4CBF4358
 \end{center}
 
 $k_x=2$, $k_h=-2$, also $k_y=k_x+k_y = 0$
-
 $N_x=4$, $N_h=5$, also $N_y=N_x + N_h -1 = 8$
-
+%
 \begin{align}
 y[k] =&
 8\,\delta[k]+
@@ -1433,9 +1478,8 @@ y[k] =&
 39\,\delta[k-6]+
 20\,\delta[k-7]
 \end{align}
-
-Im Folgenden ist eine Rechnung Schritt für Schritt durchgeführt.
 %
+Im Folgenden ist eine Rechnung Schritt für Schritt durchgeführt.
 \end{Loesung}
 
 
