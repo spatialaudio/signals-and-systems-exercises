@@ -1225,7 +1225,7 @@ Die zyklische Faltung $y[k] = x[k]\circledast_N h[k]$
 entspricht im DFT-Bildbereich der Multiplikation von Spektren, d.h. wir könnten
 den Umweg
 \begin{align}
-y[k] = \mathrm{IDFT}_N\{\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\}
+y[k] = \mathrm{IDFT}_N\{\qquad\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\qquad\}
 \end{align}
 nehmen. Es gibt extrem effiziente Algorithmen für die DFT,
 unter dem Sammelbegriff Fast Fourier Transform (FFT), die diese Operation für
@@ -1253,7 +1253,7 @@ $y_c[k] = x[k] \circledast_3 h[k]$
 mit Periode $3$.
 \begin{Werkzeug}
 lineare Faltung aus Übung 8, Matrixmultiplikation, Dualität zyklische Faltung
-Multiplikation
+vs. Multiplikation
 \end{Werkzeug}
 \begin{Ansatz}
 Wir könnten die grafische Methode aus Übung 8 benutzen. Das ist unten
@@ -1280,22 +1280,23 @@ der für die Faltungssumme relevant ist.
 %
 Wir bekommen als Ergebnis
 \begin{align}
-&y_c[k] = x[k] \circledast_3 h[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
-&y_c[k] = y_c[k + 3\nu], \nu\in\mathbb{Z}
+&y_{cyc}[k] = x[k] \circledast_3 h[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
+&y_{cyc}[k] = y_{cyc}[k + 3\nu], \nu\in\mathbb{Z}
 \end{align}
 %
 Die lineare Faltung ergibt
 \begin{align}
-y_l[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
+y_{lin}[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
 \end{align}
 %
 In Matlab könnten wir kurz checken:
 \begin{verbatim}
-x = [-1 2 4];
-h = [3 1 5];
-conv(h,x)  % lineare Faltung
+x = [-1; 2; 4];
+h = [3; 1; 5];
 cconv(h,x,3) % zyklische Faltung mit Periode 3 ==
 ifft(fft(x).*fft(h))  % Umweg über DFT/IDFT
+conv(h,x)  % lineare Faltung ==
+ifft(fft([x;0;0]).*fft([h;0;0]))  % zeropadding auf Ny=5 und Umweg über DFT/IDFT 
 \end{verbatim}
 
 
@@ -1588,149 +1589,328 @@ ifft(fft(x).*fft(h))  % Umweg über DFT/IDFT
 
 \newpage
 \begin{ExCalc}
-Matrixmultiplikationen speziell zusammengesetzter Matrizen sind Faltungen.
+Matrixmultiplikationen speziell zusammengesetzter Matrizen sind Faltungen, siehe
+Aufgabe 8.2 für die lineare Faltung.
 Die zyklische Faltung wird mit zyklischen Matrizen abgebildet.
-Für zyklische Matrizen müssen wir nur eine Spalte oder eine Zeile kennen.
 
-\textbf{Zyklische Faltung} der Zeilenvektoren
-\begin{align}
-[-1,2,4] \circledast_3 [3,1,5] = [11,25,9]
-\end{align}
-als Matrix Multiplikation mit \textbf{zyklischen Matrizen} (für die gilt Kommutativität, i.e.
-Kommutativität der Faltung).
-Die obigen Zeilenvektoren sind die \textbf{ersten Zeilen} der zyklischen Matrizen
+\textbf{Zyklische Faltung} (3er) der Spaltenvektoren
 \begin{align}
 \begin{bmatrix}
--1 &  2 &  4\\
- 4 & -1 &  2\\
- 2 &  4 & -1
+-1\\2\\4
 \end{bmatrix}
-\cdot
+\circledast_3
 \begin{bmatrix}
-3 & 1 & 5\\
-5 & 3 & 1\\
-1 & 5 & 3
+3\\1\\5
 \end{bmatrix}
 =
 \begin{bmatrix}
-11  &  25  &   9\\
- 9  &  11  &  25\\
-25  &   9  &  11
+11\\25\\9
+\end{bmatrix}
+\end{align}
+als Matrix Multiplikation mit \textbf{zyklischen Matrizen} auch \textbf{zirkulante Matrizen}
+(diese sind komplett definiert durch die erste Spalte oder erste Zeile).
+Bei der Multiplikation mit zyklischen Matrizen gilt Kommutativität, das ist erfreulicherweise
+konsistent mit der Kommutativitätseigenschaft der Faltung.
+%
+Die obigen Spaltenvektoren sind die jeweils \textbf{erste Spalte} der zyklischen Matrizen
+\begin{align}
+\begin{bmatrix}
+-1 &  4 &  2\\
+ 2 & -1 &  4\\
+ 4 &  2 & -1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3 & 5 & 1\\
+1 & 3 & 5\\
+5 & 1 & 3
+\end{bmatrix}
+=
+\begin{bmatrix}
+11  &   9  &  25\\
+25  &  11  &  9\\
+ 9  &  25  &  11
 \end{bmatrix}.
 \end{align}
+%
+Die Multiplikation zweier zyklischer Matrizen erzeugt immer eine zyklische Ergebnismatrix.
+Daher machen wir uns klar, dass wir von der Ergebnismatrix nur die erste Spalte
+oder erste Zeile ausrechnen müssen, um die gesamte Matrix zu kennen.
+%
+Deswegen: Die Linearkombination von Spalten der ersten Matrix liefert direkt das gewünschte
+zyklische Faltungsergebnis als Spaltenvektor
+\begin{align}
+3 \cdot
+\begin{bmatrix}
+-1 \\
+ 2 \\
+ 4
+\end{bmatrix}
++
+1 \cdot
+\begin{bmatrix}
+4\\
+-1\\
+2
+\end{bmatrix}
++ 5 \cdot
+\begin{bmatrix}
+2\\
+4\\
+-1
+\end{bmatrix}
+=
+\begin{bmatrix}
+11\\
+25\\
+ 9
+\end{bmatrix}.
+\end{align}
+%
+
 
 Die \textbf{Lineare Faltung}
 \begin{align}
-[-1,2,4] \ast [3,1,5] = [-3,5,9,14,20]
+\begin{bmatrix}
+-1 \\
+ 2 \\
+ 4
+\end{bmatrix}
+\ast
+\begin{bmatrix}
+3\\
+1\\
+5
+\end{bmatrix}
+=
+\begin{bmatrix}
+-3\\5\\9\\14\\20
+\end{bmatrix}
 \end{align}
-kann \textbf{über eine zyklische Faltung} dargestellt werden.
+kann \textbf{über} die \textbf{zyklische Faltung} (5er) dargestellt werden:
 Die Länge des Ergebnisses der linearen Faltung ist  $N_y = N_x+N_h-1=5$.
-Wir füllen die beiden Folgen mit Nullen auf Länge $N_y=5$ auf und führen die
-zyklische Faltung aus
+Deswegen füllen wir die beiden Folgen mit Nullen auf Länge $N_y=5$ auf und führen
+dann die zyklische Faltung so wie oben mit zyklischen Matrizen aus
 \begin{align}
-[-1,2,4,0,0] \circledast_5 [3,1,5,0,0] = [-3,5,9,14,20],
+\begin{bmatrix}
+-1 \\
+ 2 \\
+ 4 \\
+ 0 \\
+ 0
+\end{bmatrix}
+\circledast_5
+\begin{bmatrix}
+3\\
+1\\
+5\\
+0\\
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+-3\\5\\9\\14\\20
+\end{bmatrix}
 \end{align}
-es resultiert das lineare Faltungsergebnis.
-Als Matrix Operation mit zyklischen Matrizen sind
-die obigen Zeilenvektoren wieder die \textbf{ersten Zeilen}
+%
+Es resultiert das lineare Faltungsergebnis.
+%
+Die zyklische Matrix-Operation in aller Ausführlichkeit:
+die obigen Spaltenvektoren sind wieder die \textbf{ersten Spalten} der zyklischen
+Matrizen
 \begin{align}
 \label{eq:C8864C8D9F_LinConv_with_CycConv}
 \begin{bmatrix}
--1  &   2  &   4  &   0  &   0\\
- 0  &  -1  &   2  &   4  &   0\\
- 0  &   0  &  -1  &   2  &   4\\
- 4  &   0  &   0  &  -1  &   2\\
- 2  &   4  &   0  &   0  &  -1
+-1  &   0  &   0  &   4  &   2\\
+ 2  &  -1  &   0  &   0  &   4\\
+ 4  &   2  &  -1  &   0  &   0\\
+ 0  &   4  &   2  &  -1  &   0\\
+ 0  &   0  &   4  &   2  &  -1
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-3  &   1  &   5  &   0  &   0\\
-0  &   3  &   1  &   5  &   0\\
-0  &   0  &   3  &   1  &   5\\
-5  &   0  &   0  &   3  &   1\\
-1  &   5  &   0  &   0  &   3
+3  &   0  &   0  &   5  &   1\\
+1  &   3  &   0  &   0  &   5\\
+5  &   1  &   3  &   0  &   0\\
+0  &   5  &   1  &   3  &   0\\
+0  &   0  &   5  &   1  &   3
 \end{bmatrix}
 =
 \begin{bmatrix}
--3  &   5  &   9  &  14  &  20\\
-20  &  -3  &   5  &   9  &  14\\
-14  &  20  &  -3  &   5  &   9\\
- 9  &  14  &  20  &  -3  &   5\\
- 5  &   9  &  14  &  20  &  -3
+-3  &  20  &  14  &   9  &  5\\
+ 5  &  -3  &  20  &  14  &  9\\
+ 9  &   5  &  -3  &  20  &  14\\
+14  &   9  &   5  &  -3  &  20\\
+20  &  14  &   9  &   5  &  -3
 \end{bmatrix}
 \end{align}
-
-Das lineare Faltungsergebnis kann auch als Matrix Produkt mit sogenannten
-\textbf{Toeplitz Matrizen} erzeugt werden.
+Und auch hier reicht es wieder nur die erste Spalte der Ergebnismatrix aus der
+Linearkombination
 \begin{align}
+3 \cdot
 \begin{bmatrix}
--1  &   2  &   4  &   0  &   0\\
- 0  &  -1  &   2  &   4  &   0\\
- 0  &   0  &  -1  &   2  &   4\\
- 0  &   0  &   0  &  -1  &   2\\
- 0  &   0  &   0  &   0  &  -1
+-1\\
+ 2\\
+ 4\\
+ 0\\
+ 0
 \end{bmatrix}
-\cdot
++ 1 \cdot
 \begin{bmatrix}
-3  &   1  &   5  &   0  &   0\\
-0  &   3  &   1  &   5  &   0\\
-0  &   0  &   3  &   1  &   5\\
-0  &   0  &   0  &   3  &   1\\
-0  &   0  &   0  &   0  &   3
+0\\
+-1\\
+2\\
+4\\
+0
+\end{bmatrix}
++ 5 \cdot
+\begin{bmatrix}
+0\\
+0\\
+-1\\
+2\\
+4
+\end{bmatrix}
++ 0 \cdot
+\begin{bmatrix}
+4\\
+0\\
+0\\
+-1\\
+2
+\end{bmatrix}
++ 0 \cdot
+\begin{bmatrix}
+2\\
+4\\
+0\\
+0\\
+-1
 \end{bmatrix}
 =
 \begin{bmatrix}
--3  &   5  &   9  &  14  &  20\\
- 0  &  -3  &   5  &   9  &  14\\
- 0  &   0  &  -3  &   5  &   9\\
- 0  &   0  &   0  &  -3  &   5\\
- 0  &   0  &   0  &   0  &  -3
+-3\\
+ 5\\
+ 9\\
+14\\
+20
 \end{bmatrix}
 \end{align}
-Es lohnt sich zu verstehen, warum bei der zyklischen Methode
-\eq{eq:C8864C8D9F_LinConv_with_CycConv}
-die linken unteren
-nicht von Null unterschiedlichen Einträge (und damit abweichend von der Toeplitz
-Form) keine Rolle für das Faltungsergebnis spielen
-(vgl. Linearkombination in \eq{eq:C8864C8D9F_LinComb_Row})
-. Das ist extrem hilfreich, weil:
-Wir können zyklische Faltung sehr recheneffizient über den DFT-Bildbereich
-abwickeln, und damit (wenn wir ordentlich mit Nullen aufgefüllt haben) auch
-die lineare Faltung.
+zu berechnen, weil erstens das Faltungsergebnis damit bekannt und zweitens die
+zyklische Matrix vollständig beschreibbar.
+%
+Die letzen beiden Spalten werden jeweils mit Null gewichtet, sind also
+für das Ergebnis nicht relevant. Wenn wir die also weglassen
+\begin{align}
+3 \cdot
+\begin{bmatrix}
+-1\\
+ 2\\
+ 4\\
+ 0\\
+ 0
+\end{bmatrix}
++ 1 \cdot
+\begin{bmatrix}
+0\\
+-1\\
+2\\
+4\\
+0
+\end{bmatrix}
++ 5 \cdot
+\begin{bmatrix}
+0\\
+0\\
+-1\\
+2\\
+4
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1  &   0  &   0\\
+ 2  &  -1  &   0\\
+ 4  &   2  &  -1\\
+ 0  &   4  &   2\\
+ 0  &   0  &   4
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3\\1\\5
+\end{bmatrix}
+=
+\begin{bmatrix}
+-3\\
+ 5\\
+ 9\\
+14\\
+20
+\end{bmatrix}
+\end{align}
+finden wir den Lösungsweg II mittels \textbf{Toeplitz Matrix} aus Aufgabe 8.2 wieder,
+wir sind also erfreulicherweise konsistent mit unserer Betrachtung.
 
+
+Wir können zyklische Faltung sehr recheneffizient über den DFT-Bildbereich
+abwickeln, und damit (wenn wir ordentlich auf die Länge $N_y$ mit Nullen aufgefüllt haben)
+auch die lineare Faltung.
+%
 Dafür benutzen wir die DFT Korrespondenz für die zyklische Faltung im
-Zeitbereich vs. Multiplikation im Bildbereich
+Zeitbereich vs. Multiplikation im Frequenzbereich
 \begin{align}
 y[k] = x[k] \circledast_N h[k] \quad\mydft\quad Y[\mu] = X[\mu] \cdot H[\mu],
 \end{align}
 umgeschrieben
 \begin{align}
-y[k] = \mathrm{IDFT}_N\{\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\}
+y[k] = \mathrm{IDFT}_N\{\qquad\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\}\qquad\}
 \end{align}
 Für die Faltung sehr langer Folgen ist dieser Umweg über den Bildbereich deutlich
 recheneffizienter, als $y[k] = x[k] \circledast_N h[k]$, unter der Voraussetzung,
 dass die DFT / IDFT recheneffizient implementiert ist. Dafür gibt es Algorithmen,
 die als \textbf{Fast Fourier Transform Algorithmen (FFT)} bekannt sind.
 %
-Dies wird dann als \textbf{schnelle Faltung} bezeichnet. In der Tabelle
-ist die direkte und die \textbf{schnelle zyklische Faltung}
-links und die direkte und \textbf{schnelle
-lineare Faltung (aufgrund von Zeropadding)} rechts aufgezeigt mit Matlab
-typischen Befehlen.
+Dies wird dann als \textbf{schnelle Faltung} bezeichnet. In den Tabellen
+ist die direkte und die \textbf{schnelle zyklische Faltung}, sowie
+die direkte und \textbf{schnelle
+lineare Faltung (aufgrund von Zeropadding)} aufgezeigt mit Matlab
+typischen Befehlen (\texttt{.*} ist die elementweise Multiplikation).
 %
 \end{ExCalc}
+
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{| l | l | l |}
+%\hline
+%& zyklische Faltung $N=3$ mit Zeilenvektoren\\\hline
+%slow  & \texttt{cconv([-1, 2, 4], [3, 1, 5], 3)} \\\hline
+%fast  & \texttt{ifft(fft([-1, 2, 4]) .* fft([3, 1, 5]))}\\\hline
+%\end{tabular}
+%\end{table}
 
 \begin{table}[h]
 \centering
 \begin{tabular}{| l | l | l |}
 \hline
-& zyklische Faltung $N=3$ & zyklische Faltung $N=5$ \\\hline
-&  & lineare Faltung $N_x=3$, $N_h=3$, $N_y = N_x+N_h-1=5$ \\\hline
-slow  & \texttt{cconv([-1 2 4], [3 1 5], 3)} & \texttt{cconv([-1 2 4 0 0], [3 1 5 0 0], 5)} \\\hline
-& &  \texttt{conv([-1 2 4], [3 1 5])} \\\hline
-fast  & \texttt{ifft(fft([-1 2 4]) .* fft([3 1 5]))} & \texttt{ifft(fft([-1 2 4 0 0]) .* fft([3 1 5 0 0]))} \\\hline
+& zyklische Faltung $N=3$ mit Spaltenvektoren\\\hline
+slow  & \texttt{cconv([-1; 2; 4], [3; 1; 5], 3)} \\\hline
+fast  & \texttt{ifft(fft([-1; 2; 4]) .* fft([3; 1; 5]))}\\\hline
 \end{tabular}
 \end{table}
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | l | l |}
+\hline
+& zyklische Faltung $N=5$ mit Spaltenvektoren (incl. Zeropadding) ==\\\hline
+& lineare Faltung $N_x=3$, $N_h=3$, $N_y = N_x+N_h-1=5$ \\\hline
+slow & \texttt{cconv([-1; 2; 4; 0; 0], [3; 1; 5; 0; 0], 5)} \\\hline
+& \texttt{conv([-1; 2; 4], [3; 1; 5])} \\\hline
+fast & \texttt{ifft(fft([-1; 2; 4; 0; 0]) .* fft([3; 1; 5; 0; 0]))} \\\hline
+\end{tabular}
+\end{table}
+
 
 
 \begin{Loesung}
@@ -1740,7 +1920,7 @@ fast  & \texttt{ifft(fft([-1 2 4]) .* fft([3 1 5]))} & \texttt{ifft(fft([-1 2 4 
 \begin{scope}
 \fill[C7!30] (-0.5,0) rectangle (2.5,7);
 \draw[->] (-4,0) -- (8,0) node[right]{$k$};
-\draw[->] (0,-0.5) -- (0,8) node[above]{$y_c[k] = x[k] \circledast_3 h[k]$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_{cyc}[k] = x[k] \circledast_3 h[k]$};
 \foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2] plot coordinates{(0,11/4) (1,25/4) (2,9/4)};
 \draw[stem, C2] plot coordinates{(0-3,11/4) (1-3,25/4) (2-3,9/4)};
@@ -1763,7 +1943,7 @@ fast  & \texttt{ifft(fft([-1 2 4]) .* fft([3 1 5]))} & \texttt{ifft(fft([-1 2 4 
 %
 \begin{scope}[xshift=12cm]
 \draw[->] (-2,0) -- (8,0) node[right]{$k$};
-\draw[->] (0,-0.5) -- (0,8) node[above]{$y_l[k] = x[k] \ast h[k]$};
+\draw[->] (0,-0.5) -- (0,8) node[above]{$y_{lin}[k] = x[k] \ast h[k]$};
 \foreach \y in {0,...,6}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2] plot coordinates{(-2,0) (-1,0) (0,-3/4) (1,5/4) (2,9/4) (3,14/4) (4,20/4) (5,0) (6,0)};
 %
@@ -1782,12 +1962,12 @@ fast  & \texttt{ifft(fft([-1 2 4]) .* fft([3 1 5]))} & \texttt{ifft(fft([-1 2 4 
 \end{center}
 
 \begin{align}
-&y_c[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
-&y_c[k] = y_c[k + 3\nu], \nu\in\mathbb{Z}
+&y_{cyc}[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
+&y_{cyc}[k] = y_{cyc}[k + 3\nu], \nu\in\mathbb{Z}
 \end{align}
 %
 \begin{align}
-y_l[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
+y_{lin}[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\delta[k-3] + 20\delta[k-4]
 \end{align}
 
 
