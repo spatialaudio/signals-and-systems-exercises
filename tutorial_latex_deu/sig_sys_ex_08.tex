@@ -554,7 +554,7 @@ Signal-Abtastung gilt.}
 
 
 
- 
+
 
 
 
@@ -1194,12 +1194,23 @@ Linearkombination auffassen und
 sie tatsächlich als Matrix-Vektor Produkt rechnen. Wir wissen, dass $N_y=N_x+N_h-1=4+3-1=6$.
 %
 Die von Null verschiedenen Samples von $x[k]$
-bauen wir in eine \textbf{Toeplitz Matrix} mit Dimension $N_y \times N_h = 6 \times 3$.
+bauen wir in eine Matrix mit Dimension $N_y \times N_h = 6 \times 3$
+wie folgt:
 %
-Da $N_y > N_x$ füllen wir mit Nullen in der ersten Spalte auf und diese werden
-dann gemäß Toeplitz-Matrix Eigenschaft diagonalisiert.
+In die erste Spalte kommen oben die vier Werte von $x[k]$, die restlichem zwei
+Spaltenwerte füllen wir mit Null auf, damit wir auf insgesamt $N_y$ Werte kommen.
 %
-Diese Matrix realisiert in den Spalten die verschobenen $x[k-\kappa]$ Signale.
+Die zweite Spalte enthält die vier Werte von $x[k]$ zentriert, auffüllen jeweils
+einer Null unten und oben (letztere realisiert die Verzögerung von $x[k]$
+um ein Sample).
+%
+Die dritte Spalte enthält dann die vier Werte von $x[k]$ unten, d.h. es sind
+zwei Nullen oben eingefügt entsprechend einer Verzögerung von $x[k]$ um zwei Samples.
+%
+Die fertige Matrix ist eine \textbf{Toeplitz Matrix} (konstante Diagonalen;
+komplett definiert, wenn 1. Spalte und 1. Zeile bekannt)
+und realisiert in den Spalten
+die verschobenen $x[k-\kappa]$ Signale.
 %
 Die Folge $h$ kommt in einen Spaltenvektor, also Dimension $N_h \times 1 = 3 \times 1$,
 und realisiert die Gewichte.
