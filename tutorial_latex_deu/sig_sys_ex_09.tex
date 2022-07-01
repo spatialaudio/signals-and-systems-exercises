@@ -9,11 +9,13 @@ ab.
 Wir arbeiten im sogenannten Bildbereich also in der komplexwertigen $z$-Ebene mit
 komplexwertigen Funktionen $X(z)$.
 %
-In speziellen aber in SigSys oft benutzen Fällen ist $x\in\mathbb{R}$, besteht
+In speziellen, aber in SigSys oft benutzen, Fällen ist $x\in\mathbb{R}$, besteht
 also aus reellen Folgengliedern bzw. Samples.
 %
-Wie üblich versuchen wir so viel wie möglich mit einfachen Rechnungen und
-viel Anschauung zugänglich zu machen.
+Wie mittlerweile etabliert, versuchen wir hier auch so viel wie möglich mit
+vergleichsweise einfachen Rechnungen und viel Anschauung zugänglich zu machen,
+um das Wesen zu erfassen.
+%
 
 
 \subsection*{Transformationspaar}
@@ -128,7 +130,7 @@ Frequenzvariable
 \begin{align}
 z = \e^{\Sigma + \im \Omega} = \e^{\Sigma} \cdot \e^{\im \Omega}
 \end{align}
-zu tun mit $\Sigma,\Omega\in\mathbb{R}$.
+zu tun mit $\Sigma,\Omega\in\mathbb{R}$ und spannen die komplexe $z$-Ebene auf.
 %
 \subsection*{Arbeiten im Bildbereich}
 Ziel der Transformation, also das Arbeiten im Bildbereich, ist
@@ -214,7 +216,7 @@ Wie lautet die $z$-Transformierte dieses Signals. Gemäß Transformationsvorschr
 X(z) = \sum_{k=0}^{\infty} a^k \, z^{-k} = \sum_{k=0}^{\infty} (a \, z^{-1})^k.
 \end{align}
 Damit diese Summe konvergiert, also bzgl. des gewählten $z$, ein endlicher Wert
-für $X(z)$ rauskommt, also
+für $X(z)$ rauskommt, also damit
 \begin{align}
 X(z) = \sum_{k=0}^{\infty} |a \, z^{-1}|^k < \infty
 \end{align}
@@ -241,7 +243,7 @@ Dieser gilt für \textbf{rechtsseitige Signale}. Wir vertiefen die Betrachtung
 hier nicht für linksseitige Signale, dazu sein ein SigSys Buch empfohlen.
 %
 Aus der Vorlesung ist aber bekannt, dass für \textbf{linksseitige Signale}
-der KB im inneren eines Kreises zu finden ist, und für \textbf{beidseitge Signale}
+der KB im inneren eines Kreises zu finden ist, und für \textbf{beidseitige Signale}
 eine Kreisscheibe/Kreisring als KB gilt.
 
 Es ist nun nicht zufällig, dass unsere gesuchte
@@ -262,7 +264,7 @@ landen wir bei der Darstellung in unserer Formelsammlung.
 
 Wir machen uns in SigSys nun im Grunde 'nur' zu Nutze, dass $a\in\mathbb{C}$
 sein darf, und spezielle Folgen der Form $a^k=(\e^{\Sigma_0 +\im\Omega_0})^k$
-\textbf{Eigenfolgen von zeitdiskreten Systemen sind}, weclhe uns für SigSys speziell
+\textbf{Eigenfolgen von zeitdiskreten Systemen sind}, welche uns für SigSys speziell
 interessiert.
 %
 Der einfachste Fall ist $a=1$ ($\Sigma_0=0$, $\Omega_0=0$),
@@ -743,24 +745,24 @@ $k$ & $x[k]=\epsilon[k]$ & $y[k-1]$ & $y[k] = h_\epsilon[k]$ \\
 5 & 1 & $1+\nicefrac{1}{2}+\nicefrac{1}{4}+\nicefrac{1}{8}+\nicefrac{1}{16}$ & $1+\nicefrac{1}{2}+\nicefrac{1}{4}+\nicefrac{1}{8}+\nicefrac{1}{16}+\nicefrac{1}{32}$ \\\hline
 6 & 1 & $1+\nicefrac{1}{2}+\nicefrac{1}{4}+\nicefrac{1}{8}+\nicefrac{1}{16}+\nicefrac{1}{32}$ & $1+\nicefrac{1}{2}+\nicefrac{1}{4}+\nicefrac{1}{8}+\nicefrac{1}{16}+\nicefrac{1}{32}+\nicefrac{1}{64}$ \\\hline
 : & : & : & : \\\hline
-$K \geq 0$ & 1 & $\sum_{m=0}^{K-1} \nicefrac{1}{2^m}$ & $\sum_{m=0}^K \nicefrac{1}{2^m}$ \\\hline
+$K \geq 0$ & 1 & $\sum_{k'=0}^{K-1} \nicefrac{1}{2^{k'}}$ & $\sum_{k'=0}^K \nicefrac{1}{2^{k'}}$ \\\hline
 \end{tabular}
 \end{center}
 Auch hier können wir die Regelmäßigkeit schnell in eine Formel überführen, also für $k\geq 0$
 \begin{align}
-h_\epsilon[k] = \sum_{m=0}^k \frac{1}{2^m} = \sum_{m=0}^k \left(\frac{1}{2}\right)^m
+h_\epsilon[k] = \sum_{k'=0}^k \frac{1}{2^{k'}} = \sum_{k'=0}^k \left(\frac{1}{2}\right)^{k'}
 \end{align}
 Wir haben hier einen bereits bekannten Zusammenhang neu 'erfunden': die Sprungantwort
 ist die kumulierte Summe der Impulsantwort
 \begin{align}
-h_\epsilon[k] = \sum_{m=-\infty}^{k} h[m].
+h_\epsilon[k] = \sum_{k'=-\infty}^{k} h[k'].
 \end{align}
 %
-Für $k \to \infty$, kennen wir sogar den Wert an den sich diese Folge
+Für $k \to \infty$, kennen wir sogar den Wert an den sich unsere betrachtete Folge
 asymptotisch annähert. Die Formel ist ja die früher schon mal bemühte
 geometrische Reihe
 \begin{align}
-\sum_{m=0}^{\infty} a^m = \frac{1}{1-a}\text{ für } a<1
+\sum_{k'=0}^{\infty} a^{k'} = \frac{1}{1-a}\text{ für } a<1
 \end{align}
 In unserem Fall mit $a=\nicefrac{1}{2}$ ist daher $h_\epsilon[k=\infty] = 2$.
 Um eine Analogie
@@ -866,7 +868,7 @@ Wir schreiben um
 \begin{align}
 \frac{H_\epsilon(z)}{z} = \frac{z}{(z-\frac{1}{2})(z-1)}
 \end{align}
-und führen die PZB für den rechten Term aus. Wir werden beim letzten Schritt der
+und führen die Partialbruchzerlegung für den rechten Term aus. Wir werden beim letzten Schritt der
 Rechnung sehen, warum das elegant ist.
 \begin{align}
 \frac{H_\epsilon(z)}{z} = \frac{z}{(z-\frac{1}{2})(z-1)} = \frac{A}{z-\frac{1}{2}} + \frac{B}{z-1}
@@ -907,7 +909,7 @@ h_\epsilon[k] = - \left(\frac{1}{2}\right)^k \epsilon[k] + 2 \epsilon[k]
 \end{align}
 Erinnern wir uns an die Lösung für $k \geq 0$ im Zeitbereich mit Hilfe der Tabelle
 \begin{align}
-h_\epsilon[k] = \sum_{m=0}^k \left(\frac{1}{2}\right)^m
+h_\epsilon[k] = \sum_{k'=0}^k \left(\frac{1}{2}\right)^{k'}
 \end{align}
 Die beiden Lösungen sind identisch, die Darstellung ohne Summe erscheint
 eleganter, zumindest im Kontext der SigSys. Mit geübtem SigSys Blick
@@ -1440,13 +1442,14 @@ Vgl. \texttt{z\_system\_analysis\_A1D74A9E5B\_94A7A6D9E9.ipynb}
 \begin{figure}
 \includegraphics[width=\textwidth]{../z_system_analysis/system_94A7A6D9E9.pdf}
 \caption{LTI-System Diskussion für Aufgabe \ref{sec:94A7A6D9E9}.
-Oben rechts: Impulsantwort, unten rechts: PN-Diagramm. So wie bei der Laplace
+Oben rechts: Impulsantwort, mittig rechts: Sprungantwort,
+unten rechts: PN-Diagramm. So wie bei der Laplace
 Transformation können wir auch mittels des Frequenzgangs viele Systemeigenschaften
 interpretieren, das werden wir in den nächsten Einheiten kennenlernen, also
-speziell Pegel (oben, links), Phase (Mitte, links), Gruppenlaufzeit
-(unten, links) über die digitale Kreisfrequenz $\Omega$.
+speziell Pegel (oben links), Phase (mittig links), Gruppenlaufzeit
+(unten links) über normierte Achsen der digitalen Kreisfrequenz $\Omega$.
 %
-\texttt{/z\_system\_analysis/z\_system\_analysis.ipynb}
+\texttt{z\_system\_analysis.ipynb}
 }
 \label{fig:94A7A6D9E9}
 \end{figure}
