@@ -38,7 +38,7 @@ Fourier Transformation (DFT).
 Um jedoch die DFT vollumfänglich zu verstehen, sollten wir zunächst die DTFT
 sicher beherrschen.
 %
-DTFT und DFT sind auch wieder über Abtastung und Interpolation
+DFT und DTFT sind auch wieder über Abtastung und Interpolation
 verknüpft, ähnlich wie wir das für die Fourierreihe und -transformation
 kennengelernt hatten.
 %
@@ -50,7 +50,7 @@ Wir werden die \textbf{Rücktransformation}
 \begin{align}
 x[k] = \frac{1}{2\pi} \int\limits_{0}^{2\pi} X(\e^{\im\Omega}) \e^{+\im\Omega k} \fsd \Omega
 \end{align}
-mit bekannten Korrespondenzen
+im Rahmen der Übung mit bekannten Korrespondenzen
 \begin{align}
 &\delta[k] \dtft 1\\
 &1 \dtft \Sha(\frac{\Omega}{2\pi})\\
@@ -92,7 +92,7 @@ Beispiel ist der Rechenaufwand für Bild- und Zeitbereich
 vergleichsweise ähnlich.
 %
 Wir berechnen wegen der Wahl einer Eigenfunktion als Eingangssignal
-als Systemausgang den stationären Zustand. Wir werten also den Frequenzgang
+am Systemausgang den stationären Zustand. Wir werten also den Frequenzgang
 an einer speziellen Frequenz aus, das LTI System ändert nur Amplitude und Phase
 des Eingangssignals. Dies finden wir codiert im komplexen Gewichtungsfaktor
 im Bildbereich.
@@ -105,7 +105,6 @@ x[k] =& \e^{+\im \frac{\pi}{4} k}
 über den Umweg des DTFT-Bildbereichs und verifizieren Sie das Ergebnis
 mit der Faltung im Zeitbereich.
 
-Die Sommersemester 2019 Aufgabe 7.6 ist sehr ähnlich.
 \begin{Werkzeug}
 DTFT Hin/Rücktrafo, Faltung vs. Multiplikation, Dirac Impuls Kamm,
 Austast- und Multiplikationseigenschaft Dirac Impuls, Dualität:
@@ -118,13 +117,13 @@ h[k]\dtft H(\e^{\im\Omega}),\quad x[k]\dtft X(\e^{\im\Omega}),\quad
 Y(\e^{\im\Omega}) = H(\e^{\im\Omega}) \cdot X(\e^{\im\Omega}),\quad
 y[k] \DTFT Y(\e^{\im\Omega})
 \end{align}
-direkt im Zeitbereich:
+Zeitbereich direkt:
 \begin{align}
 y[k] = \sum_{\kappa=-\infty}^{+\infty} x[-\kappa + k] \cdot h[\kappa]
 \end{align}
 \end{Ansatz}
 \begin{ExCalc}
-\textbf{Bildbereich und Rücktrafo:}
+\textbf{Bildbereich Hin-/Rücktrafo:}
 \begin{align}
 h[k] = \frac{1}{2}\delta[k] - \frac{1}{2}\delta[k-2]\quad\dtft\quad
 H(\e^{\im\Omega}) = \frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\\
@@ -208,7 +207,7 @@ y[k] = \sum_{\kappa=-\infty}^{+\infty} \e^{+\im\frac{\pi}{4} (-\kappa+k)} \cdot
 \left(\frac{1}{2}\delta[\kappa] - \frac{1}{2}\delta[\kappa-2]\right).
 \end{align}
 %
-Schreiben wir die Summe auseinander
+Schreiben wir die Terme auseinander
 \begin{align}
 y[k] =
 \sum_{\kappa=-\infty}^{+\infty} \e^{+\im\frac{\pi}{4} (-\kappa+k)} \cdot \frac{1}{2}\delta[\kappa]
@@ -217,7 +216,8 @@ y[k] =
 \end{align}
 damit wir die Austasteigenschaft besser überschauen.
 %
-Es verbleiben nach der Anwendung dieser erwartungsgemäß genau zwei Terme
+Es verbleiben nach ihrer Anwendung erwartungsgemäß genau zwei Terme (nämlich die für
+$\kappa=2$ und $\kappa=0$)
 \begin{align}
 y[k] =
 \frac{1}{2} \e^{+\im\frac{\pi}{4} (-0+k)}
@@ -263,7 +263,7 @@ Die Phasenänderung ist für die betrachtete Frequenz $+\frac{\pi}{4}$.
 Nachdem dies auch genau der digitalen Kreisfrequenz des Signals entspricht,
 ist die Ausgangsfolge
 genau um einen Folgenindex voreilend gegenüber der Eingangsfolge, daher der
-Zeitshift um $k+1$.
+Zeitshift $k+1$.
 %
 
 Wir könnten herausfinden, dass die Faltung mit $h[k]$ für die komplexen
@@ -379,7 +379,7 @@ restlichen Aufgaben sind dann lösbar mit bekanntem SigSys Werkzeug.
 %
 \textbf{a) z-Transformierte}
 %
-Wir haben zehn Nullstellen, jeweils konjugiert-komplex
+Wir haben zehn Nullstellen aufgeteilt in fünf konjugiert-komplexe Paare
 \begin{align}
 z_{0,1,2} =& \pm \im = 1 \cdot \e^{\pm \im \frac{\pi}{2}}\\
 z_{0,3,4} =& +1 \pm \im =  \sqrt{2} \cdot \e^{\pm \im \frac{\pi}{4}}\\
@@ -441,7 +441,7 @@ können wir umstellen zu
 und sehen, dass für $Y(z)$ nur der Term $z^0=1$ als Gewicht existiert, der gleichzeitig
 auch der Koeffizient $a_0=1$ ist. Also keine Rückkopplung, damit nicht-rekursiv.
 %
-Für ein nicht-rekursives Systeme ist die Impulsantwort und Differenzengleichung
+Für ein nicht-rekursives System ist die Impulsantwort und Differenzengleichung
 vergleichsweise schnell ermittelt.
 %
 Wir benutzen den wichtigen Zusammenhang (Zeit vs. Phasenverschiebung)
@@ -744,9 +744,9 @@ gelassen und sogar verstärkt um über 20 dB. Frequenzen nahe $\frac{\pi}{2}$ (e
 der Abtastfrequenz) werden sehr stark gedämpft. Die Frequenz $\Omega=\frac{\pi}{2}$
 wird sogar komplett herausgelöscht, weil die Nullstelle da exakt \textbf{auf}
 dem Einheitskreis liegt (siehe PN-Diagramm!),
-also das wo wir den Frequenzgang auswerten, kann sie sich voll entfalten.
+also dort wo wir den Frequenzgang auswerten, kann sie sich voll entfalten.
 
-Die Phasendiagramme addiert ergibt die unter Grafik
+Die Phasendiagramme addiert ergibt die untere Grafik
 \fig{fig:fir_filter_64BE42BAEF_bode}. Bis auf die beiden Unstetigkeiten
 (das ist immer ein wenig Gefrickel :-( und wollen wir an dieser
 Stelle nicht vertiefen; siehe dazu z.B. das Referenzwerk
