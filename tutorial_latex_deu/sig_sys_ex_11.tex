@@ -46,16 +46,16 @@ Wir benutzen die Operator Symbole
 %
 Die Analyse Formel ist mit unserer Konvention
 (bzgl. der Normierung mit $\frac{1}{N}$ und Vorzeichenwahl im komplexen Dreher)
-(Matlab, Python: \texttt{fft})
+(Matlab \texttt{fft()}, Python: \texttt{scipy.fft.fft()} bzw. \texttt{numpy.fft.fft()})
 \begin{align}
 X[\mu] = \mathrm{DFT}_N\{x[k]\} = \sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu},
 \end{align}
-dann lautet die Synthese Formel (Matlab, Python: \texttt{ifft})
+dann lautet die Synthese Formel (Matlab, Python: \texttt{ifft()})
 \begin{align}
 x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}.
 \end{align}
 %
-Für eine komplette Transformation brauchen wir alle Paare $k \cdot \mu$,
+Für eine komplette Transformation brauchen wir alle auftretenden Multiplikationen $k \cdot \mu$,
 die wir als $k \times \mu$ Matrix aufschreiben (wir wollen Summen vermeiden,
 die sind unübersichtlich und verschleiern meist den tieferen Zusammenhang)
 \begin{align}
@@ -73,7 +73,7 @@ k \downarrow
 }
 \end{align}
 Wir führen die komplexe Zahl $z_1 = W_N = \e^{+\im\frac{2\pi}{N}}$ ein, die
-in der $z$-Ebene immer auf dem Einheitskreis liegt, also die spezielle DTFT
+in der $z$-Ebene auf dem Einheitskreis liegt, und die spezielle DTFT
 Frequenz $\Omega = \frac{2\pi}{N}$ abbildet. In Analogie zur Fourierreihe ist
 das die Frequenz der ersten DFT-Harmonischen, sozusagen die DFT-Grundfrequenz.
 Mit der zweiten Matrix-Zeile (wo $k=1$) können wir erkennen,
@@ -81,7 +81,7 @@ dass es insgesamt $N$ DFT Frequenzen
 $W_N^\mu=\left(\e^{+\im\frac{2\pi}{N}}\right)^\mu$ für $0\leq\mu\leq N-1$
 auf dem Einheitskreis gibt.
 %
-Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ und $N=5$ veranschaulicht.
+Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ und für $N=5$ veranschaulicht.
 Für $N\to\infty$ nähern wir uns der DTFT an.
 %
 \begin{figure}[t]
@@ -158,7 +158,7 @@ tun, was in SigSys oft vorkommt.
 %
 Die IDFT Formel verlangt den komplexen Zeiger $\e^{+\im\frac{2\pi}{N} (k\cdot \mu)}$.
 Wir können die Matrix $\bm{K}$ um diesen Zeiger erweitern zu der sogenannten
-Fourier Matrix
+\textbf{Fourier Matrix}
 \begin{align}
 \bm{F} =
 k \downarrow
@@ -215,7 +215,7 @@ X[\mu=3]\\
 X[\mu=N-1]\\
 \end{bmatrix}
 \end{align}
-können wir die \textbf{IDFT als Matrixmultiplikation} (Matlab, Python: \texttt{ifft})
+können wir die \textbf{IDFT als Matrixmultiplikation}
 \begin{align}
 \bm{x}_k = \frac{1}{N} \bm{F} \cdot \bm{x}_\mu
 \end{align}
@@ -318,7 +318,7 @@ Es ist genau die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / I
 schenkt als Linearkombination $N$ orthogonaler (komplexer) Vektoren.
 %
 
-Mit der adjungierten Matrix von $\bm{F}$, also
+Mit der adjungierten Matrix von $\bm{F}$, also mit $\bm{F}^\mathrm{H}$
 \begin{align}
 \bm{F}^\mathrm{H} =
 \mu \downarrow
@@ -333,7 +333,7 @@ Mit der adjungierten Matrix von $\bm{F}$, also
 \end{bmatrix}
 }
 \end{align}
-folgt die \textbf{DFT als Matrixmultiplikation} (Matlab, Python: \texttt{fft})
+folgt die \textbf{DFT als Matrixmultiplikation}
 \begin{align}
 \bm{x}_\mu = \bm{F}^\mathrm{H} \cdot \bm{x}_k.
 \end{align}
@@ -343,37 +343,39 @@ verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
 berücksichtigt.
 
 %
-\noindent\textbf{Unitäre Matrix Version}
+\noindent\textbf{Unitäre Fourier Matrix}
 Wir könnten das IDFT/DFT-Paar auch mit $\frac{1}{\sqrt{N}}$-Normierung
-aufschreiben (sehr gerne in der Physik und Mathe benutzt)
+aufschreiben (das wird sehr gerne in Physik und Mathe benutzt)
 \begin{align}
 x[k] = \frac{1}{\sqrt{N}} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}
 \qquad
 X[\mu] = \frac{1}{\sqrt{N} }\sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu}
 \end{align}
-Dann benutzt man die Matrix
+Dann benutzt man die Fourier-Matrix
 \begin{align}
 \mathring{\mathbf{F}} = \frac{\mathbf{F}}{\sqrt{N}}
 \end{align}
-für die IDFT/DFT-Matrixoperation
+für die IDFT / DFT-Matrixoperationen
 \begin{align}
 \bm{x}_k = \mathring{\mathbf{F}} \, \bm{x}_\mu
 \qquad
-\bm{x}_\mu = \mathring{\mathbf{F}}^\mathrm{H} \, \bm{x}_k,
+\bm{x}_\mu = \mathring{\mathbf{F}}^* \, \bm{x}_k,
 \end{align}
 also bei der DFT die konjugiert-komplexe von $\mathring{\mathbf{F}}$.
 %
 Dies funktioniert deswegen, weil $\mathring{\mathbf{F}}$ eine unitäre Matrix ist,
-also eine orthonormale, komplexe, symmetrische Matrix, für die
-\begin{equation}
-\mathring{\mathbf{F}}^{-1} \, \mathring{\mathbf{F}}
-=
-\mathring{\mathbf{F}}^\mathrm{H} \, \mathring{\mathbf{F}}
-=
-\mathbf{I}
+also eine orthonormale, komplexe und zudem symmetrische Matrix, für die
+\begin{align}
+\mathring{\bm{F}} = \mathring{\bm{F}}^\mathrm{T}
+\qquad
+\mathring{\bm{F}}^* =
+\mathring{\bm{F}}^\mathrm{H} =
+\mathring{\bm{F}}^{-1}
 \qquad\text{und}\qquad
-\mathring{\mathbf{F}} = \mathring{\mathbf{F}}^\mathrm{T}
-\end{equation}
+\mathring{\bm{F}}^{-1} \, \mathring{\bm{F}} =
+\mathring{\bm{F}} \, \mathring{\bm{F}}^{-1} =
+\mathbf{I}.
+\end{align}
 gilt.
 %
 Damit sieht man sehr schön, dass die DFT/IDFT im Grunde ein eindeutig lösbares
@@ -389,7 +391,7 @@ für SigSys Probleme zu interpretieren.
 \begin{Ziel}
 Wir wollen uns als Einstieg in die DFT / IDFT mit der Signalsynthese, also
 der inversen DFT beschäftigen. Dazu diskutieren wir zwei ganz einfache
-Fälle, in denen das $N=8$ DFT-Spektrum nur einen bzw. zwei Einträge hat.
+Fälle, in denen das $N=8$ DFT-Spektrum nur einen bzw. zwei Einträge hat, die nicht Null sind.
 Wenn wir die Signalsynthese anhand der zugrundeliegenden Linearkombination
 verstanden haben, können wir die Spektren beliebig verkomplizieren und damit
 $N$ periodische Signalfolgen synthetisieren.
@@ -645,8 +647,9 @@ Einen Computer würden mit Zahlen versorgen, z.B. mit Matlab
 
 \texttt{ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')}
 
-(Achtung: \texttt{'} ist adjungiert, \texttt{.'} ist transponiert!, hier soll
-nur transponiert, also ein Spaltenvektor erzeugt werden.)
+(Achtung: \texttt{[]'} ist adjungiert, \texttt{[].'} ist transponiert!, hier soll
+transponiert, also ein Spaltenvektor erzeugt werden, damit wir ein Spaltenvektor
+als Ergebnis bekommen.)
 
 Die auf Seite \pageref{LinComb_for_IDFT} aufgezeigte Linearkombination reduziert
 sich für das Spektrum $X_c[\mu]$ zur Benutzung des zweiten Spaltenvektors (die
@@ -713,7 +716,7 @@ Es ist das um ein Sample verzögerte DFT-'Eigensignal' der Frequenz $\mu=1$, als
 die DFT Grundfrequenz. Amplitude und Phase des DFT Koeffizienten waren
 natürlich genauso ausgewählt, dass dieses anschauliche Ergebnis mit
 Signalamplitude 1 und Verzögerung um ein Sample rauskommt. Wir könnten
-herausfinden, dass die Wahl von $X_c[\mu] = 8\e^{\im\pi}$ das $\mu$-te DFT Eigensignal
+herausfinden, dass die Wahl von $X_c[\mu] = 8\e^{\im\pi}$ das jeweils $\mu$-te DFT Eigensignal
 invertiert.
 
 Für das Spektrum $X_r[\mu]$ beinhaltet die Linearkombination $\bm{x}_{k,r}  =
@@ -846,6 +849,11 @@ klar ist, verstehen wir die DFT komplizierterer Signale. Auch hier gilt
 wieder, je mehr wieder verstanden haben, was analytisch passiert, desto einfacher
 wird es uns fallen, mit dem Rechner erzeugte DFT-Ergebnisse zu interpretieren.
 Ansonsten ist es wieder nur Spieltrieb mit \texttt{fft() / ifft()}.
+%
+Oder anderer Gedankengang: sich hier einmal die Analytik sauber draufzuschaffen,
+wird mutmaßlich weniger Zeitaufwand sein, als sich über ein ganzes Berufsleben
+gemittelt immer wieder neu über numerische Ergebnisse zu wundern ;-) Wir werden
+die DFT sehr sehr sehr oft benutzen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 0C30EB5E76}: Berechnen Sie für das periodische
 Signal $x[k]=x[k+\nu N]$
@@ -902,7 +910,7 @@ und der adjungierten Fourier Matrix
 %
 \end{align}
 Es ist hilfreich, wenn wir uns nochmal klarmachen, dass durch die Transposition
-$k$ entlang der Spalten variiert und $\mu$ der Zeilenindex ist.
+jetzt $k$ entlang der Spalten variiert und $\mu$ der Zeilenindex ist.
 
 \end{Ansatz}
 %
@@ -1048,7 +1056,7 @@ Nun ist wichtig, das komplexe Skalarprodukt zu verstehen: ein komplexer
 Zeilenvektor aus $\bm{F}^\mathrm{H}$ beinhaltet ein DFT Eigensignal,
 konjugiert-komplex ist durch $^\mathrm{H}$ schon beinhaltet,
 deshalb haben wir es ganz korrekt mit einem komplexen Skalarprodukt zu tun.
-Das zu analysierende Signal ist der (bei Bedarf komplexe) Spaltenvektor $\bm{x}_k$.
+Das zu analysierende Signal ist der (bei Bedarf komplexwertige) Spaltenvektor $\bm{x}_k$.
 Wenn diese beiden Vektoren sehr kongruent verlaufen ($N$-dimensionaler
 komplexer Vektorraum ist schwierig in der Vorstellung, aber die Idee funktioniert
 ja genau so in reell 2D), ist viel Signalenergie
@@ -1058,7 +1066,10 @@ verlaufen ist keine Energie bei der betrachteten DFT Frequenz enthalten.
 Weil die DFT-Eigensignale an sich orthogonal sind (wir hatten ja intentional
 eine wunderschöne orthogonale
 Vektorbasis erschaffen) ist die DFT eine Analyse wie viel Amplitude / Energie
-bei exakt den $N$ Frequenzen enthalten ist. Nichts anderes macht vom Wesen
+bei exakt den $N$ Frequenzen enthalten ist. Weil wir komplex-wertig arbeiten, können
+wir auch den Phasenunterschied zwischen Analysesignal (eine Spalte in $\bm{F}$ bzw.
+korrekter eine Spalte in $\bm{F}^\mathrm{H}$)
+und zu analysierendem Signal $\bm{x}_k$ bestimmen. Nichts anderes macht vom Wesen
 die Analyse bei der komplexe Fourierreihe mit den kontinuierlichen, orthogonalen
 Funktionen $\e^{\im\omega_0 \mu t}$.
 %
@@ -1086,7 +1097,8 @@ X[\mu] = \e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot
 =\e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot N \cdot \mathrm{psinc}_N(\Omega_{0,\mu})
 .
 \end{align}
-Wir begegnen wieder einmal der periodischen Sinc Funktion $\mathrm{psinc}_N(\Omega) = \frac{\sin({\Omega\frac{N}{2}})}{N \sin({\Omega\frac{1}{2}})}$.
+Wir begegnen wieder einmal der periodischen Sinc Funktion
+$\mathrm{psinc}_N(\Omega) = \frac{1}{N}\frac{\sin({\Omega\frac{N}{2}})}{\sin({\Omega\frac{1}{2}})}$.
 %
 Mit dieser Formel finden wir die analytischen Ausdrücke für Betrag und Phase
 vergleichsweise schöner und einfacher, z.B. für $\mu=2$
@@ -1096,20 +1108,25 @@ vergleichsweise schöner und einfacher, z.B. für $\mu=2$
 \end{align}
 Es ist hilfreich, wenn wir uns klarmachen, dass wir für $\Omega_0=0$ die DFT der
 Rechteckfolge $\mathrm{rect}_N[k]$
-in dieser Formel abbilden, sozusagen wieder ein wichtiger Speziallfall nebenbei mit abgefallen.
+in dieser Formel abbilden, hier ist wieder ein wichtiger Speziallfall
+nebenbei mit abgefallen.
 
-Die beiden Denkkonzepte a) das Herauspicken des DFT-Betrags aus der psinc Funktion
-für eine komplexe Exponentialfolge und b) die Betrachtungsweise des
-Skalarprodukts sollten wir verinnerlichen. Dann haben für uns die Zahlen,
+Die beiden Denkkonzepte
+a) die Betrachtungsweise des
+Skalarprodukts
+und
+b) das Herauspicken von DFT-Betrag und -Phase aus der psinc Funktion
+für eine komplexe Exponentialfolge
+sollten wir verinnerlichen. Dann haben für uns die Zahlen,
 die ein Rechner bei numerischer DFT beliebiger Folgen liefert, einen tieferen
 Sinn.
 
 Quizfrage: Wenn wir das Eingangssignal zu
 \begin{align}
 x[k] = \e^{+\im \frac{2\pi}{8} \cdot 2 \cdot k}
-\end{align}
-oder
-\begin{align}
+%\end{align}
+\qquad\text{oder}\qquad
+%\begin{align}
 x[k] = \e^{+\im \frac{2\pi}{8} \cdot 3 \cdot k}
 \end{align}
 abändern, wie schaut dann das DFT Spektrum aus? Wenn wir das durch reine
@@ -1219,8 +1236,8 @@ Signalperiode kommt es im DFT-Spektrum
 \label{sec:C8864C8D9F}
 \begin{Ziel}
 Wir wollen die Konzepte der linearen und zyklischen Faltung verinnerlichen.
-Die zyklische Faltung ist sehr wichtig, weil wir mit ihr in der Praxis sehr
-oft lineare Faltungsergebnisse ausrechnen wollen. Dies erreichen wir
+Die zyklische Faltung ist wichtig, weil wir mit ihr in der Praxis sehr
+oft lineare Faltungsergebnisse ausrechnen. Dies erreichen wir
 durch geeignetes Auffüllen von Nullen in die zu faltenden Folgen.
 Die zyklische Faltung $y[k] = x[k]\circledast_N h[k]$
 entspricht im DFT-Bildbereich der Multiplikation von Spektren, d.h. wir könnten
@@ -1240,8 +1257,8 @@ wir uns im Mastermodul Digital Signal Processing genauer an.
 Hier wollen wir uns anhand eines einfachen Beispiels mit einfachen Zahlen die
 genannten Konzepte verdeutlichen. Weil die Folgen sehr kurz sind, sollten wir
 nicht erwarten, dass die schnelle Faltung deutlich performanter ist.
-Für größere $N$ fällt dies aber zunehmend deutlicher auf, das sind Größenordnungen
-wo wir von Minuten vs. Sekunden reden, also bedenkenswert.
+Für größere $N$ fällt dies aber zunehmend deutlicher auf, das sind dann je nach $N$,
+Größenordnungen wo wir von vielen Minuten vs. wenige Sekunden reden, also bedenkenswert.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny C8864C8D9F}:
 Berechnen Sie für die beiden Folgen
