@@ -2,13 +2,13 @@
 \section{UE 11: Diskrete Fourier Transformation (DFT)}
 %
 Wir betrachten die letzte der vier Fourier Transformationen, die DFT.
-Sie ist die einzige, die exakt mit Computern berechenbar ist (wenn wir hier
-mal von numerischen Rundungsfehlern absehen wollen).
+Sie ist die einzige, die exakt mit Computern berechenbar ist (wenn wir
+von numerischen Rundungsfehlern absehen).
 %
 Die anderen drei Fourier Transformation (FT, FR, DTFT) setzen ja entweder
 unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
 kontinuierliche Signale/Spektren
-voraus, alles Eigenschaften mit denen sich Computer schwer tun.
+voraus, alles Daten-Eigenschaften mit denen sich Computer schwer tun.
 %
 Daher werden wir sehr oft konfrontiert sein, die DFT als Approximation
 der anderen drei Transformationen benutzen zu müssen.
@@ -24,7 +24,7 @@ Wir haben also ein Werkzeug, was gut ist für digitale Rechentechnik, aber
 schlecht für die meisten vorkommenden Signale.
 %
 Das macht die DFT nun nicht automatisch zu einem schlechten Tool. Wir müssen
-es aus Mangel an Alternativen eh wertschätzen und uns 'nur' erarbeiten, was die
+es aus Mangel an Alternativen eh wertschätzen und uns erarbeiten, was die
 DFT unter verschiedenen Annahmen macht und wie die Ergebnisse zu interpretieren
 sind.
 %
@@ -34,8 +34,8 @@ und die Eigenschaften der DFT sicher beherrschen.
 %
 Es ist deswegen sinnvoll, wenn wir uns das tiefgründig erarbeiten. Eine einzige
 VL/UE-Einheit ist dafür im Grunde zu wenig, daher sollten wir Zeit für
-Selbststudium einplanen. Wir vertiefen die DFT im Mastermodul Digital Signal
-Processing.
+Selbststudium einplanen. Wir vertiefen die DFT im Wintersemester
+Mastermodul Digital Signal Processing.
 Hier der Versuch die Essenz in übersichtlicher Form weiterzugeben.
 
 Wir benutzen die Operator Symbole
@@ -81,7 +81,8 @@ dass es insgesamt $N$ DFT Frequenzen
 $W_N^\mu=\left(\e^{+\im\frac{2\pi}{N}}\right)^\mu$ für $0\leq\mu\leq N-1$
 auf dem Einheitskreis gibt.
 %
-Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ und für $N=5$ veranschaulicht.
+Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ links und für $N=5$ rechts
+veranschaulicht.
 Für $N\to\infty$ nähern wir uns der DTFT an.
 %
 \begin{figure}[t]
@@ -160,6 +161,7 @@ Die IDFT Formel verlangt den komplexen Zeiger $\e^{+\im\frac{2\pi}{N} (k\cdot \m
 Wir können die Matrix $\bm{K}$ um diesen Zeiger erweitern zu der sogenannten
 \textbf{Fourier Matrix}
 \begin{align}
+\label{eq:FourierMatrix}
 \bm{F} =
 k \downarrow
 \substack{\rightarrow \mu\\
@@ -285,8 +287,21 @@ W_N^{(N-1)(N-1)}
 Die Spaltenvektoren von $\bm{F}$ stellen die komplexen Zeit-Signale
 $\e^{+\im\frac{2\pi}{N}k \cdot 0}$ (nur Einsen),
 $\e^{+\im\frac{2\pi}{N}k \cdot 1}$ bis $\e^{+\im\frac{2\pi}{N}k \cdot (N-1)}$
-dar, diese sind alle $N$ periodisch.
+dar, diese sind alle $N$ periodisch, vgl.~\fig{fig:fourier_matrix}
 %
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{../dft/fourier_matrix}
+\caption{$N=8$ Fourier Matrix \eqref{eq:FourierMatrix} so dargestellt, dass
+die 8 komplexwertigen DFT Eigensignale getrennt nach Spalten dargestellt sind.
+Nach unten läuft die Zeit, nach rechts erhöht sich die DFT-Frequenz.
+Spalte 1 ($\mu=0$) beinhaltet als Zeitsignal den Gleichanteil mit Amplitude 1,
+Spalte 2 ($\mu=1$) exakt eine Periode einer cos (Realteil, blau) und sin (Imaginärteil, orange)
+Schwingung. Spalte 5 ($\mu=4$) enthält 4 Perioden einer Cos-Schwinung.}
+\label{fig:fourier_matrix}
+\end{figure}
+
+
 Diese Signale werden mit den zugehörigen Spektralwerten
 $X[0]$ (Gleichanteil), $X[1]$ bis $X[N-1]$ gewichtet.
 Für unser Transformationspaar erfolgt bei der IDFT noch die Normierung mit
@@ -318,8 +333,9 @@ Es ist genau die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / I
 schenkt als Linearkombination $N$ orthogonaler (komplexer) Vektoren.
 %
 
-Mit der adjungierten Matrix von $\bm{F}$, also mit $\bm{F}^\mathrm{H}$
+Mit konjugiert-komplexer Transponierung von Matrix $\bm{F}$, also mit $\bm{F}^\mathrm{H}$
 \begin{align}
+\label{eq:FourierMatrixH}
 \bm{F}^\mathrm{H} =
 \mu \downarrow
 \substack{\rightarrow k\\
@@ -337,8 +353,8 @@ folgt die \textbf{DFT als Matrixmultiplikation}
 \begin{align}
 \bm{x}_\mu = \bm{F}^\mathrm{H} \cdot \bm{x}_k.
 \end{align}
-Wenn wir also eine Zeile aus der Matrix mit dem Spaltenvektor $\bm{x}_k$
-als inneres Produkt / Skalarprodukt
+Wenn wir also eine Zeile aus der Matrix $\bm{F}^\mathrm{H}$ mit dem Spaltenvektor $\bm{x}_k$
+als normales inneres Produkt / Skalarprodukt
 verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
 berücksichtigt.
 
@@ -351,7 +367,7 @@ x[k] = \frac{1}{\sqrt{N}} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k 
 \qquad
 X[\mu] = \frac{1}{\sqrt{N} }\sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu}
 \end{align}
-Dann benutzt man die Fourier-Matrix
+Dann benutzen wir die Fourier-Matrix
 \begin{align}
 \mathring{\mathbf{F}} = \frac{\mathbf{F}}{\sqrt{N}}
 \end{align}
@@ -378,8 +394,8 @@ also eine orthonormale, komplexe und zudem symmetrische Matrix, für die
 \end{align}
 gilt.
 %
-Damit sieht man sehr schön, dass die DFT/IDFT im Grunde ein eindeutig lösbares
-Gleichungssystem ist, wobei die Vektoren (bei uns in SigSys also Zeitsignal bzw.
+Damit sehen wir sehr schön, dass die DFT/IDFT eindeutig lösbare
+Gleichungssysteme repräsentieren, wobei die Vektoren (bei uns in SigSys also Zeitsignal bzw.
 DFT-Spektrum) in eine (spezielle und fundamentale wichtige)
 orthonormale Vektorbasis projiziert werden, die wir lernen werden sinnvoll
 für SigSys Probleme zu interpretieren.
@@ -647,7 +663,7 @@ Einen Computer würden mit Zahlen versorgen, z.B. mit Matlab
 
 \texttt{ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')}
 
-(Achtung: \texttt{[]'} ist adjungiert, \texttt{[].'} ist transponiert!, hier soll
+(Achtung: \texttt{[]'} ist adjungiert, \texttt{[].'} ist transponiert. Hier soll
 transponiert, also ein Spaltenvektor erzeugt werden, damit wir ein Spaltenvektor
 als Ergebnis bekommen.)
 
@@ -713,7 +729,8 @@ x_c[k] = \frac{1}{8} \cdot 8 \e^{-\im\frac{\pi}{4}} \e^{+\im\frac{2\pi}{8} k}=
 \cos(\frac{2\pi}{8} [k-1]) + \im \sin(\frac{2\pi}{8} [k-1]).
 \end{align}
 Es ist das um ein Sample verzögerte DFT-'Eigensignal' der Frequenz $\mu=1$, also
-die DFT Grundfrequenz. Amplitude und Phase des DFT Koeffizienten waren
+die DFT Grundfrequenz, vgl.~\fig{fig:fourier_matrix}.
+Amplitude und Phase des DFT Koeffizienten waren
 natürlich genauso ausgewählt, dass dieses anschauliche Ergebnis mit
 Signalamplitude 1 und Verzögerung um ein Sample rauskommt. Wir könnten
 herausfinden, dass die Wahl von $X_c[\mu] = 8\e^{\im\pi}$ das jeweils $\mu$-te DFT Eigensignal
@@ -750,7 +767,8 @@ Das ist in der Tat so! Wir prüfen es kurz analytisch und fragen uns dann, warum
 das so sein muss.
 
 Wir kennen die analytischen Ausdrücke der DFT 'Eigensignale' aus der zweiten
-und achten Spalte. Diese mit dem jeweiligen Vorfaktor gewichtet ergibt
+und achten Spalte, vgl.~\fig{fig:fourier_matrix}.
+Diese mit dem jeweiligen Vorfaktor gewichtet ergibt
 \begin{align}
 x_r[k]
 =
@@ -910,10 +928,27 @@ und der adjungierten Fourier Matrix
 %
 \end{align}
 Es ist hilfreich, wenn wir uns nochmal klarmachen, dass durch die Transposition
-jetzt $k$ entlang der Spalten variiert und $\mu$ der Zeilenindex ist.
-
+jetzt $k$ entlang der Spalten variiert und $\mu$ der Zeilenindex ist,
+vgl.~\fig{fig:fourier_matrixH}.
 \end{Ansatz}
 %
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{../dft/fourier_matrix_H}
+\caption{Konjugiert-komplexe Transponierung der $N=8$ Fourier Matrix,
+also \eqref{eq:FourierMatrixH}, so dargestellt, dass
+die 8 komplexwertigen DFT Eigensignale getrennt nach Zeilen dargestellt sind.
+Da die Zeilen bereits konjugiert-komplexe Vektoren repräsentieren, erfolgt die
+DFT-Analyse als einfaches Skalarprodukt zwischen einer dieser Zeilen und einem
+zu analysierenden Signal als Spaltenvektor.
+Konjugiert-komplex invertiert die Polarität des Imaginäranteils, also nur der Sinussignale,
+vgl.~\fig{fig:fourier_matrix}.
+}
+\label{fig:fourier_matrixH}
+\end{figure}
+
+
 \begin{ExCalc}
 Bauen wir uns zunächst den Eingangssignalvektor zusammen
 \begin{align}
@@ -1055,7 +1090,7 @@ gegenchecken.
 Nun ist wichtig, das komplexe Skalarprodukt zu verstehen: ein komplexer
 Zeilenvektor aus $\bm{F}^\mathrm{H}$ beinhaltet ein DFT Eigensignal,
 konjugiert-komplex ist durch $^\mathrm{H}$ schon beinhaltet,
-deshalb haben wir es ganz korrekt mit einem komplexen Skalarprodukt zu tun.
+deshalb haben wir es ganz sauber mit einem komplexen Skalarprodukt zu tun.
 Das zu analysierende Signal ist der (bei Bedarf komplexwertige) Spaltenvektor $\bm{x}_k$.
 Wenn diese beiden Vektoren sehr kongruent verlaufen ($N$-dimensionaler
 komplexer Vektorraum ist schwierig in der Vorstellung, aber die Idee funktioniert
@@ -1067,8 +1102,8 @@ Weil die DFT-Eigensignale an sich orthogonal sind (wir hatten ja intentional
 eine wunderschöne orthogonale
 Vektorbasis erschaffen) ist die DFT eine Analyse wie viel Amplitude / Energie
 bei exakt den $N$ Frequenzen enthalten ist. Weil wir komplex-wertig arbeiten, können
-wir auch den Phasenunterschied zwischen Analysesignal (eine Spalte in $\bm{F}$ bzw.
-korrekter eine Spalte in $\bm{F}^\mathrm{H}$)
+wir auch den Phasenunterschied (bzw. Verzögerung)
+zwischen Analysesignal (eine Spalte in $\bm{F}$)
 und zu analysierendem Signal $\bm{x}_k$ bestimmen. Nichts anderes macht vom Wesen
 die Analyse bei der komplexe Fourierreihe mit den kontinuierlichen, orthogonalen
 Funktionen $\e^{\im\omega_0 \mu t}$.
@@ -1141,7 +1176,7 @@ intensiver anschauen.
 \begin{Loesung}
 %
 %
-Das Spektrum ist in \fig{fig:DFT_Spectrum_0C30EB5E76} veranschaulicht. Wir sehen
+Das Spektrum ist in \fig{fig:dft_complex_signal_Spectrum_0C30EB5E76} veranschaulicht. Wir sehen
 3 Perioden, davon das DFT Basisband für $0\leq \mu \leq 7$ in orange.
 Es gibt ein Betragsmaximum bei $\mu=2$ und $\mu=3$, diese DFT Frequenzen sind
 also prominenter im Signal vertreten als die anderen Frequenzen.
@@ -1156,11 +1191,11 @@ einen $N$-dimensionalen Vektor auf einen anderen ab.
 %
 \textbf{Unsere} obige Aussage---unser Signal bestünde eigentlich nur aus der Frequenz
 $\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$---ist \textbf{nicht korrekt}.
-Dazu schauen wir uns das Zeitsignal in \fig{fig:Signal_0C30EB5E76} an, oben
+Dazu schauen wir uns das Zeitsignal in \fig{fig:dft_complex_signal_Signal_0C30EB5E76} an, oben
 Real- unten Imaginärteil. In orange wieder die angenommene Periode $N=8$, also
 die Samples für $0 \leq k \leq 7$.
 In grau als durchgemalte Linien (was bei Folgen ja eigentlich strenggenommen
-nicht erlaubt ist, aber dadurch sehen wir es besser) sehen wir das Signal
+nicht erlaubt ist, aber dadurch wird es besser deutlich) sehen wir das Signal
 \begin{align}
 \e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot k} =
 \exp\left(+\im \frac{2\pi}{\nicefrac{16}{5}} \cdot k\right)
@@ -1173,14 +1208,15 @@ Diese inhärente Signalperiode beschneiden wir durch Wahl unserer DFT Länge,
 hier $N=8$, also exakt in der Mitte.
 %
 Wir können uns bei der Fourierreihe hoffentlich bildlich vorstellen, wie das
-Spektrum hochfrequent Energie gewinnt, wenn wir einen Sinus zeitlich beschneiden.
+Spektrum hochfrequent Energie gewinnt, wenn wir einen Sinusbogen zeitlich
+hart anschneiden.
 %
 Nicht anderes passiert hier, es ist in der Literatur als Spectral leakage,
 leakage effect bzw. deutsch Leckeffekt bekannt.
 %
 Falls das zu analysierende Signal nicht genau mit den Signalperiode(n)
 der DFT-Frequenzen übereinstimmt, suggeriert die DFT-inhärente Periodisierung
-Frequenzanteile, die im Signal eigentlich nicht da sind.
+gewisse Frequenzanteile, die im Signal eigentlich nicht da sind.
 %
 Um das aber nochmal ganz deutlich zu machen: das $N$-DFT Spektrum ist das exakte
 Spektrum des $N$-periodisierten Signals.
@@ -1189,11 +1225,11 @@ Signalausschnitt ausgewählt zu haben.
 %
 Es ist daher unsere Aufgabe sicherzustellen (das braucht viel SigSys Erfahrung),
 dass das $N$-periodisierte Signal genau den repräsentativen Signalausschnitt
-enthält, wo wir mit der DFT das Spektrum ermitteln wollen.
+enthält, für den wir mit der DFT das Spektrum ermitteln wollen.
 %
 In unserem einfachen Beispiel reicht es schon die DFT Länge auf $N=16$ zu erhöhen.
 %
-Überlegen wir ruhig zuerst warum das so ist, wie das DFT Spektrum ausschauen könnte
+Überlegen wir zuerst warum das so ist, wie das DFT Spektrum ausschauen könnte
 und checken dann mit dem Rechner.
 %
 
@@ -1205,24 +1241,24 @@ Digital Signal Processing genauer an.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{../dft/DFT_Spectrum_0C30EB5E76.pdf}
+\includegraphics[width=0.75\textwidth]{../dft/dft_complex_signal_Spectrum_0C30EB5E76}
 \caption{Aufgabe \ref{sec:0C30EB5E76}. DFT Spektrum $X[\mu]=\mathrm{DFT}_8\{x[k]\}$ ,
 Betrag oben, Phase unten. DFT Basisband in orange.
 \texttt{dft\_complex\_signal\_0C30EB5E76.ipynb}}
-\label{fig:DFT_Spectrum_0C30EB5E76}
+\label{fig:dft_complex_signal_Spectrum_0C30EB5E76}
 \end{figure}
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{../dft/Signal_0C30EB5E76.pdf}
+\includegraphics[width=0.75\textwidth]{../dft/dft_complex_signal_Signal_0C30EB5E76.pdf}
 \caption{Aufgabe \ref{sec:0C30EB5E76}. Komplexe Folge $x[k]$, oben Realteil,
 unten Imaginärteil. Orange: Signalausschnitt für die $N=8$ DFT. Das Signal
 hätte ohne unsere künstlich vorgenommene Periodisierung mit $N=8$
 eine Periode von 16 Samples (siehe graue Linie). Durch die Beschneidung der
 Signalperiode kommt es im DFT-Spektrum
-\fig{fig:DFT_Spectrum_0C30EB5E76} zum sogennanten Leakage Effect.
+\fig{fig:dft_complex_signal_Spectrum_0C30EB5E76} zum sogennanten Leakage Effect.
 \texttt{dft\_complex\_signal\_0C30EB5E76.ipynb}}
-\label{fig:Signal_0C30EB5E76}
+\label{fig:dft_complex_signal_Signal_0C30EB5E76}
 \end{figure}
 
 
@@ -2049,8 +2085,10 @@ y_{lin}[k] = x[k] \ast h[k] = -3\delta[k] + 5\delta[k-1] + 9\delta[k-2] + 14\del
 
 \clearpage
 \subsection*{Anhang: DFT in der Welt der linearen Algebra}
+{\tiny 39AF81A22A}
 %
-Die DFT ist keine Erfindung der SigSys, sondern hat eine
+
+\noindent Die DFT ist keine Erfindung der SigSys, sondern hat eine
 tiefsinnige Verknüpfung zu Linearkombinationen einer orthogonalen
 Vektorbasis.
 %
@@ -2114,7 +2152,8 @@ Für z.B. $N=4$ bekommen wir (äquiangular alle 90 Grad)
 \end{align}
 skizziert in der Grafik unten. Wir sortieren die Eigenwerte hier mit
 zunehmender Winkelgröße. Wenn wir das numerisch mit einem Computer auswerten,
-können die Eigenwerte und damit auch zugehörige Eigenvektoren auch anders sortiert sein,
+können die Eigenwerte und zugehörige Eigenvektoren auch anders sortiert bzw.
+rotiert/invertiert sein,
 da also besonders drauf schauen!
 \begin{center}
 \begin{tikzpicture}[scale=1.5]
@@ -2322,9 +2361,7 @@ Sie ist zudem eine unitäre Matrix, und weil immer noch symmetrisch, gelten:
 
 \textbf{Diagonalisierung von $\bm{P}$:}
 Passend zu der Eigenvektormatrix (Fourier Matrix)
-$\bm{F}_N$ definieren wir die Eigenwerte-Diagonalmatrix (Achtung: Eigenwerte
-müssen zu den Eigenvektoren passen. Wenn wir ein Eigenwertproblem vom Computer
-rechnen lassen, müssen wir das checken.)
+$\bm{F}_N$ definieren wir die Eigenwerte-Diagonalmatrix
 \begin{align}
 \bm{\Lambda}_N =
 \begin{bmatrix}
@@ -2685,7 +2722,7 @@ folgt $\bm{\zeta} = [1,0,0,0]^\mathrm{T}$,
 das ist die Synthese eines Dirac Impulses bei $k=0$.
 Das Spektrum $\bm{c}$ enthält alle Frequenzen gleich gewichtet.
 
-\textbf{Zyklische Faltung}
+\textbf{Zyklische Faltung} {\tiny 02A5968B56}
 Für zwei zyklische Matrizen können wir per Multiplikation eine
 neue zyklische Matrix erzeugen, z.B.
 \begin{align}

@@ -1,5 +1,5 @@
 % Permutation, Fourier and DFT matrix
-% based on Gilbert Strang:
+% based on Gilbert Strangs:
 % 2016, Introduction to Linear Algebra, 5th, Wellesley Cambridge, chapter 8.3
 % 2019, Linear Algebra and Learning from Data, Wellesley Cambridge, chapter IV.1
 %
@@ -15,63 +15,64 @@ debug_flag = 0;
 
 N = 4;
 Sign = +1; %-1, +1 is engineering convention
-W = exp(Sign * 1j*2*pi/N);  % plus sign!
-k = [0:N-1]';
+W = exp(+1j* Sign *2*pi/N);  % +1j!
+k = [0:N-1].';
+
 if debug_flag
-    % create a circulant matrix from the row vector k.T
+    % create a circulant matrix from the row vector k.'
     C = toeplitz([k(1); flipud(k(2:end))], k)
 end
-K = k.*k'; % outer product
+K = k * k.'; % outer product
 
-%these two matrices are used for diagonalizing P:
-%F = W.^K %DFT matrix, this is inverse DFT with engineering sign convention
+%these two matrices are used for diagonalizing permutation matrix P:
+%F = W.^K %DFT matrix, this is inverse DFT when using engineering sign convention
 %L = diag(W.^k) %set up eigenvalues as diag matrix
-% this is probably more efficient
-F = exp(Sign * 1j*2*pi/N * K) 
-L = diag(exp(Sign * 1j*2*pi/N*k))
+% this is probably more efficient to compute
+F = exp(+1j* Sign *2*pi/N * K) 
+L = diag(exp(+1j* Sign *2*pi/N*k))
 
 if debug_flag
-    disp('F*F''-N*eye(N)=0?')
-    F*F'-N*eye(N)
-    disp('F''*F-N*eye(N)=0?')
-    F'*F-N*eye(N)
+    disp('F*F''/N == eye(N)')
+    allclose(F*F' / N, eye(N))
+    disp('F''*F/N == eye(N)')
+    allclose(F'*F/N, eye(N))
 end
 
-%permutation matrix, N=4
+%a permutation matrix for N=4
 P = [0,1,0,0;
     0,0,1,0;
     0,0,0,1;
     1,0,0,0];
-%permutation matrix, for arbitrary N built from toeplitz from row vector v.T
+%this permutation but for arbitrary N, built from toeplitz using row vector v.T
 v = zeros(N,1);
 v(2) = 1;
-P = toeplitz([v(1); flipud(v(2:end))], v)
+P = toeplitz([v(1); flipud(v(2:end))], v);
 
 if debug_flag
     disp('singular values of P all 1:')
     svd(P) 
     %check diagonalization of P
-    disp('F^-1 *P*F - L = 0 ?')
-    (F^-1)*P*F - L
-    disp('1/N*F'' *P*F - L = 0 ?')
-    (1/N*F')*P*F - L
+    disp('F^-1*P*F == L')
+    allclose((F^-1)*P*F , L)
+    disp('1/N*F''*P*F, L')
+    allclose((1/N*F')*P*F, L)
     %rewritten as
-    disp('F*L* F^-1 - P = 0 ?')
-    F*L*(F^-1) - P
-    disp('F*L* 1/N*F''-P = 0 ?')
-    F*L*(1/N*F')-P
+    disp('F*L*F^-1==P')
+    allclose(F*L*(F^-1), P)
+    disp('F*L*1/N*F''==P')
+    allclose(F*L*(1/N*F'),P)
 end
 
 if 0
     % Matlab's numeric solution, this is not ideal, since it is not sorted as
     % our DFT above, but of course works as well
     [V, D] = eig(P);
-    disp('V^-1*P*V - D = 0 ?')
-    V^-1*P*V - D
+    disp('V^-1*P*V == D')
+    allclose(V^-1*P*V , D)
 end
 
 %plot all unit gain eigenvalues, i.e. DFT 'eigen'-frequencies on the unit circle:
-Nc = 32;
+Nc = 2^8;
 phi = [0:Nc-1]*2*pi/Nc;
 plot(cos(phi), sin(phi), 'k'), hold on
 plot(real(diag(L)), imag(diag(L)),'ok', 'markersize', 10)
@@ -82,65 +83,89 @@ ylabel('Im(\lambda)')
 title(['\lambda^',num2str(N),'=1'])
 grid
 
+disp('our convention, sign=+1')
 % adapted to our DFT/iDFT convention, x...time, X...frequency:
 % X[mu] =     sum_{k= 0}^{N-1} x[k]  * exp(-j 2pi/N k mu)
 % x[k]  = 1/N sum_{mu=0}^{N-1} X[mu] * exp(+j 2pi/N k mu)
-Forward_DFT_Matrix = F'; % = conj(F) works as well, since F=F^T 
+Forward_DFT_Matrix = conj(F); % = F' works as well, since F=F^T 
 Inverse_DFT_Matrix = 1/N * F;
-x = zeros(N,1); x(2)=1;  % set up dirac at k=1
-X = Forward_DFT_Matrix * x;  % DFT, spectral analysis
+x = zeros(N,1); x(2)=1;  % set up Dirac at k=1
+X = Forward_DFT_Matrix * x;  % DFT, signal analysis
 xd = Inverse_DFT_Matrix * X; % inverse DFT, signal synthesis
-disp('X - fft(x) = 0?')
-X-fft(x)
-disp('x - iDFT(DFT(x)) = 0?')
-x-xd
+if Sign==+1
+    disp('X == fft(x)')
+    allclose(X, fft(x))
+end
+disp('x == iDFT(DFT(x))')
+allclose(x, xd)
 
 
-
-%c = k;
-%c = fft(exp(1j*0*2*pi/N*k))
-c = fft(exp(1j*1*2*pi/N*k))
-%c = fft(exp(1j*2*2*pi/N*k))
-%c = fft(exp(1j*3*2*pi/N*k))
+%c = exp(1j*0*2*pi/N*k);
+c = exp(1j*1*2*pi/N*k);
+%c = exp(1j*2*2*pi/N*k);
+%c = exp(1j*3*2*pi/N*k);
 %create circulant matrix from the row vector c.T
 C = toeplitz([c(1); flipud(c(2:end))], c);
 
 if debug_flag
-disp('F*c - ifft(c)*N = 0 ?')
-F*c - ifft(c)*N
+    if Sign==+1
+        disp('F*c == fft(c)')
+        allclose(F'*c , fft(c))
+    elseif Sign==-1
+        disp('F*c == ifft(c)*N')
+        allclose(F'*c , ifft(c)*N)
+    end
 end
-%eigenvalues of C are encoded in F*c
-F*c % which is the inverse DFT, i.e. the time signal
+%eigenvalues of C are encoded in F'*c
+if Sign==+1
+    allclose(F'*c, ... % which is the DFT, i.e. a spectrum
+    fft(c))
+elseif Sign==-1
+    allclose(F'*c, ... % which is the DFT, i.e. a spectrum
+    N*ifft(c))
+end
 
 %
 if debug_flag
-P2 = P*P;
-L2 = diag(exp(Sign * 1j*2*pi/N*k * 2))
-P3 = P*P*P;
-L3 = diag(exp(Sign * 1j*2*pi/N*k * 3))
-P4 = P*P*P*P;
-L4 = diag(exp(Sign * 1j*2*pi/N*k * 4))
-(F^-1)*P2*F - L2
-(F^-1)*P3*F - L3
-(F^-1)*P4*F - L4
+    P2 = P*P;
+    L2 = diag(exp(+1j* Sign *2*pi/N*k * 2))
+    P3 = P*P*P;
+    L3 = diag(exp(+1j * Sign *2*pi/N*k * 3))
+    P4 = P*P*P*P;
+    L4 = diag(exp(+1j * Sign *2*pi/N*k * 4))
+    allclose((F^-1)*P2*F, L2)
+    allclose((F^-1)*P3*F, L3)
+    allclose((F^-1)*P4*F, L4)
 end
+
 
 disp('cyclic convolution:')
 
-c = [-1,2,4]';
-d = [3,1,5]';
+x = [-1; 2; 4];
+h = [3; 1; 5];
 
-C = toeplitz([c(1); flipud(c(2:end))], c)
-D = toeplitz([d(1); flipud(d(2:end))], d)
+X = toeplitz(x, [x(1); flipud(x(2:end))])
+H = toeplitz(h, [h(1); flipud(h(2:end))])
+Y = X*H  % cyclic convolution as matrix mult
 
-N = 3; k = [0:N-1]'; K = k.*k'; F = exp(1j*2*pi/N * K);
+N = 3;
+k = [0:N-1]';
+K = k*k.';
+F = exp(+1j*2*pi/N * K);
 
-A = C*D  % cyclic convolution as matrix mult
-cconv(c,d,N)  % cyclic conv
-1/N*F' * ( (F*c) .* (F*d) )  % fast cyclic convolution
+allclose(cconv(x,h,N),...  % cyclic conv
+1/N*F * ( (F'*x) .* (F'*h) ))  % vs fast cyclic convolution
 
-F * A(1,:)'  % Fourier of cyclic conv result
-(F*c) .* (F*d)  % element-wise mult of Fourier c and Fourier d
-
+allclose(F' * Y(:,1),...  % DFT of cyclic conv result
+(F'*x) .* (F'*h))  % element-wise mult of DFT coeff
 
 
+%##############################################################################
+function flag = allclose(a, b)
+% https://numpy.org/doc/stable/reference/generated/numpy.allclose.html
+% numpy.allclose(a, b, rtol=1e-05, atol=1e-08, equal_nan=False)
+% https://stackoverflow.com/questions/28975822/matlab-equivalent-for-numpy-allclose
+rtol=1e-05;
+atol=1e-08;
+flag = all( abs(a(:)-b(:)) <= atol+rtol*abs(b(:)) );
+end
