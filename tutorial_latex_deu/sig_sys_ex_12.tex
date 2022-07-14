@@ -2,8 +2,9 @@
 \section{UE 12: Beschreibung diskreter Systeme im Spektralbereich, Eigenschaften diskreter LTI-Systeme}
 
 Wir haben den SigSys Werkzeug Koffer bestens aufgefüllt mit den fundamentalen
-Werkzeugen, die wir als Naturwissenschaftler*innen in modifizierter Form
-immer wieder antreffen werden. Es ist eh immer die gleiche Message: je mehr wir
+Werkzeugen, die wir als Ingenieur*innen und Naturwissenschaftler*innen
+in modifizierter Form immer wieder antreffen werden.
+Es ist immer die gleiche Message: je mehr wir
 die Basics vom Wesen verstanden haben, desto einfacher fällt uns das Adaptieren auf
 kompliziertere und/oder praktische Probleme.
 
@@ -36,6 +37,10 @@ dass die vier Fouriertransformierten durch Abtastung und Rekonstruktion
 miteinander verknüpfbar sind. Hier wollen wir nun ein DFT-Linienspektrum
 interpolieren zu einem kontinuierlichen DTFT-Spektrum. Anders herum, könnten
 wir uns dies als ideale Abtastung des DTFT-Spektrums hin zum DFT-Spektrum erklären.
+Die Aufgabe~\ref{sec:45C76AFB33} (7.2) behandelte die Rekonstruktion (also Interpolation)
+von Fourierreihenkoeffizienten zur Fouriertransformation, wir machen das gleiche
+jetzt für Spektren die $2\pi$-periodisch sind, also zu zeitdiskreten Signalen
+gehören.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 6337B75DF2}: Stellen Sie für das FIR-Filter
 aus Aufgabe 10.2 die Betragsfrequenzgänge der
@@ -46,9 +51,11 @@ aus Aufgabe 10.2 die Betragsfrequenzgänge der
   \item DFT des mit Nullen aufgefüllten Signals auf Länge 16
   \item DFT des mit Nullen aufgefüllten Signals auf Länge 32
 \end{itemize}
-mit ihren jeweiligen Zeitfolgen grafisch dar. Wir können zur numerischen Lösung
-die unten verlinkten Skripte nutzen.
+mit ihren jeweiligen Zeitfolgen grafisch dar.
 Interpretieren Sie die Grafiken.
+
+Wir können zur numerischen Lösung die unten verlinkten Skripte nutzen.
+
 \begin{Werkzeug}
 Abtastungs-/Rekonstruktionsmodell, Faltung im Spektralbereich ist Multiplikation
 im Zeitbereich, Periodische Sinc Funktion.
@@ -62,13 +69,13 @@ entweder als Matlab Skript oder Jupyter Notebook
 
 \end{Werkzeug}
 \begin{Ansatz}
-Wir setzen die DFT Synthese ($\tilde{x}, \tilde{X}$ als Hinweis, dass $N$-periodisch)
+Wir setzen die DFT Synthese ($\tilde{x}, \tilde{X}$ als Hinweis, dass $N$-periodische Folgen)
 %
 \begin{equation}
 \tilde{x}[k]=\frac{1}{N} \sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\e^{+\im\frac{2\pi}{N}k\mu}
 \end{equation}
 %
-in die DTFT Analyse ein und summieren aber nur $0 \leq k \leq N-1$
+in die DTFT Analyse ein und summieren, jedoch nur $0 \leq k \leq N-1$
 \begin{align}
 X(\Omega)&=\sum_{k=-\infty}^\infty \tilde{x}[k]\cdot\e^{-\im\Omega k}
 =\sum_{k=0}^{N-1}\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\e^{+\im\frac{2\pi}{N}k\mu}\cdot\e^{-\im\Omega k}
@@ -77,69 +84,71 @@ X(\Omega)&=\sum_{k=-\infty}^\infty \tilde{x}[k]\cdot\e^{-\im\Omega k}
 %
 Das machen wir, weil wir wissen wollen, wie die Doppelsumme
 aus dem eigentlich $N$-periodischen $\tilde{x}[k]$,
-ein nicht periodisches, endliches Signal $x[k]$ der Länge $N$ erzeugt,
-für das ja eine DTFT mit kontinuierlicher Frequenzvariable $\Omega$ existiert.
+ein nicht-periodisches, endliches Signal $x[k] = \mathrm{IDFT}\{X(\Omega)\}$ der Länge $N$ erzeugt,
+für das eine DTFT mit kontinuierlicher Frequenzvariable $\Omega$ existiert.
 %
-Im Zeitbereich müsste dies einer Multiplikation
+Im Zeitbereich entspricht dies einer Multiplikation mit der Rechteckfolge der Länge $N$
 \begin{align}
-x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k]
+x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k].
 \end{align}
-entsprechen.
+
 
 \end{Ansatz}
 \begin{ExCalc}
 Die hintere Summe über $k$ ist wieder die geometrische Reihe, vgl. (10.68), (10.69)
 und \cite[(3-39)]{Lyons2011}.
-Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Übung,
-weil ähnliche Rechenschritte immer wieder auftauchen in SigSys.
+Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Rechenübung,
+weil ähnliche Umformungen immer wieder benötigt werden in SigSys.
 %
 \begin{align}
 X(\Omega)&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)N}}{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)}}\\
-&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\cdot\frac{\e^{\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}-\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}-\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\\
+&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\cdot\frac{\e^{+\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}-\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{+\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}-\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}\\
 &=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{\e^{\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}-\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)N}{2}}}{\e^{\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}-\e^{-\im\frac{\Omega-\frac{2\pi}{N}\mu}{2}}}.
 \end{align}
 %
-Mit $2\im\cdot\sin(x)=\e^{\im x}-\e^{-\im x}$ können wir vereinfachen
-\cite[(2.41)]{Moeser2011}, vgl. \cite[(2.142)]{Rabiner1975}
+Mit $2\im\cdot\sin(\phi)=\e^{\im \phi}-\e^{-\im \phi}$ können wir vereinfachen
+vgl.~\cite[(2.41)]{Moeser2011}, \cite[(2.142)]{Rabiner1975}
 %
 \begin{equation}
 X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{1}{N}\cdot\frac{\sin\left(N\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}{\sin\left(\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}.
 \end{equation}
 %
-Wir stoßen wieder auf die  periodische Sinc Funktion
+Wir begegnen hier wieder der periodischen (und bezgl. der Frequenz verschobenen) Sinc Funktion in Form
 %
 \begin{align}
 \text{psinc}_N(\Omega)=\begin{cases}\frac{1}{N}\cdot\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}&\text{für }\Omega\neq2\pi m\\
 (-1)^{m(N-1)}&\text{für }\Omega=2\pi m\end{cases},\,\,m\in\mathbb{Z},
 \end{align}
 %
-(Matlab und Python's scipy \texttt{diric(Omega,N)}) und einen Phasenterm (dieser
+(Matlab und Python's scipy \texttt{diric(Omega,N)}).
+
+Weiter haben wir in der Summe mit einem Phasenterm zu tun. Dieser
 taucht auf, weil $x[k]$ bei $k=0$ beginnt.
-In Übung 7 auf Seite 17 hatten wir es hingegen mit axialsymmetrischen Signale zu
-tun, daher kein Phasenterm.)
+In Übung 7 auf Seite \pageref{pg:UE7:SpectrumInterpPlots} (17) waren es axialsymmetrische Signale, daher keine Phasenverschiebung.
 %
-Wir können daher umschreiben zu
+Wir können nun umformulieren zu
 %
 \begin{equation}
 \label{eq:6337B75DF2_DFT2DTFT}
 X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\text{psinc}_N\left(\Omega-\frac{2\pi}{N}\mu\right)
 \end{equation}
-und nochmal die Argumente anders angeordnet
+und die Argumente nochmal anders angeordnet
 \begin{equation}
-X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1}\tilde{X}[\mu\rightarrow \Omega_\mu = \frac{2\pi}{N} \mu]\cdot
+X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1} \underbrace{\tilde{X}[\mu\rightarrow \Omega_\mu = \frac{2\pi}{N} \mu]}_{\tilde{X}[\Omega_r]}\cdot
 \underbrace{\e^{-\im\frac{\left(-\frac{2\pi}{N}\mu+\Omega\right)(N-1)}{2}}\cdot\text{psinc}_N\left(-\frac{2\pi}{N}\mu + \Omega\right)\cdot N}_{H_\mathrm{r}\left(-\Omega_\mu+\Omega\right)}.
 \end{equation}
 
 Erinnern wir uns an Abtastung von Spektren. Die
 jetzige Formelstruktur hat doch sehr starke Ähnlichkeit mit (7.60):
 Ein Linienspektrum (DFT) wird mit einer Sinc bzw. hier jetzt mit der periodischen
-Sinc Funktion interpoliert zu einem kontinuierlichen Spektrum (DTFT).
-Wenn wir genau hinschauen, sehen wir dass es eine spezielle, diskrete Faltung zweier
-Spektren ist (gedrehte und geschobene Hilfsvariable ist $\Omega_\mu$).
+Sinc Funktion interpoliert zu einem kontinuierlichen DTFT-Spektrum.
+Wenn wir genau hinschauen, sehen wir dass es eine spezielle Faltung zweier
+Spektren ist (gedrehte und geschobene Hilfsvariable ist $\Omega_\mu$, Variable der
+Zieldomäne ist $\Omega$).
 %
 Eine diskrete (Zeit)-Folge oder eine Linienspektrum jeweils zu kontinuierlich
-machen heisst in unserem
-SigSys Abtastungsmodell Rekonstruktion, die als Interpolation
+machen, entspricht in unserem eingeführten
+SigSys Abtastungsmodell der Rekonstruktion, welche als Interpolation
 aufgefasst werden kann, vgl. Abb. 7.1 und 7.2.
 Das in obiger Faltung vorkommende Rekonstruktionsspektrum
 \begin{align}
@@ -151,8 +160,8 @@ H_\mathrm{r}(\Omega) =
 h_\mathrm{r}[k] = \mathrm{rect}_N[k]
 \end{align}
 ist die uns bestens bekannte DTFT Korrespondenz der Rechteckfolge der Länge $N$.
-Das erfüllt doch prima unsere obige Erwartungshaltung, dass die obige Faltung
-im Spektralbereich im Zeitbereich die Signalmultiplikation
+Das erfüllt doch prima unsere obige Erwartungshaltung, dass die obige periodische
+Faltung im Spektralbereich im Zeitbereich die Signalmultiplikation
 \begin{align}
 x[k] = h_\mathrm{r}[k]  \cdot \tilde{x}[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k]
 \end{align}
@@ -163,20 +172,24 @@ abbilden muss.
 Die Rekonstruktion \eq{eq:6337B75DF2_DFT2DTFT}
 vom DFT-Linienspektrum / periodisches Zeitsignal zum
 DTFT-Spektrum / einmaliges Zeitsignal steht daher in enger Analogie zu der
-Rekonstruktion aus Übung 7.2 Fourierreihe (Linienspektrum) zu
+Rekonstruktion aus Übung~\ref{sec:45C76AFB33} (7.2) Fourierreihe (Linienspektrum) zu
 Fouriertransformation (kontinuierliches Spektrum). Es ist im Grunde das
 direkte Pendant für Folgen, also zeitdiskrete Signale.
 
 Diese Interpolation spielt in der Praxis eine wichtige Rolle. Wir werden sie
-sehr, sehr oft anwenden, und es ist wichtig, dass uns das bewusst ist.
+sehr, sehr oft anwenden, wenn auch nicht explizit als Summe implementiert.
+Es ist daher wichtig, dass uns das bewusst ist.
 Ein mögliches Beispiel:
 In der Praxis messen wir
-die Impulsantwort von BIBO-stabilen nichtrekursiven aber auch rekursiven Systemen,
+die Impulsantwort von nichtrekursiven (kommt nur im Zeitdiskreten
+vor), aber auch BIBO-stabilen rekursiven Systemen,
 und zwar so dass sie mit endlicher Länge in einen Rechner abgelegt werden kann.
 %
-Das können wir auch so machen, solange wir sicherstellen, dass
+Wir müssen nur sicherstellen, dass
 in unserem Messfenster die Impulsantwort
-bis ins Messrauschen abgeklungen ist.
+bis ins Messrauschen abgeklungen ist, welches selbst sinvollerweise sehr wenig
+Leistung hat, damit wir einen großen Dynamik-Umfang herstellen können.
+
 In einer großen Kirche müssten wir dann schon mal 20 s Zeitfenster einplanen,
 damit wir den kompletten Nachhall als Antwort auf einen lauten Knall erfassen
 können (diesen Impuls zur Anregung des Raums würden wir heutzutage aus technischen,
@@ -285,7 +298,7 @@ von Zeitfolgenwerten und damit zeitliches Aliasing hervorrufen.
 \subsection{Zerlegung in Reihenschaltung aus Minimalphasensystem und Allpass}
 \label{sec:55A8105469}
 \begin{Ziel}
-Ähnlich wie Aufgabe 6.2 wollen wir uns für zeitdiskrete Systeme---deren
+Ähnlich wie Aufgabe~\ref{sec:68CD3A7F90} (6.2) wollen wir uns für zeitdiskrete Systeme---deren
 Kausalität und Stabilität wir voraussetzen wollen bzw. sicher stellen müssen---eine
 Zerlegung in Minimalphasensystem und Allpass vornehmen. Dazu benutzen
 wir Systeme dritter Ordnung, d.h. Systeme
@@ -310,8 +323,8 @@ Gegeben sind ein sogenanntes Mixed-Phase System $H_\mathrm{mix}(z)$
 (Nullstellen sowohl innerhalb als auch außerhalb des
 Einheitskreises) und ein maximalphasiges System $H_\mathrm{max}(z)$
 (alle Nullstellen außerhalb des Einheitskreises). Alle Pole liegen im inneren
-des Einheitskreises, die Systeme sind damit stabil sind, weil wir Kausalität
-fordern.
+des Einheitskreises, die Systeme sind damit stabil sind, wenn wir (wie hier immer)
+Kausalität fordern.
 
 Mixed-Phase System $H_\mathrm{mix}(z)$
 \begin{align}
@@ -368,7 +381,7 @@ Jupyter Notebook Plot-Routine \texttt{plot\_dtlti\_analysis()} findet sich
 Um aus gemischtphasigen Systemen ein minimalphasiges zu machen, müssen wir
 alle Nullstellen in den Einheitskreis bringen. Dies gelingt mit der Idee, dass
 die neue Nullstelle bzgl. des Betragsfrequenzgangs
-das gleiche machen muss wie die alte.
+das gleiche machen muss wie die ursprüngliche.
 Wir schauen uns das hier nicht im Detail an (dafür siehe empfohlene SigSys-Bücher):
 die Inversion des Betrags leistet genau das. Aus einer maximalphasigen Nullstelle
 wird also eine minimalphasige Nullstellen mittels
@@ -395,7 +408,7 @@ sich halbwegs elegant für $z=\e^{\im \Omega}$ bei $\Omega=0$ also Gleichanteil
 \begin{ExCalc}
 Nachdem das Minimalphasensystem $H_\mathrm{min}(z)$ vollständig beschrieben ist,
 finden wir nun die
-jeweiligen Allpässe $H_\mathrm{all,\cdot}(z)$, damit die Reihenschaltungen gelten
+passenden Allpässe $H_\mathrm{all,\cdot}(z)$ für die Reihenschaltungen
 \begin{align}
 H_\mathrm{mix}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,mix}(z)\\
 H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)
@@ -403,13 +416,14 @@ H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)
 %
 Für den Allpass benutzen wir alle 'maximalphasigen' Nullstellen (also außerhalb des
 Einheitskreises) eines gemischtphasigen Systems und platzieren Pole mit invertiertem
-Betrag dieser jeweiligen Nullstellen. Dies führt dann zu einem frequenzunabhängigen
-Betragsspektrum. Der Gain-Faktor wird dann so gefunden, dass Betrag Eins ist.
+Betrag dieser jeweiligen Nullstellen. Dies führt zu einem frequenzunabhängigen
+Betragsspektrum. Der Gain-Faktor wird dann so gefunden, dass Betragsfrequenzgang
+Eins gilt.
 %
 %In unserem Beispiel:
 
 Allpass $H_\mathrm{all,mix}(z)$ (System 2. Ordnung, weil Berücksichtigung zweier
-maximalphasige Nullstellen)
+maximalphasiger Nullstellen)
 \begin{align}
 &z_{1,2} = \frac{2}{1} \e^{\pm\im\frac{3}{4}\pi}\\
 &p_{1,2} = \frac{1}{2} \e^{\pm\im\frac{3}{4}\pi}\\
@@ -440,11 +454,11 @@ genau diese Koeffizienten im Kommandofenster zurück.
 Uns geht es hier eher darum mit der Pol/Nullstellen/Verstärkung Darstellung
 die gewünschten Grafiken zu erstellen.
 
-Die Zerlegung können wir, ähnlich wie in Aufgabe 6.2, auch mit
+Die Zerlegung können wir, ähnlich wie in Aufgabe~\ref{sec:68CD3A7F90} (6.2), auch mit
 Pol / Nullstellendiagrammen grafisch erarbeiten, siehe Bilder unten.
 Wir beginnen wieder ganz links mit dem jeweiligen gemischtphasigen System.
-Dort tragen wir alle Pole und Nullstellen ein, die dieses System an sich
-hat. Allen Nullstellen außerhalb des Einheitskreis wird nun jeweils
+Dort tragen wir alle Pole und Nullstellen ein, die dieses System hat.
+Allen Nullstellen außerhalb des Einheitskreis wird nun jeweils
 eine minimalphasige Nullstelle (durch oben beschriebene Betragsinversion)
 zugeordnet, die wir in das Diagramm eintragen, und auch gleich
 mit Polstellen an der gleichen Stelle kompensieren.
@@ -699,8 +713,9 @@ $\tau_\mathrm{GD,samples} \,/\, f_s = \tau_\mathrm{GD,seconds}$.
 
 In der rechten Spalte sind Impuls- und Sprungantwort über Samples (also unabhängig
 von $f_s$) dargestellt. Ganz unten rechts das Pol / Nullstellendiagramm.
-Der Konvergenzbereich ist hier als weiße Fläche angedeutet, also alles außerhalb
-des grauen Kreises mit Radius der betragsmäßig größten Polstelle.
+Der Konvergenzbereich (passend zu einem kausalen System)
+ist hier als grüne Fläche angedeutet, also alles außerhalb
+des weißenKreises mit Radius der betragsmäßig größten Polstelle.
 
 Gemäß Bodediagramm-Darstellung können wir bei Reihenschaltung von Systemen
 \begin{itemize}
