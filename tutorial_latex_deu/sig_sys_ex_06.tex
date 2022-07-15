@@ -1,6 +1,7 @@
 %------------------------------------------------------------------------------
 \clearpage
 \section{UE 6: Eigenschaften von zeitkontinuierlichen LTI Systemen}
+\label{sec:ue6_lti_ct_eigenschaften}
 
 Wir haben mittlerweile den SigSys Werkzeugkoffer gut aufgefüllt um
 zeitkontinuierliche Signale und Systeme beschreiben zu können.
@@ -25,12 +26,12 @@ Buzzwords für diese Übung sind
 Das sind alles Dinge die in aufbauenden Fächern immer wieder benötigt
 werden, z.B. für Regelungstechnik, Mechatronik, Nachrichtentechnik,
 Nachrichtenübertragungstechnik, Hochfrequenztechnik, Akustik,
-Video- und Audiotechik uvm. usw. ...
+Video- und Audiotechnik uvm. usw. ...
 
 Diese Übung ist auch wieder sehr dicht und diesmal eigentlich sogar zu viel für
 eine Einheit! Es wäre jedoch schade, nach allem was wir uns wie didaktisch
 erarbeitet haben, Inhalte zu kürzen. Das Design der Übungen
-ist genauso angelegt, dass mit dieser Übung 6 der erste große Bogen,
+ist genauso angelegt, dass mit dieser Übung~\ref{sec:ue6_lti_ct_eigenschaften} (6) der erste große Bogen,
 sozusagen die erste Staffel (zeitkontinuierliche SigSys),
 zu Ende geht und wir die Essenz der SigSys gesehen haben.
 Wir werden in der zweiten Staffel---der zeitdiskreten Signal- und Systemtheorie---viele
@@ -444,7 +445,7 @@ Zerlegen Sie dieses System in seinen Allpass- und minimalphasigen Anteil.
 \end{Werkzeug}
 \begin{Ansatz}
 Zu lösen entweder analytisch, also mit der Übertragungsfunktion als Formel
-oder grafisch anhand von Pol-Nullstellen Diagrammen (dann stark aufpassen
+oder grafisch anhand von Pol-Nullstellen Diagrammen (dann aufpassen
 mit den $H_0$ Faktoren).
 \end{Ansatz}
 
@@ -461,14 +462,13 @@ Betragsfrequenzgangs entlang der $\im\omega$-Achse das selbe macht, allerdings
 eben wie gefordert in der linken $s$-Halbebene.
 Das ist die Nullstelle exakt an der $\im\omega$-Achse gespiegelt.
 Wir können uns das klar machen, wenn wir uns nochmal anschauen, wie das Bode
-Diagramm approximiert gezeichnet wird (siehe UE 5):
+Diagramm approximiert gezeichnet wird (siehe Übung~\ref{sec:ue5_levelresponse} (5)):
 Wir benutzen die Beträge $|s_{0,\cdot}|$ um die Knickpunkte für
 die stückweisen Geraden zu bestimmen.
 Der Vorzeichenwechsel des Realteils einer Nullstelle entspricht genau der
 geforderten Spiegelung an $\im\omega$, der Betrag der komplexen Zahl ändert
 sich dadurch aber nicht. Das Pegeldiagramm bleibt daher gleich. \textbf{Vorsicht: der
-Phasenfrequenzgang ändert sich sehr wohl, das ist der Gag an der Sache.} Wir kommen
-später in der Übung darauf zurück.
+Phasenfrequenzgang ändert sich sehr wohl, das ist der Gag an der Sache.}
 
 Wir erweitern,
 nun die Übertragungsfunktion um den Bruch
@@ -476,7 +476,7 @@ nun die Übertragungsfunktion um den Bruch
 H(s)_\mathrm{max} = 2\cdot\frac{s-2}{s+\frac{1}{2}} \cdot \frac{s+2}{s+2},
 \end{align}
 also mit der gespiegelten Nullstelle, die wir aber mit einer Polstelle
-an der gleichen Stelle gleich wieder 'entschärfen', sich aufhebende Pole und Nullstellen
+an der gleichen Stelle gleich wieder 'entschärfen', sich gegenseitig aufhebende Pole und Nullstellen
 ändern ja nichts an der Übertragungsfunktion und in Folge auch nicht am Betrags-
 und Phasenfrequenzgang.
 Der eher langweilige Teil ist nun, die richtigen Anteile in dem Bruchausdruck
@@ -755,7 +755,7 @@ die Alarmglocken: wir haben eine Polstelle in der rechten $s$-Halbebene.
 Dies bedeutet ein instabiles System.
 Es ist sinnvoll, wenn wir uns das nochmal im Detail klarmachen, anhand der
 Rücktransformation zur Impulsantwort.
-Es lohnt ein Blick auf Abb. 3.2 in Übung 3.
+Es lohnt ein Blick auf Abb.~\ref{fig:0B03A693AD_rightsided} (3.2) in Übung~\ref{sec:ue3_laplace} (3).
 %
 Wir können mit Polynomdivision rasch zeigen, dass
 \begin{align}
@@ -894,7 +894,8 @@ Der Konvergenzbereich des invertierten Systems wird jetzt neu bestimmt, rechts
 vom rechtsliegendsten Pol.
 In unserem Beispiel bedeutet, dass wir für das intendiert kausale
 System $H(s)_\mathrm{max}^{-1}$ einen Konvergenzbereich $\Re\{s\}>2$ fordern
-müssen, vgl. Abb. 3.2 und 3.3. Dieser ist in der rechten $s$-Halbebene und schließt die imaginäre Achse
+müssen, vgl. \fig{fig:0B03A693AD_rightsided} (3.2) und \fig{fig:0B03A693AD_leftsided} (3.3).
+Dieser ist in der rechten $s$-Halbebene und schließt die imaginäre Achse
 \textbf{nicht} mit ein. Für Systeme ein sicheres Indiz, dass die
 Fouriertransformierte, also der Frequenzgang des Systems nicht existiert.
 Frequenzgang bedeutet Systemverhalten im eingeschwungenen Zustand. Ein instabiles
@@ -965,8 +966,8 @@ drauf achten, dass wir stabile Systeme designen.
 
 \begin{mdframed}
 \textbf{Bode Diagramm und Inversion}
-Machen wir uns an dieser Stelle klar, was die Inversion einer
-minimalphasigen Übertragungsfunktion für Auswirkungen auf das Pegel Bode Diagramm
+Machen wir uns an dieser Stelle klar, welche Auswirkungen die Inversion einer
+minimalphasigen Übertragungsfunktion auf das Pegel Bode Diagramm
 hat: Nachdem wir Pole mit Nullstellen vertauschen und
 $\tilde{H}_0\to \frac{1}{\tilde{H}_0}$ (beachte Tilde) wird, spiegelt sich
 das Pegeldiagramm in dB bzgl. der Ordinate, also der dB-Achse. Das gleiche
@@ -1059,9 +1060,9 @@ betrachten, die eher im Leerlauf betrieben werden als unter Last mit hohem Strom
 
 
 Wir müssen nun einen klassischen Stolperstein vorbeugend aus dem Weg räumen.
-Für das Anfertigen von \textbf{Bode Diagrammen}, so wie wir es in Aufgabe 5 gelernt haben,
+Für das Anfertigen von \textbf{Bode Diagrammen}, so wie wir es in Aufgabe~\ref{sec:ue5_levelresponse} (5) gelernt haben,
 brauchen wir die \textbf{Reihenschaltung von Einzelsystemen}. Das sind
-genau die Prototypen von einzelnen Polen, Nullstellen in Abb. 5.8.
+genau die Prototypen von einzelnen Polen, Nullstellen in \fig{fig:magbodeprototype} (5.8).
 Das funktioniert deswegen so elegant, weil die Multiplikation der
 Einzelübertragungsfunktionen die Addition von Pegelverläufen (log-Gesetze)
 bedeutet.
@@ -1099,7 +1100,7 @@ verschalteteten Systemen.
 
 \begin{Werkzeug}
 Pegel Bode Diagramm, Reihenschaltung, Parallelschaltung,
-\fig{fig:tikz_series_081294E23C}, \fig{fig:tikz_parallel_081294E23C}, Abb. 5.8
+\fig{fig:tikz_series_081294E23C}, \fig{fig:tikz_parallel_081294E23C}, \fig{fig:magbodeprototype} (5.8)
 \end{Werkzeug}
 %\begin{Ansatz}
 %Wir wissen für die Einzelsysteme wie das Bode Pegeldiagramm approxmiert ausschaut.
@@ -1292,12 +1293,13 @@ Gesamtübertragungsfunktion $H_1(s) + H_2(s)$.}
 \subsection{Fourier Transformation eines schmalbandigen Impulses (Frequenzgruppe)}
 \label{sec:8844932657}
 \begin{Ziel}
-Wir machen an dieser Stelle einen kleinen Rückgriff auf Übung 4, thematisch
+Wir machen an dieser Stelle einen kleinen Rückgriff auf Übung~\ref{sec:ue4_fouriertransformation} (4), thematisch
 also Fouriertransformation.
 Wir wollen das Spektrum eines modulierten Gaussimpuls berechnen.
 Dies wird uns als Modell eines schmalbandigen Spektrums gute
 Dienste leisten.
-Wir werden es in der nächsten Aufgabe zur Berechnung der sogenannten
+Wir werden es in der nächsten Aufgabe~\ref{sec:AB91F8317C}
+zur Berechnung der sogenannten
 Gruppenlaufzeit benutzen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 8844932657}: Gegeben ist das Signal
@@ -1320,7 +1322,8 @@ Skizzieren Sie das Signal $x(t)$ und das Betragsspektrum $|X(\im\omega)|$.
 
 %------------------------------------------------------------------------------
 \begin{Werkzeug}
-Siehe UE 4. Mit Korrespondenzentabelle arbeiten. Es ist ein wenig Schreibarbeit,
+Siehe Übung~\ref{sec:ue4_fouriertransformation} (4).
+Mit Korrespondenzentabelle arbeiten. Es ist ein wenig Schreibarbeit,
 aber es artet noch nicht ganz so aus.
 \end{Werkzeug}
 \begin{Ansatz}
@@ -1544,7 +1547,7 @@ Systeme und Signale erarbeiten.
 \textbf{Aufgabe} {\tiny AB91F8317C}:
 
 \noindent I. Berechnen Sie die Gruppenlaufzeit
-der in Aufgabe \ref{sec:E1E7E53CFF} gegebenen Systeme und
+der in Aufgabe~\ref{sec:E1E7E53CFF} gegebenen Systeme und
 tragen Sie diese zusammen mit dem Phasenfrequenzgang über die Kreisfrequenz auf.
 
 \noindent II. Interpretieren Sie die \fig{fig:envelope_AB91F8317C}. Diese Grafiken
@@ -1606,7 +1609,7 @@ und die Gruppenlaufzeit über die logarithmische Kreisfrequenz aufgetragen.
 %
 Was können wir aus den Grafiken herauslesen?
 
-Erinnern wir uns an Aufgabe 3.4,
+Erinnern wir uns an Aufgabe~\ref{sec:4408E33353} (3.4),
 das RC Glied, als Tiefpass 1. Ordnung, das sogenannte PT1-Glied.
 Dort hatten wir für eine spezielle Frequenz, die Grenzfrequenz des Systems
 den eingeschwungenen Zustand ausgerechnet und den typischen 45 Grad Phasenversatz

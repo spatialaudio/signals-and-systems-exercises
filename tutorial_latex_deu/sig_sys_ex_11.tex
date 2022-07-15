@@ -303,9 +303,9 @@ Schwingung. Spalte 5 ($\mu=4$) enthält 4 Perioden einer Cos-Schwinung.}
 
 
 Diese Signale werden mit den zugehörigen Spektralwerten
-$X[0]$ (Gleichanteil), $X[1]$ bis $X[N-1]$ gewichtet.
+$X[0]$ (das ist der Gleichanteil), $X[1]$ bis $X[N-1]$ gewichtet.
 Für unser Transformationspaar erfolgt bei der IDFT noch die Normierung mit
-$\frac{1}{N}$. Alle gewichteten Signale werden nun aufaddiert zum Ergebnissignal
+$\frac{1}{N}$. Alle gewichteten Signale werden dann aufaddiert zum Ergebnissignal
 $x[k]$.
 
 Es ist also sehr ähnlich zur Fourierreihensynthese: Überlagerung von
@@ -543,7 +543,7 @@ sorgt dafür, dass der analytische Ausdruck periodisch in 8 ist. Wir hätten auc
 (das findet sich oft in Büchern) nur das Basisband $0\leq \mu \leq N-1$ angeben
 können und müssten dann erwähnen, dass wir es $N$ periodisch auffassen.
 %
-Damit wir den $N$ periodischen Charakter NIE! vergessen, hier mal mit Dirac
+Damit wir den $N$ \textbf{periodischen Charakter} nie vergessen, hier mal mit Dirac
 Impuls Kamm Schreibweise. Das ist auch noch mal eine gute Übung zur
 Austasteigenschaft des Diracs.
 
@@ -562,7 +562,7 @@ Für das Spektrum $X_r[\mu]$ erfolgt die Gewichtung
 
 Damit können wir uns nun die Spektren, also genauer Realteil und Imaginärteil
 (wahlweise ginge auch Betrag und Phase), visualisieren. Das ist unten dargestellt,
-in orange das Basisband $0\leq \mu \leq N-1$, in blau die $N=8$ Periodizität.
+in orange das Basisband $0\leq \mu \leq N-1$, in \textbf{blau} die $N=8$ \textbf{Periodizität}.
 
 \begin{center}
 %
@@ -891,7 +891,7 @@ Wir brauchen für die DFT Hintransformation hier nun die Adjungierte $\bm{F}^\ma
 \begin{Ansatz}
 DFT als Matrixmultiplikation
 \begin{align}
-\bm{x}_\mu = F^\mathrm{H} \cdot \bm{x}_k
+\bm{x}_\mu = \bm{F}^\mathrm{H} \cdot \bm{x}_k
 \end{align}
 mit
 \begin{align}
@@ -1073,7 +1073,7 @@ X[\mu=0]\\X[\mu=1]\\X[\mu=2]\\X[\mu=3]\\X[\mu=4]\\X[\mu=5]\\X[\mu=6]\\X[\mu=7]
 %
 Wir könnten das z.B. mit Matlab
 \begin{verbatim}
-X = fft(exp(+1j*2*pi/8*2.5*[0:7]'))
+X = fft(exp(+1j*2*pi/8*2.5*[0:7].'))
 abs(X)
 angle(X)/pi*16
 \end{verbatim}
@@ -1126,14 +1126,17 @@ X[\mu] =& \sum_{\mu=0}^{N-1} \e^{+\im\,\Omega_0 k} \e^{-\im\,\frac{2\pi}{N} k \m
 \end{align}
 mit $\Omega_{0,\mu} = -\Omega_0 + \frac{2\pi}{N} \mu$.
 Dies ist wieder die endliche geometrische Reihe mit der geschlossenen Lösung
+(vgl.~Glg. \eqref{eq:ue10_sum_to_psinc}ff (10.68)ff)
 \begin{align}
 X[\mu] = \e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot
 \frac{\sin\left(\Omega_{0,\mu}\cdot\frac{N}{2}\right)}{\sin\left(\Omega_{0,\mu}\cdot\frac{1}{2}\right)}
 =\e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot N \cdot \mathrm{psinc}_N(\Omega_{0,\mu})
 .
 \end{align}
-Wir begegnen wieder einmal der periodischen Sinc Funktion
-$\mathrm{psinc}_N(\Omega) = \frac{1}{N}\frac{\sin({\Omega\frac{N}{2}})}{\sin({\Omega\frac{1}{2}})}$.
+Wir begegnen wieder einmal der periodischen Sinc Funktion (vgl. Glg.~\eqref{eq:ue10_psinc} (10.71))
+\begin{align*}
+\mathrm{psinc}_N(\Omega) = \frac{1}{N}\frac{\sin({\Omega\frac{N}{2}})}{\sin({\Omega\frac{1}{2}})}.
+\end{align*}
 %
 Mit dieser Formel finden wir die analytischen Ausdrücke für Betrag und Phase
 vergleichsweise schöner und einfacher, z.B. für $\mu=2$
@@ -1168,7 +1171,7 @@ abändern, wie schaut dann das DFT Spektrum aus? Wenn wir das durch reine
 Überlegung lösen können, haben wir viel vom Wesen der DFT
 verstanden.
 %
-Falls ein Aha Erlebnis ausbleibt, ruhig nochmal die vorherige Aufgabe
+Falls ein Aha Erlebnis ausbleibt, ruhig nochmal die vorherige Aufgabe~\ref{sec:D394560597} (11.1)
 intensiver anschauen.
 
 \end{ExCalc}
@@ -1201,8 +1204,8 @@ nicht erlaubt ist, aber dadurch wird es besser deutlich) sehen wir das Signal
 \exp\left(+\im \frac{2\pi}{\nicefrac{16}{5}} \cdot k\right)
 \end{align}
 also wenn es frei vor sich hinschwingen dürfte.
-Wir sehen in der Formel (vgl. S. 3 oben, Übung 8) und in der Grafik, dass
-dieses Signal periodisch in 16 Samples ist.
+Wir sehen in der Formel (vgl. Übung~\ref{sec:ue8_dt_systems_intro_conv} (8))
+und in der Grafik, dass dieses Signal periodisch in 16 Samples ist.
 %
 Diese inhärente Signalperiode beschneiden wir durch Wahl unserer DFT Länge,
 hier $N=8$, also exakt in der Mitte.
@@ -1306,11 +1309,13 @@ die lineare Faltung $y_l[k] = x[k] \ast h[k]$ und die zyklische Faltung
 $y_c[k] = x[k] \circledast_3 h[k]$
 mit Periode $3$.
 \begin{Werkzeug}
-lineare Faltung aus Übung 8, Matrixmultiplikation, Dualität zyklische Faltung
+lineare Faltung aus Übung~\ref{sec:ue8_dt_systems_intro_conv} (8),
+Matrixmultiplikation, Dualität zyklische Faltung
 vs. Multiplikation
 \end{Werkzeug}
 \begin{Ansatz}
-Wir könnten die grafische Methode aus Übung 8 benutzen. Das ist unten
+Wir könnten die grafische Methode aus Übung~\ref{sec:ue8_dt_systems_intro_conv} (8) benutzen.
+Das ist unten
 für die zyklische Faltung ausführlich skizziert.
 Dies bildet die Rechenvorschrift
 \begin{align}
@@ -1348,9 +1353,9 @@ In Matlab könnten wir kurz checken:
 x = [-1; 2; 4];
 h = [3; 1; 5];
 cconv(h,x,3) % zyklische Faltung mit Periode 3 ==
-ifft(fft(x).*fft(h))  % Umweg über DFT/IDFT
+ifft(fft(x).*fft(h))  % Umweg über DFT/IDFT, elementweise Multiplikation
 conv(h,x)  % lineare Faltung ==
-ifft(fft([x;0;0]).*fft([h;0;0]))  % zeropadding auf Ny=5 und Umweg über DFT/IDFT
+ifft(fft([x;0;0]).*fft([h;0;0]))  % zeropadding auf Ny=5, Umweg über DFT/IDFT
 \end{verbatim}
 
 
@@ -1644,7 +1649,7 @@ ifft(fft([x;0;0]).*fft([h;0;0]))  % zeropadding auf Ny=5 und Umweg über DFT/IDF
 \newpage
 \begin{ExCalc}
 Matrixmultiplikationen speziell zusammengesetzter Matrizen sind Faltungen, siehe
-Aufgabe 8.2 für die lineare Faltung.
+Aufgabe~\ref{sec:FD58EEB1EC} (8.2) für die lineare Faltung.
 Die zyklische Faltung wird mit zyklischen Matrizen abgebildet.
 
 \textbf{Zyklische Faltung} (3er) der Spaltenvektoren
@@ -1901,7 +1906,7 @@ für das Ergebnis nicht relevant. Wenn wir die also weglassen
 20
 \end{bmatrix}
 \end{align}
-finden wir den Lösungsweg II mittels \textbf{Toeplitz Matrix} aus Aufgabe 8.2 wieder,
+finden wir den Lösungsweg II mittels \textbf{Toeplitz Matrix} aus Aufgabe~\ref{sec:FD58EEB1EC} (8.2) wieder,
 wir sind also erfreulicherweise konsistent mit unserer Betrachtung.
 
 
@@ -2754,7 +2759,7 @@ Nachdem wir wissen, dass die Ergebnismatrix zyklisch ist, brauchen wir nur
 eine Spalte oder eine Zeile ausrechnen und können des Rest auffüllen.
 %
 Eine Linearkombination der Spalten von $\bm{X}$ mit den Gewichten in der
-ersten Spalte von $\bm{H}$ ergibt die erste Ergebnisspalte von $\bm{Y}$
+ersten Spalte von $\bm{H}$ ergibt die erste Ergebnisspalte von $\bm{Y}=\bm{X} \bm{H}$
 \begin{align}
 3\cdot
 \begin{bmatrix}
@@ -2783,7 +2788,7 @@ ersten Spalte von $\bm{H}$ ergibt die erste Ergebnisspalte von $\bm{Y}$
 \end{bmatrix}
 \end{align}
 Eine Linearkombination der Zeilen von $\bm{H}$ mit den Gewichten in der ersten Zeile
-von $\bm{X}$ ergibt die erste Ergebniszeile von $\bm{Y}$
+von $\bm{X}$ ergibt die erste Ergebniszeile von $\bm{Y}=\bm{X} \bm{H}$
 \begin{align}
 \label{eq:C8864C8D9F_LinComb_Row}
 -1 \cdot [3 \quad 5 \quad 1] + 4 \cdot [1 \quad 3 \quad 5] + 2 \cdot [5 \quad 1 \quad 3] =
@@ -2811,7 +2816,9 @@ ausrechnen, und finden die Äquivalenz mit den jeweils ersten Spalten der Matriz
 $\bm{X}$, $\bm{H}$ und $\bm{Y} = \bm{X} \bm{H}$.
 Die Matrixoperation $\bm{X} \bm{H}$
 realisiert also die zyklische Faltung,
-eben weil wir zyklische Matrizen benutzen.
+eben weil wir zyklische Matrizen benutzen. Rufen wir uns noch Erinnerung,
+dass bei zyklischen Matrizen $\bm{X} \bm{H} = \bm{H} \bm{X}$ gilt, also
+die Kommutativität der (zyklischen) Faltung konsistent abbildet.
 
 Einer der wichtigsten Zusammenhänge der SigSys findet sich natürlich auch
 in der Algebra wieder. Es ist der Link zwischen Zeit- und Bildbereich, oder

@@ -1,6 +1,7 @@
 %------------------------------------------------------------------------------
 \newpage
 \section{UE 2: Elementarsignale- und Operationen, LTI-System Eigenschaften, Faltung}
+\label{sec:ue2_faltung}
 
 Wir müssen uns zunächst mit den zeitkontinuierlichen Elementarsignalen vertraut
 machen, siehe \verb|fundamental_signals_CT.pdf| im StudIP unter Formelsammlung.
@@ -235,7 +236,7 @@ coordinates {(-4,0)(0,0)(0,3/4)(3,3/4)(3,0)(4,0)};
 \begin{Ziel}
 Wir wollen ein paar prototypische
 Rechenmuster der SigSys kennenlernen. Dabei begegnen uns neben ganz normalem
-Mathematik-Tools ein paar SigSys-Eigenheiten, die wir in den ersten VL/UE
+Mathematik-Tools ein paar SigSys-Eigenheiten, die wir in den ersten Vorlesungen und Übungen
 erarbeiten, also Standardsignale und deren Zusammenhänge und Eigenschaften.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 114F06AFAA}:
@@ -268,7 +269,7 @@ Ableitung $x'(t)$ und stellen Sie diese grafisch dar.
 Rechteckfunktion, Skalierung, Zerlegung in Sprungfunktionen, Ableitung
 
 Ausblendeigenschaft / Austasteigenschaft des Dirac-Impulses,
-was ja eigentlich eher eine Definition, anstatt eine Eigenschaft ist (siehe UE1)
+was ja eigentlich eher eine Definition, anstatt eine Eigenschaft ist (siehe Übung~\ref{sec:ue1_intro} (1))
 \begin{equation}
 \int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(\tau)
 \end{equation}
@@ -608,7 +609,7 @@ diskutierte Zeitverschiebung und negative Zeitskalierung benutzt werden muss, um
 die Signaloperationen $x(\tau) \rightarrow x(-\tau+t)$
 oder $h(\tau) \rightarrow h(-\tau+t)$ abzubilden.
 \textbf{Wir beachten aber}, dass im Faltungsintegral die temporäre Zeitvariable
-$\tau$ (das ist keine RC-GLied Zeitkonstante o.ä.) ist und die Zeit $t$
+$\tau$ (das ist keine RC-Glied Zeitkonstante o.ä.) ist und die Zeit $t$
 im Ergebnissignal $y(t)$ die Verschiebungsvariable in der Faltung entspricht.
 \end{Loesung}
 
@@ -974,7 +975,7 @@ $|a x(t)|>\frac{\pi}{2}$ landen wir im hochgradig nichtlinearen Teil der atan-Fu
 a \cdot \sysH{x(t)}= a \cdot \mathrm{atan}(x(t))
 \end{align}
 \textbf{nicht linear}, Beispiel/Anwendung: Amplitudenbegrenzer, Verstärkerkennlinie
-zwischen Ein- und Ausgang, für die MusikerInnen unter uns: Limiter, Distortion Effekt
+zwischen Ein- und Ausgang, für die Musiker*innen unter uns: Limiter, Distortion Effekt
 %------------------------------------------------------------------------------
 \item  \underline{System 4}:
 \begin{equation}
@@ -1008,9 +1009,9 @@ Skalierungseigenschaft ok:
 \sysH{a \cdot x(t)}= (a \cdot x(t)) \cos(\omega_0 t)\\
 a \cdot \sysH{x(t)}= a \cdot (x(t) \cos(\omega_0 t))
 \end{align}
-\textbf{linear}, Beispiel/Anwendung: Modulator, für die MusikerInnen unter uns:
+\textbf{linear}, Beispiel/Anwendung: Modulator, für die Musiker*innen unter uns:
 Chorus, Flanger Effekte, Vibrato, für NTler*innen: Amplitudenmodulation, CB-Funk
-(das analoge Verfahren ist ein wenig aus der Mode gekommen)
+
 %------------------------------------------------------------------------------
 \item  \underline{System 6}:
 \begin{equation}
@@ -1104,7 +1105,7 @@ Beispiel/Anwendung: Integrierer
 \begin{equation}
 y(t) = \sysH{x(t)}:= \int\limits_{-\infty}^{t} |x(\tau)|^2 \fsd \tau
 \end{equation}
-Hier darf man sogar mal auf das Bauchgefühl hören: Quadrat und Betrag erlauben
+Hier dürfen wir sogar mal auf unser Bauchgefühl hören: Quadrat und Betrag erlauben
 keine Linearität.
 
 Additionseigenschaft nicht ok
@@ -1207,7 +1208,7 @@ y(t) = \sysH{x(t)}:= 2 x(t) + 1
 \text{P2:}& \quad x(t)\rightarrow \mathcal{H}\{x(t)\}=2 x(t)+1\rightarrow y(t-\tau)=2 x(t-\tau) +1
 \end{align}
 \textbf{zeitinvariant}, das System ist zwar nicht linear, aber es reagiert
-unabhängig davon wann es zeitlich getriggert wird immer gleich.
+unabhängig davon wann es zeitlich getriggert wird, immer gleich.
 
 
 %------------------------------------------------------------------------------
@@ -1463,7 +1464,7 @@ In der Praxis wird die Faltung für zeitdiskrete Signale dann vom Computer
 Je mehr wir verstehen, was diese Integraloperation macht, desto leichter fällt
 uns der Umgang in der Praxis.
 %
-Essentiell bei der Faltung ist die Bedeutung der der Signaloperation $-\tau+t$
+Essentiell bei der Faltung ist die Bedeutung der Signaloperation $-\tau+t$
 für eines der beiden Signale.
 %
 Da die Faltung kommutativ ist, können wir zwei Wege beschreiten, die zum selben
@@ -1681,7 +1682,7 @@ weil wir ein Rect Signal zum Falten gewählt haben,
 das vollständig mit dem Dreieck-Signal überlappt.
 %
 Bei anderen schwierigeren Signalverläufen macht das Integral zwar immer noch
-das gleiche, aber das sehen wir dann uU nicht mehr sofort.
+das gleiche, aber das sehen wir dann unter Umständen nicht mehr sofort.
 
 An dem Beispiel können wir noch mehr Sachen elegant validieren:
 Eine stückweise lineare Gerade (vgl. $h(t)$) und eine stückweise Konstante (vgl. $x(t)$)
@@ -1698,7 +1699,7 @@ orange das Eingangssignal und in grün das Ausgangssignal der Faltung.
 %
 $y_1(t)$ hat einen ansteigenden Verlauf, $y_3(t)$ einen abfallenden Verlauf.
 Der Systemausgang folgt also dem Systemeingang, allerdings wird dieser an den
-Sprungsstellen 'verschliffen'.
+Sprungstellen 'verschliffen'.
 %
 Außerdem bemerkenswert, dass das System den Eingang generell um eins verzögert.
 Dies weil die Impulsantwort $h(t)$ eben erst bei $t=1$ beginnt sich von Null
@@ -2239,12 +2240,12 @@ $\frac{1}{5} \cdot h(t)=\exp(- t \cdot 5) \cdot \epsilon(t)$}
 \end{axis}
 \end{tikzpicture}
 
-\noindent\textbf{Hinweis 1}: Wir werden nach der Übung 3 in der Lage sein, $h(t)$ elegant herzuleiten.
+\noindent\textbf{Hinweis 1}: Wir werden nach der Übung~\ref{sec:ue3_laplace} (3) in der Lage sein, $h(t)$ elegant herzuleiten.
 Nehmen wir das an dieser Stelle mal hin, aber bemerken auch, dass wir
 diese Art Formel beim Kondensator eh schon mal gesehen haben, mutmaßlich aber
 nicht im Kontext einer Impulsantwort.
 
-\noindent\textbf{Hinweis 2}: In der ET verwenden wir gerne $\tau$ für die Zeitkonstante. Weil das
+\noindent\textbf{Hinweis 2}: In der Elektrotechnik verwenden wir gerne $\tau$ für die Zeitkonstante. Weil das
 aber unsere Hilfsvariable in der Faltung ist, geben wir der Zeitkonstante des RC-Glieds die Variable
 $T_\mathrm{RC}$.
 
@@ -2385,11 +2386,11 @@ haben, und das System eben antwortet mit der ... Sprungantwort.
 Spannender Link II: Die \textbf{Impulsantwort} $h(t)$ ist direkt proportional zur
 Entladekurve eines Kondensators, wenn der Kondensator zum Zeitpunkt $t=0$
 vollständig auf $U_q$ aufgeladen war und ab $t=0+$ die Entladung erfolgt.
-Aus der ET wissen wir, dass dann $y(t) = U_q \e^{-\tau/T_\mathrm{RC}}$ gilt,
+Aus der Elektrotechnik wissen wir, dass dann $y(t) = U_q \e^{-\tau/T_\mathrm{RC}}$ gilt,
 wir sehen Ähnlichkeiten mit $h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}$...
 
-Wir bekommen (hoffentlich) langsam ein Gespür für die größeren Zusammenhänge und
-warum SigSys cool sein könnte.
+Wir bekommen langsam ein Gespür für die größeren Zusammenhänge und
+warum SigSys nützlich sein könnte.
 \end{Loesung}
 
 

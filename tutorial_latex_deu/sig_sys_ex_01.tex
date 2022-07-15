@@ -2,6 +2,7 @@
 %------------------------------------------------------------------------------
 \newpage
 \section{UE 1: Wiederholung Mathe Fourier-Reihe/-Transformation, Lösen von DGL}
+\label{sec:ue1_intro}
 Zielsetzung / Objectives: Bereits bestehende Kenntnisse aus der Mathematik
 wiederholen und in den Kontext der SigSys einordnen.
 %Ausblick was/wie/warum und Verknüpfung mit bereits
@@ -10,8 +11,8 @@ wiederholen und in den Kontext der SigSys einordnen.
 \begin{itemize}
 \item Komplexe Fourierreihe, Signalanalyse und -synthese
 \item Fouriertransformation, Signalanalyse und -synthese
-\item Dualität Sinc/Spalt-Funktion vs. Rect-Funktion
-\item Dualität Verschiebung vs. Modulation
+\item Dualität: Sinc/Spalt-Funktion vs. Rect-Funktion
+\item Dualität: Verschiebung vs. Modulation
 %\item Ausblick zwei weitere Transformationen für Signalanalyse und -synthese: DFT, DTFT
 \item DGL lösen mittels Eigenfunktionen, charakteristisches Polynom vs. Eigenwerte/-vektoren einer Matrix, Systemanalyse, Impulsantwort, Green'sche Funktion
 %\item Message: SigSys fundamentalisiert, sammelt und vereinfacht AlltagMath für typ. Ing Aufgaben bzgl. System/Signale
@@ -36,7 +37,7 @@ immer wieder brauchen werden.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D1483A84E2}: Berechnen Sie die komplexe Fourier-Reihe für
 \begin{itemize}
-\item axialsymmetrische periodische Rechteckschwingung $x(t)$ mit Periode $T>0$ s
+\item axialsymmetrische, periodische Rechteckschwingung $x(t)$ mit Periode $T>0$ s
 und Amplitude $A$
 \item Tastverhältnis $0<\frac{T_h}{T}\leq 1$, woraus folgt $0 < T_h \leq T$
 \item Grundkreisfrequenz $\omega_0 = \frac{2\pi}{T}$ mit $\omega_0>0$ rad/s
@@ -327,7 +328,7 @@ Auch hier ist $X(\im\omega)\in\mathbb{R}$ ein Spezialfall.
 Der Faktor $\frac{T_h}{2}$ im sinc-Argument bestimmt wieder die Breite der
 Spaltfunktion.
 
-Merke bzw. besser sieh in den Formeln:
+Wir merken uns bzw. besser wir sehen das in den Formeln:
 
 Je \textbf{kleiner} $T_h$, also je \textbf{schmal}er der
 \textbf{Rechteck}impuls, desto \textbf{breit}er die \textbf{Spalt}funktion.
@@ -344,7 +345,7 @@ wir Probleme beim Integrieren. Aber dies sind in der SigSys überaus wichtige
 Grenzfälle, für die auch Fouriertransformierte existieren. Wir werden sie bald
 kennenlernen.
 
-Wir werden in der VL und UE sehr oft das Elementarsignal
+Wir werden in der Vorlesung und Übung sehr oft das Elementarsignal
 
 \begin{equation}
 \text{rect}(t) := \begin{cases} 1 & |t| < \frac{1}{2} \\ \frac{1}{2} & |t| = \frac{1}{2} \\ 0 & |t| > \frac{1}{2} \end{cases}\quad,
@@ -462,7 +463,7 @@ verschobene Rechteckfunktion.
 
 
 \begin{Werkzeug}
-nothing new here...wir machen
+nothing really new here...wir machen
 Analyse mit Fouriertransformation
 \begin{align}
 X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
@@ -602,7 +603,7 @@ Bemerkenswert ist der gekreuzte Zusammenhang Zeit-/ Frequenzverschiebung
 vs.
 Frequenz-/ Zeitmodulation,
 jedoch mit anderem Vorzeichen
-in im komplexen Dreher.
+im komplexen Dreher.
 \end{Loesung}
 
 \begin{figure}[h!]
@@ -1091,7 +1092,8 @@ Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
 \subsection{Dirac-Impuls}
 \label{sec:D410BDAAE0}
 \begin{Ziel}
-Wir führen den Dirac-Impuls ein. Ohne den geht in SigSys (fast) nix, bekannt auch als
+Wir führen den Dirac-Impuls $\delta(t)$ ein.
+Ohne den geht in SigSys (fast) nix, bekannt auch als
 Dirac-Delta-Impuls, Dirac-Stoß, Einheitsimpuls.
 Wir werden den Dirac-Impuls bei der Beschreibung von Signalen und Systemen
 in fundamentalen Zusammenhängen benutzen (müssen).
@@ -1217,7 +1219,7 @@ nicht aus dem Definitionsintegral (in Notation der Formelsammlung)
 $\int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot x(t) \, \fsd t \stackrel{\mathrm{def}}= x(\tau)$
 des Dirac-Impulses auslesen.
 %
-Statt Fläche, sprechen wir deswegen hinfort vom Gewicht 1 des Dirac-Impulses.
+Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses.
 
 \end{Werkzeug}
 
@@ -1392,10 +1394,8 @@ In Mathe haben wir das Konzept der Differentialgleichung (DGL) kennengelernt.
 Wir haben verschiedene Lösungsmöglichkeiten kennengelernt (Variation
 der Konstanten, Variablentrennung, Eigenlösungen und charakteristisches Polynom,
 Störgliedansätze, usw.). Erschien uns vielleicht ziemlich wirr, weil rechnen
-ja, verstehen eher hm...nein. Dass das eigentlich nicht so sein muss zeigt
-das Buch \cite{Strang2014}. Es gibt Unmengen Bücher,
-aber die Bücher von Gilbert Strang sollten wir unbedingt zur Kenntnis nehmen;
-auch die MIT OCW Vorlesungen von ihm sind sehr zu empfehlen.
+ja, verstehen eher hm...nein? Das Buch \cite{Strang2014} und andere von Gilbert Strang
+lohnt sich durchzuarbeiten; auch die MIT OCW Vorlesungen von ihm sind sehr zu empfehlen.
 
 
 Lineare DGL mit konstanten (also \textbf{nicht zeitveränderliche}n) Koeffizienten der
@@ -1430,8 +1430,8 @@ Der folgende Abschnitt soll daher die SigSys Denke ein wenig schmackhaft machen 
 greift den didaktisch brillanten Faden aus \cite{Strang2014} auf. Viele Dinge
 müssten uns aus der Mathe-VL vertraut vorkommen.
 %
-Zum Auffrischen sei \cite{Burg2013} sehr empfohlen, das ist SigSys aus Sicht von
-Mathematiker*innen.
+Zum Auffrischen sei auch \cite{Burg2013} sehr empfohlen, das ist SigSys aus weiterer
+Sicht von Mathematiker*innen.
 %
 \subsubsection{Lineare DGL 2. Ordnung mit konstanten Koeffizienten}
 Betrachten wir beispielhaft die lineare DGL 2. Ordnung
@@ -1844,7 +1844,7 @@ Die Laplace Transformierte der Impulsantwort enthält viele Informationen auf
 sehr übersichtliche Weise und ist perfekt für die tägliche Ingenieurarbeit, sei
 es in der Regelungstechnik, Kommunikationstechnik oder Maschinenbau, Mechatronik.
 
-
+\newpage
 \subsubsection{Aufgabe: Homogene Lösung einer DGL 2. Ordnung mit konstanten
 Koeffizienten und Anfangsbedingungen}
 \label{sec:A7BEE9E24E_Aufgabe}
@@ -1873,8 +1873,7 @@ Im github Repository
 
 findet sich unter \verb|laplace_transform/solving_2nd_order_ode.tex| eine
 ausführlichste Lösung.
-Dieses Dokument werden wir zu einem späteren Zeitpunkt, ca. in der Mitte der
-UE, sowieso ausführlich behandeln. Es steht als PDF im StudIP.
+Dieses Dokument bekommt ab ca. der Mitte des Semesters Relevanz.
 \end{Ansatz}
 %\begin{ExCalc}
 %\end{ExCalc}

@@ -1,5 +1,6 @@
 \clearpage
-\section{Discrete-Time Fourier Transform (DTFT)}
+\section{UE 10: Discrete-Time Fourier Transform (DTFT)}
+\label{sec:ue10_dtft}
 
 Die DTFT ist eine von vier Fouriertransformationen, nämlich die FT für
 zeitdiskrete Signale, welche nicht notwendigerweise periodisch sind
@@ -620,7 +621,8 @@ wir ja eher rechnen und das System nicht unbedingt realisieren wollen.
 \end{tikzpicture}
 \end{center}
 %
-Wir kennen das Konzept eigentlich schon sehr gut aus Übung 1.2, da hatten
+Wir kennen das Konzept eigentlich schon sehr gut aus Übung~\ref{sec:8C3958BE4F} (1.2),
+da hatten
 wir für das axialsymmetrische $\mathrm{rect}(t)$-Signal ein reelles
 Sinc-Spektrum ermittelt, was nur Phasensprünge wegen Polaritätswechsel aufweist.
 Genau das wird uns hier wieder begegnen.
@@ -749,7 +751,7 @@ also dort wo wir den Frequenzgang auswerten, kann sie sich voll entfalten.
 Die Phasendiagramme addiert ergibt die untere Grafik
 \fig{fig:fir_filter_64BE42BAEF_bode}. Bis auf die beiden Unstetigkeiten
 (das ist immer ein wenig Gefrickel :-( und wollen wir an dieser
-Stelle nicht vertiefen; siehe dazu z.B. das Referenzwerk
+Stelle nicht vertiefen; siehe dazu z.B.
 \cite{Oppenheim2010, Oppenheim2004})
 handelt es sich immer noch um einen linearen Phasenabfall, also immer
 noch um ein \textbf{linearphasiges} System.
@@ -787,7 +789,8 @@ veranschaulicht ist.
 \end{tikzpicture}
 \end{center}
 %
-Im Gegensatz zu Aufgabe 6.6, wo die frequenzabhängige Gruppenlaufzeit dazu führt,
+Im Gegensatz zu Aufgabe~\ref{sec:AB91F8317C} (6.6),
+wo die frequenzabhängige Gruppenlaufzeit dazu führt,
 dass verschiedene Frequenzgruppen unterschiedlich 'schnell' durch das System gelangen,
 haben wir hier die vorteilhafte Eigenschaft, dass alle Frequenzgruppen
 gleich schnell behandelt werden, also alle mit 5 Samples Verzögerung das
@@ -831,7 +834,7 @@ wiedergegeben werden.
 \begin{Ziel}
 Wir wollen uns intensiver mit dem DTFT-Spektrum der Rechteckfolge beschäftigen.
 Das steht in Analogie zur Fouriertransformation (FT) der Rechteckfunktion in
-der zeitkontinuierlichen SigSys, siehe Übung 1.
+der zeitkontinuierlichen SigSys, siehe Übung~\ref{sec:ue1_intro} (1).
 Das DTFT-Spektrum einer Rechteckfolge beinhaltet die sogenannte \texttt{psinc}-Funktion,
 in Analogie zur 'normalen' sinc-Funktion im Zeitkontinuierlichen.
 %
@@ -887,10 +890,12 @@ Folge zu tun haben werden.
 %
 Die DTFT ist ja ein Spezialfall der z-Transformation, und dort begegnete uns
 die geometrische Folge beim 1-Pol Signal, aus dem die Einheitsfolge ableitbar ist,
-aus der wiederum eine endlich Rechteckfolge zusammensetzbar ist (siehe Übung 2.2).
+aus der wiederum eine endlich Rechteckfolge zusammensetzbar ist (siehe
+Übung~\ref{sec:114F06AFAA} (2.2)).
 
 Die endliche Summe aus unserem Ansatz
 \begin{align}
+\label{eq:ue10_sum_to_psinc}
 X(\e^{\im\Omega})
 = \sum_{k=-\infty}^{+\infty} \mathrm{rect}_N[k] \, \e^{-\im\Omega k} = \sum_{k=0}^{N-1} \e^{-\im\Omega k}
 \end{align}
@@ -911,6 +916,7 @@ letzteres mit Euler Identität $2\im\cdot\sin(x)=\e^{\im x}-\e^{-\im x}$.
 %
 Der sin/sin-Bruch ist so wichtig, dass wir ihm einen eigenen Funktionsnamen
 \begin{equation}
+\label{eq:ue10_psinc}
 \mathrm{psinc}_N(\Omega) := \frac{1}{N}\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 verpassen, diese Funktion ist bekannt als periodische Sinc-Funktion, in Englisch
@@ -990,7 +996,8 @@ In \fig{fig:psinc_767B4C89FE_N5_zerophase} ist dann das nullphasige, weil axials
 Signal $x_5[k]$ mit DTFT-Spektrum dargestellt.
 Das Spektrum ist rein reell, und hat Phasensprünge um 180 Grad nur
 noch aufgrund des Polaritätswechsels. Das Phasendiagramm müsste eigentlich
-punktsymmetrisch so wie in Abb. 1.7 aufgemalt werden, die Programmierung in Python
+punktsymmetrisch so wie in \fig{fig:8C3958BE4F_SingleCase_MagPhase} (1.7)
+aufgemalt werden, die Programmierung in Python
 mittels \texttt{np.unwrap(np.angle(X))} liefert uns jedoch Sprünge zwischen 0 und 180 Grad,
 womit wir in der Praxis umzugehen lernen müssen.
 
@@ -1049,7 +1056,7 @@ eine $N$-abhängigen Betrag. psinc selber ist amplituden-normiert 1, wie sinc au
 \subsection{DTFT-Spektrum der rechteckbegrenzten komplexen Schwingung}
 \label{sec:96D7F1EE47}
 \begin{Ziel}
-In dieser Aufgabe wollen wir uns ähnlich Aufgabe 4.1
+In dieser Aufgabe wollen wir uns ähnlich Aufgabe~\ref{sec:610482EF57} (4.1)
 die DTFT der rechteckbegrenzten komplexen Exponentialschwingung anschauen.
 Wir werden die Aufgabe hier dahingehend modifizieren und erweitern, dass
 wir komplexe Signalw DTFT-transformieren und eine Überlagerung von zwei Schwingungen
@@ -1095,7 +1102,8 @@ Multiplikation / Faltung Dualität (hier als $2\pi$ zyklische Faltung im Spektra
 x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} X(\e^{\im \Omega}) \circledast_{2\pi} W(\e^{\im \Omega})
 \end{align}
 %
-Funktionsargument $\Omega$ statt $\e^{\im \Omega}$ erscheint ab jetzt eleganter:
+Funktionsargument $\Omega$ statt $\e^{\im \Omega}$ erscheint ab jetzt eleganter,
+weil kürzer und für die benötigte Rechenoperation eindeutiger:
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
 \int\limits_{\nu=0}^{2\pi} X(\nu) \cdot W(-\nu + \Omega) \fsd \nu =
@@ -1104,7 +1112,7 @@ X(\Omega) \circledast_{2\pi} W(\Omega) =
 Hilfsvariable für Frequenzspiegelung und -verschiebung ist $\nu$.
 \end{Werkzeug}
 \begin{Ansatz}
-In Aufgabe 4.1 hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
+In Aufgabe~\ref{sec:610482EF57} (4.1) hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
 lässt sich hier analog anwenden.
 
 \textbf{Sichtweise I}: unendliche Exponentialschwingung zeitlich

@@ -1,10 +1,11 @@
 %------------------------------------------------------------------------------
 \clearpage
 \section{UE 3: Laplace Transformation}
+\label{sec:ue3_laplace}
 %
-Wir haben Laplace Transformation vielleicht schon in einer Mathe Vorlesung
+Wir haben Laplace Transformation sicherlich schon in einer Mathe Vorlesung
 kennengelernt.
-Laplace Transformation ist eine Integraltransformation der allgemeinen Form
+Laplace Transformation ist eine Integraltransformation aus der Familie
 \begin{equation}
 F(y) = \int\limits_{x_1}^{x_2} f(x) \cdot K(x,y) \fsd x
 \end{equation}
@@ -32,7 +33,7 @@ können und deswegen Signale mit Systemen elegant und konsistent verknüpfen kö
 
 Wir sollten uns klarmachen, dass der \textbf{Wunsch nach einem einfacherem Operator
 für die zeitliche Ableitung} ein Ausgangspunkt für die Erfindung der Laplace
-Transformation ist; das sehr lesenswerte Lehrwerk \cite{LangeSigSys1} enthält
+Transformation ist; das sehr lesenswerte, zeitlose Lehrwerk \cite{LangeSigSys1} enthält
 einen Abschnitt über die Entwicklungshistorie bis in die 1970er.
 Statt Ableiten, also Multiplizieren
 \begin{equation}
@@ -125,7 +126,8 @@ x(t) \ast h(t) \quad\laplace\quad X(s) \cdot H(s),
 \end{align}
 d.h. das 'Abfallprodukt' für die Einführung eines einfacheren Operators
 für die zeitliche Ableitung ist, dass die Faltung im Zeitbereich durch die
-Multiplikation im Bildbereich dargestellt wird. Das dürfen wir durchaus fancy finden.
+Multiplikation im Bildbereich dargestellt wird. Das dürfen wir durchaus fancy finden, ist aber
+kein Zufall.
 
 Die mathematisch saubere Verortung des Dirac Impulses war im Erfindungsprozess
 der Laplace Transformation nicht einfach. Nachdem wir uns für SigSys mit Einführung
@@ -818,12 +820,12 @@ wir uns für später aufheben.
 \begin{Ziel}
 Wir wollen mit dem SigSys-Werkzeugkoffer anhand des uns gut bekannten RC-Gliedes
 bestimmte Ein-/Ausgangssignalpaare berechnen.
-Anstatt zu Falten, also das Faltungsintegral zu lösen (dafür siehe Übung 2), wollen
+Anstatt zu Falten, also das Faltungsintegral zu lösen (dafür siehe Übung~\ref{sec:ue2_faltung} (2)), wollen
 wir hier die Laplace Transformation zu Hilfe nehmen.
 Ziel ist zu erkennen, dass der beschrittene Lösungsansatz generisch funktioniert und
 vergleichsweise einfach und vor allem konsistent
 die Spezialfälle der Auf-/Entlade-/Wechselstromfälle, die
-wir in ET kennengelernt haben, abbildet.
+wir in Elektrotechnik kennengelernt haben, abbildet.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 4408E33353}: Berechnen Sie mit Werkzeugen der Systemtheorie
 \begin{itemize}
@@ -855,13 +857,13 @@ Das System befindet sich zu $t=0$ in Ruhe, $C$ ist also nicht aufgeladen, $y(0)=
 \begin{Werkzeug}
 Wir öffnen den großen SigSys-Koffer, den wir schon ganz gut gefüllt haben...\\
 Wir könnten die Aufgabe (bis vielleicht die Impulsantwort) auch mit Mitteln
-lösen, die wir bisher in Mathe und ET gelernt haben.
+lösen, die wir bisher in Mathe und Elektrotechnik gelernt haben.
 %
 Wir wollen aber hier genau mal alles das anwenden was wir bisher an SigSys-Tools
 kennengelernt haben.
 %
 Weil wir für dieses System wissen, wie die Lösungen ausschauen müssen und
-diese auch schon mal in ET interpretiert haben, fällt es uns hier leicht die
+diese auch schon mal in Elektrotechnik interpretiert haben, fällt es uns hier leicht die
 Rechenwege vergleichend einzuordnen.
 %
 \end{Werkzeug}
@@ -876,10 +878,10 @@ Kreisgrenzfrequenz $\omega_\mathrm{RC}=\frac{1}{R \cdot C}$.
 
 \noindent\textbf{Hinweis 1}: Dieses System hat, weil 1. Ordnung, nur eine
 Zeitkonstante bzw. eine Systemgrenzfrequenz.
-Systeme höherer Ordnung können mehrere Zeitkonstanten haben.
+Systeme höherer Ordnung werden mehrere Zeitkonstanten haben.
 
 \noindent\textbf{Hinweis 2}: es gilt die
-Relation $f=\frac{1}{T}$ zwischen physikalischer Frequenz $f$ und Periodendauer $T$ ABER
+Relation $f=\frac{1}{T}$ zwischen physikalischer Frequenz $f$ und Periodendauer $T$, \textbf{aber}
 es gilt die Relation $\omega_\tau = \frac{1}{T_\tau}$ zwischen der System-\textbf{Kreis}grenz\textbf{frequenz}
 $\omega_\tau $ und der System-\textbf{Zeitkonstante} $T_\tau $.
 
@@ -1042,7 +1044,7 @@ Transformationen die wir kennengelernt haben bzw. noch werden.
   \e^{+s_0 \, t} \cdot \epsilon(t) \quad \laplace \quad \frac{1}{s-s_0} \quad\text{ für } \quad\Re\{s\} > \Re\{+s_0\}
   \end{align}
 
-  Mit dieser Impulsantwort haben wir schon einmal in Übung 2.8 operiert, dort
+  Mit dieser Impulsantwort haben wir schon einmal in Übung~\ref{sec:C964DD7400} (2.8) operiert, dort
   hatten wir diese gefaltet mit einem Rechteckimpuls, um zu schauen, wie das RC-Glied
   den Rechteckimpuls verschleift/filtert.
 
@@ -1055,9 +1057,9 @@ Transformationen die wir kennengelernt haben bzw. noch werden.
 Die Sprungantwort $h_\epsilon(t)$ ist die Antwort des LTI-Systems auf einen Einheitssprung.
 
 Machen wir uns klar, dass bei LTI-Systemen alle Systeminformation in der Impulsantwort
-steckt, siehe Übung 1.
+steckt, siehe Übung~\ref{sec:ue1_intro} (1).
 
-Der aus Übung 2 bekannte Zusammenhang $\epsilon(t)' = \delta(t)$ führt bei LTI-Systemen
+Der aus Aufgabe~\ref{sec:114F06AFAA} (2.2) bekannte Zusammenhang $\epsilon(t)' = \delta(t)$ führt bei LTI-Systemen
 direkt zur Erkenntnis, dass auch
 %(das können wir mit der Austasteigenschaft des
 %Dirac Impulses formal für jedes $t$ zeigen)
@@ -1146,18 +1148,18 @@ Y(s) = \frac{1}{s} - \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \quad \Laplace \qu
 y(t) = \left(1-\e^{-\frac{t}{T_\mathrm{RC}}}\right)\cdot \epsilon(t),
 \end{align}
 und damit ist die Sprungantwort $h_\epsilon(t) = y(t)$ gefunden.
-In Übung 2.8 haben wir als Abfallprodukt die Sprungantwort an einem dimensionierten
+In Übung~\ref{sec:C964DD7400} (2.8) haben wir als Abfallprodukt die Sprungantwort an einem dimensionierten
 RC-Glied schon mal mit berechnet. Zudem sollte uns die Formel und der Verlauf des
-Signals $h_\epsilon(t)$ sehr bekannt vorkommen aus der ET,
+Signals $h_\epsilon(t)$ sehr bekannt vorkommen aus der Elektrotechnik,
 im großen Kapitel Gleichspannungen und -ströme und Auf-/Entladevorgänge
 an passiven Energiespeichern. Wir haben das
-da (mutmaßlich) nicht als Sprungantwort bezeichnet.
+da mutmaßlich nicht als Sprungantwort bezeichnet.
 
 
 \item c) \textbf{Steady State (Verhältnis Aus- zu Eingangsspannung des
 RC-Gliedes bei Harmonischer Anregung)}
 
-Wir setzten fort und lösen im Wesen das was wir in der ET als weiteres großes
+Wir setzten fort und lösen im Wesen das was wir in der Elektrotechnik als weiteres großes
 Kapitel behandelt haben: eingeschwungene Zustände mit komplexer Wechselstromtechnik.
 Rechnen mit komplexen Zeigern ist eine gutes Tool, aber the bigger picture erschließt
 sich damit nicht notwendig als Selbstläufer.
@@ -1186,8 +1188,8 @@ Für die manuelle Rechnung ist es hier ratsam entweder nur $\omega_\mathrm{RC}$ 
 $T_\mathrm{RC}$ zu benutzen, um nicht durcheinander zu kommen.
 %
 Eine Partialbruchzerlegung (\textbf{das sollten wir für die Klausur ein wenig üben
-anhand der Klausuraufgaben zur Laplace Transformation oder der Aufgaben 3.7 und 3.8
-aus dem SS2019})
+anhand der Klausuraufgaben zur Laplace Transformation oder mit
+\texttt{laplace\_transform\_839973EF5D}})
  führt wieder zum Ziel, d.h. additive Überlagerung von
 'Polstellen' (bekannte Korrespondenzen, es sind genau genommen keine reinen Polstellen,
 sondern es können auch Nullstellen vorkommen, also gebrochen rationale Funktionen).
@@ -1265,7 +1267,7 @@ Spannung über dem Kondensator)
   \right) \epsilon(t).
 \end{align}
 Dieses Ergebnis sollte noch sinnvoll vereinfacht werden, weil wir dann erst
-den schönen Link zur ET sehen.
+den schönen Link zur Elektrotechnik sehen.
 %
 Wir könnten jetzt Additionstheoreme für die Addition von cos() und sin() nachschlagen
 oder selber neu erfinden mittels Euleridentitäten.
@@ -1512,10 +1514,11 @@ Phasenverschiebung um $-\frac{\pi}{4}$. Grafik für Aufgabe \ref{sec:4408E33353}
 
 \clearpage
 \begin{mdframed}
-\textbf{Ausblick auf UE 4 und 5}:
+\textbf{Ausblick auf Übungen~\ref{sec:ue4_fouriertransformation} (4) und
+\ref{sec:ue5_levelresponse} (5)}:
 Wir werden in den nächsten Einheiten weiter lernen, wie sich das System
 für $\omega\ll\omega_\mathrm{RC}$ und $\omega\gg\omega_\mathrm{RC}$
-verhält (das wissen wir eigentlich schon aus ET) und wie sich das elegant
+verhält (das wissen wir eigentlich schon aus Elektrotechnik) und wie sich das elegant
 interpretieren lässt (SigSys).
 Wagen wir einen kleinen Vorgriff: die Laplace Variable $s=\sigma + \im\omega$
 kann ja den Fall $\sigma=0$ beinhalten, wir sind im Konvergenzbereich
@@ -1549,8 +1552,8 @@ Wir haben mutmaßlich schon mal etwas vom Bodediagramm gehört, dahin geht die R
 \verb|laplace_transform_839973EF5D.pdf| Hier ist die Lösung für ein LTI-System
 2. Ordnung ausführlich geschildert.
 %
-Es lohnt sich sehr das durchzuarbeiten
-(Teaser erfolgt in der folgenden Präsenz Übung)
+Es lohnt sich sehr das durchzuarbeiten.
+%(Teaser erfolgt in der folgenden Präsenz Übung)
 Es zeigt kompakt die Lösung der DGL mittels
 \begin{itemize}
 \item Fundamentalsystem

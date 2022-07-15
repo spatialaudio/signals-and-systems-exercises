@@ -1,5 +1,5 @@
 \clearpage
-\section{z-Transformation}
+\section{UE 9: z-Transformation}
 %
 Die $z$-Transformation bildet zeitdiskrete Signale, also Folgen, $x[k]$
 ($x\in\mathbb{C}$, $k\in\mathbb{Z}$)
@@ -106,7 +106,7 @@ aus Zeitmangel nicht benutzen, sondern uns wieder mit bekannten Korrespondenzen,
 Partialbruchzerlegung und Polynomdivision behelfen.
 %
 Für das Selbststudium sind ein paar inverse Transformationen mittels Residuensatz
-im Abschnitt 1.3 Aufgabe \texttt{inverse\_ztransform\_474386F843}
+im Abschnitt 1.3 in der Aufgabe \texttt{inverse\_ztransform\_474386F843}
 gerechnet.
 
 
@@ -198,7 +198,7 @@ H(z) = \frac{Y(z)}{X(z)} =
 \frac{b_0 + b_1 z^{-1} + b_2 z^{-2} + \dots + b_M z^{-M}}{a_0},
 \end{equation}
 haben wir es mit einem rein-nichtrekursiven System zu tun. Das schauen wir uns
-vertiefter in der nächsten Übung an.
+vertiefter in der nächsten Übung~\ref{sec:ue10_dtft} (10) an.
 %
 \textbf{Rekursives System}: Falls irgendwelche
 $a_{n>0} \neq 0$ haben wir es mit Rückkopplung des Ausgangs zurück in das System zu tun,
@@ -272,7 +272,7 @@ dann bekommen wir den Einheitssprung und dessen Korrespondenz.
 %
 Andere einfache Fälle wären $\Sigma_0 \neq 0$ aber $\Omega_0=0$,
 dann haben wir es mit exponentiell ansteigenden oder abklingenden Folgen zu tun.
-Ähnlicher Blick auf die Dinge, wie damals in Aufgabe 3.1 und 3.2 als wir
+Ähnlicher Blick auf die Dinge, wie damals in Aufgabe~\ref{sec:A0F7C530F3} (3.1) und \ref{sec:0B03A693AD} (3.2) als wir
 mit der Laplace Transformation angefangen haben.
 
 In \fig{fig:single_pole_rightsided_tikz} und
@@ -286,7 +286,8 @@ bei praktischer SigSys unbedingt vermeiden, ist aber im Kontext der
 Konvergenzbetrachtung durchaus erlaubt.
 
 Wenn wir diese Abbildungen verstehen und die Analogien zu den Beispielen
-der Laplace Transformation Abb. 3.2 einordnen können, sind wir bereit für
+der Laplace Transformation \fig{fig:0B03A693AD_rightsided} (3.2)
+einordnen können, sind wir bereit für
 die kommenden Rechenaufgaben.
 
 \input{../z_transform/single_pole_rightsided_tikz.tex}
@@ -646,7 +647,7 @@ Zeitsignal und PN-Diagramm vergleichen.
 \subsection{Impuls-/Sprungantwort für rekursives System 1. Ordnung über z-Transformation}
 \label{sec:A1D74A9E5B}
 \begin{Ziel}
-Ähnlich wie Aufgabe 3.4 wollen wir uns anhand eines einfachen LTI-Systems
+Ähnlich wie Aufgabe~\ref{sec:4408E33353} (3.4) wollen wir uns anhand eines einfachen LTI-Systems
 die Benutzung der z-Transformation erarbeiten. Dabei soll rumkommen, dass
 der Umweg über den Bildbereich eine elegante Methode ist Differenzengleichungen
 zu 'lösen'.
@@ -939,13 +940,15 @@ h[k] = \left(\frac{1}{2}\right)^k \epsilon[k]\qquad
 h_\epsilon[k] = - \left(\frac{1}{2}\right)^k \epsilon[k] + 2 \epsilon[k].
 \end{align}
 Die beiden Signale sind unten skizziert. Ähnliche Verläufe hatten wir in
-Abb. 3.6 / Aufgabe 3.4 erarbeitet und aus den Abb. 5.4 wissen wir, dass dieses
+\fig{fig:4408E33353} (3.6) / Aufgabe~\ref{sec:4408E33353} (3.4)
+erarbeitet und aus der \fig{fig:bodeplot_examples_pt1_element} (5.4) wissen wir, dass dieses
 zeitkontinuierliche System ein Tiefpass 1. Ordnung darstellt.
 %
 Wir haben hier die Analogie eines einfachen 1-Pol Tiefpasses im zeitdiskreten
 Bereich vorliegen. Wir werden den Frequenzgang später diskutieren, wenn
 wir die zugehörige Fouriertransformation, das ist die DTFT, kennengelernt haben.
 %
+
 \begin{tikzpicture}
 \begin{scope}[scale=0.75, xshift=0cm]
 \def\tic{0.1};

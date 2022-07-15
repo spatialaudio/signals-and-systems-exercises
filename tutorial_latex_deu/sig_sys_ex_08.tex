@@ -1,5 +1,6 @@
 \clearpage
-\section{Zeitdiskrete Signale, Beschreibung diskreter Systeme im Zeitbereich}
+\section{UE 8: Zeitdiskrete Signale, Beschreibung diskreter Systeme im Zeitbereich}
+\label{sec:ue8_dt_systems_intro_conv}
 %
 In der zeitdiskreten Signal- und Systemtheorie haben wir mit Signalen zu tun,
 die wir in der Mathematik als Folgen betrachten. Es gibt Folgen, die wir analytisch
@@ -309,13 +310,13 @@ x[k] = x[k] \ast_k h[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 
 In \fig{fig:convolution_discrete_pt1_xhy} ist ein Beispiel für eine Faltung
 zweier Folgen dargestellt, es entspricht einer möglichen zeitdiskreten
-Variante der Übungsaufgabe 2.7.
+Variante der Übungsaufgabe~\ref{sec:AF3B15E0D3} (2.7).
 %
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../convolution_dt/convolution_discrete_pt1_xhy.pdf}
 \caption{Zeitdiskrete Faltung zweier endlicher Folgen, vgl. den zeitkontinuierlichen
-Fall aus Aufgabe 2.7. \texttt{convolution\_discrete\_pt1.ipynb}}
+Fall aus Aufgabe~\ref{sec:AF3B15E0D3} (2.7). \texttt{convolution\_discrete\_pt1.ipynb}}
 \label{fig:convolution_discrete_pt1_xhy}
 \end{figure}
 %
@@ -337,12 +338,12 @@ sicher wird, müssen wir Ersteres beherrschen. Nur dann sind wir in der
 Lage, Software mit analytischen Referenzlösungen zu validieren.
 Ohne dieses wissenschaftliche Vorgehen wäre es nur Bastelei mit Computern...sehr gefährlich gerade im Bereich Machine Learning!
 \item Ein System mit \textbf{endlicher Impulsantwort}, also wie das hier einführende Beispiel
-vgl. Aufgabe 2.7, ist eine Spezialität das
+vgl. Aufgabe~\ref{sec:AF3B15E0D3} (2.7), ist eine Spezialität das
 \textbf{praktisch} sinnvoll \textbf{nur zeitdiskret} zu realisieren geht. In der Literatur
 ist dies als \textbf{Finite Impulse Response (FIR)} Filter bekannt, ein Kapitel
 zu diesem Filtertyp findet sich in jedem Lehrbuch zu digitaler Signalverarbeitung.
 Es dürfte schwierig bis unmöglich sein, analoge Systeme zu bauen die eine
-exakt endliche Impulsantwort haben. In Aufgabe 2.7 war das ein didaktisches
+exakt endliche Impulsantwort haben. In Aufgabe~\ref{sec:AF3B15E0D3} (2.7) war das ein didaktisches
 Konzept, um die Grenzen des Faltungsintegrals zu verinnerlichen.
 \end{itemize}
 %
@@ -361,7 +362,7 @@ der Faltung, und weil im Digital Age überaus praxisrelevant,
 werden wir auch den zeitdiskreten Fall vertieft üben.
 Dafür fallen anderen Themen aus dieser Einheit ein wenig runter, z.B.
 der Check von Systemen auf Linearität und Zeitinvarianz, also die Analogie zu
-Aufgabe 2.4. Die Transferleistung ist jedoch vergleichsweise einfach.
+Aufgabe~\ref{sec:25F7F29E2A} (2.4). Die Transferleistung ist jedoch vergleichsweise einfach.
 Des weiteren heben wir uns das Konzept der Differenzengleichungen für die folgenden
 Einheiten auf, weil sie im Kontext der $z$-Transformation besser aufgehoben sind.
 
@@ -424,7 +425,7 @@ Es ist immer schön, wenn wir etwas mit Formeln belegen können.
 Ein wenig greifbarer wird das aber erst, wenn wir in den Formeln auch sehen,
 was da im Wesen passiert.
 %
-Weil wir in der Übung zuvor Abtastung betrieben haben, ist es didaktisch sinnvoll,
+Weil wir in der Übung~\ref{sec:ue7_abtastung} (7) Abtastung betrieben haben, ist es didaktisch sinnvoll,
 hier eine Verknüpfung dazu herzustellen: Wir könnten uns überlegen, dass diese
 Folgen aus einem Abtastprozess zeitkontinuierlicher Signale entstanden
 sind.
@@ -469,7 +470,7 @@ ist, ein erster Hinweis, dass $x_3(t)$ und $x_5(t)$ nach der Abtastung keine
 unterschiedlichen Folgen ergeben könnten.
 %
 Machen wir uns das anhand der Spektren der abgetasteten Signale klar. Siehe Skizze
-unten (das können wir nochmal wiederholend üben, siehe Übung 7).
+unten (das können wir nochmal wiederholend üben, siehe Übung~\ref{sec:ue7_abtastung} (7)).
 %
 \begin{center}
 \begin{tikzpicture}[scale=1]
@@ -588,7 +589,7 @@ fällt es vielleicht sogar leichter, die 'Algorithmik' des Faltungsprozesses
 für ein gewähltes $k$, also eine bestimmte Überlagerung der beiden zu faltenden
 Signal, nachzuvollziehen.
 %
-Wir werden uns das grafisch erarbeiten. In der Klausur empfiehlt sich z.B.
+Wir werden uns das unter anderem grafisch erarbeiten. In der Klausur empfiehlt sich z.B.
 die Benutzung von zwei Papierstreifen auf denen $x[\kappa]$ und $h[-\kappa]$
 aufgetragen sind, und $h[-\kappa]$ sukzessive verschoben wird um $k$. Die
 Multiplikation der exakt überlagerten Signalwerte und die Summe davon ergibt
@@ -1534,7 +1535,7 @@ In einem zweiten Schritt können wir nun genau die Terme finden, die durch
 Multiplikation nicht zu Null werden (weil da eins der beiden Signale den Wert
 Null hat).
 Dazu können wir alle Terme analytisch einzeln durchgehen, oder uns das wie
-in der vorherigen Übung grafisch überlegen.
+in der vorherigen Aufgabe~\ref{sec:FD58EEB1EC} grafisch überlegen.
 Wir kommen für $k=0$ darauf, dass nur bei $\kappa=-2$ die beiden Signale, so
 überlagern, dass die Multiplikation in die Faltungssumme eingeht, also
 \begin{align}

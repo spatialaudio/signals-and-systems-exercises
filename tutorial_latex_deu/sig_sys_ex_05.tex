@@ -96,7 +96,8 @@
 % %##############################################################################
 
 \newpage
-\section{LTI Systems in Spectral Domain: The Level Response}
+\section{UE 5: LTI Systems in Spectral Domain: The Level Response}
+\label{sec:ue5_levelresponse}
 \noindent In this exercise we will add a very important view onto the things
 going on in SigSys: we will learn how to interpret LTI systems in the spectral
 domain, also called the frequency domain. By that we start to get the bigger
@@ -180,10 +181,11 @@ frequency response of this LTI system.}
 
 
 
-From exercise 3 we know a special 2nd order lowpass LTI system very well.
+From exercise \texttt{laplace\_transform\_839973EF5D} we know a special 2nd order lowpass LTI system very well.
 Due to our detailed analytical treatment, we can qualify and quantify this system
 with the following SigSys tools:
 \begin{itemize}
+\setlength\itemsep{-0.25em}
   \item ODE: $\frac{16}{25} \ddot{y}(t) + \frac{24}{25} \dot{y}(t) + y(t) = x(t)$
   \item Impulse response: $h(t) = \frac{25}{16} \mathrm{e}^{-\frac{3}{4} t} \sin(t) \epsilon(t)$
   \item Step response: $h_\epsilon(t)=\left[1
@@ -251,7 +253,7 @@ We need to learn interpreting all these graphs.
 \begin{figure}
   \includegraphics[width=\textwidth]{../laplace_system_analysis/bodeplot_examples_pt1_element.pdf}
   \caption{Full SigSys picture of the \textbf{1st order lowpass system from
-  exercise 3.4} with $T_\mathrm{RC} = \frac{1}{\omega_\mathrm{RC}} = 1$ s.
+  exercise~\ref{sec:4408E33353} (3.4)} with $T_\mathrm{RC} = \frac{1}{\omega_\mathrm{RC}} = 1$ s.
   \texttt{bodeplot\_examples.ipynb}}
   \label{fig:bodeplot_examples_pt1_element}
 \end{figure}
@@ -274,7 +276,7 @@ it here in detail...still nowadays.
 \end{Ziel}
 \textbf{Task} {\tiny 44EB4169E9}:
 Let us consider the Laplace transform (note that we already know this from
-exercise 3)
+exercise \texttt{laplace\_transform\_839973EF5D})
 \begin{align}
 \label{eq:H_ODE}
 H(s) = \frac{1}{\frac{16}{25} s^2 + \frac{24}{25} s + 1}\qquad\text{ROC: }
@@ -288,8 +290,7 @@ Note again: The frequency response exists only if the $\Im(s)$-axis is included
 in the region of convergence (ROC), which is the case here.
 
 \begin{Werkzeug}
-A potential and nice approach to solve the task is given in the Appendix of this
-exercise.
+A potential and nice approach to solve the task is given in the Appendix of this exercise.
 \end{Werkzeug}
 \begin{Ansatz}
 Quasi-standardized notation with coefficients $b\in\mathbb{R}$ for the numerator and
@@ -667,7 +668,7 @@ We draw the prototypes as level in dB over angular frequency $\omega$
 \item green: first real pole, thus -20dB/decade (-6dB/octave) starting from $|s_{\infty,1}| = \frac{1}{10}$, due to
 \eq{eq:Hs_sorted_for_Bode_dB_pole}
 \item red: second real pole, thus -20dB/decade (-6dB/octave) starting from $|s_{\infty,2}| = 10$, due to
-\eq{eq:Hs_sorted_for_Bode_dB_pole}
+\eq{eq:Hs_sorted_for_Bode_dB_ccpole}
 \end{itemize}
 We add up all these curves in the diagram. Due to log law this corresponds to the final approximation
 in dB, shown in black, this is the approximated magnitude Bode plot.

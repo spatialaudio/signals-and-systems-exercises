@@ -18,8 +18,8 @@ Hin und wieder waren ja in den letzten Übungen schon Code-Schnipsel
 enthalten, aber nicht zu viele, damit wir nicht dem Spieltrieb verfallen und
 die wichtigen analytischen Rechnungen nicht aus den Augen verlieren.
 
-Hier nun zwei Aufgaben, die wir im Detail nicht mehr analytisch ausrechnen,
-sie sollten aber noch auf dem Papier
+Hier nun zwei abschließende Aufgaben, die wir im Detail nicht mehr analytisch
+ausrechnen, sie sollten aber noch auf dem Papier
 handhabbar sein (der Autor mutmaßt, weil er es selbst zu faul dafür war).
 Darum soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
 Aspekte zur Beschreibung von zeitdiskreten Systemen herauszuarbeiten.
@@ -43,7 +43,7 @@ jetzt für Spektren die $2\pi$-periodisch sind, also zu zeitdiskreten Signalen
 gehören.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 6337B75DF2}: Stellen Sie für das FIR-Filter
-aus Aufgabe 10.2 die Betragsfrequenzgänge der
+aus Aufgabe~\ref{sec:64BE42BAEF} (10.2) die Betragsfrequenzgänge der
 \begin{itemize}
   \setlength\itemsep{-0.5em}
   \item DTFT
@@ -95,10 +95,11 @@ x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k].
 
 \end{Ansatz}
 \begin{ExCalc}
-Die hintere Summe über $k$ ist wieder die geometrische Reihe, vgl. (10.68), (10.69)
+Die hintere Summe über $k$ ist wieder die endliche, geometrische Reihe,
+vgl. Glg.~\eqref{eq:ue10_sum_to_psinc}ff (10.68)ff
 und \cite[(3-39)]{Lyons2011}.
 Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Rechenübung,
-weil ähnliche Umformungen immer wieder benötigt werden in SigSys.
+weil ähnliche Umformungen in SigSys immer wieder benötigt werden.
 %
 \begin{align}
 X(\Omega)&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)N}}{1-\e^{-\im\left(\Omega-\frac{2\pi}{N}\mu\right)}}\\
@@ -107,7 +108,7 @@ X(\Omega)&=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\frac{1}{N}\cdot\frac{1-\e^{-\im
 \end{align}
 %
 Mit $2\im\cdot\sin(\phi)=\e^{\im \phi}-\e^{-\im \phi}$ können wir vereinfachen
-vgl.~\cite[(2.41)]{Moeser2011}, \cite[(2.142)]{Rabiner1975}
+zu, vgl.~\cite[(2.41)]{Moeser2011}, \cite[(2.142)]{Rabiner1975}
 %
 \begin{equation}
 X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{1}{N}\cdot\frac{\sin\left(N\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}{\sin\left(\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}.
@@ -124,7 +125,8 @@ Wir begegnen hier wieder der periodischen (und bezgl. der Frequenz verschobenen)
 
 Weiter haben wir in der Summe mit einem Phasenterm zu tun. Dieser
 taucht auf, weil $x[k]$ bei $k=0$ beginnt.
-In Übung 7 auf Seite \pageref{pg:UE7:SpectrumInterpPlots} (17) waren es axialsymmetrische Signale, daher keine Phasenverschiebung.
+In Übung~\ref{sec:45C76AFB33} (7.2) waren es axialsymmetrische Zeitsignale,
+daher dort keine Phasenverschiebung im Spektrum.
 %
 Wir können nun umformulieren zu
 %
@@ -139,7 +141,7 @@ X(\Omega)=\frac{1}{N}\sum_{\mu=0}^{N-1} \underbrace{\tilde{X}[\mu\rightarrow \Om
 \end{equation}
 
 Erinnern wir uns an Abtastung von Spektren. Die
-jetzige Formelstruktur hat doch sehr starke Ähnlichkeit mit (7.60):
+jetzige Formelstruktur hat doch sehr starke Ähnlichkeit mit Glg.~\eqref{eq:SamplingFreqSincInterp} (7.60):
 Ein Linienspektrum (DFT) wird mit einer Sinc bzw. hier jetzt mit der periodischen
 Sinc Funktion interpoliert zu einem kontinuierlichen DTFT-Spektrum.
 Wenn wir genau hinschauen, sehen wir dass es eine spezielle Faltung zweier
@@ -149,7 +151,8 @@ Zieldomäne ist $\Omega$).
 Eine diskrete (Zeit)-Folge oder eine Linienspektrum jeweils zu kontinuierlich
 machen, entspricht in unserem eingeführten
 SigSys Abtastungsmodell der Rekonstruktion, welche als Interpolation
-aufgefasst werden kann, vgl. Abb. 7.1 und 7.2.
+aufgefasst werden kann, vgl. \fig{fig:sampling_model_time_domain_signals} (7.1) und
+\ref{fig:sampling_model_frequency_domain_signals} (7.2).
 Das in obiger Faltung vorkommende Rekonstruktionsspektrum
 \begin{align}
 H_\mathrm{r}(\Omega) =
@@ -208,7 +211,7 @@ so dass wir in der grafischen Auflösung diese Abtastung nicht mehr
 von der tatsächlichen DTFT unterscheiden können.
 
 Dies ist beispielhaft in \fig{fig:6337B75DF2} anschaulich dargestellt.
-Wir nehmen unser bekanntes FIR-Filter aus Aufgabe 10.2.
+Wir nehmen unser bekanntes FIR-Filter aus Aufgabe~\ref{sec:64BE42BAEF} (10.2).
 In \fig{fig:DTFT_6337B75DF2} ist das Zeitsignal und das exakte DTFT-Betragsspektrum
 skizziert (wir hatten es analytisch ausgerechnet, kennen es also sehr gut).
 %
@@ -250,7 +253,7 @@ dass periodische Wiederholungen im Zeitsignal erhalten bleiben.
 \begin{subfigure}{0.495\textwidth}
 \includegraphics[width=\textwidth]{../dft/DTFT_6337B75DF2.pdf}
 \caption{FIR-Filter mit Länge 11 oben, DTFT-Betragsfrequenzgang unten,
-Aufgabe 10.2}
+Aufgabe~\ref{sec:64BE42BAEF} (10.2)}
 \label{fig:DTFT_6337B75DF2}
 \end{subfigure}
 \begin{subfigure}{0.495\textwidth}
@@ -776,7 +779,7 @@ im Einheitskreis.}
 \includegraphics[width=\textwidth]{../z_system_analysis/Hallmix_55A8105469.pdf}
 \caption{Allpass $H_\mathrm{all,mix}(z)$ damit
 $H_\mathrm{mix}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,mix}(z)$ gilt.
-Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB.}
+Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB (i.e. Betragsfrequenzgang 1).}
 \label{fig:Hallmix_55A8105469}
 \end{figure}
 \begin{figure}
@@ -802,7 +805,7 @@ im Einheitskreis.}
 \includegraphics[width=\textwidth]{../z_system_analysis/Hallmax_55A8105469.pdf}
 \caption{Allpass $H_\mathrm{all,max}(z)$ damit
 $H_\mathrm{max}(z) = H_\mathrm{min}(z) \cdot H_\mathrm{all,max}(z)$ gilt.
-Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB.}
+Pegeldiagramm links oben zeigt erwartungsgemäß numerisches Rauschen um 0 dB (i.e. Betragsfrequenzgang 1).}
 \label{fig:Hallmax_55A8105469}
 \end{figure}
 \begin{figure}

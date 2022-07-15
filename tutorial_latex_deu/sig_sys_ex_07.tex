@@ -1,8 +1,9 @@
 \clearpage
 \section{UE 7: Abtastung von Signalen und Spektren}
+\label{sec:ue7_abtastung}
 
 Wir lernen in dieser Übungseinheit die sogenannte äquidistante Abtastung bezüglich
-der Variable Zeit (Aufgabe 1) und der Variable (Kreis)-Frequenz (Aufgabe 2) kennen.
+der Variable Zeit (Aufgabe~\ref{sec:EF235EE3D8}) und der Variable (Kreis)-Frequenz (Aufgabe~\ref{sec:45C76AFB33}) kennen.
 %
 
 Dies ist wichtig, um den Übergang zur zeitdiskreten Signalverarbeitung
@@ -150,7 +151,8 @@ mit Dirac-Kamm $S(\im\omega)$.
 
 \subsubsection*{ii) Abtastung als Multiplikation mit Dirac Impuls Kamm}
 %
-In der Übung 4 zur Fouriertransformation hatten wir ein wichtiges
+In der Übung~\ref{sec:ue4_fouriertransformation} (4)
+zur Fouriertransformation hatten wir ein wichtiges
 Signalpaar und gleichzeitig eine wichtige Dualität (absichtlich) unterschlagen.
 %
 Diese soll nun hier im Mittelpunkt stehen, weil wir sie für unser Abtastmodell
@@ -610,7 +612,7 @@ X_\mathrm{s}(\im\omega) = \frac{1}{2\pi}
 \end{equation}
 %
 Hier im gewählten Beispiel haben wir es wieder einmal mit der Faltung zweier
-Dirac Impulse zu tun. Es hilft uns nun wieder die Beziehung (vgl. Glg. (4.63))
+Dirac Impulse zu tun. Es hilft uns nun wieder die Beziehung (vgl. Glg.~\eqref{eq:ue4_dirac_conv_dirac} (4.63))
 \begin{align}
 \delta(\omega-\omega_1) \ast_\omega \delta(\omega-\omega_2)=
 \delta(\omega-[\omega_1+\omega_2]).
@@ -758,7 +760,7 @@ Machen wir zunächst den Ansatz gemäß Signalflussgraph
 &x_\mathrm{r}(t) = h_\mathrm{r}(t) \ast_t x_\mathrm{s}(t)
 \end{align}
 Wir erinnern uns, dass wir die Faltung eigentlich umgehen wollen, indem
-wir die Multiplikation/Faltung-Dualität verwenden (haben wir im Frequenzbereich
+wir die Multiplikation / Faltung-Dualität verwenden (haben wir im Frequenzbereich
 ja gerade gemacht), hier aber jetzt didaktisch explizit gewollt.
 Also schreiben wir das Faltungsintegral tatsächlich hin (zeitliche Spiegelung beim sinc)
 \begin{align}
@@ -1076,8 +1078,8 @@ neu erfunden haben, über die sich die Fourierreihe $X[\nu\,\omega_s]$
 und die Fouriertransformation $X(\im\omega)$
 verknüpfen lassen: Wir tasten Spektren ab und rekonstruieren diese.
 
-Es ist nun sinnvoll, wenn wir uns nochmal Übung 1 hervorholen, speziell
-die Aufgaben 1.1 und 1.2. Die beiden Grafiken der Zeitsignale und die
+Es ist nun sinnvoll, wenn wir zur Übung~\ref{sec:ue1_intro} (1) springen,
+speziell die Aufgaben~\ref{sec:D1483A84E2} (1.1) und \ref{sec:8C3958BE4F} (1.2). Die beiden Grafiken der Zeitsignale und die
 Ergebnis-Formeln der Spektren sind unten abgebildet, angepasst an unsere
 jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \label{pg:UE7:SpectrumInterpPlots}
@@ -1100,7 +1102,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg. (1.12): $X[\nu\,\omega_s] = A T_h \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg.~\eqref{eq:D1483A84E2_Loesung} (1.12): $X[\nu\,\omega_s] = A T_h \cdot \mathrm{sinc}(\omega_s \nu \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
@@ -1117,7 +1119,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg. (1.22): $X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg.~\eqref{eq:8C3958BE4F_Loesung} (1.22): $X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -1127,14 +1129,15 @@ in Gedanken durch (wir rechnen es gleich im Detail aus):
 \begin{itemize}
   \item es gibt ein zeitlich begrenztes Signal $x(t)$ (blau)
   und dazu gehört ein nicht bandbegrenztes, kontinuierliches Spektrum
-  (Fouriertransformation), wir wissen, dass es ein sinc-förmiges Spektrum ist (Abb. 1.6)
+  (Fouriertransformation), wir wissen, dass es ein sinc-förmiges Spektrum ist,
+  vgl.~\fig{fig:8C3958BE4F} (1.6).
   \item dieses Spektrum wird nun abgetastet, es entsteht ein sogenanntes
-  Linienspektrum, vgl. Abb. 1.1 blaue Punkte
+  Linienspektrum, vgl.~\fig{fig:D1483A84E2_0} (1.1) blaue Punkte
   \item Abtastung ist Multiplikation mit Dirac Impulskamm, im anderen Bereich
   Faltung mit Dirac Impulskamm:
   hier also im Zeitbereich periodische Wiederholungen
   des zeitlich begrenzten Signals, es entsteht ein periodisches Zeitsignal
-  $\tilde{x}(t)$ (orange Abb. oben, vgl. Aufgabe 1.1)
+  $\tilde{x}(t)$ (Abb. links oben orange, vgl. Aufgabe~\ref{sec:D1483A84E2} (1.1))
   \item periodische Zeitsignale haben ein Linienspektrum (komplexe Fourierreihe)
   \item Bei der Rekonstruktion wird mittels der oben gefundenen Sinc-Interpolation
   \eq{eq:SamplingFreqSincInterp}
@@ -1419,7 +1422,7 @@ X_s(\im\omega)
 \end{align}
 und ergibt offenbar ein Linienspektrum, dargestellt als verschobene Dirac Impulse (bei Vielfachen von $\omega_s$)
 und mit den Gewichten $A T_h \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})$. Diese Gewichte
-entsprechen den Fourierreihenkoeffizienten aus Aufgabe 1.1, siehe Glg.~(1.12).
+entsprechen den Fourierreihenkoeffizienten aus Aufgabe~\ref{sec:D1483A84E2} (1.1), siehe Glg.~\eqref{eq:D1483A84E2_Loesung} (1.12).
 
 Nun folgt die Rekonstruktion. Wir müssen wieder das Faltungsintegral explizit aufschreiben (als
 Frequenzhilfsvariable $\xi$ für das Faltungsintegral, also da wo wir sonst $\tau$ nehmen)
@@ -1481,7 +1484,7 @@ und damit zu \eqref{eq:SamplingFreqSincInterp}. Die Gleichheit $X_r(\im\omega)
 Der mathematisch strenge Beweis zu dieser Formel wurde erstmal von Kotelnikov 1933 geführt, der
 heute als Urheber des Abtasttheorems gilt.
 
-Koeffizienten der Fourierreihe (die das periodisierte Signal $x(t)$ beschreiben, vgl. Aufgabe 1.1, Glg.~(1.12))
+Koeffizienten der Fourierreihe (die das periodisierte Signal $x(t)$ beschreiben, vgl.Aufgabe~\ref{sec:D1483A84E2} (1.1), siehe Glg.~\eqref{eq:D1483A84E2_Loesung} (1.12)
 werden genutzt um zwischen den Stützfrequenzen
 $\mu \omega_s$ für beliebige Frequenzen $\omega$ das Spektrum zu interpolieren.
 Der Interpolator ist die in der Formel hintere Sinc Funktion in der $\omega$ und

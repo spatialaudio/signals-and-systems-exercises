@@ -1,5 +1,6 @@
 \clearpage
 \section{UE 4: Fourier Transformation}
+\label{sec:ue4_fouriertransformation}
 
 \textbf{Definitionsgleichungen} der Integraltransformation (SigSys Konvention:
 exp(-...) bei der Hintransformation, $2\pi$-Normierung und exp(+...) bei der
@@ -18,7 +19,8 @@ x(t) \,\fourier\, X(\im\omega) &\qquad X(\im\omega) \,\Fourier\, x(t)
 Hinweis: Hintrafo Laplace $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
 $\fourier$, Rücktrafo Fourier $\Fourier$.
 Wir finden oft auch $\laplace$ bei der Fourier Trafo, dann muss im Kontext klar werden,
-welche Trafo benutzt wird. In der Formelsammlung und Übung 1 ist das z.B. eindeutig, weil
+welche Trafo benutzt wird. In der Formelsammlung und Übung~\ref{sec:ue1_intro} (1)
+ist das z.B. eindeutig, weil
 wir dort keine Laplace, sondern nur die Fourier Transformation verwenden.
 %
 
@@ -197,7 +199,7 @@ $x(t)=1 \, \fourier \, X(\im\omega)=2\pi\delta(\omega)$ gilt.}
 \subsection{Fourier Transformation der rechteckbegrenzten Cosinus-Schwingung}
 \label{sec:610482EF57}
 \begin{Ziel}
-In der Übung 1 hatten wir schon ein paar wichtige Eigenschaften der Fourier Transformation
+In der Übung~\ref{sec:ue1_intro} (1) hatten wir schon ein paar wichtige Eigenschaften der Fourier Transformation
 kennengelernt. Eine sehr wichtige Signalklasse, nämlich harmonische
 Schwingungen soll nun in dieser Aufgabe im Vordergrund stehen.
 %
@@ -286,7 +288,7 @@ Dieser Weg ist der mathematischste, aber wegen des Integraloperators vielleicht 
 der un-intuitivste; und ohne Erwartungshaltung Drauflos-Rechnen ist auch nicht die beste
 Vorgehensweise. Anyway...Wir müssen das Integral schon sehr lange anstarren, um das Wesen
 dahinter zu entlocken. Das wird uns mit den Lösungswegen II und III eleganter gelingen.
-Lösen wir aber erst einmal das Integral, das gelingt ganz ähnlich wie in Übung 1.
+Lösen wir aber erst einmal das Integral, das gelingt ganz ähnlich wie in Übung~\ref{sec:ue1_intro} (1).
 
 Ein Klassiker, sobald wir mit harmonischen Schwingungen im Integral
 der Fouriertransformation operieren, ist die Benutzung der Euleridentität
@@ -323,9 +325,8 @@ X(\im \omega) =
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega-\omega_0] \frac{T_h}{2}\right) +
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega+\omega_0] \frac{T_h}{2}\right)
 \end{align}
-Zur Kontrolle: für $\omega_0 = 0$ bekommen wir das Ergebnis aus Aufgabe
-1.2 der ersten Übung,
-%\ref{sec:8C3958BE4F}
+Zur Kontrolle: für $\omega_0 = 0$ bekommen wir das Ergebnis aus Übung~\ref{sec:8C3958BE4F} (1.2),
+%
 ein Indiz, dass wir uns nicht verrechnet haben.
 %
 Wir veranschaulichen uns das an einem konkreten Zahlenbeispiel in
@@ -341,7 +342,7 @@ getrennt dargestellt.
 Superposition ergibt die Fouriertransformierte $X(\im\omega)$, das ist der schwarze
 Verlauf in der mittleren Grafik.
 
-Wir haben hier ein Spezialfall der Aufgabe 1.5 vorliegen, nämlich die Modulation
+Wir haben hier ein Spezialfall der Aufgabe~\ref{sec:9D652BE72B} (1.5) vorliegen, nämlich die Modulation
 eines Signals im Zeitbereich führt zur Verschiebung des Spektrums.
 Hier bekommen wir nun zwei mit $\frac{A T_h}{2}$ gewichtete Spaltfunktionen,
 verschoben um $\pm \omega_0$ auf der Frequenzachse. Das Maximum der ersten Spaltfunktion
@@ -465,7 +466,7 @@ die gerade gefundene Korrespondenz des Cosinus
 \begin{align}
 x_2(t) = \cos(\omega_0 t) \quad\fourier\quad X_2(\im\omega) = \pi \, \delta(\omega-\omega_0) + \pi \, \delta(\omega+\omega_0)
 \end{align}
-und die aus der Übung 1 bekannte Korrespondenz für $T_h>0$
+und die aus der Übung~\ref{sec:ue1_intro} (1) bekannte Korrespondenz für $T_h>0$
 \begin{align}
 x_1(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) &\quad \fourier \quad X_1(\im\omega) = T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right)
 \end{align}
@@ -500,7 +501,7 @@ Der Vorfaktor $\textcolor{C3}{\frac{1}{2\pi}}$ bei der Faltung wird gerne verges
 den müssen wir aber berücksichtigen, damit alles sauber aufgeht.
 
 In SigSys versuchen wir so oft es geht die Faltung durch eine einfachere Operation
-zu ersetzen (siehe Umweg mit der Laplace Transformation, UE 3).
+zu ersetzen (siehe Umweg mit der Laplace Transformation, Übung~\ref{sec:ue3_laplace} (3)).
 Hier gelingt die Lösung nun aber sehr elegant eben genau mit der Faltung (Grund:
 weil wir mit Diracs falten, da ist Faltung immer sehr einfach zu überschauen).
 Die Faltung ist distributiv, also können wir schreiben
@@ -615,7 +616,7 @@ symmetrisch bezüglich $t=0$ mit der einfachen Rechteckfunktion---werden diese
 wir uns durch die Faltung der Spektren $X_1$ (sinc-förmig) und $X_2$ (dirac-förmig)
 ein. Die Faltung passiert deswegen, weil zwei Zeitsignale $x_1$ (rect) und $x_2$ (cos)
 multipliziert wurden.
-Jetzt gilt wieder Zeit-Bandbreite Dualität (siehe auch Übung 1):
+Jetzt gilt wieder Zeit-Bandbreite Dualität (siehe auch Übung~\ref{sec:ue1_intro} (1)):
 Je breiter das Rechtecksignal, desto schmaler die Spaltfunktion
 (im Grenzfall gilt $x_1(t)=1\fourier X_1(\im\omega) = 2\pi\delta(\omega)$).
 Je schmaler das Rechtecksignal, desto breiter die Spaltfunktion (sehr kurzer Impuls
@@ -666,10 +667,10 @@ Die Nachrichtentechnik ist getrieben von der Idee, sehr, sehr viele Basisbandsig
 z.B. zu 5G bei Mobilfunk. Das geht aber nur, wenn die Spektren von
 Signalen sich nicht überlappen, also eigentlich streng bandbegrenzt sind
 und sich nicht alle Spektren im gleichen Frequenzband 'tummeln'.
-Letzteres erreichen wir durch Modulation, wir hatten den Begriff schon bei der Übung 1 und 3,
+Letzteres erreichen wir durch Modulation, wir hatten den Begriff schon bei der Übung~\ref{sec:ue1_intro} (1) und \ref{sec:ue3_laplace} (3),
 es geht um Verschiebung des Spektrums in einen anderen Frequenzbereich.
 
-Das Modulationstheorem kennen wir bereits, siehe Übung 1.5
+Das Modulationstheorem kennen wir bereits, siehe Übung~\ref{sec:9D652BE72B} (1.5)
 \begin{equation}
   \e^{+\im\omega_0 t} x_1(t) \quad\fourier\quad X_1(\im[\omega-\omega_0])
 \end{equation}
@@ -748,8 +749,7 @@ um die beiden Hauptmaxima asymptotisch schneller abklingt, aber immer noch
 lokale Nebenmaxima und -minima aufweist.
 
 Eine weitere Möglichkeit, auch direkt ableitbar aus der Formelsammlung, ergibt sich
-mit \textbf{Zeitbegrenzung in Form einer Gaussglocke} (siehe dazu Aufgabe 4.2 aus dem
-Sommersemester 2019, so ähnlich auch mal Klausuraufgabe)
+mit \textbf{Zeitbegrenzung in Form einer Gaussglocke} (so ähnlich auch mal Klausuraufgabe)
 \begin{equation}
   x(t) = A\cos(\omega_0 t) \cdot \e^{-\left(\frac{t}{T_h}\right)^2}
   \quad\fourier\quad
@@ -791,6 +791,7 @@ zwei Dirac Impulse multiplizieren wollen. Dies ist nach Definition dieses Signal
 aber nicht erlaubt bzw. definiert.
 Es hilft sich klarzumachen, dass
 \begin{equation}
+\label{eq:ue4_dirac_conv_dirac}
   \delta(t-\tau_1) \ast \delta(t-\tau_2) = \delta(t-(\tau_1+\tau_2))
 \end{equation}
 gilt, was wir mit der Neutralelement-Regel deduzieren könnten. Ausschreiben des
@@ -930,7 +931,7 @@ Signalunstetigkeiten elegant zu umschiffen.
 \end{equation}
 \end{Werkzeug}
 \begin{Ansatz}
-Im \textbf{Zeitbereich} ähnlich wie Aufgabe 2.2.
+Im \textbf{Zeitbereich} ähnlich wie Aufgabe~\ref{sec:114F06AFAA} (2.2).
 
 Klassiker: Darstellung des rect-Signals als zwei Sprünge (eine gute Gelegenheit
 Zeitverschiebung und -skalierung nochmal aufzufrischen)
