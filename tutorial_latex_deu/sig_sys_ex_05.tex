@@ -140,8 +140,8 @@ we can evaluate the Fourier transform as special case of Laplace transform
 We should note that the Fourier domain by itself also holds in general
 \begin{align}
 &h(t) = \mathcal{H}\{\delta(t)\}\\
-&h(t) \,\fourier\, H(\im\omega)\\
-&y(t) = x(t) \ast h(t) \,\fourier\, Y(\im\omega) = X(\im\omega) \cdot H(\im\omega).
+&h(t) \,\fourier\, H(\omega)\\
+&y(t) = x(t) \ast h(t) \,\fourier\, Y(\omega) = X(\omega) \cdot H(\omega).
 \end{align}
 \end{mdframed}
 
@@ -163,7 +163,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 (\convAbsz,-\axisLength/2)};
 \draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
 \draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
-\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\im\omega)}$};
+\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
 \draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
 \draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
 \draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-\frac{3}{4}$};
@@ -174,7 +174,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 \end{tikzpicture}
 \caption{Pole-zero map with region of convergence (ROC) for the causal LTI system
 $H(s) = \left[\frac{16}{25} s^2 + \frac{24}{25} s + 1\right]^{-1}$.
-The $\Im\{s\}$-axis (red) is included in the ROC, thus $H(\im\omega)$ can be evaluated as
+The $\Im\{s\}$-axis (red) is included in the ROC, thus $H(\omega)$ can be evaluated as
 frequency response of this LTI system.}
 \label{fig:pzmap_44EB4169E9}
 \end{figure}
@@ -197,11 +197,11 @@ with the following SigSys tools:
   \item Pole-zero map in \fig{fig:pzmap_44EB4169E9} and as 3D plot in
   \fig{fig:bodeplot_example_approximations_pzmaps3D_44EB4169E9}
   \item Frequency response $H(s)\big|_{s=\im\omega}$:
-  $H(\im\omega) = \frac{1}{-\frac{16}{25}\omega^2 + \frac{24}{25}\im\omega  + 1}
+  $H(\omega) = \frac{1}{-\frac{16}{25}\omega^2 + \frac{24}{25}\im\omega  + 1}
   \Fourier h(t \geq 0)$
-  \item Magnitude response (over angular frequency): $|H(\im\omega)|$
-  \item Phase response (over angular frequency): $\angle H(\im\omega)$ in radian or degree
-  \item Level response (over angular frequency): $20 \log_{10}|H(\im\omega)|$ in Dezibel
+  \item Magnitude response (over angular frequency): $|H(\omega)|$
+  \item Phase response (over angular frequency): $\angle H(\omega)$ in radian or degree
+  \item Level response (over angular frequency): $20 \log_{10}|H(\omega)|$ in Dezibel
 \end{itemize}
 
 We will have a detailed look at the last item \textit{Level over angular frequency}
@@ -626,7 +626,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 (\convAbsz,-\axisLength/2)};
 \draw[->] (-\axisLength/2-5,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
 \draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
-\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\im\omega)}$};
+\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
 \draw[C0, ultra thick] (-5,0) node{\Huge $\times$};
 \draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\times$};
 \draw[C0, ultra thick] (0,0) node{\Huge $\circ$};
@@ -774,7 +774,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 (\convAbsz,-\axisLength/2)};
 \draw[->] (-\axisLength/2-5,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
 \draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
-\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\im\omega)}$};
+\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
 \draw[C0, ultra thick] (0,0) node{\Huge $\circ$};
 \draw[C0, ultra thick] (-5,0) node{\Huge $\circ$};
 \draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
