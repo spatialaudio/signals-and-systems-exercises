@@ -272,48 +272,48 @@ welche wir wiederkehrend brauchen werden.
 \begin{Werkzeug}
 Synthese mit Fouriertransformation
 \begin{align}
-x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\omega) \, \e^{+\im \omega t} \fsd \omega
 \end{align}
 %
 Analyse mit Fouriertransformation
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 
 \begin{Ansatz}
 \begin{equation}
-X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega t} \mathrm{d}t
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega t} \mathrm{d}t
 \end{equation}
 \end{Ansatz}
 
 \begin{ExCalc}
 Integrieren
 \begin{equation}
-X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h/2}^{+T_h/2}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h/2}^{+T_h/2}
 \end{equation}
 Grenzen einsetzen
 \begin{equation}
-X(\im \omega) = A \frac{\e^{-\im \omega T_h/2}-\e^{+\im \omega T_h/2}}{-\im \omega}
+X(\omega) = A \frac{\e^{-\im \omega T_h/2}-\e^{+\im \omega T_h/2}}{-\im \omega}
 \end{equation}
 Vorzeichen
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega}
 \end{equation}
 Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega} \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega} \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{equation}
 Umsortieren
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{2 \im \omega T_h/2} \frac{T_h/2}{1} \cdot \frac{2}{1}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{2 \im \omega T_h/2} \frac{T_h/2}{1} \cdot \frac{2}{1}
 \end{equation}
 \end{ExCalc}
 
 \begin{Loesung}
 \begin{equation}
 \label{eq:8C3958BE4F_Loesung}
-X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})
 \end{equation}
 
 Wir bekommen wieder eine Spaltfunktion, wie schon bei der Fourierreihe aus Aufgabe
@@ -323,7 +323,7 @@ Diesmal, weil die Frequenzvariable $\omega$ kontinuierlich ist,
 wird die Spaltfunktion 'überall' ausgewertet,
 die Fouriertransformation ist also eine kontinuierliche Funktion über $\omega$.
 %
-Auch hier ist $X(\im\omega)\in\mathbb{R}$ ein Spezialfall.
+Auch hier ist $X(\omega)\in\mathbb{R}$ ein Spezialfall.
 %
 Der Faktor $\frac{T_h}{2}$ im sinc-Argument bestimmt wieder die Breite der
 Spaltfunktion.
@@ -354,19 +354,19 @@ also den Rechteckimpuls mit $T_h=1$ und $A=1$, zum Rechnen benutzen.
 %
 Die Fouriertransformierte von $\text{rect}(t)$ lautet dann abgeleitet aus
 \eq{eq:8C3958BE4F_Loesung} einfach
-$X(\im \omega) = \mathrm{sinc}(\frac{\omega}{2})$.
+$X(\omega) = \mathrm{sinc}(\frac{\omega}{2})$.
 %
 Eine oft benutzte Schreibweise von Fouriertransformationspaaren (sogenannte
 Korrespondenzen, siehe Formelsammlung) benutzt den Operator $\laplace$.
 %
 Wir schreiben für das soeben gefundene Transformationspaar
 \begin{equation}
-x(t) = \text{rect}(t) \quad \laplace \quad X(\im \omega) = \mathrm{sinc}(\frac{\omega}{2})
+x(t) = \text{rect}(t) \quad \laplace \quad X(\omega) = \mathrm{sinc}(\frac{\omega}{2})
 \end{equation}
 %
 Eine weitere Korrespondenz ist
 \begin{equation}
-x(t) = \text{sinc}(t) \quad \laplace \quad X(\im \omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
+x(t) = \text{sinc}(t) \quad \laplace \quad X(\omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
 \end{equation}
 also bis auf den Faktor $\pi$ vertauscht.
 %Diese Korrespondenz direkt zu
@@ -383,7 +383,7 @@ Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A8
 Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
 hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $X_k$
 \eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
-mit den Werten von $X(\im\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
+mit den Werten von $X(\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
 $\frac{2\pi}{T} k = \omega_0 k = \omega$.
 Dies ist kein Zufall. Das werden wir später als Abtastung kennenlernen.
 
@@ -466,12 +466,12 @@ verschobene Rechteckfunktion.
 nothing really new here...wir machen
 Analyse mit Fouriertransformation
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 \begin{Ansatz}
 \begin{equation}
-X(\im \omega) = \int\limits_{0}^{T_h} A \e^{-\im \omega t} \mathrm{d}t
+X(\omega) = \int\limits_{0}^{T_h} A \e^{-\im \omega t} \mathrm{d}t
 \end{equation}
 \end{Ansatz}
 
@@ -479,28 +479,28 @@ X(\im \omega) = \int\limits_{0}^{T_h} A \e^{-\im \omega t} \mathrm{d}t
 \begin{ExCalc}
 Integrieren
 \begin{equation}
-X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{0}^{T_h}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{0}^{T_h}
 \end{equation}
 Grenzen einsetzen
 \begin{equation}
-X(\im \omega) = A \frac{\e^{-\im \omega T_h}-1}{-\im \omega}
+X(\omega) = A \frac{\e^{-\im \omega T_h}-1}{-\im \omega}
 \end{equation}
 Vorzeichen
 \begin{equation}
-X(\im \omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega}
+X(\omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega}
 \end{equation}
 Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
 \begin{equation}
-X(\im \omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega} \underbrace{\e^{+\im\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}}_{=1}=
+X(\omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega} \underbrace{\e^{+\im\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}}_{=1}=
 A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
 \end{equation}
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
+X(\omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
 \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{equation}
 Umsortieren
 \begin{equation}
-X(\im \omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{-\im\omega\frac{T_h}{2}} =
+X(\omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{-\im\omega\frac{T_h}{2}} =
 A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}
 \end{equation}
 \end{ExCalc}
@@ -509,11 +509,11 @@ A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{-\im\omega\frac{
 \begin{Loesung}
 \begin{equation}
 \label{eq:A8A2DEE53A_Loesung}
-X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\omega\frac{T_h}{2}}
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\omega\frac{T_h}{2}}
 \end{equation}
 %
 Wir erkennen, dass \eq{eq:8C3958BE4F_Loesung} um den komplexen Dreher / Zeiger $\e^{-\im\omega\frac{T_h}{2}}$
-erweitert wird und nun $X(\im \omega)\in\mathbb{C}$.
+erweitert wird und nun $X(\omega)\in\mathbb{C}$.
 %
 Wir müssen bei grafischen Darstellungen daher eigentlich streng immer mindest
 zwei Diagramme anfertigen:
@@ -528,7 +528,7 @@ bei der komplexen Wechselstromrechnung benutzt.
 
 
 Im Gegensatz zum vorherigen Beispiel und \fig{fig:8C3958BE4F_SingleCase_MagPhase},
-wo $X(\im \omega)\in\mathbb{R}<0$ Phasensprünge um $\pi$ verursacht haben, müssen
+wo $X(\omega)\in\mathbb{R}<0$ Phasensprünge um $\pi$ verursacht haben, müssen
 wir hier eine stückweise stetige, linear Phasenfunktion $\phi(\omega)$ berücksichtigen.
 Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein Bild zu machen.
 %
@@ -537,7 +537,7 @@ zu $-\frac{T_h}{2}$.
 %
 Für die Fouriertransformierte in Betrag und Phase dargestellt, gilt mit $k\in\mathbb{Z}$
 \begin{equation}
-X(\im \omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
 \cdot  \e^{-\im\omega\frac{T_h}{2}}\cdot
 \begin{cases}
 \e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
@@ -574,7 +574,7 @@ Die Phase ist die stückweise stetig Gerade über $\omega$ durch den Ursprung
 mit Anstieg $-T_h/2$, also fallend.
 %
 Diese \textbf{Phase}nfunktion ist bzgl. des Ursprungs \textbf{punktsymmetrisch}.
-Dies gilt immer für die Fouriertransformierten $X(\im\omega)$ von \textbf{reellwertigen}
+Dies gilt immer für die Fouriertransformierten $X(\omega)$ von \textbf{reellwertigen}
 Signalen $x(t)$.
 %
 Größere Zeitverschiebung $T_h/2$ bedeutet größere Phasenverschiebung, also steilere
@@ -584,8 +584,8 @@ Das was wir anhand eines speziellen (wichtigen) Beispiels gezeigt haben, gilt au
 allgemein. Die Korrespondenz zur \textbf{Zeitverschiebung} um $\tau\in\mathbb{R}$
 ---bekannt als \textbf{Verschiebungssatz}---lautet
 \begin{align}
-x(t) & \quad \laplace \quad X(\im\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}.
+x(t) & \quad \laplace \quad X(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
 \end{align}
 %
 Man kann natürlich auch eine Fouriertransformierte um die Kreisfrequenz
@@ -594,9 +594,9 @@ $\omega_0\in\mathbb{R}$ verschieben, vgl. Aufgabe \ref{sec:9D652BE72B}.
 Die Korrespondenz zur \textbf{Frequenzverschiebung}
 ---bekannt als \textbf{Modulationssatz}---lautet
 \begin{align}
-x(t) & \quad \laplace \quad X(\im\omega)\\
+x(t) & \quad \laplace \quad X(\omega)\\
 \label{eq:A8A2DEE53A_ModTheoremTime}
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0]).
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0).
 \end{align}
 %
 Bemerkenswert ist der gekreuzte Zusammenhang Zeit-/ Frequenzverschiebung
@@ -653,12 +653,12 @@ verschobene Rechteckfunktion
 \begin{Werkzeug}
 Korrespondenz Zeitverschiebung um $\tau\in\mathbb{R}$:
 \begin{align}
-x(t) & \quad \laplace \quad X(\im\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}.
+x(t) & \quad \laplace \quad X(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
 \end{align}
 Analyse mit Fouriertransformation:
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 
@@ -667,15 +667,15 @@ Mit Kenntnis der Fouriertransformierten aus Aufgabe \ref{sec:8C3958BE4F}, d.h. d
 unverschobenen Zeitfunktion, können wir den Zeitverschiebungssatz anwenden:
 
 \begin{equation}
-x(t - (-T_h/2)) \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega (-T_h/2)}
+x(t - (-T_h/2)) \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega (-T_h/2)}
 \end{equation}
 Das Endergebnis für die hier gestellte Aufgabe lautet daher
 \begin{equation}
-X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
 \end{equation}
 Wir können aber auch wieder zu Fuß das Integral der Fourier Transformation
 \begin{equation}
-X(\im \omega) = \int\limits_{-T_h}^{0} A \e^{-\im \omega t} \mathrm{d}t
+X(\omega) = \int\limits_{-T_h}^{0} A \e^{-\im \omega t} \mathrm{d}t
 \end{equation}
 mit ähnlichem Vorgehen wie Aufgabe \ref{sec:A8A2DEE53A} lösen und müssen das
 gleiche Endergebnis bekommen, wie die folgende ausführliche Rechnung zeigt.
@@ -683,28 +683,28 @@ gleiche Endergebnis bekommen, wie die folgende ausführliche Rechnung zeigt.
 \begin{ExCalc}
 %Integrieren
 \begin{equation}
-X(\im \omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h}^{0}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h}^{0}
 \end{equation}
 %Grenzen einsetzen
 \begin{equation}
-X(\im \omega) = A \frac{1 - \e^{+\im \omega T_h}}{-\im \omega}
+X(\omega) = A \frac{1 - \e^{+\im \omega T_h}}{-\im \omega}
 \end{equation}
 %Vorzeichen
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega}
+X(\omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega}
 \end{equation}
 %Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega} \underbrace{\e^{-\im\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}}_{=1}=
+X(\omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega} \underbrace{\e^{-\im\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}}_{=1}=
 A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
 \end{equation}
 \begin{equation}
-X(\im \omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
+X(\omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
 \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{equation}
 %Umsortieren
 \begin{equation}
-X(\im \omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{+\im\omega\frac{T_h}{2}} =
+X(\omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{+\im\omega\frac{T_h}{2}} =
 A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}
 \end{equation}
 \end{ExCalc}
@@ -712,7 +712,7 @@ A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{+\im\omega\frac{
 Das Ergebnis
 \begin{equation}
 \label{eq:1CFE5FE3A1_Loesung}
-X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
 \end{equation}
 ist in \fig{fig:1CFE5FE3A1} dargestellt. Der Betrag
 $\bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|$
@@ -724,7 +724,7 @@ Der wichtige neue Punkt ist, dass bei zeitlicher Linksverschiebung (Voreilen)
 die \textbf{unstetige Phasenfunktion} $\phi(\omega)$
 \textbf{diesmal ansteigend} ist,  da
 \begin{equation}
-X(\im \omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
 \cdot  \e^{+\im\omega\frac{T_h}{2}}\cdot
 \begin{cases}
 \e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
@@ -749,8 +749,8 @@ Dies gilt auch wieder verallgemeinert und ist eine wichtige \textbf{Symmetrie}ei
 der Fourier Transformation
 %
 \begin{align}
-x(+t) \quad \laplace \quad X(+\im\omega) =& |X(\im\omega)| \, \e^{+\im\angle X(\im\omega)}\\
-x(-t) \quad \laplace \quad X(-\im\omega) =& |X(\im\omega)| \, \e^{-\im\angle X(\im\omega)}
+x(+t) \quad \laplace \quad X(+\omega) =& |X(\omega)| \, \e^{+\im\angle X(\omega)}\\
+x(-t) \quad \laplace \quad X(-\omega) =& |X(\omega)| \, \e^{-\im\angle X(\omega)}
 \end{align}
 %
 Zufällig (naja, die Aufgabe war so gewählt)
@@ -787,7 +787,7 @@ multipliziert wird
 \end{itemize}
 Wir wollen die Fouriertransformation Korrespondenz \eq{eq:A8A2DEE53A_ModTheoremTime}
 \begin{align}
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0)
 \end{align}
 nochmal am Beispiel sehen.
 
@@ -803,40 +803,40 @@ nochmal am Beispiel sehen.
 \begin{Werkzeug}
 Analyse mit Fouriertransformation
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 \begin{Ansatz}
 \begin{align}
-X_m(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} \e^{+\im \omega_0 t} \cdot A \, \e^{-\im \omega t} \mathrm{d}t
+X_m(\omega) = \int\limits_{-T_h/2}^{+T_h/2} \e^{+\im \omega_0 t} \cdot A \, \e^{-\im \omega t} \mathrm{d}t
 \end{align}
 \end{Ansatz}
 \begin{ExCalc}
 \begin{align}
-X_m(\im \omega) = A \int\limits_{-T_h/2}^{+T_h/2} \e^{-\im (\omega-\omega_0) t} \mathrm{d}t =
+X_m(\omega) = A \int\limits_{-T_h/2}^{+T_h/2} \e^{-\im (\omega-\omega_0) t} \mathrm{d}t =
 A \frac{\e^{-\im (\omega-\omega_0) t}}{-\im (\omega-\omega_0)}\bigg|_{-T_h/2}^{+T_h/2} =
 A \frac{\e^{-\im (\omega-\omega_0) T_h/2} - \e^{+\im (\omega-\omega_0) T_h/2}}{-\im (\omega-\omega_0)}
 \end{align}
 Vorzeichen drehen, erweitern, $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
 \begin{align}
-X_m(\im \omega) = A \frac{\e^{+\im (\omega-\omega_0) T_h/2} - \e^{-\im (\omega-\omega_0) T_h/2}}{\im (\omega-\omega_0)} \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+X_m(\omega) = A \frac{\e^{+\im (\omega-\omega_0) T_h/2} - \e^{-\im (\omega-\omega_0) T_h/2}}{\im (\omega-\omega_0)} \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{align}
 \end{ExCalc}
 \begin{Loesung}
 \begin{align}
-X_m(\im \omega) = A T_h \cdot \mathrm{sinc}\left((\omega-\omega_0) \frac{T_h}{2}\right)
+X_m(\omega) = A T_h \cdot \mathrm{sinc}\left((\omega-\omega_0) \frac{T_h}{2}\right)
 \end{align}
 Wir können mit Vergleich dieser und  Aufgabe \ref{sec:8C3958BE4F} beobachten, dass
 die Korrespondenz
 \begin{align}
-\e^{+\im \omega_0 t} \cdot x(t) \quad\laplace\quad X\left(\im [\omega-\omega_0]\right)
+\e^{+\im \omega_0 t} \cdot x(t) \quad\laplace\quad X\left(\omega-\omega_0\right)
 \end{align}
 gilt.
 %
 Dieser Zusammenhang gilt generell und ist als Modulationstheorem der
 Fourier Transformation bekannt.
 %
-Das Spektrum (die Fouriertransformierte) $X(\im \omega)$ wird im Frequenzbereich
+Das Spektrum (die Fouriertransformierte) $X(\omega)$ wird im Frequenzbereich
 um $\omega_0$ verschoben, wenn $x(t)$ mit der komplexen Trägerschwingung
 $\e^{+\im \omega_0 t}$ multipliziert wird. In der Nachrichtentechnik bezeichnet man
 diesen Vorgang als Modulation von $x(t)$ auf den Träger $\e^{+\im \omega_0 t}$.
@@ -912,12 +912,12 @@ für uns noch nicht lösbare Aufgabenstellung trotzdem zu lösen.
 \begin{Werkzeug}
 Analyse mit Fouriertransformation
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 \begin{Ansatz}
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 Dieses Integral konvergiert nicht und suggeriert, dass es keine Lösung gibt, was
 natürlich nicht stimmt, sonst gäbe es die Aufgabenstellung nicht. Wir müssen
@@ -933,7 +933,7 @@ zwei Probleme mehr: a) wir kennen die Transformationsregel für die Modulation
 mit dem reellen Cosinussignal noch nicht und b) wir kennen die Lösung der
 Fourier Transformation des unmodulierten Signals $x(t)=1$, also
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} 1 \e^{-\im \omega t} \fsd t = ?
+X(\omega) = \int\limits_{-\infty}^{+\infty} 1 \e^{-\im \omega t} \fsd t = ?
 \end{align}
 noch nicht. Es stresst hier wieder, dass das Integral nicht konvergiert. Mit
 unendlichen Grenzen können wir hier noch nicht gut umgehen.
@@ -947,7 +947,7 @@ $+\infty$ erstreckt.
 %
 Unser Ansatz lautet also
 \begin{align}
-X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 Wir erkennen, dass der Reckteckimpuls auf den Cosinus-Träger moduliert wird, aber
 wir kennen das Modulationsgesetz diesbezüglich noch nicht.
@@ -956,22 +956,22 @@ Daher lösen wir das Integral zu Fuß.
 \begin{ExCalc}
 Wir benutzen $\cos(x) = \frac{1}{2}(\e^{\im x} + \e^{-\im x})$ um
 \begin{align}
-X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \frac{1}{2}(\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t =
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \frac{1}{2}(\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t =
 \frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t
 \end{align}
 %
 \begin{align}
-X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_1) t} + \e^{-\im (\omega+\omega_1) t} \right) \fsd t
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_1) t} + \e^{-\im (\omega+\omega_1) t} \right) \fsd t
 \end{align}
 %
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 \frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) t}}{-\im (\omega-\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
 +\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) t}}{-\im (\omega+\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
 \end{align}
 %
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 \frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) T_h/2} - \e^{+\im (\omega-\omega_1) T_h/2}}{-\im (\omega-\omega_1)}
 +\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) T_h/2} - \e^{+\im (\omega+\omega_1) T_h/2}}{-\im (\omega+\omega_1)}
 \end{align}
@@ -979,14 +979,14 @@ X(\im \omega) =
 Vorzeichen, Erweitern
 %
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 \frac{A}{2} \frac{\e^{+\im (\omega-\omega_1) T_h/2} - \e^{-\im (\omega-\omega_1) T_h/2}}{\im (\omega-\omega_1)} \cdot \frac{T_h/2}{T_h/2}
 +\frac{A}{2} \frac{\e^{+\im (\omega+\omega_1) T_h/2} - \e^{-\im (\omega+\omega_1) T_h/2}}{\im (\omega+\omega_1)} \cdot \frac{T_h/2}{T_h/2}
 \end{align}
 %
 Mit $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \frac{T_h}{2} \mathrm{sinc}\left((\omega-\omega_1) \frac{T_h}{2}\right) +
 A \frac{T_h}{2} \mathrm{sinc}\left((\omega+\omega_1) \frac{T_h}{2}\right)
 \end{align}
@@ -1020,19 +1020,19 @@ geschlossener Ausdruck finden lassen.
 Zunächst nehmen wir unser vorläufiges Endergebnis und schreiben die Spaltfunction
 aus
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \frac{T_h}{2} \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{(\omega-\omega_1) \frac{T_h}{2}} +
 A \frac{T_h}{2} \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{(\omega+\omega_1) \frac{T_h}{2}}
 \end{align}
 kürzen ein wenig und erweitern mit $\pi$
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \pi \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{\pi (\omega-\omega_1)} +
 A \pi \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{\pi (\omega+\omega_1)}
 \end{align}
 und stellen im sin-Argument noch ein wenig die Brüche um
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \pi \frac{\sin\left( \frac{(\omega-\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega-\omega_1)} +
 A \pi \frac{\sin\left( \frac{(\omega+\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega+\omega_1)}
 \end{align}
@@ -1048,12 +1048,12 @@ Wenden wir $\xi\to 0$ für unseren spezifischen Term $\frac{2}{T_h}\to 0$ an,
 was wie gewünscht $T_h\to \infty$ bedingt,
 können wir die obige Definition verwenden und schreiben
 \begin{align}
-X(\im \omega) = A \pi \delta(\omega-\omega_1) + A \pi \delta(\omega+\omega_1)
+X(\omega) = A \pi \delta(\omega-\omega_1) + A \pi \delta(\omega+\omega_1)
 \end{align}
 %
 Für $A=1$ folgt weiter trivial
 \begin{align}
-X(\im \omega) = \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+X(\omega) = \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
 \end{align}
 %
 Machen wir uns klar, dass durch die Wahl $T_h\to \infty$ (also Verbreiterung
@@ -1117,8 +1117,8 @@ kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
 war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D410BDAAE0}:
-Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$ sowie
-$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$
+Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$ sowie
+$x(t)= ? \quad \laplace \quad X(\omega)=2\pi \delta(\omega)$
 \begin{Werkzeug}
 Führen wir für $\xi\in\mathbb{N}^+$ eine Funktion $\delta_\xi(t)$ ein, die entweder
 \begin{equation}
@@ -1245,7 +1245,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 \draw[->, C0, line width=1mm] (0+\l,0) -- (0+\l,1) node[left] {$(1)$};
 \node at (0,1) {$\laplace$};
 \draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
-\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=1$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\omega)=1$};
 \draw[-, C0, line width=1mm] (-2+\r,1) -- (2+\r,1) node[right] {$1$};
 \end{tikzpicture}
 %
@@ -1257,7 +1257,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 \draw[-, C0, line width=1mm] (-2+\l,1) node[left] {$1$} -- (2+\l,1);
 \node at (0,1) {$\laplace$};
 \draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
-\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\im\omega)=2\pi\delta(\omega)$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\omega)=2\pi\delta(\omega)$};
 \draw[->, C0, line width=1mm] (0+\r,0) -- (0+\r,1) node[right] {$(2\pi)$};
 \end{tikzpicture}
 %
@@ -1270,7 +1270,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 
 \cleardoublepage
 \begin{Ansatz}
-Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\im\omega)=?$
+Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$
 können wir ableiten aus der Ausblendeigenschaft
 $\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(t_0)$
 mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
@@ -1278,11 +1278,11 @@ mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
 Dann bekommt die Ausblendeigenschaft das Aussehen der Fouriertransformation
 des Dirac-Impulses
 \begin{equation}
-X(\im\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-\im \omega \cdot 0} = 1
+X(\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \, \fsd t \stackrel{\mathrm{def}}= \e^{-\im \omega \cdot 0} = 1
 \end{equation}
 
 Auch die gesuchte Korrespondenz
-$x(t)= ? \quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)$ lässt sich
+$x(t)= ? \quad \laplace \quad X(\omega)=2\pi \delta(\omega)$ lässt sich
 ableiten aus der Ausblendeigenschaft, diesmal mit der Funktionsvariablen Kreisfrequenz, also mit
 
 $\int\limits_{-\infty}^{+\infty} \delta(\omega-\omega_0) \cdot f(\omega) \, \fsd \omega \stackrel{\mathrm{def}}= f(\omega_0)$
@@ -1295,7 +1295,7 @@ Dann bekommen wir
 %
 Weil bei der inversen Fouriertransformation
 \begin{align}
-x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\im\omega) \, \e^{+\im \omega t} \fsd \omega
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\omega) \, \e^{+\im \omega t} \fsd \omega
 \end{align}
 noch der Faktor $\frac{1}{2\pi}$ berücksichtigt werden muss, erhalten wir
 \begin{equation}
@@ -1310,9 +1310,9 @@ Damit haben wir zwei weitere wichtige Korrespondenzen gefunden, in der Formelsam
 ganz oben auf der Liste:
 \begin{align}
 \label{eq:D410BDAAE0_Loesung1}
-x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
+x(t)= \delta(t) &\quad \laplace \quad X(\omega)=1\\
 \label{eq:D410BDAAE0_Loesung2}
-x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
+x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
 \end{align}
 %
 Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
@@ -1334,10 +1334,10 @@ Gleichanteil repräsentiert.
 \\\noindent
 Wir haben bisher die Korrespondenzen
 \begin{align}
-x(t)= \delta(t) &\quad \laplace \quad X(\im\omega)=1\\
-x(t)= 1 &\quad \laplace \quad X(\im\omega)=2\pi \delta(\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\im\omega) \cdot \e^{-\im\omega \tau}\\
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\im[\omega-\omega_0])
+x(t)= \delta(t) &\quad \laplace \quad X(\omega)=1\\
+x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0)
 \end{align}
 kennengelernt.
 %
