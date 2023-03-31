@@ -6,15 +6,15 @@
 exp(-...) bei der Hintransformation, $2\pi$-Normierung und exp(+...) bei der
 Rücktransformation)
 \begin{align}
-X(\im\omega) = \int\limits_{-\infty}^{+\infty} x(t) \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \e^{-\im \omega t} \fsd t
 &\qquad
-x(t)= \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} X(\im\omega) \e^{+\im \omega t} \fsd \omega
+x(t)= \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} X(\omega) \e^{+\im \omega t} \fsd \omega
 \end{align}
 Wir benutzen sehr häufig die verkürzte (weitgehend standardisierte)
 \textbf{Operator-Schreibweise}
 \begin{align}
-X(\im\omega) = \mathcal{F}\{x(t)\}&\qquad x(t) = \mathcal{F}^{-1}\{X(\im\omega)\}\\
-x(t) \,\fourier\, X(\im\omega) &\qquad X(\im\omega) \,\Fourier\, x(t)
+X(\omega) = \mathcal{F}\{x(t)\}&\qquad x(t) = \mathcal{F}^{-1}\{X(\omega)\}\\
+x(t) \,\fourier\, X(\omega) &\qquad X(\omega) \,\Fourier\, x(t)
 \end{align}
 Hinweis: Hintrafo Laplace $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
 $\fourier$, Rücktrafo Fourier $\Fourier$.
@@ -28,24 +28,24 @@ wir dort keine Laplace, sondern nur die Fourier Transformation verwenden.
 \begin{itemize}
 \item Linearität (Addition, Superposition)
 \begin{align}
-a x_1(t) + b x_2(t) &\quad \fourier \quad a X_1(\im\omega) + b X_2(\im\omega)
+a x_1(t) + b x_2(t) &\quad \fourier \quad a X_1(\omega) + b X_2(\omega)
 \end{align}
 
 \item Dualität Zeit vs. Frequenzskalierung mit $a\in\mathbb{R}$
 \begin{align}
-x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X\left(\frac{\im\omega}{a}\right)
+x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X\left(\frac{\omega}{a}\right)
 \end{align}
 
 \item Dualität Faltung vs. Multiplikation
 \begin{align}
-x_1(t) \ast_t x_2(t) &\quad \fourier \quad X_1(\im\omega) \cdot X_2(\im\omega)\\
-x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\im\omega) \ast_\omega X_2(\im\omega)
+x_1(t) \ast_t x_2(t) &\quad \fourier \quad X_1(\omega) \cdot X_2(\omega)\\
+x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\omega) \ast_\omega X_2(\omega)
 \end{align}
 
 \item Dualität Verschiebung vs. Multiplikation mit komplexem Exponentialsignal
 \begin{align}
-x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\im\omega)\\
-\e^{+\im\omega_0 t} \cdot x(t) &\quad \fourier \quad X(\im[\omega-\omega_0])
+x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\omega)\\
+\e^{+\im\omega_0 t} \cdot x(t) &\quad \fourier \quad X(\omega-\omega_0)
 \end{align}
 
 \item Dirac Zeitskalierung vs. Gewichtskalierung
@@ -61,7 +61,7 @@ mit $a,b\in\mathbb{R}$
 x(\frac{t}{a}-b)  = x(\frac{t-a b}{a}) \quad\fourier\quad
 |a| X(a \cdot \im\omega) \e^{-\im\omega a b}\\
 x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
-\frac{1}{|a|} X(\frac{\im\omega}{a}) \e^{-\im\omega \frac{b}{a}}
+\frac{1}{|a|} X(\frac{\omega}{a}) \e^{-\im\omega \frac{b}{a}}
 \end{align}
 
 \item Dualität Dirac Impuls vs. Gleichsignal
@@ -114,7 +114,7 @@ x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
 \end{scope}
 \begin{scope}[shift={(6,0)}]
 \draw[->] (-2.1,0) -- (2.1,0) node[right] {$\omega$};
-\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X_r(\im\omega)=\textcolor{C1}{\pi\delta(\omega+\omega_0)}+\textcolor{C0}{\pi\delta(\omega-\omega_0)}$};
+\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X_r(\omega)=\textcolor{C1}{\pi\delta(\omega+\omega_0)}+\textcolor{C0}{\pi\delta(\omega-\omega_0)}$};
 \draw[->, C1, line width=1mm] (-1,0) -- (-1,1) node[left] {$(\pi)$};
 \draw[->, C0, line width=1mm] (+1,0) -- (+1,1) node[left] {$(\pi)$};
 \node at (-1,-0.25) {$-\omega_0$};
@@ -135,7 +135,7 @@ x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
 \end{scope}
 \begin{scope}[shift={(6,0)}]
 \draw[->] (-2.1,0) -- (2.1,0) node[right] {$\omega$};
-\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X_i(\im\omega)=\textcolor{C1}{\im\pi\delta(\omega+\omega_0)}-\textcolor{C0}{\im\pi\delta(\omega-\omega_0)}$};
+\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X_i(\omega)=\textcolor{C1}{\im\pi\delta(\omega+\omega_0)}-\textcolor{C0}{\im\pi\delta(\omega-\omega_0)}$};
 \draw[->, C1, line width=1mm] (-1,0) -- (-1,+1) node[left] {$(\im\pi)$};
 \draw[->, C0, line width=1mm] (+1,0) -- (+1,-1) node[left] {$(\im\pi)$};
 \node at (-1,-0.25) {$-\omega_0$};
@@ -148,8 +148,8 @@ x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
 \caption{Korrespondenzen der Fourier Transformation für Cosinus (oben) und
 Sinus (unten) schematisch für $\omega_0>0$.
 Wir können uns in den Grafiken klarmachen, dass für $\omega_0=0$ die Korrespondenzen
-$x_r(t)=1 \, \fourier \, X_r(\im\omega)=2\pi\delta(\omega)$ und
-$x_i(t)=0 \, \fourier \, X_i(\im\omega)=0$ gelten.}
+$x_r(t)=1 \, \fourier \, X_r(\omega)=2\pi\delta(\omega)$ und
+$x_i(t)=0 \, \fourier \, X_i(\omega)=0$ gelten.}
 \label{fig:ue4_cos_sin_ft}
 \end{figure}
 
@@ -176,7 +176,7 @@ $x_i(t)=0 \, \fourier \, X_i(\im\omega)=0$ gelten.}
 \end{scope}
 \begin{scope}[shift={(6,0)}]
 \draw[->] (-2.1,0) -- (2.1,0) node[right] {$\omega$};
-\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X(\im\omega)=\textcolor{C0}{2\pi\delta(\omega-\omega_0)}$};
+\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X(\omega)=\textcolor{C0}{2\pi\delta(\omega-\omega_0)}$};
 \draw[->, C0, line width=1mm] (+1,0) -- (+1,1) node[right] {$(2\pi)$};
 \node at (+1,-0.25) {$+\omega_0$};
 \end{scope}
@@ -187,7 +187,7 @@ $x_i(t)=0 \, \fourier \, X_i(\im\omega)=0$ gelten.}
 \caption{Korrespondenz der Fourier Transformation für komplexe Exponentialschwingung
 $\e^{\im\omega_0 t}$ für $\omega_0>0$.
 Wir können uns in der Grafik klarmachen, dass für $\omega_0=0$ die Korrespondenz
-$x(t)=1 \, \fourier \, X(\im\omega)=2\pi\delta(\omega)$ gilt.}
+$x(t)=1 \, \fourier \, X(\omega)=2\pi\delta(\omega)$ gilt.}
 \label{fig:ue4_exp_ft}
 \end{figure}
 
@@ -226,7 +226,7 @@ mit $\omega_0>0, A>0, T_h>0$.
 \begin{Werkzeug}
 Fouriertransformation
 \begin{align}
-X(\im \omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Werkzeug}
 \begin{Ansatz}
@@ -276,7 +276,7 @@ Nun aber zur Rechnerei.
 %
 Unser Ansatz lautet
 \begin{align}
-X(\im \omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_0 t) \, \e^{-\im \omega t} \fsd t
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_0 t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 \end{Ansatz}
 %
@@ -296,15 +296,15 @@ $\cos(\phi) = \frac{1}{2}(\e^{\im \phi} + \e^{-\im \phi})$.
 Damit wird das Integral vergleichsweise einfach lösbar, es ist eigentlich mehr
 Schreib- als Rechenarbeit:
 \begin{align}
-&X(\im \omega) = \frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_0} + \e^{-\im \omega_0}) \, \e^{-\im \omega t} \fsd t
+&X(\omega) = \frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_0} + \e^{-\im \omega_0}) \, \e^{-\im \omega t} \fsd t
 \\
-&X(\im \omega) = \frac{A}{2}\int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_0) t} + \e^{-\im (\omega+\omega_0) t} \right) \fsd t
+&X(\omega) = \frac{A}{2}\int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_0) t} + \e^{-\im (\omega+\omega_0) t} \right) \fsd t
 \\
-&X(\im \omega) =
+&X(\omega) =
 \frac{A}{2} \frac{\e^{-\im (\omega-\omega_0) t}}{-\im (\omega-\omega_0)}\bigg|_{-T_h/2}^{+T_h/2}
 +\frac{A}{2} \frac{\e^{-\im (\omega+\omega_0) t}}{-\im (\omega+\omega_0)}\bigg|_{-T_h/2}^{+T_h/2}
 \\
-&X(\im \omega) =
+&X(\omega) =
 \frac{A}{2} \frac{\e^{-\im (\omega-\omega_0) T_h/2} - \e^{+\im (\omega-\omega_0) T_h/2}}{-\im (\omega-\omega_0)}
 +\frac{A}{2} \frac{\e^{-\im (\omega+\omega_0) T_h/2} - \e^{+\im (\omega+\omega_0) T_h/2}}{-\im (\omega+\omega_0)}
 \end{align}
@@ -312,7 +312,7 @@ Schreib- als Rechenarbeit:
 Vorzeichen, Erweitern
 %
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A\frac{\e^{+\im (\omega-\omega_0) T_h/2} - \e^{-\im (\omega-\omega_0) T_h/2}}{2\im (\omega-\omega_0)} \cdot \frac{T_h/2}{T_h/2}
 +A \frac{\e^{+\im (\omega+\omega_0) T_h/2} - \e^{-\im (\omega+\omega_0) T_h/2}}{2\im (\omega+\omega_0)} \cdot \frac{T_h/2}{T_h/2}
 \end{align}
@@ -321,7 +321,7 @@ Mit $\sin(\phi) = \frac{\e^{+\im \phi}-\e^{-\im \phi}}{2\im}$ und Spaltfunktion
 $\mathrm{sinc}(\phi):=\frac{\sin \phi}{\phi}$ wird
 \begin{align}
 \label{eq:610482EF57_Xjw}
-X(\im \omega) =
+X(\omega) =
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega-\omega_0] \frac{T_h}{2}\right) +
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega+\omega_0] \frac{T_h}{2}\right)
 \end{align}
@@ -339,7 +339,7 @@ kein wesentlich neuer Erkenntnisgewinn: $A=1$ .
 Die Grafik oben zeigt das Signal $x(t)$ in grün.
 In der unteren Grafik sind die beiden Teilspektren von \eq{eq:610482EF57_Xjw}
 getrennt dargestellt.
-Superposition ergibt die Fouriertransformierte $X(\im\omega)$, das ist der schwarze
+Superposition ergibt die Fouriertransformierte $X(\omega)$, das ist der schwarze
 Verlauf in der mittleren Grafik.
 
 Wir haben hier ein Spezialfall der Aufgabe~\ref{sec:9D652BE72B} (1.5) vorliegen, nämlich die Modulation
@@ -381,19 +381,19 @@ ableiten, weil das Integral ja streng genommen nicht konvergiert.
 Nehmen wir das Ergebnis aus \ref{eq:610482EF57_Xjw} und schreiben die Spaltfunktion
 aus
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 \frac{A T_h}{2} \frac{\sin\left([\omega-\omega_0]) \frac{T_h}{2}\right)}{[\omega-\omega_0] \frac{T_h}{2}} +
 \frac{A T_h}{2} \frac{\sin\left([\omega+\omega_0]) \frac{T_h}{2}\right)}{[\omega+\omega_0] \frac{T_h}{2}},
 \end{align}
 kürzen und erweitern mit $\pi$
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \pi \frac{\sin\left([\omega-\omega_0] \frac{T_h}{2}\right)}{\pi [\omega-\omega_0]} +
 A \pi \frac{\sin\left([\omega+\omega_0] \frac{T_h}{2}\right)}{\pi [\omega+\omega_0]}
 \end{align}
 und stellen im Sinus-Argument noch ein wenig die Brüche um
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 A \pi \frac{\sin\left( \frac{[\omega-\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega-\omega_0]} +
 A \pi \frac{\sin\left( \frac{[\omega+\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega+\omega_0]}
 \end{align}
@@ -414,7 +414,7 @@ A \cos(\omega_0 t)
 \end{equation}
 und dessen Fourier Transformierte
 \begin{align}
-X(\im \omega) =
+X(\omega) =
 \lim_{T_h\to\infty}
 \left(A \pi \frac{\sin\left( \frac{[\omega-\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega-\omega_0]} +
 A \pi \frac{\sin\left( \frac{[\omega+\omega_0]}{\frac{2}{T_h}}  \right)}{\pi [\omega+\omega_0]} \right)=
@@ -459,21 +459,21 @@ heisst
 
 Für diesen Ansatz benutzen wir die Dualität der Multiplikation / Faltung
 \begin{align}
-x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\im\omega) \ast_\omega X_2(\im\omega),
+x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\omega) \ast_\omega X_2(\omega),
 \end{align}
 die gerade gefundene Korrespondenz des Cosinus
 (wir setzen hier $A=1$ ohne Allgemeingültigkeit zu verlieren)
 \begin{align}
-x_2(t) = \cos(\omega_0 t) \quad\fourier\quad X_2(\im\omega) = \pi \, \delta(\omega-\omega_0) + \pi \, \delta(\omega+\omega_0)
+x_2(t) = \cos(\omega_0 t) \quad\fourier\quad X_2(\omega) = \pi \, \delta(\omega-\omega_0) + \pi \, \delta(\omega+\omega_0)
 \end{align}
 und die aus der Übung~\ref{sec:ue1_intro} (1) bekannte Korrespondenz für $T_h>0$
 \begin{align}
-x_1(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) &\quad \fourier \quad X_1(\im\omega) = T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right)
+x_1(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) &\quad \fourier \quad X_1(\omega) = T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right)
 \end{align}
 %
 Mit der Skalierungseigenschaft
 \begin{align}
-x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X(\frac{\im\omega}{a})
+x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X(\frac{\omega}{a})
 \end{align}
 (wir rufen uns in Erinnerung: 'schnellere' Zeitfunktion $a>1$ bedeutet breiteres Spektrum,
 'langsamere' Zeitfunktion $0<a<1$ bedeutet schmaleres Spektrum)
@@ -490,12 +490,12 @@ Wir schreiben die Multiplikation / Faltung Dualität aus
 \begin{align}
 x(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) \cdot \cos(\omega_0 t)
 &\quad \fourier \quad
-X(\im\omega) = \textcolor{C3}{\frac{1}{2\pi}}
+X(\omega) = \textcolor{C3}{\frac{1}{2\pi}}
 T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right) \ast_\omega
 [\pi \, \delta(\omega-\omega_0) + \pi \, \delta(\omega+\omega_0)],
 \end{align}
 und machen uns nochmal klar, dass
-$a ( X_1(\im\omega) \ast X_2(\im\omega) ) = a X_1(\im\omega)\ast X_2(\im\omega) = X_1(\im\omega) \ast a X_2(\im\omega) )$.
+$a ( X_1(\omega) \ast X_2(\omega) ) = a X_1(\omega)\ast X_2(\omega) = X_1(\omega) \ast a X_2(\omega)$.
 %
 Der Vorfaktor $\textcolor{C3}{\frac{1}{2\pi}}$ bei der Faltung wird gerne vergessen,
 den müssen wir aber berücksichtigen, damit alles sauber aufgeht.
@@ -506,7 +506,7 @@ Hier gelingt die Lösung nun aber sehr elegant eben genau mit der Faltung (Grund
 weil wir mit Diracs falten, da ist Faltung immer sehr einfach zu überschauen).
 Die Faltung ist distributiv, also können wir schreiben
 \begin{align}
-X(\im\omega) = \frac{1}{2\pi}
+X(\omega) = \frac{1}{2\pi}
 T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right) \ast_\omega
 [\pi \, \delta(\omega-\omega_0)]
 +
@@ -583,7 +583,7 @@ Das zweite Teilspektrum ist daher
 Die beiden Teilspektren lassen sich dann (wegen Linearität!) addieren zum erwarteten
 Ergebnis (vgl. Lösungsweg I)
 \begin{equation}
-  X(\im\omega) =
+  X(\omega) =
   \frac{T_h}{2}\mathrm{sinc}\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
   \frac{T_h}{2}\mathrm{sinc}\left(\frac{[\omega+\omega_0] T_h}{2}\right).
 \end{equation}
@@ -618,7 +618,7 @@ ein. Die Faltung passiert deswegen, weil zwei Zeitsignale $x_1$ (rect) und $x_2$
 multipliziert wurden.
 Jetzt gilt wieder Zeit-Bandbreite Dualität (siehe auch Übung~\ref{sec:ue1_intro} (1)):
 Je breiter das Rechtecksignal, desto schmaler die Spaltfunktion
-(im Grenzfall gilt $x_1(t)=1\fourier X_1(\im\omega) = 2\pi\delta(\omega)$).
+(im Grenzfall gilt $x_1(t)=1\fourier X_1(\omega) = 2\pi\delta(\omega)$).
 Je schmaler das Rechtecksignal, desto breiter die Spaltfunktion (sehr kurzer Impuls
 hat ein breitbandiges Spektrum).
 
@@ -646,7 +646,7 @@ Lösungsweg II drin.
 
 Diesmal starten wir aber aus Sicht der Rechteckfunktion
 \begin{align}
-x_1(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) &\quad \fourier \quad X_1(\im\omega) = T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right)
+x_1(t) = \mathrm{rect}\left(\frac{t}{T_h}\right) &\quad \fourier \quad X_1(\omega) = T_h \mathrm{sinc}\left(\frac{\omega T_h}{2}\right)
 \end{align}
 und nehmen mal an, dass dies ein Signal ist, was tatsächlich (wenn auch sehr wenig)
 Information codiert und wir zu einem Empfänger (mit dem wir vorher
@@ -672,7 +672,7 @@ es geht um Verschiebung des Spektrums in einen anderen Frequenzbereich.
 
 Das Modulationstheorem kennen wir bereits, siehe Übung~\ref{sec:9D652BE72B} (1.5)
 \begin{equation}
-  \e^{+\im\omega_0 t} x_1(t) \quad\fourier\quad X_1(\im[\omega-\omega_0])
+  \e^{+\im\omega_0 t} x_1(t) \quad\fourier\quad X_1(\omega-\omega_0)
 \end{equation}
 Das Signal, dessen Spektrum verschoben werden soll, wird mit einem sogenannten Trägersignal,
 hier also $\e^{+\im\omega_0 t}$, moduliert, wobei typischerweise $\omega_0$ sehr viel größer als
@@ -689,7 +689,7 @@ erweitern wir das Modulationstheorem gemäß Euleridentität
 \begin{equation}
   \frac{1}{2}\e^{+\im\omega_0 t} x_1(t) + \frac{1}{2}\e^{-\im\omega_0 t} x_1(t)
   \quad\fourier\quad
-  \frac{1}{2}X_1(\im[\omega-\omega_0]) + \frac{1}{2}X_1(\im[\omega+\omega_0])
+  \frac{1}{2}X_1(\omega-\omega_0) + \frac{1}{2}X_1(\omega+\omega_0)
 \end{equation}
 und bekommen für unser gewähltes Beispiel
 \begin{equation}
@@ -703,7 +703,7 @@ und damit das schon bekannte Ergebnis
 \begin{equation}
   x(t) = \cos(\omega_0 t) \mathrm{rect}\left(\frac{t}{T_h}\right)
   \quad\fourier\quad
-  X(\im\omega) = \frac{T_h}{2} \mathrm{sinc}\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
+  X(\omega) = \frac{T_h}{2} \mathrm{sinc}\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
   \frac{T_h}{2} \mathrm{sinc}\left(\frac{[\omega+\omega_0] T_h}{2}\right)
 \end{equation}
 
@@ -729,7 +729,7 @@ Die drei Lösungsvarianten liefern immer das gleiche Ergebnis
 \begin{equation}
   x(t) = A\cos(\omega_0 t) \cdot \mathrm{rect}\left(\frac{t}{T_h}\right)
   \quad\fourier\quad
-  X(\im\omega) = \frac{A T_h}{2} \mathrm{sinc}\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
+  X(\omega) = \frac{A T_h}{2} \mathrm{sinc}\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
   \frac{A T_h}{2} \mathrm{sinc}\left(\frac{[\omega+\omega_0] T_h}{2}\right)
 \end{equation}
 %
@@ -738,7 +738,7 @@ Mit der Formelsammlung finden wir nun sehr einfach einen neuen Zusammenhang
 \begin{equation}
   x(t) = A\cos(\omega_0 t) \cdot \mathrm{\Lambda}\left(\frac{t}{T_h}\right)
   \quad\fourier\quad
-  X(\im\omega) = \frac{A T_h}{2} \mathrm{sinc}^2\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
+  X(\omega) = \frac{A T_h}{2} \mathrm{sinc}^2\left(\frac{[\omega-\omega_0] T_h}{2}\right) +
   \frac{A T_h}{2} \mathrm{sinc}^2\left(\frac{[\omega+\omega_0] T_h}{2}\right)
 \end{equation}
 also die \textbf{Zeitbegrenzung mit der Dreiecksfunktion}. Machen wir uns hierfür klar,
@@ -753,14 +753,14 @@ mit \textbf{Zeitbegrenzung in Form einer Gaussglocke} (so ähnlich auch mal Klau
 \begin{equation}
   x(t) = A\cos(\omega_0 t) \cdot \e^{-\left(\frac{t}{T_h}\right)^2}
   \quad\fourier\quad
-  X(\im\omega) =
+  X(\omega) =
   \sqrt{\pi} \frac{A T_h}{2} \e^{-\left(\frac{[\omega-\omega_0] T_h}{2}\right)^2}
   +\sqrt{\pi} \frac{A T_h}{2} \e^{-\left(\frac{[\omega+\omega_0] T_h}{2}\right)^2}
 \end{equation}
 Die Gaussglocke hat zwei Besonderheiten bzgl. der Fouriertransformation:
 \begin{itemize}
-  \item $x(t)$ als breite Gaussglocke, bringt $X(\im\omega)$ als schmale Gaussglocke hervor.
-  $x(t)$ als schmale Gaussglocke, bringt $X(\im\omega)$ als breite Gaussglocke hervor.
+  \item $x(t)$ als breite Gaussglocke, bringt $X(\omega)$ als schmale Gaussglocke hervor.
+  $x(t)$ als schmale Gaussglocke, bringt $X(\omega)$ als breite Gaussglocke hervor.
   Es gibt kein anderes Signal was sich in der Fourier Trafo skaliert auf sich selbst abbildet,
   die Gaussglocke ist ein fancy Signal.
   \item das Spektrum hat nur die zwei Hauptmaxima, aber keine lokalen Nebenmaxima und -minima.
@@ -800,15 +800,15 @@ hilft uns sehr für's Verständnis.
 \end{Werkzeug}
 \begin{Ansatz}
 \begin{equation}
-  x(t)  = \sin^2(\omega_0 t) \quad\fourier\quad X(\im\omega) = \mathcal{F}\{\sin^2(\omega_0 t)\}
+  x(t)  = \sin^2(\omega_0 t) \quad\fourier\quad X(\omega) = \mathcal{F}\{\sin^2(\omega_0 t)\}
 \end{equation}
 Mit Dualität Faltung vs. Multiplikation
 \begin{align}
-x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\im\omega) \ast_\omega X_2(\im\omega)
+x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\omega) \ast_\omega X_2(\omega)
 \end{align}
 können wir den Ansatz machen
 \begin{equation}
-  x(t)  = \sin(\omega_0 t)\cdot \sin(\omega_0 t) \quad\fourier\quad X(\im\omega) = \frac{1}{2\pi} \mathcal{F}\{\sin(\omega_0 t)\} \ast \mathcal{F}\{\sin(\omega_0 t)\}
+  x(t)  = \sin(\omega_0 t)\cdot \sin(\omega_0 t) \quad\fourier\quad X(\omega) = \frac{1}{2\pi} \mathcal{F}\{\sin(\omega_0 t)\} \ast \mathcal{F}\{\sin(\omega_0 t)\}
 \end{equation}
 was wir mit den Erkenntnissen aus der vorherigen Aufgabe lösen können.
 \end{Ansatz}
@@ -819,33 +819,33 @@ Die Korrespondenz für den Sinus ist (siehe \fig{fig:ue4_cos_sin_ft} in der Einl
 \end{align}
 Einsetzen, sukzessives Vereinfachen und Dirac Faltungsregel anwenden:
 \begin{equation}
-  X(\im\omega) = \frac{1}{2\pi}
+  X(\omega) = \frac{1}{2\pi}
   \left(\frac{\pi}{\im} \delta(\omega -\omega_0) - \frac{\pi}{\im} \delta(\omega + \omega_0)\right)
   \ast
   \left(\frac{\pi}{\im} \delta(\omega -\omega_0) - \frac{\pi}{\im} \delta(\omega + \omega_0)\right)
 \end{equation}
 \begin{equation}
-  X(\im\omega) =
+  X(\omega) =
   \left(\frac{1}{2\im} \delta(\omega -\omega_0) - \frac{1}{2\im} \delta(\omega + \omega_0)\right)
   \ast
   \left(\frac{\pi}{\im} \delta(\omega -\omega_0) - \frac{\pi}{\im} \delta(\omega + \omega_0)\right)
 \end{equation}
 \begin{align}
-  X(\im\omega) =
+  X(\omega) =
   &\frac{1}{2\im} \delta(\omega -\omega_0) \ast \frac{\pi}{\im} \delta(\omega -\omega_0)\\\nonumber
   &+ \frac{1}{2\im} \delta(\omega -\omega_0) \ast - \frac{\pi}{\im} \delta(\omega + \omega_0)\\\nonumber
   &- \frac{1}{2\im} \delta(\omega + \omega_0) \ast \frac{\pi}{\im} \delta(\omega -\omega_0)\\\nonumber
   &- \frac{1}{2\im} \delta(\omega + \omega_0) \ast - \frac{\pi}{\im} \delta(\omega + \omega_0)
 \end{align}
 \begin{align}
-  X(\im\omega) =
+  X(\omega) =
   &-\frac{\pi}{2} \delta(\omega -2 \omega_0)\\\nonumber
   &+\frac{\pi}{2} \delta(\omega -(+\omega_0)) \ast \delta(\omega - (-\omega_0))\\\nonumber
   &+\frac{\pi}{2} \delta(\omega -(-\omega_0)) \ast \delta(\omega -(+\omega_0))\\\nonumber
   &-\frac{\pi}{2} \delta(\omega -(-\omega_0)) \ast \delta(\omega -(-\omega_0))
 \end{align}
 \begin{align}
-  X(\im\omega) =
+  X(\omega) =
   &-\frac{\pi}{2} \delta(\omega -2 \omega_0)\\\nonumber
   &+\frac{\pi}{2} \delta(\omega)\\\nonumber
   &+\frac{\pi}{2} \delta(\omega)\\\nonumber
@@ -879,7 +879,7 @@ von $\frac{1}{2}$ verrät (vgl. $1 \, \fourier \, 2\pi\delta(\omega)$).
 \end{scope}
 \begin{scope}[shift={(7,0)}]
 \draw[->] (-2.1,0) -- (3,0) node[right] {$\omega$};
-\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X(\im\omega)=\textcolor{C0}{\frac{-\pi}{2}\delta(\omega+2\omega_0)}+\textcolor{C2}{\pi\delta(\omega)}+\textcolor{C3}{\frac{-\pi}{2}\delta(\omega-2\omega_0)}$};
+\draw[->] (0,-1.1) -- (0,1.25) node[above] {$X(\omega)=\textcolor{C0}{\frac{-\pi}{2}\delta(\omega+2\omega_0)}+\textcolor{C2}{\pi\delta(\omega)}+\textcolor{C3}{\frac{-\pi}{2}\delta(\omega-2\omega_0)}$};
 \draw[->, C0, line width=1mm] (-2,0) -- (-2,-0.5) node[left] {$(\frac{-\pi}{2})$};
 \draw[->, C2, line width=1mm] (+0,0) -- (+0,1) node[right] {$(\pi)$};
 \draw[->, C3, line width=1mm] (+2,0) -- (+2,-0.5) node[right] {$(\frac{-\pi}{2})$};
@@ -920,14 +920,14 @@ Signalunstetigkeiten elegant zu umschiffen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 04ADD03866}: Berechnen Sie unter der Annahme $T_h>0$
 \begin{equation}
-  X(\im\omega) = \mathcal{F}\{\frac{\fsd}{\fsd t} \mathrm{rect}\left(\frac{t}{T_h}\right)\}
+  X(\omega) = \mathcal{F}\{\frac{\fsd}{\fsd t} \mathrm{rect}\left(\frac{t}{T_h}\right)\}
 \end{equation}
 \begin{Werkzeug}
 \begin{equation}
   \epsilon'(t) = \delta(t)
 \end{equation}
 \begin{equation}
-\frac{\fsd}{\fsd t} x(t) \quad\fourier\quad \im\omega X(\im\omega)
+\frac{\fsd}{\fsd t} x(t) \quad\fourier\quad \im\omega X(\omega)
 \end{equation}
 \end{Werkzeug}
 \begin{Ansatz}
@@ -948,11 +948,11 @@ Nun anwenden von $\epsilon'(t) = \delta(t)$
 Mit den uns mittlerweile gut bekannten Korrespondenzen
 \begin{align}
 \delta(t) &\quad \fourier \quad 1\\
-x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\im\omega)
+x(t-\tau) &\quad \fourier \quad \e^{-\im\omega\tau} \cdot X(\omega)
 \end{align}
 finden wir
 \begin{equation}
-X(\im\omega) = \e^{+\im\omega\frac{T_h}{2}}\cdot 1 - \e^{-\im\omega\frac{T_h}{2}}\cdot 1
+X(\omega) = \e^{+\im\omega\frac{T_h}{2}}\cdot 1 - \e^{-\im\omega\frac{T_h}{2}}\cdot 1
 = \frac{2\im}{2\im}(\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}})
 = 2\im \sin(\omega\frac{T_h}{2})
 = 2\sin(\omega\frac{T_h}{2}) \e^{\im \nicefrac{\pi}{2}}
@@ -963,7 +963,7 @@ X(\im\omega) = \e^{+\im\omega\frac{T_h}{2}}\cdot 1 - \e^{-\im\omega\frac{T_h}{2}
 Für die Lösung im \textbf{Frequenzbereich} benutzen wir die Korrespondenzen
 \begin{align}
 &\mathrm{rect}(\frac{t}{T_h}) \quad \fourier \quad |T_h| \mathrm{sinc}\left(\frac{\omega T}{2}\right)\\
-&\frac{\fsd}{\fsd t} x(t) \quad\fourier\quad \im\omega X(\im\omega)
+&\frac{\fsd}{\fsd t} x(t) \quad\fourier\quad \im\omega X(\omega)
 \end{align}
 \end{Ansatz}
 
@@ -1044,21 +1044,21 @@ mit einem plakativen Beispiel merken.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 0A13DD5E57}: Zeigen Sie, dass die Korrespondenz
 \begin{equation}
-x(t) = \frac{1}{2} \mathrm{rect}(\frac{1}{2}t - 1) \quad\fourier\quad X(\im\omega)=\e^{-2 \im \omega} \cdot \mathrm{sinc}(\omega)
+x(t) = \frac{1}{2} \mathrm{rect}(\frac{1}{2}t - 1) \quad\fourier\quad X(\omega)=\e^{-2 \im \omega} \cdot \mathrm{sinc}(\omega)
 \end{equation}
 gilt.
 Berechnen Sie dann die Signalenergie, sowohl im Zeit- als auch im Frequenzbereich mit dem
 Parseval'schen Theorem.
 \begin{Werkzeug}
 \begin{align}
-\text{Amplituden- und Zeitskalierung:   } A x(a \cdot t) \quad\fourier\quad A \frac{1}{|a|} X(\frac{\im\omega}{a})\\
-\text{Zeitverschiebung:  } x(t - \tau)  \quad\fourier\quad \e^{-\im \omega \tau} \cdot X(\im\omega)
+\text{Amplituden- und Zeitskalierung:   } A x(a \cdot t) \quad\fourier\quad A \frac{1}{|a|} X(\frac{\omega}{a})\\
+\text{Zeitverschiebung:  } x(t - \tau)  \quad\fourier\quad \e^{-\im \omega \tau} \cdot X(\omega)
 \end{align}
 Signalenergie, i.e. \textbf{Parseval'schen Theorem}
 \begin{equation}
   \int\limits_{-\infty}^{+\infty} |x(t)|^2 \fsd t
   \quad\fourier\quad
-  \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |X(\im\omega)|^2 \fsd \omega
+  \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |X(\omega)|^2 \fsd \omega
 \end{equation}
 \end{Werkzeug}
 \begin{Ansatz}
@@ -1240,12 +1240,12 @@ Zeitbereichsansatz, nur hier deutlich komplizierter.
 \end{ExCalc}
 
 \begin{Loesung}
-Für das gewählte Signal $x(t)$ und die Fouriertransformierte $X(\im\omega)$ ist die
+Für das gewählte Signal $x(t)$ und die Fouriertransformierte $X(\omega)$ ist die
 Signalenergie
 \begin{equation}
   \int\limits_{-\infty}^{+\infty} |x(t)|^2 \fsd t
   =\frac{1}{2}\quad\fourier\quad
-  \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |X(\im\omega)|^2 \fsd \omega=\frac{1}{2}
+  \frac{1}{2\pi}\int\limits_{-\infty}^{+\infty} |X(\omega)|^2 \fsd \omega=\frac{1}{2}
 \end{equation}
 Falls $x(t)$ eine Einheit hat, ist die Signalenergie in Einheit$^2$ $\cdot$ Sekunde
 gegeben.
