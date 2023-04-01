@@ -722,21 +722,21 @@ eine Zeitverschiebung nur die Phase in der Fouriertransformierten ändert.
 
 Der wichtige neue Punkt ist, dass bei zeitlicher Linksverschiebung (Voreilen)
 die \textbf{unstetige Phasenfunktion} $\phi(\omega)$
-\textbf{diesmal ansteigend} ist,  da
+\textbf{diesmal ansteigend} ist,  da mit $m\in\mathbb{Z}$
 \begin{equation}
 X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
 \cdot  \e^{+\im\omega\frac{T_h}{2}}\cdot
 \begin{cases}
-\e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
-\e^{\im (\pi + 2\pi k)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\e^{\im (0+2\pi \cdot m)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi \cdot m)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
 \end{cases}
 \end{equation}
 
 \begin{equation}
 \phi(\omega) = +\omega\frac{T_h}{2} +
 \begin{cases}
-2\pi k\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
-\pi + 2\pi k\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+2\pi \cdot m\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi \cdot m\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
 \end{cases}
 \end{equation}
 Die Phase ist eine stückweise stetige Geradengleichung über $\omega$ durch den
