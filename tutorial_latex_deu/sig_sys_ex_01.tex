@@ -65,21 +65,21 @@ Synthese eines Zeitsignals $x(t)$ mit komplexer Fourierreihe
 %
 \begin{align}
 x(t)
-&= \sum\limits_{k=-\infty}^{+\infty} \left(\frac{1}{T} X_k\right) \cdot \e^{+\im \omega_0 k t}\\
-&= \frac{1}{T}\sum\limits_{k=-\infty}^{+\infty} X_k \cdot \e^{+\im \omega_0 k t}
+&= \sum\limits_{\nu=-\infty}^{+\infty} \left(\frac{1}{T} \,\,X_\nu\right) \cdot \e^{+\im \nu \cdot \omega_0 t}\\
+&= \frac{1}{T}\sum\limits_{\nu=-\infty}^{+\infty} X_\nu \cdot \e^{+\im \nu \cdot \omega_0 t}
 \end{align}
 %
-Analyse eines Zeitsignals $x(t)$ mit komplexer Fourierreihe über eine Periode, i.e.
-Berechnung der komplexen Fourierkoeffizienten $X_k$
+Analyse eines periodischen(!) Zeitsignals $x(t)$ mit komplexer Fourierreihe über eine Periodendauer $T$, i.e.
+Berechnung der komplexen Fourierkoeffizienten $X_\nu$
 \begin{equation}
-X_k =  \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \omega_0 k t} \mathrm{d}t
+X_\nu =  \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \nu \cdot \omega_0 t} \mathrm{d}t
 \end{equation}
 %
-Hinweis: Wir verwenden hier nie die Fourierreihe mit
+Hinweis: Wir verwenden in SigSys eigentlich nie die Fourierreihe mit
 reellen Koeffizienten und die Zerlegung in $\cos$- und $\sin$-Schwingungen.
 %
 Diese Darstellung mag zunächst zugänglicher erscheinen als der komplexe
-Dreher $\e^{\pm\im \omega_0 k t}$, aber die Rechnerei ist am Ende deutlich
+Dreher $\e^{\pm\im \nu \cdot \omega_0 t}$, aber die Rechnerei ist am Ende deutlich
 umfangreicher und man muss den Gleichanteil immer speziell berücksichtigen.
 %
 Aus gleichem Grund haben wir in der Elektrotechnik die komplexe
@@ -88,7 +88,7 @@ Wechselstromrechnung eingeführt.
 Zudem gestaltet sich das Aufzeigen der Verknüpfungen zu den anderen
 Fourier-Transformationen mit der komplexen Variante deutlich eleganter.
 %
-Deshalb werden die Koeffizienten $X_k$ auch erst bei der Synthese der
+Deshalb werden die Koeffizienten $X_\nu$ auch erst bei der Synthese der
 Fourierreihe mit $\frac{1}{T}$ gewichtet und die Fourier Analyse erfolgt über
 den Zeitraum $-T/2$ bis $T/2$ also axialsymmetrisch zum Ursprung.
 \end{Werkzeug}
@@ -100,7 +100,7 @@ die Funktion nicht Null ist. Am einfachsten ist das, wenn wir den
 Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und daher nur von $-T_h/2$ bis $+T_h/2$
 integrieren.
 \begin{equation}
-X_k =  \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm{d}t
+X_\nu =  \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \nu \cdot \omega_0 t} \mathrm{d}t
 \end{equation}
 %
 \end{Ansatz}
@@ -108,34 +108,34 @@ X_k =  \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega_0 k t} \mathrm{d}t
 \begin{ExCalc}
 Integrieren
 \begin{equation}
-X_k = A \frac{\e^{-\im \omega_0 k t}}{-\im \omega_0 k }\bigg|_{-T_h/2}^{+T_h/2}
+X_\nu = A \frac{\e^{-\im \nu \cdot \omega_0 t}}{-\im \nu \cdot \omega_0 }\bigg|_{-T_h/2}^{+T_h/2}
 \end{equation}
 Grenzen einsetzen
 \begin{equation}
-X_k = A \frac{\e^{-\im \omega_0 k T_h/2} - \e^{+\im \omega_0 k T_h/2}}{-\im \omega_0 k }
+X_\nu = A \frac{\e^{-\im \nu \cdot \omega_0 T_h/2} - \e^{+\im \nu \cdot \omega_0 T_h/2}}{-\im \nu \cdot \omega_0 }
 \end{equation}
 Vorzeichen
 \begin{equation}
-X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k }
+X_\nu = A \frac{\e^{+\im \nu \cdot \omega_0 T_h/2}-\e^{-\im \nu \cdot \omega_0 T_h/2}}{\im \nu \cdot \omega_0 }
 \end{equation}
 Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$ und zu unserer Definition der Spalt- bzw. Sinc-Funktion
 $$\mathrm{sinc}(x):=\frac{\sin(x)}{x}$$
 
 \begin{equation}
-X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{\im \omega_0 k } \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+X_\nu = A \frac{\e^{+\im \nu \cdot \omega_0 T_h/2}-\e^{-\im \nu \cdot \omega_0 T_h/2}}{\im \nu \cdot \omega_0 } \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
 \end{equation}
 Umsortieren, Kürzen
 \begin{equation}
-X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot \frac{T_h/2}{1} \cdot \frac{2}{1}
+X_\nu = A \frac{\e^{+\im \nu \cdot \omega_0 T_h/2}-\e^{-\im \nu \cdot \omega_0 T_h/2}}{2\im \nu \cdot \omega_0 T_h/2} \cdot \frac{T_h/2}{1} \cdot \frac{2}{1}
 \end{equation}
 %
 \begin{equation}
-X_k = A \frac{\e^{+\im \omega_0 k T_h/2}-\e^{-\im \omega_0 k T_h/2}}{2\im \omega_0 k T_h/2} \cdot T_h
+X_\nu = A \frac{\e^{+\im \nu \cdot \omega_0 T_h/2}-\e^{-\im \nu \cdot \omega_0 T_h/2}}{2\im \nu \cdot \omega_0 T_h/2} \cdot T_h
 \end{equation}
 %
 Ergebnis
 \begin{equation}
-X_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
+X_\nu = A T_h \cdot \mathrm{sinc}(\nu \cdot \omega_0 \frac{T_h}{2})
 \end{equation}
 \end{ExCalc}
 
@@ -143,7 +143,7 @@ X_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2})
 %
 \begin{equation}
 \label{eq:D1483A84E2_Loesung}
- X_k = A T_h \cdot \mathrm{sinc}(\omega_0 k \frac{T_h}{2}) = A T_h \cdot \mathrm{sinc}(k \pi \frac{T_h}{T})
+ X_\nu = A T_h \cdot \mathrm{sinc}(\nu \cdot \omega_0 \frac{T_h}{2}) = A T_h \cdot \mathrm{sinc}(\nu \pi \frac{T_h}{T})
 \end{equation}
 %
 Wir sollten uns mit der Spaltfunktion
@@ -157,38 +157,38 @@ und den Verlauf der lokalen Maxima / Minima grob auf dem Schirm zu haben.
 %
 Besonders relevant für die aktuelle Aufgabe ist, dass die Spaltfunktion
 breiter und schmaler bzgl. des gleichen Ausschnitts
-$-K \leq k \leq +K$ gemacht wird, wenn wir am Tastverhältnis des Rechtecksignals
+$-N \leq \nu \leq +N$ gemacht wird, wenn wir am Tastverhältnis des Rechtecksignals
 rumschrauben.
 
 Zunächst halten wir fest: a) eine periodische Rechteckfunktion hat eine sinc-artige,
 komplexe Fourierreihe, b) die Fourierkoeffizienten sind hier reell, das ist
 hier ein Spezialfall der komplexen Fourierreihe, weil Auswertung eines
 axialsymmetrischen Signals, c) die Spalt-Funktion wird
-wegen diskretem $k$ nur an bestimmten Stellen ausgewertet.
+wegen diskretem $\nu$ nur an bestimmten Stellen ausgewertet.
 Die Fourierreihe ist also als Folge
-über alle $k$ der komplexen Fourierkoeffizienten $X_k$ aufzufassen. Wir werden
+über alle $\nu$ der komplexen Fourierkoeffizienten $X_\nu$ aufzufassen. Wir werden
 das später Linienspektrum bezeichnen.
 
 Grafische Darstellungen helfen uns das Verhalten der komplexen Fourierreihe und
 Fourier-Synthese besser zu verstehen.
 %
 Dafür wurde für die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}
-jeweils die Fourierkoeffizienten $X_k$ die auf einer sinc-Funktion liegen (links)
+jeweils die Fourierkoeffizienten $X_\nu$ die auf einer sinc-Funktion liegen (links)
 und das rechteck-förmige Signal über die Zeit
 (rechts) dargestellt.
 Das Tastverhältnis $T_h$ wurde
 variiert, die Amplitude zu $A = 1/T_h$ gewählt, sowie $T=2$ s konstant gehalten.
 %
-Die Fouriersynthese erfolgt mit $-40 \leq k \leq +40$.
+Die Fouriersynthese erfolgt mit $-40 \leq \nu \leq +40$.
 %
 Wir erkennen, dass die Breite der Spalt-Funktion für steigendes Tastverhältnis
 $\frac{T_h}{T}$ abnimmt.
 %
 Im Extremfall $\frac{T_h}{T} = 1$ resultiert ein Gleichsignal, und daher
-nur $X_0 \neq 0$, alle anderen $X_k=0$.
+nur $X_0 \neq 0$, alle anderen $X_\nu=0$.
 %
 Spannend ist zudem der Fall $\frac{T_h}{T} = 1/2$ in \fig{fig:D1483A84E2_2}:
-hier ist (ausgenommen vom Hauptpeak in der Mitte) jeder zweite $X_k=0$,
+hier ist (ausgenommen vom Hauptpeak in der Mitte) jeder zweite $X_\nu=0$,
 weil wir da in Nullstellen der Spalt-Funktion landen.
 
 Sehr vereinfacht, aber vom Wesen wichtig:
@@ -208,35 +208,35 @@ wenig Impulshaftiges, also langsam schwingendes braucht wenig Koeffizienten
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_0.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+\caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=0.2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_0}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_1.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+\caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=0.4$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_1}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_2.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+\caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=1$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_2}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_3.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+\caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=1.6$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \label{fig:D1483A84E2_3}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_4.pdf}
-\caption{Koeffizienten der komplexen Fourierreihe $X_k$ (links) und Synthese $x(t)$ (rechts) für
+\caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}. Extremfall: für die
 Darstellung eines Gleichanteils braucht es nur $X_{k=0}$, alle anderen Fourier Koeffizienten
 $X_{k \neq 0}$ sind Null, weil ja nichts schwingt.}
@@ -381,10 +381,10 @@ dünne Rechnerei mit wenig Vertändnis.
 
 Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
 Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
-hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $X_k$
+hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $X_\nu$
 \eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
 mit den Werten von $X(\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
-$\frac{2\pi}{T} k = \omega_0 k = \omega$.
+$\frac{2\pi}{T} \nu = \nu \cdot \omega_0 = \omega$.
 Dies ist kein Zufall. Das werden wir später als Abtastung kennenlernen.
 
 
