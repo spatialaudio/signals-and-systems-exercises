@@ -8,7 +8,8 @@ von numerischen Rundungsfehlern absehen).
 Die anderen drei Fourier Transformation (FT, FR, DTFT) setzen ja entweder
 unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
 kontinuierliche Signale/Spektren
-voraus, alles Daten-Eigenschaften mit denen sich Computer schwer tun.
+voraus, alles Daten-Eigenschaften mit denen sich Computer wegen endlicher
+Rechen- und Speicherressourcen schwer tun.
 %
 Daher werden wir sehr oft konfrontiert sein, die DFT als Approximation
 der anderen drei Transformationen benutzen zu müssen.
@@ -416,10 +417,10 @@ Fourierreihe.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D394560597}: Gegeben sind die $N=8$ DFT Spektren
 \begin{align}
-&X_c[\mu] = 8\e^{-\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-1 + 8\nu]\\
+&X_c[\mu] = 8\e^{-\im\frac{\pi}{4}} \sum_{m=-\infty}^{+\infty} \delta[\mu-1 + 8 \cdot m]\\
 &X_r[\mu] =
-4\e^{-\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-1 + 8\nu] +
-4\e^{+\im\frac{\pi}{4}} \sum_{\nu=-\infty}^{+\infty} \delta[\mu-7 + 8\nu]
+4\e^{-\im\frac{\pi}{4}} \sum_{m=-\infty}^{+\infty} \delta[\mu-1 + 8 \cdot m] +
+4\e^{+\im\frac{\pi}{4}} \sum_{m=-\infty}^{+\infty} \delta[\mu-7 + 8 \cdot m]
 \end{align}
 Berechnen Sie davon die inversen DFTs, also $x_c[k] = \text{IDFT}_8\{X_c[\mu]\}$
 und $x_r[k] = \text{IDFT}_8\{X_r[\mu]\}$.
@@ -802,13 +803,13 @@ suchen. Für \textbf{reellwertige Signale} $x[k]\in\mathbb{R}$ gilt
   \item Punktsymmetrie für Imaginärteil $\Im\{X[\mu]\}$
   \item Punktsymmetrie für Phase $\angle X[\mu]$
 \end{itemize}
-bezüglich der Punkte bzw. der Achsen $\mu = \nu \frac{N}{2}$ mit $\nu\in\mathbb{Z}$.
+bezüglich der Punkte bzw. der Achsen $\mu = m \frac{N}{2}$ mit $m\in\mathbb{Z}$.
 
 Schauen wir unsere Skizze des Spektrums für $X_r[\mu]$ oben genauer an.
 Wir sehen in der Grafik die Axialsymmetrie des Realteils
 bzgl. $\mu=-4,0,4,8,12$. Die graue
 Linie zeigt die für das DFT-Basisband typische Symmetrieachse bei $\frac{N}{2}=4$.
-Des weiteren sehen wir die Punktsymmetrie des Imaginärteils bzgl. $\nu \frac{N}{2}$,
+Des weiteren sehen wir die Punktsymmetrie des Imaginärteils bzgl. $m \frac{N}{2}$,
 im Bild also bzgl. $\mu=-4,0,4,8,12$. Der graue kleine Punkt bei $\mu=4$ indiziert
 den Symmetriepunkt des Basisbandes.
 Das Spektrum erfüllt also intentional
@@ -818,8 +819,8 @@ die Symmetrieeigenschaften von reellwertigen Signalen.
 genau mittig zwischen zwei DFT Frequenzen liegt!
 
 \textbf{Hinweis 2}:
-Falls $N$ gerade ist und $x[k]$ reellwertig ist, also die $\nu \frac{N}{2}$
-Symmetrien vorliegen, müssen die Spektralwerte $X[\mu = \nu \frac{N}{2}]$
+Falls $N$ gerade ist und $x[k]$ reellwertig ist, also die $m \frac{N}{2}$
+Symmetrien vorliegen, müssen die Spektralwerte $X[\mu = m \frac{N}{2}]$
 bei den Symmetriestellen reellwertig sein.
 Dies ist im Basisband der Gleichanteil und die DFT-Frequenz
 $\e^{\im\pi}$ (halbe Abtastfrequenz).
@@ -874,7 +875,7 @@ gemittelt immer wieder neu über numerische Ergebnisse zu wundern ;-) Wir werden
 die DFT sehr sehr sehr oft benutzen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 0C30EB5E76}: Berechnen Sie für das periodische
-Signal $x[k]=x[k+\nu N]$
+Signal $x[k]=x[k+m \cdot N]$, $m\in\mathbb{Z}$
 mit der Berechnungsvorschrift für $0\leq k \leq 7$
 \begin{align}
 x[k] = \e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot k}
@@ -1323,7 +1324,7 @@ x[k] \circledast_3 h[k] = \sum_{\kappa=0}^{2} x[\kappa] h[-\kappa + k]
 \end{align}
 grafisch ab.
 Die lineare Faltung nimmt periodisierte Folgen an, hier mit $N=3$, also
-$x[k] = x[k+\nu N]$ und $h[k] = h[k+\nu N]$ mit $\nu\in\mathbb{Z}$.
+$x[k] = x[k+m \cdot N]$ und $h[k] = h[k+m \cdot N]$ mit $m\in\mathbb{Z}$.
 Wir müssen die Faltungssumme also nur für $k=0,1,2$ auswerten und können
 den Rest periodisch auffüllen.
 %
@@ -1340,7 +1341,7 @@ der für die Faltungssumme relevant ist.
 Wir bekommen als Ergebnis
 \begin{align}
 &y_{cyc}[k] = x[k] \circledast_3 h[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
-&y_{cyc}[k] = y_{cyc}[k + 3\nu], \nu\in\mathbb{Z}
+&y_{cyc}[k] = y_{cyc}[k + 3 m], m\in\mathbb{Z}
 \end{align}
 %
 Die lineare Faltung ergibt
@@ -1925,7 +1926,7 @@ y[k] = \mathrm{IDFT}_N\{\qquad\mathrm{DFT}_N\{x[k]\} \cdot \mathrm{DFT}_N\{h[k]\
 \end{align}
 Für die Faltung sehr langer Folgen ist dieser Umweg über den Bildbereich deutlich
 recheneffizienter, als $y[k] = x[k] \circledast_N h[k]$, unter der Voraussetzung,
-dass die DFT / IDFT recheneffizient implementiert ist. Dafür gibt es Algorithmen,
+dass die DFT / IDFT recheneffizient implementiert ist. Dafür gibt es viele Algorithmen,
 die als \textbf{Fast Fourier Transform Algorithmen (FFT)} bekannt sind.
 %
 Dies wird dann als \textbf{schnelle Faltung} bezeichnet. In den Tabellen
@@ -2022,7 +2023,7 @@ fast & \texttt{ifft(fft([-1; 2; 4; 0; 0]) .* fft([3; 1; 5; 0; 0]))} \\\hline
 
 \begin{align}
 &y_{cyc}[k] = 11\delta[k] + 25\delta[k-1] + 9\delta[k-2]\nonumber\\
-&y_{cyc}[k] = y_{cyc}[k + 3\nu], \nu\in\mathbb{Z}
+&y_{cyc}[k] = y_{cyc}[k + 3 m], m\in\mathbb{Z}
 \end{align}
 %
 \begin{align}
