@@ -59,23 +59,23 @@ verknüpfen, siehe die Vorbetrachtung vor Aufgabe~\ref{sec:45C76AFB33}.
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
-\node (input) {$\displaystyle X(\im\omega)$};
+\node (input) {$\displaystyle X(\omega)$};
 \node [draw, circle, right=of input, minimum size=7.5mm] (op1) {$\ast_\omega$};
-\node [above=of op1] (sop1) {$S(\im\omega)$};
+\node [above=of op1] (sop1) {$S(\omega)$};
 \node [block, right=of op1] (mult) {$\frac{1}{2\pi}$};
 \node [draw, circle, right=of mult, minimum size=7.5mm, xshift=0.5cm] (op2) {$\cdot$};
-\node [above=of op2] (sop2) {$H_\mathrm{r}(\im\omega)$};
-\node [right=of op2] (output) {$X_\mathrm{r}(\im\omega)$};
+\node [above=of op2] (sop2) {$H_\mathrm{r}(\omega)$};
+\node [right=of op2] (output) {$X_\mathrm{r}(\omega)$};
 \draw [->] (input) -- (op1);
 \draw [->] (op1) -- (mult);
-\draw [->] (mult) node[below, xshift=+1.1cm, yshift=0cm] {$X_\mathrm{s}(\im\omega)$} -- (op2);
+\draw [->] (mult) node[below, xshift=+1.1cm, yshift=0cm] {$X_\mathrm{s}(\omega)$} -- (op2);
 \draw [->] (op2) -- (output);
 \draw [->] (sop1) -- (op1);
 \draw [->] (sop2) -- (op2);
 \end{scope}
 \end{tikzpicture}
 \caption{Abtastung und Rekonstruktion für \textbf{zeitliche Signale} mit Dirac Impuls Kamm
-$s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t) \fourier H_\mathrm{r}(\im \omega)$.}
+$s(t)\fourier  S(\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t) \fourier H_\mathrm{r}(\omega)$.}
 \label{fig:sampling_model_time_domain_signals}
 \end{figure}
 %
@@ -101,15 +101,15 @@ $s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t) \fourier
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
-\node (input) {$\displaystyle X(\im\omega)$};
+\node (input) {$\displaystyle X(\omega)$};
 \node [draw, circle, right=of input, minimum size=7.5mm] (op1) {$\cdot$};
-\node [above=of op1] (sop1) {$S(\im\omega)$};
+\node [above=of op1] (sop1) {$S(\omega)$};
 \node [draw, circle, right=of op1, minimum size=7.5mm, xshift=0.5cm] (op2) {$\ast_\omega$};
-\node [above=of op2] (sop2) {$H_\mathrm{r}(\im\omega)$};
+\node [above=of op2] (sop2) {$H_\mathrm{r}(\omega)$};
 \node [block, right=of op2] (mult) {$\frac{1}{2\pi}$};
-\node [right=of mult] (output) {$X_\mathrm{r}(\im\omega)$};
+\node [right=of mult] (output) {$X_\mathrm{r}(\omega)$};
 \draw [->] (input) -- (op1);
-\draw [->] (op1) node[below, xshift=0.9cm, yshift=0cm] {$X_\mathrm{s}(\im\omega)$} -- (op2);
+\draw [->] (op1) node[below, xshift=0.9cm, yshift=0cm] {$X_\mathrm{s}(\omega)$} -- (op2);
 \draw [->] (op2) -- (mult);
 \draw [->] (mult) -- (output);
 \draw [->] (sop1) -- (op1);
@@ -117,7 +117,7 @@ $s(t)\fourier  S(\im\omega)$ und Rekonstruktionsfilter $h_\mathrm{r}(t) \fourier
 \end{scope}
 \end{tikzpicture}
 \caption{Abtastung und Rekonstruktion für \textbf{Frequenz-Spektren} mit Dirac Impuls Kamm
-$S(\im\omega) \Fourier s(t)$ und Rekonstruktionsspektrum $H_\mathrm{r}(\im\omega) \Fourier h_\mathrm{r}(t)$.}
+$S(\omega) \Fourier s(t)$ und Rekonstruktionsspektrum $H_\mathrm{r}(\omega) \Fourier h_\mathrm{r}(t)$.}
 \label{fig:sampling_model_frequency_domain_signals}
 \end{figure}
 
@@ -139,7 +139,7 @@ bestimmt, in welchem Bereich wir abtasten.
 Daher sehen wir in \fig{fig:sampling_model_time_domain_signals} die Abtastung
 von Zeitsignalen mit Dirac-Kamm $s(t)$. In \fig{fig:sampling_model_frequency_domain_signals}
 sehen wir die Abtastung von Spektren, also Abtastung einer Fouriertransformierten
-mit Dirac-Kamm $S(\im\omega)$.
+mit Dirac-Kamm $S(\omega)$.
 
 
 
@@ -291,7 +291,7 @@ müssen.
 %
 \begin{tikzpicture}[scale=0.75]
 \begin{scope}
-\draw[->] (-2.1 ,0) -- (2.4,0) node[right]{$t$};
+\draw[->] (-3.1 ,0) -- (3.4,0) node[right]{$t$};
 \draw[->] (0,-1.1) -- (0,1.75) node[above]{$x(t)=\frac{1}{T_\mathrm{s}}\Sha(\frac{t}{T_\mathrm{s}})$};
 \draw[->, C0, line width=1mm] (+0,0) -- (+0,1);
 \draw[->, C0, line width=1mm] (-1,0) -- (-1,1);
@@ -300,14 +300,16 @@ müssen.
 \draw[->, C0, line width=1mm] (1,0) -- (1,1) node[above] {$(1)$};
 \draw[->, C0, line width=1mm] (2,0) -- (2,1);
 \draw[->, C0, line width=1mm] (3,0) -- (3,1);
-\node at (4,0) {$\fourier$};
+\node at (-3.6, 0.3) {$\cdots$};
+\node at (+3.6, 0.3) {$\cdots$};
+\node at (5,0) {$\fourier$};
 \node at (1,-0.4) {$T_\mathrm{s}$};
 \node at (-1,-0.4) {$-T_\mathrm{s}$};
 \node at (2,-0.4) {$2 T_\mathrm{s}$};
 \end{scope}
-\begin{scope}[shift={(8,0)}]
-\draw[->] (-2.1 ,0) -- (2.4, 0) node[right]{$\omega$};
-\draw[->] (0,-1.1) -- (0,1.75) node[above]{$X(\im\omega)=\Sha(\frac{\omega T_\mathrm{s}}{2\pi})$};
+\begin{scope}[shift={(10,0)}]
+\draw[->] (-3.1 ,0) -- (3.4, 0) node[right]{$\omega$};
+\draw[->] (0,-1.1) -- (0,1.75) node[above]{$X(\omega)=\Sha(\frac{\omega T_\mathrm{s}}{2\pi})$};
 \draw[->, C3, line width=1mm] (+0,0) -- (+0,1);
 \draw[->, C3, line width=1mm] (-1,0) -- (-1,1);
 \draw[->, C3, line width=1mm] (-2,0) -- (-2,1);
@@ -315,6 +317,8 @@ müssen.
 \draw[->, C3, line width=1mm] (1,0) -- (1,1) node[above] {$(\omega_\mathrm{s})$};
 \draw[->, C3, line width=1mm] (2,0) -- (2,1);
 \draw[->, C3, line width=1mm] (3,0) -- (3,1);
+\node at (-3.6, 0.3) {$\cdots$};
+\node at (+3.6, 0.3) {$\cdots$};
 \node at (1,-0.4) {$\omega_\mathrm{s}$};
 \node at (-1,-0.4) {$-\omega_\mathrm{s}$};
 \node at (2,-0.4) {$2 \omega_\mathrm{s}$};
@@ -336,7 +340,7 @@ Dirac Gewichte 1 im Zeitbereich. Dirac Gewichte $\omega_\text{s}$ im Spketralber
 
 \textbf{Hinweis I:} In der Praxis arbeiten und denken wir wahrscheinlich
 lieber mit der physikalischen
-Frequenz $f$ als mit der Kreisfrequenz $\omega$. Es bietet sich jedoch hier an, bei der Denke
+Frequenz $f$ [Hz] als mit der Kreisfrequenz $\omega$ [rad/s]. Es bietet sich jedoch hier an, bei der Denke
 mit Kreisfrequenzen zu bleiben, weil wir dann konsistent in unserer SigSys-Welt
 weitermachen können. Andere Argumentation: jetzt bei der Abtastung von Zeitsignalen
 die physikalische Frequenz $f$ zu benutzen, erscheint vielleicht elegant,
@@ -354,7 +358,7 @@ Aus der Formelsammlung und den bisher behandelten Themen kennen wir vier
 Korrespondenzen der Fourier Transformation die für eine Rekonstruktion
 in Frage kommen könnten (vgl. \fig{fig:ReconstructionSplines})
 \begin{align}
-h_\mathrm{r}(t) \quad\fourier\quad  & H_\mathrm{r}(\im\omega)\\
+h_\mathrm{r}(t) \quad\fourier\quad  & H_\mathrm{r}(\omega)\\
 \text{rect}(t) \quad\fourier\quad  &\text{sinc}\left( \frac{\omega}{2} \right)\text{ für Abtastung im Zeit-/Frequenzbereich}\\
 \text{sinc}(t)  \quad\fourier\quad  &\pi \,\text{rect}\left(\frac{\omega}{2}\right)\text{ für Abtastung im Zeit-/Frequenzbereich}\\
 \Lambda(t) \quad\fourier\quad  &\text{sinc}^2\left( \frac{\omega}{2} \right)  \text{ für Abtastung im Zeitbereich}\\
@@ -371,7 +375,7 @@ wir in dieser Übung
 \begin{align}
 h_\mathrm{r}(t) = \frac{1}{\pi}\text{sinc}(t)
 \quad\fourier\quad
-H_\mathrm{r}(\im\omega) = \text{rect}\left(\frac{\omega}{2}\right).
+H_\mathrm{r}(\omega) = \text{rect}\left(\frac{\omega}{2}\right).
 \end{align}
 Wenn wir $h_\mathrm{r}(t)$ als Impulsantwort eines LTI-Systems auffassen (laut
 Modell in Abb.~\ref{fig:sampling_model_time_domain_signals} falten wir mit diesem Signal), können wir
@@ -381,7 +385,7 @@ dessen Spektrum als ideales Tiefpassfilter mit Grenzfrequenz $\omega_c=1$ rad/s 
 Für die \textbf{ideale Abtastung und Rekonstruktion im Frequenzbereich} benutzen
 wir in dieser Übung
 \begin{align}
-H_\mathrm{r}(\im\omega) = \text{sinc}\left( \frac{\omega}{2} \right)
+H_\mathrm{r}(\omega) = \text{sinc}\left( \frac{\omega}{2} \right)
 \quad\Fourier\quad
 h_\mathrm{r}(t)  = \text{rect}(t)
 \end{align}
@@ -463,16 +467,16 @@ Für das dargestellte zeitliche Abtast- und Rekonstruktionsmodell
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
-\node (input) {$\displaystyle X(\im\omega)$};
+\node (input) {$\displaystyle X(\omega)$};
 \node [draw, circle, right=of input, minimum size=7.5mm] (op1) {$\ast_\omega$};
-\node [above=of op1] (sop1) {$S(\im\omega)$};
+\node [above=of op1] (sop1) {$S(\omega)$};
 \node [block, right=of op1] (mult) {$\frac{1}{2\pi}$};
 \node [draw, circle, right=of mult, minimum size=7.5mm, xshift=0.5cm] (op2) {$\cdot$};
-\node [above=of op2] (sop2) {$H_\mathrm{r}(\im\omega)$};
-\node [right=of op2] (output) {$X_\mathrm{r}(\im\omega)$};
+\node [above=of op2] (sop2) {$H_\mathrm{r}(\omega)$};
+\node [right=of op2] (output) {$X_\mathrm{r}(\omega)$};
 \draw [->] (input) -- (op1);
 \draw [->] (op1) -- (mult);
-\draw [->] (mult) node[below, xshift=+1.1cm, yshift=0cm] {$X_\mathrm{s}(\im\omega)$} -- (op2);
+\draw [->] (mult) node[below, xshift=+1.1cm, yshift=0cm] {$X_\mathrm{s}(\omega)$} -- (op2);
 \draw [->] (op2) -- (output);
 \draw [->] (sop1) -- (op1);
 \draw [->] (sop2) -- (op2);
@@ -494,10 +498,10 @@ H_r(\mathrm{j}\omega) = \frac{\pi}{2}\mathrm{rect}(\frac{\omega}{4})
 die Abtastung und die Rekonstruktion berechnet und skizziert werden.
 
 \begin{itemize}
-  \item Berechnen Sie die Spektren $X(\im\omega)$, $S(\im\omega)$, $X_\mathrm{s}(\im\omega)$, $X_\mathrm{r}(\im\omega)$.
+  \item Berechnen Sie die Spektren $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $X_\mathrm{r}(\omega)$.
   \item Berechnen Sie die Signale $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$.
   \item Skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
-  \item Skizzieren Sie alle Spektren, d.h.  $X(\im\omega)$, $S(\im\omega)$, $X_\mathrm{s}(\im\omega)$, $H_\mathrm{r}(\im\omega)$ und $X_\mathrm{r}(\im\omega)$
+  \item Skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$
   \item Ist die Rekonstruktion des Zeitsignals erfolgreich?
 \end{itemize}
 
@@ -604,7 +608,7 @@ erhöhen.
 
 Im Frequenzbereich korrespondiert dieses abgetastete Signal mit der Faltung der Spektren
 \begin{equation}
-X_\mathrm{s}(\im\omega) = \frac{1}{2\pi}
+X_\mathrm{s}(\omega) = \frac{1}{2\pi}
 \left[
 \mathrm{j} \pi \left( \delta(\omega+3) - \delta(\omega-3) \right)
 \ast_\omega 4 \sum_{\nu=-\infty}^{+\infty} \delta(\omega-4 \nu)
@@ -622,7 +626,7 @@ gesehen haben, später können wir uns das anhand von Skizzen veranschaulichen.
 Zunächst erst einmal aufteilen und die Vorfaktoren ein wenig vereinfachen
 %
 % \begin{equation}
-% X_\mathrm{s}(\im\omega) = \frac{4\pi\im}{2\pi}
+% X_\mathrm{s}(\omega) = \frac{4\pi\im}{2\pi}
 % \left[
 % \delta(\omega+3)
 % \ast_\omega \sum_{\nu=-\infty}^{+\infty} \delta(\omega-4 \nu)
@@ -635,7 +639,7 @@ Zunächst erst einmal aufteilen und die Vorfaktoren ein wenig vereinfachen
 % \end{equation}
 %
 \begin{equation}
-X_\mathrm{s}(\im\omega) = 2\im
+X_\mathrm{s}(\omega) = 2\im
 \delta(\omega+3)
 \ast_\omega \sum_{\nu=-\infty}^{+\infty} \delta(\omega-4 \nu)
 \quad-
@@ -645,7 +649,7 @@ X_\mathrm{s}(\im\omega) = 2\im
 \end{equation}
 Danach, damit wir es schneller sehen, umschreiben mit Vorzeichen
 \begin{equation}
-X_\mathrm{s}(\im\omega) = 2\im
+X_\mathrm{s}(\omega) = 2\im
 \delta(\omega-(-3))
 \ast_\omega \sum_{\nu=-\infty}^{+\infty} \delta(\omega-4 \nu)
 \quad-
@@ -662,7 +666,7 @@ der Summe durchspielen
 und können irgendwann einsehen, dass wir für die Berücksichtigung aller $\nu$
 wieder Summen einführen können in der Form
 \begin{equation}
-X_\mathrm{s}(\im\omega) = 2\im
+X_\mathrm{s}(\omega) = 2\im
 \sum_{\nu=-\infty}^{+\infty} \delta(\omega - [(-3)+4\nu])
 \quad-
 2\im
@@ -678,7 +682,7 @@ nämlich in Linksverschiebung eines Diracs $\delta(\omega)$
 (die beiden ersten Terme) und in Rechtsverschiebung
 (die beiden letzten Terme) auftrennen, also
 \begin{align}
-X_\mathrm{s}(\im\omega) =
+X_\mathrm{s}(\omega) =
 &+2\im\sum_{\nu=-\infty}^{0} \delta(\omega - [4\nu-3])
 -2\im\sum_{\nu=-\infty}^{-1} \delta(\omega - [4\nu+3])\\
 &+2\im\sum_{\nu=1}^{+\infty} \delta(\omega - [4\nu-3])
@@ -701,14 +705,14 @@ Vorlesungsfolie 9-5.
 \begin{Loesung}
 \textbf{Rekonstruktion}:
 Die Rekonstruktion ist im \textbf{Frequenzbereich} vergleichsweise einfach einzusehen,
-da wir die Spektren $X_\mathrm{s}(\im\omega)$ und $H_\mathrm{r}(\im\omega)$
+da wir die Spektren $X_\mathrm{s}(\omega)$ und $H_\mathrm{r}(\omega)$
 multiplizieren, was anschaulich gelingt, siehe
 \fig{fig:Sampling_06_DiscreteSineLowpassSpectrum_EF235EE3D8}.
 In Formeln ist das ein wenig umständlicher, aber im Vergleich zum Zeitbereich immer
 noch überschaubar. Wir tragen zusammen
 \begin{align}
-&X_\mathrm{r}(\im\omega) =
-H_\mathrm{r}(\mathrm{j}\omega) \cdot X_\mathrm{s}(\im\omega) =\\
+&X_\mathrm{r}(\omega) =
+H_\mathrm{r}(\mathrm{j}\omega) \cdot X_\mathrm{s}(\omega) =\\
 &2\im
 \frac{\pi}{2}\mathrm{rect}(\frac{\omega}{4}) \cdot \sum_{\nu=-\infty}^{+\infty} \delta(\omega - [(-3)+4\nu])
 \quad-
@@ -732,7 +736,7 @@ und daher eine Rolle im Spektrum spielen. Es verbleiben also die Summen-Anteile
 \end{equation}
 und somit das rekonstruierte Spektrum (rein imaginär, punktsymmetrisch)
 \begin{align}
-X_\mathrm{r}(\im\omega) = \im \pi  \delta(\omega - 1) - \im \pi  \delta(\omega + 1),
+X_\mathrm{r}(\omega) = \im \pi  \delta(\omega - 1) - \im \pi  \delta(\omega + 1),
 \end{align}
 welches in \fig{fig:Sampling_07_ReconstructedSine_EF235EE3D8} dargestellt ist.
 Wir finden das korrespondierende rekonstruierte Zeitsignal ohne viel Mühe, weil
@@ -905,22 +909,22 @@ dass das simulierte Ergebnis auch mit dem analytischen Ergebnis übereinstimmt.
 \centering
 \begin{subfigure}{0.49\textwidth}
 \includegraphics[width=\textwidth]{../sampling/Sampling_02_Sine_EF235EE3D8.pdf}
-\caption{Eingang $X(\im\omega)$.}
+\caption{Eingang $X(\omega)$.}
 \label{fig:Sampling_02_Sine_EF235EE3D8}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 \includegraphics[width=\textwidth]{../sampling/Sampling_01_DiracComb_EF235EE3D8.pdf}
-\caption{Dirac Impuls Kamm $S(\im\omega)$.}
+\caption{Dirac Impuls Kamm $S(\omega)$.}
 \label{fig:Sampling_01_DiracComb_EF235EE3D8}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 \includegraphics[width=\textwidth]{../sampling/Sampling_03_DiscreteSine_EF235EE3D8.pdf}
-\caption{Abtastversion $X_\mathrm{s}(\im\omega)$.}
+\caption{Abtastversion $X_\mathrm{s}(\omega)$.}
 \label{fig:Sampling_03_DiscreteSine_EF235EE3D8}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 \includegraphics[width=\textwidth]{../sampling/Sampling_04_LowpassSpectrum_EF235EE3D8.pdf}
-\caption{Rekonstruktionsfilter Übertragungsfunktion $H_\mathrm{r}(\im\omega)$.}
+\caption{Rekonstruktionsfilter Übertragungsfunktion $H_\mathrm{r}(\omega)$.}
 \label{fig:Sampling_04_LowpassSpectrum_EF235EE3D8}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
@@ -935,7 +939,7 @@ zusammen.
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 \includegraphics[width=\textwidth]{../sampling/Sampling_07_ReconstructedSine_EF235EE3D8.pdf}
-\caption{Rekonstruierter Ausgang $X_\mathrm{r}(\im\omega)$.}
+\caption{Rekonstruierter Ausgang $X_\mathrm{r}(\omega)$.}
 \label{fig:Sampling_07_ReconstructedSine_EF235EE3D8}
 \end{subfigure}
 \caption{Aufgabe \ref{sec:EF235EE3D8} Frequenzbereich. \texttt{IdealSamplingReconstruction\_EF235EE3D8.ipynb}}
@@ -1035,19 +1039,19 @@ und außerhalb dieses Zeitbereichs Null ist, also ein einmaliger Vorgang.
 Wenn wir weiter annehmen, dass die Amplitude in dieser Periode beschränkt ist,
 können wir die Fouriertransformierte
 \begin{align}
-  X(\im\omega) = \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}} x(t) \e^{-\im\omega t} \fsd t
+  X(\omega) = \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}} x(t) \e^{-\im\omega t} \fsd t
 \end{align}
 ansetzen.
 Nun können wir für $x(t)$ die Syntheseformel der komplexen Fourierreihe einsetzen,
 also
 \begin{align}
-X(\im\omega) = \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}
+X(\omega) = \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}
 \left(\frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \e^{\im\,(\omega_s \nu)\cdot t}\right)
 \e^{-\im\omega t} \fsd t.
 \end{align}
 Das lässt sich umstellen und ausrechnen zu
 \begin{align}
-&X(\im\omega) = \frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
+&X(\omega) = \frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
 \int\limits_{-\frac{T_s}{2}}^{+\frac{T_s}{2}}
 \e^{-\im (\omega-\nu\omega_s) t} \fsd t=
 \frac{1}{T_s}\sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]
@@ -1056,7 +1060,7 @@ Das lässt sich umstellen und ausrechnen zu
 %\end{align}
 %Grenzen einsetzen und wie üblich (siehe Übung 1) vereinfachen
 %\begin{align}
-&X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]\left(
+&X(\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s]\left(
 -\frac{\e^{-\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{2 \im (\omega-\nu\omega_s) \frac{T_s}{2}}+
 \frac{\e^{\im (\omega-\nu\omega_s)\frac{T_s}{2}}}{2 \im (\omega-\nu\omega_s) \frac{T_s}{2}}\right)
 =
@@ -1066,7 +1070,7 @@ Das lässt sich umstellen und ausrechnen zu
 Wenn wir mit $T_s=\frac{2\pi}{\omega_s}$ den sinc noch umschreiben
 \begin{align}
 \label{eq:SamplingFreqSincInterp}
-X(\im\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot
+X(\omega) = \sum_{\nu=-\infty}^{+\infty} X[\nu\,\omega_s] \cdot
 \mathrm{sinc}\left(\pi\cdot\frac{\omega-\nu\omega_s}{\omega_s}\right),
 \end{align}
 dann erkennen wir eine \textbf{verblüffende Ähnlichkeit mit der Sinc-Interpolation
@@ -1075,7 +1079,7 @@ im Zeitbereich} \eq{eq:EF235EE3D8:ZeitSincInterpolation}.
 Wir können mutmaßen (es ist tatsächlich so), dass wir es hier mit einem
 Abtast- und Rekonstruktionsproblem zu tun haben und gerade die Rekonstruktionsformel
 neu erfunden haben, über die sich die Fourierreihe $X[\nu\,\omega_s]$
-und die Fouriertransformation $X(\im\omega)$
+und die Fouriertransformation $X(\omega)$
 verknüpfen lassen: Wir tasten Spektren ab und rekonstruieren diese.
 
 Es ist nun sinnvoll, wenn wir zur Übung~\ref{sec:ue1_intro} (1) springen,
@@ -1119,7 +1123,7 @@ jetzige Notation mit $\omega_s=\frac{2\pi}{T_s}$.
 \draw[-, C7, thin] (0.5,0) -- (0.5,1.1) node[above] {$\frac{T_\mathrm{s}}{2}$};
 \draw[-, C7, thin] (-0.5,0) -- (-0.5,1.1) node[above] {$\frac{-T_\mathrm{s}}{2}$};
 \draw[-, black, ultra thick] (3.5,-1.1) node[left]
-{Glg.~\eqref{eq:8C3958BE4F_Loesung} (1.22): $X(\im \omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
+{Glg.~\eqref{eq:8C3958BE4F_Loesung} (1.22): $X(\omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})$}; %hard coded ref!!!
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -1199,15 +1203,15 @@ Für das dargestellte Abtast- und Rekonstruktionsmodell von Spektren
 \end{scope}
 %
 \begin{scope}[shift={(8,0)}]
-\node (input) {$\displaystyle X(\im\omega)$};
+\node (input) {$\displaystyle X(\omega)$};
 \node [draw, circle, right=of input, minimum size=7.5mm] (op1) {$\cdot$};
-\node [above=of op1] (sop1) {$S(\im\omega)$};
+\node [above=of op1] (sop1) {$S(\omega)$};
 \node [draw, circle, right=of op1, minimum size=7.5mm, xshift=0.5cm] (op2) {$\ast_\omega$};
-\node [above=of op2] (sop2) {$H_\mathrm{r}(\im\omega)$};
+\node [above=of op2] (sop2) {$H_\mathrm{r}(\omega)$};
 \node [block, right=of op2] (mult) {$\frac{1}{2\pi}$};
-\node [right=of mult] (output) {$X_\mathrm{r}(\im\omega)$};
+\node [right=of mult] (output) {$X_\mathrm{r}(\omega)$};
 \draw [->] (input) -- (op1);
-\draw [->] (op1) node[below, xshift=0.9cm, yshift=0cm] {$X_\mathrm{s}(\im\omega)$} -- (op2);
+\draw [->] (op1) node[below, xshift=0.9cm, yshift=0cm] {$X_\mathrm{s}(\omega)$} -- (op2);
 \draw [->] (op2) -- (mult);
 \draw [->] (mult) -- (output);
 \draw [->] (sop1) -- (op1);
@@ -1217,18 +1221,18 @@ Für das dargestellte Abtast- und Rekonstruktionsmodell von Spektren
 \end{center}
 soll für
 \begin{align}
-X(\im\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})\qquad
+X(\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})\qquad
 %
-S(\im\omega)=\frac{1}{\omega_s}\Sha(\frac{\omega}{\omega_s})\qquad
+S(\omega)=\frac{1}{\omega_s}\Sha(\frac{\omega}{\omega_s})\qquad
 %
 h_r(t) = \frac{2\pi}{T_s}\mathrm{rect}(\frac{t}{T_s})
 \end{align}
-die Abtastung von $X(\im\omega)$ und die Rekonstruktion zu $X_\mathrm{r}(\im\omega)$
+die Abtastung von $X(\omega)$ und die Rekonstruktion zu $X_\mathrm{r}(\omega)$
 mit $\omega_s = 3 \pi$ berechnet und skizziert werden.
 
 \begin{itemize}
   \item Berechnen und skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
-  \item Berechnen und skizzieren Sie alle Spektren, d.h.  $X(\im\omega)$, $S(\im\omega)$, $X_\mathrm{s}(\im\omega)$, $H_\mathrm{r}(\im\omega)$ und $X_\mathrm{r}(\im\omega)$
+  \item Berechnen und skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$
   \item Ist die Rekonstruktion des Spektrums erfolgreich?
 \end{itemize}
 
@@ -1248,13 +1252,13 @@ $$T_s = \frac{2\pi}{\omega_s} = \frac{2}{3}$$
 \begin{align}
 x(t) = \frac{9}{2} \mathrm{rect}(3 t)
 \quad\fourier\quad
-X(\im\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})
+X(\omega) = \frac{3}{2}\mathrm{sinc}(\frac{\omega}{6})
 \end{align}
 allgemeiner mit $A = \frac{9}{2}$ und $T_h=\frac{1}{3}$:
 \begin{align}
 x(t) = A \mathrm{rect}(\frac{t}{T_h})
 \quad\fourier\quad
-X(\im\omega) = A T_h\mathrm{sinc}(\frac{\omega T_h}{2})
+X(\omega) = A T_h\mathrm{sinc}(\frac{\omega T_h}{2})
 \end{align}
 %
 \textbf{Abtastung, Signal und Spektrum}:
@@ -1273,17 +1277,17 @@ Der Dirac Impuls Kamm im Frequenzbereich aus der Aufgabenstellung ist nun noch
 was wir beidseitig einführen (Linearitätseigenschaft)
 \begin{align}
 s(t) = \frac{1}{\omega_s}\cdot\frac{1}{T_\mathrm{s}} {\Sha}(\frac{t}{T_\mathrm{s}}) &\quad\fourier\quad
-S(\im\omega) = \frac{1}{\omega_s} {\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi}) =
+S(\omega) = \frac{1}{\omega_s} {\Sha}(\frac{\omega T_\mathrm{s}}{2 \pi}) =
 \frac{1}{\omega_s}\Sha(\frac{\omega}{\omega_\mathrm{s}})\\
 s(t) = \frac{1}{\omega_s} \sum_{m=-\infty}^{+\infty} \delta(t-m T_\mathrm{s}) &\quad\fourier\quad
-S(\im\omega) = \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
+S(\omega) = \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
 \end{align}
 %
 Für das \textbf{Rekonstruktionszeitfenster} können wir direkt aus der Formelsammlung
 \begin{align}
 h_r(t) = \frac{2\pi}{T_s}\mathrm{rect}(\frac{t}{T_s})
 \quad\fourier\quad
-H_r(\im\omega) = 2\pi \mathrm{sinc}(\frac{\omega T_s}{2})
+H_r(\omega) = 2\pi \mathrm{sinc}(\frac{\omega T_s}{2})
 \end{align}
 ableiten...auch eine sehr bekannte Korrespondenz.
 %
@@ -1410,13 +1414,13 @@ Es ist im Grunde aber die gleiche Rechnung wie in der vorangegangenen Aufgabe.
 
 Abtastung eines Spektrums ist Multiplikation mit Dirac Impulskamm im Frequenzbereich:
 \begin{align}
-X_s(\im\omega)
-&= X(\im\omega) \cdot S(\im\omega)\\
+X_s(\omega)
+&= X(\omega) \cdot S(\omega)\\
 &= A T_h\mathrm{sinc}(\frac{\omega T_h}{2}) \cdot \sum_{\nu=-\infty}^{+\infty} \delta(\omega-\nu \omega_s)
 \end{align}
 Das schreit nach Multiplikationseigenschaft beim Dirac
 \begin{align}
-X_s(\im\omega)
+X_s(\omega)
 &= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\omega T_h}{2}) \delta(\omega-\nu \omega_s)\\
 &= A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)
 \end{align}
@@ -1430,8 +1434,8 @@ und geschickt umformen zur Sinc-Interpolation, diesmal im Frequenzbereich.
 %
 Also, Ansatz
 \begin{align}
-X_r(\im\omega)
-=& \frac{1}{2\pi} X_s(\im\omega) \ast_\omega H_r(\im\omega)\\
+X_r(\omega)
+=& \frac{1}{2\pi} X_s(\omega) \ast_\omega H_r(\omega)\\
 =& \frac{1}{2\pi} \left(A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\omega-\nu \omega_s)\right)
 \ast_\omega \left(2\pi \mathrm{sinc}(\frac{\omega T_s}{2})\right)
 \end{align}
@@ -1443,7 +1447,7 @@ X_r(\omega) = \frac{1}{2\pi}\int\limits_{\xi=-\infty}^{+\infty} X_s(\xi) \cdot H
 \end{align}
 ausformuliert
 \begin{align}
-X_r(\im\omega)
+X_r(\omega)
 =& \frac{1}{2\pi} \int\limits_{\xi=-\infty}^{+\infty}
 \left(A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\xi-\nu \omega_s)\right)
 \left(2\pi \mathrm{sinc}(\frac{(-\xi + \omega) T_s}{2})\right)
@@ -1451,7 +1455,7 @@ X_r(\im\omega)
 \end{align}
 Die $2\pi$ kürzen sich raus, das war intentional so gewollt, damit wir amplitudengetreu rekonstruieren können.
 \begin{align}
-X_r(\im\omega)
+X_r(\omega)
 =& A T_h \int\limits_{\xi=-\infty}^{+\infty}
 \left(\sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2}) \delta(\xi-\nu \omega_s)\right)
 \left(\mathrm{sinc}(\frac{(-\xi + \omega) T_s}{2})\right)
@@ -1459,7 +1463,7 @@ X_r(\im\omega)
 \end{align}
 Reihenfolge Integral und Summe
 \begin{align}
-X_r(\im\omega)
+X_r(\omega)
 =& A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})
 \int\limits_{\xi=-\infty}^{+\infty}
  \delta(\xi-\nu \omega_s)
@@ -1468,19 +1472,19 @@ X_r(\im\omega)
 \end{align}
 Austasteigenschaft Dirac
 \begin{align}
-X_r(\im\omega)
+X_r(\omega)
 =& A T_h \sum_{\nu=-\infty}^{+\infty} \mathrm{sinc}(\frac{\nu \omega_s T_h}{2})
 \mathrm{sinc}(\frac{(-\nu \omega_s + \omega) T_s}{2})
 \end{align}
 Im Argument der zweiten Sinc-Funktion noch mit $\pi$ erweitern bringt uns
 \begin{align}
-X_r(\im\omega)
+X_r(\omega)
 =& \sum_{\nu=-\infty}^{+\infty} \underbrace{A T_h \mathrm{sinc}\left(\nu \omega_s \frac{T_h}{2}\right)}_{\text{Koeff Fourier Reihe}}
 \mathrm{sinc}\left(\pi \frac{\omega -\nu \omega_s}{\omega_s}\right)
-\equiv A T_h \mathrm{sinc}\left(\omega \frac{T_h}{2}\right) = X(\im\omega)
+\equiv A T_h \mathrm{sinc}\left(\omega \frac{T_h}{2}\right) = X(\omega)
 \end{align}
-und damit zu \eqref{eq:SamplingFreqSincInterp}. Die Gleichheit $X_r(\im\omega)
-\equiv X(\im\omega)$ gilt nur, wenn $T_h < T_s$, das ist in unserem Fall erfüllt.
+und damit zu \eqref{eq:SamplingFreqSincInterp}. Die Gleichheit $X_r(\omega)
+\equiv X(\omega)$ gilt nur, wenn $T_h < T_s$, das ist in unserem Fall erfüllt.
 Der mathematisch strenge Beweis zu dieser Formel wurde erstmal von Kotelnikov 1933 geführt, der
 heute als Urheber des Abtasttheorems gilt.
 
