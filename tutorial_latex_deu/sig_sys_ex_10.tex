@@ -3,20 +3,22 @@
 \label{sec:ue10_dtft}
 
 Die DTFT ist eine von vier Fouriertransformationen, nämlich die FT für
-zeitdiskrete Signale, welche nicht notwendigerweise periodisch sind
+die zeitdiskreten Signale, welche nicht notwendigerweise periodisch
 und für $-\infty \leq k \leq +\infty$ definiert sind.
-Diese Signale werden bzgl. der digitalen Kreisfrequenz $\Omega$ analysiert.
+Diese Folgen werden bzgl. der kontinuierlichen, digitalen Kreisfrequenz $\Omega$
+analysiert.
 %
 Die \textbf{Analyseformel} lautet daher
 \begin{align}
-X(\e^{\im\Omega}) = \sum\limits_{k=-\infty}^{+\infty} x[k] \e^{-\im\Omega k}
+X(\Omega) = \sum\limits_{k=-\infty}^{+\infty} x[k] \, \e^{-\im\Omega k}
 \end{align}
 %
 Damit steht die DTFT in enger Verbindung zur $z$-Transformation
 \begin{align}
-X(z) = \sum\limits_{k=-\infty}^{+\infty} x[k] z^{-k}
+X(z) = \sum\limits_{k=-\infty}^{+\infty} x[k] \, z^{-k}
 \end{align}
-wenn wir für die komplexe Zahl $z$ nur komplexe Zahlen mit Betrag 1 zulassen.
+wenn wir für die komplexe Zahl $z$ nur diese mit dem Betrag 1 zulassen, d.h.
+für alle $z$ für die $|z|=1$ gilt.
 %
 Wir erinnern uns an die komplexe Frequenz $z=\e^\Sigma \e^{\im\Omega}$.
 %
@@ -49,7 +51,7 @@ der Übertragungsfunktion $H(z)$ auf dem Einheitskreis.
 %
 Wir werden die \textbf{Rücktransformation}
 \begin{align}
-x[k] = \frac{1}{2\pi} \int\limits_{0}^{2\pi} X(\e^{\im\Omega}) \e^{+\im\Omega k} \fsd \Omega
+x[k] = \frac{1}{2\pi} \int\limits_{0}^{2\pi} X(\Omega) \e^{+\im\Omega k} \fsd \Omega
 \end{align}
 im Rahmen der Übung mit bekannten Korrespondenzen
 \begin{align}
@@ -60,7 +62,7 @@ im Rahmen der Übung mit bekannten Korrespondenzen
 \e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}\\
 &\e^{+\im \Omega_0 k} \dtft \Sha\left(\frac{\Omega-\Omega_0}{2\pi}\right)
 \end{align}
-meistern, wofür der DTFT-Operator $x[k] \,\dtft\, X(\e^{\im\Omega})$ gilt.
+meistern, wofür der DTFT-Operator $x[k] \,\dtft\, X(\Omega)$ gilt.
 %
 Die letzte Korrespondenz bildet Eigenfunktionen für LTI-Systeme in den Bildbereich ab.
 Das zugehörige DTFT-Spektrum ist ein Dirac Impuls Kamm und unten beispielhaft skizziert.
@@ -70,7 +72,7 @@ Das zugehörige DTFT-Spektrum ist ein Dirac Impuls Kamm und unten beispielhaft s
 \begin{scope}
 \draw[help lines, C7!50, step=0.5cm] (-4,0) grid (4,1);
 \draw[->] (-4 ,0) -- (4.75,0) node[right]{$\Omega$};
-\draw[->] (0,-0.1) -- (0,1.75) node[above]{$x[k]=\e^{\im\Omega_0 k} \dtft X(\e^{\im\Omega})=\Sha(\frac{\Omega-\Omega_0}{2\pi})$ für $\Omega_0>0$};
+\draw[->] (0,-0.1) -- (0,1.75) node[above]{$x[k]=\e^{\im\Omega_0 k} \dtft X(\Omega)=\Sha(\frac{\Omega-\Omega_0}{2\pi})$ für $\Omega_0>0$};
 \draw[->, C0, line width=1mm] (0.5,0) node[below]{$\Omega_0$} -- (0.5,1) node[above]{$(2\pi)$};
 \draw[->, C0, line width=1mm] (2.5,0) node[below]{$2\pi+\Omega_0$} -- (2.5,1);
 \draw[->, C0, line width=1mm] (4.5,0) -- (4.5,1);
@@ -114,9 +116,9 @@ zeitliche Verschiebung = Phasenverschiebung im Spektrum und anders rum
 \begin{Ansatz}
 Umweg über Bildbereich:
 \begin{align}
-h[k]\dtft H(\e^{\im\Omega}),\quad x[k]\dtft X(\e^{\im\Omega}),\quad
-Y(\e^{\im\Omega}) = H(\e^{\im\Omega}) \cdot X(\e^{\im\Omega}),\quad
-y[k] \DTFT Y(\e^{\im\Omega})
+h[k]\dtft H(\Omega),\quad x[k]\dtft X(\Omega),\quad
+Y(\Omega) = H(\Omega) \cdot X(\Omega),\quad
+y[k] \DTFT Y(\Omega)
 \end{align}
 Zeitbereich direkt:
 \begin{align}
@@ -127,14 +129,14 @@ y[k] = \sum_{\kappa=-\infty}^{+\infty} x[-\kappa + k] \cdot h[\kappa]
 \textbf{Bildbereich Hin-/Rücktrafo:}
 \begin{align}
 h[k] = \frac{1}{2}\delta[k] - \frac{1}{2}\delta[k-2]\quad\dtft\quad
-H(\e^{\im\Omega}) = \frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\\
+H(\Omega) = \frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\\
 x[k]=\e^{+\im \frac{\pi}{4} k} \quad\dtft\quad
-X(\e^{\im\Omega}) = \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
+X(\Omega) = \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
 %
 \begin{align}
-Y(\e^{\im\Omega}) = H(\e^{\im\Omega}) \cdot X(\e^{\im\Omega})\\
-Y(\e^{\im\Omega}) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)
+Y(\Omega) = H(\Omega) \cdot X(\Omega)\\
+Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
@@ -150,21 +152,21 @@ Genau genommen müssen wir diese Multiplikationseigenschaft nun für alle Dirac 
 im Dirac Impulskamm anwenden (eine Skizze zur Lage der Impulse bzgl. der Frequenz
 hilft vielleicht).
 %
-Wir finden dann, dass für genau die $\Omega=\frac{\pi}{4}\pm\nu 2\pi$ für $\nu\in\mathbb{N}$
+Wir finden dann, dass für genau die $\Omega=\frac{\pi}{4}\pm 2\pi \cdot m$ für $m\in\mathbb{N}$
 die Multiplikationseigenschaft 'zuschlägt':
 \begin{align}
-Y(\e^{\im\Omega}) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)
+Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 =
-Y(\e^{\im\Omega}) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)\bigg|_{\Omega=\frac{\pi}{4}\pm\nu 2\pi}
+Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)\bigg|_{\Omega=\frac{\pi}{4}\pm 2\pi \cdot m}
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
-Das lässt sich nun vereinfachen, weil die $\e^{\pm \nu \im 4 \pi}=1$ Vieldeutigkeit
+Das lässt sich nun vereinfachen, weil die $\e^{\pm \im 4 \pi \cdot m}=1$ Vieldeutigkeit
 im komplexen Dreher nicht mehr weiter berücksichtigt werden muss
 \begin{align}
-Y(\e^{\im\Omega}) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im \frac{\pi}{2}}\right)
+Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im \frac{\pi}{2}}\right)
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi}) =
 \left(\frac{1}{2} + \frac{1}{2} \im \right)
@@ -178,7 +180,7 @@ Der Faktor $\frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}}$ bleibt wegen Linearitäts
 der DTFT im Zeitbereich erhalten, das Zeitsignal zu $\Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})$
 kennen wir vom Beginn unserer Rechnung
 \begin{align}
-Y(\e^{\im\Omega}) \quad\DTFT\quad y[k] = \frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}} \cdot \e^{+\im \frac{\pi}{4} k}=
+Y(\Omega) \quad\DTFT\quad y[k] = \frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}} \cdot \e^{+\im \frac{\pi}{4} k}=
 \frac{1}{\sqrt{2}} \e^{+\im \frac{\pi}{4} (k+1)} = \frac{1}{\sqrt{2}} x[k+1].
 \end{align}
 
@@ -639,7 +641,7 @@ Die DTFT Analyse Formel (das ist ja der Speziallfall
 z-Transformierte auf dem Einheitskreis, weil $z=\e^{\Sigma+\im\Omega}$ mit
 $\Sigma=0$) führt daher auf das gleiche Ergebnis
 \begin{align}
-H_0(\e^{\im\Omega}) = \sum_{k=-\infty}^{+\infty} h_0[k] \e^{-\im\Omega k}=
+H_0(\Omega) = \sum_{k=-\infty}^{+\infty} h_0[k] \e^{-\im\Omega k}=
 \end{align}
 Diese unendliche Summe hat aber nur Einträge für
 \begin{align}
@@ -657,7 +659,7 @@ Diese unendliche Summe hat aber nur Einträge für
 \end{align}
 und führt daher zum gleichen Ergebnis wie $H_0(z)\bigg|_{z=\e^{\im\Omega}}$, also
 \begin{align}
-H_0(\e^{\im\Omega})
+H_0(\Omega)
 =
 \e^{\im 5 \Omega} + \e^{\im 3 \Omega} + \nicefrac{17}{4}\cdot \e^{\im \Omega}
  + \nicefrac{17}{4}\cdot \e^{-\im\Omega} + \e^{-\im 3 \Omega} + \e^{-\im 5 \Omega}.
@@ -669,7 +671,7 @@ stehen, die wir mühsam umformen hätten müssen um in Betrag und Phase aufteile
 So aber bekommen wir vergleichsweise elegant
 \begin{align}
 \label{eq:64BE42BAEF_H0}
-H_0(\e^{\im\Omega}) = 2 \cos(5\Omega) + 2 \cos(3\Omega) + \nicefrac{17}{2} \cos(\Omega),
+H_0(\Omega) = 2 \cos(5\Omega) + 2 \cos(3\Omega) + \nicefrac{17}{2} \cos(\Omega),
 \end{align}
 was in \fig{fig:fir_filter_64BE42BAEF_zerophase} skizziert ist.
 %
@@ -678,30 +680,30 @@ mit 1 (grün), 3 (orange)
 bzw. 5 (grün ) Schwingungen pro $2\pi$ über $\Omega$.
 %
 Wir müssen uns hier klar sein, dass ein DTFT-Spektrum $2\pi$-periodisch ist, d.h.
-$X(\Omega) = X(\Omega \pm \nu 2\pi)$ mit $\nu\in\mathbb{Z}$. Wir sehen in den
+$X(\Omega) = X(\Omega \pm 2\pi \cdot m)$ mit $m\in\mathbb{Z}$. Wir sehen in den
 Grafiken nur den
 Ausschnitt $0\leq \Omega < 2\pi$. Diese Darstellung oder die Wahl von
 $-\pi\leq \Omega < \pi$ sind die gebräuchlichsten, wenn wir
 Spektren von zeitdiskreten Signalen und Spektren skizzieren, dort ist ja
 alle Information enthalten.
 %
-Wir sehen, dass $H_0(\e^{\im \Omega})$ zwischen $\Omega=\frac{\pi}{2}$ und $\Omega=\frac{3\pi}{2}$
+Wir sehen, dass $H_0(\Omega)$ zwischen $\Omega=\frac{\pi}{2}$ und $\Omega=\frac{3\pi}{2}$
 negative Amplitude hat, dieses System also einen Polaritätswechsel für diese
 Frequenzen erzeugt.
 Dies spiegelt sich im Phasendiagramm mittels Unstetigkeiten wider.
 
 Das linearphasige System hat den Frequenzgang
 \begin{align}
-H_d(z)\bigg|_{z=\e^{\im\Omega}} = H_d(\e^{\im \Omega}) = \e^{-\im 5 \Omega}
+H_d(z)\bigg|_{z=\e^{\im\Omega}} = H_d(\Omega) = \e^{-\im 5 \Omega}
 \end{align}
 und damit frequenzunabhängig Betrag 1, Pegel 0 dB
 (das ist der Gag an einer reinen digitalen Verzögerung)
 \begin{align}
-|H_d(z)\bigg|_{z=\e^{\im\Omega}}| = |H_d(\e^{\im \Omega})| = 1
+|H_d(z)\bigg|_{z=\e^{\im\Omega}}| = |H_d(\Omega)| = 1
 \end{align}
 und die Phase
 \begin{align}
-\angle H_d(\e^{\im \Omega}) = -5 \Omega.
+\angle H_d(\Omega) = -5 \Omega.
 \end{align}
 Dies ist bzgl. der digitalen Frequenzvariable $\Omega$ eine \textbf{lineare
 Geradengleichung} mit Anstieg $-5$ (abfallend) ohne $y$-Achsen Offset.
@@ -713,9 +715,9 @@ was wir mit \fig{fig:fir_filter_64BE42BAEF_bode_delay} bestätigen können.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{../dtft/fir_filter_64BE42BAEF_zerophase.pdf}
-\caption{Nullphasensystem $H_0(\e^{\im \Omega})$.
+\caption{Nullphasensystem $H_0(\Omega)$.
 Oben: Zerlegung in die cos-Schwingungen \eq{eq:64BE42BAEF_H0}, Summe und Betrag (rot).
-unten: Nullphase von $H_0(\e^{\im \Omega})$ mit
+unten: Nullphase von $H_0(\Omega)$ mit
 Phasensprung durch Polaritätswechsel bei $\Omega=\frac{\pi}{2}$ und $\Omega=\frac{3\pi}{2}$.
 Hier Konvention, dass positive Sprünge um 180 Grad. Der zweite Sprung auf 360 Grad
 (und nicht auf Null zurück), damit Phasenspektrum punktsymmetrisch bzgl.
@@ -727,7 +729,7 @@ $\Omega=0$ bzw. $\Omega=\pi$ wird. \texttt{fir\_filter\_64BE42BAEF.ipynb}
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{../dtft/fir_filter_64BE42BAEF_bode_delay.pdf}
-\caption{Frequenzgang $H_d(\e^{\im \Omega})$ des Linearphasensystems
+\caption{Frequenzgang $H_d(\Omega)$ des Linearphasensystems
 $h_d[k]=\delta[k-5] \ztransf H_d(z)=z^{-5}$. Oben: Pegel, unten: Phase.
 \texttt{fir\_filter\_64BE42BAEF.ipynb}}
 \label{fig:fir_filter_64BE42BAEF_bode_delay}
@@ -735,11 +737,11 @@ $h_d[k]=\delta[k-5] \ztransf H_d(z)=z^{-5}$. Oben: Pegel, unten: Phase.
 %
 
 Den Frequenzgang, also genauer den Pegel und die Phase, des
-Gesamtsystems $H(z)\bigg|_{z=\e^{\im\Omega}} = H(\e^{\im \Omega})$
+Gesamtsystems $H(z)\bigg|_{z=\e^{\im\Omega}} = H(\Omega)$
 erhalten wir nun wieder mit den Regeln des Bodediagramms:
 wir haben zwei Teilsysteme in Reihe. Daher können wir dB und Grad addieren.
-Da das linearphasige System $H_d(\e^{\im \Omega})$ Pegel 0 dB hat, gibt es zwischen
-dem Pegel von $H_0(\e^{\im \Omega})$ und $H(\e^{\im \Omega})$ keinen Unterschied.
+Da das linearphasige System $H_d(\Omega)$ Pegel 0 dB hat, gibt es zwischen
+dem Pegel von $H_0(\Omega)$ und $H(\Omega)$ keinen Unterschied.
 Wir erkennen eine sogenannte Bandstop Filter Charakteristik, d.h. tiefe Frequenzen
 (nahe $\Omega=0$) und hohe Frequenzen (nahe $\Omega=\pi$) werden durch das System
 gelassen und sogar verstärkt um über 20 dB. Frequenzen nahe $\frac{\pi}{2}$ (ein Viertel
@@ -764,8 +766,8 @@ Das Konzept der Gruppenlaufzeit und der Phasenlaufzeit
 gibt es auch für zeitdiskrete Systeme.
 Hier lauten die Berechnungsvorschriften
 \begin{align}
-\tau_\text{GD}(\Omega) = -\frac{\fsd \angle H(\e^{\im \Omega})}{\fsd \Omega}\\
-\tau_\text{PD}(\Omega) = -\frac{\angle H(\e^{\im \Omega})}{\Omega}
+\tau_\text{GD}(\Omega) = -\frac{\fsd \angle H(\Omega)}{\fsd \Omega}\\
+\tau_\text{PD}(\Omega) = -\frac{\angle H(\Omega)}{\Omega}
 \end{align}
 beides in Samples. Mit der Abtastfrequenz $f_s$ wäre
 $\frac{\tau_\text{GD}}{f_s}$ in s.
@@ -846,8 +848,8 @@ wir es unter anderem mit einer zyklischen Faltung im Bildbereich zu tun bekommen
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 767B4C89FE}: Berechnen Sie die DTFT Spektren
 \begin{align}
-X_4(\e^{\im\Omega}) \quad\DTFT\quad & x_4[k] = \mathrm{rect}_4[k]\\
-X_5(\e^{\im\Omega}) \quad\DTFT\quad & x_5[k] = \mathrm{rect}_5[k+2]
+X_4(\Omega) \quad\DTFT\quad & x_4[k] = \mathrm{rect}_4[k]\\
+X_5(\Omega) \quad\DTFT\quad & x_5[k] = \mathrm{rect}_5[k+2]
 \end{align}
 Skizzieren Sie die Zeitfolgen, Betrags- und Phasenspektrum, sowie
 Real- und Imaginärteil über $\Omega$ und diskutieren Sie daran die auftretenden
@@ -855,7 +857,7 @@ Symmetrien der DTFT.
 %
 Machen Sie sich anhand der axialsymmetrischen Folge
 \begin{align}
-X_{31}(\e^{\im\Omega}) \quad\DTFT\quad & x_{31}[k] = \mathrm{rect}_{31}[k+15]
+X_{31}(\Omega) \quad\DTFT\quad & x_{31}[k] = \mathrm{rect}_{31}[k+15]
 \end{align}
 mit der Skizze $\Re\{X_{31}\}$ über $\Omega$ klar, warum die periodische
 Sinc-Funktion ihren Namen trägt.
@@ -866,19 +868,19 @@ Wir brauchen die fundamentale Korrespondenz
 \begin{equation}
 x[k] = \mathrm{rect}_N[k]
 \dtft
-X(\e^{\im\Omega})=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+X(\Omega)=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 und den Verschiebungssatz
 \begin{equation}
 x[k-\kappa]
 \dtft
-X(\e^{\im\Omega}) \cdot \e^{-\im\Omega\kappa}
+X(\Omega) \cdot \e^{-\im\Omega\kappa}
 \end{equation}
 \end{Werkzeug}
 \begin{Ansatz}
 DTFT Hintransformation für $N$ allgemein
 \begin{align}
-X(\e^{\im\Omega})
+X(\Omega)
 =& \sum_{k=-\infty}^{+\infty} \mathrm{rect}_N[k] \, \e^{-\im\Omega k}\\
 =& \sum_{k=0}^{N-1} \e^{-\im\Omega k}
 \end{align}
@@ -896,18 +898,18 @@ aus der wiederum eine endlich Rechteckfolge zusammensetzbar ist (siehe
 Die endliche Summe aus unserem Ansatz
 \begin{align}
 \label{eq:ue10_sum_to_psinc}
-X(\e^{\im\Omega})
+X(\Omega)
 = \sum_{k=-\infty}^{+\infty} \mathrm{rect}_N[k] \, \e^{-\im\Omega k} = \sum_{k=0}^{N-1} \e^{-\im\Omega k}
 \end{align}
 ist eine geometrische Reihe mit bekannter geschlossener Lösung
 \begin{equation}
-X(\e^{\im\Omega})=\frac{1-\e^{-\im\Omega N}}{1-\e^{-\im\Omega}}.
+X(\Omega)=\frac{1-\e^{-\im\Omega N}}{1-\e^{-\im\Omega}}.
 \end{equation}
 %
 Wir können das umformen
 %
 \begin{equation}
-X(\e^{\im\Omega})=\frac{\e^{-\im\frac{\Omega N}{2}}}{\e^{-\im\frac{\Omega}{2}}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
+X(\Omega)=\frac{\e^{-\im\frac{\Omega N}{2}}}{\e^{-\im\frac{\Omega}{2}}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
 =\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
 =\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)},
 \end{equation}
@@ -934,39 +936,40 @@ implementiert, siehe
 
 Daher können wir das DTFT Spektrum der Rechteckfolge mit Länge $N$ als
 \begin{equation}
-X(\e^{\im\Omega})=
+X(\Omega)=
 \mathrm{psinc}_N(\Omega) \cdot N \cdot \e^{-\im\frac{\Omega(N-1)}{2}}
 \end{equation}
 schreiben.
 %
-Es ist wichtig sich klarzumachen, dass $\mathrm{psinc}_N(\Omega)$
+Es ist wichtig sich klarzumachen, dass $\mathrm{psinc}_N(\Omega)$ alleine
 \begin{itemize}
 \item $4\pi$ periodisch für gerade $N$ (wegen Hauptmaxima mit alternierendem Vorzeichen)
 \item $2\pi$ periodisch für ungerade $N$ (alle Hauptmaxima mit positiver Amplitude)
 \end{itemize}
-Der Betrag ist immer $2\pi$-periodisch.
+Der Betrag $|\mathrm{psinc}_N(\Omega)|$, sowie $X(\Omega)$ (also psinc mit Phasenterm)
+sind immer $2\pi$-periodisch.
 \end{ExCalc}
 
 
 \begin{Loesung}
 Für $x_4[k]$ müssen wir einfach nur $N$ in das Spektrum einsetzen
 \begin{equation}
-X_4(\e^{\im\Omega})=\e^{-\im\frac{3\Omega}{2}}\cdot\frac{\sin\left(4\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+X_4(\Omega)=\e^{-\im\frac{3\Omega}{2}}\cdot\frac{\sin\left(4\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 %
 Für $x_5[k]$ verwenden wir den Verschiebungssatz
 \begin{align}
-x_5[k] = \mathrm{rect}_5[k-(-2)] \quad\dtft\quad X_5(\e^{\im\Omega}) = X(\e^{\im\Omega}) \cdot \e^{-\im\Omega\cdot (-2)}
+x_5[k] = \mathrm{rect}_5[k-(-2)] \quad\dtft\quad X_5(\Omega) = X(\Omega) \cdot \e^{-\im\Omega\cdot (-2)}
 \end{align}
 Wir bekommen
 \begin{equation}
-X_5(\e^{\im\Omega})
+X_5(\Omega)
 =\e^{-\im\frac{4\Omega}{2}}\cdot\frac{\sin\left(5\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}  \cdot \e^{-\im\Omega\cdot (-2)}=
 \frac{\sin\left(5\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 Der gleiche Ansatz führt für $x_{31}[k]$ zu
 \begin{equation}
-X_{31}(\e^{\im\Omega}) = \frac{\sin\left(31\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+X_{31}(\Omega) = \frac{\sin\left(31\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 %
 Diese speziell gewählten Zeitverschiebungen um $\frac{N-1}{2}$ hat bei ungeraden
@@ -1079,37 +1082,36 @@ mit $x_1[k] = \e^{+\im\frac{\pi}{2} k}$, $x_2[k] = \e^{+\im\frac{3\pi}{4} k}$
 und $w[k] = \mathrm{rect}_8[k]$.
 %
 Skizzieren Sie die DTFT-Betragsspektren von $x_1[k]$, $x_2[k]$,
-der zeitlich begrenzten Folgen $w[k] \cdot x_1[k]$, $w[k] \cdot x_2[k]$, sowie
-des zeitlich begrenzten Gesamtsignals $w[k] \cdot x[k]$.
+der zeitlich begrenzten Folgen $w[k] \cdot x_1[k]$ und $w[k] \cdot x_2[k]$, sowie
+des zeitlich begrenzten Gesamtsignals $x[k]$.
 
 
 \begin{Werkzeug}
 DTFT-Korrespondenzen:
 \begin{align}
 \e^{+\im\Omega_0 k} \quad\dtft\quad \Sha(\frac{\Omega-\Omega_0}{2\pi})
-= 2\pi \sum\limits_{\mu=-\infty}^{+\infty}
-\delta(\Omega-\Omega_0 + 2\pi\mu)
+= 2\pi \sum\limits_{m=-\infty}^{+\infty}
+\delta(\Omega-\Omega_0 + 2\pi\cdot m)
 \end{align}
 %
 \begin{equation}
 w[k] = \mathrm{rect}_N[k]
 \quad\dtft\quad
-W(\e^{\im\Omega})=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+W(\Omega)=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 %
 Multiplikation / Faltung Dualität (hier als $2\pi$ zyklische Faltung im Spektralbereich):
 \begin{align}
-x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} X(\e^{\im \Omega}) \circledast_{2\pi} W(\e^{\im \Omega})
+x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} X(\Omega) \circledast_{2\pi} W(\Omega)
 \end{align}
 %
-Funktionsargument $\Omega$ statt $\e^{\im \Omega}$ erscheint ab jetzt eleganter,
-weil kürzer und für die benötigte Rechenoperation eindeutiger:
+Faltungsintegral ausgeschrieben
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
-\int\limits_{\nu=0}^{2\pi} X(\nu) \cdot W(-\nu + \Omega) \fsd \nu =
-\int\limits_{\nu=0}^{2\pi} X(-\nu+\Omega) \cdot W(\nu) \fsd \nu
+\int\limits_{O=0}^{2\pi} X(O) \cdot W(-O + \Omega) \fsd O =
+\int\limits_{O=0}^{2\pi} X(-O+\Omega) \cdot W(O) \fsd O
 \end{align}
-Hilfsvariable für Frequenzspiegelung und -verschiebung ist $\nu$.
+Hilfsvariable für Frequenzspiegelung und -verschiebung ist $O$ (also Großbuchstabe O wegen Link zu Omega).
 \end{Werkzeug}
 \begin{Ansatz}
 In Aufgabe~\ref{sec:610482EF57} (4.1) hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
@@ -1174,27 +1176,28 @@ die zyklische Faltung im Frequenzbereich eine wichtige Rolle spielt,
 und im Laufe der Rechnung ein paar Klassiker beim Umformen von komplexen Drehern
 und Stolpersteine bzgl. der psinc auf uns warten. Daher:
 %
-Faltungsintegral mit Hilfsvariable $\nu$, Summe des Dirac Impulskamms mittels
-Hilfsvariable $\mu$.
+Faltungsintegral mit Hilfsvariable $O$ (Großbuchstabe O als Link zu Omega),
+Summe des Dirac Impulskamms mittels
+Hilfsvariable $m$.
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
-\int\limits_{\nu=0}^{2\pi} X(\nu) \cdot W(-\nu + \Omega) \fsd \nu =
-\int\limits_{\nu=0}^{2\pi} X(-\nu+\Omega) \cdot W(\nu) \fsd \nu
+\int\limits_{O=0}^{2\pi} X(O) \cdot W(-O + \Omega) \fsd O =
+\int\limits_{O=0}^{2\pi} X(-O+\Omega) \cdot W(O) \fsd O
 \end{align}
 %
-Wählen wir, weil es eleganter erscheint die Form mit $W(\nu)$
+Wählen wir, weil es eleganter erscheint die Form mit $W(O)$
 \begin{align}
-w[k] \cdot x_1[k]\dtft
+&w[k] \cdot x_1[k]\dtft
 \frac{1}{2\pi}
 X_1(\Omega) \circledast_{2\pi} W(\Omega)
-=
-\frac{1}{2\pi}
-\int\limits_{\nu=0}^{2\pi}
-2\pi \sum\limits_{\mu=-\infty}^{+\infty}
-\delta(-\nu+\Omega-\Omega_1 + 2\pi\mu)
+=\\
+&\frac{1}{2\pi}
+\int\limits_{O=0}^{2\pi}
+2\pi \sum\limits_{m=-\infty}^{+\infty}
+\delta(-O+\Omega-\Omega_1 + 2\pi\cdot m)
 \cdot
-\e^{-\im\frac{\nu(N-1)}{2}}\,
-\frac{\sin\left(N\frac{\nu}{2}\right)}{\sin\left(\frac{\nu}{2}\right)}\fsd \nu
+\e^{-\im\frac{O(N-1)}{2}}\,
+\frac{\sin\left(N\frac{O}{2}\right)}{\sin\left(\frac{O}{2}\right)}\fsd O
 \end{align}
 Die Summe ist der Dirac Impuls Kamm ausgeschrieben. Nun kürzen sich die beiden
 $2\pi$-Terme, das ist gut, weil die Diracs mit Gewicht 1 agieren müssen, das
@@ -1203,61 +1206,61 @@ Daher den $\frac{1}{2\pi}$-Term bei Faltung nicht vergessen.
 %
 \begin{align}
 w[k] \cdot x_1[k]\dtft=
-\int\limits_{\nu=0}^{2\pi}
-\sum\limits_{\mu=-\infty}^{+\infty}
-\delta(-\nu+\Omega-\Omega_1 + 2\pi\mu)
+\int\limits_{O=0}^{2\pi}
+\sum\limits_{m=-\infty}^{+\infty}
+\delta(-O+\Omega-\Omega_1 + 2\pi\cdot m)
 \cdot
-\e^{-\im\frac{\nu(N-1)}{2}}\,
-\frac{\sin\left(N\frac{\nu}{2}\right)}{\sin\left(\frac{\nu}{2}\right)}\fsd \nu
+\e^{-\im\frac{O(N-1)}{2}}\,
+\frac{\sin\left(N\frac{O}{2}\right)}{\sin\left(\frac{O}{2}\right)}\fsd O
 \end{align}
 Das Argument des Dirac wird Null (schlampig formuliert:
 an dieser Stelle 'explodiert' der Impuls) wenn
 \begin{align}
-\nu=+\Omega-\Omega_1 + 2\pi\mu.
+O=+\Omega-\Omega_1 + 2\pi\cdot m.
 \end{align}
-Wenn uns die Summe über $\mu$ nervös macht (die kommt vom Dirac Impuls Kamm
+Wenn uns die Summe über $m$ nervös macht (die kommt vom Dirac Impuls Kamm
 der ja auch $2\pi$-periodisch ist), dann spielen wir das für ausgewählte
-$\mu$ durch, bis wir ein Muster finden, was sich analytisch aufschreiben lässt.
+$m$ durch, bis wir ein Muster finden, was sich analytisch aufschreiben lässt.
 %
-Für $\mu=0$ ohne Mühe
+Für $m=0$ ohne Mühe
 \begin{align}
-\nu=+\Omega-\Omega_1
+O=+\Omega-\Omega_1
 \end{align}
 Multiplikationseigenschaft des Diracs anwenden
 \begin{align}
-\text{für   }\mu=0\rightarrow
-\int\limits_{\nu=0}^{2\pi}
-\delta(-\nu+\Omega-\Omega_1)
+\text{für   }m=0\rightarrow
+\int\limits_{O=0}^{2\pi}
+\delta(-O+\Omega-\Omega_1)
 \cdot
 \e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
-\frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}\fsd \nu
+\frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}\fsd O
 \end{align}
 Und weil wir die Integraloperation stehen haben, können wir sogar die
 Austasteigenschaft bemühen (und den Dirac Impuls damit loswerden, der hat dann seine Arbeit verrichtet)
 \begin{align}
-\mu=0\rightarrow
+m=0\rightarrow
 \e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}
 \end{align}
 %
-Schauen wir nun, was für gerade $\mu$, z.B. $\mu=2$, passiert, also zunächst wieder Multiplikationseigenschaft
+Schauen wir nun, was für gerade $m$, z.B. $m=2$, passiert, also zunächst wieder Multiplikationseigenschaft
 ansetzen
 \begin{align}
-\text{für   }\mu=2\rightarrow
-\int\limits_{\nu=0}^{2\pi}
-\delta(-\nu+\Omega-\Omega_1+2 \cdot 2\pi)
+\text{für   }m=2\rightarrow
+\int\limits_{O=0}^{2\pi}
+\delta(-O+\Omega-\Omega_1+2 \cdot 2\pi)
 \cdot
 \e^{-\im\frac{(\Omega-\Omega_1 +2 \cdot  2\pi)(N-1)}{2}}\,
-\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}\fsd \nu
+\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}\fsd O
 \end{align}
 und dann Austasteigenschaft
 \begin{align}
-\mu=2\rightarrow
+m=2\rightarrow
 \e^{-\im\frac{(\Omega-\Omega_1 +2 \cdot  2\pi)(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}
 \end{align}
 %
-Den komplexen Dreher können wir vereinfachen (funktioniert für alle geraden $\mu$)
+Den komplexen Dreher können wir vereinfachen (das funktioniert für alle geraden $m$ gleich)
 \begin{align}
 \e^{-\im\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)(N-1)}{2}} =
 \e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}
@@ -1265,25 +1268,25 @@ Den komplexen Dreher können wir vereinfachen (funktioniert für alle geraden $\
 \end{align}
 und da psinc periodisch in $4\pi$ für gerade $N$ wissen wir, dass
 $\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 4\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 4\pi)}{2}\right)} = \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}$.
-Wir bekommen also das gleiche Spektrum, wie für $\mu=0$
+Wir bekommen also das gleiche Spektrum, wie für $m=0$
 \begin{align}
 \e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}
 \end{align}
 %
-Schauen wir uns das gleiche für ungerade $\mu$, z.B. $\mu=1$ an, also auch wieder
+Schauen wir uns das gleiche für ungerade $m$, z.B. $m=1$ an, also auch wieder
 Multiplikationseigenschaft
 \begin{align}
-\text{für   }\mu=1\rightarrow
-\int\limits_{\nu=0}^{2\pi}
-\delta(-\nu+\Omega-\Omega_1+1\cdot2\pi)
+\text{für   }m=1\rightarrow
+\int\limits_{O=0}^{2\pi}
+\delta(-O+\Omega-\Omega_1+1\cdot2\pi)
 \cdot
 \e^{-\im\frac{(\Omega-\Omega_1 + 1\cdot2\pi)(N-1)}{2}}\,
-\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}\fsd \nu
+\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}\fsd O
 \end{align}
 und Austasteigenschaft
 \begin{align}
-\mu=1\rightarrow
+m=1\rightarrow
 \e^{-\im\frac{(\Omega-\Omega_1 + 1\cdot2\pi)(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}
 \end{align}
@@ -1305,8 +1308,8 @@ Für gerade $N$ gilt hier nun sowohl Drehung der Polarität beim psinc als auch 
 \underbrace{\e^{-\im\frac{-2\pi}{2}}}_{-1}
 \end{align}
 Das Minuszeichen, was wir uns beim psinc 'einhandeln' wird erfreulicherweise
-beim komplexen Dreher wieder kompensiert.  Deswegen bekommen wir für ungerade $\mu$
-auch wieder das gleiche Spektrum wie für $\mu=0$ heraus.
+beim komplexen Dreher wieder kompensiert.  Deswegen bekommen wir für alle ungeraden $m$
+auch wieder das gleiche Spektrum wie für $m=0$ heraus.
 %
 Dies ist nun auch unser Endergebnis der Faltung
 \begin{align}
