@@ -24,7 +24,7 @@ Aus der obigen Definition finden wir, dass
 \int\limits_{t=-\infty}^{+\infty} x(\tau) \, \delta(t-\tau) \, \fsd t \stackrel{\mathrm{def}}= x(\tau)
 \end{align}
 zum gleichen Ergebnis führen, die Ausdrücke innerhalb des 'Integrals' bzgl.
-der Definition also das gleiche machen, damit finden wir die
+der Definition also das gleiche machen, damit finden wir durch Vergleich der Integranden beider Integrale die
 \begin{mdframed}
 Multiplikationseigenschaft
 \begin{align}
@@ -37,16 +37,25 @@ x(t) \, \delta(t) = x(0) \, \delta(t).
 \end{align}
 %
 Beispiel:
+Austasteigenschaft
 \begin{align}
-\int\limits_{t=-\infty}^{+\infty} \cos(\frac{\pi}{4} t) \, \delta(t-\tau) \, \fsd t \stackrel{\mathrm{def}}=\cos(\frac{\pi}{4} \tau)\\
+\int\limits_{t=-\infty}^{+\infty} \cos(\frac{\pi}{4} t) \, \delta(t-\tau) \, \fsd t \stackrel{\mathrm{def}}=\cos(\frac{\pi}{4} \tau)
+\end{align}
+Multiplikationseigenschaft
+\begin{align}
 \cos(\frac{\pi}{4} t) \, \delta(t-\tau) = \cos(\frac{\pi}{4} \tau) \, \delta(t-\tau)
 \end{align}
-für spezielles $\tau=4$
+
+für spezielles $\tau=4$, Austasteigenschaft
 \begin{align}
-\int\limits_{t=-\infty}^{+\infty} \cos(\frac{\pi}{4} t) \, \delta(t-4) \, \fsd t \stackrel{\mathrm{def}}=\cos(\pi) = -1\\
-\cos(\frac{\pi}{4} t) \, \delta(t-4) = \cos(\pi) \, \delta(t-4) = -\delta(t-4)
+\int\limits_{t=-\infty}^{+\infty} \cos(\frac{\pi}{4} t) \, \delta(t-4) \, \fsd t \stackrel{\mathrm{def}}=\cos(\pi) = -1
 \end{align}
 %
+Multiplikationseigenschaft
+\begin{align}
+\cos(\frac{\pi}{4} t) \, \delta(t-4) = \cos(\pi) \, \delta(t-4) = -\delta(t-4)
+\end{align}
+
 Von der Austasteigenschaft zur Faltung:
 \begin{align}
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(\tau-t) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , ausgehend von \eq{eq:AppA_SifitingCT} mit } t \leftrightarrow \tau\nonumber\\
