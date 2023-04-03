@@ -4,7 +4,7 @@
 \section{UE 1: Wiederholung Mathe Fourier-Reihe/-Transformation, Lösen von DGL}
 \label{sec:ue1_intro}
 Zielsetzung / Objectives: Bereits bestehende Kenntnisse aus der Mathematik
-wiederholen und in den Kontext der SigSys einordnen.
+wiederholen oder vielleicht auch erst einführen(?) und in den Kontext der SigSys einordnen.
 %Ausblick was/wie/warum und Verknüpfung mit bereits
 %bekanntem MatheZeug, Begrifflichkeit Signal, System
 
@@ -19,10 +19,12 @@ wiederholen und in den Kontext der SigSys einordnen.
 %Auch wenn SigSys-Hand-Rechnerei veraltet erscheint im vgl zu den 'neuen' trendy Topics, it's fundamental Need to know
 \end{itemize}
 %
-Wir benutzen im Grunde noch kein Signal- und Systemtheorie (SigSys) spezifisches Wissen,
+Wir benutzen noch kein Signal- und Systemtheorie (SigSys) spezifisches Wissen,
 sondern das in Mathe erworbene Wissen zur Fourierreihe und -transformation
-und Differentialgleichungen. Die vergleichsweise einfach gehaltenen
-Übungen dienen aber dazu fundamental wichtige Bausteine der SigSys zu teasen.
+und zu Differentialgleichungen. Die Übungsaufgaben dienen dazu, fundamental
+wichtige Bausteine der SigSys zu teasen und im Grunde in der Mathematik zu verorten,
+SigSys ist ja keine Neuerfindung von Dingen, sondern eine ingenieurig elegante
+Anwendung derer.
 
 
 \newpage
@@ -61,7 +63,7 @@ und Amplitude $A$
 \end{figure}
 %
 \begin{Werkzeug}
-Synthese eines Zeitsignals $x(t)$ mit komplexer Fourierreihe
+Synthese eines in $T$ periodischen Zeitsignals $x(t) = x(t+T)$ mit der komplexen Fourierreihe
 %
 \begin{align}
 x(t)
@@ -69,8 +71,8 @@ x(t)
 &= \frac{1}{T}\sum\limits_{\nu=-\infty}^{+\infty} X_\nu \cdot \e^{+\im \nu \cdot \omega_0 t}
 \end{align}
 %
-Analyse eines periodischen(!) Zeitsignals $x(t)$ mit komplexer Fourierreihe über eine Periodendauer $T$, i.e.
-Berechnung der komplexen Fourierkoeffizienten $X_\nu$
+Analyse eines in $T$ periodischen Zeitsignals $x(t)=x(t+T)$ mit der komplexen Fourierreihe über eine Periodendauer $T$, i.e.
+Berechnung der komplexe-wertigen Fourierkoeffizienten $X_\nu\in\mathbb{C}$
 \begin{equation}
 X_\nu =  \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \nu \cdot \omega_0 t} \mathrm{d}t
 \end{equation}
@@ -82,23 +84,24 @@ Diese Darstellung mag zunächst zugänglicher erscheinen als der komplexe
 Dreher $\e^{\pm\im \nu \cdot \omega_0 t}$, aber die Rechnerei ist am Ende deutlich
 umfangreicher und man muss den Gleichanteil immer speziell berücksichtigen.
 %
-Aus gleichem Grund haben wir in der Elektrotechnik die komplexe
-Wechselstromrechnung eingeführt.
+Aus gleichem Grund der Bequemlichkeit und/oder Eleganz haben wir in der
+Elektrotechnik die komplexe Wechselstromrechnung eingeführt.
 %
 Zudem gestaltet sich das Aufzeigen der Verknüpfungen zu den anderen
-Fourier-Transformationen mit der komplexen Variante deutlich eleganter.
+Fourier-Transformationen mit der komplexen Variante der Fourierreihe sehr sinnvoll
+und hoffentlich erhellend.
 %
 Deshalb werden die Koeffizienten $X_\nu$ auch erst bei der Synthese der
 Fourierreihe mit $\frac{1}{T}$ gewichtet und die Fourier Analyse erfolgt über
-den Zeitraum $-T/2$ bis $T/2$ also axialsymmetrisch zum Ursprung.
+den Zeitraum $-T/2$ bis $T/2$ also axialsymmetrisch zum Koordinatensystem-Ursprung.
 \end{Werkzeug}
 
 \begin{Ansatz}
 %
 Wir müssen innerhalb einer Periode nur die Teile berücksichtigen, wo
-die Funktion nicht Null ist. Am einfachsten ist das, wenn wir den
-Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und daher nur von $-T_h/2$ bis $+T_h/2$
-integrieren.
+die Funktion nicht Null ist. Am einfachsten ist das für unser Rechenbeispiel,
+wenn wir den Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und
+daher nur von $-T_h/2$ bis $+T_h/2$ integrieren.
 \begin{equation}
 X_\nu =  \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \nu \cdot \omega_0 t} \mathrm{d}t
 \end{equation}
@@ -174,7 +177,7 @@ Fourier-Synthese besser zu verstehen.
 %
 Dafür wurde für die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}
 jeweils die Fourierkoeffizienten $X_\nu$ die auf einer sinc-Funktion liegen (links)
-und das rechteck-förmige Signal über die Zeit
+und das zugehörige (synthetisierte) rechteck-förmige Signal über die Zeit
 (rechts) dargestellt.
 Das Tastverhältnis $T_h$ wurde
 variiert, die Amplitude zu $A = 1/T_h$ gewählt, sowie $T=2$ s konstant gehalten.
@@ -189,9 +192,9 @@ nur $X_0 \neq 0$, alle anderen $X_\nu=0$.
 %
 Spannend ist zudem der Fall $\frac{T_h}{T} = 1/2$ in \fig{fig:D1483A84E2_2}:
 hier ist (ausgenommen vom Hauptpeak in der Mitte) jeder zweite $X_\nu=0$,
-weil wir da in Nullstellen der Spalt-Funktion landen.
+weil wir da genau in Nullstellen der Spalt-Funktion landen.
 
-Sehr vereinfacht, aber vom Wesen wichtig:
+Sehr vereinfacht, aber vom Wesen wichtig (ingenieurig denken!):
 Je mehr Gleichsignal, desto mehr Fourierkoeffizienten sind sehr klein bzw. in der Tat $0$,
 tragen also nichts relevantes zur Linearkombination bei der Signalsynthese bei.
 Je mehr impulshafte Änderung
@@ -381,11 +384,11 @@ dünne Rechnerei mit wenig Vertändnis.
 
 Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
 Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
-hinterlegt. Man sieht, dass die Werte der Fourierkoeffizienten $X_\nu$
+hinterlegt. Wir sehen, dass die Werte der Fourierkoeffizienten $X_\nu$
 \eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
 mit den Werten von $X(\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
 $\frac{2\pi}{T} \nu = \nu \cdot \omega_0 = \omega$.
-Dies ist kein Zufall. Das werden wir später als Abtastung kennenlernen.
+Dies ist kein Zufall. Wir werden das später als Abtastung von Spektren kennenlernen.
 
 
 
@@ -442,7 +445,9 @@ Wir wollen uns erarbeiten, wie sich eine Zeitverschiebung des Signals auf die
 Fouriertransformierte auswirkt und damit das sogenannte Verschiebungsgesetz
 kennenlernen und/oder wiederholen.
 Merke bzw. besser sieh in den Formeln:
-Zeitverschiebung bedeutet immer Phasenänderung in der Fouriertransformierten.
+Zeitverschiebung bedeutet immer Phasenänderung in der Fouriertransformierten,
+also im Spektrum. Das gilt allgemein für alle anderen Fourier-Transformationen
+die wir noch kennenlernen werden, lohnt sich also vom Wesen zu verstehen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny A8A2DEE53A}: Berechnen Sie die Fourier-Transformation für
 \begin{itemize}
@@ -535,25 +540,25 @@ Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein Bild zu machen.
 Der Anstieg der Geradenteile lässt sich direkt aus dem komplexen Dreher rauslesen
 zu $-\frac{T_h}{2}$.
 %
-Für die Fouriertransformierte in Betrag und Phase dargestellt, gilt mit $k\in\mathbb{Z}$
+Für die Fouriertransformierte in Betrag und Phase dargestellt, gilt mit $m\in\mathbb{Z}$
 \begin{equation}
 X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
 \cdot  \e^{-\im\omega\frac{T_h}{2}}\cdot
 \begin{cases}
-\e^{\im (0+2\pi k)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
-\e^{\im (\pi + 2\pi k)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\e^{\im (0+2\pi \cdot m)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi \cdot m)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
 \end{cases}
 \end{equation}
 Überall da wo die Spaltfunktion einen Polaritärswechsel macht, entsteht
 eine Phasen-Unstetigkeitstelle, weil die Phase springt um $\pi$ bzw. wegen der
-$2\pi$-Vieldeutigkeit um $\pi + 2\pi k$.
+$2\pi$-Vieldeutigkeit um $\pi + 2\pi m$.
 %
 Die Phasenfunktion ist daher
 \begin{equation}
 \phi(\omega) = -\omega\frac{T_h}{2} +
 \begin{cases}
-2\pi k\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
-\pi + 2\pi k\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+2\pi m\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi m\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
 \end{cases}
 \end{equation}
 Die numpy-Funktion \verb|angle()| wertet die Phase zwischen $-\pi$ und $+\pi$ aus,
@@ -873,7 +878,7 @@ In den bisherigen Aufgaben haben wir uns mit einfachen Signalen und der
 Fouriertransformierten beschäftigt, sprich wir haben geschaut, welche Frequenzen
 stecken mit welcher Amplitude in den untersuchten Signalen.
 %
-Als Spezialfall bekamen wir für periodische Signale Fourierkoeffizienten.
+Als Spezialfall bekamen wir für periodische Signale die komplex-wertigen Fourierkoeffizienten als Linienspektrum-Darstellung.
 %
 Das ist der \textbf{SigSys-Teil: Signalanalyse und -synthese}. Wir werden insgesamt
 \textbf{vier Fouriertransformationen} kennenlernen, alle spezialisiert auf bestimmte
@@ -881,9 +886,9 @@ Signaltypen, zwei kennen wir nun schon ein wenig besser: Fourierreihe und
 Fouriertransformation.
 Die anderen beiden sind
 
-\url{https://de.wikipedia.org/wiki/Diskrete_Fourier-Transformation}
+\url{https://en.wikipedia.org/wiki/Discrete_Fourier_transform}
 
-\url{https://de.wikipedia.org/wiki/Fouriertransformation_für_zeitdiskrete_Signale}
+\url{https://en.wikipedia.org/wiki/Discrete-time_Fourier_transform}
 
 Die Idee mit Korrespondenzen zu arbeiten, bleibt für alle Transformationen
 erhalten. Auch werden wir die Sinc/Rect-Dualitäten immer wieder finden,
@@ -1312,7 +1317,7 @@ ganz oben auf der Liste:
 \label{eq:D410BDAAE0_Loesung1}
 x(t)= \delta(t) &\quad \laplace \quad X(\omega)=1\\
 \label{eq:D410BDAAE0_Loesung2}
-x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,2\pi
+x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,\,2\pi
 \end{align}
 %
 Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
@@ -1414,7 +1419,9 @@ selten Filter, sondern eher Glieder mit z.B. differenzierendem, proportionalem,
 integrierendem, usw. Verhalten.
 %
 Die Brücke zwischen E-Technik und Nachrichten-/Regelungstechnik (und auch
-ganz vielen anderen Disziplinen in denen wir mit Signalen agieren) ist SigSys!
+ganz vielen anderen Disziplinen in denen wir mit Signalen agieren...also
+auch Energietechnik und Leistungselektronik, Wellentheorie wie
+Akustik, Optik, Hochfrequenztechnik usw.) ist SigSys!
 
 Wir werden uns daher in der SigSys einen eleganten Formalismus erarbeiten,
 diesen DGL-Typ für beliebige Störgliedansätze zu lösen (am Ende des Tages
@@ -1744,7 +1751,7 @@ y(t) =
 \frac{1}{A} \, \frac{\e^{\lambda_1 t} - \e^{\lambda_2 t}}{\lambda_1 - \lambda_2}.
 \end{align}
 %
-Soweit, so gut. Schaut aus wie just another Lösung, aber die hat es in sich:
+Soweit, so gut. Schaut aus wie just another Lösung, aber diese hat es in sich:
 %
 
 Erinnern wir uns an den Dirac-Impuls aus Aufgabe \ref{sec:D410BDAAE0},
