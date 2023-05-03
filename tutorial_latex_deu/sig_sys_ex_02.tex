@@ -2427,3 +2427,21 @@ warum SigSys nützlich sein könnte.
 \texttt{convolution\_ct\_example3\_C964DD7400.ipynb}}
 \label{fig:C964DD7400_v2}
 \end{figure*}
+
+\newpage
+Wolfram Alpha löst einfache Faltungen analytisch und plotted die Signalverläufe
+des Ergebnissignals. Folgende Beispiele mit immer
+dem gleichen Rechtecksignal, aber unterschiedlichen Impulsantworten
+
+\verb| Convolve[rect(1/4*(t-2)), 2*exp(-t/(1/2))*Step(t)]|
+
+\verb| Convolve[rect(1/4*(t-2)), tri(t)*Step(t)]|
+
+\verb| Convolve[rect(1/4*(t-2)), tri(t-1) * rect((t-1/2))]|
+
+\verb| Convolve[rect(1/4*(t-2)), rect(t-1/2)]|
+
+verdeutlichen nochmal schön die unterschiedlichen Auflade- und Entlade-Vorgänge
+bedingt durch unterschiedliche Impulsantwortfunktionen. Wenn wir diese Verläufe
+durch Überlegung schematisch herleiten können, haben wir im Grunde das Wesen der
+Faltung verstanden.
