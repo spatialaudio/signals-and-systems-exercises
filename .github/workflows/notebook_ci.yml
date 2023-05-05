@@ -1,0 +1,42 @@
+# this file was taken from the lecture
+# Sascha Spors: "Continuous- and Discrete-Time Signals and Systems - Theory and Computational Examples"
+# see
+# https://github.com/spatialaudio/signals-and-systems-lecture/blob/master/.github/workflows/notebook_ci.yml
+# executes all cells (e.g. numerical examples) in all notebooks
+# by using sphinx with the nbsphinx extension
+
+name: Integration Test
+
+on:
+  push:
+  pull_request:
+
+  schedule:
+    - cron:  '30 1 1,15 * *'
+
+jobs:
+  linux_py38:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - run: sudo apt-get install pandoc
+      - run: pip install -r requirements.txt
+      - run: pip install -r ci/requirements.txt
+      - run: python -m sphinx . _build/ -b html
+
+  linux_py39:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - run: sudo apt-get install pandoc
+      - run: pip install -r requirements.txt
+      - run: pip install -r ci/requirements.txt
+      - run: python -m sphinx . _build/ -b html
