@@ -67,22 +67,24 @@ Calculate the solutions of the 1st order ODE
 \end{align}
 for
 \begin{itemize}
-\item[a)] $x(t) = 0$, $y(0^-)=\frac{1}{\tau}$ (here we solve for the impulse response $y(t)=h(t)$)
+\item[a)] $x(t) = 0$, $y(0^-)=\frac{1}{\tau}$ (here we actually solve for the impulse response $y(t)=h(t)$)
 \item[b)] $x(t) = \epsilon(t)$, $y(0^-)=0$ (here we solve for the step response $y(t)=h_\epsilon(t)$)
 \item[c)] $x(t) = \delta(t)$, $y(0^-)=0$ (here we solve for the impulse response $y(t)=h(t)$)
-\item[d)] $x(t) = \e^{s_0 t}$, $y(0^-)=y_0$, $s_0 \neq \frac{1}{\tau}$ (here we solve for the exponential response)
+\item[d)] $x(t) = \e^{s_0 t}$, $y(0^-)=y_0$, $s_0 \neq \frac{1}{\tau}$ (here we solve for the general exponential response)
 \end{itemize}
 
-We might check the brilliant textbook \cite{Strang2014} and the MIT OCW course 18.009 \url{https://ocw.mit.edu/courses/res-18-009-learn-differential-equations-up-close-with-gilbert-strang-and-cleve-moler-fall-2015/pages/differential-equations-and-linear-algebra/}; for german readers \cite{Burg2013} might be another useful ressource.
+We might check the brilliant textbook \cite{Strang2014} and the MIT OCW course 18.009 at \url{https://ocw.mit.edu/courses/res-18-009-learn-differential-equations-up-close-with-gilbert-strang-and-cleve-moler-fall-2015/pages/differential-equations-and-linear-algebra/}; for german readers \cite{Burg2013} might be another useful ressource.
 
 
 
 \subsection{Solutions using Fundamental System}
 
+As task d) is a general solution including some special cases, we should start with it.
+
 \textbf{Task d)}
 We solve
 \begin{align}
-\tau \frac{\fsd y(t)}{\fsd t} + y(t) = \e^{s_0 t}, y(0^-) = y_0
+\tau \frac{\fsd y(t)}{\fsd t} + y(t) = \e^{s_0 t} \qquad y(0^-) = y_0
 \end{align}
 We use short notation for signals and derivatives, i.e. $y(t)\rightarrow y$, $\frac{\fsd y(t)}{\fsd t} \rightarrow y'$.
 %
@@ -144,15 +146,15 @@ y =& (y_0 - \frac{1}{s_0 \tau + 1}) \e^{-\frac{t}{\tau}} + \frac{1}{s_0 \tau + 1
 y =& y_0 \e^{-\frac{t}{\tau}} + \frac{\e^{s_0 t} - \e^{-\frac{t}{\tau}}}{s_0 \tau + 1} \qquad t \geq 0.
 \end{align}
 %
-Solving \textbf{task b)}: for $y_0=0$ und $s_0 = 0$ we find the well known \underline{step response}
+Solving \textbf{task b)}: for $y_0=0$ und $s_0 = 0$ we immediately find the well known \underline{step response} solution from the general exponential solution \eqref{eq:taskd_final}
 \begin{align}
-y = 1 - \e^{-\frac{t}{\tau}} \qquad t \geq 0.
+h_\epsilon(t) = y = 1 - \e^{-\frac{t}{\tau}} \qquad t \geq 0.
 \end{align}
 Solving \textbf{task a)}: we recall that $C_p=\frac{1}{s_0 \tau + 1}$ was the factor for the
-particular solution, i.e. when we apply the source term. We could also set $C_p=0$. Then the solution reduces to
-homogeneous solution plus initial condition. Choosing $y(0^-)=\frac{1}{\tau}$ to solve for task a) results in the \underline{impulse response}
+particular solution, i.e. to apply the source term. We could also set $C_p=0$ to get $y_p=0$. Then the solution reduces to
+the homogeneous solution plus initial condition. Choosing $y(0^-)=\frac{1}{\tau}$ to solve for task a) results in the \underline{impulse response}
 \begin{align}
-y =& \frac{1}{\tau} \e^{-\frac{t}{\tau}} + \underbrace{\frac{\e^{s_0 t} - \e^{-\frac{t}{\tau}}}{s_0 \tau + 1}}_{0}  \qquad t \geq 0
+h(t) = y = \frac{1}{\tau} \e^{-\frac{t}{\tau}} + \underbrace{\frac{1}{s_0 \tau + 1}}_{C_p=0} \cdot (\e^{s_0 t} - \e^{-\frac{t}{\tau}})   \qquad t \geq 0
 \end{align}
 We could perform $h(t) = \frac{\fsd h_\epsilon(t)}{\fsd t}$ to find this result as well.
 
@@ -165,7 +167,7 @@ Solving \textbf{task c)}: this derivation is rather tricky, as the Dirac impulse
 	\begin{tikzpicture}
 	\def\taun{1}
 	\def\yo{1/2};
-	\def\so{-1/100};
+	\def\so{-1/10};
 	\def\Cp{1/(\so*\taun+1)}
 	\begin{axis}[
 	width=0.45\textwidth,
@@ -280,39 +282,38 @@ for our given problem
 \end{align}
 With notation $y(t) \laplace Y(s)$ the ODE's laplace transfrom reads
 \begin{align}
-\tau \large(s \cdot Y(s) - y_0\large) + Y(s) = X(s)
+\tau \cdot \large(s \, Y(s) - y_0\large) + Y(s) = X(s)
 \end{align}
-Sort
+Sort terms
 \begin{align}
-s \tau \cdot Y(s) + Y(s) = X(s) + \tau y_0
+\tau s Y(s) + Y(s) = X(s) + \tau y_0
 \label{eq:laplace_ansatz}
 \end{align}
-such that system characteristics are on the left side and source terms / initial conditions are on the right side.
+such that system characteristics (w.r.t. $Y(s)$) are on the left side and source terms (w.r.t. $X(s)$) / initial conditions (w.r.t. $y_0$) are on the right side.
 
-The transfer function $H(s)$ is defined for vanishing initial condition, i.e. here $y_0=0$, as
+The transfer function $H(s)$ is defined for vanishing initial condition, i.e. setting $y_0=0$ here, as
 \begin{align}
-H(s) = \frac{Y(s)}{X(s)} = \frac{1}{s \tau + 1}
+H(s) := \frac{Y(s)}{X(s)} = \frac{1}{s \tau + 1}
 \end{align}
 This transfer function has one pole
 \begin{align}
 s_\infty = -\frac{1}{\tau},
 \end{align}
 which is precisely the same number as the above derived zero of the characteristic polynomial $\lambda=-\frac{1}{\tau}$.
-This is not by accident: zeros of the characteristic polynomial and poles of the transfer function equivalently describe the system characteristics.
+This is not by accident: the zeros of the characteristic polynomial and the poles of the transfer function equivalently describe the system inherent characteristics.
 
-\textbf{Task c)} We know that \underline{impulse response} and transfer function are connected as $h(t) \laplace H(s)$, hence
+\textbf{Task c)} We know that the \underline{impulse response} and the transfer function are connected as $h(t) \laplace H(s)$, hence by inverse Laplace transform
 \begin{align}
 h(t) = \mathcal{L}^{-1}(\frac{1}{s \tau + 1}) = \mathcal{L}^{-1}(\frac{1}{\tau}\cdot\frac{1}{s + \frac{1}{\tau}})=
-\frac{1}{\tau}\mathcal{L}^{-1}(\frac{1}{s -  (-\frac{1}{\tau})}) = \frac{1}{\tau}\e^{-\frac{t}{\tau}} \qquad t \geq 0
+\frac{1}{\tau}\mathcal{L}^{-1}(\frac{1}{s -  (-\frac{1}{\tau})}) = \frac{1}{\tau}\e^{-\frac{t}{\tau}} \qquad t \geq 0.
 \end{align}
-easy with Laplace transform.
 %
 We would find this also by a more step-by-step mindset:
 Recall that the Dirac impulse is the neutral element of the convolution operation, i.e.
 \begin{align}
 h(t) \ast \delta(t) = h(t).
 \end{align}
-The convolution (time domain) is connected with multiplication (Laplace domain)
+The convolution (in time domain) is connected with multiplication (in Laplace domain)
 \begin{align}
 y(t) = h(t) \ast x(t) \laplace Y(s) = H(s) \cdot X(s).
 \end{align}
@@ -323,12 +324,12 @@ h(t) = h(t)\ast \delta(t)	 \laplace H(s) = H(s) \cdot 1
 we see that the Dirac impulse must have $\delta(t) \laplace 1$,
 such that $H(s)$ is not changed in the Laplace domain by multiplication with another spectrum, trivially spectrum '1' is the neutral element in multiplication.
 %
-Therefore, task c) can also be solved with $y_0=0$ and $X(s)=1$ as input signal for eq.~\eqref{eq:laplace_ansatz}
+Therefore, task c) is actually solved with $y_0=0$ and $X(s)=1$ as input signal for eq.~\eqref{eq:laplace_ansatz}
 \begin{align}
-s \tau \cdot Y(s) + Y(s) = X(s) + \tau y_0\\
-s \tau \cdot Y(s) + Y(s) = 1 + \tau \cdot 0
+s \tau \, Y(s) + Y(s) = X(s) + \tau y_0\\
+s \tau \, Y(s) + Y(s) = 1 + \tau \cdot 0
 \end{align}
-Simply rearranging leads to
+Simple rearrangement leads to
 \begin{align}
 Y(s) = \frac{1}{s \tau + 1}
 \end{align}
@@ -337,26 +338,26 @@ calculate the impulse response by inverse Laplace transform
 \begin{align}
 h(t) = \mathcal{L}^{-1}(\frac{1}{s \tau + 1}),
 \end{align}
-solution is already known above.
+the solution already known above.
 
 \textbf{Task a)} The choices $x(t)=0$ and $y(0^-)=\frac{1}{\tau}$
 do actually the very same.
-We have $x(t)=0 \laplace X(s)=0$ and thus for eq.~\eqref{eq:laplace_ansatz}
+We have (trivially) $x(t)=0 \laplace X(s)=0$ and thus for eq.~\eqref{eq:laplace_ansatz}
 \begin{align}
-s \tau \cdot Y(s) + Y(s) = X(s) + \tau y_0\\
-s \tau \cdot Y(s) + Y(s) = 0 + \tau \cdot \frac{1}{\tau}
-\rightarrow Y(s) = \frac{1}{s \tau + 1}
+s \tau  Y(s) + Y(s) = X(s) + \tau y_0\\
+s \tau  Y(s) + Y(s) = 0 + \tau \cdot \frac{1}{\tau}
+\longrightarrow Y(s) = \frac{1}{s \tau + 1}
 \end{align}
-again resulting in the impulse response, which this time is not so obvious, as
-we did not trigger with an Dirac impulse.
+again resulting in the impulse response. Here, this is not so obvious, as
+we did not trigger the ODE's input with a Dirac impulse.
 However, when comparing the
 two approaches i) $x(t)=\delta(t), y(0^-)=0$ vs. ii) $x(t)=0, y(0^-)=\frac{1}{\tau}$
-we see that they do the same on the right side of eq.~\eqref{eq:laplace_ansatz}.
+we see that they do the very same on the right side of eq.~\eqref{eq:laplace_ansatz}.
 
 \textbf{Task b)} For $x(t)=\epsilon(t), y(0^-)=0$ we calculate the step response.
-The laplace transform $x(t)=\epsilon(t) \laplace X(s) = \frac{1}{s}$ is introduced to eq.~\eqref{eq:laplace_ansatz}
+The Laplace transform $x(t)=\epsilon(t) \laplace X(s) = \frac{1}{s}$ is introduced to eq.~\eqref{eq:laplace_ansatz}
 \begin{align}
-s \tau \cdot Y(s) + Y(s) = \frac{1}{s} + \tau \cdot 0\\
+s \tau Y(s) + Y(s) = \frac{1}{s} + \tau \cdot 0\\
 Y(s) = \frac{1}{s} \cdot \frac{1}{s \tau + 1} = \frac{1}{\tau} \cdot \frac{1}{s - (-\frac{1}{\tau})} \cdot \frac{1}{s}
 \end{align}
 A partial fraction expansion helps here
@@ -377,7 +378,61 @@ Both terms have simple inverse Laplace transforms, which yields the \underline{s
 h_\epsilon(t) = \mathcal{L}^{-1}(Y(s)) = 1 - \e^{-\frac{t}{\tau}}\qquad t \geq 0
 \end{align}
 
-\textbf{Task d)} TBD...
+\textbf{Task d)}
+The general exponential response is calculated from \eqref{eq:laplace_ansatz}
+\begin{align}
+\tau s Y(s) + Y(s) = X(s) + \tau y_0
+\end{align}
+using the Laplace transform correspondence for $\Re(s)>\Re(s_0)$ (causal signal)
+$$x(t) = \e^{s_0 t}, \quad t \geq 0 \quad\laplace\quad X(s) = \frac{1}{s-s_0}.$$
+Inserting this
+\begin{align}
+\tau s Y(s) + Y(s) &= \frac{1}{s-s_0} + \tau y_0\\
+(\tau s + 1 ) Y(s) &= \frac{1}{s-s_0} + \tau y_0\\
+Y(s) &= \frac{\frac{1}{s-s_0}}{\tau s + 1 } + \frac{\tau y_0}{\tau s + 1}\\
+Y(s) &= \frac{1}{s-s_0} \cdot \frac{1}{\tau s + 1} + \frac{y_0}{s - (-\frac{1}{\tau})}\\
+Y(s) &= \frac{1}{\tau}\cdot\frac{1}{s-s_0} \cdot \frac{1}{s -(-\frac{1}{\tau})} + \frac{y_0}{s - (-\frac{1}{\tau})}
+\end{align}
+We should rearrange the term $\frac{1}{s-s_0} \cdot \frac{1}{s -(-\frac{1}{\tau})}$ by a partial fraction expansion, and for more convenient notation let us define $\frac{-1}{\tau} := a$:
+%
+\begin{align}
+\frac{1}{s-s_0} \cdot \frac{1}{s - a} &= \frac{A}{s-s_0} + \frac{B}{s - a}\\
+1 &= A (s-a) + B (s-s_0)\\
+0 s^1 + 1 s^0 &= A s - A a + B s - B s_0
+\end{align}
+\begin{align}
+0 &= A + B\\
+1 &= -A a - B s_0\\
+A &= -B\\
+%1 = -A a + A s_0 = A (-a + s_0) \rightarrow
+A &= \frac{1}{-a + s_0}
+\end{align}
+%
+We now can insert this sum into the expression for $Y(s)$ (and re-insert $\tau$ in third line)
+\begin{align}
+Y(s) &= \frac{1}{\tau}
+\left(
+\frac{\frac{1}{-a + s_0}}{s-s_0} + \frac{-\frac{1}{-a + s_0}}{s - a}
+\right) + \frac{y_0}{s - (-\frac{1}{\tau})}\\
+&=
+\frac{1}{\tau} (\frac{1}{-a + s_0}) (\frac{1}{s-s_0} - \frac{1}{s - a}) + \frac{y_0}{s - (-\frac{1}{\tau})}\\
+&=\frac{1}{\tau} (\frac{1}{-\frac{-1}{\tau} + s_0}) (\frac{1}{s-s_0} - \frac{1}{s - \frac{-1}{\tau}}) + \frac{y_0}{s - (-\frac{1}{\tau})}\\
+&= (\frac{1}{1 + \tau s_0}) (\frac{1}{s-s_0} - \frac{1}{s - (-\frac{1}{\tau})}) + \frac{y_0}{s - (-\frac{1}{\tau})}
+\end{align}
+We can rewrite even more extensively
+\begin{align}
+Y(s) = 	(\frac{1}{1 + \tau s_0}) \cdot \frac{1}{s-s_0} - (\frac{1}{1 + \tau s_0}) \cdot \frac{1}{s - (-\frac{1}{\tau})} +y_0 \cdot \frac{1}{s - (-\frac{1}{\tau})}
+\end{align}
+to apply linearity (each term in a sum can be independently treated) and inverse Laplace transforms of the one-pole spectra, to yield the continuous-time signal
+\begin{align}
+y(t) = \frac{1}{1 + \tau s_0} \cdot \e^{s_0 t} - \frac{1}{1 + \tau s_0} \cdot \e^{-\frac{t}{\tau}} + y_0 \cdot \e^{-\frac{t}{\tau}} \qquad t \geq 0,
+\end{align}
+or rearranged
+\begin{align}
+y(t) = \frac{1}{1 + \tau s_0} \left( \e^{s_0 t} - \e^{-\frac{t}{\tau}} \right) + y_0 \, \e^{-\frac{t}{\tau}} \qquad t \geq 0,
+\end{align}
+matching above derived solution.
+
 
 
 
