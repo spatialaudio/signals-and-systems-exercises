@@ -70,9 +70,9 @@ und die Skalierungseigenschaft
 
 Schauen wir uns kurz an, wie der Wunsch nach
 $\frac{\fsd }{\fsd t} (\cdot) \rightarrow s(\cdot )$
-mittels der Integraltransformation erfüllt wird, also was passiert mit
+mittels der Integraltransformation erfüllt wird, also was passiert mit (vgl. Glg.~(3) in \cite{Lundberg2007})
 \begin{align}
-\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\} &= \int\limits_{t=0}^{\infty} \frac{\fsd }{\fsd t}  x(t) \cdot \e^{-s\,t} \fsd t
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\} &= \int\limits_{t=0^-}^{\infty} \frac{\fsd }{\fsd t}  x(t) \cdot \e^{-s\,t} \fsd t
 \end{align}
 Die partielle Integration hilft dies anders darzustellen
 \begin{align}
@@ -80,21 +80,28 @@ Die partielle Integration hilft dies anders darzustellen
 &\int u v' \fsd t = u\,v - \int v u' \fsd t\\
 &u = \e^{-s\,t}\qquad u' = -s\,\e^{-s\,t}\\
 &v = x(t)\qquad v' = \frac{\fsd }{\fsd t}  x(t)\\
-&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
-= \e^{-s\,t}\,x(t)\bigg|_{t=0}^{\infty} - \int\limits_{t=0}^{\infty} x(t) \cdot (-s\,\e^{-s\,t}) \, \fsd t\\
-&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
-= s \cdot \int\limits_{t=0}^{\infty} x(t) \e^{-s\,t} \, \fsd t
-+\e^{-s\,t}\,x(t)\bigg|_{t=0}^{\infty}\\
-&\int\limits_{t=0}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
-= s \cdot \int\limits_{t=0}^{\infty} x(t) \e^{-s\,t} \, \fsd t - x(0)
+&\int\limits_{t=0^-}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= \e^{-s\,t}\,x(t)\bigg|_{t=0^-}^{\infty} - \int\limits_{t=0^-}^{\infty} x(t) \cdot (-s\,\e^{-s\,t}) \, \fsd t\\
+&\int\limits_{t=0^-}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= s \cdot \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \, \fsd t
++\e^{-s\,t}\,x(t)\bigg|_{t=0^-}^{\infty}\\
+&\int\limits_{t=0^-}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
+= s \cdot \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \, \fsd t - x(0^-)
 \end{align}
 und wir stellen fest, dass
 \begin{align}
-\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0)
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0^-)
 \end{align}
 also tatsächlich die lineare Operation \textbf{zeitliche Ableitung} zur Operation
 \textbf{Multiplikation mit} $s$ gemacht wurde. Dabei müssen wir zusätzlich den
-\textbf{Anfangswert} $x(0)$ beachten.
+\textbf{Anfangswert} $x(0^-)$ beachten. Wir folgen hier der in \cite{Lundberg2007}
+vorgeschlagenen Konvention, wo der linksseitige Anfangswertes $x(0^-)$
+(dort im Englischen als \textit{pre-initial value} bezeichnet) für eine
+konsistente und vglw. einfachere Laplace-Transformationstheorie benutzt wird.
+$x(0^-)$ ist gut zu unterscheiden vom Zustandswert bei genau $t=0$ (wo typisch
+eine Signalanregung erfolgen soll) und vom
+\textit{post-initial} value $x(0^+)$; bei sprunghaften Signaländerungen
+sind diese Werte unterschiedlich.
 
 Wie bildet sich nun der Umkehroperator der zeitlichen Ableitung, also die zeitliche
 Integration ab? Es gilt
@@ -104,7 +111,7 @@ Integration ab? Es gilt
 Damit haben wir zwei ganz wichtige Operatoreigenschaften für
 $x(t)\quad\laplace\quad X(s)$ zusammengetragen:
 \begin{align}
-\text{Differentiation:   } &\frac{\fsd }{\fsd t}  x(t) \quad\laplace\quad s\cdot X(s) - x(0)\\
+\text{Differentiation:   } &\frac{\fsd }{\fsd t}  x(t) \quad\laplace\quad s\cdot X(s) - x(0^-)\\
 \text{Integration:   } &\int\limits_{0}^{t} x(t) \quad\laplace\quad \frac{1}{s} \cdot X(s)
 \end{align}
 %
@@ -837,7 +844,7 @@ wir in Elektrotechnik kennengelernt haben, abbildet.
 für das unten dargestellte RC-Glied mit idealen Bauelementen (also Annahme, dass dies
 ein LTI-System darstellt). $x(t)$ und $y(t)$ sollen Spannungen darstellen.
 %
-Das System befindet sich zu $t=0$ in Ruhe, $C$ ist also nicht aufgeladen, $y(0)=0$.
+Das System befindet sich für $t<0$ in Ruhe, $C$ ist also nicht aufgeladen, daher gilt $y(0^-)=0$.
 %
 \begin{center}
 \begin{circuitikz}[european, scale=0.75]
@@ -908,9 +915,9 @@ T_\mathrm{RC}\frac{\fsd}{\fsd t} y(t) + y(t) = x(t)\\
 wird Laplace transformiert (Achtung: $Y(s)$ vs. $y(t)$ beachten,
 gerade handschriftlich eine beliebte Fehlerquelle)
 \begin{align}
-T_\mathrm{RC} \cdot s \cdot Y(s) - y(t=0) + Y(s) = X(s)
+T_\mathrm{RC} \cdot s \cdot Y(s) - y(0^-) + Y(s) = X(s)
 \end{align}
-Weil $y(t=0)=0$ als Anfangsbedingung gegeben ist, können wir vereinfachen
+Weil $y(0^-)=0$ als linksseitige Anfangsbedingung gegeben ist, können wir vereinfachen
 \begin{align}
 T_\mathrm{RC} \cdot s \cdot Y(s) + Y(s) = X(s)
 \end{align}
