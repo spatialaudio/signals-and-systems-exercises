@@ -25,15 +25,16 @@ sind als im Originalbereich und b) dass Signale einfacher/kompakter darstellbar
 sind (vgl. periodisches Signal vs. Koeffizienten der Fourierreihe).
 %
 Die Wahl der geeignetsten Transformation ist dabei entscheidend, weil eine
-ungeeignete das Problem auch komplizierter machen kann.
+ungeeignete das Problem ja auch komplizierter machen kann.
 %
 Die Laplace Transformation ist nun deswegen herausragend geeignet, weil
 wir Signale \textbf{und} LTI-Systeme analysieren \textbf{und} synthetisieren
 können und deswegen Signale mit Systemen elegant und konsistent verknüpfen können.
 
-Wir sollten uns klarmachen, dass der \textbf{Wunsch nach einem einfacherem Operator
-für die zeitliche Ableitung} ein Ausgangspunkt für die Erfindung der Laplace
-Transformation ist; das sehr lesenswerte, zeitlose Lehrwerk \cite{LangeSigSys1} enthält
+Wir sollten uns klarmachen, dass der \textbf{Wunsch nach einem einfacherem äquivalenten
+Operator für die zeitliche Ableitung} ein möglicher Ausgangspunkt für die
+Erfindung der Laplace Transformation ist; das sehr lesenswerte,
+zeitlose Lehrwerk \cite{LangeSigSys1} enthält
 einen Abschnitt über die Entwicklungshistorie bis in die 1970er.
 Statt Ableiten, also Multiplizieren
 \begin{equation}
@@ -43,7 +44,7 @@ unter Beibehaltung der Skalierungseigenschaft (Multiplikation mit Konstanten)
 und Additionseigenschaft (Superposition).
 %
 Viele Mathematiker*innen haben sich an dieser Fragestellung der Operatorentheorie
-abgearbeitet, sie ist ja zunächst aus rein mathematischer hochspannend, und
+abgearbeitet, sie ist ja zunächst aus rein mathematischer Sicht hochspannend, und
 es hat sich herausgestellt, dass ein Spezialfall
 (nämlich für $y=s\in\mathbb{C}$\footnote{die Integraltransformation mit $y=\im\omega$
 , also $y$ rein imaginär, erfüllt unsere Anforderung an den neuen Operator nicht ganz,
@@ -59,7 +60,7 @@ später deklariert als einseitige Laplace Transformation, benutzbar
 für kausale Signale.
 %
 Die Laplace Transformation ist ein linearer Operator, d.h.
-es gilt Additionseigenschaft
+es gilt die Additionseigenschaft
 \begin{align}
 \mathcal{L}\{x_1(t)+x_2(t)\} = \mathcal{L}\{x_1(t)\} + \mathcal{L}\{x_2(t)\}
 \end{align}
@@ -90,6 +91,7 @@ Die partielle Integration hilft dies anders darzustellen
 \end{align}
 und wir stellen fest, dass
 \begin{align}
+\label{eq:laplace_diff_satz}
 \mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0^-)
 \end{align}
 also tatsächlich die lineare Operation \textbf{zeitliche Ableitung} zur Operation
@@ -100,8 +102,36 @@ vorgeschlagenen Konvention, wo der linksseitige Anfangswertes $x(0^-)$
 konsistente und vglw. einfachere Laplace-Transformationstheorie benutzt wird.
 $x(0^-)$ ist gut zu unterscheiden vom Zustandswert bei genau $t=0$ (wo typisch
 eine Signalanregung erfolgen soll) und vom
-\textit{post-initial} value $x(0^+)$; bei sprunghaften Signaländerungen
+\textit{post-initial value} $x(0^+)$; bei sprunghaften Signaländerungen
 sind diese Werte unterschiedlich.
+
+Es ist hier sinnvoll gleich auch die Ableitungsregel für DGLs zweiter Ordnung
+explizit anzugeben, weil DGLs zweiter Ordnung sehr sehr oft vorkommen bzw.
+DGLs höherer Ordnung in DGLs zweiter Ordnung zerlegt werden, damit es handhabbar
+wird.
+%
+Wir könnten zunächst die obige Regel \eq{eq:laplace_diff_satz} anwenden um den
+Zusammenhang  zwischen $x''$ und $x'$ herzustellen
+\begin{align}
+\mathcal{L}\{x''(t)\}  = s \cdot \mathcal{L}\{x'(t)\} - x'(0^-)
+\end{align}
+und dann den Zusammenhang zwischen $x'$ und $x$
+\begin{align}
+\mathcal{L}\{x'(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0^-)
+\end{align}
+dort einsetzen
+\begin{align}
+\mathcal{L}\{x''(t)\}  = s \cdot (s \cdot \mathcal{L}\{x(t)\} - x(0^-)) - x'(0^-)
+\end{align}
+Das führt auf
+\begin{align}
+\mathcal{L}\{x''(t)\}  = s^2 \mathcal{L}\{x(t)\} - s^1 x(0^-) - s^0 x'(0^-)
+\end{align}
+oder anders geschrieben
+\begin{align}
+&\mathcal{L}\{x''(t)\} = s^2 X(s) - s^1 x(0^-) - s^0 x'(0^-)\\
+&\frac{\fsd^2 x(t)}{\fsd t^2} \qquad \laplace \quad s^2 X(s) - s x(0^-) - x'(0^-).
+\end{align}
 
 Wie bildet sich nun der Umkehroperator der zeitlichen Ableitung, also die zeitliche
 Integration ab? Es gilt
@@ -134,7 +164,10 @@ x(t) \ast h(t) \quad\laplace\quad X(s) \cdot H(s),
 d.h. das 'Abfallprodukt' für die Einführung eines einfacheren Operators
 für die zeitliche Ableitung ist, dass die Faltung im Zeitbereich durch die
 Multiplikation im Bildbereich dargestellt wird. Das dürfen wir durchaus fancy finden, ist aber
-kein Zufall.
+kein Zufall: Wir könnten auch starten mit der Frage 'wie können wir die Faltung
+einfacher operationalisieren' und finden dann als Abfallprodukt, dass die
+zeitliche Ableitung zur Multiplikation mit $s$ wird. Es hängt alles sehr elegant
+miteinander zusammen.
 
 Die mathematisch saubere Verortung des Dirac Impulses war im Erfindungsprozess
 der Laplace Transformation nicht einfach. Nachdem wir uns für SigSys mit Einführung
@@ -142,7 +175,7 @@ der Definition (zur Erinnerung: kein klassisches Riemann-Integral!)
 \begin{equation}
 \int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(\tau)
 \end{equation}
-eine nützliches, einfaches Werkzeug gebastelt haben, sollten wir das auch
+eine nützliches, einfaches Werkzeug gebastelt haben, sollten wir das auch so
 benutzen.
 Wir nehmen $\tau=0$
 \begin{equation}
@@ -167,7 +200,7 @@ Wir werden in den Aufgaben sehen, dass für den Einheitssprung
 \begin{equation}
   \mathcal{L}\{\epsilon(t)\} = \frac{1}{s}
   \text{ oder anders notiert }
-  \epsilon(t) \quad\laplace\quad \frac{1}{s}
+  \epsilon(t) \quad\laplace\quad \frac{1}{s} \qquad \Re(s)>0
 \end{equation}
 gilt.
 Die Integrationsregel der Laplace Transformation liefert uns hier sehr bequem
@@ -188,7 +221,8 @@ h(t) \quad\laplace\quad H(s).
 \end{align}
 Anders herum gedacht, die Faltung eines Signals mit einem Dirac Impuls
 ändert nicht das Signal (weil Dirac Neutralelement der Faltung) und
-daher auch nicht die Laplace Transformierte des Signals.
+daher auch nicht die Laplace Transformierte des Signals (Multiplikation mit 1 ist
+neutral).
 
 
 Soweit der kurze (mathematisch nicht rigoroseste, es geht hier um's Wesen)
@@ -896,15 +930,16 @@ $\omega_\tau $ und der System-\textbf{Zeitkonstante} $T_\tau $.
 An dieser Stelle machen wir uns den großen Vorteil der SigSys klar:
 %
 Wir behandeln hier zwar ein elektrotechnisches System (weil didaktisch
-Verknüpfungen zu Sachen aus den vorangegangenen Semestern hergestellt werden
+Verknüpfungen zu Sachen aus den vorangegangenen ET-Semestern hergestellt werden
 sollen), aber im Grunde geht es darum diese DGL losgelöst vom naturwissenschaftlichen
 Ursprung mit SigSys-Denke zu lösen und Verhaltensweisen dieser DGL elegant
 interpretierbar zu machen.
 %
 Diese DGL modelliert als einfachste Modellannahme den Wärmestrom von einem Körper
-zu einem benachbarten, also z.B. das Abkühlen von Bier in einer wasserbefüllten
-Badewanne ;-), that's the message. Fragen wir bei der nächsten
-Gelegenheit Physiker*innen nach der genauen DGL...
+zu einem benachbarten, also z.B. das Abkühlen von mit Bier gefüllten Flaschen
+in einer kaltwasserbefüllten Badewanne. Fragen wir bei der nächsten Gelegenheit
+Physiker*innen nach der genauen DGL...mutmaßlich sind abgelöste Etiketten
+besonders problematisch zu modellieren ;-)
 \end{Ansatz}
 
 \begin{ExCalc}
@@ -937,12 +972,13 @@ die Relation zwischen Aus- und Eingangs-Laplacetransformierter beschreibt.
 
 Links die Gleichungen mit Benutzung der Zeitkonstante $T_\mathrm{RC}$ werden in der
 Regelungstechnik bevorzugt, weil das Zeitverhalten der Systeme im Vordergrund
-der Diskussion steht (vgl. Anlaufen einer Rolltreppe).
+der Diskussion steht (vgl. Anlaufen oder Notstop einer Rolltreppe).
 %
 Rechts die Gleichungen mit Benutzung der Grenzfrequenz $\omega_\mathrm{RC}$ werden
 in der Nachrichtentechnik, Akustik, Video, Audio genutzt, weil das Frequenzverhalten
 der Systeme eher im Vordergrund steht und Systeme oft im Sinne eines Filters
-aufgefasst werden. Ein digitales Foto in bestimmten Bereichen unschärfer machen und
+aufgefasst werden. Ein digitales Foto in bestimmten Bereichen unschärfer machen
+(Stichwort Weichzeichner) und
 Bassanhebung wären zwei typische Alltagsanwendungen die mit Filtern
 (also LTI-Systemen) realisiert werden.
 
@@ -1021,8 +1057,8 @@ Transformationen die wir kennengelernt haben bzw. noch werden.
   \item a) \textbf{Impulsantwort}
 
   Die Impulsantwort $h(t)$ ist die Antwort des LTI-Systems auf einen Dirac Impuls unter
-  verschwindenden Anfangsbedingungen (hier müssen wir $y(0_-)=0$ ansetzen, weil
-  nach unserer Konvention der Dirac Impuls exakt zu $t=0$ 'explodiert').
+  verschwindenden Anfangsbedingungen $y(0^-)=0$ ansetzen (nach
+  unserer Konvention 'explodiert' der Dirac Impuls exakt zu $t=0$).
 
   Die Laplace Korrespondenz ist
   \begin{equation}
@@ -1121,7 +1157,7 @@ Ziel ist diesen Ausdruck als additive Überlagerung von bekannten Korrespondenze
 darzustellen, genau genommen in eine additive Überlagerung von Polstellen mit
 unterschiedlicher Ausprägung
 (reell, reell und doppelt, einfach komplex, konjugiert komplex, usw.) zu zerlegen.
-Im Grunde ist das die Kochrezept-Anwendung des Residuensatzes.
+Im Grunde ist dies das Wesen und die Kochrezept Anwendung des Residuensatzes.
 
 Wir müssen also für die beiden Polstellen
 \begin{equation}
@@ -1316,7 +1352,7 @@ In unserem speziellen Fall ist das alles was mit dem sprunghaften Einschalten
 des Cosinus zu $t=0$ zu tun hat, also der
 $\e^{-\frac{t}{T_\mathrm{RC}}}$-Anteil.
 %
-Eingeschwungener Zustand gilt ganz streng genommen, wenn $t\to\infty$.
+Eingeschwungener Zustand gilt ganz streng genommen erst, wenn $t\to\infty$.
 In der Praxis erreicht ein System den eingeschwungenen Zustand wenn wir nur viel
 länger (aber eben nicht unendlich) als die längste Zeitkonstante des Systems
 abwarten (beim RC-Glied haben wir nur eine, nämlich $T_\mathrm{RC}$).
