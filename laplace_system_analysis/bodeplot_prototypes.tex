@@ -1,0 +1,667 @@
+\iffalse
+  \documentclass[mathserif, aspectratio=43]{intbeamer}
+\else
+  \documentclass[aspectratio=169]{beamer}
+  \definecolor{urllinkcol}{RGB}{31,119,180}
+  \hypersetup{colorlinks,linkcolor=,urlcolor=urllinkcol}
+  \usetheme{Madrid}
+  \usecolortheme{dove}  % dove, whale
+  \usefonttheme{professionalfonts}
+  \setbeamertemplate{page number in head/foot}[appendixframenumber] % appendix pagenumbering restart
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{subcaption}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{trfsigns}
+\usepackage{xcolor}
+\setbeamercovered{invisible}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{../sig_sys_macros}
+
+\title[Bode Diagram]{Level Approximation with the Bode Diagram - Prototypes}
+\author[SigSys Tutorial]{Frank Schultz}
+\date[Summer Term 2023]{Signals and Systems Tutorial, Summer Term 2023}
+\institute[]{Prof. Sascha Spors, Institute of Communications Engineering\\
+Faculty of Computer Science and Electrical Engineering, University of Rostock, Germany}
+
+\begin{document}
+\maketitle
+
+
+
+%###############################################################################
+\begin{frame}{Complex conjugate zero, $+$40 dB/decade, $+$12 dB/octave}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1.4142}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-{\sqrt{2}}$};
+\draw (-\tic,\sigmaz)--(\tic,\sigmaz) node[left]{${\sqrt{2}}$};
+\draw (-\tic,-\sigmaz)--(\tic,-\sigmaz) node[left]{${-\sqrt{2}}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=\frac{1}{4}$};
+\draw [C7] (0,0) -- (-\sigmaz, +\omegaz) node[above, yshift=0.1cm]{$|s_{o\,,1,2}|=2$};
+\draw [C7] (0,0) -- (-\sigmaz, -\omegaz);
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (2, 0)
+    (20, +40)
+    (200, +80)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Single real zero, $+$20 dB/decade, $+$6 dB/octave}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1.5}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below, yshift=-0.1cm]{$-\frac{3}{2}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=\frac{2}{3}$};
+\draw [C7] (0,0) -- (-\sigmaz, 0) node[above, yshift=0.1cm]{$|s_{o\,,1}|=\frac{3}{2}$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (1.5, 0)
+    (15, +20)
+    (150, +40)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Single real pole, $-$20 dB/decade, $-$6 dB/octave, lowpass RC-circuit}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.4}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (-\sigmaz,0) node{\Huge $\times$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below, yshift=-0.1cm]{$-\frac{2}{5}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=\frac{2}{5}$};
+\draw [C7] (0,0) -- (-\sigmaz, 0) node[left, yshift=0.5cm]{$|s_{\infty\,,1}|=\frac{2}{5}$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (0.4, 0)
+    (4, -20)
+    (40, -40)
+    (400, -60)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Complex conjugate pole, $-$40 dB/decade, $-$12 dB/octave}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-1$};
+\draw (-\tic,\sigmaz)--(\tic,\sigmaz) node[left]{$1$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=2$};
+\draw [C7] (0,0) -- (-\sigmaz, +\omegaz) node[below, xshift=-0.15cm]{$|s_{\infty,1,2}|=\sqrt{2}$};
+\draw [C7] (0,0) -- (-\sigmaz, -\omegaz);
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (1.4142, 0)
+    (14.142, -40)
+    (141.42, -80)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Thru, 0 dB}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (100, 0)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Thru, 20 dB}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=10$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 20)
+    (100, 20)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Thru, $\approx-$6.02 dB}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=\frac{1}{2}$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, -6.02059991328)
+    (100, -6.02059991328)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Ideal integrator, $H(s)=\frac{1}{s},\, H(\omega) = \frac{1}{\im\omega}$,
+$-$20 dB/decade, $-$6 dB/octave}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (0, 0) node{\Huge $\times$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, +40)
+    (100, -40)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Ideal differentiator, $H(s)=s,\, H(\omega) = \im\omega$,
+$+$20 dB/decade,$+$6 dB/octave}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[C0, ultra thick] (0, 0) node{\Huge $\circ$};
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, -40)
+    (100, +40)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Multiple poles and zeros in origin (more zeros than poles)}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C1, ultra thick] (0, 0) node{\Huge $\times$};
+\draw[C1, ultra thick] (-0.1, +0.25) node[left]{$n_0 = (1)$};
+
+\draw[C0, ultra thick] (0, 0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.1, -0.25) node[left]{$m_0 = (3)$};
+
+\draw (-2,-1.25) node[right]{$(m_0-n_0) \cdot 20$ dB/decade};
+\draw (-2,-1.75) node[right]{$(m_0-n_0) \cdot 6$ dB/octave};
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, -80)
+    (100, +80)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Multiple poles and zeros in origin (more poles than zeros)}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C1, ultra thick] (0, 0) node{\Huge $\times$};
+\draw[C1, ultra thick] (-0.1, +0.25) node[left]{$n_0 = (4)$};
+
+\draw[C0, ultra thick] (0, 0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.1, -0.25) node[left]{$m_0 = (3)$};
+
+\draw (-2,-1.25) node[right]{$(m_0-n_0) \cdot 20$ dB/decade};
+\draw (-2,-1.75) node[right]{$(m_0-n_0) \cdot 6$ dB/octave};
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, +40)
+    (100, -40)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Multiple poles and zeros in origin (same number of poles and zeros)}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C1, ultra thick] (0, 0) node{\Huge $\times$};
+\draw[C1, ultra thick] (-0.1, +0.25) node[left]{$n_0 = (3)$};
+
+\draw[C0, ultra thick] (0, 0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (-0.1, -0.25) node[left]{$m_0 = (3)$};
+
+\draw (-2,-1.25) node[right]{$(m_0-n_0) \cdot 20$ dB/decade};
+\draw (-2,-1.75) node[right]{$(m_0-n_0) \cdot 6$ dB/octave};
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[]{$H_0=1$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (100, 0)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+\end{document}
