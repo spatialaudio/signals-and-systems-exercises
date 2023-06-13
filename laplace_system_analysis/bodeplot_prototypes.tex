@@ -13,7 +13,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{subcaption}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amssymb,amsfonts, nicefrac}
 \usepackage{bm}
 \usepackage{trfsigns}
 \usepackage{xcolor}
@@ -24,7 +24,7 @@
 
 \usepackage{../sig_sys_macros}
 
-\title[Bode Diagram]{Level Approximation with the Bode Diagram - Prototypes}
+\title[Bode Diagram]{Level Approximation with the Bode Diagram}
 \author[SigSys Tutorial]{Frank Schultz}
 \date[Summer Term 2023]{Signals and Systems Tutorial, Summer Term 2023}
 \institute[]{Prof. Sascha Spors, Institute of Communications Engineering\\
@@ -33,6 +33,37 @@ Faculty of Computer Science and Electrical Engineering, University of Rostock, G
 \begin{document}
 \maketitle
 
+
+
+\begin{frame}{Prototypes}
+
+A Laplace transfer function that exhibits real coefficients in the polynomials can be split
+into series connection
+\begin{align*}
+H(s) = H_1(s) \cdot H_2(s) \cdot ... \cdot ...
+\end{align*}
+for which the subsystems $H_1(s), H_2(s), ...$ should be arranged such that only the prototypes
+
+- complex conjugate zero
+
+- complex conjugate pole
+
+- single real zero
+
+- single real pole
+
+- pure gain
+
+- poles / zeros in $s$-domain origin
+
+occur.
+%
+Then, level response can be nicely discussed by addition of series connections in a log-domain
+\begin{align*}
+\log_{10} |H(s)| = \log_{10}|H_1(s)| + \log_{10}|H_2(s)| + ... + ...
+\end{align*}
+
+\end{frame}
 
 
 %###############################################################################
@@ -661,6 +692,334 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 
+
+
+
+
+
+
+
+
+\begin{frame}{Example}
+Task 5.2:
+Let us create a 2nd order bandpass starting from Bode plot approximation ending
+in the differential equation and interpretation in terms of a suitable electrical circuit.
+
+Bandpass shall have lower cut frequency $\omega_\mathrm{l}=0.1$ rad/s and
+higher cut frequency $\omega_\mathrm{h}=10$ rad/s with 20 dB/octave slopes
+and 0 dB in the pass thru region.
+
+What poles and zeros do this job? There a many possibilities, we keep it simple here!
+\end{frame}
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+Step 1: 1st order lowpass with cut-frequency at $\omega_\mathrm{h}=10$ rad/s
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C0, thick] (-2.5, 0) node{\Huge $\times$};
+\draw[thick] (-2.4, 0) node[below]{$-10$};
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw[C0] (1.25,1.70) node[]{$H_0=10$};
+
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C0, ultra thick] coordinates {
+    (0.01, 0)
+    (10, 0)
+    (100, -20)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+Step 2: one zero in origin for +20 dB/octave high-pass slope (differentiator, cf. $\im\omega$)
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C1, thick] (0, 0) node{\Huge $\circ$};
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw[C1] (1.25,1.70) node[]{$H_0=10$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C1, ultra thick] coordinates {
+    (0.01, -20)
+    (100, +60)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+Step 3: -20 dB/octave slope starting at $\omega_\mathrm{l}=0.1$ rad/s to compensate for zero's rising slope
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+\draw[C2, thick] (-0.3, 0) node{\Huge $\times$};
+\draw[thick] (-0.45, 0) node[below]{$-\frac{1}{10}$};
+
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw (1.25,1.70) node[C2]{$H_0=\frac{1}{10}$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C2, ultra thick] coordinates {
+    (0.01, 0)
+    (0.1, 0)
+    (100, -60)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+Step 4: add the level responses in the dB domain to yield a 2nd order bandpass
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=1, xshift=0cm, yshift=0cm]
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {0.7071}
+\def \omegaz {\sigmaz}
+\def \convAbsz {0}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2-1,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C3, thick, -] (0,+\axisLength/2)--(0,-\axisLength/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+
+
+
+\draw[C0, thick] (-2.5, 0) node{\Huge $\times$};
+\draw[thick] (-2.4, 0) node[below]{$-10$};
+\draw[C0] (-2.1, 0) node[above, yshift=0.2cm]{$H_0=10$};
+
+\draw[C1, thick] (0, 0) node{\Huge $\circ$};
+\draw[C1] (0.75, 0) node[below]{$H_0=10$};
+
+\draw[C2, thick] (-0.3, 0) node{\Huge $\times$};
+\draw[thick] (-0.45, 0) node[below]{$-\frac{1}{10}$};
+\draw[C2] (-0.7, 0) node[above, yshift=0.1cm]{$H_0=\frac{1}{10}$};
+
+
+
+
+\draw (1.25,2.25) node[C2!75]{ROC};
+\draw[C4] (1.1,1.70) node[]{$H_{0,\mathrm{all}}=10$};
+\end{scope}
+%
+\begin{scope}[scale=0.75, xshift=6cm, yshift=-2.75cm]
+\begin{semilogxaxis}
+[
+  xlabel = {$\omega$ / (rad/s)},
+  ylabel = {level in dB},
+  xmin = 0.01, xmax = 100,
+  ymin = -80, ymax = 80,
+  grid = minor,
+  xtick={0.01,0.1,1,10,100},
+  ytick={-80,-60,-40,-20,0,20,40,60,80},
+  minor tick num = 4,
+]
+\addplot[C4, ultra thick] coordinates {
+    (0.01, -20)
+    (0.1, 0)
+    (10, 0)
+    (100, -20)
+};
+\addplot[C0,  thin] coordinates {
+    (0.01, 0)
+    (10, 0)
+    (100, -20)
+};
+\addplot[C1,  thin] coordinates {
+    (0.01, -20)
+    (100, +60)
+};
+\addplot[C2,  thin] coordinates {
+    (0.01, 0)
+    (0.1, 0)
+    (100, -60)
+};
+\end{semilogxaxis}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+
+see task 5.2
+
+\begin{align*}
+H(s) =
+\textcolor{C0}{\frac{10}{s-(-10)}} \cdot
+\textcolor{C1}{10 (s-0)}\cdot
+\textcolor{C2}{\frac{\nicefrac{1}{10}}{s-(-\nicefrac{1}{10})}} =
+\textcolor{C0}{\frac{10}{s+10}} \cdot
+\textcolor{C1}{10 s}\cdot
+\textcolor{C2}{\frac{\nicefrac{1}{10}}{s+\nicefrac{1}{10}}} =
+\textcolor{C0}{\frac{10}{s+10}} \cdot
+\textcolor{C3}{\frac{s}{s+\nicefrac{1}{10}}}
+\end{align*}
+
+this system could be built with a series connection of
+
+a \textcolor{C0}{lowpass RC circuit} ($\omega_\mathrm{cut,lp}=10$ rad/s) and
+
+a \textcolor{C3}{highpass RC circuit} ($\omega_\mathrm{cut,hp}=\nicefrac{1}{10}$ rad/s) (considering no interaction, no load!)
+
+\begin{align*}
+H(s) = \frac{Y(s)}{X(s)} = 10 \frac{s}{(s+10)\,(s+\nicefrac{1}{10})} =
+\frac{10 \, s}{s^2 + \nicefrac{101}{10} \, s + 1}\quad\text{ROC: } \Re\{s\}>-\nicefrac{1}{10}
+\end{align*}
+
+\begin{align*}
+H_0 = 10\quad s_{\infty,1} = -10, s_{\infty,2} = -\nicefrac{1}{10} \rightarrow
+\tilde{H}_0 = \frac{H_0}{|s_{\infty,1}| \cdot |s_{\infty,2}|} = \frac{10}{10 \cdot \nicefrac{1}{10}} = 10
+\end{align*}
+
+\end{frame}
+
+
+
+%###############################################################################
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+
+from Laplace domain's transfer function to differential equation
+\begin{align*}
+H(s) = \frac{Y(s)}{X(s)} = 10 \frac{s}{(s+10)\,(s+\nicefrac{1}{10})} =
+\frac{10 \, s}{s^2 + \nicefrac{101}{10} \, s + 1}\quad\text{ROC: } \Re\{s\}>-\nicefrac{1}{10}
+\end{align*}
+%
+\begin{align*}
+&Y(s) \left(s^2 + \nicefrac{101}{10} \, s + 1\right) =
+X(s) \left(10 \, s\right) \Laplace\\
+&y''(t) + \nicefrac{101}{10} \, y'(t) + y(t) =
+10 \, x'(t)
+\end{align*}
+
+Nice homework: we might want to check the 1st order ODEs and their impulse responses and then
+confirm that
+\begin{align*}
+&H(s) =
+\textcolor{C0}{H_\mathrm{LP}(s)} \cdot
+\textcolor{C3}{H_\mathrm{HP}(s)} =
+\textcolor{C0}{\frac{10}{s+10}} \cdot
+\textcolor{C3}{\frac{s}{s+\nicefrac{1}{10}}}\Laplace\\
+&h(t) =
+\textcolor{C0}{h_\mathrm{LP}(t)} \ast
+\textcolor{C3}{h_\mathrm{HP}(t)} =
+\textcolor{C0}{??} \ast
+\textcolor{C3}{??} = ??
+\end{align*}
+\end{frame}
 
 
 
