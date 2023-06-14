@@ -58,9 +58,9 @@ for which the subsystems $H_1(s), H_2(s), ...$ should be arranged such that only
 
 occur.
 %
-Then, level response can be nicely discussed by addition of series connections in a log-domain
+Then, level response can be nicely discussed by addition of series connections in a log-domain, e.g. in dezibel (dB)
 \begin{align*}
-\log_{10} |H(s)| = \log_{10}|H_1(s)| + \log_{10}|H_2(s)| + ... + ...
+10\log_{10} |H(s)|^2 = 10\log_{10}|H_1(s)|^2 + 10\log_{10}|H_2(s)|^2 + ... + ...
 \end{align*}
 
 \end{frame}
@@ -706,14 +706,14 @@ Let us create a 2nd order bandpass starting from Bode plot approximation ending
 in the differential equation and interpretation in terms of a suitable electrical circuit.
 
 Bandpass shall have lower cut frequency $\omega_\mathrm{l}=0.1$ rad/s and
-higher cut frequency $\omega_\mathrm{h}=10$ rad/s with 20 dB/octave slopes
+higher cut frequency $\omega_\mathrm{h}=10$ rad/s with 20 dB/decade slopes
 and 0 dB in the pass thru region.
 
 What poles and zeros do this job? There a many possibilities, we keep it simple here!
 \end{frame}
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 Step 1: 1st order lowpass with cut-frequency at $\omega_\mathrm{h}=10$ rad/s
 \begin{center}
 \begin{tikzpicture}
@@ -767,7 +767,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 Step 2: one zero in origin for +20 dB/octave high-pass slope (differentiator, cf. $\im\omega$)
 \begin{center}
 \begin{tikzpicture}
@@ -818,7 +818,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 Step 3: -20 dB/octave slope starting at $\omega_\mathrm{l}=0.1$ rad/s to compensate for zero's rising slope
 \begin{center}
 \begin{tikzpicture}
@@ -872,7 +872,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 Step 4: add the level responses in the dB domain to yield a 2nd order bandpass
 \begin{center}
 \begin{tikzpicture}
@@ -953,7 +953,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 
 see task 5.2
 
@@ -990,9 +990,9 @@ H_0 = 10\quad s_{\infty,1} = -10, s_{\infty,2} = -\nicefrac{1}{10} \rightarrow
 
 
 %###############################################################################
-\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/octave slopes}
+\begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 
-from Laplace domain's transfer function to differential equation
+from Laplace domain's transfer function to differential equation (both indicate 2nd order)
 \begin{align*}
 H(s) = \frac{Y(s)}{X(s)} = 10 \frac{s}{(s+10)\,(s+\nicefrac{1}{10})} =
 \frac{10 \, s}{s^2 + \nicefrac{101}{10} \, s + 1}\quad\text{ROC: } \Re\{s\}>-\nicefrac{1}{10}
