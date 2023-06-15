@@ -700,16 +700,24 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 
 
-\begin{frame}{Example}
-Task 5.2:
-Let us create a 2nd order bandpass starting from Bode plot approximation ending
+\begin{frame}{Example Task 5.2 \texttt{\tiny 590A7AFD51}}
+
+\begin{itemize}
+\item Let us create a 2nd order bandpass starting from Bode plot approximation ending
 in the differential equation and interpretation in terms of a suitable electrical circuit.
 
-Bandpass shall have lower cut frequency $\omega_\mathrm{l}=0.1$ rad/s and
-higher cut frequency $\omega_\mathrm{h}=10$ rad/s with 20 dB/decade slopes
-and 0 dB in the pass thru region.
+\item The bandpass shall have
 
-What poles and zeros do this job? There a many possibilities, we keep it simple here!
+\begin{itemize}
+  \item lower cut frequency $\omega_\mathrm{l}=0.1$ rad/s and
+  \item higher cut frequency $\omega_\mathrm{h}=10$ rad/s
+  \item with 20 dB/decade slopes
+  \item and 0 dB in the pass thru region.
+\end{itemize}
+
+\item  What poles and zeros do this job? There a many possibilities, we keep it simple here!
+\end{itemize}
+
 \end{frame}
 
 %###############################################################################
@@ -955,7 +963,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 %###############################################################################
 \begin{frame}{Bandpass with $\omega_\mathrm{l}=0.1$ rad/s and $\omega_\mathrm{h}=10$ rad/s, 20 dB/decade slopes}
 
-see task 5.2
+Task 5.2 \texttt{\tiny 590A7AFD51}
 
 \begin{align*}
 H(s) =
@@ -985,6 +993,8 @@ H_0 = 10\quad s_{\infty,1} = -10, s_{\infty,2} = -\nicefrac{1}{10} \rightarrow
 \tilde{H}_0 = \frac{H_0}{|s_{\infty,1}| \cdot |s_{\infty,2}|} = \frac{10}{10 \cdot \nicefrac{1}{10}} = 10
 \end{align*}
 
+\tiny note: poles and zeros in the origin do not contribute to $\tilde{H}_0$
+
 \end{frame}
 
 
@@ -1005,8 +1015,8 @@ X(s) \left(10 \, s\right) \Laplace\\
 10 \, x'(t)
 \end{align*}
 
-Nice homework: we might want to check the 1st order ODEs and their impulse responses and then
-confirm that
+Nice homework: we might want to check the 1st order ODEs of the RC circuits
+and their impulse responses and then confirm that
 \begin{align*}
 &H(s) =
 \textcolor{C0}{H_\mathrm{LP}(s)} \cdot
@@ -1020,6 +1030,39 @@ confirm that
 \textcolor{C3}{??} = ??
 \end{align*}
 \end{frame}
+
+
+
+
+
+\begin{frame}{Task 6.1 Maximum-/Minimum-/Allpass-Phase Systems \texttt{\tiny(E1E7E53CFF)}}
+\centering
+\includegraphics[width=0.8\textwidth]{../system_properties_ct/MaxMinPhaseAllpass_numpy_E1E7E53CFF_maxphase.pdf}
+\end{frame}
+
+\begin{frame}{Task 6.1 Maximum-/Minimum-/Allpass-Phase Systems \texttt{\tiny(E1E7E53CFF)}}
+\centering
+\includegraphics[width=0.8\textwidth]{../system_properties_ct/MaxMinPhaseAllpass_numpy_E1E7E53CFF_minphase.pdf}
+\end{frame}
+
+\begin{frame}{Task 6.1 Maximum-/Minimum-/Allpass-Phase Systems \texttt{\tiny(E1E7E53CFF)}}
+\centering
+\includegraphics[width=0.8\textwidth]{../system_properties_ct/MaxMinPhaseAllpass_numpy_E1E7E53CFF_allpass.pdf}
+\end{frame}
+
+\begin{frame}{Task 6.3 Inversion of a Minimum-Phase System \texttt{\tiny(4926427BA9)}}
+\centering
+\includegraphics[width=0.8\textwidth]{../system_properties_ct/inversion_4926427BA9.pdf}
+\end{frame}
+
+\begin{frame}{Task 6.6 Phase Response and Group Delay \texttt{\tiny(AB91F8317C)}}
+\centering
+\includegraphics[width=0.8\textwidth]{../system_properties_ct/group_delay_AB91F8317C.pdf}
+\end{frame}
+
+
+
+
 
 
 
