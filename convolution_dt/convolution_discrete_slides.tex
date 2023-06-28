@@ -578,6 +578,76 @@ $$
 \end{frame}
 
 
+\begin{frame}{L\"osungsweg II, Single Diracs / Toeplitz-Matrix Style}
 
+$k_{x,\text{SignalStart}}=1$
+
+$k_{h,\text{SignalStart}}=0$
+
+$k_{x,\text{SignalStart}}+k_{h,\text{SignalStart}}=k_{y,\text{SignalStart}}=1$
+
+length of $x$ signal $N_x=4$, i.e. entries different from zero
+
+length of $h$ signal $N_h=3$, i.e. entries different from zero
+
+length of $y=x \ast h$ signal $N_y=N_x+N_h-1 = 4+3-1=6$, i.e. entries different from zero
+
+\begin{align*}
+\begin{pmatrix}
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+2 & 1 & 1 \\
+-1 & 2 & 1 \\
+0 & -1 & 2 \\
+0 & 0 & -1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+2\\1\\-1
+\end{pmatrix}
+=
+(2) \cdot
+\begin{pmatrix}
+1\\
+1\\
+2\\
+-1\\
+0 \\
+0
+\end{pmatrix}
+\quad+\quad
+(1) \cdot
+\begin{pmatrix}
+0\\
+1\\
+1\\
+2\\
+-1\\
+0
+\end{pmatrix}
+\quad+\quad
+(-1) \cdot
+\begin{pmatrix}
+0 \\
+0 \\
+1 \\
+1 \\
+2 \\
+-1
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 \\
+3 \\
+4 \\
+-1 \\
+-3 \\
+1
+\end{pmatrix}
+\end{align*}
+
+Toeplitz matrix (for $x[k], x[k-1], x[k-2]$ as columns) must have (at least) $N_y=6$ rows (fill with zeros)
+
+\end{frame}
 
 \end{document}
