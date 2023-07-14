@@ -1462,7 +1462,8 @@ speziell Pegel (oben links), Phase (mittig links), Gruppenlaufzeit
 \label{sec:F0EF9C3FA6}
 %
 \begin{Ziel}
-Wir wollen hier an einem sehr einfachen Beispiel (das sind die besten!) erarbeiten,
+Wir wollen hier an einem sehr einfachen Beispiel (das sind die besten um Wesen
+und Essenz zu erklären!) erarbeiten,
 dass nicht-rekursive Systeme nur Pole im Ursprung haben und genau deswegen
 Differenzengleichung, Impulsantwort und Sprungantwort vergleichsweise
 einfach miteinander verknüpft sind. Für Letzteres müssten wir nicht einmal die
@@ -1608,13 +1609,15 @@ wo keine Rückkopplungen in der Differenzengleichung (DGL) auftauchen,
 also wo keine $y[k-1],\,y[k-2],\,y[k-\dots]$ enthalten sind, siehe obiges Blockschaltbild.
 %
 Dann können wir direkt
-$x[k]\rightarrow \delta[k]$ in die DGL einsetzen, um $h[k]$ zu erhalten
+$x[k]\rightarrow \delta[k]$ in die DGL einsetzen, um $h[k]$, sowie $H(z)$ zu erhalten
 \begin{align}
 y[k] = x[k] - x[k-2]
 \quad\rightarrow\quad
 h[k] = \delta[k] - \delta[k-2]
+\quad\rightarrow\quad
+H(z) = 1 - z^{-2}
 \end{align}
-Gleiches Ergebnis, gleiches endliches Signal. Wenn wir diese Impulsantwort als
+Gleiches Ergebnis. Wenn wir die Impulsantwort $h[k]$ als
 Filter auffassen, landen wir bei der in SigSys gebräuchlichen englischen
 Bezeichnung \textit{finite impulse response (FIR) filter}.
 
@@ -1658,7 +1661,10 @@ h_\epsilon[k] = \delta[k] + \delta[k-1]
 Für dieses spezielle System mit einer Nullstelle bei $z=1$ ist die Sprungantwort endlich,
 weil das Sprungsignal (Gleichanteil) perfekt gefiltert wird (Nullstelle auf dem
 Einheitskreis dämpft die Frequenz $\Omega=0$ zu 100 \%).
-
+%
+Die andere Frequenz, die von diesem System perfekt herausgefiltert wird, ist
+$\Omega=\pi$, weil das System dort auch eine Nullstelle auf dem Einheitskreis hat,
+also bei $z=-1$ liegt.
 
 Wir wissen aus der zeitkontinuierlichen SigSys, dass für kausale Systeme
 \begin{align}
