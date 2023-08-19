@@ -757,12 +757,15 @@ Es ist sinnvoll, wenn wir uns das nochmal im Detail klarmachen, anhand der
 Rücktransformation zur Impulsantwort.
 Es lohnt ein Blick auf Abb.~\ref{fig:0B03A693AD_rightsided} (3.2) in Übung~\ref{sec:ue3_laplace} (3).
 %
-Wir können mit Polynomdivision rasch zeigen, dass
+Wir können mit der Polynomdivision
+$$\polylongdiv[style=C, vars=s]{s+1/2}{s-2}$$
+umformen, so dass
 \begin{align}
 H(s)_\mathrm{max}^{-1} = \frac{1}{2}\cdot\frac{s+\frac{1}{2}}{s-2}
 = \frac{1}{2} ( 1 + \frac{5}{2}\cdot\frac{1}{s-2}).
 \end{align}
-Dies führt auf Korrespondenzen die in der Formelsammlung gegeben
+%
+Der letzte Ausdruck führt auf Korrespondenzen die in der Formelsammlung gegeben
 sind.
 Die Rücktransformation ergibt dann
 \begin{align}
@@ -918,12 +921,14 @@ H(s)_\mathrm{min}^{-1} = \frac{1}{2}\cdot\frac{s+\frac{1}{2}}{s+2}
 \end{Ansatz}
 
 \begin{ExCalc}
-\textbf{analytisch}: Polynomdivision ist erneut schnell gemacht
+\textbf{analytisch}: Polynomdivision
+$$\polylongdiv[style=C, vars=s]{s+1/2}{s+2}$$
+führt auf
 \begin{align}
 \label{eq:4926427BA9_Hsmininv_parallel}
 H(s)_\mathrm{min}^{-1} = \frac{1}{2} (1-\frac{3}{2}\cdot\frac{1}{s+2})
 \end{align}
-und damit die Rücktransformation
+und mit bereits bekannten Korrespondenzen ist die Rücktransformation
 \begin{align}
 H(s)_\mathrm{min}^{-1} = \frac{1}{2} (1-\frac{3}{2}\cdot\frac{1}{s+2})
 \,\Laplace\,
