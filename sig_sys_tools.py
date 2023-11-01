@@ -142,7 +142,6 @@ def plot_dtlti_analysis(z, p, k, fs=1, Nf=2**10, Nt=2**5):
     # plot impulse response
     ax2 = plt.subplot(3, 2, 2)
     ax2.stem(np.squeeze(h[0]), np.squeeze(h[1]),
-             use_line_collection=True,
              linefmt='C0:', markerfmt='C0o', basefmt='C0:')
     ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax2.grid(True)
@@ -166,7 +165,7 @@ def plot_dtlti_analysis(z, p, k, fs=1, Nf=2**10, Nt=2**5):
 
     # plot step response
     ax4 = plt.subplot(3, 2, 4)
-    ax4.stem(np.squeeze(he[0]), np.squeeze(he[1]), use_line_collection=True,
+    ax4.stem(np.squeeze(he[0]), np.squeeze(he[1]),
              linefmt='C0:', markerfmt='C0o', basefmt='C0:')
     ax4.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax4.grid(True)
