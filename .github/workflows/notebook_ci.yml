@@ -28,7 +28,7 @@ jobs:
       - run: pip install -r ci/requirements.txt
       - run: python -m sphinx . _build/ -b html
 
-  linux_py10:
+  linux_py310:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
       - run: pip install -r ci/requirements.txt
       - run: python -m sphinx . _build/ -b html
 
-  linux_py11:
+  linux_py311:
     runs-on: ubuntu-latest
 
     steps:
