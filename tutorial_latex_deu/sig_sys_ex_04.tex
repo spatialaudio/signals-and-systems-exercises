@@ -192,6 +192,845 @@ $x(t)=1 \, \fourier \, X(\omega)=2\pi\delta(\omega)$ gilt.}
 \end{figure}
 
 
+\clearpage
+\subsection{Fourier-Transformation Beispiel Rechteckfunktion}
+\label{sec:8C3958BE4F}
+\begin{Ziel}
+Wir wollen für die Fouriertransformation die wichtige Dualität zwischen der
+Rechteckfunktion und der Spaltfunktion anhand eines fundamentalen Beispiels erfassen.
+Zudem enthält auch hier die ausführliche Rechnung Schritte und Umformungen
+welche wir wiederkehrend brauchen werden.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 8C3958BE4F}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item axialsymmetrische Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.5,0) node[below] {$\frac{-T_h}{2}$} -- (-0.5,1) node[left] {$A$} -- (0.5,1) -- (0.5,0) node[below] {$\frac{+T_h}{2}$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+
+\begin{Werkzeug}
+Synthese mit Fouriertransformation
+\begin{align}
+x(t) = \frac{1}{2\pi} \int\limits_{-\infty}^{+\infty} X(\omega) \, \e^{+\im \omega t} \fsd \omega
+\end{align}
+%
+Analyse mit Fouriertransformation
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+
+\begin{Ansatz}
+\begin{equation}
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+\end{Ansatz}
+
+\begin{ExCalc}
+Integrieren
+\begin{equation}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h/2}^{+T_h/2}
+\end{equation}
+Grenzen einsetzen
+\begin{equation}
+X(\omega) = A \frac{\e^{-\im \omega T_h/2}-\e^{+\im \omega T_h/2}}{-\im \omega}
+\end{equation}
+Vorzeichen
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega}
+\end{equation}
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{\im \omega} \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+Umsortieren
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im \omega T_h/2}-\e^{-\im \omega T_h/2}}{2 \im \omega T_h/2} \frac{T_h/2}{1} \cdot \frac{2}{1}
+\end{equation}
+\end{ExCalc}
+
+\begin{Loesung}
+\begin{equation}
+\label{eq:8C3958BE4F_Loesung}
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega \frac{T_h}{2})
+\end{equation}
+
+Wir bekommen wieder eine Spaltfunktion, wie schon bei der Fourierreihe aus Aufgabe
+\ref{sec:D1483A84E2}, vgl. \eq{eq:D1483A84E2_Loesung}.
+%
+Diesmal, weil die Frequenzvariable $\omega$ kontinuierlich ist,
+wird die Spaltfunktion 'überall' ausgewertet,
+die Fouriertransformation ist also eine kontinuierliche Funktion über $\omega$.
+%
+Auch hier ist $X(\omega)\in\mathbb{R}$ ein Spezialfall.
+%
+Der Faktor $\frac{T_h}{2}$ im sinc-Argument bestimmt wieder die Breite der
+Spaltfunktion.
+
+Wir merken uns bzw. besser wir sehen das in den Formeln:
+
+Je \textbf{kleiner} $T_h$, also je \textbf{schmal}er der
+\textbf{Rechteck}impuls, desto \textbf{breit}er die \textbf{Spalt}funktion.
+
+Je \textbf{größer} $T_h$, also je \textbf{breit}er der
+\textbf{Rechteck}impuls, desto \textbf{schmal}er die \textbf{Spalt}funktion.
+%
+Dieser Zusammenhang ist fundamental in der Signalverarbeitung und der
+Kommunikationstechnik und wurde in \fig{fig:8C3958BE4F} grafisch aufbereitet.
+
+Was erwarten wir für $T_h\to 0$ (idealer Impuls) und was für $T_h\to \infty$
+(Gleichspannung)? In beiden Fällen bekommen
+wir Probleme beim Integrieren. Aber dies sind in der SigSys überaus wichtige
+Grenzfälle, für die auch Fouriertransformierte existieren. Wir werden sie bald
+kennenlernen.
+
+Wir werden in der Vorlesung und Übung sehr oft das Elementarsignal
+
+\begin{equation}
+\text{rect}(t) := \begin{cases} 1 & |t| < \frac{1}{2} \\ \frac{1}{2} & |t| = \frac{1}{2} \\ 0 & |t| > \frac{1}{2} \end{cases}\quad,
+\end{equation}
+also den Rechteckimpuls mit $T_h=1$ und $A=1$, zum Rechnen benutzen.
+%
+Die Fouriertransformierte von $\text{rect}(t)$ lautet dann abgeleitet aus
+\eq{eq:8C3958BE4F_Loesung} einfach
+$X(\omega) = \mathrm{sinc}(\frac{\omega}{2})$.
+%
+Eine oft benutzte Schreibweise von Fouriertransformationspaaren (sogenannte
+Korrespondenzen, siehe Formelsammlung) benutzt den Operator $\laplace$.
+%
+Wir schreiben für das soeben gefundene Transformationspaar
+\begin{equation}
+x(t) = \text{rect}(t) \quad \laplace \quad X(\omega) = \mathrm{sinc}(\frac{\omega}{2})
+\end{equation}
+%
+Eine weitere Korrespondenz ist
+\begin{equation}
+x(t) = \text{sinc}(t) \quad \laplace \quad X(\omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
+\end{equation}
+also bis auf den Faktor $\pi$ vertauscht.
+%Diese Korrespondenz direkt zu
+%beweisen, also die Spaltfunktion fourierzutransformieren ist nicht trivial, aber
+%man kann die inverse Fourier Transformation berechnen. Das ist wieder nur der
+%Rechteckimpuls unter dem Integralkern.
+%
+Die Dualität, also \textbf{Spaltfunktion transformiert ergibt Rechteckfunktion und umgekehrt},
+dürfen wir die ganze Zeit nicht aus den Augen verlieren. Das ist so ein bisschen
+wie der Satz des Pythagoras bei rechtwinkligen Dreiecken, ohne den wird's auch eher
+dünne Rechnerei mit wenig Vertändnis.
+
+Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
+Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
+hinterlegt. Wir sehen, dass die Werte der Fourierkoeffizienten $X_\nu$
+\eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
+mit den Werten von $X(\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
+$\frac{2\pi}{T} \nu = \nu \cdot \omega_0 = \omega$.
+Dies ist kein Zufall. Wir werden das später als Abtastung von Spektren kennenlernen.
+
+
+
+\end{Loesung}
+
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{1\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_1.pdf}
+\caption{Rechteckimpulse für verschiedene $T_h$ und gewähltem $A=1/T_h$.
+Achtung: Um die resultierenden Amplitudenunterschiede sinnvoll darstellen zu können,
+ist $\log_{10}x(t)$ über $t$ aufgetragen. Da $\log_{10}(0)=-\infty$
+ist nur der Signalteil mit (positiver) Amplitude $A=1/T_h$ sichtbar.}
+\label{fig:8C3958BE4F_1}
+\end{subfigure}
+\\
+\begin{subfigure}{1\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_0.pdf}
+\caption{Fouriertransformation der Rechteck-Impulse aus
+\fig{fig:8C3958BE4F_1}. Durch die Wahl $A=1/T_h$ haben alle Rechteckimpulse Fläche
+1 und alle Fouriertransformierten
+das gleiche globale Maximum (bei $\omega=0$ rad/s) mit Wert 1.}
+\label{fig:8C3958BE4F_0}
+\end{subfigure}
+%
+\caption{Rechteckimpulse (oben) und Fouriertransformierte (unten).
+Liniendickenvariation zu besseren Unterscheidbarkeit bei Graustufenanzeige.
+\texttt{FourierTransformation\_8C3958BE4F.ipynb}}
+\label{fig:8C3958BE4F}
+\end{figure*}
+
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../ft/8C3958BE4F_SingleCase_MagPhase.pdf}
+  \caption{Betrag (oben) und Phase (unten) der rellwertigen
+  Fouriertransformierten \eq{eq:8C3958BE4F_Loesung}. Für eine Variable
+  $a\in\mathbb{R}$ gilt $a = -a \e^{\pm\im\pi}$, daher
+  die Phasensprünge um $\pm\pi$ zum punktsymmetrisches Spektrum
+  bei negativer Amplitude der Spaltfunktion.
+\texttt{FourierTransformation\_8C3958BE4F.ipynb}}
+  \label{fig:8C3958BE4F_SingleCase_MagPhase}
+\end{figure}
+
+
+
+
+\clearpage
+\subsection{Fourier-Transformation Signal-Verschiebung}
+\label{sec:A8A2DEE53A}
+\begin{Ziel}
+Wir wollen uns erarbeiten, wie sich eine Zeitverschiebung des Signals auf die
+Fouriertransformierte auswirkt und damit das sogenannte Verschiebungsgesetz
+kennenlernen und/oder wiederholen.
+Merke bzw. besser sieh in den Formeln:
+Zeitverschiebung bedeutet immer Phasenänderung in der Fouriertransformierten,
+also im Spektrum. Das gilt allgemein für alle anderen Fourier-Transformationen
+die wir noch kennenlernen werden, lohnt sich also vom Wesen zu verstehen.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny A8A2DEE53A}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item dargestellte Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+%
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.0,0) node[below] {$0$} -- (-0,1) node[left] {$A$} -- (1,1) -- (1,0) node[below] {$T_h$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+%
+Wir erkennen die in Aufgabe \ref{sec:8C3958BE4F} hier um $T_h/2$, also nach rechts,
+verschobene Rechteckfunktion.
+
+
+\begin{Werkzeug}
+nothing really new here...wir machen
+Analyse mit Fouriertransformation
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{equation}
+X(\omega) = \int\limits_{0}^{T_h} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+\end{Ansatz}
+
+
+\begin{ExCalc}
+Integrieren
+\begin{equation}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{0}^{T_h}
+\end{equation}
+Grenzen einsetzen
+\begin{equation}
+X(\omega) = A \frac{\e^{-\im \omega T_h}-1}{-\im \omega}
+\end{equation}
+Vorzeichen
+\begin{equation}
+X(\omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega}
+\end{equation}
+Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\omega) = A \frac{1 - \e^{-\im \omega T_h}}{\im \omega} \underbrace{\e^{+\im\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}}_{=1}=
+A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{-\im\omega\frac{T_h}{2}}
+\cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+Umsortieren
+\begin{equation}
+X(\omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{-\im\omega\frac{T_h}{2}} =
+A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+\end{ExCalc}
+
+
+\begin{Loesung}
+\begin{equation}
+\label{eq:A8A2DEE53A_Loesung}
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\omega\frac{T_h}{2}}
+\end{equation}
+%
+Wir erkennen, dass \eq{eq:8C3958BE4F_Loesung} um den komplexen Dreher / Zeiger $\e^{-\im\omega\frac{T_h}{2}}$
+erweitert wird und nun $X(\omega)\in\mathbb{C}$.
+%
+Wir müssen bei grafischen Darstellungen daher eigentlich streng immer mindest
+zwei Diagramme anfertigen:
+\begin{itemize}
+  \item Realteil + Imaginärteil und/oder
+  \item Betrag + Phase
+\end{itemize}
+%
+Eine Darstellung in Betrag und Phase ist üblich, weil dies bei praktischen
+Problemen, schnell hilfreiche Informationen offenbart. Das haben wir auch schon
+bei der komplexen Wechselstromrechnung benutzt.
+
+
+Im Gegensatz zum vorherigen Beispiel und \fig{fig:8C3958BE4F_SingleCase_MagPhase},
+wo $X(\omega)\in\mathbb{R}<0$ Phasensprünge um $\pi$ verursacht haben, müssen
+wir hier eine stückweise stetige, linear Phasenfunktion $\phi(\omega)$ berücksichtigen.
+Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein Bild zu machen.
+%
+Der Anstieg der Geradenteile lässt sich direkt aus dem komplexen Dreher rauslesen
+zu $-\frac{T_h}{2}$.
+%
+Für die Fouriertransformierte in Betrag und Phase dargestellt, gilt mit $m\in\mathbb{Z}$
+\begin{equation}
+X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+\cdot  \e^{-\im\omega\frac{T_h}{2}}\cdot
+\begin{cases}
+\e^{\im (0+2\pi \cdot m)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi \cdot m)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\end{cases}
+\end{equation}
+Überall da wo die Spaltfunktion einen Polaritärswechsel macht, entsteht
+eine Phasen-Unstetigkeitstelle, weil die Phase springt um $\pi$ bzw. wegen der
+$2\pi$-Vieldeutigkeit um $\pi + 2\pi m$.
+%
+Die Phasenfunktion ist daher
+\begin{equation}
+\phi(\omega) = -\omega\frac{T_h}{2} +
+\begin{cases}
+2\pi m\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi m\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+\end{cases}
+\end{equation}
+Die numpy-Funktion \verb|angle()| wertet die Phase zwischen $-\pi$ und $+\pi$ aus,
+deswegen bekommen wir den in \fig{fig:A8A2DEE53A} dargestellten Verlauf der Phase.
+
+Daher nochmal: Jenseits der Phasensprünge, ist zu realisieren, dass
+eine zeitliche Verschiebung um $\frac{T_h}{2}$ in der Fouriertransformierten
+zu einer Phasenänderung mit Anstieg $-\frac{T_h}{2}$ (negativ, fallend)
+führt und der Betrag erhalten bleibt.
+%
+In \fig{fig:A8A2DEE53A} ist daher das Verhalten von \eq{eq:A8A2DEE53A_Loesung} als
+Betrag und Phase über $\omega$ dargestellt.
+
+Der Betrag der Spaltfunktion ist einfach zu erhalten: wir klappen einfach alle
+negativen Funktionswerte in Richtung positiver Ordinate.
+%
+Die Phase ist die stückweise stetig Gerade über $\omega$ durch den Ursprung
+mit Anstieg $-T_h/2$, also fallend.
+%
+Diese \textbf{Phase}nfunktion ist bzgl. des Ursprungs \textbf{punktsymmetrisch}.
+Dies gilt immer für die Fouriertransformierten $X(\omega)$ von \textbf{reellwertigen}
+Signalen $x(t)$.
+%
+Größere Zeitverschiebung $T_h/2$ bedeutet größere Phasenverschiebung, also steilere
+fallende Geradenstücke.
+
+Das was wir anhand eines speziellen (wichtigen) Beispiels gezeigt haben, gilt auch
+allgemein. Die Korrespondenz zur \textbf{Zeitverschiebung} um $\tau\in\mathbb{R}$
+---bekannt als \textbf{Verschiebungssatz}---lautet
+\begin{align}
+x(t) & \quad \laplace \quad X(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
+\end{align}
+%
+Man kann natürlich auch eine Fouriertransformierte um die Kreisfrequenz
+$\omega_0\in\mathbb{R}$ verschieben, vgl. Aufgabe \ref{sec:9D652BE72B}.
+%
+Die Korrespondenz zur \textbf{Frequenzverschiebung}
+---bekannt als \textbf{Modulationssatz}---lautet
+\begin{align}
+x(t) & \quad \laplace \quad X(\omega)\\
+\label{eq:A8A2DEE53A_ModTheoremTime}
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0).
+\end{align}
+%
+Bemerkenswert ist der gekreuzte Zusammenhang Zeit-/ Frequenzverschiebung
+vs.
+Frequenz-/ Zeitmodulation,
+jedoch mit anderem Vorzeichen
+im komplexen Dreher.
+\end{Loesung}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{../ft/A8A2DEE53A.pdf}
+  \caption{Betrag (oben) und Phase (unten) der Fouriertransformierten \eq{eq:A8A2DEE53A_Loesung}.
+\textbf{Vorsicht:} Die Grafik suggeriert, dass eine zeitliche Rechts-Verschiebung
+sowohl Phase als auch Betrag ändert. Dies passiert aber hier speziell, weil wir in der
+Aufgabe nach einer Verschiebung um $T_h/2$ gefragt haben, und $T_h$
+im Argument der Spaltfunktion die Breite dieser bestimmt.
+\texttt{FourierTransformation\_A8A2DEE53A.ipynb}}
+  \label{fig:A8A2DEE53A}
+\end{figure}
+
+
+\clearpage
+\subsection{Fourier-Transformation Signal-Zeitumkehr}
+\label{sec:1CFE5FE3A1}
+\begin{Ziel}
+Wir wollen uns erarbeiten, wie sich eine Zeitumkehr in der Fouriertransformierten
+auswirkt und dabei eine wichtige Symmetrie der Korrespondenzen kennenlernen.
+
+Merke bzw. besser sieh in den Formeln: Zeitumkehr ist Phasenumkehr in der Fouriertransformierten.
+\end{Ziel}
+
+\textbf{Aufgabe} {\tiny 1CFE5FE3A1}: Berechnen Sie die Fourier-Transformation für
+\begin{itemize}
+\item dargestellte Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\end{itemize}
+%
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-1,0) node[below] {$-T_h$} -- (-1,1) node[left] {$A$} -- (0,1) -- (0,0) -- (2,0);
+\end{tikzpicture}
+\end{figure}
+%
+Wir erkennen
+\begin{itemize}
+\item die in Aufgabe \ref{sec:8C3958BE4F} hier um $-T_h/2$, also nach links,
+verschobene Rechteckfunktion
+\item die in Aufgabe \ref{sec:A8A2DEE53A} hier zeitgedrehte Rechteckfunktion
+\end{itemize}
+
+\begin{Werkzeug}
+Korrespondenz Zeitverschiebung um $\tau\in\mathbb{R}$:
+\begin{align}
+x(t) & \quad \laplace \quad X(\omega)\\
+x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
+\end{align}
+Analyse mit Fouriertransformation:
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+
+\begin{Ansatz}
+Mit Kenntnis der Fouriertransformierten aus Aufgabe \ref{sec:8C3958BE4F}, d.h. der
+unverschobenen Zeitfunktion, können wir den Zeitverschiebungssatz anwenden:
+
+\begin{equation}
+x(t - (-T_h/2)) \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega (-T_h/2)}
+\end{equation}
+Das Endergebnis für die hier gestellte Aufgabe lautet daher
+\begin{equation}
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+\end{equation}
+Wir können aber auch wieder zu Fuß das Integral der Fourier Transformation
+\begin{equation}
+X(\omega) = \int\limits_{-T_h}^{0} A \e^{-\im \omega t} \mathrm{d}t
+\end{equation}
+mit ähnlichem Vorgehen wie Aufgabe \ref{sec:A8A2DEE53A} lösen und müssen das
+gleiche Endergebnis bekommen, wie die folgende ausführliche Rechnung zeigt.
+\end{Ansatz}
+\begin{ExCalc}
+%Integrieren
+\begin{equation}
+X(\omega) = A \frac{\e^{-\im \omega t}}{-\im \omega} \bigg|_{-T_h}^{0}
+\end{equation}
+%Grenzen einsetzen
+\begin{equation}
+X(\omega) = A \frac{1 - \e^{+\im \omega T_h}}{-\im \omega}
+\end{equation}
+%Vorzeichen
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega}
+\end{equation}
+%Erweitern mit dem Ziel $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin(x)}{x}$
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im \omega T_h}-1}{\im \omega} \underbrace{\e^{-\im\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}}_{=1}=
+A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
+\end{equation}
+\begin{equation}
+X(\omega) = A \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{\im\omega} \e^{+\im\omega\frac{T_h}{2}}
+\cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{equation}
+%Umsortieren
+\begin{equation}
+X(\omega) = A T_h \frac{\e^{+\im\omega\frac{T_h}{2}} - \e^{-\im\omega\frac{T_h}{2}}}{2 \im \cdot \omega T_h/2} \e^{+\im\omega\frac{T_h}{2}} =
+A T_h \frac{\sin(\omega\frac{T_h}{2})}{\omega\frac{T_h}{2}} \e^{+\im\omega\frac{T_h}{2}}
+\end{equation}
+\end{ExCalc}
+\begin{Loesung}
+Das Ergebnis
+\begin{equation}
+\label{eq:1CFE5FE3A1_Loesung}
+X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{+\im\omega\frac{T_h}{2}}.
+\end{equation}
+ist in \fig{fig:1CFE5FE3A1} dargestellt. Der Betrag
+$\bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|$
+ist gleich wie in Aufgabe \ref{sec:A8A2DEE53A}, weil wir gelernt haben, dass
+eine Zeitverschiebung nur die Phase in der Fouriertransformierten ändert.
+%
+
+Der wichtige neue Punkt ist, dass bei zeitlicher Linksverschiebung (Voreilen)
+die \textbf{unstetige Phasenfunktion} $\phi(\omega)$
+\textbf{diesmal ansteigend} ist,  da mit $m\in\mathbb{Z}$
+\begin{equation}
+X(\omega) = \bigg|A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2})\bigg|
+\cdot  \e^{+\im\omega\frac{T_h}{2}}\cdot
+\begin{cases}
+\e^{\im (0+2\pi \cdot m)}\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\e^{\im (\pi + 2\pi \cdot m)}\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0.
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\phi(\omega) = +\omega\frac{T_h}{2} +
+\begin{cases}
+2\pi \cdot m\quad \text{für}\quad \mathrm{sinc}(\omega\frac{T_h}{2})\geq0\\
+\pi + 2\pi \cdot m\quad \text{für}\quad\mathrm{sinc}(\omega\frac{T_h}{2})<0,
+\end{cases}
+\end{equation}
+Die Phase ist eine stückweise stetige Geradengleichung über $\omega$ durch den
+Ursprung und mit Anstieg $+T_h/2$, also diesmal steigend!
+%
+Die \textbf{Zeitumkehr} erzeugt also eine \textbf{Phasenumkehr}, vgl.
+Aufgabe \ref{sec:A8A2DEE53A} fallende Phase, Aufgabe \ref{sec:1CFE5FE3A1} hier steigende Phase.
+%
+Dies gilt auch wieder verallgemeinert und ist eine wichtige \textbf{Symmetrie}eigenschaft
+der Fourier Transformation
+%
+\begin{align}
+x(+t) \quad \laplace \quad X(+\omega) =& |X(\omega)| \, \e^{+\im\angle X(\omega)}\\
+x(-t) \quad \laplace \quad X(-\omega) =& |X(\omega)| \, \e^{-\im\angle X(\omega)}
+\end{align}
+%
+Zufällig (naja, die Aufgabe war so gewählt)
+in unserem Beispiel konnten wir das Problem auch über Zeitverschiebung
+lösen, weil wir die unverschobene Rechteckfunktion bereits gut kennen.
+\end{Loesung}
+%
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../ft/1CFE5FE3A1.pdf}
+  \caption{Betrag (oben) und Phase (unten) der Fouriertransformierten \eq{eq:1CFE5FE3A1_Loesung}.
+\textbf{Erneut Vorsicht:} Die Grafik suggeriert, dass eine zeitliche Links-Verschiebung
+sowohl Phase als auch Betrag ändert. Dies passiert aber hier speziell, weil wir in der
+Aufgabe nach einer Verschiebung um $-T_h/2$ gefragt haben, und $T_h$
+im Argument der Spaltfunktion die Breite dieser bestimmt.
+\texttt{FourierTransformation\_1CFE5FE3A1.ipynb}}
+  \label{fig:1CFE5FE3A1}
+\end{figure}
+
+
+
+
+
+\clearpage
+\subsection{Fourier-Transformation Signal-Modulation}
+\label{sec:9D652BE72B}
+\begin{Ziel}
+Anhand eines speziellen Beispiels erfassen wir das Wesen des Modulationstheorems.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 9D652BE72B}: Berechnen Sie die Fouriertransformation für
+\begin{itemize}
+\item axialsymmetrische Rechteckfunktion der Breite $T_h$ und Amplitude $A$
+\item die mit der komplexen Schwingung $\e^{+\im \omega_0 t}$ mit Kreisfrequenz $\omega_0>0$
+multipliziert wird
+\end{itemize}
+Wir wollen die Fouriertransformation Korrespondenz \eq{eq:A8A2DEE53A_ModTheoremTime}
+\begin{align}
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0)
+\end{align}
+nochmal am Beispiel sehen.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[domain=0:2]
+\draw[->] (-2,0) -- (2,0) node[below right] {$t$};
+\draw[->] (0,0) -- (0,1.5) node[above] {$x(t)$};
+\draw[-, C0, ultra thick] (-2,0) -- (-0.5,0) node[below] {$\frac{-T_h}{2}$} -- (-0.5,1) node[left] {$A$} -- (0.5,1) -- (0.5,0) node[below] {$\frac{+T_h}{2}$} -- (2,0);
+\end{tikzpicture}
+\end{figure}
+
+\begin{Werkzeug}
+Analyse mit Fouriertransformation
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{align}
+X_m(\omega) = \int\limits_{-T_h/2}^{+T_h/2} \e^{+\im \omega_0 t} \cdot A \, \e^{-\im \omega t} \mathrm{d}t
+\end{align}
+\end{Ansatz}
+\begin{ExCalc}
+\begin{align}
+X_m(\omega) = A \int\limits_{-T_h/2}^{+T_h/2} \e^{-\im (\omega-\omega_0) t} \mathrm{d}t =
+A \frac{\e^{-\im (\omega-\omega_0) t}}{-\im (\omega-\omega_0)}\bigg|_{-T_h/2}^{+T_h/2} =
+A \frac{\e^{-\im (\omega-\omega_0) T_h/2} - \e^{+\im (\omega-\omega_0) T_h/2}}{-\im (\omega-\omega_0)}
+\end{align}
+Vorzeichen drehen, erweitern, $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
+\begin{align}
+X_m(\omega) = A \frac{\e^{+\im (\omega-\omega_0) T_h/2} - \e^{-\im (\omega-\omega_0) T_h/2}}{\im (\omega-\omega_0)} \cdot \frac{T_h/2}{T_h/2} \cdot \frac{2}{2}
+\end{align}
+\end{ExCalc}
+\begin{Loesung}
+\begin{align}
+X_m(\omega) = A T_h \cdot \mathrm{sinc}\left((\omega-\omega_0) \frac{T_h}{2}\right)
+\end{align}
+Wir können mit Vergleich dieser und  Aufgabe \ref{sec:8C3958BE4F} beobachten, dass
+die Korrespondenz
+\begin{align}
+\e^{+\im \omega_0 t} \cdot x(t) \quad\laplace\quad X\left(\omega-\omega_0\right)
+\end{align}
+gilt.
+%
+Dieser Zusammenhang gilt generell und ist als Modulationstheorem der
+Fourier Transformation bekannt.
+%
+Das Spektrum (die Fouriertransformierte) $X(\omega)$ wird im Frequenzbereich
+um $\omega_0$ verschoben, wenn $x(t)$ mit der komplexen Trägerschwingung
+$\e^{+\im \omega_0 t}$ multipliziert wird. In der Nachrichtentechnik bezeichnet man
+diesen Vorgang als Modulation von $x(t)$ auf den Träger $\e^{+\im \omega_0 t}$.
+Dies benutzt man um Spektren in einen anderen (freien) Frequenzbereich zu
+verschieben. Das werden wir bald im Detail besser verstehen.
+\end{Loesung}
+
+
+\begin{mdframed}
+\textit{Ausblick:}
+%
+\\\noindent Wir könnten an dieser Stelle durchaus schon in der Lage sein, uns die
+Fouriertransformierten von $x(t) = \cos(\omega_0 t)$ und $x(t) = \sin(\omega_0 t)$
+abzuleiten und in Betrag und Phase zu skizzieren.
+%
+Dazu ist es nicht ratsam, dass Transformationsintegral lösen zu wollen,
+es konvergiert nicht, sondern die bisher bekannten Korrespondenzen zusammen
+mit den Euler Identitäten
+\begin{align}
+\cos(\omega_0 t) = \frac{\e^{+\im\omega_0 t}+\e^{-\im\omega_0 t}}{2}\qquad
+\sin(\omega_0 t) = \frac{\e^{+\im\omega_0 t}-\e^{-\im\omega_0 t}}{2\im}
+\end{align}
+zu benutzen.
+%
+Diese Idee durchzieht die SigSys: `Suchen nach` und `Arbeiten mit` passenden
+Korrespondenzen. Wir werden als Ingenieur*innen sehr wahrscheinlich keine unbekannte
+Fouriertransformierte neu finden! Überlassen wir dieses Feld hier zunächst
+den Integralnerds (vgl. \cite{Abramowitz1972}, \cite{Gradshteyn2007}) und lernen
+stattdessen was wir mit den Tools anstellen können und was sie uns im Wesen sagen.
+\end{mdframed}
+
+%
+In den bisherigen Aufgaben haben wir uns mit einfachen Signalen und der
+Fouriertransformierten beschäftigt, sprich wir haben geschaut, welche Frequenzen
+stecken mit welcher Amplitude in den untersuchten Signalen.
+%
+Als Spezialfall bekamen wir für periodische Signale die komplex-wertigen Fourierkoeffizienten als Linienspektrum-Darstellung.
+%
+Das ist der \textbf{SigSys-Teil: Signalanalyse und -synthese}. Wir werden insgesamt
+\textbf{vier Fouriertransformationen} kennenlernen, alle spezialisiert auf bestimmte
+Signaltypen, zwei kennen wir nun schon ein wenig besser: Fourierreihe und
+Fouriertransformation.
+Die anderen beiden sind
+
+\url{https://en.wikipedia.org/wiki/Discrete_Fourier_transform}
+
+\url{https://en.wikipedia.org/wiki/Discrete-time_Fourier_transform}
+
+Die Idee mit Korrespondenzen zu arbeiten, bleibt für alle Transformationen
+erhalten. Auch werden wir die Sinc/Rect-Dualitäten immer wieder finden,
+genauso wie Zeit-/Frequenzverschiebung.
+
+
+
+
+%\begin{comment}
+\newpage
+\subsection{Fourier-Transformation Cosinus-Schwingung}
+\label{sec:610482EF57}
+\begin{Ziel}
+Mit dem (eigentlich noch recht bescheidenen) Wissen zur Fourier-Transformation
+können wir trotzdem schon eine ganze Menge fundamental wichtiger Aspekte ableiten,
+diese sind in Büchern bereits bestens abgedeckt.
+Es kann jedoch nicht schaden, hin und wieder Sachen neu zu erfinden.
+Wir werden die Qualität je schmaler/breiter Rechteckfunktion desto breiter/schmaler
+Spaltfunktion erfassen und uns das zunutze machen, um die auf direktem Wege
+für uns noch nicht lösbare Aufgabenstellung trotzdem zu lösen.
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 610482EF57}: Berechnen Sie die Fouriertransformation für
+\begin{itemize}
+\item Cosinus-Schwingung $\cos(\omega_1 t)$ mit Kreisfrequenz $\omega_1>0$
+\end{itemize}
+\begin{Werkzeug}
+Analyse mit Fouriertransformation
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} x(t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+Dieses Integral konvergiert nicht und suggeriert, dass es keine Lösung gibt, was
+natürlich nicht stimmt, sonst gäbe es die Aufgabenstellung nicht. Wir müssen
+anders herangehen.
+%
+Wir könnten $x(t) = \cos(\omega_1 t)$ definieren und das Modulationstheorem
+aus vorheriger Aufgabe mit $\omega_0=0$ zu Hilfe nehmen. Das bringt uns nur keinen
+Schritt weiter.
+%
+Wir könnten $x(t) = 1$ definieren und das Modulationstheorem
+aus vorheriger Aufgabe mit $\omega_0=\omega_1$ zu Hilfe nehmen. Dann haben wir
+zwei Probleme mehr: a) wir kennen die Transformationsregel für die Modulation
+mit dem reellen Cosinussignal noch nicht und b) wir kennen die Lösung der
+Fourier Transformation des unmodulierten Signals $x(t)=1$, also
+\begin{align}
+X(\omega) = \int\limits_{-\infty}^{+\infty} 1 \e^{-\im \omega t} \fsd t = ?
+\end{align}
+noch nicht. Es stresst hier wieder, dass das Integral nicht konvergiert. Mit
+unendlichen Grenzen können wir hier noch nicht gut umgehen.
+%
+Benutzen wir also unser Handwerkszeug aus den vorigen Übungen und legen zunächst
+eine endliche Integrationsgrenze fest, nämlich mit Hilfe der
+axialsymmetrischen Rechteckfunktion der Breite $T$ und Amplitude $A$. Diesen
+Rechteckverlauf lassen wir dann immer breiter werden, bis er sich im Grenzfall
+von $-\infty$ bis
+$+\infty$ erstreckt.
+%
+Unser Ansatz lautet also
+\begin{align}
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
+\end{align}
+Wir erkennen, dass der Reckteckimpuls auf den Cosinus-Träger moduliert wird, aber
+wir kennen das Modulationsgesetz diesbezüglich noch nicht.
+Daher lösen wir das Integral zu Fuß.
+\end{Ansatz}
+\begin{ExCalc}
+Wir benutzen $\cos(x) = \frac{1}{2}(\e^{\im x} + \e^{-\im x})$ um
+\begin{align}
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \frac{1}{2}(\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t =
+\frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t
+\end{align}
+%
+\begin{align}
+X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} \left(\e^{-\im (\omega-\omega_1) t} + \e^{-\im (\omega+\omega_1) t} \right) \fsd t
+\end{align}
+%
+\begin{align}
+X(\omega) =
+\frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) t}}{-\im (\omega-\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
++\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) t}}{-\im (\omega+\omega_1)}\bigg|_{-T_h/2}^{+T_h/2}
+\end{align}
+%
+\begin{align}
+X(\omega) =
+\frac{A}{2} \frac{\e^{-\im (\omega-\omega_1) T_h/2} - \e^{+\im (\omega-\omega_1) T_h/2}}{-\im (\omega-\omega_1)}
++\frac{A}{2} \frac{\e^{-\im (\omega+\omega_1) T_h/2} - \e^{+\im (\omega+\omega_1) T_h/2}}{-\im (\omega+\omega_1)}
+\end{align}
+%
+Vorzeichen, Erweitern
+%
+\begin{align}
+X(\omega) =
+\frac{A}{2} \frac{\e^{+\im (\omega-\omega_1) T_h/2} - \e^{-\im (\omega-\omega_1) T_h/2}}{\im (\omega-\omega_1)} \cdot \frac{T_h/2}{T_h/2}
++\frac{A}{2} \frac{\e^{+\im (\omega+\omega_1) T_h/2} - \e^{-\im (\omega+\omega_1) T_h/2}}{\im (\omega+\omega_1)} \cdot \frac{T_h/2}{T_h/2}
+\end{align}
+%
+Mit $\sin(x) = \frac{\e^{+\im x}-\e^{-\im x}}{2\im}$, $\mathrm{sinc}(x):=\frac{\sin (x)}{x}$
+\begin{align}
+X(\omega) =
+A \frac{T_h}{2} \mathrm{sinc}\left((\omega-\omega_1) \frac{T_h}{2}\right) +
+A \frac{T_h}{2} \mathrm{sinc}\left((\omega+\omega_1) \frac{T_h}{2}\right)
+\end{align}
+Zur Kontrolle: für $\omega_1 = 0$ bekommen wir das Ergebnis aus Aufgabe
+\ref{sec:8C3958BE4F}, ein Indiz, dass wir uns nicht verrechnet haben.
+\end{ExCalc}
+%
+\begin{Loesung}
+Wir bekommen zwei mit $A \frac{T_h}{2}$ gewichtete Spaltfunktionen,
+verschoben um $\pm \omega_1$ auf der Frequenzachse. Das Maximum der ersten Spaltfunktion
+liegt bei $+\omega_1$ (positive Frequenz), das Maximum der zweiten Spaltfunktion
+liegt bei $-\omega_1$ (negative Frequenz).
+
+
+
+Was ist nun mit der ursprünglichen Aufgabe die Fourier Transformierte des Cosinus
+zu finden?
+%
+Wir können sie ehrlicherweise nur mit einem Vorgriff auf kommenden Stoff erarbeiten, das
+ist aber so fundamental, dass es sich lohnt, das hier schonmal anzudeuten.
+%
+Die Grundidee ist bekanntes mathematisches Handwerkszeug: wir lassen
+$T_h\to \infty$ gehen. Dann wird sich für beide gewichtete Spaltfunktionen ein
+geschlossener Ausdruck finden lassen.
+
+\end{Loesung}
+
+\begin{mdframed}
+\textit{Vorgriff}
+%
+Zunächst nehmen wir unser vorläufiges Endergebnis und schreiben die Spaltfunction
+aus
+\begin{align}
+X(\omega) =
+A \frac{T_h}{2} \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{(\omega-\omega_1) \frac{T_h}{2}} +
+A \frac{T_h}{2} \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{(\omega+\omega_1) \frac{T_h}{2}}
+\end{align}
+kürzen ein wenig und erweitern mit $\pi$
+\begin{align}
+X(\omega) =
+A \pi \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{\pi (\omega-\omega_1)} +
+A \pi \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{\pi (\omega+\omega_1)}
+\end{align}
+und stellen im sin-Argument noch ein wenig die Brüche um
+\begin{align}
+X(\omega) =
+A \pi \frac{\sin\left( \frac{(\omega-\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega-\omega_1)} +
+A \pi \frac{\sin\left( \frac{(\omega+\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega+\omega_1)}
+\end{align}
+weil wir jetzt einen Ausdruck ähnlich $\sin(\omega / \xi)$ stehen haben.
+%
+Die Mathematik schenkt uns nun für folgenden Grenzübergang
+\begin{align}
+\delta(\omega) = \lim_{\xi\to 0} \frac{\sin(\frac{\omega}{\xi})}{\pi \omega}
+\end{align}
+einen geschlossenen Ausdruck $\delta(\omega)$.
+%
+Wenden wir $\xi\to 0$ für unseren spezifischen Term $\frac{2}{T_h}\to 0$ an,
+was wie gewünscht $T_h\to \infty$ bedingt,
+können wir die obige Definition verwenden und schreiben
+\begin{align}
+X(\omega) = A \pi \delta(\omega-\omega_1) + A \pi \delta(\omega+\omega_1)
+\end{align}
+%
+Für $A=1$ folgt weiter trivial
+\begin{align}
+X(\omega) = \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+\end{align}
+%
+Machen wir uns klar, dass durch die Wahl $T_h\to \infty$ (also Verbreiterung
+der Rechteckfunktion bis ins Unendliche) die gesuchte Korrespondenz
+\begin{align}
+\cos(\omega_1 t) \quad\laplace\quad \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+\end{align}
+gefunden wurde.
+%
+Der Ausdruck $\delta(\omega)$ ist bekannt als Dirac-Impuls, es ist aufgrund seiner
+Eigenschaften keine normale Funktion, sondern eine Distribution.
+Momentan hilft es uns weiter, wenn wir uns den Dirac-Impuls $\delta(\omega)$
+als unendlich hohe, unendlich schmale Rechteckfunktion der Fläche 1 an der Stelle
+$\omega=0$ vorstellen, siehe Grafiken unten.
+
+Die Fourier-Transformation des Cosinus besteht daher aus zwei mit $\pi$ gewichteten
+Dirac-Impulsen, die verschoben sind. Der erste Dirac-Impuls ist bei $+\omega_1$
+(positive Kreisfrequenz) und der zweite Dirac ist bei $-\omega_1$
+(negative Kreisfrequenz).
+%
+Wir erkennen eine Analogie zur komplexen Fourierreihe bei der es auch zweier
+komplexer Fourierkoeffizienten (bei $\pm k$) bedarf um eine Cosinus-Schwingung
+darzustellen bzw. zu synthetisieren.
+%
+Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
+\end{mdframed}
+%\end{comment}
+
+
 
 
 
