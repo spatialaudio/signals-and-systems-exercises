@@ -68,7 +68,7 @@ x(t)
 \end{align}
 %
 Analyse eines in $T$ periodischen Zeitsignals $x(t)=x(t+T)$ mit der komplexen Fourierreihe über eine Periodendauer $T$, i.e.
-Berechnung der komplexe-wertigen Fourierkoeffizienten $X_\nu\in\mathbb{C}$
+Berechnung der komplex-wertigen Fourierkoeffizienten $X_\nu\in\mathbb{C}$
 \begin{equation}
 X_\nu =  \int\limits_{-T/2}^{+T/2} x(t) \cdot \e^{-\im \nu \cdot \omega_0 t} \mathrm{d}t
 \end{equation}
@@ -162,7 +162,7 @@ rumschrauben.
 Zunächst halten wir fest: a) eine periodische Rechteckfunktion hat eine sinc-artige,
 komplexe Fourierreihe, b) die Fourierkoeffizienten sind hier reell, das ist
 hier ein Spezialfall der komplexen Fourierreihe, weil Auswertung eines
-axialsymmetrischen Signals, c) die Spalt-Funktion wird
+reellen, axialsymmetrischen Signals, c) die Spalt-Funktion wird
 wegen diskretem $\nu$ nur an bestimmten Stellen ausgewertet.
 Die Fourierreihe ist also als Folge
 über alle $\nu$ der komplexen Fourierkoeffizienten $X_\nu$ aufzufassen. Wir werden
@@ -197,8 +197,8 @@ Je mehr impulshafte Änderung
 $\frac{T_h}{T} \to  0$, desto mehr relevante Fourierkoeffizienten gibt es,
 also desto breiter das sinc-förmige Linienspektrum.
 %
-Noch salopper: viel Impuls braucht viele Koeffizienten (große spektrale Bandbreite);
-wenig Impulshaftiges, also langsam schwingendes braucht wenig Koeffizienten
+Noch salopper: viel Impuls braucht viele Fourier-Koeffizienten (große spektrale Bandbreite);
+wenig Impulshaftiges, also langsam schwingendes braucht wenig Fourier-Koeffizienten
 (kleine spektrale Bandbreite).
 
 
@@ -237,8 +237,8 @@ $T=2$ s, $T_h=1.6$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}}
 \includegraphics[width=\textwidth]{../fs/D1483A84E2_4.pdf}
 \caption{Koeffizienten der komplexen Fourierreihe $X_\nu$ (links) und Synthese $x(t)$ (rechts) für
 $T=2$ s, $T_h=2$ s, $A=1/T_h$. \texttt{FourierSeries\_D1483A84E2.ipynb}. Extremfall: für die
-Darstellung eines Gleichanteils braucht es nur $X_{k=0}$, alle anderen Fourier Koeffizienten
-$X_{k \neq 0}$ sind Null, weil ja nichts schwingt.}
+Darstellung eines Gleichanteils braucht es nur $X_{\nu=0}$, alle anderen Fourier Koeffizienten
+$X_{\nu \neq 0}=0$, weil ja nichts schwingt.}
 \label{fig:D1483A84E2_4}
 \end{figure}
 
@@ -261,7 +261,7 @@ Ohne den geht in SigSys (fast) nix, bekannt auch als
 Dirac-Delta-Impuls, Dirac-Stoß, Einheitsimpuls.
 Wir werden den Dirac-Impuls bei der Beschreibung von Signalen und Systemen
 in fundamentalen Zusammenhängen benutzen (müssen).
-Wir haben in den bisherigen Aufgaben ganz gut vorgearbeitet und können uns
+Wir haben mit der vorigen Aufgabe ganz gut vorgearbeitet und können uns
 mit der Rechteck- und Spaltfunktion dem Phänomen Dirac-Impuls nähern.
 Ingenieur*innen ist das Konzept am Anfang ein wenig fremd, weil
 der Dirac-Impuls keine klassische Funktion ist, sondern eine Distribution, d.h.
@@ -277,8 +277,8 @@ aber es ist in SigSys-Büchern das deutlich beliebtere Signal einen Dirac Impuls
 Grenzübergang aufzuzeigen.)
 
 Zudem werden wir zwei fundamentale Korrespondenzen der Fouriertransformation
-kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals. Das
-war bisher noch nicht lösbar, weil das Transformationsintegral nicht konvergiert.
+kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals, das als
+Vorgriff auf das was uns erwartet in SigSys.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D410BDAAE0}:
 Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$ sowie
@@ -483,9 +483,9 @@ Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
 %
 Wesentlich ist, dass ein Dirac-Impuls alle Frequenzen gleich gewichtet enthält
 (\fig{fig:D410BDAAE0_Korrespondenzen} oben)
-und dass ein Gleichsignal, nur einen Dirac-Impuls bei $\omega=0$ enthält
+und dass ein Gleichsignal, im Spektrum nur einen Dirac-Impuls bei $\omega=0$ enthält
 (\fig{fig:D410BDAAE0_Korrespondenzen} unten).
-Weil hier eben nichts schwingt, gibt es nur ein Dirac-Gewicht, welches den
+Weil hier eben nichts schwingt, gibt es nur diesen einen Dirac im Spektrum, welcher den
 Gleichanteil repräsentiert.
 \end{Loesung}
 
@@ -510,7 +510,7 @@ z.B. ein verschobener Dirac-Impuls im Zeitbereich
 \begin{align}
 \delta(t-\tau)& \quad \laplace \quad 1 \cdot \e^{-\im\omega \tau}.
 \end{align}
-Wir erinnern uns: Zeitverschiebung führt zu Phasenänderung im Frequenzbereich.
+Das wird uns in SigSys begleiten: Zeitverschiebung führt zu Phasenänderung im Frequenzbereich.
 
 Oder ein verschobener Dirac-Impuls im Frequenzbereich
 \begin{align}
@@ -544,13 +544,14 @@ für die Fouriertransformierte.
 %
 Zunächst keine Aufgabe, sondern erst ein Ausblick in den Kontext einer Wiederholung
 gestellt.
-Wir betrachten hier einleitend nun den \textbf{SigSys-Teil: Systemanalyse und -synthese}.
+Wir betrachten hier einleitend den \textbf{SigSys-Teil: Systemanalyse und -synthese}.
 Dafür werden wir die Laplace-Transformation (für zeitkontinuierliche Signale, Systeme)
 und die $z$-Transformation (für zeitdiskrete Signale/Systeme) kennenlernen, um
 Differentialgleichungen und Differenzengleichungen elegant(er) lösbar zu machen.
 %
 Signale und Systeme sind natürlich sehr eng verknüpft, die hier aufgespannte
-Trennung sollten wir daher nicht dogmatisch verfolgen, sondern sie dient als grober
+Trennung in Signalanalyse/-synthese vs. Systemanalyse/-synthese
+sollten wir daher nicht dogmatisch verfolgen, sondern sie dient als grober
 Überblick, was uns in SigSys erwarten wird.
 
 In Mathe haben wir das Konzept der Differentialgleichung (DGL) kennengelernt.
@@ -558,7 +559,8 @@ In Mathe haben wir das Konzept der Differentialgleichung (DGL) kennengelernt.
 Wir haben verschiedene Lösungsmöglichkeiten kennengelernt (Variation
 der Konstanten, Variablentrennung, Eigenlösungen und charakteristisches Polynom,
 Störgliedansätze, usw.). Erschien uns vielleicht ziemlich wirr, weil rechnen
-ja, verstehen eher hm...nein? Das Buch \cite{Strang2014} und andere von Gilbert Strang
+ja, verstehen eher hm...ja/nein/vielleicht?
+Das Buch \cite{Strang2014} und andere von Gilbert Strang
 lohnt sich durchzuarbeiten; auch die MIT OCW Vorlesungen von ihm sind sehr zu empfehlen.
 
 
@@ -575,7 +577,8 @@ früher analog, heute digital.
 %
 Regelungstechniker*innen bauen sich im Grunde die gleichen Filter, nennen sie nur
 selten Filter, sondern eher Glieder mit z.B. differenzierendem, proportionalem,
-integrierendem, usw. Verhalten.
+integrierendem, usw. Verhalten und bauen dann gerne Systeme mit
+Rückkopplungsschleifen, weil sie was regeln wollen.
 %
 Die Brücke zwischen E-Technik und Nachrichten-/Regelungstechnik (und auch
 ganz vielen anderen Disziplinen in denen wir mit Signalen agieren...also
@@ -672,7 +675,7 @@ beschaffen ist (also abhängig von den Koeffizienten $A,B,C$)---verschiedene
 Funktionsverläufe als homogene Lösungen erhalten.
 Es ginge:
 \begin{itemize}
-  \item harmonische komplexe, sin- oder cos-Schwingung
+  \item harmonische komplexe, sin- oder cos-Schwingung (wenn $B=0$, d.h. Resonanz)
   \item gedämpfte komplexe, sin- oder cos-Schwingung
   \item aufklingende komplexe, sin- oder cos-Schwingung (in der Praxis zu vermeiden)
   \item abfallender exponentieller Verlauf
@@ -682,14 +685,15 @@ Dies sind \textbf{Eigenlösungen} der homogenen DGL und können mit
 \eq{eq:A7BEE9E24E_Eigenloesungen} beschrieben werden.
 %
 Die noch fehlende Eigenlösung für Fall b) ist $y_h(t) = t \e^{\lambda_1 t}$, das
-ist der sogenannte Resonanzfall und bedarf deswegen einer eigenständigen Lösung,
-den wir hier mal vernachlässigen wollen.
+ist der sogenannte aperiodische Grenzfall (auch bekannt als kritisch bedämpfter Fall)
+und bedarf deswegen einer eigenständigen Lösung,
+den wir hier zunächst mal vernachlässigen wollen.
 
 \subsubsection{Homogene Lösung: Eigenwerte und Vektoren der Koeffizientenmatrix}
 %
 Es ist bemerkenswert, dass die homogenen Lösungen
 auch hervorgehen, wenn man Eigenwerte und Eigenvektoren einer ganz bestimmten Matrix
-berechnet. Das ist natürlich kein Zufall und mit der Denke können wir viele
+berechnet. Das ist natürlich kein Zufall; und mit der Denke können wir viele
 nützliche Tools aus der linearen Algebra mitverwenden.
 
 Um die Matrix aufzustellen, schreiben wir zunächst die homogene DGL um zu
@@ -769,7 +773,7 @@ $\mathrm{det}(\vec{A} - \lambda \vec{I})=0$ wird also zu
 A \lambda^2 + B \lambda + C = 0
 \end{align}
 mit den \textbf{zwei Eigenwerten} $\lambda_{1,2}$ aus \eq{eq:A7BEE9E24E_lambdas},
-weil identisch mit dem charakteristischen Polynom.
+weil genau nicht zufällig, exakt identisch mit dem charakteristischen Polynom.
 %
 Für die beiden zugehörigen Eigenvektoren $\vec{x}_{1}$ und $\vec{x}_{2}$ finden sich wegen
 dem geforderten
@@ -804,7 +808,7 @@ mit
 Wichtig: das gerade beschriebene Vorgehen funktioniert nur, wenn
 $\lambda_1 \neq \lambda_2$, also tatsächlich zwei unabhängige Eigenvektoren vorliegen.
 %
-$\lambda_1 = \lambda_2$ ist wieder der Spezialfall der Resonanz.
+$\lambda_1 = \lambda_2$ ist wieder der Spezialfall des aperiodischen Grenzfalls.
 
 Unser Ausgangspunkt war $\vec{A}  \vec{u} = \vec{u}'$ in \eq{eq:A7BEE9E24E_uAU}.
 Wie verknüpfen wir das mit der gefundenen Eigenwert/-vektor-Darstellung?
@@ -945,7 +949,7 @@ linksseitigen, verschwindenden Anfangsbedingungen.
 In SigSys bezeichnen wir diese Lösung als \textbf{Impulsantwort} $h(t)$
 eines Systems (das ist die Antwort der Systembeschreibung mittels DGL auf den
 Dirac Impuls mit Gewicht 1, Mathematiker*innen
-bezeichnen diese Lösung auch gerne als \textbf{Green'sche Funktion})
+bezeichnen diese Lösung gerne auch als \textbf{Green'sche Funktion})
 \begin{mdframed}[backgroundcolor=C3!10]
 \begin{align}
 h(t) =
@@ -985,11 +989,11 @@ Machen wir uns nochmal klar: in $h(t)$ steckt die Systeminformation in Form
 der Eigenwerte $\lambda_{1,2}$, also am Ende des Tages in Form der Koeffizienten $A,B,C$.
 Die zeitliche Komponente ist durch $\e^{\lambda_{1,2} t}$ abgebildet.
 
-Der hier nicht näher betrachtete Fall der Resonanz $\lambda_1 = \lambda_2$
-hat eine eigene Impulsantwort $h(t) = t \e^{\lambda t}$.
+Der hier nicht näher betrachtete aperiodische Grenzfall $\lambda_1 = \lambda_2$
+hat eine eigene Impulsantwort $h(t) \propto t \e^{\lambda t}$.
 %
-Das Faltungsintegral gilt konsistent
-für alle Fälle a), b), c). Das Integral weiß ja und interessiert sich auch nicht,
+Das Faltungsintegral gilt aber konsistent
+für alle Fälle a), b), c). Das Integral weiß ja nicht und interessiert sich auch nicht,
 dass wir eine Funktion als Impulsantwort auffassen und wir Fallunterscheidungen
 vornehmen müssen, je nachdem wie $A$, $B$ und $C$ beschaffen sind.
 
