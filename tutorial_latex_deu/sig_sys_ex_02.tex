@@ -4,7 +4,7 @@
 \label{sec:ue2_faltung}
 
 Wir müssen uns zunächst mit den zeitkontinuierlichen Elementarsignalen vertraut
-machen, siehe \verb|fundamental_signals_CT.pdf| im StudIP unter Formelsammlung.
+machen, siehe \verb|fundamental_signals_CT.pdf| im StudIP.
 
 Diese sind
 \begin{itemize}
@@ -35,7 +35,7 @@ Es ist wichtig, dass wir uns für die Zeitfunktion $f(t)$
 die Operationen
 Zeitverschiebung,
 Zeitskalierung und die Amplitudenskalierung, also
-$A \cdot f(\left[t-\tau\right]\cdot \theta)$ mit $A,\tau,\theta\in\mathbb{R}$
+$A \cdot f(\left(t-\tau\right)\cdot \theta)$ mit $A,\tau,\theta\in\mathbb{R}$
 klarmachen.
 %
 Wie man so schön sagt, müssen wir das für SigSys im Schlaf beherrschen.
@@ -46,24 +46,25 @@ grafisch dar.
 \begin{Werkzeug}
 Für
 \begin{equation}
-A \cdot f(\left[t-\tau\right]\cdot \theta)  \qquad A,\tau,\theta\in\mathbb{R}
+A \cdot f(\left(t-\tau\right)\cdot \theta)  \qquad A,\tau,\theta\in\mathbb{R}
 \end{equation}
 gilt
 \begin{itemize}
   \item Zeitverschiebung mit
-  $\tau$: für $\tau>0$ verzögert, rechtsverschoben; für $\tau<0$ vorauseilend, linksverschoben
-  \item Zeitskalierung mit $\theta$: für $\theta>1$ Stauchung; für $0<\theta<1$ Streckung
-  \item Amplitudenskalierung mit $A$: für $0<|A|<1$ Stauchung, für $|A|>1$ Streckung
+  $\tau$: für $\tau>0$ verzögert, d.h. rechtsverschoben; für $\tau<0$ vorauseilend, d.h. linksverschoben
+  \item Zeitskalierung mit $\theta$: für $\theta>1$ Stauchung (vgl. für $\theta\rightarrow \omega$ 'schneller schwingend'); für $0<\theta<1$ Streckung ('langsamer schwingend')
+  \item Amplitudenskalierung mit $A$: für $0<|A|<1$ Stauchung ('kleinere Amplitude'), für $|A|>1$ Streckung ('größere Amplitude')
   \item (für $A<0$ zusätzlich noch Invertieren der Signalpolarität)
   \item (für $\theta<0$ zusätzlich noch Invertieren des Zeitverlaufs)
 \end{itemize}
 \end{Werkzeug}
 \begin{Ansatz}
-Es ist sinnvoll, das Signal in die Darstellung
+Es ist zunächst sinnvoll, das Signal in die Darstellung
 \begin{equation}
-x(t) = \frac{3}{4} \cdot \mathrm{rect}(\left[t-\frac{3}{2}\right]\cdot \frac{1}{3})
+x(t) = \frac{3}{4} \cdot \mathrm{rect}(\left(t-\frac{3}{2}\right)\cdot \frac{1}{3})
 \end{equation}
-umzuformen, weil dann $t$ ohne Vorfaktor und so wie obige Formel.
+umzuformen, weil dann $t$ in der großen Klammer ohne Vorfaktor und exakt so wie
+obige Werkzeug-Formel.
 Dann lässt sich Zeitverschiebung und Zeitskalierung
 getrennt und nacheinander abarbeiten. Hier also zunächst Zeitverzögerung um
 $\frac{3}{2}$ und dann zeitliche Streckung (das Signal wird 'langsamer' bzw.
@@ -73,7 +74,7 @@ Zum Schluss noch die Amplitudenstauchung auf Amplitude $1 \cdot \frac{3}{4}$.
 %
 Es ist empfehlenswert, sich das kochrezeptartig anzugewöhnen, bis es sitzt.
 
-Bei einem cos()-Signal leuchtet uns die zeitliche Streckung, Stauchung vielleicht
+Bei einem cos()-Signal leuchtet uns die zeitliche Streckung bzw. Stauchung vielleicht
 intuitiv ein: ausgehend von $\cos(t)$ schwingt $\cos(2\,t)$ schneller, das ist eine
 zeitliche Stauchung.
 %
@@ -81,7 +82,7 @@ Jedoch ausgehend von $\cos(t)$ schwingt $\cos(\frac{1}{2}\,t)$
 langsamer, das ist dann eine zeitliche Streckung.
 
 Machen wir uns klar, dass wir auch eine Verschiebung des Signals bezüglich der
-Ordinate vornehmen können. Das heißt wir manipulieren den Gleichanteil.
+Ordinate vornehmen können. Das heißt, wir manipulieren den Gleichanteil.
 %
 Signale mit Gleichanteil werden in den meisten signallastigen
 Ingenieursdisziplinen vermieden, weil man den Gleichanteil schlecht
@@ -107,7 +108,7 @@ Hinweis: die Sprungfunktion erhalten wir mit \verb|step(t)|
 und die Dreieckfunktion mit \verb|tri(t)|, damit können wir eigene einfache
 Experimente zur Signalskalierung und -verschiebung machen.
 %
-Das sollten wir in jedem Fall mal machen in einer Mußestunde!
+Das sollten wir in jedem Fall mal machen in einer Mußestunde, bis es sitzt!
 
 %Mit UE 1.1 aus dem SS2019 können wir noch mehr üben.
 \end{Loesung}
@@ -177,7 +178,7 @@ samples=50,
 legend pos=outer north east,
 xlabel = {t},
 %ylabel = {x(t)},
-title = {$x(t) = \mathrm{rect}(\left[t-\frac{3}{2}\right]\cdot \frac{1}{3}) = \mathrm{rect}( \frac{t}{3} - \frac{1}{2})$},
+title = {$x(t) = \mathrm{rect}(\left(t-\frac{3}{2}\right)\cdot \frac{1}{3}) = \mathrm{rect}( \frac{t}{3} - \frac{1}{2})$},
 xmin=-4, xmax=4,
 ymin=-0.1, ymax=1.1,
 xtick={-4,-3,-2,-1,0,1,2,3,4},
@@ -203,7 +204,7 @@ samples=50,
 legend pos=outer north east,
 xlabel = {t},
 %ylabel = {x(t)},
-title = {$x(t) = \frac{3}{4} \cdot \mathrm{rect}(\left[t-\frac{3}{2}\right]\cdot \frac{1}{3})$},
+title = {$x(t) = \frac{3}{4} \cdot \mathrm{rect}(\left(t-\frac{3}{2}\right)\cdot \frac{1}{3})$},
 xmin=-4, xmax=4,
 ymin=-0.1, ymax=1.1,
 xtick={-4,-3,-2,-1,0,1,2,3,4},
@@ -255,6 +256,7 @@ Ableitung $x'(t)$ und stellen Sie diese grafisch dar.
 \draw (0.05,-1) -- (-0.05,-1);
 \draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
 \draw(2,0) node[below]{\small $2$};
+\draw(-2,0) node[below]{\small $-2$};
 \begin{scope}
 \draw[C0, ultra thick, domain=-2:2,variable=\t,samples=100,smooth] plot(\t,{ cos (4*pi*\t r)});
 \draw[C0, ultra thick] (-4,0) -- (-2,0);
@@ -277,12 +279,12 @@ was ja eigentlich eher eine Definition, anstatt eine Eigenschaft ist (siehe Übu
 Multiplikationseigenschaft des Dirac-Impulses
 \begin{align}
 &\delta(t-\tau) f(t) = \delta(t-\tau) f(\tau)\\
-&\delta(t) f(t) = \delta(t) f(0) \qquad \text{speziell für} \qquad \tau=0
+&\delta(t - 0) f(t) = \delta(t - 0) f(0) \qquad \text{speziell für} \qquad \tau=0
 \end{align}
 
 \end{Werkzeug}
 \begin{Ansatz}
-Typische SigSys-Denke: Zeitlich begrenzten Cosinus herstellen indem wir mit der
+Typische SigSys-Denke: Zeitlich begrenzten Cosinus herstellen, indem wir mit der
 Rechteckfunktion einen Teil ausschneiden. Dann Mathematik betreiben.
 \end{Ansatz}
 \begin{ExCalc}
@@ -298,7 +300,7 @@ $\mathrm{rect}(t)$, d.h. es ist eine zeitliche Streckung erforderlich.
 Breite von $\mathrm{rect}(t)$ ist 1 (hat auch Fläche 1!), wir brauchen aber
 Breite 4, daher $\mathrm{rect}(t\cdot \frac{1}{4})$ (zur Erinnerung:
 die Funktion soll sich bei Streckung langsamer über der Zeit ändern, daher
-Skalierungsfaktor kleiner 1)
+Skalierungsfaktor kleiner 1, also hier $\frac{1}{4}$).
 
 Daher kann das Signal als
 \begin{align}
@@ -313,9 +315,11 @@ Für die Zeitableitung
 \frac{\fsd }{\fsd t} \cos(4\pi t) \cdot \mathrm{rect}(\frac{t}{4})\\
 \end{align}
 benötigen wir nun die Produkt- und Kettenregel, sowie die Ableitung des Rechtecksignals.
+%
 
-Wir können das Rechtecksignal als Überlagerung von zwei Sprungfunktionen darstellen,
-nämlich
+Letzteres ist auf direktem Wege nicht besonders gut zu handhaben, aber mit einem eleganten, sehr SigSys-typischem Umweg.
+%
+Wir können nämlich das Rechtecksignal als Überlagerung von zwei Sprungfunktionen darstellen als
 \begin{equation}
 \mathrm{rect}(\frac{t}{4}) = \epsilon(t+2) -\epsilon(t-2),
 \end{equation}
@@ -352,11 +356,12 @@ coordinates {(-4,0)(-1.95,0)(-1.95,0.95)(2,0.95)(2,0)(4,0)};
 \end{tikzpicture}
 \end{center}
 
-Nun brauchen wir folgende wichtige Erkenntnis (die nur indirekt in der Formelsammlung
+Nun brauchen wir folgende fundamentale (Need-To-Know!) Signalrelation (die deswegen
+absichtlich auch nur indirekt in der Formelsammlung
 steht, nämlich bei den Korrespondenzen zur Laplace Transformation) und in
 \fig{fig:114F06AFAA} veranschaulicht ist
 \begin{equation}
-  \epsilon(t)' = \delta(t)
+  \epsilon(t)' = \delta(t).
 \end{equation}
 
 Damit können wir jetzt ableiten.
@@ -430,7 +435,7 @@ xmajorgrids=true
 coordinates {(-2,0)(0,0)(4,4)};
 \end{axis}
 \end{tikzpicture}
-\caption{$t \cdot \epsilon(t)$.}
+\caption{Rampe $t \cdot \epsilon(t)$.}
 %\label{fig:}
 \end{subfigure}
 %
@@ -509,7 +514,7 @@ $\epsilon(t)' = \delta(t)$}
 \begin{Loesung}
 
 \begin{align}
-x(t) = \cos(4\pi t) \cdot \mathrm{rect}(\frac{t}{4})\\
+x(t) = \cos(4\pi t) \cdot \mathrm{rect}(\frac{t}{4})
 \end{align}
 
 \begin{align}x'(t)=
@@ -551,23 +556,18 @@ verzögert,
 $+\delta(t+2)$ hat Gewicht $+1$ und ist um Zeit 2 zeitlich vorauseilend.
 \end{Loesung}
 
-
-
-
-
 \newpage
 \subsection{Signaloperationen: Zeitverschiebung und Negative Zeitskalierung}
-\label{sec:FBE36B0684}
+\label{sec:E984089B66}
 \begin{Ziel}
 Es ist wichtig, dass wir uns Zeitverschiebung im Verbund mit negativer Zeitskalierung
 als Konzept der Zeitspiegelung bezüglich einer Achse zu einem speziellen Zeitpunkt
-klarmachen. Diese Signaloperation ist fundamental wichtig in der Faltung.
+klarmachen. Diese Signaloperation ist fundamental wichtig für die Faltung.
 \end{Ziel}
-\textbf{Aufgabe} {\tiny FBE36B0684}: Stellen Sie die Signale
-$x_1(t) = \mathrm{e}^{-t-1} \cdot \epsilon(t+1)$ und
-$x_2(t) = \mathrm{e}^{t-2} \cdot \epsilon(-t+2)$
-grafisch dar und machen Sie deutlich wie aus Signal $x_1(t)$ mittels Zeitverschiebung
-und negativer Zeitskalierung das Signal $x_2(t)$ resultiert.
+\textbf{Aufgabe} {\tiny E984089B66}: Geben Sie analytische Ausdrücke für die in
+\fig{fig:E984089B66_1} und \fig{fig:E984089B66_2} dargestellten Signale an.
+Prüfen Sie mit Formeln den Übergang von $x(t) \rightarrow x_2(t)$ und
+$x(t) \rightarrow x_4(t)$ mittels Zeitverschiebung und negativer Zeitskalierung.
 \begin{Werkzeug}
 Wir brauchen die Konzepte (a) der Zeitverschiebung, hier speziell Zeitverzögerung,
 also Verschiebung des Signals nach rechts und (b) der Umkehr des Funktionsarguments,
@@ -580,7 +580,7 @@ sondern zusätzlich noch gestaucht/gestreckt. Das sollten wir uns mal ganz in Ru
 mit Wolfram Alpha als Referenzlösung anschauen.
 \end{Werkzeug}
 \begin{Ansatz}
-Es gibt zwei Varianten um von $x_1(t)$ zu $x_2(t)$ zu gelangen:
+Es gibt zwei Varianten um von $x(t)$ zu $x_2(t)=x_4(t)$ zu gelangen.
 
 Variante I: erst Zeitskalierung $\theta=-1$, dann Zeitverschiebung um $\tau$
 
@@ -591,12 +591,256 @@ Variante II: erst Zeitverschiebung um $\tau$, dann Zeitskalierung $\theta=-1$
 Mit Wolfram Alpha \url{https://www.wolframalpha.com} können wir uns bei
 Unsicherheit Klarheit verschaffen.
 %
-Ansonsten ist das eine exzellente Gelegenheit für Stift und Papier.
+Ansonsten ist das eine exzellente Gelegenheit für Stift und Papier,
+Zeichnen und ein bisschen Rechnen.
 \end{ExCalc}
 \begin{Loesung}
-Für Variante I siehe \fig{fig:FBE36B0684_1}, für Variante II siehe
-\ref{fig:FBE36B0684_2}.
+Für Variante I siehe \fig{fig:E984089B66_1}, für Variante II siehe
+\fig{fig:E984089B66_2}.
+%
+\begin{itemize}
+\setlength\itemsep{-0.5em}
+\item Variante I: erst Zeitskalierung $\theta=-1$, dann Zeitverschiebung um $\tau$
+\item für $x(-t+\tau)$ ergibt $\tau > 0$ eine Rechtsverschiebung von $x(-t)$, Beispiel unten
+\item für $x(-t+\tau)$ ergibt $\tau < 0$ eine Linksverschiebung von $x(-t)$
+\item $x_2(t)$ ergibt sich aus der Spiegelung von $x(t)$ an der vertikalen Achse bei $t=\frac{\tau}{2}$
+\end{itemize}
+%
+\begin{itemize}
+\setlength\itemsep{-0.5em}
+\item Variante II: erst Zeitverschiebung um $\tau$, dann Zeitskalierung $\theta=-1$
+\item für $x(t-\tau)$ ergibt $\tau > 0$ eine Rechtsverschiebung von $x(t)$, Beispiel unten
+\item für $x(t-\tau)$ ergibt $\tau < 0$ eine Linksverschiebung von $x(t)$
+\item $x_4(t)$ ergibt sich aus der Spiegelung von $x_3(t)$ (nicht $x(t)$!) an der vertikalen Achse bei $t=\tau$
+\end{itemize}
+\end{Loesung}
 
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\def \tauv {1/2}  % > 0 !!!
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x(t)$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (1/2,0) -- (1/2,1) -- (5/2,1) -- (5/2,0) -- (7/2,1) -- (9/2,0);
+\draw[C0, ultra thick,->] (6,0) -- (6,1) node[right]{$(1)$};
+\draw[C2, thick] (\tauv/2,1) -- (\tauv/2,-1);
+\end{tikzpicture}
+\end{center}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x_1(t) = x(\theta t) = x(-t)$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (-1/2,0) -- (-1/2,1) -- (-5/2,1) -- (-5/2,0) -- (-7/2,1) -- (-9/2,0);
+\draw[C0, ultra thick,->] (-6,0) -- (-6,1) node[right]{$(1)$};
+\end{tikzpicture}
+\end{center}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\def \tauv {1/2}  % > 0 !!!
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x_2(t) = x(\theta t + \tau) = x(-t+\tau) = x(-(t-\tau)),\quad \tau=\tauv$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (-1/2+\tauv,0) -- (-1/2+\tauv,1) -- (-5/2+\tauv,1) -- (-5/2+\tauv,0) -- (-7/2+\tauv,1) -- (-9/2+\tauv,0);
+\draw[C0, ultra thick,->] (-6+\tauv,0) -- (-6+\tauv,1) node[right]{$(1)$};
+\draw[C2, thick] (\tauv/2,1) -- (\tauv/2,-1);
+\end{tikzpicture}
+\end{center}
+\caption{Skizzenfahrplan für Variante I: \textbf{zuerst Zeitskalierung $\theta t=-1 \cdot t$, dann Zeitverschiebung $\theta t + \tau$}.}
+\label{fig:E984089B66_1}
+\end{figure}
+%
+%
+%
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x(t)$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (1/2,0) -- (1/2,1) -- (5/2,1) -- (5/2,0) -- (7/2,1) -- (9/2,0);
+\draw[C0, ultra thick,->] (6,0) -- (6,1) node[right]{$(1)$};
+\end{tikzpicture}
+\end{center}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\def \tauv {1/2}  % > 0 !!!
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x_3(t') = x(t-\tau),\quad \tau = \tauv$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (1/2+\tauv,0) -- (1/2+\tauv,1) -- (5/2+\tauv,1) -- (5/2+\tauv,0) -- (7/2+\tauv,1) -- (9/2+\tauv,0);
+\draw[C0, ultra thick,->] (6+\tauv,0) -- (6+\tauv,1) node[right]{$(1)$};
+\draw[C2, thick] (\tauv,1) -- (\tauv,-1);
+\end{tikzpicture}
+\end{center}
+%
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\def \xmin {-6}
+\def \xmax {+7.25}
+\def \ymin {0}
+\def \ymax {1.25}
+\def \tauv {1/2}  % > 0 !!!
+\draw[->] (\xmin-0.1 ,0) -- (\xmax+0.1,0) node[right]{$t$};
+\draw[->] (0,\ymin-0.1) -- (0,\ymax+0.1) node[above]{$x_4(t) = x_2(t) = x_3(\theta t') = x(-(t-\tau))=x(-t+\tau),\quad \tau = \tauv$};
+\foreach \x in {\xmin,-5.5,...,\xmax}{\draw (\x,0.05) -- (\x,-0.05);}
+\draw (0.05,1) -- (-0.05,1) node[left]{\small $1$};
+\draw(0,0) node[below]{\small $0$};
+\draw(1,0) node[below]{\small $\frac{2}{2}$};
+\draw(2,0) node[below]{\small $\frac{4}{2}$};
+\draw(3,0) node[below]{\small $\frac{6}{2}$};
+\draw(4,0) node[below]{\small $\frac{8}{2}$};
+\draw(5,0) node[below]{\small $\frac{10}{2}$};
+\draw(6,0) node[below]{\small $\frac{12}{2}$};
+\draw(-1.125,0) node[below]{\small $-\frac{2}{2}$};
+\draw(-2.125,0) node[below]{\small $-\frac{4}{2}$};
+\draw(-3.125,0) node[below]{\small $-\frac{6}{2}$};
+\draw(-4.125,0) node[below]{\small $-\frac{8}{2}$};
+\draw(-5.125,0) node[below]{\small $-\frac{10}{2}$};
+\draw(-6.125,0) node[below]{\small $-\frac{12}{2}$};
+\draw[C0, ultra thick] (-1/2+\tauv,0) -- (-1/2+\tauv,1) -- (-5/2+\tauv,1) -- (-5/2+\tauv,0) -- (-7/2+\tauv,1) -- (-9/2+\tauv,0);
+\draw[C0, ultra thick,->] (-6+\tauv,0) -- (-6+\tauv,1) node[right]{$(1)$};
+\draw[C2, thick] (\tauv,1) -- (\tauv,-1);
+\end{tikzpicture}
+\end{center}
+\caption{Skizzenfahrplan für Variante II:
+\textbf{zuerst Zeitverschiebung $t' = t-\tau$, dann Zeitskalierung $\theta t'=-1 \cdot (t-\tau)$}.}
+\label{fig:E984089B66_2}
+\end{figure}
+
+\begin{Loesung}
+\textbf{Variante I} folgend:
+\begin{align}
+x(t) = &\mathrm{rect}(\left(t-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t-\frac{7}{2}\right)\cdot 1) + \delta(t-6)\\
+x_1(t) = x(-t) = &\mathrm{rect}(\left(-t-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(-t-\frac{7}{2}\right)\cdot 1) + \delta(-t-6)\\
+x_2(t) = x(-t+\tau) = &\mathrm{rect}(\left(-t+\tau-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(-t+\tau-\frac{7}{2}\right)\cdot 1) + \delta(-t+\tau-6)
+\end{align}
+mit speziellem $\tau = \frac{1}{2}$
+\begin{align}
+x_2(t) = &\mathrm{rect}(\left(-t+\frac{1}{2}-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(-t+\frac{1}{2}-\frac{7}{2}\right)\cdot 1) + \delta(-t+\frac{1}{2}-6)\\
+x_2(t) = &\mathrm{rect}(\left(-t-\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(-t-\frac{6}{2}\right)\cdot 1) + \delta(-t-\frac{11}{2})\\
+x_2(t) = &\mathrm{rect}(-\left(t+\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(-\left(t+\frac{6}{2}\right)\cdot 1) + \delta(-(t+\frac{11}{2}))
+\end{align}
+Da $\mathrm{rect}(-t)=\mathrm{rect}(t)$, $\Lambda(-t)=\Lambda(t)$ und $\delta(-t) = \delta(t)$, also alles axialsymmetrische Signale
+\begin{align}
+x_2(t) = &\mathrm{rect}(\left(t+\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t+\frac{6}{2}\right)\cdot 1) + \delta(t+\frac{11}{2}).
+\end{align}
+Dies ist konsistent mit dem Signal $x_2(t)$, was wir direkt aus der Grafik aufstellen können
+\begin{align}
+x_2(t) = &\mathrm{rect}(\left(t+\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t+\frac{6}{2}\right)\cdot 1) + \delta(t+\frac{11}{2})
+\end{align}
+%
+\textbf{Variante II} folgend für $\tau=\frac{1}{2}$:
+\begin{align}
+x(t) = &\mathrm{rect}(\left(t-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t-\frac{7}{2}\right)\cdot 1) + \delta(t-6)\\
+x_3(t') = x(t-\tau) = &\mathrm{rect}(\left(t-\tau-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t-\tau-\frac{7}{2}\right)\cdot 1) + \delta(t-\tau-6)\\
+x_4(t) = x_3(-t') = x(-(t-\tau)) = &\mathrm{rect}(\left(-(t-\tau)-\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(-(t-\tau)-\frac{7}{2}\right)\cdot 1) + \delta(-(t-\tau)-6)\\
+x_4(t) = &\mathrm{rect}(-\left(t-\tau+\frac{3}{2}\right)\cdot \frac{1}{2}) + \Lambda(-\left(t-\tau+\frac{7}{2}\right)\cdot 1) + \delta(-(t-\tau+6))\\
+x_4(t) = &\mathrm{rect}(-\left(t+\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(-\left(t+\frac{6}{2}\right)\cdot 1) + \delta(-(t+\frac{11}{2}))\\
+\end{align}
+Da $\mathrm{rect}(-t)=\mathrm{rect}(t)$, $\Lambda(-t)=\Lambda(t)$ und $\delta(-t) = \delta(t)$, also alles axialsymmetrische Signale
+\begin{align}
+x_4(t) = &\mathrm{rect}(\left(t+\frac{2}{2}\right)\cdot \frac{1}{2}) + \Lambda(\left(t+\frac{6}{2}\right)\cdot 1) + \delta(t+\frac{11}{2})
+\end{align}
+was wir auch bekommen würden, wenn wir $x_4(t)$ direkt aus der Grafik herauslesen würden. Zudem haben wir gezeigt, dass wie erwartet $x_4(t)=x_2(t)$, d.h. die Varianten I und II konsistente Lösungswege sind.
+
+\end{Loesung}
+
+\begin{Werkzeug}
 Das Faltungsintegral
 \begin{equation}
 y(t)
@@ -612,199 +856,258 @@ oder $h(\tau) \rightarrow h(-\tau+t)$ abzubilden.
 \textbf{Wir beachten aber}, dass im Faltungsintegral die temporäre Zeitvariable
 $\tau$ (das ist keine RC-Glied Zeitkonstante o.ä.) ist und die Zeit $t$
 im Ergebnissignal $y(t)$ die Verschiebungsvariable in der Faltung entspricht.
-\end{Loesung}
+\end{Werkzeug}
 
-\begin{figure*}[h]
-\centering
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=-1:4,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$x_1(t) = \mathrm{e}^{-\left[t+1\right]} \cdot \epsilon(\left[t+1\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(-x-1)};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(-4,0)(-1,0)(-1,1)};
-\end{axis}
-\end{tikzpicture}
-\caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
-%\label{fig:}
-\end{subfigure}
+% \newpage
+% \subsection{Signaloperationen: Zeitverschiebung und Negative Zeitskalierung}
+% \label{sec:FBE36B0684}
+% \begin{Ziel}
+% Es ist wichtig, dass wir uns Zeitverschiebung im Verbund mit negativer Zeitskalierung
+% als Konzept der Zeitspiegelung bezüglich einer Achse zu einem speziellen Zeitpunkt
+% klarmachen. Diese Signaloperation ist fundamental wichtig in der Faltung.
+% \end{Ziel}
+% \textbf{Aufgabe} {\tiny FBE36B0684}: Stellen Sie die Signale
+% $x_1(t) = \mathrm{e}^{-t-1} \cdot \epsilon(t+1)$ und
+% $x_2(t) = \mathrm{e}^{t-2} \cdot \epsilon(-t+2)$
+% grafisch dar und machen Sie deutlich wie aus Signal $x_1(t)$ mittels Zeitverschiebung
+% und negativer Zeitskalierung das Signal $x_2(t)$ resultiert.
+% \begin{Werkzeug}
+% Wir brauchen die Konzepte (a) der Zeitverschiebung, hier speziell Zeitverzögerung,
+% also Verschiebung des Signals nach rechts und (b) der Umkehr des Funktionsarguments,
+% schlampig ausgedrückt, der Zeitumkehr. Letzteres erreichen wir indem wir
+% für den im Werkzeugkasten aus Aufgabe \ref{sec:42DE8C69F7} definierten
+% Zeitskalierungsfaktor
+% $\theta=-1$ zulassen. Wir machen uns klar, dass wir auch andere negative
+% $\theta$ zulassen könnten, dann wird das Signal nicht nur gespiegelt,
+% sondern zusätzlich noch gestaucht/gestreckt. Das sollten wir uns mal ganz in Ruhe
+% mit Wolfram Alpha als Referenzlösung anschauen.
+% \end{Werkzeug}
+% \begin{Ansatz}
+% Es gibt zwei Varianten um von $x_1(t)$ zu $x_2(t)$ zu gelangen:
 %
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=-4:-1,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$\mathrm{e}^{+\left[t+1\right]} \cdot \epsilon(-\left[t+1\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(x+1)};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(-1,1)(-1,0)(4,0)};
-\end{axis}
-\end{tikzpicture}
-\caption{Umkehr der Funktionsargumente von (a) ist Spiegelung an der $t=-1$ Achse.}
-%\label{fig:}
-\end{subfigure}
-
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=-4:2,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$x_2(t) = \mathrm{e}^{(+\left[t+1-3\right])} \cdot \epsilon(-\left[t+1-3\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(+(x-2))};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(2,1)(2,0)(4,0)};
-\end{axis}
-\end{tikzpicture}
-\caption{Erst Umkehr der Funktionsargumente von (a) und dann Zeitverzögerung von
-(b) um $3$.}
-%\label{fig:}
-\end{subfigure}
+% Variante I: erst Zeitskalierung $\theta=-1$, dann Zeitverschiebung um $\tau$
 %
+% Variante II: erst Zeitverschiebung um $\tau$, dann Zeitskalierung $\theta=-1$
 %
+% \end{Ansatz}
+% \begin{ExCalc}
+% Mit Wolfram Alpha \url{https://www.wolframalpha.com} können wir uns bei
+% Unsicherheit Klarheit verschaffen.
+% %
+% Ansonsten ist das eine exzellente Gelegenheit für Stift und Papier.
+% \end{ExCalc}
+% \begin{Loesung}
+% Für Variante I siehe \fig{fig:FBE36B0684_1}, für Variante II siehe
+% \ref{fig:FBE36B0684_2}.
 %
-\caption{Skizzenfahrplan für Aufgabe \ref{sec:FBE36B0684},
-\textbf{zuerst Zeitskalierung $\theta=-1$, dann Zeitverschiebung}.
-Vgl. \texttt{TimeMirrorShift\_FBE36B0684.ipynb}}
-\label{fig:FBE36B0684_1}
-\end{figure*}
+% Das Faltungsintegral
+% \begin{equation}
+% y(t)
+% = \int\limits_{-\infty}^{+\infty} x(-\tau+t) h(\tau) \, \fsd \tau
+% = \int\limits_{-\infty}^{+\infty} x(\tau) h(-\tau+t) \, \fsd \tau
+% \end{equation}
+% werden wir in den nächsten Aufgaben benutzen und verstehen.
+% %
+% Wir sehen hier, dass genau die hier
+% diskutierte Zeitverschiebung und negative Zeitskalierung benutzt werden muss, um
+% die Signaloperationen $x(\tau) \rightarrow x(-\tau+t)$
+% oder $h(\tau) \rightarrow h(-\tau+t)$ abzubilden.
+% \textbf{Wir beachten aber}, dass im Faltungsintegral die temporäre Zeitvariable
+% $\tau$ (das ist keine RC-Glied Zeitkonstante o.ä.) ist und die Zeit $t$
+% im Ergebnissignal $y(t)$ die Verschiebungsvariable in der Faltung entspricht.
+% \end{Loesung}
 %
+% \begin{figure*}[h]
+% \centering
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=-1:4,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$x_1(t) = \mathrm{e}^{-\left(t+1\right)} \cdot \epsilon(\left(t+1\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(-x-1)};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(-4,0)(-1,0)(-1,1)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
+% %\label{fig:}
+% \end{subfigure}
+% %
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=-4:-1,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$\mathrm{e}^{+\left(t+1\right)} \cdot \epsilon(-\left(t+1\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(x+1)};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(-1,1)(-1,0)(4,0)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Umkehr der Funktionsargumente von (a) ist Spiegelung an der $t=-1$ Achse.}
+% %\label{fig:}
+% \end{subfigure}
 %
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=-4:2,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$x_2(t) = \mathrm{e}^{(+\left(t+1-3\right))} \cdot \epsilon(-\left(t+1-3\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(+(x-2))};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(2,1)(2,0)(4,0)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Erst Umkehr der Funktionsargumente von (a) und dann Zeitverzögerung von
+% (b) um $3$.}
+% %\label{fig:}
+% \end{subfigure}
+% %
+% %
+% %
+% \caption{Skizzenfahrplan für Aufgabe \ref{sec:FBE36B0684},
+% \textbf{zuerst Zeitskalierung $\theta=-1$, dann Zeitverschiebung}.
+% Vgl. \texttt{TimeMirrorShift\_FBE36B0684.ipynb}}
+% \label{fig:FBE36B0684_1}
+% \end{figure*}
+% %
+% %
+% %
+% \begin{figure*}[h]
+% \centering
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=-1:4,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$x_1(t) = \mathrm{e}^{-\left(t+1\right)} \cdot \epsilon(\left(t+1\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(-(x+1))};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(-4,0)(-1,0)(-1,1)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
+% %\label{fig:}
+% \end{subfigure}
+% %
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=2:4,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$\mathrm{e}^{(-\left(t+1-3\right))} \cdot \epsilon(\left(t+1-3\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(-(x-2))};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(-4,0)(2,0)(2,1)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Zeitverzögerung von (a) um $3$.}
+% %\label{fig:}
+% \end{subfigure}
 %
-\begin{figure*}[h]
-\centering
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=-1:4,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$x_1(t) = \mathrm{e}^{-\left[t+1\right]} \cdot \epsilon(\left[t+1\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(-(x+1))};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(-4,0)(-1,0)(-1,1)};
-\end{axis}
-\end{tikzpicture}
-\caption{Ausgangspunkt: abfallende, vorauseilende Exponential-Funktion.}
-%\label{fig:}
-\end{subfigure}
-%
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=2:4,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$\mathrm{e}^{(-\left[t+1-3\right])} \cdot \epsilon(\left[t+1-3\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(-(x-2))};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(-4,0)(2,0)(2,1)};
-\end{axis}
-\end{tikzpicture}
-\caption{Zeitverzögerung von (a) um $3$.}
-%\label{fig:}
-\end{subfigure}
-
-\begin{subfigure}{0.45\textwidth}
-\begin{tikzpicture}
-\begin{axis}[
-width=1\textwidth,
-height=0.45\textwidth,
-domain=-4:2,
-samples=50,
-legend pos=outer north east,
-xlabel = {t},
-%ylabel = {x(t)},
-title = {$x_2(t) = \mathrm{e}^{(+\left[t+1-3\right])} \cdot \epsilon(-\left[t+1-3\right])$},
-xmin=-4, xmax=4,
-ymin=-0.1, ymax=1.1,
-xtick={-4,-3,-2,-1,0,1,2,3,4},
-ytick={0,0.5,1,1.5,2},
-ymajorgrids=true,
-xmajorgrids=true
-]
-\addplot[mark=None, color=C0, ultra thick]
-{exp(+(x-2))};
-\addplot[mark=None, color=C0, ultra thick]
-coordinates {(2,1)(2,0)(4,0)};
-\end{axis}
-\end{tikzpicture}
-\caption{Erst Zeitverzögerung von (a) um $3$ und danach Umkehr der Funktionsargumente von (b).
-Daher Spiegelung des Signals von (b) an der $t=2$ Achse.}
-%\label{fig:}
-\end{subfigure}
-%
-%
-%
-\caption{Skizzenfahrplan für Aufgabe \ref{sec:FBE36B0684},
-\textbf{zuerst Zeitverschiebung, dann Zeitskalierung $\theta=-1$}.
-Vgl. \texttt{TimeMirrorShift\_FBE36B0684.ipynb}}
-\label{fig:FBE36B0684_2}
-\end{figure*}
+% \begin{subfigure}{0.45\textwidth}
+% \begin{tikzpicture}
+% \begin{axis}[
+% width=1\textwidth,
+% height=0.45\textwidth,
+% domain=-4:2,
+% samples=50,
+% legend pos=outer north east,
+% xlabel = {t},
+% %ylabel = {x(t)},
+% title = {$x_2(t) = \mathrm{e}^{(+\left(t+1-3\right))} \cdot \epsilon(-\left(t+1-3\right))$},
+% xmin=-4, xmax=4,
+% ymin=-0.1, ymax=1.1,
+% xtick={-4,-3,-2,-1,0,1,2,3,4},
+% ytick={0,0.5,1,1.5,2},
+% ymajorgrids=true,
+% xmajorgrids=true
+% ]
+% \addplot[mark=None, color=C0, ultra thick]
+% {exp(+(x-2))};
+% \addplot[mark=None, color=C0, ultra thick]
+% coordinates {(2,1)(2,0)(4,0)};
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Erst Zeitverzögerung von (a) um $3$ und danach Umkehr der Funktionsargumente von (b).
+% Daher Spiegelung des Signals von (b) an der $t=2$ Achse.}
+% %\label{fig:}
+% \end{subfigure}
+% %
+% %
+% %
+% \caption{Skizzenfahrplan für Aufgabe \ref{sec:FBE36B0684},
+% \textbf{zuerst Zeitverschiebung, dann Zeitskalierung $\theta=-1$}.
+% Vgl. \texttt{TimeMirrorShift\_FBE36B0684.ipynb}}
+% \label{fig:FBE36B0684_2}
+% \end{figure*}
 
 
 
@@ -1533,7 +1836,7 @@ h(t) =
 damit ist (rect: erst zeitlich verspätet um $\frac{5}{4}$, dann zeitlich
 stauchen wegen $2>1$)
 \begin{equation}
-h(t) = (-2 t + 3) \cdot \mathrm{rect}\left(\left[t-\frac{5}{4}\right] \cdot 2\right)
+h(t) = (-2 t + 3) \cdot \mathrm{rect}\left(\left(t-\frac{5}{4}\right) \cdot 2\right)
 \end{equation}
 \begin{equation}
 x(t)=
@@ -1545,7 +1848,7 @@ x(t)=
 damit ist (rect: erst zeitlich verspätet um 1, dann zeitlich strecken wegen
 $\frac{1}{2}<1$ und Amplitude strecken um Faktor 2)
 \begin{equation}
-x(t) = 2\cdot\mathrm{rect}\left(\left[t-1\right] \cdot \frac{1}{2}\right)
+x(t) = 2\cdot\mathrm{rect}\left(\left(t-1\right) \cdot \frac{1}{2}\right)
 \end{equation}
 Fassen wir $h(t)$ hier mal als Impulsantwort eines LTI-Systems und $x(t)$ als
 Eingangssignal in dieses auf, obwohl es dem Faltungsintegral völlig egal ist,
