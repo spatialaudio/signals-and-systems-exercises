@@ -858,6 +858,142 @@ $\tau$ (das ist keine RC-Glied Zeitkonstante o.ä.) ist und die Zeit $t$
 im Ergebnissignal $y(t)$ die Verschiebungsvariable in der Faltung entspricht.
 \end{Werkzeug}
 
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{+t}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(x)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+%
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{-t}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-x)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+
+
+
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{t-1}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(x-1)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+%
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{-t-1}=\e^{-(t+1)}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-x-1)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+
+
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{t+1}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(x+1)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+%
+\begin{subfigure}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=-4:4,
+samples=50,
+legend pos=outer north east,
+xlabel = {$t$},
+ylabel = {$\e^{-t+1}=\e^{-(t-1)}$},
+xmin=-2, xmax=2,
+ymin=0, ymax=6,
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+{exp(-x+1)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+
+\caption{Signalverschiebung und Zeitumkehr am Beispiel der Exponentialfunktion.}
+\end{figure*}
+
+
+
 % \newpage
 % \subsection{Signaloperationen: Zeitverschiebung und Negative Zeitskalierung}
 % \label{sec:FBE36B0684}
@@ -2498,7 +2634,7 @@ h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}
 \qquad \mathrm{für} \qquad t \geq 0
 \qquad \mathrm{mit} \qquad T_\mathrm{RC} = R \cdot C
 \end{equation}
-Wir betrachten das RC-Glied als ruhend, also $y(0)=0$.
+Wir betrachten das RC-Glied als ruhend, also $y(0^-)=0$.
 %
 Berechnen Sie für $T_\mathrm{RC}=\frac{1}{5}$ s und für das unten dargestellte
 Eingangssignal $x(t)$ das Faltungsergebnis $y(t)=x(t) \ast h(t)$.
@@ -2565,7 +2701,7 @@ mit konstanten Koeffizienten
 \begin{equation}
 T_\mathrm{RC} \frac{\fsd y(t)}{\fsd t} + y(t) = x(t)
 \end{equation}
-mit $y(0)=0$ zu tun haben und überlegen, wie wir die Aufgabe mit
+mit $y(0^-)=0$ zu tun haben und überlegen, wie wir die Aufgabe mit
 typischem Mathe-DGL Handwerk lösen würden. Siehe auch SigSys-Klausur WS19/20 Aufgabe 1.
 
 \begin{Werkzeug}
@@ -2747,4 +2883,314 @@ dem gleichen Rechtecksignal, aber unterschiedlichen Impulsantworten
 verdeutlichen nochmal schön die unterschiedlichen Auflade- und Entlade-Vorgänge
 bedingt durch unterschiedliche Impulsantwortfunktionen. Wenn wir diese Verläufe
 durch Überlegung schematisch herleiten können, haben wir im Grunde das Wesen der
-Faltung verstanden.
+Faltung verstanden und können in der Klausur Punke sammeln bei der Faltungsaufgabe.
+
+\cleardoublepage
+\subsection{Faltungsintegral für Eigenfunktionen eines 1. Ordnung LTI-Systems}
+\label{sec:3355CAE61A}
+\begin{Ziel}
+Wir wollen ein weiteres Mal das Faltungsintegral lösen.
+Bei dieser Rechnung bleibt vielleicht das intuitive Verständnis auf der Strecke
+was die Faltung macht
+(das sollten wir uns bereits in den vorherigen Aufgaben
+erarbeitet haben), sondern die eigentliche Rechnung steht im Vordergrund.
+Dies machen wir, weil die Faltung von LTI-System-Eigenfunktionen vgw. einfache
+Integrale hervorbringt, in denen man sehr schön sieht, wie das System auf das
+Eingangssignal einwirkt.
+Das soll zum mathematisch-physikalischen Verständnis der Faltung beitragen.
+\end{Ziel}
+
+\textbf{Aufgabe} {\tiny 3355CAE61A}: Unten abgebildetes RC-Glied
+(Annahme: ideale Bauelemente)
+gilt die \textbf{Impulsantwort} (Annahme: kausales LTI System)
+\begin{equation}
+h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}
+\qquad \mathrm{für} \qquad t \geq 0
+\qquad \mathrm{mit} \qquad T_\mathrm{RC} = R \cdot C > 0
+\end{equation}
+Wir betrachten das RC-Glied als ruhend, also $y(0^-)=0$.
+%
+Berechnen Sie das Faltungsergebnis $y(t) = x(t) \ast h(t)$ für eingeschaltetes
+$x(t) = \cos(\omega_\mathrm{RC} t)$ mit $\omega_\mathrm{RC}=\frac{1}{T_\mathrm{RC}}$ für $t\geq 0$.
+%
+\begin{center}
+\begin{circuitikz}[european, scale=0.75]
+\node (in) at (1,0){};
+\node (in_ground) at (1,-3){};
+\node (out) at (4,0){};
+\node (out_ground) at (4,-3){};
+\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (3,0) to [short,-o,] (out);
+\draw (3,0) to [C,l_=$C$,*-*] (3,-3);
+\draw (in_ground) to [short,o-o] (out_ground);
+\path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $x(t)$} (in_ground);
+\path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $y(t)$} (out_ground);
+\end{circuitikz}
+\end{center}
+
+\begin{Werkzeug}
+Die DGL
+\begin{equation}
+T_\mathrm{RC} \frac{\fsd y(t)}{\fsd t} + y(t) = x(t),\quad y(0^-)=0
+\end{equation}
+dieses LTI-Systems brauchen wir für diese Aufgabe nicht explizit, aber es kann nicht
+schaden damit auf Aufgabe \ref{sec:C964DD7400} (Rückgriff)
+und Aufgabe \ref{sec:4408E33353} (Vorgriff) zu verweisen bzw. wenn wir das Problem
+jenseits der Elektrotechnik verorten wollen.
+
+Gebraucht wird in jedem Fall das Faltungsintegral
+\begin{align}
+y(t) = \int\limits_{-\infty}^{+\infty} h(-\tau+t) \, x(\tau) \, \mathrm{d}\tau,
+\end{align}
+weil in der Aufgabenstellung nach dem Faltungsergebnis gefragt ist, und wir an
+dieser Stelle des Skriptes noch keine alternativen Methoden kennen die Aufgabe
+zu lösen.
+%
+Mit Annahme eines kausalen LTI-Systems, also $h(t<0) = 0$ und einem ab $t=0$ dauerhaft
+anliegenden Eingangssignal $x(t)$ können wir dem Integral explizite Grenzen geben
+(allerdings Obacht: $t$ variiert, weil wir für jedes $t\geq 0$ den Signalwert $y(t)$
+ausrechnen wollen.)
+%
+\begin{align}
+y(t) = \int\limits_{0}^{t} h(-\tau+t) \, x(\tau) \, \mathrm{d}\tau.
+\end{align}
+\end{Werkzeug}
+\begin{Ansatz}
+SigSys-Rechnerei wird dann immer besonders einfach (mag sich nicht so anfühlen,
+aber es kann noch viel häßlicher werden), wenn wir mit Eigenfunktionen von LTI-Systemen
+rechnen, also mit Signalen der Form $A \e^{s_0 t},\quad A, s_0 \in \mathbb{C}$
+
+\noindent Daher Ansatz
+\begin{align}
+h(t) = A_h \e^{s_h t}, \quad x_{1,2}(t) = A_{x_{1,2}} \e^{s_{x_{1,2}} t}
+\end{align}
+mit in der Aufgabenstellung gegebenen Werten
+\begin{align}
+s_h = -\frac{1}{T_{RC}},\quad A_h = -s_h = \frac{1}{T_{RC}}
+\end{align}
+und
+\begin{align}
+s_{x_1} = \im\omega_{RC},\quad s_{x_2} = s^*_{x_1} = -\im\omega_{RC}, \quad A_{x_{1,2}}=\frac{1}{2},\quad \omega_{RC} = \frac{1}{T_{RC}},
+\end{align}
+weil (Euleridentität)
+\begin{align}
+x(t) = A_{x_{1}} \e^{s_{x_{1}} t} + A_{x_{2}} \e^{s_{x_{2}} t} = \cos(\omega_\mathrm{RC} t)
+\end{align}
+das in der Aufgabenstellung gegebene Einganssignal darstellt.
+\end{Ansatz}
+\begin{ExCalc}
+Signale in $y(t) = \int\limits_{0}^{t} h(-\tau+t) \, x(\tau) \, \mathrm{d}\tau$ einsetzen (guter Zeitpunkt um nochmal über Variablensubstitution, Zeitumkehr, Verschiebung zu sinnieren)
+%
+\begin{align}
+y_{1,2}(t) = \int\limits_{0}^{t} A_h \e^{s_h (-\tau+t)} \, A_{x_{1,2}}\e^{s_{x_{1,2}} \tau} \, \mathrm{d}\tau
+\end{align}
+%
+Superposition bei LTI
+\begin{align}
+y(t) = y_1(t) + y_2(t) =
+\int\limits_{0}^{t} A_h \e^{s_h (-\tau+t)} \, A_{x_{1}}\e^{s_{x_{1}} \tau} \, \mathrm{d}\tau
++\int\limits_{0}^{t} A_h \e^{s_h (-\tau+t)} \, A_{x_{2}}\e^{s_{x_{2}} \tau} \, \mathrm{d}\tau
+\end{align}
+%
+Integral lösen für $y_1(t)$ (der Gag bei Faltung mit LTI-Eigenfunktionen ist das einfache Integral über eine Exponentialfunktion)
+\begin{align}
+y_1(t) =
+&\int\limits_{0}^{t} A_h \e^{s_h (-\tau+t)} \, A_{x_{1}}\e^{s_{x_{1}} \tau} \, \mathrm{d}\tau=\\
+&A_h A_{x_{1}} \e^{s_h t} \int\limits_{0}^{t} \e^{- s_h \tau} \e^{s_{x_{1}} \tau} \, \mathrm{d}\tau=\\
+&A_h A_{x_{1}} \e^{s_h t} \int\limits_{0}^{t} \e^{(s_{x_{1}}-s_h) \tau} \, \mathrm{d}\tau=\\
+&A_h A_{x_{1}} \e^{s_h t}  \frac{1}{(s_{x_{1}}-s_h)} \e^{(s_{x_{1}}-s_h) \tau}\bigg|_{\tau=0}^{\tau = t}=\\
+&A_h A_{x_{1}} \e^{s_h t}  \frac{\e^{(s_{x_{1}}-s_h) t}-1}{(s_{x_{1}}-s_h)}
+\end{align}
+Analog für für $y_2(t)$
+\begin{align}
+y_2(t) = A_h A_{x_{2}} \e^{s_h t}  \frac{\e^{(s_{x_{2}}-s_h) t}-1}{(s_{x_{2}}-s_h)}
+\end{align}
+%
+Superposition und umschreiben/vereinfachen (weil nach Aufgabenstellung $A_{x_1}=A_{x_2}$ und $s_{x_2} = s^*_{x_1}$)
+\begin{align}
+y(t) = &y_1(t) + y_2(t) =\\
+&A_h A_{x_{1}} \e^{s_h t}  \frac{\e^{(s_{x_{1}}-s_h) t}-1}{(s_{x_{1}}-s_h)}+
+A_h A_{x_{2}} \e^{s_h t}  \frac{\e^{(s_{x_{2}}-s_h) t}-1}{(s_{x_{2}}-s_h)}\\
+&A_h A_{x_{1}} \e^{s_h t}  \frac{\e^{(s_{x_{1}}-s_h) t}-1}{(s_{x_{1}}-s_h)}+
+A_h A_{x_{1}} \e^{s_h t}  \frac{\e^{(s^*_{x_{1}}-s_h) t}-1}{(s^*_{x_{1}}-s_h)}\\
+&A_h A_{x_{1}} \e^{s_h t}  \left(\frac{\e^{(s_{x_{1}}-s_h) t}-1}{(s_{x_{1}}-s_h)}+\frac{\e^{(s^*_{x_{1}}-s_h) t}-1}{(s^*_{x_{1}}-s_h)}\right)
+\end{align}
+Für rein imaginäres $s_{x_{1}}$ ist $s^*_{x_{1}} = -s_{x_{1}}$, daher
+\begin{align}
+y(t) = A_h A_{x_{1}} \e^{s_h t}  \left(\frac{\e^{(s_{x_{1}}-s_h) t}-1}{(s_{x_{1}}-s_h)}+\frac{\e^{(-s_{x_{1}}-s_h) t}-1}{(-s_{x_{1}}-s_h)}\right)
+\end{align}
+und weiter
+\begin{align}
+y(t) = A_h A_{x_{1}} \left(\frac{\e^{s_{x_{1}} t}-\e^{s_h t}}{(s_{x_{1}}-s_h)}+\frac{\e^{-s_{x_{1}} t}-\e^{s_h t}}{(-s_{x_{1}}-s_h)}\right)
+\end{align}
+%
+Es ist nun wichtig zu realisieren, dass die Nenner
+$(+s_{x_{1}}-s_h)$ und $(-s_{x_{1}}-s_h)$ komplexe Zahlen mit gleichem Betrag $a = |+s_{x_{1}}-s_h| = |-s_{x_{1}}-s_h|$ und entgegengesetzter Phase
+$\phi_1 = \angle (+s_{x_{1}}-s_h)$ vs. $\phi_2 = \angle (-s_{x_{1}}-s_h)$, $\phi_2 = -\phi_1$ sind, d.h.
+%
+\begin{align}
+y(t) =& A_h A_{x_{1}} \left(\frac{\e^{s_{x_{1}} t}-\e^{s_h t}}{a \e^{\im\angle(s_{x_{1}}-s_h)}}+\frac{\e^{-s_{x_{1}} t}-\e^{s_h t}}{a \e^{\im\angle(-s_{x_{1}}-s_h)}}\right)=\\
+& A_h A_{x_{1}} \left(\frac{\e^{s_{x_{1}} t}-\e^{s_h t}}{a \e^{\im\phi_1}}+\frac{\e^{-s_{x_{1}} t}-\e^{s_h t}}{a \e^{\im\phi_2}}\right)=\\
+& A_h A_{x_{1}} \left(\frac{\e^{s_{x_{1}} t}-\e^{s_h t}}{a \e^{\im\phi_1}}+\frac{\e^{-s_{x_{1}} t}-\e^{s_h t}}{a \e^{-\im\phi_1}}\right)=\\
+& \frac{A_h A_{x_{1}}}{a} \left((\e^{s_{x_{1}} t}-\e^{s_h t})\e^{-\im\phi_1}+(\e^{-s_{x_{1}} t}-\e^{s_h t})\e^{\im\phi_1}\right)
+\end{align}
+Lösung auseinander schreiben, damit der zeitlich schwingende und der abklingende Teil getrennt stehen
+\begin{align}
+y(t) =& \frac{A_h A_{x_{1}}}{a} \left(\e^{s_{x_{1}} t-\im\phi_1}+\e^{-s_{x_{1}} t+\im\phi_1}-\e^{s_h t}\e^{-\im\phi_1}-\e^{s_h t}\e^{\im\phi_1}\right)=\\
+& \frac{A_h A_{x_{1}}}{a} \left(\e^{+(s_{x_{1}} t-\im\phi_1)}+\e^{-(s_{x_{1}} t-\im\phi_1)}-\e^{s_h t}(\e^{-\im\phi_1}+\e^{\im\phi_1})\right)
+\end{align}
+Jetzt kann die cos Euleridentität angewendet werden (weil Spezialfall: rein imaginäres $s_{x_{1}}$)
+\begin{align}
+y(t) = & \frac{A_h A_{x_{1}}}{a} \left(2\cos(\Im\{s_{x_{1}}\} t-\phi_1)-2\e^{s_h t}\cos(\phi_1)\right)
+\end{align}
+%
+Mit den obigen Zahlen zum gewählten Beispiel (wo sich Dinge sehr schön vereinfachen, weil der -3dB/-45deg Spezialfall bei der RC-Glied Grenzkreisfrequenz) $s_{x_{1}} = \im\omega_{RC}$, $s_h = -\frac{1}{T_{RC}}$, $A_h = -s_h = \frac{1}{T_{RC}}$, $A_{x_{1,2}}=\frac{1}{2}$, $\omega_{RC} = \frac{1}{T_{RC}}$
+zunächst Phase und Betrag
+\begin{align}
+&a = |+s_{x_{1}}-s_h| = |\im\omega_{RC} + \frac{1}{T_{RC}}| = |\im\omega_{RC} + \omega_{RC}| = \sqrt{2}\omega_{RC}\\
+&\phi_1 = \angle (+s_{x_{1}}-s_h) = \angle (\im\omega_{RC} + \omega_{RC}) = \frac{\pi}{4}
+\end{align}
+\end{ExCalc}
+\begin{Loesung}
+und dann alles einsetzen
+\begin{align}
+y(t \geq 0) = & \frac{\frac{1}{T_{RC}} \frac{1}{2}}{\sqrt{2}\omega_{RC}} \left(2\cos(\omega_{RC} t-\frac{\pi}{4})-2\e^{-\frac{t}{T_{RC}}}\frac{1}{\sqrt{2}}\right)=\\
+& \frac{\omega_{RC} \frac{1}{2}}{\sqrt{2}\omega_{RC}} \left(2\cos(\omega_{RC} t-\frac{\pi}{4})-2\e^{-\frac{t}{T_{RC}}}\frac{1}{\sqrt{2}}\right)=\\
+& \frac{1}{\sqrt{2}} \left(\cos(\omega_{RC} t-\frac{\pi}{4})-\e^{-\frac{t}{T_{RC}}}\frac{1}{\sqrt{2}}\right)=\\
+& \frac{1}{\sqrt{2} \sqrt{2}} \left(\sqrt{2}\cos(\omega_{RC} t-\frac{\pi}{4})-\e^{-\frac{t}{T_{RC}}}\frac{\sqrt{2}}{\sqrt{2}}\right)=\\
+& \frac{1}{2} \left(\sqrt{2}\cos(\omega_{RC} t-\frac{\pi}{4})-\e^{-\frac{t}{T_{RC}}}\right)=\\
+& \frac{1}{\sqrt{2}}\cos(\omega_{RC} t-\frac{\pi}{4})-\frac{1}{2}\e^{-\frac{t}{T_{RC}}}
+\end{align}
+In Aufgabe \ref{sec:4408E33353} c) werden wir zu dieser Lösung mit Hilfe der Laplace Transformation gelangen, dort ist auch eine detaillierte Interpretation zum Ausgangssignal nachzulesen.
+TBD: System wirkt auf Signal Interpretation im Integral
+\end{Loesung}
+
+\subsection*{RC-Glied / Tiefpass 1. Ordnung: Zusammenhang zwischen Lösung der linearen DGL 1. Ordnung mit konstanten Koeffizienten vs. Faltungsintegral}
+\newcommand\TRC{T_\text{RC}}
+
+Es lohnt sich nach den Aufgaben \ref{sec:C964DD7400}, \ref{sec:3355CAE61A} den in Abschnitt \ref{sec:Spezielle_Anregung_mit_Dirac_Impuls} begonnenen Gedankengang fortzusetzen, um zu verstehen, dass das Faltungsintegral keine Erfindung der SigSys ist und nicht vom Himmel fällt, sondern vielmehr bei der Lösung u.a. von linearen DGLs mit konstanten Koeffizienten in Erscheinung tritt. Dies wird mutmaßlich im Mathe-Grundstudium nicht explizit offengelegt oder geht in der Masse der DGL-Typen und deren Lösungsansätzen unter, ist aber eigentlich fundamental wichtig, um einzusehen und für SigSys sauber zu verorten, dass lineare DGLs mit konstanten Koeffizienten LTI-Systeme beschreiben.
+%
+Wir wollen das am RC-Glied / Tiefpass mal durchspielen, damit wir die 'Entstehung' des Faltungsintegrals explizit sehen.
+
+Daher, wie schon vorher mit $\TRC=R C$, Eingangssignal $x(t)$ und Ausgangssignal $y(t)$ als Spannungen in Volt, DGL des RC-Tiefpasses
+\begin{align}
+\TRC y'(t) + y(t) = x(t)\\
+y'(t) = - \frac{1}{\TRC}y(t) + \frac{1}{\TRC} x(t).
+\end{align}
+Die pyhsikalischen Einheiten sind in beiden Schreibweisen sauber, oben alles Volt, unten alles Volt / Sekunde.
+%
+In Mathe ist eine Notation mit Einführung von $a = -\frac{1}{\TRC}$ und $q(t) = \frac{1}{\TRC} x(t)$ sehr üblich als
+\begin{align}
+\label{eq:DGL1st}
+y'(t) = a y(t) + q(t),
+\end{align}
+der wir zunächst mal folgen wollen, damit wir uns in Mathebüchern zurecht finden (es ginge auch $y'(t) -a y(t) =  q(t)$ was dann gerne $y'(t) + b y(t) =  q(t)$ notiert wird). Alle Terme haben auch sauber die Einheit Volt/Sekunde.
+%
+Die allgemeine Lösung der DGL \eqref{eq:DGL1st} für zur Zeit Null beginnende Vorgänge ist (vgl. \cite[S.19, Glg. (4)]{Strang2014}, wir leiten es unten her)
+\begin{align}
+\label{eq:DGL1st_full_solution_with_conv}
+y(t) = \underbrace{\e^{a t} y(0)}_{y_h+\text{AB}} + \underbrace{\e^{a t}\int\limits_{\tau=0}^{\tau=t} \e^{-a \tau} q(\tau) \fsd \tau}_{y_p}
+\end{align}
+Wir können diese Lösung umschreiben (Erinnerung: $a = -\frac{1}{\TRC}$ und $q(t) = \frac{1}{\TRC} x(t)$)
+\begin{align}
+y(t) &= \underbrace{\e^{a t} y(0)}_{y_h+\text{AB}} + \underbrace{\e^{a t}\int\limits_{\tau=0}^{\tau=t} \e^{-a \tau} \frac{x(\tau)}{\TRC} \fsd \tau}_{y_p}\\
+&= \underbrace{\e^{a t} y(0)}_{y_h+\text{AB}} + \underbrace{\int\limits_{\tau=0}^{\tau=t} \frac{\e^{-\frac{1}{\TRC} (-\tau + t)}}{\TRC} x(\tau) \fsd \tau}_{y_p}
+\end{align}
+und sehen, dass das Integral, was die partikuläre Lösung $y_p$ errechnet, ein Faltungsintegral in der Form
+\begin{align}
+y_p = \int\limits_{\tau=0}^{\tau=t} h(-\tau+t) x(\tau) \fsd\tau
+\end{align}
+darstellt und die uns schon bekannte (aber bisher nie hergeleitete...machen wir mit Laplace) Impulsantwort des RC-Glieds aus den vorigen Aufgaben
+\begin{align}
+h(t) = \frac{1}{\TRC} \e^{-\frac{t}{\TRC}}
+\end{align}
+beinhaltet.
+%
+Zu Erinnerung Variablensubstitution für das Faltungsintegral
+\begin{align}
+&h(t)\rightarrow &h(\tau)\rightarrow &h(-\tau)\rightarrow &h(-\tau + t)\\
+&\frac{1}{\TRC} \e^{-\frac{1}{\TRC} \cdot t}\rightarrow
+&\frac{1}{\TRC} \e^{-\frac{1}{\TRC} \cdot \tau} \rightarrow
+&\frac{1}{\TRC} \e^{-\frac{1}{\TRC} \cdot (-\tau)}\rightarrow
+&\frac{1}{\TRC} \e^{-\frac{1}{\TRC} \cdot (-\tau+t)}
+\end{align}
+%
+Die Faltung ist daher engstens verknüpft mit linearen DGLs mit konstanten Koeffizienten. Im Grunde ist Faltung das was LTI-Systeme physikalisch tatsächlich machen (sie akkumulieren/integrieren die physikalische Eingangsgröße gewichtet mit ihren systeminhärenten Eigenschaften) und die in Mathe gelehrten Lösungsansätze (Variablentrennung/Variation der Konstanten, Suchen der partikulären Lösung, integrierender Faktor, Green'sche Funktion) sind Hilfsmittel, die wir benutzen, um das Faltungsergebnis auszurechnen.
+%
+In SigSys stehen die Faltung, ihre Interpretation, sowie vertieftes Verständnis und faltungs-äquivalente Systembeschreibungen (vgl. Multiplikation im Bildbereich) im Mittelpunkt, weil sie uns das ingenieurige Leben im Umgang mit LTI-Systemen leichter machen sollen.
+
+Wir sollten einordnen, wie \eqref{eq:DGL1st_full_solution_with_conv} aus mathe-typischen DGL-Lösungsansätzen herauskommt. Weil: in Mathe haben wir das typischerweise schon gemacht, wahrscheinlich auch viel kompliziertere DGLs gelöst, aber mutmaßlich für lineare DGLs mit konstanten Koeffizienten nicht so schön aufgeschrieben, dass man die Faltung explizit sieht und/oder versteht.
+%
+Im Buch \cite[Kap. 1.6]{Strang2014} werden drei Ansätze diskutiert, wobei zwei eher mathematisch motiviert sind und der dritte aus einer Intuition hergeleitet wird. Wir gehen die ersten beiden hier mal durch, die dritte versuchen wir im Verlauf des SigSys-Semesters immer wieder zu motivieren.
+
+\subsection*{Lösung I: 'Erfinden' eines Integrationsfaktors}
+
+Wir starten mit \eqref{eq:DGL1st} leicht umgeschrieben
+\begin{align}
+y'(t) - a y(t) = q(t)
+\end{align}
+und multiplizieren beide Seiten mit dem Signal $M(t) = \e^{-a t}$ (vgl. auch \cite[S. 547]{Arfken2005}, das ist also in der Mathe und Physik ein gängiger Ansatz)
+\begin{align}
+\e^{-a t} y'(t) - a \e^{-a t} y(t) = \e^{-a t} q(t)\\
+M(t) y'(t) - a M(t) y(t) = M(t) q(t)
+\label{eq:My_Ansatz}
+\end{align}
+Wir machen das, weil (vgl. Produktregel, $M(t)$ nach der Zeit abgeleitet ergibt gewichtetes $M(t)$)
+\begin{align}
+\frac{\fsd}{\fsd t}\left(M(t) y(t)\right) = M(t) y'(t) - a M(t) y(t),
+\end{align}
+die Integration aller Terme von \eqref{eq:My_Ansatz}
+\begin{align}
+\int\limits_{0}^{t} (M(\tau) y'(\tau) - a M(\tau) y(\tau)) \fsd \tau =
+\int\limits_{0}^{t} \frac{\fsd}{\fsd t}\left(M(\tau) y(\tau)\right) \fsd \tau = \int\limits_{0}^{t} M(\tau) q(\tau) \fsd\tau
+\end{align}
+sehr einfach für die beiden rechten Integrale wird (das ganz linke Integral ist unschön zu lösen und wird genau deswegen ersetzt mit leichterem Ausdruck in der Mitte der Gleichung):
+\begin{align}
+M(t) y(t) - M(0)y(0) = \int\limits_{0}^{t} M(\tau) q(\tau) \fsd\tau
+\end{align}
+Für $t=0 \rightarrow M(t=0)=1$ folgt
+\begin{align}
+M(t) y(t) = y(0) + \int\limits_{0}^{t} M(\tau) q(\tau) \fsd\tau
+\end{align}
+und $y(t)$ alleinstehend, mittels $M(t)^{-1} = \e^{+a t}$ beidseitig, bringt
+\begin{align}
+y(t) = \e^{+a t} y(0) + \e^{+a t} \int\limits_{0}^{t} \e^{-a \tau} q(\tau) \fsd\tau,
+\end{align}
+also exakt \eqref{eq:DGL1st_full_solution_with_conv}. Nun fiel $M(t) = \e^{-a t}$ so ein bisschen vom Himmel. Wir wissen aber mittlerweile, dass $\e^{\pm \lambda t}$
+bzw. $\e^{\pm s_0 t}$ Eigenlösungen von LTI-Systemen bzw. linearen DGLs mit konstanten Koeffizienten sind (Stichwort charakteristisches Polynom) und in $a=-\frac{1}{\TRC}$ die Systemeigenschaft des RC-Tiefpasses codiert ist, daher ist die Wahl von $M(t)$ für eine erfolgreiche Rechnung dann doch nicht ganz überaschend.
+
+\subsection*{Lösung II: Variation der Konstanten}
+Dies sehr oft in Mathe gemacht, mutmaßlich aber nicht so schön offensichtlich hingeschrieben, dass der Link zur Faltung klar wird.
+%
+Wir starten mit der homogenen Lösung (z.B. aus Trennung der Variablen für die homogene DGL $y'(t) - a y(t) = 0$)
+\begin{align}
+y_h(t) = C \e^{a t}
+\end{align}
+
+Einsetzen von $y(t) = C(t) \e^{a t}$ (wir variieren $C$ indem wir es zeitabhängig machen) in die inhomogene DGL bringt
+\begin{align}
+y'(t) - a y(t) = q(t)\\
+\frac{\fsd (C(t) \e^{a t})}{\fsd t} - a C(t) \e^{a t} = q(t)\\
+C(t) \frac{\fsd \e^{a t}}{\fsd t} + \e^{a t} \frac{\fsd C(t)}{\fsd t} - a C(t) \e^{a t} = q(t)\\
+C(t) a \e^{a t} + \e^{a t} C'(t) - a C(t) \e^{a t} = q(t)\\
+\e^{a t} C'(t) = q(t)\\
+C'(t) = \e^{-a t} q(t)
+\end{align}
+Sehr vereinfacht, aber vom Wesen her korrekt, 'erfinden' wir mit dem nächsten Schritt das Faltungsintegral, weil wir $C'(t)$ zu $C(t)$ machen wollen, damit wir mit der Rechnung weiterkommen.
+Die inhomogene/partikuläre Lösung $y_p$ erhalten wir über
+\begin{align}
+C(t) = \int\limits_{0}^{t} \e^{-a \tau} q(\tau) \fsd\tau,\\
+y_p(t) = C(t) \e^{a t} = \e^{a t}\int\limits_{0}^{t} \e^{-a \tau} q(\tau) \fsd\tau,\\
+y_p(t) = C(t) \e^{a t} = \int\limits_{0}^{t} \e^{-\frac{1}{\TRC} (-\tau+t)} \frac{x(\tau)}{\TRC} \fsd\tau
+\end{align}
+was wieder im Faltungsintegral mündet.
+Wenn wir das Argument in der Exponentialfunktion anders hinschreiben, vgl. \cite[Anhang A.2]{Paull2017},
+\begin{align}
+y_p(t) = C(t) \e^{a t} = \int\limits_{0}^{t} \e^{\frac{1}{\TRC} (\tau-t)} \frac{x(\tau)}{\TRC} \fsd\tau
+\end{align}
+ist es immer noch die selbe Faltung, allerdings nicht mehr ganz so offensichtlich bzw. vielleicht sogar verwirrend, weil man mit der Hilfsvariable $\tau$ vs. $t$ und was wird wie gedreht und verschoben fein durcheinandern kommen kann. Da also besonders Obacht in der Literatur.
+%
+
+Im Faltungsintegral ist wieder die Impulsantwort des LTI-Systems RC-Glied inhärent mit drin.
+%
+SigSys lebt davon, dass wir mit Kenntnis der Impulsantwort, Sprungantwort, Übertragungsfunktion und/oder Frequenzgang eines LTI-Systems viele, einfach zu interpretierende Zugänge auf das Systemverhalten bekommen, ohne jedes Mal die zu Grunde liegenden DGLs von ganz vorne lösen zu müssen.
