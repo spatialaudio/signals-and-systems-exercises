@@ -1888,6 +1888,277 @@ praktischer Probleme lösen.
 
 
 
+\newpage
+\subsection{Faltung mit Dirac Impuls}
+\label{sec:27F5623A06}
+\begin{Ziel}
+Die Faltung mit Dirac Impulsen kommt in SigSys-Rechnungen oft vor, zum Einen
+in Rechenwegen, wenn wir etwas vereinfachen wollen, zum Anderen weil praktische
+zeitkontinuierliche LTI-Systeme manchmal einen (gewichteten) Dirac-Impuls
+in ihrer Impulsantwort haben.
+%
+Wir müssen uns daher anschauen, wie wir das angehen wollen.
+\end{Ziel}
+\textbf{Aufgabe:}  {\tiny 27F5623A06}: Gegeben ist das Signal
+\begin{align*}
+h(t) = \delta(t-1) + 2\delta(t-2)
+\end{align*}
+und Signal $x(t)$ in der Skizze unten.
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{0.4\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.5\textwidth,
+domain=0:4,
+xlabel = {$t$},
+ylabel = {$x(t)$},
+xmin=0, xmax=4,
+ymin=-0.1, ymax=2,
+xtick={0,1,2,3,4},
+ytick={0,1,2},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(0,0)(1,0)(1,1)(3,1)(3,0)(4,0)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\end{figure*}
+
+Gesucht:
+\begin{itemize}
+\setlength\itemsep{-0.5em}
+\item a) Systembeschreibung in der Form $y(t) = \mathcal{H}\{\cdot\}$, wenn $h(t)$ eine LTI-System Impulsantwort darstellt
+\item b) Skizze von $h(t)$
+\item c) Formel für $x(t)$
+\item d) Faltungsergebnis $y(t) = x(t) \ast h(t)$ mit Skizze und Formel-Darstellung als $\text{rect}(t)$ und $\epsilon(t)$
+\end{itemize}
+
+
+
+\begin{Werkzeug}
+Faltungen mit Dirac Impulsen sind dankbar, weil der Dirac Impuls das
+Neutralelement für die Operation Faltung ist.
+Es gilt
+\begin{align}
+x(t) \ast \delta(t-T) = x(t-T),
+\end{align}
+also auch speziell für $T=0$
+\begin{align}
+x(t) \ast \delta(t) = x(t).
+\end{align}
+Beides folgt unmittelbar aus der Austasteigenschaft (siehe Appendix A)
+\begin{align}
+x(t) := \int\limits_{\tau = -\infty}^{+\infty} x(\tau) \delta(-\tau+t) \fsd \tau,
+\end{align}
+was zwar kein klassisches Riemann-Integral, sondern eine Definition ist, aber trotzdem die gleiche Form wie
+das Faltungsintegral
+\begin{align}
+y(t) = \int\limits_{\tau = -\infty}^{+\infty} x(\tau) h(-\tau+t) \fsd \tau
+\end{align}
+aufweist, welches sinnvollerweise auch für das spezielle Signal $h(t) = \delta(t)$ 'lösbar'
+sein muss.
+
+Faltungen zweier Diracs sind nur über die Distributionstheorie erlaubt, weil die Multiplikation zweier Dirac Impulse an sich nicht definiert/erlaubt ist.
+Es gilt
+\begin{align}
+\delta(t-T_1) \ast \delta(t-T_2) = \delta(t-(T_1+T_2)),
+\end{align}
+was elegant über Laplace Transformation hergleitet werden kann, siehe später.
+
+
+\end{Werkzeug}
+\begin{Ansatz}
+Nothing really special. Wir können für d) die Faltung direkt mit $x(t) \ast \delta(t-T) = x(t-T)$ 'lösen' oder das
+Faltungsintegral in aller Ausführlichkeit aufschreiben und sinnieren, wann/wie der Dirac austastet.
+Letzteres sollten wir mindestens einmal gemacht haben.
+\end{Ansatz}
+\begin{Loesung}
+a)
+die Systembeschreibung ergibt sich aus der Idee, dass Diracs neutral falten,
+hier also das Eingangssignal zeitlich verschieben (verzögern) und ggf. noch in der
+Amplitude gewichten, daher ist $\mathcal{H}\{\cdot\}$ direkt aus $h(t)$ ableitbar
+\begin{align}
+y(t) = \mathcal{H}\{x(t-1) + 2 x(t-2)\}
+\end{align}
+b) Skizze $h(t)$ mit zwei nach rechts verschobenen (also zeitlich verzögerten) Dirac-Impulsen, der um Zeiteinheit $2$ verschobene Dirac hat zusätzlich Gewicht $2$.
+\begin{center}
+\begin{tikzpicture}
+\def\r{0}
+\draw[->] (-0.5+\r,0) -- (2.5+\r,0) node[right] {$t$};
+\draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$h(t)$};
+\draw[->, C0, line width=1mm] (1+\r,0) node[below, black] {$1$}-- (1+\r,1) node[right] {$(1)$};
+\draw[->, C0, line width=1mm] (2+\r,0) node[below, black] {$2$} -- (2+\r,2) node[right] {$(2)$};
+\end{tikzpicture}
+\end{center}
+c) Rect-Signal um zwei nach rechts verschoben (daher $t-2$) und 2 mal breiter als Standard Rect (daher $\cdot \frac{1}{2}$)
+\begin{align}
+x(t) = \text{rect}\left((t-2) \cdot \frac{1}{2}\right)
+\end{align}
+d) das Ausgangssignal $y(t)$ kann zunächst bequem aus der Systembeschreibung abgeleitet werden (und muss natürlich mit der danach noch zu rechnenden Faltung konsistent sein).
+Wir setzen in die obige Formel einfach $x(t)$ ein:
+\begin{align}
+&y(t) = \mathcal{H}\{x(t-1) + 2 x(t-2)\}\\
+&y(t) =
+\underbrace{\text{rect}\left((t-2 \quad - 1) \cdot \frac{1}{2}\right)}_{y_1(t)}  +
+\underbrace{2 \text{rect}\left((t-2 \quad - 2) \cdot \frac{1}{2}\right)}_{y_2(t)}\\
+&y(t) =
+\text{rect}\left((t-3) \cdot \frac{1}{2}\right) +
+2 \text{rect}\left((t-4) \cdot \frac{1}{2}\right)
+\end{align}
+Weil LTI-System gilt Superposition, d.h. $y(t)=y_1(t)+y_2(t)$, siehe Skizze unten
+\end{Loesung}
+
+
+\begin{figure*}[h!]
+\centering
+\begin{subfigure}{0.3\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.75\textwidth,
+domain=0:4,
+xlabel = {$t$},
+ylabel = {$y_1(t)$},
+xmin=0, xmax=6,
+ymin=-0.1, ymax=3,
+xtick={0,1,2,3,4,5,6},
+ytick={0,1,2,3},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(0,0)(2,0)(2,1)(4,1)(4,0)(6,0)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+%
+\begin{subfigure}{0.3\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.75\textwidth,
+domain=0:4,
+xlabel = {$t$},
+ylabel = {$y_2(t)$},
+xmin=0, xmax=6,
+ymin=-0.1, ymax=3,
+xtick={0,1,2,3,4,5,6},
+ytick={0,1,2,3},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(0,0)(3,0)(3,2)(5,2)(5,0)(6,0)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+%
+\begin{subfigure}{0.3\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+width=1\textwidth,
+height=0.75\textwidth,
+domain=0:4,
+xlabel = {$t$},
+ylabel = {$y(t)=y_1(t)+y_2(t)$},
+xmin=0, xmax=6,
+ymin=-0.1, ymax=3.1,
+xtick={0,1,2,3,4,5,6},
+ytick={0,1,2,3},
+ymajorgrids=true,
+xmajorgrids=true
+]
+\addplot[mark=None, color=C0, ultra thick]
+coordinates {(0,0)(2,0)(2,1)(3,1)(3,3)(4,3)(4,2)(5,2)(5,0)(6,0)};
+\end{axis}
+\end{tikzpicture}
+\end{subfigure}
+\end{figure*}
+\begin{Loesung}
+Das Ausgangssignal in einer Formel mit der Sprungfunktion
+\begin{align}
+y(t) = 1 \cdot \epsilon(t-2) + 2 \cdot \epsilon(t-3) -1 \cdot \epsilon(t-4) - 2\cdot \epsilon(t-5)
+\end{align}
+zum Gegenchecken in Wolfram Alpha
+
+\verb| 1*Step(t-2) + 2*Step(t-3) - 1*Step(t-4) - 2*Step(t-5) |
+
+\noindent Das Ausgangssignal in einer Formel mit der Rechteckfunktion (alle Rechtecke haben Breite 1, daher keine Stauchung/Streckung bzgl. Zeit, sondern nur Zeitverschiebung)
+\begin{align}
+y(t) = 1 \cdot \text{rect}(t-\frac{5}{2}) + 3 \cdot \text{rect}(t-\frac{7}{2}) + 2 \cdot \text{rect}(t-\frac{9}{2})
+\end{align}
+zum Gegenchecken in Wolfram Alpha
+
+\verb| 1*rect(t-5/2) +3*rect(t-7/2) + 2*rect(t-9/2) |
+
+
+\end{Loesung}
+\begin{ExCalc}
+d) \textbf{Faltung}
+
+\noindent d1) mit Superposition und Handling Multiplikation mit einer Konstante bei der Faltung
+%
+\begin{align}
+&y_1(t) = x(t) \ast (1\cdot \delta(t-1)) =  1 \cdot (x(t) \ast \delta(t-1))\\
+&y_2(t) = x(t) \ast (2\cdot \delta(t-2)) = 2 \cdot (x(t) \ast \delta(t-2))
+\end{align}
+%
+Wir bekommen mit $x(t) \ast \delta(t-T) = x(t-T)$ wie oben schon bekannt
+\begin{align}
+&y_1(t) = 1 \cdot (\text{rect}\left((t-2 \quad - 1) \cdot \frac{1}{2}\right))\\
+&y_2(t) = 2 \cdot (\text{rect}\left((t-2 \quad - 2) \cdot \frac{1}{2}\right))
+\end{align}
+
+\noindent d2) mit Faltungsintegral und $h(\tau)$ und $x(-\tau+t)$
+\begin{align}
+y(t) = \int\limits_{\tau=-\infty}^{\tau=+\infty} h(\tau) x(-\tau+t)\fsd\tau
+= \int\limits_{\tau=-\infty}^{\tau=+\infty}
+\left(\delta(\tau-1) + 2\delta(\tau-2)\right)\text{rect}(((-\tau+t)-2) \cdot \frac{1}{2})
+\fsd\tau
+\end{align}
+LTI Superposition anwenden, Austasteigenschaft anwenden.
+%
+Das erste Austast-'Integral' tastet aus, wenn $\tau=1$, das zweite wenn $\tau=2$, daher
+\begin{align}
+y(t) =
+\text{rect}(((-1+t)-2) \cdot \frac{1}{2}) + 2\cdot\text{rect}(((-2+t)-2) \cdot \frac{1}{2}),
+\end{align}
+was schöner geschrieben genau unsere schon bekannte Lösung ist.
+
+\noindent d3) mit Faltungsintegral und $x(\tau)$ und $h(-\tau+t)$
+\begin{align}
+y(t) = \int\limits_{\tau=-\infty}^{\tau=+\infty} x(\tau) h(-\tau+t)\fsd\tau
+= \int\limits_{\tau=-\infty}^{\tau=+\infty} \text{rect}((\tau-2) \cdot \frac{1}{2}) (\delta((-\tau+t)-1) + 2\delta((-\tau+t)-2)) \fsd\tau
+\end{align}
+Hier müssen wir bei der Austasteigenschaft etwas genauer hinschauen.
+%
+Der erste Dirac tastet beim Dirac-Argument $(-\tau+t)-1 = 0$ aus, also bei $\tau = t-1$.
+%
+Der zweite Dirac tastet beim Dirac-Argument $(-\tau+t)-2 = 0$ aus, also bei $\tau = t-2$.
+%
+LTI Superposition heisst, die Austasteigenschaft getrennt auf rect() anwenden, was wiederum heisst, dass
+wir die gefundenen Austast-$\tau$-Werte beim rect() einsetzen:
+\begin{align}
+y(t) = \text{rect}(((t-1)-2) \cdot \frac{1}{2}) + 2\cdot\text{rect}(((t-2)-2) \cdot \frac{1}{2})
+\end{align}
+Bereits bekannte Lösung, nur anders geschrieben, weil anders hergeleitet.
+
+\noindent Komplette Lösung mit Wolfram Alpha
+
+\verb| convolve(rect((tau-2)/2), delta(tau-1)+2*delta(tau-2),tau,t) |
+\end{ExCalc}
+
+
+
+
+
+
+
+
 
 \newpage
 \subsection{Faltung Rechteckimpuls mit Dreieckimpuls}
@@ -2364,7 +2635,7 @@ ist.
 
 
 \clearpage
-\subsection{Faltung Rechteckimpuls mit Exponentialimpuls}
+\subsection{Faltung Rechteckimpuls mit Exponentialimpuls (FIR)}
 \label{sec:AF3B15E0D3}
 \begin{Ziel}
 Diese Aufgabe ist sehr ähnlich zu Aufgabe \ref{sec:1D3D68B312}.
@@ -2418,6 +2689,8 @@ y(t) = \int\limits_{-\infty}^{+\infty} x(-\tau+t) h(\tau) \, \fsd \tau
 \end{equation}
 also analog zur wahrscheinlich zugänglicheren Variante II aus Aufgabe
 \ref{sec:1D3D68B312}.
+
+Hinweis: $h(t)$ hat hier endliche Länge, diese Eigenschaft ist englisch als \textbf{finite impulse response} (FIR) bekannt; das kommt bei zeitkontinuierlichen Phänomenen praktisch nicht vor (zumindest den Autoren nicht bekannt), ist aber hin und wieder hilfreich in Rechnungen. In der zeitdiskreten SigSys werden FIRs eine deutliche praktischere Rolle spielen, weil diese dann Folgen mit endlicher Anzahl von Folgegliedern repräsentieren, das sind sehr schöne LTI-Systeme für die Praxis.
 \end{Werkzeug}
 
 
@@ -2616,7 +2889,7 @@ RC-Glied hat eine \textbf{unendliche} Impulsantwort.
 
 
 \clearpage
-\subsection{Faltung Rechteckimpuls mit Exponentialfunktion}
+\subsection{Faltung Rechteckimpuls mit Exponentialfunktion (IIR)}
 \label{sec:C964DD7400}
 \begin{Ziel}
 Wir werden anhand einer speziellen Faltung eines endlichen Signals mit
@@ -2627,8 +2900,7 @@ sehr elegant mit Signal-und Systemtheorie Werkzeugen berechnen. Es wird mit
 der Laplace Transformation später sogar noch eleganter.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny C964DD7400}: Für das unten abgebildete RC-Glied
-(Annahme: ideale Bauelemente)
-gilt die \textbf{Impulsantwort} (wir nehmen LTI System-Eigenschaften an)
+gilt die \textbf{Impulsantwort} (Annahme: kausales LTI System, ideale Bauelemente)
 \begin{equation}
 h(t) = \frac{1}{T_\mathrm{RC}} \cdot \e^{-\frac{t}{T_\mathrm{RC}}}
 \qquad \mathrm{für} \qquad t \geq 0
@@ -2691,7 +2963,7 @@ $T_\mathrm{RC}$.
 
 \noindent\textbf{Hinweis 3}: Aufgabe \ref{sec:AF3B15E0D3} behandelte den \textbf{endlichen Exponentialimpuls}
 mit einer Zeitkonstante $1/6$ s, hier verwenden wir die abfallende Exponentialfunktion
-die sich nur asymptotisch gegen Null nähert, die also eine \textbf{unendliche Impulsantwort}
+die sich nur asymptotisch gegen Null nähert, die also eine \textbf{unendliche Impulsantwort} (englisch \textbf{infinite impulse response} (IIR))
 darstellt. Der schöneren Anschauung wegen, wählen wir $T_\mathrm{RC}=1/5$ s, weil
 dann bei 1 s zu 99\% der finale Lade-/Entlade-Amplitudenwert erreicht ist
 (vgl. $5 T_\mathrm{RC}$-Regel).
@@ -2949,14 +3221,14 @@ zu lösen.
 Mit Annahme eines kausalen LTI-Systems, also $h(t<0) = 0$ und einem ab $t=0$ dauerhaft
 anliegenden Eingangssignal $x(t)$ können wir dem Integral explizite Grenzen geben
 (allerdings Obacht: $t$ variiert, weil wir für jedes $t\geq 0$ den Signalwert $y(t)$
-ausrechnen wollen.)
+ausrechnen wollen; das sollte uns aber von den vorigen Aufgaben schon bekannt vorkommen.)
 %
 \begin{align}
 y(t) = \int\limits_{0}^{t} h(-\tau+t) \, x(\tau) \, \mathrm{d}\tau.
 \end{align}
 \end{Werkzeug}
 \begin{Ansatz}
-SigSys-Rechnerei wird dann immer besonders einfach (mag sich nicht so anfühlen,
+SigSys-Rechnerei wird immer dann besonders einfach (mag sich momentan noch nicht so anfühlen,
 aber es kann noch viel häßlicher werden), wenn wir mit Eigenfunktionen von LTI-Systemen
 rechnen, also mit Signalen der Form $A \e^{s_0 t},\quad A, s_0 \in \mathbb{C}$
 
@@ -3084,7 +3356,7 @@ In Mathe ist eine Notation mit Einführung von $a = -\frac{1}{\TRC}$ und $q(t) =
 \label{eq:DGL1st}
 y'(t) = a y(t) + q(t),
 \end{align}
-der wir zunächst mal folgen wollen, damit wir uns in Mathebüchern zurecht finden (es ginge auch $y'(t) -a y(t) =  q(t)$ was dann gerne $y'(t) + b y(t) =  q(t)$ notiert wird). Alle Terme haben auch sauber die Einheit Volt/Sekunde.
+der wir zunächst mal folgen wollen, damit wir uns in Mathebüchern zurecht fänden (es ginge auch $y'(t) -a y(t) =  q(t)$ was dann gerne $y'(t) + b y(t) =  q(t)$ notiert wird). Alle Einzelterme haben auch hier sauber die Einheit Volt/Sekunde.
 %
 Die allgemeine Lösung der DGL \eqref{eq:DGL1st} für zur Zeit Null beginnende Vorgänge ist (vgl. \cite[S.19, Glg. (4)]{Strang2014}, wir leiten es unten her)
 \begin{align}
@@ -3167,7 +3439,7 @@ Wir starten mit der homogenen Lösung (z.B. aus Trennung der Variablen für die 
 y_h(t) = C \e^{a t}
 \end{align}
 
-Einsetzen von $y(t) = C(t) \e^{a t}$ (wir variieren $C$ indem wir es zeitabhängig machen) in die inhomogene DGL bringt
+Einsetzen von $y(t) = C(t) \e^{a t}$ (wir variieren hier die initial konstante Variable $C$ aus der homogenen Lösung, indem wir sie zeitabhängig machen) in die inhomogene DGL bringt
 \begin{align}
 y'(t) - a y(t) = q(t)\\
 \frac{\fsd (C(t) \e^{a t})}{\fsd t} - a C(t) \e^{a t} = q(t)\\
