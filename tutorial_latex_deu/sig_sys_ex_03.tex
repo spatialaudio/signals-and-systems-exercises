@@ -86,23 +86,23 @@ Die partielle Integration hilft dies anders darzustellen
 = s \cdot \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \, \fsd t
 +\e^{-s\,t}\,x(t)\bigg|_{t=0^-}^{\infty}\\
 &\int\limits_{t=0^-}^{\infty} \e^{-s\,t} \frac{\fsd }{\fsd t}  x(t) \, \fsd t
-= s \cdot \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \, \fsd t - x(0^-)
+= s \cdot \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \, \fsd t - x(t=0^-)
 \end{align}
 und wir stellen fest, dass
 \begin{align}
 \label{eq:laplace_diff_satz}
-\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0^-)
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(t=0^-)
 \end{align}
 also tatsächlich die lineare Operation \textbf{zeitliche Ableitung} zur Operation
 \textbf{Multiplikation mit} $s$ gemacht wurde. Dabei müssen wir zusätzlich den
-linksseitigen \textbf{Anfangswert} $x(0^-)$ beachten.
+linksseitigen \textbf{Anfangswert} $x(t=0^-)$ beachten.
 Wir folgen hier der in \cite{Lundberg2007}
-vorgeschlagenen Konvention, wo der linksseitige Anfangswertes $x(0^-)$
+vorgeschlagenen Konvention, wo der linksseitige Anfangswertes $x(t=0^-)$
 (dort im Englischen als \textit{pre-initial value} bezeichnet) für eine
 konsistente und vglw. einfachere Laplace-Transformationstheorie benutzt wird.
-$x(0^-)$ ist gut zu unterscheiden vom Zustandswert bei genau $t=0$ (wo typisch
+$x(t=0^-)$ ist gut zu unterscheiden vom Zustandswert bei genau $t=0$ (wo typisch
 eine Signalanregung erfolgen soll) und vom
-\textit{post-initial value} $x(0^+)$; bei sprunghaften Signaländerungen
+\textit{post-initial value} $x(t=0^+)$; bei sprunghaften Signaländerungen
 sind diese Werte unterschiedlich.
 
 Es ist hier sinnvoll gleich auch die Ableitungsregel für DGLs zweiter Ordnung
@@ -113,24 +113,24 @@ wird.
 Wir könnten zunächst die obige Regel \eq{eq:laplace_diff_satz} anwenden um den
 Zusammenhang  zwischen $x''$ und $x'$ herzustellen
 \begin{align}
-\mathcal{L}\{x''(t)\}  = s \cdot \mathcal{L}\{x'(t)\} - x'(0^-)
+\mathcal{L}\{x''(t)\}  = s \cdot \mathcal{L}\{x'(t)\} - x'(t=0^-)
 \end{align}
 und dann den Zusammenhang zwischen $x'$ und $x$
 \begin{align}
-\mathcal{L}\{x'(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(0^-)
+\mathcal{L}\{x'(t)\}  = s \cdot \mathcal{L}\{x(t)\} - x(t=0^-)
 \end{align}
 dort einsetzen
 \begin{align}
-\mathcal{L}\{x''(t)\}  = s \cdot (s \cdot \mathcal{L}\{x(t)\} - x(0^-)) - x'(0^-)
+\mathcal{L}\{x''(t)\}  = s \cdot (s \cdot \mathcal{L}\{x(t)\} - x(t=0^-)) - x'(t=0^-)
 \end{align}
 Das führt auf
 \begin{align}
-\mathcal{L}\{x''(t)\}  = s^2 \mathcal{L}\{x(t)\} - s^1 x(0^-) - s^0 x'(0^-)
+\mathcal{L}\{x''(t)\}  = s^2 \mathcal{L}\{x(t)\} - s^1 x(t=0^-) - s^0 x'(t=0^-)
 \end{align}
 oder anders geschrieben
 \begin{align}
-&\mathcal{L}\{x''(t)\} = s^2 X(s) - s^1 x(0^-) - s^0 x'(0^-)\\
-&\frac{\fsd^2 x(t)}{\fsd t^2} \qquad \laplace \quad s^2 X(s) - s x(0^-) - x'(0^-).
+&\mathcal{L}\{x''(t)\} = s^2 X(s) - s^1 x(t=0^-) - s^0 x'(t=0^-)\\
+&\frac{\fsd^2 x(t)}{\fsd t^2} \qquad \laplace \quad s^2 X(s) - s x(t=0^-) - x'(t=0^-).
 \end{align}
 
 Wie bildet sich nun der Umkehroperator der zeitlichen Ableitung, also die zeitliche
@@ -141,7 +141,7 @@ Integration ab? Es gilt
 Damit haben wir zwei ganz wichtige Operatoreigenschaften für
 $x(t)\quad\laplace\quad X(s)$ zusammengetragen:
 \begin{align}
-\text{Differentiation:   } &\frac{\fsd }{\fsd t}  x(t) \quad\laplace\quad s\cdot X(s) - x(0^-)\\
+\text{Differentiation:   } &\frac{\fsd }{\fsd t}  x(t) \quad\laplace\quad s\cdot X(s) - x(t=0^-)\\
 \text{Integration:   } &\int\limits_{0}^{t} x(\tau) \fsd\tau\quad\laplace\quad \frac{1}{s} \cdot X(s)
 \end{align}
 %
@@ -858,7 +858,7 @@ wir uns für später aufheben.
 
 
 \cleardoublepage
-\subsection{Von der Essenz zur Anwendung: RC-Glied Tiefpass}
+\subsection{Von der Essenz zur Anwendung: RC-Glied / Tiefpass 1. Ordnung / PT1-Glied}
 \label{sec:4408E33353}
 \begin{Ziel}
 Wir wollen mit dem SigSys-Werkzeugkoffer anhand des uns gut bekannten RC-Gliedes
@@ -880,7 +880,7 @@ wir in Elektrotechnik kennengelernt haben, abbildet.
 für das unten dargestellte RC-Glied mit idealen Bauelementen (also Annahme, dass dies
 ein LTI-System darstellt). $x(t)$ und $y(t)$ sollen Spannungen darstellen.
 %
-Das System befindet sich für $t<0$ in Ruhe, $C$ ist also nicht aufgeladen, daher gilt $y(0^-)=0$.
+Das System befindet sich für $t<0$ in Ruhe, $C$ ist also nicht aufgeladen, daher gilt $y(t=0^-)=0$.
 %
 \begin{center}
 \begin{circuitikz}[european, scale=0.75]
@@ -952,9 +952,9 @@ T_\mathrm{RC}\frac{\fsd}{\fsd t} y(t) + y(t) = x(t)\\
 wird Laplace transformiert (Achtung: $Y(s)$ vs. $y(t)$ beachten,
 gerade handschriftlich eine beliebte Fehlerquelle)
 \begin{align}
-T_\mathrm{RC} \cdot s \cdot Y(s) - y(0^-) + Y(s) = X(s)
+T_\mathrm{RC} \cdot s \cdot Y(s) - y(t=0^-) + Y(s) = X(s)
 \end{align}
-Weil $y(0^-)=0$ als linksseitige Anfangsbedingung gegeben ist, können wir vereinfachen
+Weil $y(t=0^-)=0$ als linksseitige Anfangsbedingung gegeben ist, können wir vereinfachen
 \begin{align}
 T_\mathrm{RC} \cdot s \cdot Y(s) + Y(s) = X(s)
 \end{align}
@@ -1059,7 +1059,7 @@ Transformationen die wir kennengelernt haben bzw. noch werden.
   \item a) \textbf{Impulsantwort}
 
   Die Impulsantwort $h(t)$ ist die Antwort des LTI-Systems auf einen Dirac Impuls unter
-  verschwindenden Anfangsbedingungen $y(0^-)=0$ ansetzen (nach
+  verschwindenden Anfangsbedingungen $y(t=0^-)=0$ ansetzen (nach
   unserer Konvention 'explodiert' der Dirac Impuls exakt zu $t=0$).
 
   Die Laplace Korrespondenz ist
@@ -1168,14 +1168,19 @@ Wir müssen also für die beiden Polstellen
 \end{equation}
 die äquivalente Darstellung über die Koeffizienten $A$, $B$ finden, bekannt als
 Partialbruchzerlegung.
-Wir bekommen zunächst die Ausdrücke
+Koeffizientenvergleich für
 \begin{align}
-&0\cdot s^1 + 1\cdot s^0 =
+&0\cdot s^1 + 1\cdot s^0 \leftrightarrow
 A\cdot s + B \cdot (s + \frac{1}{T_\mathrm{RC}})\\
-&0\cdot s^1 + 1\cdot s^0 =
-(A+B)\cdot s^1 + B \frac{1}{T_\mathrm{RC}} \cdot s^0
+%&0\cdot s^1 + 1\cdot s^0 \leftrightarrow
+%(A+B)\cdot s^1 + B \frac{1}{T_\mathrm{RC}} \cdot s^0
 \end{align}
-und für die Koeffizienten per Vergleich
+führt zu Gleichungssystem
+\begin{align}
+s^1: \qquad 0 =& A + B\\
+s^0: \qquad 1 =& \frac{B}{T_\mathrm{RC}}
+\end{align}
+und trivial zu lösen zu den Koeffizienten
 \begin{equation}
   A=-B\qquad B = T_\mathrm{RC}
 \end{equation}
@@ -1239,25 +1244,55 @@ anhand der Klausuraufgaben zur Laplace Transformation oder mit
 'Polstellen' (bekannte Korrespondenzen, es sind genau genommen keine reinen Polstellen,
 sondern es können auch Nullstellen vorkommen, also gebrochen rationale Funktionen).
 
-Der Ansatz für eine reelle Polstelle und eine konjugiert-komplexe Polstelle (
-$T_\mathrm{RC}$ auf die linke Seite bringen macht sich gut
-)
+Der spezifische Ansatz für die Partialbruchzerlegung für eine reelle Polstelle und eine konjugiert-komplexe Polstelle ist (voher
+$T_\mathrm{RC}$ auf die linke Seite bringen macht sich gut)
 \begin{align}
 % Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s - (-\frac{1}{T_\mathrm{RC}})} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2}\\
 % Y(s) = H(s) \cdot X(s) = \frac{1}{T_\mathrm{RC}} \cdot \frac{1}{s + \omega_\mathrm{RC}} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2}\\
 T_\mathrm{RC} Y(s) = \frac{1}{s + \omega_\mathrm{RC}} \cdot \frac{s}{s^2+\omega_\mathrm{RC}^2} = \frac{A}{s+\omega_\mathrm{RC}} + \frac{B s + C}{s^2+\omega_\mathrm{RC}^2}
 \end{align}
-verlangt Koeffizientenvergleich für
+und verlangt Koeffizientenvergleich für
 \begin{align}
-s =& A (s^2+\omega_\mathrm{RC}^2) + (B s + C) (s+\omega_\mathrm{RC})
-%s =& A s^2 + A \omega_\mathrm{RC}^2 + B s^2 + B s \omega_\mathrm{RC} + C s + C \omega_\mathrm{RC}
+0 \cdot s^2 + 1 \cdot s^1 + 0 \cdot s^0 \leftrightarrow & A (s^2+\omega_\mathrm{RC}^2) + (B s + C) (s+\omega_\mathrm{RC})\\
+0 \cdot s^2 + 1 \cdot s^1 + 0 \cdot s^0 \leftrightarrow & A s^2 + A \omega_\mathrm{RC}^2 + B s^2 + B s \omega_\mathrm{RC} + C s + C \omega_\mathrm{RC}
 \end{align}
-und führt zu Gleichungssystem
+was zum Gleichungssystem
 \begin{align}
-0 =& A + B\\
-1 =& B \omega_\mathrm{RC} + C\\
-0 =& A \omega_\mathrm{RC}^2 + C \omega_\mathrm{RC}
+s^2: \qquad 0 =& A + B\\
+s^1: \qquad 1 =& B \omega_\mathrm{RC} + C\\
+s^0: \qquad 0 =& A \omega_\mathrm{RC}^2 + C \omega_\mathrm{RC}
 \end{align}
+führt. Dies umgeschrieben
+%
+\begin{align}
+\begin{bmatrix}
+1 \\ 0 \\ \omega_\mathrm{RC}^2
+\end{bmatrix} A +
+\begin{bmatrix}
+1 \\ \omega_\mathrm{RC} \\ 0
+\end{bmatrix} B +
+\begin{bmatrix}
+0 \\ 1 \\ \omega_\mathrm{RC}
+\end{bmatrix} C
+=
+\begin{bmatrix}
+0\\1\\0
+\end{bmatrix}
+\quad\leftrightarrow\quad
+\begin{bmatrix}
+1 & 1 & 0\\
+0 & \omega_\mathrm{RC} & 1\\
+\omega_\mathrm{RC}^2 & 0 & \omega_\mathrm{RC}
+\end{bmatrix}
+\begin{bmatrix}
+A\\B\\C
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\1\\0
+\end{bmatrix}
+\end{align}
+% wolfram alpha: inv([[1,1,0], [0,t,1], [t^2,0,t]]) * [[0],[1],[0]]
 % \begin{align}
 % A =& -B\\
 % 1 =& -A \omega_\mathrm{RC} + C \rightarrow 1 + A \omega_\mathrm{RC} = C\\
@@ -1283,7 +1318,7 @@ und führt zu Gleichungssystem
 % C = & 1 + A \omega_\mathrm{RC}\\
 % A =& -\frac{1}{2\omega_\mathrm{RC}}
 % \end{align}
-was wir lösen können zu
+und gelöst mit einer Methode unserer Wahl führt zu
 \begin{align}
 A = -\frac{1}{2\omega_\mathrm{RC}},\,B = +\frac{1}{2\omega_\mathrm{RC}},\,C = \frac{1}{2}
 \end{align}
@@ -1484,7 +1519,7 @@ samples=64,
 legend pos=outer north east,
 xlabel = {$t\rightarrow$},
 ylabel = {$h_\epsilon(t)$},
-title = {Step Response / Schrittantwort},
+title = {Step Response / Sprungantwort},
 xmin=-0.1, xmax=7,
 ymin=-0.1, ymax=1.1,
 xtick={0, 1, 3, 5},
@@ -1560,7 +1595,7 @@ Phasenverschiebung um $-\frac{\pi}{4}$. Grafik für Aufgabe \ref{sec:4408E33353}
 
 
 \cleardoublepage
-\subsection{Problematik Anfangsbedingungen: CR-Glied Hochpass}
+\subsection{Problematik Anfangsbedingungen beim CR-Glied / Hochpass 1. Ordnung / DT1-Glied}
 \label{sec:41C1D0D586}
 \begin{Ziel}
 Nachdem wir uns die ingenieurige Anwendung der Laplace Transformation mit dem
@@ -1579,12 +1614,12 @@ Die Impulsantwort beinhaltet bei solchen Systemen einen (gewichteten) Dirac-Impu
 
 Wichtig für differenzierende Systeme ist die saubere Diskussion von Anfangsbedingungen.
 Gerade weil diese Systeme Ausgangssprünge erzeugen können, müssen
-linksseitige Signalzustände $x(0^-)$, $y(0^-)$ unbedingt sauber von rechtsseitigen
-Signalzuständen $x(0^+)$, $y(0^+)$ unterschieden werden (bei DGLs höherer Ordnung
+linksseitige Signalzustände $x(t=0^-)$, $y(t=0^-)$ unbedingt sauber von rechtsseitigen
+Signalzuständen $x(t=0^+)$, $y(t=0^+)$ unterschieden werden (bei DGLs höherer Ordnung
 treten dann auch Anfangsbedingungen in den Ableitungen von $x(t), y(t)$ auf).
 In vielen Textbüchern werden im Detail eher integrierende Systeme diskutiert, da fällt
 ein etwas inkonsistenter Umgang mit Anfangsbedingungen nicht auf, weil da meist
-$y(0^-) = y(0^+)$.
+$y(t=0^-) = y(t=0^+)$.
 %
 
 Spätestens für diese Aufgabe hier lohnt sich die Rechnung im Laplace-Bereich,
@@ -1600,7 +1635,7 @@ mit idealen Bauelementen (Annahme: kausales LTI-System)
 \begin{itemize}
   \item a) die Impulsantwort $h(t)$
   \item b) die Sprungantwort $h_\epsilon(t)$
-  \item c) das Ausgangssignal $y(t)$ für $x(t) = \cos(\omega_\mathrm{RC} t) \epsilon(t)$ und den linksseitigen Anfangsbedingungen $y(0^-) = 0$, $x(0^-) = 2.5$
+  \item c) das Ausgangssignal $y(t)$ für $x(t) = \cos(\omega_\mathrm{RC} t) \epsilon(t)$ und den linksseitigen Anfangsbedingungen $y(t=0^-) = 0$, $x(t=0^-) = 2.5$
 \end{itemize}
 $x(t)$ und $y(t)$ sollen zur besseren Kontrollmöglichkeit Spannungen in Volt darstellen, wir wählen die Zeitkonstante $T_\text{RC} = R C = 2 \text{s}$ für ein numerisches Beispiel. $T_\text{RC}$ ist immer invers proportional verknüpft mit der Grenzkreisfrequenz $\omega_\text{RC} = \frac{1}{T_\text{RC}} = \frac{1}{R C}$, hier also  $\omega_\text{RC} = \frac{1}{2} \text{rad/s}$, was gleichzeitig auch der Kreisfrequenz des Eingangssignals entspricht, also wieder ein wichtiger Spezialfall.
 %
@@ -1627,26 +1662,26 @@ DGL aufstellen
 
 \noindent $h(t)$ vs. $H(s)$, sowie $h(t)$ vs. $h_\epsilon(t)$
 
-\noindent für Rücktrafo hier Polynomdivision und Partialbruchzerlegung für
-gebrochen rationalen Funktionen (bei komplexeren Aufgabenstellungen hilft der
-Residuensatz, was in der Klausur nie gebraucht wird).
+\noindent für Rücktrafo hier Polynomdivision und Partialbruchzerlegung (PBZ) für
+gebrochen-rationale Funktionen (bei komplexeren Aufgabenstellungen hilft der
+Residuensatz, der in der Klausur nie gebraucht wird, aber manchmal sogar schneller und eleganter geht als PBZ).
 
 \noindent Laplace Transformation für kausale Signal mit pre-initial value \cite[Glg. (3), (4)]{Lundberg2007} für kausale Signale und Systeme
 \begin{align}
 X(s) = \mathcal{L}\{x(t)\} &= \int\limits_{t=0^-}^{\infty} x(t) \e^{-s\,t} \fsd t
 \qquad
-\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot X(s) - x(0^-)
+\mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\}  = s \cdot X(s) - x(t=0^-)
 \end{align}
 wichtige Korrespondenzen
 \begin{align}
 &\mathcal{L}\{\delta(t)\} = 1, s\in\mathbb{C}\\
-&\mathcal{L}\{\e^{s_0 t} \epsilon(t)\} = \frac{1}{1-s_0}, \mathbb{R}(s)>\mathbb{R}(s_0)\\
-&\mathcal{L}\{\e^{s_0 t} \cos(\omega_0 t)\epsilon(t)\} = \frac{s-s_0}{(s-s_0)^2+\omega_0^2}, \mathbb{R}(s)>\mathbb{R}(s_0)\\
-&\mathcal{L}\{\e^{s_0 t} \sin(\omega_0 t)\epsilon(t)\} = \frac{\omega_0}{(s-s_0)^2+\omega_0^2}, \mathbb{R}(s)>\mathbb{R}(s_0)
+&\mathcal{L}\{\e^{s_0 t} \epsilon(t)\} = \frac{1}{1-s_0}, \Re(s)>\Re(s_0)\\
+&\mathcal{L}\{\e^{s_0 t} \cos(\omega_0 t)\epsilon(t)\} = \frac{s-s_0}{(s-s_0)^2+\omega_0^2}, \Re(s)>\Re(s_0)\\
+&\mathcal{L}\{\e^{s_0 t} \sin(\omega_0 t)\epsilon(t)\} = \frac{\omega_0}{(s-s_0)^2+\omega_0^2}, \Re(s)>\Re(s_0)
 \end{align}
-wichtiger Zusammenhang für $x(t) = \epsilon(t)$ mit $x(0^-)=\epsilon(0^-)=0$ und Dirac Impuls $\delta(t)$
+wichtiger Zusammenhang für $x(t) = \epsilon(t)$ mit $x(t=0^-)=\epsilon(t=0^-)=0$ und Dirac Impuls $\delta(t)$
 \begin{align}
-\mathcal{L}\{\frac{\fsd }{\fsd t}  \epsilon(t)\}  = s \cdot \mathcal{L}\{\epsilon(t)\} - \epsilon(0^-)= s \cdot \frac{1}{s} - 0 = 1 \leftrightarrow \epsilon'(t) = \delta(t)
+\mathcal{L}\{\frac{\fsd }{\fsd t}  \epsilon(t)\}  = s \cdot \mathcal{L}\{\epsilon(t)\} - \epsilon(t=0^-)= s \cdot \frac{1}{s} - 0 = 1 \leftrightarrow \epsilon'(t) = \delta(t)
 \end{align}
 
 \end{Werkzeug}
@@ -1667,15 +1702,15 @@ x'(t) = \frac{u_R(t)}{R C} + u_R'(t)
 Laplace Transformation der DGL (jetzt mit $u_R(t) = y(t)$)
 \begin{align}
 \mathcal{L}\{x'(t) = \frac{y(t)}{R C} + y'(t)\} \qquad\rightarrow\qquad
-s \cdot X(s) - x(0^-) = \frac{Y(s)}{T_\text{RC}} + s \cdot Y(s) - y(0^-)
+s \cdot X(s) - x(t=0^-) = \frac{Y(s)}{T_\text{RC}} + s \cdot Y(s) - y(t=0^-)
 \end{align}
 %
-nach $Y(s)$ auflösen
+nach $Y(s)$ auflösen und sortieren nach Eingangssignal (vgl. $X(s)$) und Anfangsbedingungen
 \begin{align}
-%s \cdot X(s) - x(0^-) = s \cdot Y(s) - y(0^-) + \frac{Y(s)}{T_\text{RC}}\\
-%s \cdot X(s) - x(0^-) + y(0^-) = (s + \frac{1}{T_\text{RC}}) \cdot Y(s)\\
-%s \cdot X(s) + y(0^-) - x(0^-) = (s + \frac{1}{T_\text{RC}}) \cdot Y(s)\\
-\frac{s}{s + \frac{1}{T_\text{RC}}} \cdot X(s) + \frac{y(0^-) - x(0^-)}{s + \frac{1}{T_\text{RC}}} = Y(s)
+%s \cdot X(s) - x(t=0^-) = s \cdot Y(s) - y(t=0^-) + \frac{Y(s)}{T_\text{RC}}\\
+%s \cdot X(s) - x(t=0^-) + y(t=0^-) = (s + \frac{1}{T_\text{RC}}) \cdot Y(s)\\
+%s \cdot X(s) + y(t=0^-) - x(t=0^-) = (s + \frac{1}{T_\text{RC}}) \cdot Y(s)\\
+\frac{s}{s + \frac{1}{T_\text{RC}}} \cdot X(s) + \frac{y(t=0^-) - x(t=0^-)}{s + \frac{1}{T_\text{RC}}} = Y(s)
 \end{align}
 %
 Übertragungsfunktion (dafür immer alle Anfangsbedingungen Null setzen)
@@ -1683,23 +1718,54 @@ nach $Y(s)$ auflösen
 \frac{Y(s)}{X(s)} = H(s) = \frac{s}{s + \frac{1}{T_\text{RC}}} = \frac{s}{s + \omega_\text{RC}}
 \end{align}
 %
-Polynomdivision \, \polylongdiv[style=C, vars=s]{s}{s+w} \quad führt auf Parallelschaltung zweier Systeme
+\end{Ansatz}
+
+\begin{figure}[h]
+\begin{center}
+\begin{tikzpicture}
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {1}
+\def \omegaz {0}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,0) node{\Huge $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-\frac{1}{T_\mathrm{RC}}$};
+\draw (1.75,+2.25) node[C2!75]{KB: $\Re\{s\}>-\frac{1}{T_\mathrm{RC}}$};
+\draw (1.25,1.75) node[]{$g=1$};
+\draw (1.25,-1.5) node[]{PNV für $H(s)$};
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+\begin{Ansatz}
+\textbf{Für Rücktransformation:}
+$H(s)$ ist keine echte gebrochen-rationale Funktion, weil Polynomgrad Zähler = Nenner. Erst eine Polynomdivision \, \polylongdiv[style=C, vars=s]{s}{s+w} \quad führt auf Parallelschaltung zweier Systeme
 \begin{align}
 H(s) = 1 - \frac{\frac{1}{T_\text{RC}}}{s + \frac{1}{T_\text{RC}}} =
 1 - \frac{\omega_\text{RC}}{s + \omega_\text{RC}}
 \end{align}
 %
+wo der Bruchterm nun eine echte gebrochen-rationale Funktion (weil Polynomgrad Zähler < Nenner) ist, die wir elegant in den Zeitbereich zurücktransformieren können.
 \end{Ansatz}
 
-
 \begin{Loesung}
-a) Impulsantwort (bei Reihenschaltung die Linearität von LTI-Systemen ausnutzen)
+\textbf{a) Impulsantwort} (bei Reihenschaltung die Linearität von LTI-Systemen ausnutzen)
 \begin{align}
 h(t) =& \mathcal{L}^{-1}\{H(s)\} = \mathcal{L}^{-1}\{1\} - \mathcal{L}^{-1}\{\frac{\frac{1}{T_\text{RC}}}{s + \frac{1}{T_\text{RC}}}\}
 = \delta(t) - \frac{1}{T_\text{RC}} \e^{-\frac{t}{T_\text{RC}}} \epsilon(t)
 \end{align}
 %
-b) Sprungantwort (Integral über $h(t)$ vs. $1/s \cdot H(s)$)
+\textbf{b) Sprungantwort} (Integral über $h(t)$ vs. $1/s \cdot H(s)$)
 \begin{align}
 h_\epsilon(t) = \int\limits_{0}^{t} h(\tau) \fsd \tau = \mathcal{L}^{-1}\{\frac{1}{s} \cdot H(s)\} =
 \mathcal{L}^{-1}\{\frac{1}{s} \cdot \frac{s}{s + \frac{1}{T_\text{RC}}}\}
@@ -1707,22 +1773,22 @@ h_\epsilon(t) = \int\limits_{0}^{t} h(\tau) \fsd \tau = \mathcal{L}^{-1}\{\frac{
 \mathcal{L}^{-1}\{\frac{1}{s + \frac{1}{T_\text{RC}}}\} = \e^{-\frac{t}{T_\text{RC}}} \epsilon(t)
 \end{align}
 %
-c)
+\textbf{c) Cosinus-Anregung mit Anfangsbedingungen / Steady State}
 \begin{align}
-&Y(s) = \frac{s}{s + \frac{1}{T_\text{RC}}} \cdot X(s) + \frac{y(0^-) - x(0^-)}{s + \frac{1}{T_\text{RC}}}\\
-&X(s) = \frac{s}{s^2+\omega_\text{RC}^2}, \qquad a = y(0^-) - x(0^-)\\
+&Y(s) = \frac{s}{s + \frac{1}{T_\text{RC}}} \cdot X(s) + \frac{y(t=0^-) - x(t=0^-)}{s + \frac{1}{T_\text{RC}}}\\
+&X(s) = \frac{s}{s^2+\omega_\text{RC}^2}, \qquad a = y(t=0^-) - x(t=0^-)\\
 &Y(s) = \frac{s}{s + \frac{1}{T_\text{RC}}} \cdot \frac{s}{s^2+\omega_\text{RC}^2} + \frac{a}{s + \frac{1}{T_\text{RC}}}\\
 &Y(s) = \frac{s}{s + \omega_\text{RC}} \cdot \frac{s}{s^2+\omega_\text{RC}^2} + \frac{a}{s + \frac{1}{T_\text{RC}}}
 \end{align}
-\newpage
-Partialbruchzerlegung (PBZ) des ersten Teils (Reihen- muss zu Parallelschaltung!)
+%\newpage
+Beim ersten Summanden ist Polynomgrad Zähler < Nenner, daher keine Polynomdivision notwendig, es geht daher direkt weiter mit Partialbruchzerlegung (PBZ) (SigSys-Denke: Reihen- muss zu Parallelschaltung)
 \begin{align}
 \frac{s}{s + \omega_\text{RC}} \cdot \frac{s}{s^2+\omega_\text{RC}^2} =
 \frac{A}{s + \omega_\text{RC}} + \frac{Bs+C}{s^2+\omega_\text{RC}^2}
 \end{align}
 verlangt Koeffizientenvergleich für
 \begin{align}
-s^2 =& A (s^2+\omega_\mathrm{RC}^2) + (B s + C) (s+\omega_\mathrm{RC})
+1 \cdot s^2 + 0 \cdot s^1 + 0 \cdot s^0 \leftrightarrow & A (s^2+\omega_\mathrm{RC}^2) + (B s + C) (s+\omega_\mathrm{RC})
 %s^2 =& As^2 + A\omega_\mathrm{RC}^2 + B s^2 + B s\omega_\mathrm{RC} + C s + C\omega_\mathrm{RC}\\
 %s^2 =& As^2 + B s^2 + B \omega_\mathrm{RC} s + C s + A\omega_\mathrm{RC}^2 + C\omega_\mathrm{RC}
 \end{align}
@@ -1732,7 +1798,7 @@ s^2: \qquad 1 =& A + B\\
 s^1: \qquad 0 =& B \omega_\mathrm{RC} + C\\
 s^0: \qquad 0 =& A \omega_\mathrm{RC}^2 + C \omega_\mathrm{RC}
 \end{align}
-Bemerkenswert ist, dass die rechte Seite des Gleichungssystems identisch mit dem RC-Glied aus Aufgabe \ref{sec:4408E33353} ist, es ist ja exakt der gleiche Ansatz bei der PBZ für genau das gleiche Anregungssignal. Lediglich die Koeffizienten auf der linken Seite unterscheiden sich, weil die gebrochen rationale Funktion, für die wir hier die PBZ machen, einen anderen Zähler hat (es ist ein anderes System).
+Bemerkenswert ist, dass die rechte Seite des Gleichungssystems identisch mit dem RC-Glied aus Aufgabe \ref{sec:4408E33353} ist, es ist ja exakt der gleiche Ansatz bei der PBZ für genau das gleiche Anregungssignal. Lediglich die Koeffizienten auf der linken Seite unterscheiden sich, weil die gebrochen rationale Funktion, für die wir hier die PBZ machen, ein anderes Zählerpolynom hat (weil das System hier hat eine Nullstelle, der RC-Tiefpass nicht).
 %
 Das Gleichungssystem in Matrixschreibweise
 \begin{align}
@@ -1753,7 +1819,7 @@ führt mit einem Lösungsweg unserer Wahl zu den Koeffizienten
 \begin{align}
 A = \frac{1}{2}\qquad B = \frac{1}{2}\qquad C = -\frac{1}{2} \omega_\mathrm{RC}
 \end{align}
-Einsetzen in die PBZ ergibt hier drei Systeme in Parallelschaltung
+Einsetzen in die Summendarstellung ergibt dann drei Systeme in Parallelschaltung
 \begin{align}
 \frac{s}{s + \omega_\text{RC}} \cdot \frac{s}{s^2+\omega_\text{RC}^2} =
 \frac{\frac{1}{2}}{s + \omega_\text{RC}} + \frac{\frac{1}{2}s}{s^2+\omega_\text{RC}^2} + \frac{-\frac{1}{2} \omega_\mathrm{RC}}{s^2+\omega_\text{RC}^2}
@@ -1781,9 +1847,10 @@ und wir erkennen die für die Grenzkreisfrequenz $\omega_\text{RC}$ typischen We
 der Amplitude $\frac{1}{\sqrt{2}}$ (-3.01 dB) und der Phasenverschiebung +45 Grad
 für dieses CR-Glied (beim RC-Glied Tiefpass sind es -45 Grad!).
 
-Für $y(0^-) = 0$ V, $x(0^-) = 2.5$ V, $a = y(0^-) - x(0^-) = -2.5$ V und $T_\text{RC} = 2 \text{s} \rightarrow \omega_\text{RC} = \frac{1}{T_\text{RC}} = \frac{1}{2} \text{rad/s}$ sind im untenstehenden Bild der Ein- und der Ausgangsverlauf gezeichnet.
+Für $y(t=0^-) = 0$ V, $x(t=0^-) = 2.5$ V, $a = y(t=0^-) - x(t=0^-) = -2.5$ V und $T_\text{RC} = 2 \text{s} \rightarrow \omega_\text{RC} = \frac{1}{T_\text{RC}} = \frac{1}{2} \text{rad/s}$ sind im untenstehenden Bild der Ein- und der Ausgangsverlauf gezeichnet.
 \end{Loesung}
 %
+\newpage
 \begin{figure}[h]
 \begin{center}
 \begin{tikzpicture}
@@ -1803,8 +1870,8 @@ samples=128,
 legend pos=outer north east,
 xlabel = {$t / \text{s}\rightarrow$},
 ylabel = {$y(t)$},
-title = {Anfangsbedingung \& Eingang},
-ylabel = {$\textcolor{C2}{x(0^-)},\,\,\,\textcolor{C4}{y(0^-)},\,\,\,\textcolor{C5}{x(t \geq 0)}$},
+title = {Anfangsbedingungen \& Eingang},
+ylabel = {$\textcolor{C2}{x(t=0^-)},\,\,\,\textcolor{C4}{y(t=0^-)},\,\,\,\textcolor{C5}{x(t \geq 0)}$},
 xmin=-5, xmax=20,
 ymin=-2, ymax=3,
 ytick={-2, -1, 0, 1, 2},
@@ -1858,9 +1925,223 @@ coordinates {(-5,0)(0,0)};
 \end{figure}
 %
 \begin{Loesung}
-Die Anfangsbedingung lässt sich so interpretieren: In negativ unendlicher Zeit wurde begonnen den Kondensator durch eine konstante 2.5 V Quellspannung aufzuladen. Wir können daher annehmen, dass der Kondensator zum Zeitpunkt $t=0^-$ vollständig geladen ist (vgl. linkes Bild, $x(0^-)$, grün) und daher am CR-Ausgang keine Spannung zu messen ist (vgl. linkes Bild, $y(0^-)$, lila). Das System befindet sich also zu $t=0^-$ in einem stationären Zustand in welchem gemäß Kondensatortheorie kein Strom fliesst, aber Energie in Form von elektrischer Ladung im System gespeichert ist (vgl. eine vorgespannte Feder bei einem mechanischen System). Zum Zeitpunkt $t=0$ greifen wir mit einem sprunghaft eingeschalteten Cosinussignal (vgl. linkes Bild, braun) in den stationären Zustand ein. Eingangsseitig springt die Spannung von 2.5 V (Anfangsbedingung) auf 1 V (Eingangssignalamplitude). Das System muss nun reagieren. Weil es differenzierenden Charakter hat, führt der Eingangssprung direkt zu einem Ausgangssprung. Mit diesem Sprung fängt der Kondensator zunächst an sich zu entladen, was einen Stromfluss und demzufolge einen 'verschleifenden' Spannungsverlauf über dem Widerstand zur Folge hat. Nach Abklingen des exponentiellen Anteils im Ausgangssignal (Signalanteile aus der Anfangsbedingung und dem Einschaltsprung, vgl. rechtes Bild, blau) befindet sich das System wieder in einem stationären Zustand, diesmal mit Ausgangs-Cosinus der in Amplitude und Phase gegenüber dem Eingangs-Cosinus verändert ist (vgl. rechtes Bild, rot für $t > 5 T_\text{RC} \approx 10$ s). Durch die Anregung erfolgt ein harmonisches Auf- und Entladen des Kondensators, folglich ein Wechselstrom und daraus die Ausgangswechselspannung.
+Die Anfangsbedingung lässt sich so interpretieren: In negativ unendlicher Zeit wurde begonnen den Kondensator durch eine konstante 2.5 V Quellspannung aufzuladen. Wir können daher annehmen, dass der Kondensator zum Zeitpunkt $t=0^-$ asymptotisch vollständig geladen ist (vgl. linkes Bild, $x(t=0^-)$, grün) und daher am CR-Ausgang keine Spannung zu messen ist (vgl. linkes Bild, $y(t=0^-)$, lila). Das System befindet sich also zu $t=0^-$ in einem stationären Zustand in welchem gemäß Kondensatortheorie kein Strom fliesst, aber Energie in Form von elektrischer Ladung im System gespeichert ist (vgl. bei einem mechanischen System eine vorgespannte Feder). Zum Zeitpunkt $t=0$ greifen wir mit einem sprunghaft eingeschalteten Cosinussignal (vgl. linkes Bild, braun) in den stationären Zustand ein. Eingangsseitig springt die Spannung von 2.5 V (Anfangsbedingung) auf 1 V (Eingangssignalamplitude). Das System muss nun reagieren. Weil es differenzierenden Charakter hat, führt der Eingangssprung direkt zu einem Ausgangssprung. Mit diesem Sprung fängt der Kondensator zunächst an sich zu entladen, was einen Stromfluss und demzufolge einen 'verschleifenden' Spannungsverlauf über dem Widerstand zur Folge hat. Nach Abklingen des exponentiellen Anteils im Ausgangssignal (Signalanteile aus der Anfangsbedingung und dem Einschaltsprung, vgl. rechtes Bild, blau) befindet sich das System wieder in einem stationären Zustand, diesmal mit Ausgangs-Cosinus der in Amplitude und Phase gegenüber dem Eingangs-Cosinus verändert ist (vgl. rechtes Bild, rot für $t > 5 T_\text{RC} \approx 10$ s). Durch die Anregung erfolgt ein harmonisches Auf- und Entladen des Kondensators, folglich ein Wechselstrom und daraus die Ausgangswechselspannung.
 \end{Loesung}
 %
+
+
+
+
+\newpage
+\subsection{Laplace für Hochpass 2. Ordnung}
+\label{sec:144AC39C15}
+\begin{Ziel}
+Wir wollen die Laplace Rücktrafo anhand von speziellen Laplace Transformierten und deren Zeitsignale üben, nämlich für ein wichtiges System zweiter Ordnung und dessen Impuls- und Sprungantwort. Erkenntnis soll sein, dass die Erwartungshaltung \textit{eine konjugiert-komplexe Polstelle in der linken Laplace Ebene führt zu gedämpften cos/sin-Schwingungen im Zeitsignal} (vgl. Aufgabe \ref{sec:31AEFEF90B}) die Rechnerei bei der Rücktrafo deutlich vereinfacht, weil wir wissen wohin wir rechnen wollen. Je mehr wir also vom Wesen der SigSys verstanden haben, desto mehr Erwartungshaltung können wir in eine Aufgabenstellung legen und desto einfacher gelingt das eigentliche Rechenhandwerk. Keine neue Weisheit, vielmehr langzeit-erprobte Herangehensweise in allen Naturwissenschaften, die wir uns zu Eigen machen sollten (müssen?!).
+\end{Ziel}
+\textbf{Aufgabe} {\tiny 144AC39C15}:
+Ein kausales LTI-System sei beschrieben durch seine Differentialgleichung
+\begin{align*}
+y(t) + \frac{720}{169} y'(t) + \frac{900}{169} y''(t) = \frac{900}{169} x''(t).
+\end{align*}
+Das System befindet sich zur Zeit $t=0^{-}$ in Ruhe, d.h. die Anfangsbedingungen sind $y(t=0^{-})=0, y'(t=0^{-})=0, x(t=0^{-})=0, x'(t=0^{-})=0$. Im Extra-Laplace Übungsblatt entspricht dies der Aufgabe Hochpass 2. Ordnung, differenzierende Filter-Flanke (Aufgabe 27)
+
+Ges.:
+\begin{itemize}
+\item a) Laplace Transformierte der DGL und Übertragungsfunktion $H(s)$
+\item b) aus $H(s)$ das Pol-/Nullstellen-/Verstärkungsdiagramm mit Angabe des Konvergenzbereiches und Aussage zur System-Stabilität
+\item c) aus $H(s)$ die Impulsantwort $h(t)$
+\item d) aus $H(s)$ die Sprungantwort $h_\epsilon(t)$
+\end{itemize}
+
+\begin{Werkzeug}
+Laplace Transformierte bei zeitlicher Ableitung
+\begin{align}
+&\mathcal{L}\{x'(t)\}  = s^1 \cdot \mathcal{L}\{x(t)\} - s^0 \cdot x(t=0^-)\quad\text{bzw. anders geschrieben}\\
+&\frac{\fsd x(t)}{\fsd t} \qquad \laplace \quad s \cdot X(s) - x(t=0^-)
+\end{align}
+%
+\begin{align}
+&\mathcal{L}\{x''(t)\} = s^2 \cdot X(s) - s^1 \cdot x(t=0^-) - s^0 \cdot x'(t=0^-)\quad\text{bzw. anders geschrieben}\\
+&\frac{\fsd^2 x(t)}{\fsd t^2} \qquad \laplace \quad s^2 \cdot X(s) - s \cdot x(t=0^-) - x'(t=0^-)
+\end{align}
+und wichtige Korrespondenzen aus Aufgabe \ref{sec:41C1D0D586} bzw. Formelsammlung für die Rücktransformation in den Zeitbereich.
+\end{Werkzeug}
+\begin{Ansatz}
+Wie in den vorherigen Aufgaben, also Definition Übertragungsfunktion (ohne Anfangsbedingungen)
+$Y(s) = H(s) \cdot X(s) \leftrightarrow H(s) = \frac{Y(s)}{X(s)}$
+
+Impulsantwort aus $\mathcal{L}^{-1}\{H(s) \cdot X(s)\} = h(t)$ für $x(t)=\delta(t) \laplace X(s)=1$, also kurz
+$$\mathcal{L}^{-1}\{H(s)\} = h(t)$$
+
+Sprungantwort aus $\mathcal{L}^{-1}\{H(s) \cdot X(s)\} = h_\epsilon(t)$ für $x(t)=\epsilon(t) \laplace X(s)=\frac{1}{s}$, also kurz
+$$\mathcal{L}^{-1}\{\frac{1}{s} H(s)\} = h_\epsilon(t)$$
+\end{Ansatz}
+\begin{ExCalc}
+\textbf{a) Laplace-Hin-Transformation}
+\begin{align}
+&y(t) + \frac{720}{169} y'(t) + \frac{900}{169} y''(t) = \frac{900}{169} x''(t) \laplace\\
+&Y(s) + \frac{720}{169} (s Y(s) - y(t=0^-)) + \frac{900}{169} (s^2 \cdot Y(s) - s \cdot y(t=0^-) - y'(t=0^-)) =\nonumber\\
+&\frac{900}{169} (s^2 \cdot X(s) - s \cdot x(t=0^-) - x'(t=0^-))
+\end{align}
+Sortieren nach Eingangssignal (vgl. $X(s)$) und Anfangsbedingungen
+\begin{align}
+&Y(s) (1 + \frac{720}{169} s + \frac{900}{169} s^2) = \nonumber\\
+&\frac{900}{169} s^2 \cdot X(s) + \frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-))
+\end{align}
+%
+\begin{align}
+&Y(s) = \nonumber\\
+&\frac{\frac{900}{169} s^2}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
+\cdot X(s) +\nonumber\\
+&\frac{\frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-))}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
+\end{align}
+Wenn alle Anfangsbedingungen Null (System ruhend) wird der zweite Summand Null und es verbleibt die Anregung
+\begin{align}
+Y(s) = \frac{\frac{900}{169} s^2}{1 + \frac{720}{169} s + \frac{900}{169} s^2} \cdot X(s)
+\end{align}
+woraus die Übertragungsfunktion
+\begin{align}
+H(s) = \frac{Y(s)}{X(s)} = \frac{\frac{900}{169} s^2}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
+= 1 \cdot \frac{s^2}{s^2 + \frac{5}{4} s + \frac{169}{900}}
+\end{align}
+folgt.
+
+\noindent \textbf{b) für Pol-/Nullstellen-/Verstärkungsdiagramm (PNV)}
+
+Nullstelllen (wann wird das Zählerpolynom von $H(s)$ Null): hier doppelte Nullstelle im Ursprung
+\begin{align}
+s_{o,1/2} = 0
+\end{align}
+Polstellen (wann wird das Nennerpolynom von $H(s)$ Null): hier konjugiert-komplex in der linken Halbebene
+\begin{align}
+s_{\infty,1/2} = -\frac{2}{5} \pm \im \frac{1}{6}
+\end{align}
+Konvergenzbereich (KB): $\Re\{s\}>-\frac{2}{5}$ für kausale Impulsantwort
+
+System ist stabil, da alle Pole in der linken Halbebene (d.h. in der Impulsantwort gibt es keine aufklingenden Anteile)
+
+\end{ExCalc}
+
+\begin{figure}[h]
+\begin{center}
+\begin{tikzpicture}
+\def \axisLength {4}
+\def \tic {0.05}
+\def \sigmaz {2/5*4}
+\def \omegaz {1/6*4}
+\def \convAbsz {-\sigmaz}
+\fill[C2!50] (\convAbsz,-\axisLength/2)--(\convAbsz,\axisLength/2)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
+{(\convAbsz,\axisLength/2)--
+(\axisLength/2,\axisLength/2)--
+(\axisLength/2,-\axisLength/2)--
+(\convAbsz,-\axisLength/2)};
+\draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
+\draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
+\draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
+\draw[C0, ultra thick] (0,0) node{\Huge $\circ$};
+\draw[C0, ultra thick] (0,0) node{\Large $\circ$};
+\draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-\frac{2}{5}$};
+\draw (-\tic,\omegaz) -- (\tic,\omegaz) node[right]{$+\frac{1}{6}$};
+\draw (-\tic,-\omegaz) -- (\tic,-\omegaz) node[right]{$-\frac{1}{6}$};
+\draw (1.5,+2.25) node[C2!75]{KB $\Re\{s\}>-\frac{2}{5}$};
+\draw (1.25,1.75) node[]{$g=1$};
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+\begin{ExCalc}
+Für die kommenden Teilaufgaben ist es zielführend $H(s)$ zunächst äquivalent darzustellen als
+\begin{align}
+&H(s) = 1 \cdot \frac{s^2}{s^2 + \frac{5}{4} s + \frac{169}{900}}\quad\text{Polynomdarstellung für Polynomdivision}\\
+&= 1 \cdot \frac{(s-0)(s-0)}{(s-(-\frac{2}{5} + \im \frac{1}{6}))(s-(-\frac{2}{5} - \im \frac{1}{6}))}\quad\text{faktorisierte Polynomdarstellung für PNV/Bode}\\
+&= 1 \cdot \frac{(s-0)(s-0)}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}\quad\text{Nenner entspricht Laplace Rücktrafo Korrespondenz},
+\end{align}
+wobei speziell die unterschiedlichen Darstellungen des Nenners (Pole des Systems bestimmen die Eigenfunktionen des Systems und damit was das System macht) nützlich sind für verschiedene Rechenteilschritte.
+
+Weiterhin sollten wir uns klarmachen, dass bei einer konjugiert-komplexen Polstelle, die Zahlen der Pole direkt verlinkt sind mit Eigenschaften der Impulsantwort: der Realteil wird bei stabilen Systemem das Abklingverhalten der Exponentialfunktion bestimmen, der (Betrag des) Imaginärteil die Kreisfrequenz festlegen mit der cos/sin-Anteile schwingen.
+
+\noindent \textbf{c) Impulsantwort} $h(t)$
+
+Weil bei obiger $H(s)$ der Polynomgrad im Zähler == Nenner, handelt es sich um eine unecht gebrochen-rationale Funktion. Mit Hilfe einer Polynomdivision
+
+\, \polylongdiv[style=C, vars=s]{s^2}{s^2+4/5*s+169/900} \quad können wir eine Parallelschaltung von Systemen erzeugen; der entstehende Bruch ist nun eine echt gebrochen-rationale Funktion, weil Zählergrad < Nennergrad.
+%
+Bei komplizierteren Laplace Transformierten stünde jetzt eine PBZ an, aber hier ist der Bruchterm schon soweit in Summanden zerlegbar, dass wir 'nur' noch eine geeignete Gewichtung finden müssen, damit diese Summanden direkt zu Korrespondenzen passen.
+D.h. die gerade gefundene Darstellung
+\begin{align}
+H(s) = 1 \cdot \left(1 - \frac{\frac{4}{5}s + \frac{169}{900}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}\right)
+\end{align}
+solange umformen bis wir gemäß unserer Erwartungshaltung an eine konjugiert-komplexe Polstelle einen passenden Ausdruck finden, der direkt zu diesen Korrespondenzen passt.
+
+Wir betrachten daher zunächst nur den Bruch
+$$\frac{\frac{4}{5}s + \frac{169}{900}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}$$
+klammern sinnvollerweise aus
+$$\frac{4}{5} \cdot \frac{s + \frac{169}{720}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+fügen im Zähler ein
+$$\frac{4}{5} \cdot \frac{s -(-\frac{2}{5})+(-\frac{2}{5}) + \frac{169}{720}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+ziehen die Summanden wirklich auseinander
+$$\frac{4}{5} \cdot \frac{s -(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}+
+\frac{4}{5} \cdot \frac{(-\frac{2}{5}) + \frac{169}{720}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+schreiben den zweiten Bruch mittels Vorfaktor anders
+$$\frac{4}{5} \cdot \frac{s -(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}-
+\frac{119}{150}\cdot \frac{\frac{1}{6}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+damit nun exakt zwei (gewichtete) Korrespondenzen da stehen, nämlich
+\begin{align}
+&\mathcal{L}\{\e^{\sigma_0 t} \cos(\omega_0 t)\epsilon(t)\} = \frac{s-\sigma_0}{(s-\sigma_0)^2+\omega_0^2}, \Re(s)>\Re(\sigma_0)\\
+&\mathcal{L}\{\e^{\sigma_0 t} \sin(\omega_0 t)\epsilon(t)\} = \frac{\omega_0}{(s-\sigma_0)^2+\omega_0^2}, \Re(s)>\Re(\sigma_0)
+\end{align}
+für $\sigma_0 = -\frac{2}{5}$ (für abklingende Exponentialfunktion) und $\omega_0 = \frac{1}{6}$ (für die Kreisfrequenz)
+
+Die so umgeformte (komplette) Übertragungsfunktion
+\begin{align}
+H(s) = 1 \cdot \left(1 - \frac{4}{5} \cdot \frac{s -(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}+
+\frac{119}{150}\cdot \frac{\frac{1}{6}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}\right)
+\end{align}
+wird dann mittels korrespondenz-basierter Rücktransformation zur Impulsantwort
+\begin{align}
+h(t) = 1 \cdot \left(
+\delta(t)
+- \frac{4}{5} \e^{-\frac{2}{5}t} \cos(\frac{1}{6}t)\epsilon(t) +
+\frac{119}{150} \e^{-\frac{2}{5}t} \sin(\frac{1}{6}t)\epsilon(t)\right)
+\end{align}
+
+Hinweis: Bei stabilen, kausalen Systemen zweiter Ordnung (mit rellen Koeffizienten in der DGL) kann es noch zwei andere Möglichkeiten geben, wie die beiden Pole in der linken Halbebene liegen: es können zwei reelle Polstellen sein oder es kann ein doppelt-reeller Pol sein. Diese Fälle führen zu anderen Termen in der Impulsantwort; das Extra-Laplace Übungsblatt beinhaltet diese Fälle zum eigenständigen Üben und Rechnen. Zwei reelle Polstellen führt zur gewichteten Summe zweier Exponentialfunktionen mit unterschiedlichen Zeitkonstanten, ein doppelt-reeller Pol führt zu einer Impulsantwort welche die Abklingkurven $\e^{-t/T}$ und $t \cdot \e^{-t/T}$ enthält, letztere auch eine Korrespondenz die sich in der Formelsammlung findet.
+
+\noindent \textbf{d) Sprungantwort}
+
+Der Ansatz $$\mathcal{L}^{-1}\{\frac{1}{s} H(s)\} = h_\epsilon(t)$$
+liefert zunächst
+\begin{align}
+&\frac{1}{s}\cdot H(s) = 1 \cdot \frac{1}{s}\cdot \frac{s^2}{s^2 + \frac{5}{4} s + \frac{169}{900}}\quad\text{Polynomdarstellung}\\
+&= 1 \cdot \frac{1}{s}\cdot \frac{(s-0)(s-0)}{(s-(-\frac{2}{5} + \im \frac{1}{6}))(s-(-\frac{2}{5} - \im \frac{1}{6}))}\quad\text{faktorisierte Polynomdarstellung für PNV/Bode}\\
+&= 1 \cdot \frac{1}{s}\cdot \frac{(s-0)(s-0)}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}\quad\text{Nenner entspricht Laplace Rücktrafo Korrespondenz},
+\end{align}
+bzw. nach Kürzen einer Nullstelle im Ursprung mit der gerade zugefügten Polstelle im Ursprung (und den Verstärkungsfaktor $1$ weggelassen)
+\begin{align}
+&\frac{1}{s}\cdot H(s) = \frac{s}{s^2 + \frac{5}{4} s + \frac{169}{900}}\quad\text{Polynomdarstellung}\\
+&= \frac{(s-0)}{(s-(-\frac{2}{5} + \im \frac{1}{6}))(s-(-\frac{2}{5} - \im \frac{1}{6}))}\quad\text{faktorisierte Polynomdarstellung für PNV/Bode}\\
+&= \frac{(s-0)}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}\quad\text{Nenner entspricht Laplace Rücktrafo Korrespondenz},
+\end{align}
+Gleiche Herangehensweise wie oben: Erwartungshaltung ist, dass wir gedämpfte cos/sin-Schwingung erhalten müssen, weil immer noch konjugiert-komplexe Polstelle vom System und die eigentlich zugefügte Eingangssignal-Polstelle direkt von einer System-Nullstelle kompensiert wurde. Daher ähnliche Rechnung, zunächst wieder im Zähler einfügen
+$$\frac{s-(-\frac{2}{5})+(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+auseinander ziehen
+$$\frac{s-(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2} + \frac{-\frac{2}{5}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2},$$
+und anders faktorisieren
+$$\frac{s-(-\frac{2}{5})}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2} - \frac{12}{5} \frac{\frac{1}{6}}{(s-(-\frac{2}{5}))^2+(\frac{1}{6})^2}$$
+Dies sind exakt die gleichen (jetzt natürlich anders gewichteten) Korrespondenzen wie schon bei der Impulsantwort benutzt.
+%
+Laplace Rücktransormation führt somit auf
+\begin{align}
+h_\epsilon(t) =
+\e^{-\frac{2}{5}t} \cos(\frac{1}{6}t)\epsilon(t)
+- \frac{12}{5} \e^{-\frac{2}{5}t} \sin(\frac{1}{6}t)\epsilon(t)
+\end{align}
+\end{ExCalc}
+%\begin{Loesung}
+%\end{Loesung}
+
 
 
 
@@ -1928,17 +2209,17 @@ erklären bzw. verorten zu können.
 Dies wird später in der Regelungstechnik eine größere Rolle spielen.
 \end{mdframed}
 
-\textbf{Hinweise für weitere Vertiefung}:
-\verb|laplace_transform_839973EF5D.pdf| Hier ist die Lösung für ein LTI-System
-2. Ordnung (Tiefpass) ausführlich geschildert.
-%
-Es lohnt sich sehr das durchzuarbeiten.
-%(Teaser erfolgt in der folgenden Präsenz Übung)
-Es zeigt kompakt die Lösung der DGL mittels
-\begin{itemize}
-\setlength\itemsep{0em}
-\item Fundamentalsystem
-\item Laplace Transformation, Rücktrafo mit tabellierten Korrespondenzen
-\item Laplace Transformation, Rücktrafo zu Fuß mit Residuensatz
-\item Faltung
-\end{itemize}
+% \textbf{Hinweise für weitere Vertiefung}:
+% \verb|laplace_transform_839973EF5D.pdf| Hier ist die Lösung für ein LTI-System
+% 2. Ordnung (Tiefpass) ausführlich geschildert.
+% %
+% Es lohnt sich sehr das durchzuarbeiten.
+% %(Teaser erfolgt in der folgenden Präsenz Übung)
+% Es zeigt kompakt die Lösung der DGL mittels
+% \begin{itemize}
+% \setlength\itemsep{0em}
+% \item Fundamentalsystem
+% \item Laplace Transformation, Rücktrafo mit tabellierten Korrespondenzen
+% \item Laplace Transformation, Rücktrafo zu Fuß mit Residuensatz
+% \item Faltung
+% \end{itemize}
