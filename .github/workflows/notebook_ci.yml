@@ -15,40 +15,27 @@ on:
     - cron:  '30 1 1,15 * *'
 
 jobs:
-  linux_py39:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.9'
-      - run: sudo apt-get install pandoc
-      - run: pip install -r requirements.txt
-      - run: pip install -r ci/requirements.txt
-      - run: python -m sphinx . _build/ -b html
-
-  linux_py310:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - run: sudo apt-get install pandoc
-      - run: pip install -r requirements.txt
-      - run: pip install -r ci/requirements.txt
-      - run: python -m sphinx . _build/ -b html
-
   linux_py311:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: 3.11
+      - run: sudo apt-get install pandoc
+      - run: pip install -r requirements.txt
+      - run: pip install -r ci/requirements.txt
+      - run: python -m sphinx . _build/ -b html
+
+  linux_py312:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
       - run: sudo apt-get install pandoc
       - run: pip install -r requirements.txt
       - run: pip install -r ci/requirements.txt
