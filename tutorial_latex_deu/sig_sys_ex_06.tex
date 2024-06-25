@@ -54,7 +54,7 @@ Parallelschaltung von Systemen 1. und 2. Ordnung. Es ist daher sehr sinnvoll,
 wenn wir uns bei 1./2. Ordnung Systemen 'zu Hause' fühlen.
 Hier also zunächst reines Zusammentragen von Ergebnissen, im Grunde stumpfes
 Abarbeiten mittlerweile bekannter SigSys-Dinge. Danach werden wir mit diesen
-drei Systemen in den nächsten Aufgaben dann noch weitere Erkenntnisse
+drei Systemen in den nächsten Aufgaben dann noch zu weiteren Erkenntnissen
 erlangen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny E1E7E53CFF}: Gegeben sind die drei Laplace
@@ -72,13 +72,13 @@ befinden sich also zum Anregungszeitpunkt in Ruhe.
 Prüfen Sie die Korrektheit der folgenden Angaben (die Idee ist natürlich,
 dass alles stimmt, Typos wären nicht absichtlich):
 \begin{itemize}
-  \item Impulsantwort (für die Laplace Rücktrafo führt hier die Polynomdivision schneller zum Ziel als Partialbruchzerlegung)
+  \item Impulsantwort (für die Laplace Rücktrafo Polynomdivision anwenden führt direkt zu einfachen Korrespondenzen)
   \begin{align}
   &h(t)_\mathrm{max} = 2\delta(t) - 5\,\e^{-\frac{t}{2}}\,\epsilon(t)\\
   &h(t)_\mathrm{min} = 2\delta(t) + 3\,\e^{-\frac{t}{2}}\,\epsilon(t)\\
   &h(t)_\mathrm{all} = \delta(t) - 4\,\e^{-2\,t}\,\epsilon(t)
   \end{align}
-  \item Sprungantwort (Partialbruchzerlegung)
+  \item Sprungantwort (weil $H(s)/s$ eine echt gebrochene Funktion müssen wir hier Partialbruchzerlegung anwenden)
   \begin{align}
   &h_\epsilon(t)_\mathrm{max} = -8 \epsilon(t) + 10 \, \e^{-\frac{t}{2}}\,\epsilon(t)\\
   &h_\epsilon(t)_\mathrm{min} = +8 \epsilon(t) -6 \, \e^{-\frac{t}{2}}\,\epsilon(t)\\
@@ -438,7 +438,7 @@ Zerlegen Sie dieses System in seinen Allpass- und minimalphasigen Anteil.
   der $\im\omega$-Achse. Da prinzipiell Stabilität gefordert wurde, gilt also
   die Regel: \textbf{alle Pole} in der \textbf{linken} $s$-Halbebene und zu jedem Pol gehört
   eine an $\im\omega$ gespiegelte Nullstelle in der rechten $s$-Halbebene.
-  Betrag über $\omega$ ist konstant, \textbf{Konvention: Betrag ist 1}.
+  Betrag über $\omega$ ist konstant, \textbf{Konvention: Betrag ist 1, also Pegel gleich 0 dB}.
 \end{itemize}
 
 
@@ -446,7 +446,7 @@ Zerlegen Sie dieses System in seinen Allpass- und minimalphasigen Anteil.
 \begin{Ansatz}
 Zu lösen entweder analytisch, also mit der Übertragungsfunktion als Formel
 oder grafisch anhand von Pol-Nullstellen Diagrammen (dann aufpassen
-mit den $H_0$ Faktoren).
+mit den $H_0$ Faktoren der Einzelsysteme).
 \end{Ansatz}
 
 \begin{ExCalc}
@@ -479,7 +479,7 @@ also mit der gespiegelten Nullstelle, die wir aber mit einer Polstelle
 an der gleichen Stelle gleich wieder 'entschärfen', sich gegenseitig aufhebende Pole und Nullstellen
 ändern ja nichts an der Übertragungsfunktion und in Folge auch nicht am Betrags-
 und Phasenfrequenzgang.
-Der eher langweilige Teil ist nun, die richtigen Anteile in dem Bruchausdruck
+Der handwerklich eher langweilige Teil ist nun, die richtigen Anteile in dem Bruchausdruck
 jeweils dem Allpass und dem Minimalphasensystem zuzuordnen.
 Dazu müssen die obigen Regeln aus dem grauen Werkzeugkasten befolgt werden.
 
@@ -659,7 +659,7 @@ Systemverhalten wie ganz links.
 Danach erfolgt die Zerlegung, die grafisch u.U. anschaulicher gelingt, als in Formeln.
 Diesmal ist es günstiger mit dem Allpass anzufangen.
 Wir suchen dafür alle rechtsseitigen Nullstellen (die sehen wir sehr schnell, weil
-in der rechten $s$-Halbebene bei stabilen Systemen sonst nix weiter sein sollte)
+in der rechten $s$-Halbebene bei stabilen Systemen sonst nix weiter sein sollte/darf)
 und die dazu passenden gespiegelten Polstellen, also im Beispiel bei $s=\pm 2$.
 Dies ist im Bild ganz rechts zu sehen.
 
@@ -734,7 +734,7 @@ Bestimmen Sie jeweils die inversen Systeme, so dass \eq{eq:4926427BA9_EQing} gil
 und charakterisieren Sie Stabilität. Wir wollen wie immer kausale Systeme annehmen.
 
 \begin{Werkzeug}
-Pol-/Nullstellen/Konstante-Darstellung und Diagramme. Bode Diagramm für Pegel.
+Pol-/Nullstellen/Verstärkung-Darstellung und Diagramme. Bode Diagramm für Pegel.
 \end{Werkzeug}
 \begin{Ansatz}
 Für $H(s)_\mathrm{max}$:
@@ -1092,7 +1092,7 @@ und als Parallelschaltung von zwei Einzelsystemen, vgl. \eq{eq:4926427BA9_Hsmini
 \begin{align}
 H(s)_\mathrm{min}^{-1} = \underbrace{\frac{1}{2}}_{H_{\mathrm{par}1}} - \underbrace{\frac{3}{4}\cdot\frac{1}{s+2}}_{H_\mathrm{par2}},
 \end{align}
-(wenn wir die letzten beiden Terme als ein System mit $H_0=\frac{3}{4}$ auffassen
+(wenn wir die letzten beiden Brüche als ein einziges System mit $H_0=\frac{3}{4}$ auffassen
 wollen) darstellbar ist.
 %
 Wie sehen die Bode Diagramme der Einzelsysteme $H_{\mathrm{ser}\cdot}$,
