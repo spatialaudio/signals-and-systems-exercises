@@ -9,16 +9,16 @@ Ein einfaches Beispiel wäre die Folge bestehend aus ganz bestimmten Cosinuswert
 \begin{align}
 x[k] = \cos(\Omega_0 \cdot k)\quad\text{für}\quad k\in\mathbb{Z},\,\Omega_0\in\mathbb{R}.
 \end{align}
-Wir benutzen zur Kenntlichmachung von Folgen / zeitdiskreten Signalen eckige
+Wir benutzen zur Kenntlichmachung von Folgen / von zeitdiskreten Signalen eckige
 Klammern $x[k]$ und konsistent $k$ als Folgenindex, der daher $k\in\mathbb{Z}$ ist.
 %
 Die obige Folge könnte aus einem zeitlichen Abtastprozess (englisch \textit{sampling})
 entstanden sein. Mit dem
 \textbf{Abtastintervall / Abtasttakt} $T_s$ werden zu den Zeitpunkten $t = k \cdot T_s$
-die Signalwerte $x(k T_s)$ eines zeitkontinuierlichen Signals $x(t) = \cos(\omega_0 t)$
+die Signalwerte $x(t = k \cdot T_s)$ eines zeitkontinuierlichen Signals $x(t) = \cos(\omega_0 t)$
 der Folge $x[k]$ zugewiesen, als
 \begin{align}
-x[k] := x(k T_s) = \cos(\omega_0 T_s k)
+x[k] := x(k T_s) = \cos(\omega_0 T_s k).
 \end{align}
 
 %
@@ -26,7 +26,7 @@ x[k] := x(k T_s) = \cos(\omega_0 T_s k)
 \centering
 \begin{subfigure}{\textwidth}
 \centering
-\begin{tikzpicture}[scale=1]
+\begin{tikzpicture}[scale=0.9]
 \def\tic{0.1};
 \def\Om{360/8}
 \draw[help lines, C7!25, step=1cm] (0,-1) grid (7,1);
@@ -44,7 +44,7 @@ Periode in blau.}
 %
 \begin{subfigure}{\textwidth}
 \centering
-\begin{tikzpicture}[scale=1]
+\begin{tikzpicture}[scale=0.9]
 \def\tic{0.1};
 \def\Om{360/8.5}
 \draw[->] (-1.5,0) -- (9,0) node[right]{$k$};
@@ -62,7 +62,7 @@ Aber periodisch in $2 N = 17$.}
 %
 \begin{subfigure}{\textwidth}
 \centering
-\begin{tikzpicture}[scale=1]
+\begin{tikzpicture}[scale=0.9]
 \def\tic{0.1};
 \def\Om{360/9}
 \draw[help lines, C7!25, step=1cm] (0,-1) grid (8,1);
@@ -76,13 +76,13 @@ Aber periodisch in $2 N = 17$.}
 \caption{$N=9\in\mathbb{Z}$, daher periodisch in 9 Werten, Periode in blau.}
 \label{fig:cos9}
 \end{subfigure}
-\caption{Cosinusfolgen mit $\Omega_0=\frac{2\pi}{N}$ für $N=8,\,8.5,\,9$ über
-\textit{Zeit}-Index $k$ als
+\caption{Cosinusfolgen mit $\Omega_0=\frac{2\pi}{N}$ für $N=8,\,8.5$ und $9$ über
+\textit{Sample}-Index $k$ (z.B. entlang diskreter Zeitpunkte) als
 sogenannter Stem-Plot (\textit{stem} [englisch] - Stiel, Halm, Stängel [deutsch]).}
 \label{fig:Cosinusfolgen}
 \end{figure*}
 %
-Wir können mit der \textbf{Samplingfrequenz / Abtastfrequenz}
+Wir können mit der \textbf{Samplingfrequenz / Abtastfrequenz} in Hertz
 \begin{align}
 f_s=\frac{1}{T_s}
 \end{align}
@@ -91,7 +91,13 @@ die Umformungen
 \Omega = \omega T_s = \frac{\omega}{f_s} = \frac{2\pi f}{f_s}
 \end{align}
 zusammentragen. Die Variable $\Omega$ ist als \textbf{digitale, zeitdiskrete oder auch
-normierte Kreisfrequenz} bekannt, wir werden sie sehr häufig brauchen.
+normierte Kreisfrequenz} bekannt, wir werden sie sehr häufig benutzen.
+%
+Die Abtastfrequenz $f_s$ bildet sich gemäß Formel auf $\Omega_s = 2 \pi$ ab
+(d.h. 360 Grad in einer Kreisdarstellung), die
+halbe Abstastfrequenz $\frac{f_s}{2}$ konsistent auf $\Omega=\frac{\Omega_s}{2}=\pi$
+(180 Grad auf einem Kreis).
+
 
 In \fig{fig:Cosinusfolgen} sind drei Cosinusfolgen für verschiedene
 $\Omega_0=\frac{2\pi}{N}$ skizziert.
@@ -101,16 +107,17 @@ im Beispiel $N=8$ und $N=9$. Die Wahl $N=8.5$ führt zu einer nichtperiodischen
 Cosinusfolge, d.h. der Cosinus schwingt zwar munter vor sich hin, wir haben
 ausreichend Signalwerte, um das sogar grafisch zu sehen, aber wir
 können die exakte Periode bzgl. des Signalindex $k$ nicht ganzzahlig angeben,
-zumindest nicht in $N$. Weiter unten werden wir sehen, dass es Folgen gibt
+zumindest nicht in $N$. Weiter unten werden wir sehen, dass es Folgen gibt,
 die für $N=\frac{M}{K}$, $M$-periodisch sind, falls $M$ und $K$ ganzzahlig.
 
 \subsection*{Analogien zeitkontinuierlich / zeitdiskret}
 %
-Wir haben die wesentliche Werkzeuge für die zeitkontinuierlichen Vorgänge
+Wir haben die wesentlichen Werkzeuge für die zeitkontinuierlichen Vorgänge
 kennengelernt. Diese Konzepte haben alle Analogien in der zeitdiskreten Welt,
 siehe Tabelle \ref{tbl:Analogien_CT_DT}.
 %
-Wenn wir also das entsprechende Werkzeug zeitkontinuierlich verstanden haben,
+Wenn wir also das entsprechende Werkzeug und dessen Wesen zeitkontinuierlich
+verstanden haben,
 wird uns die Anpassung an zeitdiskrete Vorgänge vergleichsweise wenig Mühe
 bereiten. Erfahrungsgemäß gestalten sich die zeitdiskreten Vorgänge praktisch
 ein wenig zugänglicher, weil wir viel näher an der numerischen Auswertung
@@ -147,10 +154,10 @@ Faltungsintegral & Faltungssumme \\
 Laplace Transformation $s$ & $z$-Transformation \\
 komplexe $s$-Ebene & komplexe $z$-Ebene\\
 Übertragungsfunktion $H(s)$ & Übertragungsfunktion $H(z)$ \\
-imaginäre Achse der $s$-Ebene & Einheitskreis der $z$-Ebene\\
+imaginäre Achse der $s$-Ebene & Einheitskreis in der $z$-Ebene\\
 Pole in der linken $s$-Ebene &
 Pole im Einheitskreis der $z$-Ebene \\
-Frequenzvariable $\omega$ & Frequenzvariable $\Omega$ \\
+Frequenzvariable $\omega$ & Frequenzvariable $\Omega=\frac{\omega}{f_s}$ \\
 Frequenzgang $H(s=\im\omega)$ & Frequenzgang $H(z=\e^{\im\Omega})$ \\
 Fourier Transformation (FT)  & discrete-time Fourier transform (DTFT)\\
 Fourier Reihe (FS)  & discrete Fourier transform (DFT) \\\hline
@@ -205,21 +212,23 @@ Abb.~\ref{fig:ex08:Standardsignale}:
 %=\mathrm{rect}_N[k]
 = \epsilon[k] - \epsilon[k-N]
 \end{align}
+wir beachten den Spezialfall $\mathrm{rect}_{N=1}[k] = \epsilon[k] - \epsilon[k-1] = \delta[k]$
+
 \item Exponentialfolge (Link zu LTI-Systemen: Eigenfunktion bzw. -folge)
 
 \noindent Mit der komplexen Zahl $z\in\mathbb{C}$ (für $\Sigma,\Omega\in\mathbb{R}$)
 \begin{align}
-z = \e^{\Sigma + \im\Omega} = \e^{\Sigma} \cdot \e^{\im\Omega}
+z = \e^{(\Sigma + \im\Omega)} = \e^{\Sigma} \cdot \e^{\im\Omega}
 \end{align}
 und deren Zerlegung in Betrag und Phasenwinkel
 \begin{align}
 |z| = |\e^{\Sigma}|,\quad
 \angle z = \Omega
 \end{align}
-können wir die Exponentialfolge definieren
+können wir eine Exponentialfolge definieren
 \begin{align}
 x[k] =& \e^{(\Sigma_0 + \im\Omega_0) \, k} = (\e^{(\Sigma_0 + \im\Omega_0)})^k = z_0^k\\
-x[k] =& |z_0|^k (\e^{\im \angle z_0})^k
+x[k] =& |z_0|^k \cdot (\e^{\im \angle z_0})^k
 \end{align}
 $|z_0|<1$ ist eine abklingende Folge, $|z_0|>1$ ist eine aufklingende Folge,
 Für $|z_0|=1$ erhalten wir eine harmonische, komplexwertige Schwingung,
@@ -250,14 +259,14 @@ die periodisch in einer gewissen Länge sein kann, siehe oben.
 \draw[->] (-4.5,0) -- (4.5,0) node[right]{$k$};
 \draw[->] (0,-1.5) -- (0,1.5) node[above]{$\mathrm{rect}_{N=4}[k]$};
 \draw[stem] plot coordinates{(-4,0) (-3,0) (-2,0) (-1,0) (0,1) (1,1) (2,1) (3,1) (4,0)};
-\foreach \x in {-1,1}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
+\foreach \x in {-1,1,3}{\draw (\x,+\tic) -- (\x,-\tic)  node[below]{$\x$};};
 \foreach \y in {1}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
 \draw (4,\tic) -- (4,-\tic)  node[below]{$N$};
 \end{scope}
 \end{tikzpicture}
 \caption{Links: zeitdiskreter Dirac Impuls $\delta[k]$,
 Mitte: Einheitssprungfolge $\epsilon[k]$,
-rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: nicht axialsymmetrisch!).}
+rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: bei zeitdiskreter SigSys ist diese nicht axialsymmetrisch!).}
 \label{fig:ex08:Standardsignale}
 \end{figure}
 
@@ -267,8 +276,8 @@ rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: nicht axialsymmetrisch!).}
 
 \newpage
 \subsection*{Dirac Impuls und Faltung im zeitdiskreten Bereich}
-Im Gegensatz zur zeitkontinuierlichen Version, ist der Dirac Impuls im zeitdiskreten
-Bereich eine definierte Folge
+Im Gegensatz zur zeitkontinuierlichen SigSys, ist der Dirac Impuls in der zeitdiskreten
+SigSys eine definierte Folge
 \begin{align}
 \delta[k] =
 \begin{cases}
@@ -276,8 +285,8 @@ Bereich eine definierte Folge
 0 & \text{sonst}
 \end{cases}
 \end{align}
-mit der wir direkt rechnen dürfen, also keinen (gedanklichen) Umweg über
-eine Distribution und Anwendung von Eigenschaften nehmen müssen.
+mit der wir direkt rechnen dürfen, also keinen (gedanklichen) Umweg nehmen müssen
+über eine Distribution und Anwendung von deren Eigenschaften.
 %
 Die \textbf{Austasteigenschaft}
 \begin{align}
@@ -285,7 +294,7 @@ x[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 \cdot \delta[k-\kappa]
 \end{align}
 kann daher als tatsächliche Rechenvorschrift verstanden werden, aus der wir
-direkt die \textbf{Multiplikationseigenschaft}
+auch direkt die \textbf{Multiplikationseigenschaft}
 \begin{align}
 x[k] \cdot \delta[k-\kappa] = x[\kappa] \cdot \delta[k-\kappa]
 \end{align}
@@ -294,7 +303,7 @@ wollen.
 
 Der Dirac Impuls ist das \textbf{Neutralelement der Faltung}, an diesem fundamentalen
 Konzept halten wir auch in der zeitdiskreten Welt fest. Daher repräsentiert die
-Austasteigenschaft
+obige Austasteigenschaft
 \begin{align}
 x[k] = x[k] \ast_k \delta[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
 \cdot \delta[k-\kappa]
@@ -320,7 +329,7 @@ Fall aus Aufgabe~\ref{sec:AF3B15E0D3} (2.7). \texttt{convolution\_discrete\_pt1.
 \label{fig:convolution_discrete_pt1_xhy}
 \end{figure}
 %
-In \fig{fig:convolution_discrete_pt1_y_over_kt_zoom} das Ausgangssignal noch
+In \fig{fig:convolution_discrete_pt1_y_over_kt_zoom} ist das Ausgangssignal noch
 einmal mit vergrößertem Ausschnitt dargestellt, um den Stem-Plot und damit den
 Charakter einer Signalfolge deutlicher zu machen.
 %
@@ -402,7 +411,7 @@ Trigonometrie, ideales Abtastmodell.
 $2\pi$-Periodizität checken, Signale und Abtastspektren skizzieren.
 \end{Ansatz}
 \begin{ExCalc}
-für $n\in\mathbb{Z}$
+für $2\pi$-Vielfache Hilfsvariable $n\in\mathbb{Z}$
 \begin{align}
 \cos(3\cdot\frac{2\pi}{8}k) = \cos(5\cdot\frac{2\pi}{8}k)\\
 \cos\left(\left(3\cdot\frac{2\pi}{8} + 2\pi n\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)\\
@@ -418,7 +427,7 @@ für $n=-1$
 \cos\left(\frac{2\pi}{8}\left(-5\right)k\right) = \cos(5\cdot\frac{2\pi}{8}k)
 \end{align}
 Übereinstimmung, weil Cosinus eine axialsymmetrische Funktion ist, also
-$\cos(t) = \cos(-t)$.
+$\cos(\phi) = \cos(-\phi)$.
 %
 Es ist immer schön, wenn wir etwas mit Formeln belegen können.
 %
@@ -506,7 +515,7 @@ unten (das können wir nochmal wiederholend üben, siehe Übung~\ref{sec:ue7_abt
 Die Spektren sind identisch, unterschiedlich bunt sind sie nur deswegen,
 damit wir schneller die Zusammenhänge des jeweiligen Abtastprozesses erkennen.
 %
-Zu einem bestimmten Spektrum gehört nur ein einziges Zeitsignal, daher
+Zu einem Spektrum gehört nur ein einziges Zeitsignal, daher
 müssen die beiden Folgen $x_3[k]$ und $x_5[k]$ identisch sein.
 %
 Das Spektrum ist a) periodisch und besitzt nur bei diskreten Frequenzen einen
@@ -581,13 +590,13 @@ Die Variablen haben analoge Entsprechungen, also $t \leftrightarrow k$ als
 Zeitvariable des Ausgangssignals und
 die Hilfsvariable $\tau \leftrightarrow \kappa$ für das Integral bzw. die Summe.
 %
-Deswegen ist alles was wir schon zur zeitkontinuierlichen Faltung gelernt haben,
+Deswegen ist alles was wir schon zur zeitkontinuierlichen Faltung verstanden haben,
 hier nützlich.
 %
 Nachdem wir kein Integral lösen müssen, sondern eine Summe,
 fällt es vielleicht sogar leichter, die 'Algorithmik' des Faltungsprozesses
 für ein gewähltes $k$, also eine bestimmte Überlagerung der beiden zu faltenden
-Signal, nachzuvollziehen.
+Signale, nachzuvollziehen.
 %
 Wir werden uns das unter anderem grafisch erarbeiten. In der Klausur empfiehlt sich z.B.
 die Benutzung von zwei Papierstreifen auf denen $x[\kappa]$ und $h[-\kappa]$
@@ -704,7 +713,8 @@ $k<0$ nach links.
 \end{subfigure}
 %
 \caption{Zeitliche Signaloperationen für $h[\kappa] \rightarrow h[-\kappa+k]$ , $k=2$.
-Methode III: direkte Spiegelung von $h[\kappa]$ bzgl. $\kappa=\frac{k}{2}$-Achse.
+Methode III: direkte Spiegelung von $h[\kappa]$ bzgl. $\kappa=\frac{k}{2}=\frac{2}{2}=1$-Achse;
+nicht dargestellt, weil es nichts zu malen gibt.
 Methode II ist vorteilhaft für die Faltungssumme.}
 \label{fig:FD58EEB1EC_Methods}
 \end{figure*}
@@ -1370,17 +1380,18 @@ Zunächst schreiben wir die beiden Signale in Form gewichteter Dirac Impulse, al
 \end{align}
 %
 Mit den Korrespondenzen (vom Wesen bekannt: Dirac ist neutral,
-zeitliche Verschiebung dreht Phase)
+zeitliche Verschiebung dreht 'Phase';
+hier nun aber etwas komplizierter als nur die Phase, weil $z^{-\kappa}$)
 $$\delta[k] \ztransf 1$$
 $$x[k - \kappa] \ztransf X(z) z^{-\kappa}$$
 und der Dualität (Faltung vs. Multiplikation)
 $$x[k] \ast_k h[k] \ztransf X(z) \cdot H(z)$$
-können wir zunächst z-transformieren
+können wir zunächst $z$-transformieren
 \begin{align}
 &X(z) = 1 \cdot z^{-1} + 1 \cdot z^{-2} + 2 \cdot z^{-3}  - 1 \cdot z^{-4}\\
 &H(z) = 2 \cdot z^{0} + 1 \cdot z^{-1} - 1 \cdot z^{-2}
 \end{align}
-und dann (Konzentration beim Ausmultiplizieren und gleiche Potenzen zusammensammeln)
+und dann (Konzentration beim Ausmultiplizieren und beim gleiche Potenzen zusammensammeln)
 \begin{align}
 Y(z) = X(z)\cdot H(z) =
 &(1 \cdot z^{-1} + 1 \cdot z^{-2} + 2 \cdot z^{-3}  - 1 \cdot z^{-4}) \cdot
@@ -1423,7 +1434,7 @@ für
 und skizzieren Sie die Signale $x[k]$, $h[k]$, $y[k]$.
 
 Es ist sinnvoll auch die Lösungswege aus Aufgabe \ref{sec:FD58EEB1EC}
-für die beiden Signale durchzuspielen. Jede Klausur hat eine Faltungsaufgabe
+für diese beiden Signale durchzuspielen. Jede Klausur hat eine Faltungsaufgabe
 zum Üben, checken können wir mit Python/Matlab, vgl. \texttt{convolution\_discrete\_4CBF4358D5.ipynb}.
 
 %\begin{Werkzeug}
@@ -1500,7 +1511,7 @@ Im Folgenden ist eine Rechnung Schritt für Schritt durchgeführt.
 %% k = 0
 Für die ausführliche analytische Lösung, wählen wir für das zu spiegelnde/verschiebende
 Signal $x[k]$.
-D.h. nach Variablensubstitution der $\kappa$ ergibt die zeitliche
+D.h. nach Variablensubstitution zu $\kappa$ ergibt die zeitliche
 Drehung und Verschiebung $x[-\kappa+k]=x[k-\kappa]$.
 %
 Wir können feststellen, dass hier $y[k<0]=0$ und $y[k>N_y-1]=0$, d.h.
@@ -1536,8 +1547,8 @@ Multiplikation nicht zu Null werden (weil da eins der beiden Signale den Wert
 Null hat).
 Dazu können wir alle Terme analytisch einzeln durchgehen, oder uns das wie
 in der vorherigen Aufgabe~\ref{sec:FD58EEB1EC} grafisch überlegen.
-Wir kommen für $k=0$ darauf, dass nur bei $\kappa=-2$ die beiden Signale, so
-überlagern, dass die Multiplikation in die Faltungssumme eingeht, also
+Wir kommen für $k=0$ darauf, dass nur bei $\kappa=-2$ die beiden Signale so
+überlagern, dass deren Multiplikation in die Faltungssumme eingeht, also
 \begin{align}
 y[k=0] = & \sum\limits_{\kappa = -2}^{-2} x[0 -\kappa] \cdot h[\kappa] =\\
 &x[0 -(-2)] \cdot h[-2] = 1 \cdot 8 = 8\nonumber
@@ -1683,7 +1694,9 @@ x[k]=\rectN{M}{k-\kappa_M}\\
 h[k] = \rectN{N}{k-\kappa_N}
 \end{align}
 und $y[k]$ für den allgemeinen Fall mit
-$N,M, \kappa_N, \kappa_M$.
+$N,M, \kappa_N, \kappa_M$. Die Variablen $\kappa_N, \kappa_M$ dienen zur Verschiebung der
+Rechteckfolgen, sie sind nicht zu verwechseln mit der Faltungshilfsvariable, die wir typisch
+auch mit $\kappa$ bezeichnen.
 %\begin{Werkzeug}
 %\end{Werkzeug}
 %
