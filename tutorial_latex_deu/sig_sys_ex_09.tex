@@ -6,11 +6,12 @@ Die $z$-Transformation bildet zeitdiskrete Signale, also Folgen, $x[k]$
 auf Funktionen $X(z)$ ($X\in\mathbb{C}$, $z\in\mathbb{C}$)
 ab.
 %
-Wir arbeiten im sogenannten Bildbereich also in der komplexwertigen $z$-Ebene mit
-komplexwertigen Funktionen $X(z)$.
+Wir arbeiten daher im sogenannten Bildbereich also in der komplexwertigen $z$-Ebene mit
+potentiell komplexwertigen Funktionen $X(z)$.
 %
 In speziellen, aber in SigSys oft benutzen, Fällen ist $x\in\mathbb{R}$, besteht
-also aus reellen Folgengliedern bzw. Samples.
+also aus reellen Folgengliedern bzw. Samples. Im Bildbereich führt das (fast immer?)
+auch zu reellen $X(z)$, aber in jedem Fall $z\in\mathbb{C}$.
 %
 Wie mittlerweile etabliert, versuchen wir hier auch so viel wie möglich mit
 vergleichsweise einfachen Rechnungen und viel Anschauung zugänglich zu machen,
@@ -19,11 +20,11 @@ um das Wesen zu erfassen.
 
 
 \subsection*{Transformationspaar}
-Die Hintransformation lautet
+Die Hintransformation der $z$-Transformation lautet
 \begin{align}
 X(z) = \sum_{k=-\infty}^{\infty} x[k] \, z^{-k},
 \end{align}
-die Rücktransformation lautet
+die Rücktransformation ist wegen $z\in\mathbb{C}$ ein komplexes Wegintegral
 \begin{align}
 x[k] = \frac{1}{2\pi \im} \oint\limits_{C \subset \text{KB}} X(z) \, z^{k-1} \, \fsd z.
 \end{align}
@@ -32,14 +33,14 @@ Die Rücktransformation ist im Grunde die Anwendung des Cauchy
 Integralsatzes, wie sich mit untenstehender Rechnung zeigen lässt, vgl.
 \cite[S.\,152]{Wunsch1972}, \cite[S.\,180ff]{Wunsch2006a}
 \begin{align}
-\text{Ansatz mit Hilfsvariable k':   } X(z) =& \sum_{k'=-\infty}^{\infty} x[k'] \, z^{-k'}\\
-\text{Erweitern:   } z^{k-1} X(z) =& z^{k-1} \sum_{k'=-\infty}^{\infty} x[k'] \, z^{-k'}\\
-\text{Term kann in die Summe:   } X(z) z^{k-1} =& \sum_{k'=-\infty}^{\infty} \frac{x[k']}{z^{k'}} z^{k-1}\\
-\text{Exponenten zusammen (Achtung k vs k'):    } X(z) z^{k-1} =& \sum_{k'=-\infty}^{\infty} \frac{x[k']}{z^{k'-k+1}}\\
-\text{Ringintegral im KB:   } \oint\limits_{C \subset \text{KB}} X(z) z^{k-1} \fsd z =&
+\text{Ansatz mit Hilfsvariable k':} \quad X(z) =& \sum_{k'=-\infty}^{\infty} x[k'] \, z^{-k'}\\
+\text{Erweitern:} \quad z^{k-1} X(z) =& z^{k-1} \sum_{k'=-\infty}^{\infty} x[k'] \, z^{-k'}\\
+\text{Term kann in die Summe:} \quad X(z) z^{k-1} =& \sum_{k'=-\infty}^{\infty} \frac{x[k']}{z^{k'}} z^{k-1}\\
+\text{Exponenten zusammen (Achtung k vs k'):} \quad X(z) z^{k-1} =& \sum_{k'=-\infty}^{\infty} \frac{x[k']}{z^{k'-k+1}}\\
+\text{Ringintegral im KB:} \quad \oint\limits_{C \subset \text{KB}} X(z) z^{k-1} \fsd z =&
 \oint\limits_{C \subset \text{KB}}
 \sum_{k'=-\infty}^{\infty} \frac{x[k']}{z^{k'-k+1}} \fsd z\\
-\text{Summe / Integral tauschen:   }
+\text{Summe / Integral tauschen:} \quad
 \oint\limits_{C \subset \text{KB}} \frac{X(z)}{z^{-k+1}} \fsd z =&
 \sum_{k'=-\infty}^{\infty}
 \oint\limits_{C \subset \text{KB}}
@@ -74,7 +75,8 @@ In SigSys benutzen wir $z_0=0$, also die Entwicklung der Reihe um den
 Koordinatenursprung.
 %
 Weiterhin schreiben wir statt $f(z)$ die z-Transformierten mit Großbuchstaben,
-z.B. $X(z), H(z), Y(z)$ und Reihenkoeffizienten $c_k$ sind bei uns die typischen
+z.B. $X(z), H(z), Y(z)$ und Reihenkoeffizienten bzw. Folgenglieder $c_k$
+sind bei uns die typischen
 zeitdiskreten Signale $x[k], h[k], y[k]$.
 %
 Schreiben wir es also für die Übersichtlichkeit nochmal untereinander
@@ -91,7 +93,7 @@ unterschiedlich sind.
 Beides ist korrekt, weil 'Hin/Rück'-Transformationspaar jeweils in sich
 konsistent sind.
 %
-Die SigSys Schreibweise ist für SigSys pragmatischer, weil Ergebnisse
+Die SigSys Konvention ist für uns praktischer, weil Ergebnisse
 bezüglich Zeitverschiebung einfacher interpretierbar sind.
 %
 Die z-Rücktransformation kann mit dem Residuensatz
@@ -103,7 +105,7 @@ erfolgen.
 %
 Wir werden das im Rahmen dieser Übung leider
 aus Zeitmangel nicht benutzen, sondern uns wieder mit bekannten Korrespondenzen,
-Partialbruchzerlegung und Polynomdivision behelfen.
+Polynomdivision und Partialbruchzerlegung behelfen.
 %
 Für das Selbststudium sind ein paar inverse Transformationen mittels Residuensatz
 im Abschnitt 1.3 in der Aufgabe \texttt{inverse\_ztransform\_474386F843}
@@ -128,12 +130,17 @@ So wie $s$ als komplexe Frequenzvariable bei der Laplace-Transformation die
 $s$-Ebene aufspannt, haben wir es bei $z$ mit der zeitdiskreten, komplexwertigen
 Frequenzvariable
 \begin{align}
-z = \e^{\Sigma + \im \Omega} = \e^{\Sigma} \cdot \e^{+\im \Omega}
+z = \e^{\Sigma + \im \Omega} %= \e^{\Sigma} \cdot \e^{+\im \Omega}
 \end{align}
-zu tun mit $\Sigma,\Omega\in\mathbb{R}$ und spannen die komplexe $z$-Ebene auf.
+zu tun mit $\Sigma,\Omega\in\mathbb{R}$ und spannen dadurch die komplexe $z$-Ebene auf.
 %
+Nützlich ist wegen $|z|=\e^{\Sigma}$ und $\arg z = \Omega$ die Polarform
+\begin{align}
+z = |z| \cdot \e^{\im \arg z} = \e^{\Sigma} \cdot \e^{+\im \Omega}.
+\end{align}
+
 \subsection*{Arbeiten im Bildbereich}
-Ziel der Transformation, also das Arbeiten im Bildbereich, ist
+Ziel einer Transformation, also das Arbeiten im Bildbereich, ist
 entweder Rechnungen stark zu vereinfachen bzw. überhaupt erst zu ermöglichen und
 Sachverhalte schöner interpretieren zu können.
 %
@@ -153,7 +160,7 @@ Wir haben gelernt, dass die Laplace Transformation einen starken Bezug zu
 Differentialgleichungen mit konstanten Koeffizienten hat.
 %
 Die $z$-Transformation ist nun für den SigSys-Kontext verknüpfbar
-(sie kann viel mehr) zu
+(sie kann aber noch viel mehr) zu
 \textbf{Differenzengleichungen mit konstanten Koeffizienten} (DGL) der Form
 \begin{align}
 \sum_{n=0}^N a_n y[k-n] = \sum_{m=0}^M b_m x[k-m]
@@ -172,7 +179,7 @@ Normierung
 \end{align}
 %
 Der Verschiebungssatz, also Zeitverschiebung führt zu
-Phasenverschiebung im Spektrum, lautet
+'Phasen'-verschiebung im Spektrum (streng ist es eine Amplitudenskalierung und Phasenverschiebung, siehe obige Polarform), lautet
 \begin{align}
 x[k-\kappa] \quad\ztransf\quad z^{-\kappa} \cdot X(z),
 \end{align}
@@ -189,8 +196,8 @@ H(z) = \frac{Y(z)}{X(z)} =
 \end{equation}
 also das Verhältnis von Ausgangs-$z$- zu Eingangs-$z$-Transformierter.
 Diese Darstellung---meist wieder normiert, so dass $a_0=1$---wird in
-den üblichen SigSys-nahen Programmiersprachen (Matlab,
-\texttt{scipy.signal} Paket für Python) einheitlich verwendet.
+den aktuell beliebten SigSys-nahen Programmiersprachen (Matlab
+oder \texttt{scipy.signal} Paket für Python) einheitlich verwendet.
 \textbf{Nichtrekursives System}: falls alle! $a_{n>0} = 0$, also nur
 \begin{equation}
 H(z) = \frac{Y(z)}{X(z)} =
@@ -201,7 +208,7 @@ haben wir es mit einem rein-nichtrekursiven System zu tun. Das schauen wir uns
 vertiefter in der nächsten Übung~\ref{sec:ue10_dtft} (10) an.
 %
 \textbf{Rekursives System}: Falls irgendwelche
-$a_{n>0} \neq 0$ haben wir es mit Rückkopplung des Ausgangs zurück in das System zu tun,
+$a_{n>0} \neq 0$ haben wir es mit Rückkopplung(en) des Ausgangs zurück in das System zu tun,
 Stichwort nicht ganz zufällig: Rekursion. Das bezeichnen wir als rekursives System.
 
 \subsection*{Konvergenz}
@@ -211,18 +218,18 @@ x[k] = a^k \epsilon[k]
 \end{align}
 für $a\in\mathbb{C}$.
 %
-Wie lautet die $z$-Transformierte dieses Signals. Gemäß Transformationsvorschrift
+Wie lautet die $z$-Transformierte dieses Signals? Gemäß Transformationsvorschrift
 \begin{align}
 X(z) = \sum_{k=0}^{\infty} a^k \, z^{-k} = \sum_{k=0}^{\infty} (a \, z^{-1})^k.
 \end{align}
-Damit diese Summe konvergiert, also bzgl. des gewählten $z$, ein endlicher Wert
-für $X(z)$ rauskommt, also damit
+Damit diese Summe konvergiert, also bzgl. des gewählten $z$ als Funktionsvariable für $X(z)$,
+ein endlicher Wert für $X(z)$ rauskommt, also damit
 \begin{align}
 X(z) = \sum_{k=0}^{\infty} |a \, z^{-1}|^k < \infty
 \end{align}
-gilt, müssen wir! explizit sicherstellen (nämlich durch die Angabe des
+gilt, müssen wir(!) explizit sicherstellen (nämlich durch die Angabe des
 Konvergenzbereichs), dass wir uns nur solche $z$ anschauen, wo diese Konvergenz
-sichergestellt ist. In unserem Fall muss
+sichergestellt ist. In unserem Fall muss damit die Summe nicht 'explodiert'
 \begin{align}
 |a z^{-1}| < 1
 \end{align}
@@ -234,21 +241,23 @@ gelten, also
 Wenn uns das an den Konvergenzradius aus der Funktionentheorie erinnert,
 haben wir genau die richtige Schublade.
 %
-Wenn wir den Betrag $|z|=|a|$
-der komplexen Zahl $z = |a| \e^{\im\phi}$ über alle möglichen Winkel $\phi$,
+Wenn wir in der komplexen $z$-Ebene den Betrag $|z|=|a|$
+der komplexen Zahl $z = |a| \e^{\im\phi}$ über alle möglichen Winkel $\phi$
 skizzieren, bekommen wir einen Kreis mit Radius $|a|$.
 \textbf{Außerhalb dieses Kreises}
-ist also Konvergenz sichergestellt, das ist der Konvergenzbereich (KB).
+ist in der komplexen $z$-Ebene also Konvergenz sichergestellt, das ist der Konvergenzbereich (KB), im englischen region of convergence (ROC).
 Dieser gilt für \textbf{rechtsseitige Signale}. Wir vertiefen die Betrachtung
-hier nicht für linksseitige Signale, dazu sein ein SigSys Buch empfohlen.
+hier nicht für linksseitige Signale, dafür sein ein gutes zeitdiskretes SigSys oder Digitale Signalverarbeitung
+empfohlen, z.B. \cite{Oppenheim2004,Oppenheim2010,Kammeyer2002,Holton21}.
 %
-Aus der Vorlesung ist aber bekannt, dass für \textbf{linksseitige Signale}
+Aus der Vorlesung ist aber auch bekannt, dass für \textbf{linksseitige Signale}
 der KB im inneren eines Kreises zu finden ist, und für \textbf{beidseitige Signale}
 eine Kreisscheibe/Kreisring als KB gilt.
 
 Es ist nun nicht zufällig, dass unsere gesuchte
 Korrespondenz mittels der unendlichen geometrischen Reihe
 \begin{align}
+\label{eq:ex_09_geo_reihe}
 \sum_{k=0}^\infty q^k = \frac{1}{1-q}\text{ für }|q|<1
 \end{align}
 gefunden werden kann, nämlich
@@ -321,7 +330,7 @@ Gegeben sind die kausalen Signale (hier zeitdiskret, also Folgen)
 \end{align}
 Geben Sie die Pol-Nullstellen-Diagramme für
 $X_+(z) \ztransf x_+[k]$,
-$X_-(z) \ztransf x_-[k]$ und
+$X_-(z) \ztransf x_-[k]$ und die Summe
 $X(z) = X_+(z) + X_-(z)$ an und skizzieren Sie die Signale
 $x_+[k]$, $x_-[k]$, $x[k]=x_+[k]+x_-[k]$
 
@@ -353,7 +362,7 @@ nur das Vorzeichen unterschiedlich ist, also direkt Euler Identität.
 Wir werden für die $z$-Ebene die Euler Identitäten sehr oft sinnstiftend
 anwenden können.
 %
-Wir könnten also (das machen wir auch) die $z$-Transformierte für diese Folge neu
+Wir könnten also (das machen wir auch gleich) die $z$-Transformierte für diese Folge neu
 erfinden, wenn wir nur die Korrespondenz $a^k \epsilon[k] \ztransf \frac{z}{z-a}$
 kennen.
 \end{Ansatz}
@@ -361,9 +370,9 @@ kennen.
 \begin{align}
 &X_+(z) = \frac{z}{z-\e^{+\im\frac{\pi}{4}}}\text{ für } |z|>1 \\
 &X_-(z) = \frac{z}{z-\e^{-\im\frac{\pi}{4}}}\text{ für } |z|>1 \\
-&X(z) = X_+(z) + X_-(z) = \frac{z}{z-\e^{+\im\frac{\pi}{4}}} + \frac{z}{z-\e^{-\im\frac{\pi}{4}}}\text{ , i.e. eine Parallelschaltung}\\
+&X(z) = X_+(z) + X_-(z) = \frac{z}{z-\e^{+\im\frac{\pi}{4}}} + \frac{z}{z-\e^{-\im\frac{\pi}{4}}}\text{ , d.h. Parallelschaltung}\\
 &X(z) = \frac{z \left(z-\e^{-\im\frac{\pi}{4}}\right) + z \left(z-\e^{+\im\frac{\pi}{4}}\right)}
-{\left(z-\e^{+\im\frac{\pi}{4}}\right)\cdot \left(z-\e^{-\im\frac{\pi}{4}}\right)}\text{ , i.e. eine Reihenschaltung}\\
+{\left(z-\e^{+\im\frac{\pi}{4}}\right)\cdot \left(z-\e^{-\im\frac{\pi}{4}}\right)}\text{ , d.h. Reihenschaltung}\\
 &X(z)  = \frac{z \left(z-\e^{-\im\frac{\pi}{4}}\right) + z \left(z-\e^{+\im\frac{\pi}{4}}\right)}
 {z^2 - z \e^{+\im\frac{\pi}{4}} - z \e^{-\im\frac{\pi}{4}} + 1}=
 \frac{z \left(z-\e^{-\im\frac{\pi}{4}}\right) + z \left(z-\e^{+\im\frac{\pi}{4}}\right)}
@@ -387,7 +396,7 @@ Andererseits wussten wir bereits aus dem Ansatz, dass falls wir uns nicht
 verrechnet haben, das Ergebnis $X(z)$ genau zu
 $x[k] = 2\cos(\Omega_0 k) \epsilon[k]$ gehören muss,
 weil auch die $z$-Transformation Linearitätseigenschaft--also Addition bildet sich
-auf Addition ab---aufweist.
+auf Addition ab--aufweist.
 
 Um das Pol-Nullstellen Diagramm für $X(z)$ in der $z$-Ebene zeichnen zu können,
 brauchen wir  die Pole, Nullstellen und den Verstärkungsfaktor.
@@ -407,7 +416,7 @@ und in sinnvoller zu überschauender Polardarstellung
 \begin{align}
 z_{\infty,1,2} = 1 \cdot \e^{\pm \im \frac{\pi}{4}}.
 \end{align}
-Kein überraschendes Ergebnis, schließlich hatten wir die Aufgabe ja so begonnen.
+Kein überraschendes Ergebnis, schließlich hatten wir die Aufgabe ja genau so begonnen.
 %
 Für die Nullstellen brauchen wir nicht unbedingt die pq-Formel,
 es lässt sich hier viel schneller erledigen, weil wir ausklammern können
@@ -656,16 +665,16 @@ zu 'lösen'.
 \begin{align}
 y[k] = x[k] + \frac{1}{2} y[k-1]
 \end{align}
-eines zeitdiskreten Systems, welches wir für $k \geq 0$ und $y[-1]=0$ betrachten
+eines zeitdiskreten Systems, welches wir für $k \geq 0$ und $y[k=-1]=0$ betrachten
 wollen, also ein kausales System mit verschwindenden Anfangsbedingungen.
 Berechnen Sie die Impulsantwort $h[k]$ und die Sprungantwort $h_\epsilon[k]$
 im Zeitbereich und über den Umweg der z-Transformation.
 \begin{Werkzeug}
-Machen wir uns klar, dass die DGL eine Rekursionsformel ist, die vor allem
-in Mathematik $y_k = x_k + \frac{1}{2} y_{k-1}$ geschrieben wird. D.h. alles
-was wir aus der Mathe/Numerik zu Rekursion wissen, können wir hier verlinken.
+Machen wir uns klar, dass die DGL eine Rekursionsformel ist, die
+in der Mathematik gerne $y_k = x_k + \frac{1}{2} y_{k-1}$ geschrieben wird. D.h. alles
+was wir aus Mathe/Numerik zu Rekursion wissen, können wir hier verlinken.
 Wir werden sehen, dass wir in SigSys sehr elegante Bildbereich-Werkzeuge haben,
-diese Rekursionen auszurechnen und viel wichtiger sie aus SigSys-Sicht
+diese Rekursionen auszurechnen und viel wichtiger, sie aus SigSys-Sicht
 interpretieren zu können.
 \end{Werkzeug}
 \begin{Ansatz}
@@ -678,7 +687,7 @@ Sei also die obige DGL die Systembeschreibung eines LTI-Systems $\mathcal{H}$.
 Dann erhalten wir bei Anregung mit der Dirac Impuls Folge $\delta[k]$, die Impulsantwort $h[k]$
 dieses Systems, also $h[k] = \mathcal{H}\{\delta[k]\}$. Machen wir das gleiche
 was ein Computer machen würde, wenn wir diese DGL als for-Schleife programmieren
-würden. Wir brauchen einen Zwischenspeicher für $y[k-1]$ und müssen für jedes
+hätten: Wir brauchen einen Zwischenspeicher für $y[k-1]$ und müssen für jedes
 $k$ die Berechnungsvorschrift ausführen. Auf Papier ist das sehr übersichtlich
 in Tabellenform. Jedes Signal aus der DGL (also Eingang $x[k]$, Ausgang $y[k]$
 und Zwischenspeicher / rekursives Element $y[k-1]$ bekommt eine Spalte) und
@@ -759,17 +768,17 @@ ist die kumulierte Summe der Impulsantwort
 h_\epsilon[k] = \sum_{k'=-\infty}^{k} h[k'].
 \end{align}
 %
-Für $k \to \infty$, kennen wir sogar den Wert an den sich unsere betrachtete Folge
-asymptotisch annähert. Die Formel ist ja die früher schon mal bemühte
-geometrische Reihe
+Für $k \to \infty$ kennen wir sogar den Wert an den sich unsere betrachtete Folge
+asymptotisch annähert. Die Formel ist die früher schon mal bemühte
+geometrische Reihe \eqref{eq:ex_09_geo_reihe}
 \begin{align}
 \sum_{k'=0}^{\infty} a^{k'} = \frac{1}{1-a}\text{ für } a<1
 \end{align}
 In unserem Fall mit $a=\nicefrac{1}{2}$ ist daher $h_\epsilon[k=\infty] = 2$.
-Um eine Analogie
-herzustellen, was wir da vor uns haben, wäre das die finale Kondensatorspannung
+In zeitkontinuierlicher Analogie wäre das die finale Kondensatorspannung
 nach Anlegen von Gleichspannung bei einem digitalen RC-Glied. In der Tat hat
-dieses zeitdiskrete System Tiefpasscharakter, wir werden das später vertiefen.
+das hier diskutierte zeitdiskrete System Tiefpasscharakter,
+wir werden das später vertiefen.
 
 Ok, Aufgabe gelöst?!?! Ja und nein. Ja, weil die eigentliche Aufgabenstellung
 tatsächlich gelöst ist. Nein, weil, sobald die Rekursionsformel geringfügig
@@ -792,7 +801,7 @@ was für die meisten praxisnahen Fälle zum Glück der Fall ist. Es ist daher ä
 wie bei der Laplace Transformation: falls wir wirklich mal in die Lage kommen
 sollten, eine Rücktransformation nicht in Tabellenwerken zu finden und selber
 erfinden zu müssen, haben wir ein sehr delikates Problem vor uns, was
-wissenschaftliches Neuland sein dürfte.
+wissenschaftliches Neuland sein dürfte...passiert typisch nicht im sondern nach dem Studium.
 \end{Ansatz}
 \begin{ExCalc}
 \textbf{Lösung im Bildbereich}:
@@ -804,9 +813,9 @@ schönsten Zusammenhänge des Ingenieurshandwerks, ganz analog zur Laplace
 Transformation (hier leider wegen Zeitmangel keine Anfangsbedingungen,
 da sei auf die SigSys Literatur verwiesen).
 \begin{align}
-&y[k] = x[k] + \frac{1}{2} y[k-1] \leftrightarrow y_k = x_k + \frac{1}{2} y_{k-1}\\
-&y[k] - \frac{1}{2} y[k-1] = x[k] \,\ztransf\, Y(z) - \frac{1}{2} z^{-1} Y(z) = X(z)\\
-&Y(z) (1-\frac{1}{2} z^{-1}) = X(z) \rightarrow H(z) = \frac{Y(z)}{X(z)} =
+&y[k] = x[k] + \frac{1}{2} y[k-1] \quad\leftrightarrow\quad y_k = x_k + \frac{1}{2} y_{k-1}\\
+&y[k] - \frac{1}{2} y[k-1] = x[k] \quad\ztransf\quad Y(z) - \frac{1}{2} z^{-1} Y(z) = X(z)\\
+&Y(z) (1-\frac{1}{2} z^{-1}) = X(z) \quad\rightarrow\quad H(z) = \frac{Y(z)}{X(z)} =
 \frac{1}{1-\frac{1}{2} z^{-1}} = \frac{z}{z-\frac{1}{2}}
 \end{align}
 Die z-Transformierte des Ausgangssignals findet sich also über
@@ -859,27 +868,78 @@ $X(z)$ setzen wir in \eq{eq:Y_HX_zTrafo_A1D74A9E5B} ein. Wir erhalten
 Y(z) = H_\epsilon(z) = \frac{1}{1-\frac{1}{2} z^{-1}} \cdot \frac{1}{1-z^{-1}} =
 \frac{z}{z-\frac{1}{2}} \cdot \frac{z}{z-1}
 \end{align}
-Für die Rücktransformation $h_\epsilon[k] \Ztransf H_\epsilon(z)$ bietet sich
-wieder die Partialbruchzerlegung an, wir haben ja das Ziel die gebrochen rationale
-Funktionen in die Superpositionen einfacher Korrespondenzen zu zerlegen.
-Hier ist jetzt ein \textbf{Trick} sinnvoll, der zur
-\textbf{Kategorie sollte man wissen} gehört,
-sonst wird die Rechnerei eher unschön:
-Wir schreiben um
+Für die Rücktransformation $h_\epsilon[k] \quad \Ztransf \quad H_\epsilon(z)$ gibt
+es mehrere Möglichkeiten. Diese führen auf verschiedene analytische Darstellungen
+für die exakt gleiche Folge.
+%
+
+\textbf{Möglichkeit Sprungantwort I: generisch}
+Weil $H_\epsilon(z)$ keine echt-gebrochen rationale Funktion ist (wegen
+gleichem Polynomgrad im Zähler und Nenner) machen wir sie zunächst mit der
+Polynomdivision \\\quad \polylongdiv[style=C, vars=z]{z^2}{z^2 - 3z/2 + 1/2} \quad
+zu einer echt-gebrochenen rationalen Funktion und einer abgespalteten Eins.
+%
+Danach können wir diese echt-gebrochene rationale Funktion (also den Bruchterm)
+mit Partialbruchzerlegung zu einer Summendarstellung überführen, Ansatz
 \begin{align}
-\frac{H_\epsilon(z)}{z} = \frac{z}{(z-\frac{1}{2})(z-1)}
+\frac{\frac{3}{2}z-\frac{1}{2}}{(z-\frac{1}{2})(z-1)} = \frac{A}{z-\frac{1}{2}} + \frac{B}{z-1}
 \end{align}
-und führen die Partialbruchzerlegung für den rechten Term aus. Wir werden beim letzten Schritt der
-Rechnung sehen, warum das elegant ist.
+Koeffizientenvergleich für die Polynome rechts- und linksseitig
+\begin{align}
+\frac{3}{2}z-\frac{1}{2} \quad\leftrightarrow\quad A (z-1) + B (z-\frac{1}{2})\\
+%\frac{3}{2}z^1-\frac{1}{2}z^0 \quad\leftrightarrow\quad A z - A + B z - B \frac{1}{2}\\
+\frac{3}{2}z^1-\frac{1}{2}z^0 \quad\leftrightarrow\quad (A + B )z^1 - (A + \frac{1}{2} B) z^0
+\end{align}
+führt zu
+\begin{align}
+A = -\frac{1}{2}\quad B = 2
+\end{align}
+Damit können wir jetzt schreiben (abgespaltete Eins nicht vergessen)
+\begin{align}
+H_\epsilon(z) = 1 + \frac{-\frac{1}{2}}{z-\frac{1}{2}} + \frac{2}{z-1}.
+\end{align}
+Der nächste Schritt braucht zugegeben SigSys-Erfahrung, aber wenn wir ihn einmal gesehen haben,
+werden wir ihn vielleicht nicht mehr vergessen. Wir wissen, dass für eine Signalverzögerung
+$x[k-1] \ztransf X(z) z^{-1}$ gilt. Wir könnten genau um diese Signalverzögerung erweitern und gleich wieder aufheben
+\begin{align}
+H_\epsilon(z) = 1 z^{-1} \cdot z + \frac{-\frac{1}{2}}{z-\frac{1}{2}}z^{-1} \cdot z + \frac{2}{z-1}z^{-1} \cdot z.
+\end{align}
+und das umschreiben (bei der Eins streichen wir $z^{-1} \cdot z$ direkt wieder, bringt uns da keine Vorteile)
+\begin{align}
+H_\epsilon(z) = 1 -\frac{1}{2} \left(\frac{z}{z-\frac{1}{2}}\right)z^{-1} + 2\left(\frac{z}{z-1}\right)z^{-1}.
+\end{align}
+In der ersten großen Klammer resultiert bei Rücktrafo $\frac{z}{z-\frac{1}{2}} \Ztransf (\frac{1}{2})^k \epsilon[k]$, in der zweiten
+$\frac{z}{z-1} \Ztransf (1)^k \epsilon[k]$. Wegen dem $z^{-1}$ im Bildbereich müssen wir aber die um ein Sample verzögerten Folgen berücksichtigen, also
+$\frac{z}{z-\frac{1}{2}} \cdot z^{-1} \Ztransf (\frac{1}{2})^{k-1} \epsilon[k-1]$ und $\frac{z}{z-1} \cdot z^{-1} \Ztransf (1)^{k-1} \epsilon[k-1]$.
+Die komplette Rücktrafo ist daher
+\begin{align}
+H_\epsilon(z) \quad \Ztransf \quad h_\epsilon[k] = \delta[k] - \frac{1}{2} (\frac{1}{2})^{k-1} \epsilon[k-1] + 2 \epsilon[k-1]
+\end{align}
+
+\textbf{Möglichkeit Sprungantwort II: hier Spezialfall}
+Dieser Ansatz lebt davon, dass wir die unecht-gebrochen rationale Funktion
+\begin{align}
+Y(z) = H_\epsilon(z) = \frac{z}{z-\frac{1}{2}} \cdot \frac{z}{z-1}
+\end{align}
+umformen zu
+\begin{align}
+\frac{H_\epsilon(z)}{z} = \frac{z}{(z-\frac{1}{2})(z-1)},
+\end{align}
+damit auf der rechten Seite eine echt-gebrochen rationale Funktion erscheint, die
+hoffentlich mittels Partialbruchzerlegung einfach zerlegbar ist.
+Dieser \textbf{Trick} gehört zur Kategorie \textbf{sollte man wissen}.
+Wir werden beim letzten Schritt der Rechnung sehen, warum er elegant ist.
+
+Rechnung also: Partialbruchzerlegung für die rechte Seite.
 \begin{align}
 \frac{H_\epsilon(z)}{z} = \frac{z}{(z-\frac{1}{2})(z-1)} = \frac{A}{z-\frac{1}{2}} + \frac{B}{z-1}
 \end{align}
 Damit bekommen wir
 \begin{align}
-&z = \frac{A(z-\frac{1}{2})(z-1)}{z-\frac{1}{2}} + \frac{B (z-\frac{1}{2})(z-1)}{z-1}\\
+%&z = \frac{A(z-\frac{1}{2})(z-1)}{z-\frac{1}{2}} + \frac{B (z-\frac{1}{2})(z-1)}{z-1}\\
 %&z = A(z-1) + B(z-\frac{1}{2})\\
 %&z = A z - A + B z - \frac{1}{2} B \\
-&z = (A+B) z - (A + \frac{1}{2}B)
+&z^1  + 0 z^0 \leftrightarrow (A+B) z^1 - (A + \frac{1}{2}B) z^0
 \end{align}
 Mit Koeffizientenvergleich erhalten wir $A = -1$ und $B=2$.
 % \begin{align}
@@ -901,22 +961,22 @@ Nun das $z$ der linken Seite wieder auf die rechte Seite bringen
 \begin{align}
 H_\epsilon(z) = -\frac{z}{z-\frac{1}{2}} + \frac{2 z}{z-1},
 \end{align}
-weil uns das auf wohlbekannte Korrespondenzen führt (deswegen der 'Trick'),
+weil uns das unmittelbar auf wohlbekannte Korrespondenzen führt (genau deswegen der Trick),
 die wir schon benutzt haben und die in der Formelsammlung stehen:
 \begin{align}
 H_\epsilon(z) = -\frac{z}{z-\frac{1}{2}} + 2\cdot\frac{z}{z-1}
 \quad\Ztransf\quad
 h_\epsilon[k] = - \left(\frac{1}{2}\right)^k \epsilon[k] + 2 \epsilon[k]
 \end{align}
-Erinnern wir uns an die Lösung für $k \geq 0$ im Zeitbereich mit Hilfe der Tabelle
+Erinnern wir uns nochmal an die Lösung für $k \geq 0$ im Zeitbereich mit Hilfe der Tabelle
 \begin{align}
 h_\epsilon[k] = \sum_{k'=0}^k \left(\frac{1}{2}\right)^{k'}
 \end{align}
-Die beiden Lösungen sind identisch, die Darstellung ohne Summe erscheint
+Die drei Lösungen für $h_\epsilon[k]$ sind identisch, die Darstellungen ohne Summe erscheinen
 eleganter, zumindest im Kontext der SigSys. Mit geübtem SigSys Blick
 sehen wir hier viel schneller was grundlegend passiert: die Sprungantwort
-läuft asymptotisch gegen 2, weil der erste Term, also
-$(\frac{1}{2})^k \epsilon[k]$, für sehr große $k$ gegen Null geht.
+läuft asymptotisch gegen 2, weil $(\frac{1}{2})^{k}$ (Möglichkeit II) bzw.
+$(\frac{1}{2})^{k-1}$ (Möglichkeit I) für sehr große $k$ gegen Null gehen.
 Für kleine $k$ ist dieser Term relevanter, und wir können uns überlegen, dass
 es sich um eine Art Aufladevorgang handelt, der bei $1$ startet.
 
@@ -996,7 +1056,7 @@ Nullstellen. Das Wesen bleibt das Gleiche, was wir hier durchgespielt
 haben. Die Rechnerei wird nur deutlich mühsamer und wegen meist 'krummer' Zahlen
 auf dem Papier eigentlich nicht mehr sinnvoll handhabbar.
 
-Ein schöne eigenständige Übung, wäre die ganze Rechnerei mal für den allgemein
+Eine schöne selbstständige Übung, wäre die ganze Rechnerei mal für den allgemein
 gegebenen Fall reelles $|a|<1$ (Beschränkung auf stabile Systeme)
 \begin{align}
 y[k] = x[k] + a y[k-1]
@@ -1018,8 +1078,8 @@ sind u.U. hilfreich.
 \subsection{Impulsantwort für rekursives System 2. Ordnung über z-Transformation}
 \label{sec:94A7A6D9E9}
 \begin{Ziel}
-Wir erweitern den Aufgabentypus von \ref{sec:A1D74A9E5B} um ein Blockschaltbild
-und eine komplexere Differenzengleichung. Wir dürfen also erwarten, dass
+Wir erweitern den Aufgabentypus von Aufgabe \ref{sec:A1D74A9E5B} um ein Blockschaltbild
+und eine etwas komplexere Differenzengleichung. Wir dürfen also erwarten, dass
 die Rechnerei mühsamer wird, das Beispiel ist natürlich wieder so gewählt, dass
 es sich in Grenzen hält und schöne Zahlen rauskommen. Das sichere Herauslesen
 von Differenzengleichungen und Übertragungsfunktionen aus Bockschaltbildern
@@ -1307,23 +1367,28 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]{(0,-3pt) circle(
 \node at (0.5,0)[below]{\tiny$\frac{1}{2}$};
 \end{tikzpicture}
 \end{center}
-\textbf{e) Impulsantwort mittels Partialbruchzerlegung} wieder mit dem $1/z$-'Trick'.
+\textbf{e) Impulsantwort mittels Partialbruchzerlegung} wieder mit dem $1/z$-'Trick'
+aus der Aufgabe \ref{sec:A1D74A9E5B}, hier
+wieder mit der gleichen Idee zunächst eine echte gebrochen-rationale Funktion zu
+erzeugen, diese mit Partialbruchzerlegung in Summanden zu zerlegen und dann $1/z$ rückgängig
+zu machen in der Hoffnung auf einfach rücktransformierbare Terme zu treffen.
+
 Wir haben hier ein konjugiert-komplexes Polpaar, daher benötigen wir den
 Ansatz
 %
 \begin{align}
 H(z) =& \frac{z^2 - z + 2}{z^2 - \frac{1}{2}z + \frac{1}{4}}\\
-\frac{H(z)}{z} =& \frac{z^2 - z +2}{z(z^2-\frac{1}{2}z +\frac{1}{4})} =
+\text{'Trick' anwenden und PBZ Ansatz}\quad\frac{H(z)}{z} =& \frac{z^2 - z +2}{z(z^2-\frac{1}{2}z +\frac{1}{4})} =
 \frac{A}{z} + \frac{Bz+C}{z^2-\frac{1}{2}z +\frac{1}{4}}\\
-\rightarrow z^2 - z +2 &= A(z^2-\frac{1}{2}z +\frac{1}{4}) + Bz^2 + Cz
+z^2 - z^1 +2 z^0 & \leftrightarrow A(z^2-\frac{1}{2}z^1 +\frac{1}{4}z^0) + Bz^2 + Cz^1
 \end{align}
 Koeffizientenvergleich
-\begin{align}
-z^2 - z +2 =& A z^2 -\frac{1}{2}A z +\frac{1}{4}A + B z^2 + Cz\\
-z^2:\quad& 1 = A + B\\
-z^1:\quad& -1 = -\frac{1}{2}A + C\\
-z^0:\quad& 2 = \frac{1}{4}A
-\end{align}
+%\begin{align}
+%z^2 - z +2 =& A z^2 -\frac{1}{2}A z +\frac{1}{4}A + B z^2 + Cz\\
+%z^2:\quad& 1 = A + B\\
+%z^1:\quad& -1 = -\frac{1}{2}A + C\\
+%z^0:\quad& 2 = \frac{1}{4}A
+%\end{align}
 bringt
 \begin{align}
 A = 8\quad B=-7\quad C=3
@@ -1344,7 +1409,7 @@ Wir könnten mittlerweile eine Erwartungshaltung entwickeln, aus welchen Einzelt
 die Impulsantwort aufgebaut sein wird/muss. Bei der einzelnen 8 ist der gewichtete
 Dirac Impuls direkt ersichtlich, bei dem Bruch wird es per Auge schwieriger.
 Aber: wir haben einen konjugiert-komplexen Pol. Wir haben vorher in dieser Übung
-angeschaut, was für Zeitsignale dafür korrespondieren.
+angeschaut, welche Zeitsignale dafür korrespondieren.
 Wir können daher erwarten, dass wir eine gedämpfte cos und/oder sin-Schwingung
 als Rücktransformation bekommen, das System kann uns mit diesem Polpaar gar nichts
 anderes anbieten. In der (englischsprachigen und länglichen) Übungsaufgabe
@@ -1406,9 +1471,14 @@ sin/cos im Zeitbereich ergeben) und versuchen uns dahin zu rechnen.
 %
 Es ist die gleiche Idee, wie zeitkontinuierlich: Systeme 2. Ordnung
 (also 2 Pole, 2 Nullstellen) sind gerade noch schön zu Papier zu bringen
-und die Impulsantwort kann eigentlich nur aus gedämpften sin()/cos() oder
-einfach gedämpften
-Verläufen bestehen. Falls wir Pol/Nullstellen-Winkel haben, welche gute Teiler zu
+und die Impulsantwort kann eigentlich nur aus
+\begin{itemize}
+\item Mix aus gedämpfter sin() und cos() Schwingung (konjugiert-komplexer Pol) oder
+\item zwei einfach gedämpften Verläufen (zwei reelle Pole) oder
+\item einem kritisch bedämpften Verlauf (aperiodischer Grenzfall) (doppelt reller Pol)
+\end{itemize}
+bestehen.
+Falls wir Pol/Nullstellen-Winkel haben, welche gute Teiler zu
 $2\pi$ darstellen, sind die cos()/sin()-Werte dann auch noch schöne Brüche. Ansonsten
 endet es in krummen Zahlen, was für eine Klausuraufgabe nie intendiert ist!
 
@@ -1465,10 +1535,10 @@ speziell Pegel (oben links), Phase (mittig links), Gruppenlaufzeit
 Wir wollen hier an einem sehr einfachen Beispiel (das sind die besten um Wesen
 und Essenz zu erklären!) erarbeiten,
 dass nicht-rekursive Systeme nur Pole im Ursprung haben und genau deswegen
-Differenzengleichung, Impulsantwort und Sprungantwort vergleichsweise
+die Differenzengleichung, die Impulsantwort und die Sprungantwort vergleichsweise
 einfach miteinander verknüpft sind. Für Letzteres müssten wir nicht einmal die
 $z$-Transformation bemühen. Wir machen es trotzdem mal in aller Ausführlichkeit,
-um das einzusehen und Übung zu bekommen.
+um das einzusehen und Rechenerfahrung zu bekommen.
 \end{Ziel}
 
 \textbf{Aufgabe} {\tiny F0EF9C3FA6}:
@@ -1663,7 +1733,7 @@ weil das Sprungsignal (Gleichanteil) perfekt gefiltert wird (Nullstelle auf dem
 Einheitskreis dämpft die Frequenz $\Omega=0$ zu 100 \%).
 %
 Die andere Frequenz, die von diesem System perfekt herausgefiltert wird, ist
-$\Omega=\pi$, weil das System dort auch eine Nullstelle auf dem Einheitskreis hat,
+$\Omega=\pi$ / halbe Abtastfrequenz, weil das System dort auch eine Nullstelle auf dem Einheitskreis hat,
 also bei $z=-1$ liegt.
 
 Wir wissen aus der zeitkontinuierlichen SigSys, dass für kausale Systeme
@@ -1713,8 +1783,8 @@ H_\epsilon(z) = \frac{z^2- 1}{z^2} \cdot \frac{z}{z-1} \equiv \eqref{eq:F0EF9C3F
 Unsere Rechnung ist also konsistent.
 
 FIR Filter, bzw. nicht-rekursive LTI-Systeme sind immer stabil! Wir sehen das
-an den Polstellen, die immer ungefährlich im Ursprung sind und an den endlichen
-Signalen Impuls- und Sprungantwort, mit diesen kann das System keine aufschwingenden
+an den Polstellen, die immer \& alle ungefährlich im Ursprung liegen und wir sehen es
+an der endlichen Impulsantwort, mit dieser kann das System keine aufschwingenden
 Zustände erzeugen.
 
 \end{Loesung}
