@@ -801,7 +801,8 @@ was für die meisten praxisnahen Fälle zum Glück der Fall ist. Es ist daher ä
 wie bei der Laplace Transformation: falls wir wirklich mal in die Lage kommen
 sollten, eine Rücktransformation nicht in Tabellenwerken zu finden und selber
 erfinden zu müssen, haben wir ein sehr delikates Problem vor uns, was
-wissenschaftliches Neuland sein dürfte...passiert typisch nicht im sondern nach dem Studium.
+wissenschaftliches Neuland sein dürfte...das passiert, wenn überhaupt,
+typisch nun nicht \textbf{im} sondern \textbf{nach} dem Studium.
 \end{Ansatz}
 \begin{ExCalc}
 \textbf{Lösung im Bildbereich}:
@@ -996,7 +997,7 @@ Die Differenzengleichung (für $k\geq 0$, $y[k=-1]=0$, also kausales, initial ru
 y[k] = 1 \cdot x[k] + \frac{1}{2} \cdot y[k-1]
 \end{align}
 ist eine Beschreibung für ein LTI-System. Diese Rekursionsgleichung (Rückkopplung!)
-lässt äquivalent sich mit einem Signalflussgraphen darstellen
+lässt sich äquivalent mit dem Signalflussgraphen darstellen
 (Details dazu siehe Aufgabe \ref{sec:94A7A6D9E9}, hier der Vollständigkeit halber
 schon vorab):
 %
@@ -1768,10 +1769,11 @@ Bezeichnung \textit{finite impulse response (FIR) filter}.
 \textbf{e) analytischer Ausdruck der Sprungantwort $h_\epsilon[k]$ mit Skizze}
 %
 
-Bei nichtrekursiven System geht die Sprungantwort auch wieder fast ohne Rechnen,
-wenn wir die Differenzengleichung kennen. Dann können wir direkt
+Bei nichtrekursiven System geht die Sprungantwort auch fast ohne Rechnen,
+wenn wir die Differenzengleichung schon kennen. Denn wir können direkt
 $x[k] = \epsilon[k]$ in die DGL einsetzen, um $h_\epsilon[k]$ zu erhalten, also
 \begin{align}
+\label{eq:sec:F0EF9C3FA6_DGL2heps}
 y[k] = x[k] - x[k-2]
 \quad\rightarrow\quad
 h\epsilon[k] = \epsilon[k] - \epsilon[k-2]

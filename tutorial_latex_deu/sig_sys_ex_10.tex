@@ -2,7 +2,7 @@
 \section{UE 10: Discrete-Time Fourier Transform (DTFT)}
 \label{sec:ue10_dtft}
 
-Die DTFT ist eine von vier Fouriertransformationen, nämlich die FT für
+Die DTFT ist eine von vier Fouriertransformationen (FT), nämlich die FT für
 die zeitdiskreten Signale, welche nicht notwendigerweise periodisch
 und für $-\infty \leq k \leq +\infty$ definiert sind.
 Diese Folgen werden bzgl. der kontinuierlichen, digitalen Kreisfrequenz $\Omega$
@@ -17,23 +17,28 @@ Damit steht die DTFT in enger Verbindung zur $z$-Transformation
 \begin{align}
 X(z) = \sum\limits_{k=-\infty}^{+\infty} x[k] \, z^{-k}
 \end{align}
-wenn wir für die komplexe Zahl $z$ nur diese mit dem Betrag 1 zulassen, d.h.
+wenn wir für die komplexe Zahl (komplexe Frequenz)
+\begin{align}
+z = |z| \cdot \e^{\im \arg z} = \e^{\Sigma} \cdot \e^{+\im \Omega}.
+\end{align}
+nur diese mit dem Betrag 1, also $\e^{\Sigma}=1$ zulassen, d.h.
 für alle $z$ für die $|z|=1$ gilt.
 %
-Wir erinnern uns an die komplexe Frequenz $z=\e^\Sigma \e^{\im\Omega}$.
+%Wir erinnern uns an die komplexe Frequenz $z=\e^\Sigma \e^{\im\Omega}$.
 %
-Die DTFT bildet sich dann als Spezialfall für $\Sigma=0$ ab, also ungedämpfte
+Die DTFT bildet sich also als Spezialfall für $\Sigma=0$ ab, daher ungedämpfte
 komplexe Schwingungen.
 %
 Damit ist die DTFT als Werkzeug zur Spektralanalyse und Signalsynthese geeignet,
 hat aber eher theoretischen Charakter, weil wir unendliche lange Signale
 nicht mit einem Computer verarbeiten können.
 %
-Praktisch relevant sind endliche oder endlich gemachte Folgen.
+Praktisch relevant sind endliche Folgen oder von uns endlich gemachte Folgen.
 %
-Für diesen Signalausschnitt könnten wir die endliche Summe der DTFT Analyse
+Für diesen endlichen Signalausschnitt könnten wir die endliche Summe der DTFT Analyse
 ausrechnen, manchmal sogar mit analytischen Lösungen.
 %
+
 Wenn wir diesen endlichen Signalausschnitt dann periodisiert auffassen,
 gelangen wir zu vierten, uns noch fehlenden Fouriertransformation, der diskreten
 Fourier Transformation (DFT).
@@ -47,25 +52,29 @@ kennengelernt hatten.
 %
 Des weiteren ist die DTFT ein nützliches SigSys-Tool, weil
 sie den Frequenzgang von zeitdiskreten Systemen darstellt, also die Auswertung
-der Übertragungsfunktion $H(z)$ auf dem Einheitskreis.
+der Übertragungsfunktion $H(z)$ auf dem Einheitskreis (hier hat sie in der
+SigSys-Alltagspraxis ihre meiste Verwendung, also wichtig).
+
 %
 Wir werden die \textbf{Rücktransformation}
 \begin{align}
 x[k] = \frac{1}{2\pi} \int\limits_{0}^{2\pi} X(\Omega) \e^{+\im\Omega k} \fsd \Omega
 \end{align}
-im Rahmen der Übung mit bekannten Korrespondenzen
+im Rahmen der Übung mit einigen wenigen (die sollten wir aber unbedingt verstanden haben),
+bekannten Korrespondenzen
 \begin{align}
 &\delta[k] \dtft 1\\
-&1 \dtft \Sha(\frac{\Omega}{2\pi})\\
+&1 \dtft \Sha(\frac{\Omega}{2\pi}) = 2\pi \sum\limits_{\nu=-\infty}^{+\infty} \delta(\Omega-\nu 2\pi)\\
 &\mathrm{rect}_N[k]
 \dtft
-\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}\\
-&\e^{+\im \Omega_0 k} \dtft \Sha\left(\frac{\Omega-\Omega_0}{2\pi}\right)
+\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}\\
+&\e^{+\im \Omega_0 k} \dtft \Sha\left(\frac{\Omega-\Omega_0}{2\pi}\right) = 2\pi \sum\limits_{\nu=-\infty}^{+\infty} \delta(\Omega-\Omega_0 - \nu 2\pi)
 \end{align}
 meistern, wofür der DTFT-Operator $x[k] \,\dtft\, X(\Omega)$ gilt.
 %
 Die letzte Korrespondenz bildet Eigenfunktionen für LTI-Systeme in den Bildbereich ab.
-Das zugehörige DTFT-Spektrum ist ein Dirac Impuls Kamm und unten beispielhaft skizziert.
+Das zugehörige DTFT-Spektrum ist ein um $\Omega_0$ verschobener
+Dirac Impuls Kamm und unten beispielhaft skizziert.
 %
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
@@ -75,19 +84,19 @@ Das zugehörige DTFT-Spektrum ist ein Dirac Impuls Kamm und unten beispielhaft s
 \draw[->] (0,-0.1) -- (0,1.75) node[above]{$x[k]=\e^{\im\Omega_0 k} \dtft X(\Omega)=\Sha(\frac{\Omega-\Omega_0}{2\pi})$ für $\Omega_0>0$};
 \draw[->, C0, line width=1mm] (0.5,0) node[below]{$\Omega_0$} -- (0.5,1) node[above]{$(2\pi)$};
 \draw[->, C0, line width=1mm] (2.5,0) node[below]{$2\pi+\Omega_0$} -- (2.5,1);
-\draw[->, C0, line width=1mm] (4.5,0) -- (4.5,1);
-\draw[->, C0, line width=1mm] (-1.5,0) -- (-1.5,1);
+\draw[->, C0, line width=1mm] (4.5,0) node[below]{$4\pi+\Omega_0$} -- (4.5,1);
+\draw[->, C0, line width=1mm] (-1.5,0) node[below]{$-2\pi+\Omega_0$} -- (-1.5,1);
 \draw[->, C0, line width=1mm] (-3.5,0) -- (-3.5,1);
 \end{scope}
 \end{tikzpicture}
 \end{center}
-Für $\Omega_0=0$ folgt die Korrespondenz $1 \dtft \Sha(\frac{\Omega}{2\pi})$.
+Für $\Omega_0=0$ (es schwingt nix, also Gleichanteil) folgt trivial die Korrespondenz $1 \dtft \Sha(\frac{\Omega}{2\pi})$.
 
 \newpage
 \subsection{Faltung komplexe Schwingung mit endlichem Signal}
 \label{sec:DF08FCF870}
 \begin{Ziel}
-Wir wollen anhand eines einfachen LTI Systems mit endlicher Impulsantwort
+Wir wollen anhand eines einfachen, nicht-rekursiven LTI Systems mit endlicher Impulsantwort
 die Anregung mit einer komplexen Schwingung betrachten und das resultierende
 Ausgangssignal im Bildbereich mit der DTFT und im Zeitbereich berechnen und
 dabei typische Rechenwege kennenlernen. Für das gewählte
@@ -145,8 +154,8 @@ Jetzt wenden wir die Multiplikationseigenschaft des Dirac Impulses
 \begin{align}
 x[k] \, \delta[k-\kappa] = x[\kappa] \, \delta[k-\kappa]
 \end{align}
-an (hier allgemein geschrieben für zeitdiskrete Signale, gilt ja aber auch im
-Bildbereich).
+an (hier allgemein geschrieben für zeitdiskrete Signale, das können wir ja aber auch im
+Bildbereich anwenden).
 %
 Genau genommen müssen wir diese Multiplikationseigenschaft nun für alle Dirac Impulse
 im Dirac Impulskamm anwenden (eine Skizze zur Lage der Impulse bzgl. der Frequenz
@@ -163,8 +172,22 @@ Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)\bigg|_{\Om
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
-Das lässt sich nun vereinfachen, weil die $\e^{\pm \im 4 \pi \cdot m}=1$ Vieldeutigkeit
+Term für die Multiplikationseigenschaft genauer anschauen
+\begin{align}
+-\frac{1}{2}\e^{-\im 2 \Omega}\bigg|_{\Omega=\frac{\pi}{4}\pm 2\pi \cdot m} =
+-\frac{1}{2}\e^{-\im 2 (\frac{\pi}{4}\pm 2\pi \cdot m)} =
+%-\frac{1}{2}\e^{-\im (\frac{2\pi}{4}\pm 4\pi \cdot m)}=
+%-\frac{1}{2}\e^{-\im (\frac{\pi}{2}\pm 4\pi \cdot m)}=
+-\frac{1}{2}\e^{-\im (\frac{\pi}{2})}\e^{-\im (\pm 4\pi \cdot m)}=
+\frac{1}{2}\im\e^{-\im (\pm 4\pi \cdot m)}
+\end{align}
+%
+Das lässt sich weiter vereinfachen, weil die $\e^{\pm \im 4 \pi \cdot m}=1$ Vieldeutigkeit
 im komplexen Dreher nicht mehr weiter berücksichtigt werden muss
+\begin{align}
+\frac{1}{2}\im\e^{-\im (\pm 4\pi \cdot m)} = \frac{1}{2}\im,
+\end{align}
+daher
 \begin{align}
 Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im \frac{\pi}{2}}\right)
 \cdot
@@ -174,10 +197,10 @@ Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im \frac{\pi}{2}}\right)
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi}) =
 \frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}}\cdot\Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
-Die Rücktransformation, also inverse DTFT, ist nun vergleichsweise wenig Aufwand.
+Die Rücktransformation, also die inverse DTFT, ist nun vergleichsweise wenig Aufwand.
 %
 Der Faktor $\frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}}$ bleibt wegen Linearitätseigenschaft
-der DTFT im Zeitbereich erhalten, das Zeitsignal zu $\Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})$
+der DTFT im Zeitbereich erhalten, das Zeitsignal zum Spektrum $\Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})$
 kennen wir vom Beginn unserer Rechnung
 \begin{align}
 Y(\Omega) \quad\DTFT\quad y[k] = \frac{1}{\sqrt{2}} \e^{+\im\frac{\pi}{4}} \cdot \e^{+\im \frac{\pi}{4} k}=
@@ -197,9 +220,9 @@ Die Faltung ist auch in der zeitdiskreten Welt kommutativ, also gilt auch
 y[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa] \cdot h[-\kappa + k].
 \end{align}
 %
-Erstere Variante macht sich mutmaßlich eleganter, weil in den Dirac Argumenten
-schneller zu sehen ist, was bei der Austast-/Ausblendeigenschaft passiert
-(Achtung englisch:
+Erstere Faltungssumme macht sich mutmaßlich eleganter, weil in den dann einfacheren
+Dirac Argumenten schneller zu sehen ist, was bei der Austast-/Ausblendeigenschaft passiert
+(Achtung im Englischen:
 \textit{sifting property}, nicht \textit{shifting property}, das kann bei schlampigem
 Lesen zu Verwirrung führen).
 %
@@ -220,7 +243,7 @@ y[k] =
 damit wir die Austasteigenschaft besser überschauen.
 %
 Es verbleiben nach ihrer Anwendung erwartungsgemäß genau zwei Terme (nämlich die für
-$\kappa=2$ und $\kappa=0$)
+$\kappa=0$ und $\kappa=+2$)
 \begin{align}
 y[k] =
 \frac{1}{2} \e^{+\im\frac{\pi}{4} (-0+k)}
@@ -269,13 +292,15 @@ genau um einen Folgenindex voreilend gegenüber der Eingangsfolge, daher der
 Zeitshift $k+1$.
 %
 
-Wir könnten herausfinden, dass die Faltung mit $h[k]$ für die komplexen
+Wir könnten selbstständig herausfinden, dass die Faltung mit $h[k]$ für die komplexen
 Schwingungen $\e^{\im 0 k}$ (Gleichanteil) und $\e^{\im \pi k}$ ($\pm 1$-Folge,
 entspricht halber Abtastfrequenz) Ausgangsfolgen $y[k]=0$ hervorbringt.
 %
 Wenn wir diesen Fakt verknüpfen können mit der Systemcharakterisierung
 im $z$-Bereich (wo liegen die Nullstellen des Systems $H(z) \ztransf h[k]$?,
-wie sieht der Betragsfrequenzgang aus?),
+wie sieht der Betragsfrequenzgang aus (\texttt{freqz()} in Matlab, Python scipy.signal)?,
+sind alle Pole im Ursprung so wie wir das
+für nicht-rekursive Systeme erwarten),
 dann wissen wir die erlernten Werkzeuge genau richtig einzusetzen.
 %
 Wir könnten ein Blockschaltbild malen, um die Differenzengleichung die hinter
@@ -286,15 +311,24 @@ $b_2=-\frac{1}{2}$ und $a_0=1$.
 %
 Mit Matlab könnten wir uns dann mit dem Befehl \texttt{fvtool([1/2,0,-1/2],[1,0,0])}
 Computerunterstützung zur Systemanalyse holen.
+%
+
+\textbf{Hinweis:} Das System in Aufgabe \ref{sec:F0EF9C3FA6} ist sehr, sehr ähnlich!
+Aufgabe \ref{sec:F0EF9C3FA6} ist Systemanalyse aus Sicht der $z$-Transformation,
+die Aufgabe hier verhandelt die Faltung bzw. den Frequenzgang dieses Systemtyps.
 \end{Loesung}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{../dtft/fir_filter_steady_state_DF08FCF870.pdf}
 \caption{Realteil der Ein- und Ausgangsfolgen für Aufgabe \ref{sec:DF08FCF870}.
-Hier ausnahmsweise nicht als korrekter stem Plot, um die Voreilung des Ausgangs
-um einer Folgenindex deutlicher zu machen. Ausgangsamplitude ist Faktor
+Hier ausnahmsweise nicht als korrekte stem-Darstellung, sondern mit Markierungen und
+linearer Interpolation dazwischen
+um die Voreilung des Ausgangs
+um einer Folgenindex etwas schöner sichtbar zu machen. Ausgangsamplitude ist Faktor
 $1/\sqrt{2}$ kleiner als Eingangsamplitude.
+Eingeschwungener Zustand bei LTI-Systemen heisst Phasen- und Amplitudenänderung
+bzgl. Ein- und Ausgang.
 \texttt{fir\_filter\_steady\_state\_DF08FCF870.ipynb}}
 \label{fig:DF08FCF870}
 \end{figure}
@@ -307,7 +341,7 @@ $1/\sqrt{2}$ kleiner als Eingangsamplitude.
 \begin{Ziel}
 Wir wollen die spezielle und für zeitdiskrete SigSys sehr wichtige
 Systemklasse, nämlich sogenannte Finite Impulse Response (FIR) Filter, also
-Systeme mit endlicher Impulsantwort vertiefen.
+Systeme mit endlicher Impulsantwort noch etwas vertiefen.
 Dazu werden wir für ein nicht-rekursives System eine typische Systemdiskussion
 im Zeit- und Bildbereich durchspielen.
 Um den Frequenzgang auszurechnen, werden wir die DTFT benutzen, im Wesen
@@ -395,7 +429,7 @@ Einheitskreis den gleichen Einfluss haben)
 \begin{align}
 z_{\infty,1,...,10} = 0
 \end{align}
-Polynom im Zähler und Nenner aus den NST und Polen aufstellen (Reihenschaltung)
+Polynome im Zähler und Nenner aus den NST und Polen aufstellen (Reihenschaltung)
 \begin{align}
 H(z) = g\cdot
 \frac
@@ -409,16 +443,16 @@ H(z) = g\cdot
 (z-(-1 + \im))\cdot
 (z-(-1 - \im))\cdot
 \dots
-}{z^{10}}
+}{(z-0)^{10}}
 \end{align}
-und etwas mühsam ausmultiplizieren, bis wir die äquivalenten Darstellungen
+und etwas mühsam ausmultiplizieren, bis wir die äquivalenten Darstellungen (wir erkennen reelle Koeffizienten wegen konjugiert-komplexen Nullstellen)
 \begin{align}
 H(z) =& \frac{z^{10} + z^8    + \nicefrac{17}{4}\cdot z^6     + \nicefrac{17}{4}\cdot z^4    + z^2    + 1}{z^{10}}\\
 H(z) =& 1            + z^{-2} + \nicefrac{17}{4}\cdot z^{-4}  + \nicefrac{17}{4}\cdot z^{-6} + z^{-8} + z^{-10}
 \end{align}
 finden.
 %
-Die Wahl dieser Pole und Nullstelle führt auf schöne Koeffizienten in
+Die Wahl dieser Pole und Nullstellen führt auf schöne Koeffizienten in
 $H(z)$. Dies ist ein seltenes Beispiel, in dem sowohl die Winkel der Nullstellen
 als auch die Koeffizienten 'schön' sind.
 %
@@ -426,7 +460,7 @@ Praktische System werden eher 'krumme' Zahlen zurückliefern.
 %
 
 \textbf{b) Impulsantwort}
-Wir sehen $H(z)$ an, dass das System keine Rückkopplung des Ausgangs zurück in
+Wir sehen der zweiten Schreibweise von $H(z)$ an, dass das System keine Rückkopplung des Ausgangs zurück in
 das System aufweist, also ein nicht-rekursives System ist, also ganz sicher
 eine endliche Impulsantwort aufweisen wird.
 %
@@ -447,7 +481,8 @@ auch der Koeffizient $a_0=1$ ist. Also keine Rückkopplung, damit nicht-rekursiv
 Für ein nicht-rekursives System ist die Impulsantwort und Differenzengleichung
 vergleichsweise schnell ermittelt.
 %
-Wir benutzen den wichtigen Zusammenhang (Zeit vs. Phasenverschiebung)
+Wir benutzen den wichtigen Zusammenhang (Zeitverschiebung vs. 'komplexe Frequenz'-
+Modulation)
 \begin{align}
 x[k-\kappa] \quad\ztransf\quad X(z) \cdot z^{-\kappa}
 \end{align}
@@ -479,16 +514,18 @@ lautet. Sie ist unten skizziert, es handelt sich um ein sogenanntes
 \end{center}
 %
 Wenn wir uns $H(z)$ (die Version mit negativen Exponenten in $z$), die DGL und
-die Impulsantwort anschauen, sehen wir wie die konstanten Koeffizienten
+die Impuls-/Sprungantwort anschauen, sehen wir wie die konstanten Koeffizienten
 sich im Bild- und Zeitbereich jeweils abbilden (mit ein wenig Übung geht das
 irgendwann im Kopf):
 \begin{align}
+y[k] =& 1\cdot x[k] +& 1\cdot x[k-2] +&& \nicefrac{17}{4}\cdot x[k-4] +&& \nicefrac{17}{4}\cdot x[k-6] +&& 1\cdot x[k-8] +& 1\cdot x[k-10]\nonumber\\
 H(z) =& 1 +& 1 \cdot z^{-2} +&& \nicefrac{17}{4} \cdot z^{-4}  +&& \nicefrac{17}{4} \cdot z^{-6} +&& 1 \cdot z^{-8} +& 1 \cdot z^{-10}\nonumber\\
 h[k] =& 1 \cdot \delta[k] +& 1 \cdot \delta[k-2] +&& \nicefrac{17}{4} \cdot \delta[k-4] +&& \nicefrac{17}{4} \cdot \delta[k-6] +&& 1 \cdot \delta[k-8] +& 1 \cdot \delta[k-10]\nonumber\\
-y[k] =& 1\cdot x[k] +& 1\cdot x[k-2] +&& \nicefrac{17}{4}\cdot x[k-4] +&& \nicefrac{17}{4}\cdot x[k-6] +&& 1\cdot x[k-8] +& 1\cdot x[k-10]
+h_\epsilon[k] =& 1 \cdot \epsilon[k] +& 1 \cdot \epsilon[k-2] +&& \nicefrac{17}{4} \cdot \epsilon[k-4] +&& \nicefrac{17}{4} \cdot \epsilon[k-6] +&& 1 \cdot \epsilon[k-8] +& 1 \cdot \epsilon[k-10]
 \end{align}
-Wenn wir einen Dirac Impuls in die Differenzengleichung geben, erhalten wir
-die Impulsantwort. Das gilt allgemein. Hier, weil wir ein nicht-rekursives
+Wenn wir einen Dirac Impuls in die Differenzengleichung geben,
+erhalten wir die die Impulsantwort. Das gilt zunächst allgemein.
+Hier, weil wir ein nicht-rekursives
 System betrachten, haben wir einen überaus nützlichen Spezialfall:
 die Impulsantwort ist endlich und wir können die
 DGL direkt nehmen und $y[k]\rightarrow h[k]$ und $x[k]\rightarrow \delta[k]$ usw.
@@ -513,7 +550,7 @@ Wir können den Dirac durch das Signalflussdiagramm durchschieben.
 Zu $k=0$ liegt die Eins vom Dirac am Eingang an, für $k=1$ ist dieses Eins
 'gespeichert' im ersten $z^{-1}$ Block (Verzögerung um 1 Sample), für $k=2$ im zweiten $z^{-1}$ Block
 usw. bis wir bei $k=10$ nur noch das Signal $x[k-10]$ im System haben, weil
-$z^-10$. Ab $k=11$ ist das System in Ruhe.
+$z^-10$. Ab Zeitpunkt $k=11$ ist das System in Ruhe.
 
 \textbf{d) Sprungantwort}
 Wir könnten im Bildbereich rechnen und dann zurücktransformieren, also
@@ -524,8 +561,12 @@ H(z) \cdot \frac{z}{z-1} \quad\Ztransf\quad h_\epsilon[k].
 Die für die Rücktransformation notwendige Polynomdivision ist aber
 vergleichsweise umständlich, bei FIR Systemen müssen wir das eigentlich nie so
 machen.
+
+
+
 %
-Die Lösung findet sich im Zeitbereich einfacher, weil wir
+Die Lösung findet sich im Zeitbereich einfacher, siehe \eqref{eq:sec:F0EF9C3FA6_DGL2heps},
+oder andere mögliche Idee: weil wir
 \begin{align}
 h_\epsilon[k] = \sum_{\kappa=-\infty}^{k} h[\kappa],
 \end{align}
@@ -552,13 +593,13 @@ eben weil die kumulierte Summe endlich ist. In unserem Fall haben wir für
 $h[k\geq 10] = 12\nicefrac{1}{2}$.
 
 \textbf{Stabilität}
-Merksatz: Nicht-rekursive System sind immer stabil!
+Merksatz: Nicht-rekursive Systeme sind immer stabil!
 
 Das erkennen wir, weil
 \begin{itemize}
   \item Konvergenzbereich ist \textbf{immer} $|z|>0$ (wird ja durch die Pole im Ursprung bestimmt), umschließt also immer den Einheitskreis
   \item Nicht-rekursive Systeme haben \textbf{immer} eine endliche Impulsantwort, d.h. es kann keinen zeitlich unbeschränkt aufklingenden Verlauf geben
-  \item salopp: keine Rückkopplung bedeutet kein Stress (warum macht man dann nicht alles mit FIR?!?...wegen Vor- und Nachteilen...Buch bzw. Mastervorlesung Digitale Signalverarbeitung...)
+  \item Hm?!?!: keine Rückkopplung bedeutet kein Stress (warum macht man dann nicht alles mit FIR?!?...wegen Vor- und Nachteilen...Buch bzw. Mastervorlesung Digitale Signalverarbeitung...)
 \end{itemize}
 
 
@@ -577,15 +618,15 @@ durchgerechnet bzw. schön aufgeschrieben ;-), es geht aber).
 %
 Der Trick ist das System $H(z)$ in eine Reihenschaltung zu zerlegen in a)
 ein Teilsystem mit verschobenem Dirac welches \textbf{linearphasig} ist
-und b) ein Teilsystem was \textbf{nullphasig} ist. Wir werden später sehen,
-was diese Begriff meinen, aber genau die Eigenschaft der induzierten
-Nullphasigkeit erleichtert die folgende Rechnerei enorm.
+und b) ein Teilsystem welches \textbf{nullphasig} ist. Wir werden später sehen,
+was diese Begriffe meinen, aber genau die Eigenschaft der induzierten
+Nullphasigkeit erleichtert die nun folgende folgende Rechnerei enorm.
 %
 Wir machen den Ansatz
 \begin{align}
 H(z) = \underbrace{H(z) \cdot z^5}_{H_0(z)} \cdot \underbrace{z^{-5}}_{H_d(z)}= &
 \underbrace{\left(1 + z^{-2} + \nicefrac{17}{4}\cdot z^{-4} + \nicefrac{17}{4}\cdot z^{-6} + z^{-8} + z^{-10}\right)
-\cdot z^5}_{H_0(z)} \cdot \underbrace{z^{-5}}_{H_d(z)}
+\cdot z^5}_{H_0(z)} \quad \cdot \quad \underbrace{z^{-5}}_{H_d(z)}
 \end{align}
 wobei $H_0(z)$ das Nullphasensystem ist (deswegen Index $0$) und $H_d(z)$ die
 Dirac-Verschiebung (i.e. Delay, deswegen der Index $d$).
@@ -609,7 +650,8 @@ Das System $h_0[k]$ ist nun \textbf{axialsymmetrisch} bzgl. $k=0$, das war inten
 eben genau diese Axialsymmetrie die Charaktereigenschaft \textbf{Nullphasigkeit}
 nach sich zieht. Es ist damit aber auch ein nicht kausales System, weil die Impulsantwort
 links- und rechtsseitig, also beidseitig ist. Das stört uns hier aber nicht, weil
-wir ja eher rechnen und das System nicht unbedingt realisieren wollen.
+wir ja eher rechnen und das System nicht unbedingt realisieren wollen. Streng genommen müssten wir uns
+jetzt aber um den Konvergenzbereich von $H_0(z)$ kümmern, es ist eine Kreisscheibe...siehe dazu gute SigSys-Bücher.
 %
 \begin{center}
 \begin{tikzpicture}[scale=1]
@@ -623,11 +665,12 @@ wir ja eher rechnen und das System nicht unbedingt realisieren wollen.
 \end{tikzpicture}
 \end{center}
 %
-Wir kennen das Konzept eigentlich schon sehr gut aus Übung~\ref{sec:8C3958BE4F} (1.2),
+Wir kennen das Konzept Axialsymmetrie bzgl. $t=0$ vs. Nullphasigkeit eigentlich
+schon sehr gut aus Übung~\ref{sec:8C3958BE4F} (4.1),
 da hatten
 wir für das axialsymmetrische $\mathrm{rect}(t)$-Signal ein reelles
-Sinc-Spektrum ermittelt, was nur Phasensprünge wegen Polaritätswechsel aufweist.
-Genau das wird uns hier wieder begegnen.
+Sinc-Spektrum ermittelt, was nur Phasensprünge wegen der Sinc-Polaritätswechsel aufweist.
+Genau so etwas wird uns hier wieder begegnen.
 
 Der \textbf{Frequenzgang ist Auswerten der z-Transformierten auf dem Einheitskreis}, also
 \begin{align}
@@ -675,12 +718,14 @@ H_0(\Omega) = 2 \cos(5\Omega) + 2 \cos(3\Omega) + \nicefrac{17}{2} \cos(\Omega),
 \end{align}
 was in \fig{fig:fir_filter_64BE42BAEF_zerophase} skizziert ist.
 %
-Das Spektrum ist zusammengesetzt aus cos-Schwingungen (über die lineare Frequenzachse!)
+Das Spektrum ist zusammengesetzt aus cos-Schwingungen
+(nicht verwirren lassen: Schwingung meint hier einen cos-Verlauf mit der Variable
+lineare Frequenz $\Omega$!, also einen cos-förmigen Frequenzgang)
 mit 1 (grün), 3 (orange)
 bzw. 5 (grün ) Schwingungen pro $2\pi$ über $\Omega$.
 %
 Wir müssen uns hier klar sein, dass ein DTFT-Spektrum $2\pi$-periodisch ist, d.h.
-$X(\Omega) = X(\Omega \pm 2\pi \cdot m)$ mit $m\in\mathbb{Z}$. Wir sehen in den
+$X(\Omega) = X(\Omega \pm 2\pi \cdot m)$ mit $m\in\mathbb{N}$. Wir sehen in den
 Grafiken nur den
 Ausschnitt $0\leq \Omega < 2\pi$. Diese Darstellung oder die Wahl von
 $-\pi\leq \Omega < \pi$ sind die gebräuchlichsten, wenn wir
@@ -715,9 +760,10 @@ was wir mit \fig{fig:fir_filter_64BE42BAEF_bode_delay} bestätigen können.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{../dtft/fir_filter_64BE42BAEF_zerophase.pdf}
-\caption{Nullphasensystem $H_0(\Omega)$.
+\caption{Frequenzgang des Nullphasensystems $H_0(\Omega)$.
 Oben: Zerlegung in die cos-Schwingungen \eq{eq:64BE42BAEF_H0}, Summe und Betrag (rot).
-unten: Nullphase von $H_0(\Omega)$ mit
+(Hinweis: schwingen tut es über die Frequenzvariable $\Omega$).
+Unten: Nullphase von $H_0(\Omega)$ mit
 Phasensprung durch Polaritätswechsel bei $\Omega=\frac{\pi}{2}$ und $\Omega=\frac{3\pi}{2}$.
 Hier Konvention, dass positive Sprünge um 180 Grad. Der zweite Sprung auf 360 Grad
 (und nicht auf Null zurück), damit Phasenspektrum punktsymmetrisch bzgl.
@@ -746,8 +792,8 @@ Wir erkennen eine sogenannte Bandstop Filter Charakteristik, d.h. tiefe Frequenz
 (nahe $\Omega=0$) und hohe Frequenzen (nahe $\Omega=\pi$) werden durch das System
 gelassen und sogar verstärkt um über 20 dB. Frequenzen nahe $\frac{\pi}{2}$ (ein Viertel
 der Abtastfrequenz) werden sehr stark gedämpft. Die Frequenz $\Omega=\frac{\pi}{2}$
-wird sogar komplett herausgelöscht, weil die Nullstelle da exakt \textbf{auf}
-dem Einheitskreis liegt (siehe PN-Diagramm!),
+wird sogar komplett herausgelöscht, weil die Nullstellen $z_0 = \pm \im$ da exakt \textbf{auf}
+dem Einheitskreis liegen (siehe PN-Diagramm!),
 also dort wo wir den Frequenzgang auswerten, kann sie sich voll entfalten.
 
 Die Phasendiagramme addiert ergibt die untere Grafik
@@ -806,10 +852,10 @@ Bei Kopfhöreren und Lautsprechern gehobener Preisklasse versuchen Hersteller
 dieses Verhalten zusammen mit glattem 0 dB Pegelverlauf bestmöglich anzunähern,
 um das Musiksignal so unverfälscht wie möglich zu verstärken.
 %
-Auf besonders guten Lautsprechern ist dann besonders schlecht produzierter
-Content oder mp3s mit niedriger Codierungsqualität eher nicht zu ertragen, weil
-die Artefakte dann nicht mehr verschliffen werden bzw. sehr 'ehrlich'
-wiedergegeben werden.
+Auf besonders guten Lautsprechern und Kopfhörern ist dann besonders schlecht
+produzierter Content oder mp3s mit niedriger Codierungsqualität eher nicht zu ertragen, weil
+die Produktions-/Codierungsartefakte dann nicht mehr verschliffen werden bzw.
+sehr 'ehrlich' wiedergegeben werden.
 %
 
 
@@ -836,7 +882,7 @@ wiedergegeben werden.
 \begin{Ziel}
 Wir wollen uns intensiver mit dem DTFT-Spektrum der Rechteckfolge beschäftigen.
 Das steht in Analogie zur Fouriertransformation (FT) der Rechteckfunktion in
-der zeitkontinuierlichen SigSys, siehe Übung~\ref{sec:ue1_intro} (1).
+der zeitkontinuierlichen SigSys, siehe Übung~\ref{sec:ue4_fouriertransformation} (4).
 Das DTFT-Spektrum einer Rechteckfolge beinhaltet die sogenannte \texttt{psinc}-Funktion,
 in Analogie zur 'normalen' sinc-Funktion im Zeitkontinuierlichen.
 %
@@ -864,11 +910,11 @@ Sinc-Funktion ihren Namen trägt.
 
 
 \begin{Werkzeug}
-Wir brauchen die fundamentale Korrespondenz
+Wir brauchen die wichtige Korrespondenz (offensichtlich für $N\in\mathbb{N}$)
 \begin{equation}
 x[k] = \mathrm{rect}_N[k]
 \dtft
-X(\Omega)=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+X(\Omega)=\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 und den Verschiebungssatz
 \begin{equation}
@@ -910,13 +956,13 @@ Wir können das umformen
 %
 \begin{equation}
 X(\Omega)=\frac{\e^{-\im\frac{\Omega N}{2}}}{\e^{-\im\frac{\Omega}{2}}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
-=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
-=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)},
+=\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\e^{\im\frac{\Omega N}{2}}-\e^{-\im\frac{\Omega N}{2}}}{\e^{\im\frac{\Omega}{2}}-\e^{-\im\frac{\Omega}{2}}}
+=\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)},
 \end{equation}
 %
 letzteres mit Euler Identität $2\im\cdot\sin(x)=\e^{\im x}-\e^{-\im x}$.
 %
-Der sin/sin-Bruch ist so wichtig, dass wir ihm einen eigenen Funktionsnamen
+Der sin()/sin()-Bruch ist so wichtig, dass wir ihm einen eigenen Funktionsnamen
 \begin{equation}
 \label{eq:ue10_psinc}
 \mathrm{psinc}_N(\Omega) := \frac{1}{N}\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
@@ -937,7 +983,7 @@ implementiert, siehe
 Daher können wir das DTFT Spektrum der Rechteckfolge mit Länge $N$ als
 \begin{equation}
 X(\Omega)=
-\mathrm{psinc}_N(\Omega) \cdot N \cdot \e^{-\im\frac{\Omega(N-1)}{2}}
+\mathrm{psinc}_N(\Omega) \cdot N \cdot \e^{-\im\Omega\frac{(N-1)}{2}}
 \end{equation}
 schreiben.
 %
@@ -946,7 +992,7 @@ Es ist wichtig sich klarzumachen, dass $\mathrm{psinc}_N(\Omega)$ alleine
 \item $4\pi$ periodisch für gerade $N$ (wegen Hauptmaxima mit alternierendem Vorzeichen)
 \item $2\pi$ periodisch für ungerade $N$ (alle Hauptmaxima mit positiver Amplitude)
 \end{itemize}
-Der Betrag $|\mathrm{psinc}_N(\Omega)|$, sowie $X(\Omega)$ (also psinc mit Phasenterm)
+Der Betrag $|\mathrm{psinc}_N(\Omega)|$, sowie $X(\Omega)$ (also die psinc mit dem Phasenterm)
 sind immer $2\pi$-periodisch.
 \end{ExCalc}
 
@@ -957,7 +1003,7 @@ Für $x_4[k]$ müssen wir einfach nur $N$ in das Spektrum einsetzen
 X_4(\Omega)=\e^{-\im\frac{3\Omega}{2}}\cdot\frac{\sin\left(4\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 %
-Für $x_5[k]$ verwenden wir den Verschiebungssatz
+Für $x_5[k]$ verwenden wir den Verschiebungssatz (Zeitshift dreht am Phasenspektrum)
 \begin{align}
 x_5[k] = \mathrm{rect}_5[k-(-2)] \quad\dtft\quad X_5(\Omega) = X(\Omega) \cdot \e^{-\im\Omega\cdot (-2)}
 \end{align}
@@ -989,7 +1035,7 @@ hier aller $\frac{\pi}{2}$. Es wichtig sich klarzumachen, dass die Nebenmaxima
 nicht gleichabständig verteilt sind.
 %
 An den Nullstellen entstehen dann auch Phasensprünge um 180 deg, weil
-atan in einem anderen Quadrant ausgewertet werden muss.
+atan() in einem anderen Quadrant ausgewertet werden muss.
 
 In \fig{fig:psinc_767B4C89FE_N5_linphase} sehen wir zunächst den Fall
 $x[k] = \mathrm{rect}_5[k]$, mit $N-1=4$ Nullstellen zwischen zwei Hauptmaxima,
@@ -999,7 +1045,7 @@ In \fig{fig:psinc_767B4C89FE_N5_zerophase} ist dann das nullphasige, weil axials
 Signal $x_5[k]$ mit DTFT-Spektrum dargestellt.
 Das Spektrum ist rein reell, und hat Phasensprünge um 180 Grad nur
 noch aufgrund des Polaritätswechsels. Das Phasendiagramm müsste eigentlich
-punktsymmetrisch so wie in \fig{fig:8C3958BE4F_SingleCase_MagPhase} (1.7)
+punktsymmetrisch so wie in \fig{fig:8C3958BE4F_SingleCase_MagPhase} (4.4)
 aufgemalt werden, die Programmierung in Python
 mittels \texttt{np.unwrap(np.angle(X))} liefert uns jedoch Sprünge zwischen 0 und 180 Grad,
 womit wir in der Praxis umzugehen lernen müssen.
@@ -1016,7 +1062,7 @@ ja $2\pi$ periodisch ist und psinc ein spezielles, aben eben sehr fundamentales 
 Spektrum ist.
 
 Hinweis: wir plotten überall $|\mathrm{psinc}_N(\Omega)\cdot N|$, daher bekommen wir
-eine $N$-abhängigen Betrag. psinc selber ist amplituden-normiert 1, wie sinc auch.
+eine $N$-abhängigen Betrag. psinc() selber ist amplituden-normiert 1 beim Argument 0, wie die sinc() auch.
 
 \end{Loesung}
 %
@@ -1059,10 +1105,10 @@ eine $N$-abhängigen Betrag. psinc selber ist amplituden-normiert 1, wie sinc au
 \subsection{DTFT-Spektrum der rechteckbegrenzten komplexen Schwingung}
 \label{sec:96D7F1EE47}
 \begin{Ziel}
-In dieser Aufgabe wollen wir uns ähnlich Aufgabe~\ref{sec:610482EF57} (4.1)
+In dieser Aufgabe wollen wir uns ähnlich Aufgabe~\ref{sec:610482EF57} (4.6)
 die DTFT der rechteckbegrenzten komplexen Exponentialschwingung anschauen.
 Wir werden die Aufgabe hier dahingehend modifizieren und erweitern, dass
-wir komplexe Signalw DTFT-transformieren und eine Überlagerung von zwei Schwingungen
+wir komplexe Signale DTFT-transformieren und eine Überlagerung von zwei Schwingungen
 betrachten. Nachdem die DTFT auch Linearitätseigenschaft besitzt, überlagern
 sich die komplexen Einzelspektren. Es stellt sich die Frage, unter welchen
 Umständen wir im Gesamtspektrum sehen, dass das transformierte Signal aus
@@ -1083,7 +1129,7 @@ und $w[k] = \mathrm{rect}_8[k]$.
 %
 Skizzieren Sie die DTFT-Betragsspektren von $x_1[k]$, $x_2[k]$,
 der zeitlich begrenzten Folgen $w[k] \cdot x_1[k]$ und $w[k] \cdot x_2[k]$, sowie
-des zeitlich begrenzten Gesamtsignals $x[k]$.
+des zeitlich begrenzten Gesamtsignals $x[k] = w[k] \cdot x_1[k] + w[k] \cdot x_2[k]$.
 
 
 \begin{Werkzeug}
@@ -1097,7 +1143,7 @@ DTFT-Korrespondenzen:
 \begin{equation}
 w[k] = \mathrm{rect}_N[k]
 \quad\dtft\quad
-W(\Omega)=\e^{-\im\frac{\Omega(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
+W(\Omega)=\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\right)}{\sin\left(\frac{\Omega}{2}\right)}
 \end{equation}
 %
 Multiplikation / Faltung Dualität (hier als $2\pi$ zyklische Faltung im Spektralbereich):
@@ -1105,26 +1151,27 @@ Multiplikation / Faltung Dualität (hier als $2\pi$ zyklische Faltung im Spektra
 x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} X(\Omega) \circledast_{2\pi} W(\Omega)
 \end{align}
 %
-Faltungsintegral ausgeschrieben
+Faltungsintegral ausgeschrieben (Hilfsvariable für Frequenzspiegelung und -verschiebung
+ist diesmal $O$, also Großbuchstabe O wegen Link zu \underline{O}mega)
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
 \int\limits_{O=0}^{2\pi} X(O) \cdot W(-O + \Omega) \fsd O =
 \int\limits_{O=0}^{2\pi} X(-O+\Omega) \cdot W(O) \fsd O
 \end{align}
-Hilfsvariable für Frequenzspiegelung und -verschiebung ist $O$ (also Großbuchstabe O wegen Link zu Omega).
 \end{Werkzeug}
 \begin{Ansatz}
-In Aufgabe~\ref{sec:610482EF57} (4.1) hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
-lässt sich hier analog anwenden.
+In Aufgabe~\ref{sec:610482EF57} (4.6) hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
+lässt sich hier genauso anwenden.
 
-\textbf{Sichtweise I}: unendliche Exponentialschwingung zeitlich
-begrenzen heißt ideales Dirac-Kamm Spektrum verschleifen,
+\textbf{Sichtweise I}: eine unendliche Exponentialschwingung zeitlich
+begrenzen, heißt ideales Dirac-Kamm Spektrum verschleifen,
 i.e. aus Sicht der Signalanalyse, Fensterung
 
 \textbf{Sichtweise II}: das periodische, psinc-artige Spektrum der Rechteckfunktion
 im Frequenzbereich verschieben i.e. aus Sicht der Nachrichtentechnik, Modulation
 
-Wir haben diesmal eine komplexe Exponentialschwingung.
+Wir haben hier statt einem cos-Signal eine komplexe Exponentialschwingung
+zu betrachten, gewisse Dinge werden dadurch eigentlich sogar leichter und anschaulicher.
 
 Wir brauchen zunächst die Spektren der beiden Exponentialschwingungen $x_1[k]$
 und $x_2[k]$.
@@ -1164,7 +1211,7 @@ Deswegen gilt auch für die zeitliche Begrenzung mit der Rechteckfolge (auch Rec
 \begin{align}
 &w[k] \cdot (x_1[k] + x_2[k]) = w[k] \cdot x_1[k] + w[k] \cdot x_2[k]
 \quad\dtft\quad\\
-&\frac{1}{2\pi} W(\Omega) \circledast_{2\pi} ( X_1(\Omega)+X_2(\Omega)) = \frac{1}{2\pi} W(\Omega) \circledast_{2\pi} X_1(\Omega) + \frac{1}{2\pi} W(\Omega) \circledast_{2\pi} X_2(\Omega))
+&\frac{1}{2\pi} (W(\Omega) \circledast_{2\pi} ( X_1(\Omega)+X_2(\Omega))) = \frac{1}{2\pi} (W(\Omega) \circledast_{2\pi} X_1(\Omega)) + \frac{1}{2\pi} (W(\Omega) \circledast_{2\pi} X_2(\Omega))
 \end{align}
 $\frac{1}{2\pi}$ bei der Faltung nicht vergessen!
 
@@ -1174,10 +1221,10 @@ Mit Übung können wir solche Dirac Kamm Faltungen irgendwann in Gedanken durchf
 Wir sollten die Rechnung aber in aller Ausführlichkeit gesehen haben, weil hier
 die zyklische Faltung im Frequenzbereich eine wichtige Rolle spielt,
 und im Laufe der Rechnung ein paar Klassiker beim Umformen von komplexen Drehern
-und Stolpersteine bzgl. der psinc auf uns warten. Daher:
+und Stolpersteine bzgl. der psinc() auf uns warten. Daher:
 %
-Faltungsintegral mit Hilfsvariable $O$ (Großbuchstabe O als Link zu Omega),
-Summe des Dirac Impulskamms mittels
+Faltungsintegral mit Hilfsvariable $O$ (Verwechslung mit Null ausgeschlossen weil
+keine Null vorkommt), Summe des Dirac Impulskamms mittels
 Hilfsvariable $m$.
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
@@ -1185,7 +1232,7 @@ X(\Omega) \circledast_{2\pi} W(\Omega) =
 \int\limits_{O=0}^{2\pi} X(-O+\Omega) \cdot W(O) \fsd O
 \end{align}
 %
-Wählen wir, weil es eleganter erscheint die Form mit $W(O)$
+Wählen wir, weil es eleganter erscheint die zweite Variante, also die Form mit $W(O)$
 \begin{align}
 &w[k] \cdot x_1[k]\dtft
 \frac{1}{2\pi}
@@ -1196,7 +1243,7 @@ X_1(\Omega) \circledast_{2\pi} W(\Omega)
 2\pi \sum\limits_{m=-\infty}^{+\infty}
 \delta(-O+\Omega-\Omega_1 + 2\pi\cdot m)
 \cdot
-\e^{-\im\frac{O(N-1)}{2}}\,
+\e^{-\im O \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{O}{2}\right)}{\sin\left(\frac{O}{2}\right)}\fsd O
 \end{align}
 Die Summe ist der Dirac Impuls Kamm ausgeschrieben. Nun kürzen sich die beiden
@@ -1210,7 +1257,7 @@ w[k] \cdot x_1[k]\dtft=
 \sum\limits_{m=-\infty}^{+\infty}
 \delta(-O+\Omega-\Omega_1 + 2\pi\cdot m)
 \cdot
-\e^{-\im\frac{O(N-1)}{2}}\,
+\e^{-\im O \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{O}{2}\right)}{\sin\left(\frac{O}{2}\right)}\fsd O
 \end{align}
 Das Argument des Dirac wird Null (schlampig formuliert:
@@ -1226,20 +1273,20 @@ Für $m=0$ ohne Mühe
 \begin{align}
 O=+\Omega-\Omega_1
 \end{align}
-Multiplikationseigenschaft des Diracs anwenden
+Zunächst Multiplikationseigenschaft des Diracs anwenden
 \begin{align}
 \text{für   }m=0\rightarrow
 \int\limits_{O=0}^{2\pi}
 \delta(-O+\Omega-\Omega_1)
 \cdot
-\e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
+\e^{-\im(\Omega-\Omega_1)\frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}\fsd O
 \end{align}
 Und weil wir die Integraloperation stehen haben, können wir sogar die
 Austasteigenschaft bemühen (und den Dirac Impuls damit loswerden, der hat dann seine Arbeit verrichtet)
 \begin{align}
 m=0\rightarrow
-\e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
+\e^{-\im(\Omega-\Omega_1)\frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}
 \end{align}
 %
@@ -1250,13 +1297,13 @@ ansetzen
 \int\limits_{O=0}^{2\pi}
 \delta(-O+\Omega-\Omega_1+2 \cdot 2\pi)
 \cdot
-\e^{-\im\frac{(\Omega-\Omega_1 +2 \cdot  2\pi)(N-1)}{2}}\,
+\e^{-\im(\Omega-\Omega_1 +2 \cdot  2\pi)\frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}\fsd O
 \end{align}
 und dann Austasteigenschaft
 \begin{align}
 m=2\rightarrow
-\e^{-\im\frac{(\Omega-\Omega_1 +2 \cdot  2\pi)(N-1)}{2}}\,
+\e^{-\im(\Omega-\Omega_1 +2 \cdot  2\pi)\frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 2 \cdot 2\pi)}{2}\right)}
 \end{align}
 %
@@ -1266,11 +1313,11 @@ Den komplexen Dreher können wir vereinfachen (das funktioniert für alle gerade
 \e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}
 \underbrace{\e^{-\im\frac{(4\pi)(N-1)}{2}}}_{1}
 \end{align}
-und da psinc periodisch in $4\pi$ für gerade $N$ wissen wir, dass
+und da psinc() periodisch in $4\pi$ für gerade $N$ wissen wir, dass
 $\frac{\sin\left(N\frac{(\Omega-\Omega_1 + 4\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 4\pi)}{2}\right)} = \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}$.
 Wir bekommen also das gleiche Spektrum, wie für $m=0$
 \begin{align}
-\e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
+\e^{-\im (\Omega-\Omega_1) \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}
 \end{align}
 %
@@ -1281,16 +1328,16 @@ Multiplikationseigenschaft
 \int\limits_{O=0}^{2\pi}
 \delta(-O+\Omega-\Omega_1+1\cdot2\pi)
 \cdot
-\e^{-\im\frac{(\Omega-\Omega_1 + 1\cdot2\pi)(N-1)}{2}}\,
+\e^{-\im(\Omega-\Omega_1 + 1\cdot2\pi)\frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}\fsd O
 \end{align}
 und Austasteigenschaft
 \begin{align}
 m=1\rightarrow
-\e^{-\im\frac{(\Omega-\Omega_1 + 1\cdot2\pi)(N-1)}{2}}\,
+\e^{-\im (\Omega-\Omega_1 + 1\cdot2\pi) \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}
 \end{align}
-Für gerade $N$ gilt hier nun sowohl Drehung der Polarität beim psinc als auch beim komplexen Dreher
+Für gerade $N$ gilt hier nun sowohl Drehung der Polarität beim psinc() als auch beim komplexen Dreher
 \begin{align}
 \frac{\sin\left(N\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1 + 1\cdot2\pi)}{2}\right)}
 = -
@@ -1314,13 +1361,13 @@ auch wieder das gleiche Spektrum wie für $m=0$ heraus.
 Dies ist nun auch unser Endergebnis der Faltung
 \begin{align}
 w[k] \cdot x_1[k]\dtft
-\e^{-\im\frac{(\Omega-\Omega_1)(N-1)}{2}}\,
+\e^{-\im (\Omega-\Omega_1) \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_1)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_1)}{2}\right)}
 \end{align}
 Für das zweite Signal ist die Rechnung identisch
 \begin{align}
 w[k] \cdot x_2[k]\dtft
-\e^{-\im\frac{(\Omega-\Omega_2)(N-1)}{2}}\,
+\e^{-\im (\Omega-\Omega_2) \frac{(N-1)}{2}}\,
 \frac{\sin\left(N\frac{(\Omega-\Omega_2)}{2}\right)}{\sin\left(\frac{(\Omega-\Omega_2)}{2}\right)}
 \end{align}
 %
@@ -1376,7 +1423,7 @@ Wir können das an dieser Stelle leider nur anreißen.
 %
 Wenn als Message hängenbleibt, dass Dirac Kamm Spektren durch Zeitbegrenzung (Multiplikation/Faltung)
 verschliffen werden, speziell bei rechteckförmiger Begrenzung psinc-artige Spektren
-entstehen, dann haben wir hier unseren Job gut erledigt.
+entstehen, dann haben wir hier unseren Job zunächst gut erledigt.
 %
 Wenn wir dann mit der psinc-Funktion noch vertraut sind, haben wir den SigSys Koffer
 bestens gefüllt.
@@ -1384,7 +1431,7 @@ bestens gefüllt.
 Im Master Modul Digital Signal Processing werden wir uns dann eingehender damit
 beschäftigen, wir könnten einen ersten Blick riskieren wollen:
 
-\url{https://github.com/spatialaudio/digital-signal-processing-exercises/blob/master/dft/dft_windowing_tutorial/dft_windowing_tutorial.pdf}
+\url{https://github.com/spatialaudio/digital-signal-processing-exercises/blob/main/dft/dft_windowing_tutorial/dft_windowing_tutorial.pdf}
 
 
 \begin{figure}
