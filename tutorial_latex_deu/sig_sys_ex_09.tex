@@ -853,8 +853,9 @@ h[k] = \left(\frac{1}{2}\right)^k \epsilon[k]
 \end{align}
 zurück, weil wir den Zusammenhang ja mittlerweile bestens kennen.
 Aus \fig{fig:single_pole_rightsided_tikz} oben ist uns diese Korrespondenz
-bereits bekannt, es ist das 1-Pol Signal mit reellem Pol und
-der Nullstelle im Ursprung.
+bereits bekannt, es ist das 1-Pol Signal mit reellem Pol bei $z_\infty=\frac{1}{2}$ und
+der Nullstelle $z_0 = 0$ im Ursprung. Das Pol-/Nullstellen-/Verstärkungsdiagramm
+findet sich am Ende der Aufgabe.
 %Das war natürlich wieder eine intentionale Verknüpfung
 %zu Dingen die wir schon kennen.
 
@@ -990,15 +991,76 @@ Form mit ein paar Zeilen Code checken, so eine Art \texttt{Hello World} Programm
 in der SigSys Welt...das sollten wir mal in Python und/oder Matlab checken.
 \end{ExCalc}
 \begin{Loesung}
-Die Differenzengleichung
+Die Differenzengleichung (für $k\geq 0$, $y[k=-1]=0$, also kausales, initial ruhendes System)
 \begin{align}
-y[k] = x[k] + \frac{1}{2} y[k-1]
+y[k] = 1 \cdot x[k] + \frac{1}{2} \cdot y[k-1]
 \end{align}
-ist ein LTI-System und hat die Impuls- und Sprungantwort
+ist eine Beschreibung für ein LTI-System. Diese Rekursionsgleichung (Rückkopplung!)
+lässt äquivalent sich mit einem Signalflussgraphen darstellen
+(Details dazu siehe Aufgabe \ref{sec:94A7A6D9E9}, hier der Vollständigkeit halber
+schon vorab):
+%
+\begin{center}
+\begin{tikzpicture}[thick, scale=0.7]
+\newcommand{\filtDelay}{Unit Delay}
+\tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtLine} = [anchor=center]
+\tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
+\tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
+\def \bNull {$1$}
+\def \minusAEins {$\frac{1}{2}$}
+%
+\matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
+\node (input) [anchor=center]{$x[k]$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
+& \node (a0) [filtLine]{}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
+&  & & & & \node (fbdelay1)[filtBlock] {\filtDelay};  \\
+&  &  & \node (join1) [filtSum]{$+$};
+& \node (a1) [filtBlock]{\minusAEins}; & \node (fbsplit1) [filtBranch]{}; \\
+};
+%
+\draw [->] (input) -- (ffsplit0) -- (b0);
+\draw [->] (b0) -- (join0);
+\draw [->] (join1) -- (join0);
+\draw [->] (join0) -- (fbsplit0);
+\draw [->] (fbsplit0) -- (output);
+\draw [->] (fbsplit0) -- (fbdelay1);
+\draw[->] (fbdelay1) -- (fbsplit1) -- (a1);
+\draw [->] (a1) -- (join1);
+\end{tikzpicture}
+\end{center}
+%
+
+Aus der äquivalenten LTI-System Beschreibung mittels Übertragungsfunktion
+\begin{align}
+H(z) = \frac{z}{z-\frac{1}{2}}\quad\text{KB:}\quad|z|>\frac{1}{2}
+\end{align}
+bzw. Pol-/Nullstellen-/Verstärkungsdiagramm
+%
+\begin{center}
+\begin{tikzpicture}
+\def \tic {0.05}
+\filldraw[even odd rule,C2!50] (0,0) circle(0.5)
+decorate [decoration={snake,segment length=15pt,amplitude=1pt}]{(0,-3pt) circle(1.5)};;
+\draw[help lines, C7!50, step=0.25cm] (-1,-1) grid (1,1);
+\draw[C3] (0,0) circle(1);
+\node at (1, 1.25){$g = +1$};
+\draw (1.75*0.86602540378,1.75*0.5) node[C2!75]{KB};
+\draw[->] (-1.5,0)--(1.5,0) node[right]{$\Re\{z\}$};
+\draw[->] (0,-1.5)--(0,1.5) node[above]{$\Im\{z\}$};
+\draw (0.5, 0) node[C0]{\Huge $\times$};
+\draw (0,0) node[C0]{\Huge $\circ$};
+\draw (1+2*\tic,-2*\tic) node{$1$};
+\draw (2.5,-1) node{$H(z) = 1 \cdot \frac{z}{z-\frac{1}{2}}$};
+\end{tikzpicture}
+\end{center}
+%
+lässt sich mit inverser $z$-Transformation die Impuls- und die Sprungantwort
 \begin{align}
 h[k] = \left(\frac{1}{2}\right)^k \epsilon[k]\qquad
-h_\epsilon[k] = - \left(\frac{1}{2}\right)^k \epsilon[k] + 2 \epsilon[k].
+h_\epsilon[k] = - \left(\frac{1}{2}\right)^k \epsilon[k] + 2 \epsilon[k]
 \end{align}
+analytisch ausrechnen.
+
 Die beiden Signale sind unten skizziert. Ähnliche Verläufe hatten wir in
 \fig{fig:4408E33353} (3.6) / Aufgabe~\ref{sec:4408E33353} (3.4)
 erarbeitet und aus der \fig{fig:bodeplot_examples_pt1_element} (5.4) wissen wir, dass dieses
@@ -1048,11 +1110,11 @@ wir die zugehörige Fouriertransformation, das ist die DTFT, kennengelernt haben
 %
 \end{tikzpicture}
 %
-Wir haben bisher also die Konzepte: PN-Diagramm, Impulsantwort, Sprungantwort,
+Wir haben bisher also die Konzepte: PNV-Diagramm, Impulsantwort, Sprungantwort,
 Faltung vs. Multiplikation wieder entdeckt.
 %
 Komplexere Systeme, heißt im Grunde wieder 'nur': mehr Polstellen und mehr
-Nullstellen. Das Wesen bleibt das Gleiche, was wir hier durchgespielt
+Nullstellen. Das Wesen bleibt das Gleiche, was wir hier gerade durchgespielt
 haben. Die Rechnerei wird nur deutlich mühsamer und wegen meist 'krummer' Zahlen
 auf dem Papier eigentlich nicht mehr sinnvoll handhabbar.
 
@@ -1061,7 +1123,7 @@ gegebenen Fall reelles $|a|<1$ (Beschränkung auf stabile Systeme)
 \begin{align}
 y[k] = x[k] + a y[k-1]
 \end{align}
-durchzuspielen und zu überlegen, wie die Signalverläufe, PN-Diagramm usw.
+durchzuspielen und zu überlegen, wie die Signalverläufe, PNV-Diagramm usw.
 variieren. Das ist dann schon ein sehr fancy aufgebohrtes \texttt{Hello World}.
 
 Die Jupyter Notebooks
@@ -1072,6 +1134,10 @@ Die Jupyter Notebooks
 
 sind u.U. hilfreich.
 \end{Loesung}
+
+
+
+
 
 
 \newpage
@@ -1097,6 +1163,7 @@ kausales LTI-System als Blockschaltbild, also als Signalflussdiagramm.
 %\newcommand{\filtDelay}{$z^{-1}$}
 \newcommand{\filtDelay}{$\ast_k \delta[k-1]$}
 \tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtLine} = [anchor=center]
 \tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
 \tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
 \begin{footnotesize}
@@ -1109,7 +1176,7 @@ kausales LTI-System als Blockschaltbild, also als Signalflussdiagramm.
 
 \matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
 \node (input) [anchor=center]{$x[k]$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
-& \node (a0) [filtBlock]{\einsDurchANull}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
+& \node (a0) [filtLine]{}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
 & \node [filtBlock](ffdelay1) {\filtDelay}; & & & & \node (fbdelay1)[filtBlock] {\filtDelay};  \\
 & \node (ffsplit1) [filtBranch]{}; & \node (b1) [filtBlock]{\bEins}; & \node (join1) [filtSum]{$+$};
 & \node (a1) [filtBlock]{\minusAEins}; & \node (fbsplit1) [filtBranch]{}; \\
@@ -1123,7 +1190,8 @@ kausales LTI-System als Blockschaltbild, also als Signalflussdiagramm.
 \draw [->] (ffdelay1) -- (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (join1) -- (join0);
 \draw [->] (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (ffsplit1) -- (ffdelay2); \draw[->] (ffdelay2) -- (ffsplit2) -- (b2);
 \draw [->] (b2) -- (join2); \draw [->] (join2) -- (join1);
-\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+%\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+\draw [->] (join0) -- (fbsplit0); \draw [->] (fbsplit0) -- (output);
 \draw [->] (fbsplit0) -- (fbdelay1); \draw[->] (fbdelay1) -- (fbsplit1) -- (a1);
 \draw [->] (a1) -- (join1);
 \draw [->] (fbsplit1) -- (fbdelay2); \draw[->] (fbdelay2) -- (fbsplit2) -- (a2);
@@ -1159,6 +1227,7 @@ können wir skizzieren:
 \newcommand{\filtDelay}{$z^{-1}$}
 %\newcommand{\filtDelay}{$\ast_k \delta[k-1]$}
 \tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtLine} = [anchor=center]
 \tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
 \tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
 \begin{footnotesize}
@@ -1171,7 +1240,7 @@ können wir skizzieren:
 
 \matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
 \node (input) [anchor=center]{$X(z)$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
-& \node (a0) [filtBlock]{\einsDurchANull}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$Y(z)$}; \\
+& \node (a0) [filtLine]{}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$Y(z)$}; \\
 & \node [filtBlock](ffdelay1) {\filtDelay}; & & & & \node (fbdelay1)[filtBlock] {\filtDelay};  \\
 & \node (ffsplit1) [filtBranch]{}; & \node (b1) [filtBlock]{\bEins}; & \node (join1) [filtSum]{$+$};
 & \node (a1) [filtBlock]{\minusAEins}; & \node (fbsplit1) [filtBranch]{}; \\
@@ -1185,7 +1254,8 @@ können wir skizzieren:
 \draw [->] (ffdelay1) -- (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (join1) -- (join0);
 \draw [->] (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (ffsplit1) -- (ffdelay2); \draw[->] (ffdelay2) -- (ffsplit2) -- (b2);
 \draw [->] (b2) -- (join2); \draw [->] (join2) -- (join1);
-\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+%\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+\draw [->] (join0) -- (fbsplit0); \draw (fbsplit0) -- (output);
 \draw [->] (fbsplit0) -- (fbdelay1); \draw[->] (fbdelay1) -- (fbsplit1) -- (a1);
 \draw [->] (a1) -- (join1);
 \draw [->] (fbsplit1) -- (fbdelay2); \draw[->] (fbdelay2) -- (fbsplit2) -- (a2);
@@ -1203,6 +1273,7 @@ gerne gewählt, also:
 \newcommand{\filtDelay}{$z^{-1}$}
 %\newcommand{\filtDelay}{$\ast_k \delta[k-1]$}
 \tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtLine} = [anchor=center]
 \tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
 \tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
 \begin{footnotesize}
@@ -1215,7 +1286,7 @@ gerne gewählt, also:
 
 \matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
 \node (input) [anchor=center]{$x[k]$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
-& \node (a0) [filtBlock]{\einsDurchANull}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
+& \node (a0) [filtLine]{}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
 & \node [filtBlock](ffdelay1) {\filtDelay}; & & & & \node (fbdelay1)[filtBlock] {\filtDelay};  \\
 & \node (ffsplit1) [filtBranch]{}; & \node (b1) [filtBlock]{\bEins}; & \node (join1) [filtSum]{$+$};
 & \node (a1) [filtBlock]{\minusAEins}; & \node (fbsplit1) [filtBranch]{}; \\
@@ -1229,7 +1300,8 @@ gerne gewählt, also:
 \draw [->] (ffdelay1) -- (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (join1) -- (join0);
 \draw [->] (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (ffsplit1) -- (ffdelay2); \draw[->] (ffdelay2) -- (ffsplit2) -- (b2);
 \draw [->] (b2) -- (join2); \draw [->] (join2) -- (join1);
-\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+%\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+\draw [->] (join0) -- (fbsplit0); \draw [->] (fbsplit0) -- (output);
 \draw [->] (fbsplit0) -- (fbdelay1); \draw[->] (fbdelay1) -- (fbsplit1) -- (a1);
 \draw [->] (a1) -- (join1);
 \draw [->] (fbsplit1) -- (fbdelay2); \draw[->] (fbdelay2) -- (fbsplit2) -- (a2);
@@ -1244,6 +1316,7 @@ Block definieren, der genau um ein Sample verzögert, also:
 %\newcommand{\filtDelay}{$z^{-1}$}
 \newcommand{\filtDelay}{$T_s$}
 \tikzstyle{filtBlock} = [draw, rectangle, minimum height=2em, minimum width=2em,anchor=center]
+\tikzstyle{filtLine} = [anchor=center]
 \tikzstyle{filtBranch}=[fill,shape=circle,minimum size=4pt,inner sep=0pt,anchor=center]
 \tikzstyle{filtSum} = [draw, circle, inner sep=1pt,node distance=0.8cm,anchor=center]
 \begin{footnotesize}
@@ -1256,7 +1329,7 @@ Block definieren, der genau um ein Sample verzögert, also:
 
 \matrix (m) [matrix of nodes, row sep=1em, column sep=1em]{
 \node (input) [anchor=center]{$x[k]$}; & \node (ffsplit0) [filtBranch]{}; & \node (b0) [filtBlock]{\bNull}; & \node (join0) [filtSum]{$+$};
-& \node (a0) [filtBlock]{\einsDurchANull}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
+& \node (a0) [filtLine]{}; & \node (fbsplit0) [filtBranch]{}; & \node (output)[anchor=center]{$y[k]$}; \\
 & \node [filtBlock](ffdelay1) {\filtDelay}; & & & & \node (fbdelay1)[filtBlock] {\filtDelay};  \\
 & \node (ffsplit1) [filtBranch]{}; & \node (b1) [filtBlock]{\bEins}; & \node (join1) [filtSum]{$+$};
 & \node (a1) [filtBlock]{\minusAEins}; & \node (fbsplit1) [filtBranch]{}; \\
@@ -1270,7 +1343,8 @@ Block definieren, der genau um ein Sample verzögert, also:
 \draw [->] (ffdelay1) -- (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (join1) -- (join0);
 \draw [->] (ffsplit1) -- (b1); \draw [->] (b1) -- (join1); \draw [->] (ffsplit1) -- (ffdelay2); \draw[->] (ffdelay2) -- (ffsplit2) -- (b2);
 \draw [->] (b2) -- (join2); \draw [->] (join2) -- (join1);
-\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+%\draw [->] (join0) -- (a0); \draw [->] (a0) -- (fbsplit0) -- (output);
+\draw [->] (join0) -- (fbsplit0); \draw [->] (fbsplit0) -- (output);
 \draw [->] (fbsplit0) -- (fbdelay1); \draw[->] (fbdelay1) -- (fbsplit1) -- (a1);
 \draw [->] (a1) -- (join1);
 \draw [->] (fbsplit1) -- (fbdelay2); \draw[->] (fbdelay2) -- (fbsplit2) -- (a2);
@@ -1694,6 +1768,16 @@ Bezeichnung \textit{finite impulse response (FIR) filter}.
 \textbf{e) analytischer Ausdruck der Sprungantwort $h_\epsilon[k]$ mit Skizze}
 %
 
+Bei nichtrekursiven System geht die Sprungantwort auch wieder fast ohne Rechnen,
+wenn wir die Differenzengleichung kennen. Dann können wir direkt
+$x[k] = \epsilon[k]$ in die DGL einsetzen, um $h_\epsilon[k]$ zu erhalten, also
+\begin{align}
+y[k] = x[k] - x[k-2]
+\quad\rightarrow\quad
+h\epsilon[k] = \epsilon[k] - \epsilon[k-2]
+\end{align}
+Dies muss nun konsistent sein mit Rechnerei im Bildbereich. Gehen wir das mal durch:
+%
 mit $z$-Transformation: $x[k] = \epsilon[k] \quad\ztransf\quad X(z) = \frac{z}{z-1}$
 %
 \begin{align}
@@ -1762,9 +1846,9 @@ Ein weiterer Check gelingt, wenn wir
 \begin{align}
 h_\epsilon[k] = \delta[k] + \delta[k-1] = \epsilon[k] - \epsilon[k-2]
 \end{align}
-darstellen.
+darstellen, die zweite Signaldarstellung ist unsere zu Beginn gefundene Lösung direkt aus der Differenzengleichung.
 %
-Jetzt können wir die beiden Sprungsignale $z$-transformieren
+Jetzt können wir diese beiden Sprungsignale $z$-transformieren
 \begin{align}
 H_\epsilon(z) = \frac{z}{z-1} - \frac{z}{z-1} z^{-2}
 \end{align}
