@@ -1,28 +1,31 @@
 \newpage
 \section{UE 11: Diskrete Fourier Transformation (DFT)}
 %
-Wir betrachten die letzte der vier Fourier Transformationen, die DFT.
+Wir betrachten eine vierten Typ der für SigSys wichtigen Fourier Transformationen,
+die Diskrete Fourier Transformation (DFT).
 Sie ist die einzige, die exakt mit Computern berechenbar ist (wenn wir
 von numerischen Rundungsfehlern absehen).
 %
-Die anderen drei Fourier Transformation (FT, FR, DTFT) setzen ja entweder
+Die anderen uns bisher bekannten drei Fourier Transformation (FT, FR, DTFT)
+setzen ja entweder
 unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
 kontinuierliche Signale/Spektren
-voraus, alles Daten-Eigenschaften mit denen sich Computer wegen endlicher
-Rechen- und Speicherressourcen schwer tun.
+voraus. Das sind alles Daten-Eigenschaften mit denen Computer wegen endlicher
+Rechen- und Speicherressourcen nicht nativ umgehen können.
 %
 Daher werden wir sehr oft konfrontiert sein, die DFT als Approximation
-der anderen drei Transformationen benutzen zu müssen.
+der anderen drei Transformationen benutzen zu müssen, weswegen wir eigentlich
+besonders fit in DFT sein müssen.
 %
 
 Eine der Grundeigenschaften der DFT, nämliche die inhärente
 Periodizität sowohl der Signalfolgen als auch der DFT-Spektren jeweils mit
-der Länge $N$, ist eigentlich
+der Länge $N$, ist nun eigentlich
 eher praxisfern. Die meisten Signale sind ja eher nicht periodisch, und wenn
 doch dann meist überlagert mit Rauschen.
 %
-Wir haben also ein Werkzeug, was gut ist für digitale Rechentechnik, aber
-schlecht für die meisten vorkommenden Signale.
+Wir haben mit der DFT also ein Werkzeug, was gut ist für digitale Rechentechnik,
+aber schlecht für die meisten praktisch vorkommenden Signale.
 %
 Das macht die DFT nun nicht automatisch zu einem schlechten Tool. Wir müssen
 es aus Mangel an Alternativen eh wertschätzen und uns erarbeiten, was die
@@ -37,7 +40,7 @@ Es ist deswegen sinnvoll, wenn wir uns das tiefgründig erarbeiten. Eine einzige
 VL/UE-Einheit ist dafür im Grunde zu wenig, daher sollten wir Zeit für
 Selbststudium einplanen. Wir vertiefen die DFT im Wintersemester
 Mastermodul Digital Signal Processing.
-Hier der Versuch die Essenz in übersichtlicher Form weiterzugeben.
+Hier zunächst der Versuch die Essenz in übersichtlicher Form weiterzugeben.
 
 Wir benutzen die Operator Symbole
 \begin{align}
@@ -57,7 +60,7 @@ x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{
 \end{align}
 %
 Für eine komplette Transformation brauchen wir alle auftretenden Multiplikationen $k \cdot \mu$,
-die wir als $k \times \mu$ Matrix aufschreiben (wir wollen Summen vermeiden,
+die wir als $k \times \mu$ Matrix $\bm{K}$ aufschreiben können (wir wollen Summen vermeiden,
 die sind unübersichtlich und verschleiern meist den tieferen Zusammenhang)
 \begin{align}
 \bm{K} =
@@ -84,7 +87,8 @@ auf dem Einheitskreis gibt.
 %
 Dies ist in \fig{fig:DFT_UnitCircle} für $N=4$ links und für $N=5$ rechts
 veranschaulicht.
-Für $N\to\infty$ nähern wir uns der DTFT an.
+Für $N\to\infty$ nähern wir uns der DTFT an, weil wir eine unendliche Anzahl
+von Frequenzstützstellen äquiangular auf dem Einheitskreis verteilen.
 %
 \begin{figure}[t]
 \center
@@ -155,7 +159,7 @@ Für $N\to\infty$ nähern wir uns der DTFT an.
 \end{figure}
 
 
-Wir haben es also wieder einmal mit komplexen Zahlen auf dem Einheitskreis zu
+Wir haben es bei der DFT also wieder einmal mit komplexen Zahlen auf dem Einheitskreis zu
 tun, was in SigSys oft vorkommt.
 %
 Die IDFT Formel verlangt den komplexen Zeiger $\e^{+\im\frac{2\pi}{N} (k\cdot \mu)}$.
@@ -293,7 +297,7 @@ dar, diese sind alle $N$ periodisch, vgl.~\fig{fig:fourier_matrix}
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{../dft/fourier_matrix}
-\caption{$N=8$ Fourier Matrix \eqref{eq:FourierMatrix} so dargestellt, dass
+\caption{$N=8$ Fourier Matrix $\bm{F}$ \eqref{eq:FourierMatrix} so dargestellt, dass
 die 8 komplexwertigen DFT Eigensignale getrennt nach Spalten dargestellt sind.
 Nach unten läuft die Zeit, nach rechts erhöht sich die DFT-Frequenz.
 Spalte 1 ($\mu=0$) beinhaltet als Zeitsignal den Gleichanteil mit Amplitude 1,
@@ -352,6 +356,7 @@ Mit konjugiert-komplexer Transponierung von Matrix $\bm{F}$, also mit $\bm{F}^\m
 \end{align}
 folgt die \textbf{DFT als Matrixmultiplikation}
 \begin{align}
+\label{eq:ex11_dft_hin}
 \bm{x}_\mu = \bm{F}^\mathrm{H} \cdot \bm{x}_k.
 \end{align}
 Wenn wir also eine Zeile aus der Matrix $\bm{F}^\mathrm{H}$ mit dem Spaltenvektor $\bm{x}_k$
@@ -360,7 +365,7 @@ verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
 berücksichtigt.
 
 %
-\noindent\textbf{Unitäre Fourier Matrix}
+\noindent Hinweis \textbf{Unitäre Fourier Matrix}
 Wir könnten das IDFT/DFT-Paar auch mit $\frac{1}{\sqrt{N}}$-Normierung
 aufschreiben (das wird sehr gerne in Physik und Mathe benutzt)
 \begin{align}
@@ -368,15 +373,15 @@ x[k] = \frac{1}{\sqrt{N}} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k 
 \qquad
 X[\mu] = \frac{1}{\sqrt{N} }\sum_{k=0}^{N-1} x[k] \, \e^{-\im\frac{2\pi}{N} k \cdot \mu}
 \end{align}
-Dann benutzen wir die Fourier-Matrix
+Dann benutzen wir die normierte Fourier-Matrix
 \begin{align}
-\mathring{\mathbf{F}} = \frac{\mathbf{F}}{\sqrt{N}}
+\mathring{\bm{F}} = \frac{\bm{F}}{\sqrt{N}}
 \end{align}
 für die IDFT / DFT-Matrixoperationen
 \begin{align}
-\bm{x}_k = \mathring{\mathbf{F}} \, \bm{x}_\mu
+\bm{x}_k = \mathring{\bm{F}} \, \bm{x}_\mu
 \qquad
-\bm{x}_\mu = \mathring{\mathbf{F}}^* \, \bm{x}_k,
+\bm{x}_\mu = (\mathring{\bm{F}})^* \, \bm{x}_k,
 \end{align}
 also bei der DFT die konjugiert-komplexe von $\mathring{\mathbf{F}}$.
 %
@@ -385,20 +390,20 @@ also eine orthonormale, komplexe und zudem symmetrische Matrix, für die
 \begin{align}
 \mathring{\bm{F}} = \mathring{\bm{F}}^\mathrm{T}
 \qquad
-\mathring{\bm{F}}^* =
+(\mathring{\bm{F}})^* =
 \mathring{\bm{F}}^\mathrm{H} =
 \mathring{\bm{F}}^{-1}
 \qquad\text{und}\qquad
 \mathring{\bm{F}}^{-1} \, \mathring{\bm{F}} =
 \mathring{\bm{F}} \, \mathring{\bm{F}}^{-1} =
-\mathbf{I}.
+\bm{I}.
 \end{align}
 gilt.
 %
 Damit sehen wir sehr schön, dass die DFT/IDFT eindeutig lösbare
 Gleichungssysteme repräsentieren, wobei die Vektoren (bei uns in SigSys also Zeitsignal bzw.
 DFT-Spektrum) in eine (spezielle und fundamentale wichtige)
-orthonormale Vektorbasis projiziert werden, die wir lernen werden sinnvoll
+orthonormale Vektorbasis projiziert werden, die wir lernen sollten, sinnvoll
 für SigSys Probleme zu interpretieren.
 
 
@@ -406,8 +411,8 @@ für SigSys Probleme zu interpretieren.
 \subsection{Inverse DFT}
 \label{sec:D394560597}
 \begin{Ziel}
-Wir wollen uns als Einstieg in die DFT / IDFT mit der Signalsynthese, also
-der inversen DFT beschäftigen. Dazu diskutieren wir zwei ganz einfache
+Wir wollen uns als Einstieg in die DFT / IDFT Welt mit der Signalsynthese, also
+in SigSys-Anschauung mit der inversen DFT beschäftigen. Dazu diskutieren wir zwei ganz einfache
 Fälle, in denen das $N=8$ DFT-Spektrum nur einen bzw. zwei Einträge hat, die nicht Null sind.
 Wenn wir die Signalsynthese anhand der zugrundeliegenden Linearkombination
 verstanden haben, können wir die Spektren beliebig verkomplizieren und damit
@@ -426,8 +431,8 @@ Berechnen Sie davon die inversen DFTs, also $x_c[k] = \text{IDFT}_8\{X_c[\mu]\}$
 und $x_r[k] = \text{IDFT}_8\{X_r[\mu]\}$.
 
 \begin{Werkzeug}
-IDFT als Linearkombination $\bm{x}_k = \frac{1}{N} \bm{F} \bm{x}_\mu$
-oder wenn wir es lieber als Summe mögen
+IDFT als Linearkombination $\bm{x}_k = \frac{1}{N} \bm{F} \cdot \bm{x}_\mu$
+oder wenn wir es zunächst lieber als Summe mögen
 \begin{align}
 x[k] = \mathrm{IDFT}_N\{X[\mu]\} = \frac{1}{N} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}
 \end{align}
@@ -504,7 +509,7 @@ Ein wenig anschaulicher als der reine Formelalgorithmus, könnte die folgende
 Überlegung sein:
 %
 Die Werte in den Spaltenvektoren variieren ja über $k$,
-das sind also 8 Samples der in $N=8$ periodischen Signale.
+das sind also genau die 8 Samples der in $N=8$ periodischen Signale.
 Die DFT stellt 8 Frequenzen dar, diese verschiedenen Frequenzen sind in den
 Signalen der 8 Spaltenvektoren codiert.
 Spalte eins codiert den Gleichanteil, es sind nur Einsen.
@@ -539,9 +544,9 @@ Das ist der Sinn dieser (wunderschönen) Vektorbasis.
 %
 Wir müssen zunächst die etwas kryptische Schreibweise der gegebenen DFT
 Spektren entziffern.
-Wir haben eine Summe von Diracs, die jeweils um $8\mu$ verschoben sind. Dies
+Wir haben eine Summe von Diracs, die jeweils um $8 m$ verschoben sind. Dies
 sorgt dafür, dass der analytische Ausdruck periodisch in 8 ist. Wir hätten auch
-(das findet sich oft in Büchern) nur das Basisband $0\leq \mu \leq N-1$ angeben
+(das findet sich oft in Büchern) nur das sogenannte Basisband $0\leq \mu \leq N-1$ angeben
 können und müssten dann erwähnen, dass wir es $N$ periodisch auffassen.
 %
 Damit wir den $N$ \textbf{periodischen Charakter} nie vergessen, hier mal mit Dirac
@@ -563,7 +568,8 @@ Für das Spektrum $X_r[\mu]$ erfolgt die Gewichtung
 
 Damit können wir uns nun die Spektren, also genauer Realteil und Imaginärteil
 (wahlweise ginge auch Betrag und Phase), visualisieren. Das ist unten dargestellt,
-in orange das Basisband $0\leq \mu \leq N-1$, in \textbf{blau} die $N=8$ \textbf{Periodizität}.
+in orange das Basisband $0\leq \mu \leq N-1$, in \textbf{blau} die $N=8$
+\textbf{Periodizität} angedeutet.
 
 \begin{center}
 %
@@ -664,12 +670,12 @@ Einen Computer würden mit Zahlen versorgen, z.B. mit Matlab
 
 \texttt{ifft([0 8*exp(-1j*pi/4) 0 0 0 0 0 0].')}
 
-(Achtung: \texttt{[]'} ist adjungiert, \texttt{[].'} ist transponiert. Hier soll
-transponiert, also ein Spaltenvektor erzeugt werden, damit wir ein Spaltenvektor
+(Achtung in Matlab: \texttt{[]'} ist adjungiert, \texttt{[].'} ist transponiert. Hier soll
+nur transponiert, also ein Spaltenvektor erzeugt werden, damit wir ein Spaltenvektor
 als Ergebnis bekommen.)
 
 Die auf Seite \pageref{LinComb_for_IDFT} aufgezeigte Linearkombination reduziert
-sich für das Spektrum $X_c[\mu]$ zur Benutzung des zweiten Spaltenvektors (die
+sich für das Spektrum $X_c[\mu]$ auf die Benutzung des zweiten Spaltenvektors (die
 anderen Gewichte/DFT-Koeffizienten sind ja Null)
 \begin{align*}
 \bm{x}_{k,c}=
@@ -764,12 +770,13 @@ Spalte der Matrix $\bm{F}$
 \end{bmatrix}
 \end{align}
 Unser Ergebnis suggeriert, dass die resultierende Zeitfolge rein reellwertig ist.
-Das ist in der Tat so! Wir prüfen es kurz analytisch und fragen uns dann, warum
+Das ist in der Tat so, vgl. Symmetrieeigenschaften der FT!
+Wir prüfen es kurz analytisch und fragen uns dann, warum
 das so sein muss.
 
 Wir kennen die analytischen Ausdrücke der DFT 'Eigensignale' aus der zweiten
 und achten Spalte, vgl.~\fig{fig:fourier_matrix}.
-Diese mit dem jeweiligen Vorfaktor gewichtet ergibt
+Diese mit dem jeweiligen Vorfaktor und $\frac{1}{N}$ für IDFT gewichtet ergibt
 \begin{align}
 x_r[k]
 =
@@ -777,7 +784,7 @@ x_r[k]
 \frac{1}{8} \cdot 4 \e^{+\im\frac{\pi}{4}} \cdot  \e^{\im \frac{2\pi}{8}\cdot 7 k}
 \end{align}
 %
-und weiter ausformuliert und damit vereinfacht
+und weiter ausformuliert und damit vereinfacht (i.e. SigSys must have skills)
 \begin{align}
 x_r[k]
 =
@@ -860,7 +867,7 @@ $\e^{\im\pi}$ (halbe Abtastfrequenz).
 \subsection{DFT einer komplexen Exponentialschwingung}
 \label{sec:0C30EB5E76}
 \begin{Ziel}
-Wir wollen uns anschauen, wie sich die DFT errechnet für eine komplexe
+Wir wollen uns anschauen, wie sich die DFT berechnet für eine komplexe
 Exponentialschwingung. Wir müssen unbedingt verstanden haben, wie die
 Matrixmultiplikation und die analytische Lösung mittels der psinc Funktion
 zu dem Ergebnis für nur eine einzige Signalfrequenz kommt. Erst wenn das
@@ -887,7 +894,8 @@ Skizzieren Sie Betrag und Phase des DFT Spektrums.
 
 \begin{Werkzeug}
 Aus Aufgabe \ref{sec:D394560597} kennen wir die Fourier Matrix $\bm{F}_8$.
-Wir brauchen für die DFT Hintransformation hier nun die Adjungierte $\bm{F}^\mathrm{H}_8$.
+Wir brauchen für die DFT Hintransformation hier nun die Adjungierte $\bm{F}^\mathrm{H}_8$,
+vgl. \eqref{eq:ex11_dft_hin}
 \end{Werkzeug}
 \begin{Ansatz}
 DFT als Matrixmultiplikation
@@ -938,7 +946,7 @@ vgl.~\fig{fig:fourier_matrixH}.
 \centering
 \includegraphics[width=0.9\textwidth]{../dft/fourier_matrix_H}
 \caption{Konjugiert-komplexe Transponierung der $N=8$ Fourier Matrix,
-also \eqref{eq:FourierMatrixH}, so dargestellt, dass
+also $\bm{F}^\mathrm{H}$ \eqref{eq:FourierMatrixH}, so dargestellt, dass
 die 8 komplexwertigen DFT Eigensignale getrennt nach Zeilen dargestellt sind.
 Da die Zeilen bereits konjugiert-komplexe Vektoren repräsentieren, erfolgt die
 DFT-Analyse als einfaches Skalarprodukt zwischen einer dieser Zeilen und einem
@@ -978,8 +986,8 @@ Bauen wir uns zunächst den Eingangssignalvektor zusammen
 \end{align}
 
 
-Das innere Produkt (Skalarprodukt) der ersten Zeile von $\bm{F}^\mathrm{H}$ und dem
-Spaltenvektor $\bm{x}_k$ liefert den ersten Eintrag des Vektors $\bm{x}_\mu$, also
+Das innere Produkt (Skalarprodukt) der \underline{ersten} Zeile von $\bm{F}^\mathrm{H}$ und des
+Spaltenvektors $\bm{x}_k$ liefert den \underline{ersten} Eintrag des Vektors $\bm{x}_\mu$, also
 $X[\mu=0]$ (Gleichanteil)
 \begin{align}
 &X[\mu=0] =
@@ -1001,8 +1009,8 @@ $X[\mu=0]$ (Gleichanteil)
 = \frac{1}{\sin(\frac{5}{16}\pi)} \e^{\im\frac{3}{16}\pi}
 \end{align}
 %
-Für die zweite Zeile von $\bm{F}^\mathrm{H}$ folgt das Skalarprodukt für
-$X[\mu=1]$ (DFT Grundfrequenz). Damit erhalten wir den zweiten Eintrag des
+Für die \underline{zweite} Zeile von $\bm{F}^\mathrm{H}$ folgt das Skalarprodukt für
+$X[\mu=1]$ (DFT Grundfrequenz). Damit erhalten wir den \underline{zweiten} Eintrag des
 Spaltenvektors $\bm{x}_\mu$.
 \begin{align}
 &X[\mu=1] =
@@ -1078,7 +1086,7 @@ X = fft(exp(+1j*2*pi/8*2.5*[0:7].'))
 abs(X)
 angle(X)/pi*16
 \end{verbatim}
-und mit Python inkl.\texttt{numpy} Paket
+und mit Python mit importiertem \texttt{numpy} Paket
 \begin{verbatim}
 import numpy as np
 X = np.fft.fft(np.exp(+1j*2*np.pi/8 * 2.5 * np.arange(8)))
@@ -1127,19 +1135,19 @@ X[\mu] =& \sum_{\mu=0}^{N-1} \e^{+\im\,\Omega_0 k} \e^{-\im\,\frac{2\pi}{N} k \m
 \end{align}
 mit $\Omega_{0,\mu} = -\Omega_0 + \frac{2\pi}{N} \mu$.
 Dies ist wieder die endliche geometrische Reihe mit der geschlossenen Lösung
-(vgl.~Glg. \eqref{eq:ue10_sum_to_psinc}ff (10.68)ff)
+(vgl.~Glg. \eqref{eq:ue10_sum_to_psinc}ff (10.71)ff)
 \begin{align}
 X[\mu] = \e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot
 \frac{\sin\left(\Omega_{0,\mu}\cdot\frac{N}{2}\right)}{\sin\left(\Omega_{0,\mu}\cdot\frac{1}{2}\right)}
 =\e^{-\im \,\Omega_{0,\mu}\,\frac{N-1}{2}} \cdot N \cdot \mathrm{psinc}_N(\Omega_{0,\mu})
 .
 \end{align}
-Wir begegnen wieder einmal der periodischen Sinc Funktion (vgl. Glg.~\eqref{eq:ue10_psinc} (10.71))
+Wir begegnen wieder einmal der periodischen Sinc Funktion (vgl. Glg.~\eqref{eq:ue10_psinc} (10.74))
 \begin{align*}
 \mathrm{psinc}_N(\Omega) = \frac{1}{N}\frac{\sin({\Omega\frac{N}{2}})}{\sin({\Omega\frac{1}{2}})}.
 \end{align*}
 %
-Mit dieser Formel finden wir die analytischen Ausdrücke für Betrag und Phase
+Mit diesen Formeln finden wir die analytischen Ausdrücke für Betrag und Phase
 vergleichsweise schöner und einfacher, z.B. für $\mu=2$
 \begin{align}
 &|X[\mu=2]| = \frac{1}{\sin(\frac{\pi}{16})} \approx 5.1258\\
@@ -1147,7 +1155,7 @@ vergleichsweise schöner und einfacher, z.B. für $\mu=2$
 \end{align}
 Es ist hilfreich, wenn wir uns klarmachen, dass wir für $\Omega_0=0$ die DFT der
 Rechteckfolge $\mathrm{rect}_N[k]$
-in dieser Formel abbilden, hier ist wieder ein wichtiger Speziallfall
+in dieser Formel abbilden, hier ist wieder einmal ein wichtiger Speziallfall
 nebenbei mit abgefallen.
 
 Die beiden Denkkonzepte
@@ -1169,7 +1177,7 @@ x[k] = \e^{+\im \frac{2\pi}{8} \cdot 2 \cdot k}
 x[k] = \e^{+\im \frac{2\pi}{8} \cdot 3 \cdot k}
 \end{align}
 abändern, wie schaut dann das DFT Spektrum aus? Wenn wir das durch reine
-Überlegung lösen können, haben wir viel vom Wesen der DFT
+Überlegung(!) lösen können, haben wir viel vom Wesen der DFT
 verstanden.
 %
 Falls ein Aha Erlebnis ausbleibt, ruhig nochmal die vorherige Aufgabe~\ref{sec:D394560597} (11.1)
@@ -1190,8 +1198,8 @@ $\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$.
 Warum ist diese Signalenergie in der DFT nun auf die $\mu$, vor allem auf $\mu=2$ und
 $\mu=3$  verschmiert und suggeriert sogar einen Gleichanteil bei $\mu=0$.
 %
-Schuld ist \textbf{nie} die DFT, die macht alles richtig, immer!, sie bildet
-einen $N$-dimensionalen Vektor auf einen anderen ab.
+Schuld ist \textbf{nie} die DFT, die macht alles richtig, immer!!, sie bildet
+einfach 'nur' einen $N$-dimensionalen Vektor auf einen anderen ab.
 %
 \textbf{Unsere} obige Aussage---unser Signal bestünde eigentlich nur aus der Frequenz
 $\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$---ist \textbf{nicht korrekt}.
@@ -1804,7 +1812,7 @@ Matrizen
 20  &  14  &   9  &   5  &  -3
 \end{bmatrix}
 \end{align}
-Und auch hier reicht es wieder nur die erste Spalte der Ergebnismatrix aus der
+Und auch hier reicht es wieder, nur die erste Spalte der Ergebnismatrix aus der
 Linearkombination
 \begin{align}
 3 \cdot
