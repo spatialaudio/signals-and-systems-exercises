@@ -20,7 +20,7 @@ die wichtigen analytischen Rechnungen nicht aus den Augen verlieren.
 
 Hier nun zwei abschließende Aufgaben, die wir im Detail nicht mehr analytisch
 ausrechnen, sie sollten aber noch auf dem Papier
-handhabbar sein (der Autor mutmaßt, weil er es selbst zu faul dafür war).
+handhabbar sein (der Autor mutmaßt, weil er selbst zu faul dafür war).
 Darum soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
 Aspekte zur Beschreibung von zeitdiskreten Systemen herauszuarbeiten.
 
@@ -39,7 +39,7 @@ interpolieren zu einem kontinuierlichen DTFT-Spektrum. Anders herum, könnten
 wir uns dies als ideale Abtastung des DTFT-Spektrums hin zum DFT-Spektrum erklären.
 Die Aufgabe~\ref{sec:45C76AFB33} (7.2) behandelte die Rekonstruktion (also Interpolation)
 von Fourierreihenkoeffizienten zur Fouriertransformation, wir machen das gleiche
-jetzt für Spektren die $2\pi$-periodisch sind, also zu zeitdiskreten Signalen
+jetzt für Spektren die $2\pi$-periodisch sind, die also zu zeitdiskreten Signalen / Folgen
 gehören.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 6337B75DF2}: Stellen Sie für das FIR-Filter
@@ -96,7 +96,7 @@ x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k].
 \end{Ansatz}
 \begin{ExCalc}
 Die hintere Summe über $k$ ist wieder die endliche, geometrische Reihe,
-vgl. Glg.~\eqref{eq:ue10_sum_to_psinc}ff (10.68)ff
+vgl. Glg.~\eqref{eq:ue10_sum_to_psinc}ff (10.71)ff
 und \cite[(3-39)]{Lyons2011}.
 Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Rechenübung,
 weil ähnliche Umformungen in SigSys immer wieder benötigt werden.
@@ -114,7 +114,7 @@ zu, vgl.~\cite[(2.41)]{Moeser2011}, \cite[(2.142)]{Rabiner1975}
 X(\Omega)=\sum_{\mu=0}^{N-1}\tilde{X}[\mu]\cdot\e^{-\im\frac{\left(\Omega-\frac{2\pi}{N}\mu\right)(N-1)}{2}}\cdot\frac{1}{N}\cdot\frac{\sin\left(N\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}{\sin\left(\frac{\Omega-\frac{2\pi}{N}\mu}{2}\right)}.
 \end{equation}
 %
-Wir begegnen hier wieder der periodischen (und bezgl. der Frequenz verschobenen) Sinc Funktion in Form
+Wir begegnen hier wieder der periodischen (und in obiger Formel bzgl. der Frequenz verschobenen) Periodic Sinc Funktion in Form
 %
 \begin{align}
 \text{psinc}_N(\Omega)=\begin{cases}\frac{1}{N}\cdot\frac{\sin\left(\frac{N}{2}\Omega\right)}{\sin\left(\frac{1}{2}\Omega\right)}&\text{für }\Omega\neq2\pi m\\
@@ -197,7 +197,7 @@ In einer großen Kirche müssten wir dann schon mal 20 s Zeitfenster einplanen,
 damit wir den kompletten Nachhall als Antwort auf einen lauten Knall erfassen
 können (diesen Impuls zur Anregung des Raums würden wir heutzutage aus technischen,
 aber viel wichtiger: sozialverträglichen Gründen nicht mehr mit einer Handfeuerwaffe
-erzeugen ;-) ).
+erzeugen).
 %
 Wenn wir uns für die Systemeigenschaften, wie den Frequenzgang der gemessenen,
 endlichen Impulsantwort der Länge $N$ interessieren, müssten wir erst die
@@ -307,7 +307,7 @@ Zerlegung in Minimalphasensystem und Allpass vornehmen. Dazu benutzen
 wir Systeme dritter Ordnung, d.h. Systeme
 mit 3 Polen und 3 Nullstellen. Die Vorgehensweise
 ist analog zur zeitkontinuierlichen Welt. Spiegelung von Nullstellen in
-der $s$-Ebene überträgt sich im $z$-Bereich auf
+der $s$-Ebene überträgt sich nun hier im $z$-Bereich auf
 Inversion des Betrags der Nullstelle unter Beibehaltung des
 Winkels.
 %
@@ -325,7 +325,7 @@ minimal gehalten und vielleicht übersichtlicher als ihr On-board
 Gegeben sind ein sogenanntes Mixed-Phase System $H_\mathrm{mix}(z)$
 (Nullstellen sowohl innerhalb als auch außerhalb des
 Einheitskreises) und ein maximalphasiges System $H_\mathrm{max}(z)$
-(alle Nullstellen außerhalb des Einheitskreises). Alle Pole liegen im inneren
+(alle Nullstellen außerhalb des Einheitskreises). Alle Pole liegen im Inneren
 des Einheitskreises, die Systeme sind damit stabil sind, wenn wir (wie hier immer)
 Kausalität fordern.
 
@@ -381,7 +381,8 @@ Jupyter Notebook Plot-Routine \texttt{plot\_dtlti\_analysis()} findet sich
 
 \end{Werkzeug}
 \begin{Ansatz}
-Um aus gemischtphasigen Systemen ein minimalphasiges zu machen, müssen wir
+Um aus gemischtphasigen, stabilen Systemen (d.h. alle Pole sind schon im Enheitskreis)
+ein minimalphasiges zu machen, müssen wir
 alle Nullstellen in den Einheitskreis bringen. Dies gelingt mit der Idee, dass
 die neue Nullstelle bzgl. des Betragsfrequenzgangs
 das gleiche machen muss wie die ursprüngliche.
@@ -404,7 +405,7 @@ Für das gesuchte Minimalphasensystem $H_\mathrm{min}(z)$ finden wir also
 %k = 2;
 Den Verstärkungsfaktor finden wir aus der Forderung
 $|H_\mathrm{max}(z)| = |H_\mathrm{mix}(z)| = |H_\mathrm{min}(z)|$, was
-sich halbwegs elegant für $z=\e^{\im \Omega}$ bei $\Omega=0$ also Gleichanteil
+sich hier halbwegs elegant für $z=\e^{\im \Omega}$ bei $\Omega=0$ also Gleichanteil
 (DC, $\frac{15+6\sqrt(2)}{25} \approx 0.9394$) finden lässt.
 %
 \end{Ansatz}
@@ -717,8 +718,8 @@ $\tau_\mathrm{GD,samples} \,/\, f_s = \tau_\mathrm{GD,seconds}$.
 In der rechten Spalte sind Impuls- und Sprungantwort über Samples (also unabhängig
 von $f_s$) dargestellt. Ganz unten rechts das Pol / Nullstellendiagramm.
 Der Konvergenzbereich (passend zu einem kausalen System)
-ist hier als grüne Fläche angedeutet, also alles außerhalb
-des weißenKreises mit Radius der betragsmäßig größten Polstelle.
+ist hier wie immer in diesem Skript als grüne Fläche angedeutet, also alles außerhalb
+des weißen Kreises mit Radius der betragsmäßig größten Polstelle.
 
 Gemäß Bodediagramm-Darstellung können wir bei Reihenschaltung von Systemen
 \begin{itemize}
