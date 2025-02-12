@@ -5,19 +5,19 @@
 Dieses Übungsskript entstand als erste Version während des Frühjahrs und Sommers 2020, der
 COVID-19 - pandemie-bedingten Lehr- und Lernsituation Rechnung tragend.
 %
-Die Intention war ein klassisches, sehr ausführliches Übungsskript zur Hand zu haben,
+Die Intention war, ein klassisches, sehr ausführliches Übungsskript zur Hand zu haben,
 mit dem man auch ohne Videokonferenz Marathon (und damaligem initialem Chaos)
-eine Materialsammlung zur Vertiefung der Signal- und Systemtheorie (SigSys)
-hat.
+typische Rechenprobleme der Signal- und Systemtheorie (SigSys) nachvollziehen kann, aber gleichzeitig das Wesen und die Essenz der SigSys in einer didaktischen Geschichte erzählt werden kann.
 %
-In der anhaltenden Hoffnung, dass dies ein nützliches Format ist, gibt es nun
-für das Sommersemester 2025 die sechste Auflage, wieder leicht adaptiert,
-um der Logik des aktuellen ET/ITTI-Studienplans noch besser zu folgen.
+Wenn man so ein Skript von ganz Null anfängt, kann man alles neu hinterfragen und abwägen. Der Beginn des sehr produktiven SoSe 2020 war also eine (lange) Liste von Must Haves für SigSys-Verständnis und SigSys-Rechenhandwerk, sowie diverse didaktische Ideen die mir in Textbüchern unterrepräsentiert erschienen. Diese Must Haves sind dann als Story in Aufgaben verteilt über 12 Übungseinheiten (damals wegen verkürztem Semester) eingeflossen.
+
+In der anhaltenden Hoffnung, dass dieses Skript und die Idee dahinter für Einige nützlich ist, gibt es nun für das Sommersemester 2025 die sechste Auflage, wieder leicht adaptiert,
+um dem aktuellen ET/ITTI-Studienplan noch besser zu folgen.
 %
 Zur kontinuierlichen Verbesserung dieses Skripts sind wir für Feedback sehr dankbar.
 %
 Wenn Ihnen irgendwo in unserem Material das \textbf{Was?, Warum? Wie?} und das
-\textbf{Lernziel} oder die \textbf{Essenz} fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid!
+\textbf{Lernziel} oder die \textbf{Essenz} fehlt oder ausbaufähig erscheint, geben Sie bitte Bescheid.
 
 Typischerweise ist die in SigSys benutzte Mathematik einfacher als so mancher
 Stoff aus den Mathematik Grundlagenvorlesungen.
@@ -26,44 +26,22 @@ Das was wir in SigSys an Mathematik brauchen, muss aber sicher beherrscht werden
 und vom Wesen durchdrungen worden sein.
 %
 Dies gelingt durch individuelle Übung und das individuelle erfolgreiche Aneignen
-von Wissen und Rechenhandwerk.
+von Wissen (Was?, Warum?) und Rechenhandwerk (Wie?).
 %
-Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller---und ganz wichtig: analoger---
+Am Ende des Tages ist \textbf{Verstehen} ein hoch individueller---und offensichtlich: analoger---
 Erarbeitungs-und Selbstreflexionsprozess, den jede/r mit eigener Strategie bewältigen muss.
 %
 Kleine Arbeitsgruppen helfen aber immens sich gegenseitig das Verstandene und
 Unverstandene zu reflektieren.
 
-Aus vielen Jahren Lern- und Lehrerfahrung: digitale Hilfsmittel helfen eigentlich immer nur auf den letzten Metern. Textbücher und Papier und Stift, also Kulturtechniken mit mehreren Hundert bzw. Tausend Jahren Historie, sind nicht old school, nur weil uns seit nun 20 Jahren Smartphones, digital (a)social media/networking und digitale Inhalte mit sehr oft unterkomplexen Narrativen beherrschen.
+Aus vielen Jahren Lern- und Lehrerfahrung: digitale Hilfsmittel helfen eigentlich immer nur auf den letzten Metern. Textbücher und Papier und Stift, also Kulturtechniken mit mehreren Hundert bzw. Tausend Jahren Historie, sind nicht old school, nur weil uns seit nun 20 Jahren Smartphones, digital (a)social media/networking und digitale Inhalte mit sehr oft unterkomplexen Narrativen und lächerlich kurzer Halbwertszeit beherrschen. Nicht falsch verstehen: es gibt brilliante Online-Tutorials zu allem Möglichen im Netz; da im Netz aber typisch keine wissenschaftliche Qualitätskontrolle, müssen wir das selber übernehmen...und wegen Textgeneratoren wie ChatGPT werden wir irgendwann mal sehr, sehr viel Zeit damit verbringen :(.
 
-Viel Erfolg beim Lernen und Erarbeiten und scheuen Sie keine Fragen an uns, das macht es lebendig!
-Nutzen Sie dazu gerne die Übungen und Vorlesungen und die
-jeweiligen Foren im studIP.
-%
-
-
-%
-Unterstützt wird dieses Übungsskript durch kleine Python-Skripte in
+Unterstützt wird dieses Übungsskript---und auch die Vorlesung---durch kleine Python-Skripte in
 \textbf{Jupyter Notebooks} (*.ipynb Dateien),
 welche alle hier enthaltenen Diagramme erzeugen, sodass Sie
 detailliert nachschauen, mit diesen Beispielen eigene Versuche machen
 bzw. Fehler aufspüren können.
 %
-Im StudIP haben wir weiter eine \textbf{Formelsammlung} bereitgestellt.
-%
-Diese Formelsammlung können Sie in der Klausur benutzen, sie bekommen Sie
-dann mit den Aufgaben ausgehändigt.
-%
-Eigene Ausdrucke sind nicht zugelassen.
-%
-In der Formelsammlung sind die wichtigsten Zusammenhänge der Signal- und
-Systemtheorie kompakt auf vier DIN A4 Seiten zusammengetragen.
-%
-Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten und vor allem zu verstehen.
-%
-Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester zur eigenständigen Lösung.
-
-\newpage
 Das LaTex-Projekt zu diesem vorliegenden Übungsskript und alle gerenderten Jupyter
 Notebooks gibt es frei verfügbar unter CC BY 4.0 und MIT Lizenzen unter
 \begin{mdframed}[backgroundcolor=C2!10]
@@ -88,8 +66,28 @@ vorzuschlagen (mittels Issue im github System) oder sogar selber vorzunehmen
 Lernen Sie auch möglichst bald Versionskontrolle mittels git, Sie werden es sehr
 wahrscheinlich brauchen im weiteren Verlauf des Studiums und im Berufsleben.
 
+
+Im StudIP haben wir weiter eine \textbf{Formelsammlung} bereitgestellt.
+%
+Diese Formelsammlung können Sie in der Klausur benutzen, sie bekommen Sie
+mit dem Aufgabenblatt ausgehändigt.
+%
+Eigene Ausdrucke und eigenes Papier ist nicht zugelassen.
+%
+In der Formelsammlung sind die wichtigsten Zusammenhänge der Signal- und
+Systemtheorie kompakt auf vier DIN A4 Seiten zusammengetragen.
+%
+Es ist sehr sinnvoll, sich diese Formeln zu erarbeiten und vor allem zu verstehen.
+%
+Im StudIP, finden sich zudem \textbf{Altklausuren} der letzten Semester zur eigenständigen Übung. Einige Aufgaben werden Sie in der Präsenzübung erarbeiten.
+
+Viel Erfolg beim Lernen und Erarbeiten und scheuen Sie keine Fragen an uns, das macht es lebendig!
+Nutzen Sie dazu gerne die Übungen und Vorlesungen und die
+jeweiligen Foren im studIP.
+
+
 \newpage
-\subsection*{Aufbau Aufgabe}
+\subsection*{Aufbau einer Aufgabe}
 \begin{Ziel}
 Das Wesen vorher klären mit Was?, Warum?, Wie? ist essentiell, damit wir das
 Lernziel erfassen können und Lernen nicht willkürliches Puzzleteilsammeln ist.
@@ -124,13 +122,12 @@ befriedigendes Belohnungsgefühl einsetzt...
 %
 \end{ExCalc}
 \begin{Loesung}
-Endergebnisse, Grafiken und ganz wichtig ist---eben nicht der obligatorische Antwortsatz
-aus der Schulphysik---sondern vielmehr eine ingenieursgerechte Interpretation der Lösung
+Endergebnisse, Grafiken und eine ingenieursgerechte Interpretation der Lösung
 für das gestellte Problem.
 %
 Was ist unser Erkenntnisgewinn?
 %
-(Vergleiche: Ich kann Faltung rechnen. vs. Ich habe Faltung verstanden. vs. Ich weiss sogar wo Faltung als Konzept herkommt.)
+Vergleiche: Ich kann Faltung rechnen. vs. Ich habe Faltung verstanden. vs. Ich weiss sogar wo Faltung als Konzept herkommt.
 %
 \textbf{Was sehen wir in den Formeln}?
 %
@@ -139,11 +136,11 @@ Was lesen wir aus den Grafiken?
 Wurde unsere Erwartungshaltung erfüllt oder nicht? \textbf{Ingenieurig denken}...
 
 In der Klausur ist typischerweise so viel Stoff abzufragen und so wenig Zeit,
-dass so etwas leicht auf der Strecke bleiben kann. Jedoch eine im Kopf
+dass diese Dinge etwas auf der Strecke bleiben können. Jedoch, eine im Kopf
 durchgeführte Interpretation ist ein hervorragender Plausibilitätscheck, ob das was
 wir da gerechnet haben, sein kann. Und je mehr Aufgaben wir
 vorher geübt haben (eigentlich je mehr wir vom Wesen verstanden haben und in
-Echtzeit verwenden können; das wird aber gern mit viel Üben oder gar
+Echtzeit verwenden können; das wird aber gern mit viel Üben von Kochrezept-Aufgaben oder gar
 Auswendiglernen gleichgesetzt),
 desto leichter und schneller wird uns das fallen.
 %

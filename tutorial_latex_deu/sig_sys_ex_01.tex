@@ -4,7 +4,7 @@
 \section{UE 1: Wiederholung Mathe: Fourier-Reihe, Lösen von DGL}
 \label{sec:ue1_intro}
 Zielsetzung / Objectives: Bereits bestehende Kenntnisse aus der Mathematik
-wiederholen oder vielleicht auch erst einführen(?) und in den Kontext der SigSys einordnen.
+wiederholen oder vielleicht leider(!) auch erst einführen(?) und in den Kontext der SigSys einordnen.
 %Ausblick was/wie/warum und Verknüpfung mit bereits
 %bekanntem MatheZeug, Begrifflichkeit Signal, System
 
@@ -16,7 +16,7 @@ wiederholen oder vielleicht auch erst einführen(?) und in den Kontext der SigSy
 \end{itemize}
 %
 Wir benutzen noch kein Signal- und Systemtheorie (SigSys) spezifisches Wissen,
-sondern das in Mathe erworbene Wissen zur Fourierreihe und -transformation
+sondern das in Mathe erworbene Wissen zur Fourierreihe
 und zu Differentialgleichungen. Die Übungsaufgaben dienen dazu, fundamental
 wichtige Bausteine der SigSys zu teasen und im Grunde in der Mathematik zu verorten,
 SigSys ist ja keine Neuerfindung von Dingen, sondern eine ingenieurig elegante
@@ -30,7 +30,7 @@ Anwendung derer.
 \begin{Ziel}
 Wir wollen für die Fourierreihe den wichtigen Zusammenhang zwischen der Rechteckfunktion
 und der Spaltfunktion anhand eines fundamental wichtigen Beispiels erfassen. Zudem enthält die
-ausführliche Rechnung Schritte und Umformungen, welche wir so oder in ähnlicher Form
+ausführlichste Rechnung Schritte und Umformungen, welche wir so oder in ähnlicher Form
 immer wieder brauchen werden.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D1483A84E2}: Berechnen Sie die komplexe Fourier-Reihe für
@@ -95,7 +95,7 @@ den Zeitraum $-T/2$ bis $T/2$ also axialsymmetrisch zum Koordinatensystem-Urspru
 \begin{Ansatz}
 %
 Wir müssen innerhalb einer Periode nur die Teile berücksichtigen, wo
-die Funktion nicht Null ist. Am einfachsten ist das für unser Rechenbeispiel,
+die Funktion nicht Null ist. Am einfachsten ist das für unser spezielles Rechenbeispiel,
 wenn wir den Zeitraum $-T/2$ bis $+T/2$ berücksichtigen und
 daher nur von $-T_h/2$ bis $+T_h/2$ integrieren.
 \begin{equation}
@@ -265,12 +265,12 @@ Wir haben mit der vorigen Aufgabe ganz gut vorgearbeitet und können uns
 mit der Rechteck- und Spaltfunktion dem Phänomen Dirac-Impuls nähern.
 Ingenieur*innen ist das Konzept am Anfang ein wenig fremd, weil
 der Dirac-Impuls keine klassische Funktion ist, sondern eine Distribution, d.h.
-es gibt bestimmte Funktionen, für die zwar ein gewünschter Grenzwert nicht existiert,
+es gibt bestimmte Funktionen, für die ein eigentlich gewünschter Grenzwert zwar nicht existiert,
 die aber gleiche Grundeigenschaften besitzen, wenn man sich dieser Grenze annähert.
 Diese Grundeigenschaften werden wir kennenlernen als sehr nützliche
 Rechenregeln des Dirac-Impulses, und damit haben wir eigentlich das nötige
 Handwerkszeug für SigSys dann schon parat.
-Die Rechteck- und Spaltfunktion sind zwei solcher Funktionen mit
+Die Rechteck- und Spaltfunktion sind zwei solche Funktionen mit
 Grundeigenschaften die einen Dirac-Impuls ausmachen (ganz streng genommen erfüllt
 die Rechteckfunktion bestimmte Anforderungen der Distributionstheorie gar nicht,
 aber es ist in SigSys-Büchern das deutlich beliebtere Signal einen Dirac Impuls
@@ -278,7 +278,7 @@ Grenzübergang aufzuzeigen.)
 
 Zudem werden wir zwei fundamentale Korrespondenzen der Fouriertransformation
 kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals, das als
-Vorgriff auf das was uns erwartet in SigSys.
+weiter Vorgriff auf das was uns erwartet in SigSys.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D410BDAAE0}:
 Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$ sowie
@@ -311,9 +311,9 @@ Nun sind die Grenzwerte
 %\begin{equation}
 $\lim_{\xi\to\infty} \delta_\xi(t)$
 %\end{equation}
-leider nicht definiert.
+leider nicht definiert, weil die Funktionen wachsen ins Unendliche bei $t=0$.
 %
-Machen wir uns aber klar, dass sowohl die Rechteck- als auch Spaltfunktion mit
+Wir machen uns klar, dass sowohl die Rechteck- als auch Spaltfunktion mit
 größer werdendem $\xi\to \infty$ um das Funktionsargument $0$ herum
 immer schmaler und höher werden und sich
 einem Impuls annähern, siehe \fig{fig:D410BDAAE0}.
@@ -327,7 +327,7 @@ Sequenz von Integralen über $\delta_\xi(t)$, $\xi=1,2,3,...$
 \delta_\xi(t-t_0) \cdot f(t) \, \fsd t = f(t_0).
 \end{equation}
 Wir sehen, dass dieser Grenzwert auf eine Funktion $f(t)$ einwirkt und als Lösung
-$f(t_0)$ hervorbringt, wenn $\delta_\xi(t)$ um $t_0$ verschoben wurde, also
+$f(t_0)$ hervorbringt, wenn $\delta_\xi(t)$ um $t_0$ verschoben wurde (der Impuls ist dann bei $t_0$), also
 $\delta_\xi(t-t_0)$ im Integral benutzt wurde.
 %
 Diese Eigenschaft ist das was uns primär in SigSys interessiert.
@@ -542,7 +542,7 @@ für die Fouriertransformierte.
 \subsection{Lineare Differentialgleichungen}
 \label{sec:A7BEE9E24E}
 %
-Zunächst keine Aufgabe, sondern erst ein Ausblick in den Kontext einer Wiederholung
+Zunächst keine Aufgabe, sondern erst ein Ausblick in den Kontext einer mutmaßlichen Wiederholung
 gestellt.
 Wir betrachten hier einleitend den \textbf{SigSys-Teil: Systemanalyse und -synthese}.
 Dafür werden wir die Laplace-Transformation (für zeitkontinuierliche Signale, Systeme)
@@ -592,8 +592,8 @@ auf schicke, auf Papier lösbare Störgliedformeln beschränken)
 und das Konzept der Eigenlösungen und des charakteristischen
 Polynoms vertiefen bzw. aus anderem Blickwinkel betrachten (am Ende des Tages
 wollen wir für eine bestimmte Aufgabe eine Lösung mit gewünschter Genauigkeit
-mit dem einfachsten(!) Aufwand erhalten. Praktisch die gesamte SigSys ist daraufhin
-ausgelegt, auch wenn sich das momentan noch nicht so anfühlen mag).
+mit dem einfachsten(!) Aufwand erhalten). Praktisch die gesamte SigSys ist daraufhin
+ausgelegt, auch wenn sich das momentan noch nicht so anfühlen mag.
 
 Der folgende Abschnitt soll daher die SigSys Denke ein wenig schmackhaft machen und
 greift den didaktisch brillanten Faden aus \cite{Strang2014} auf. Viele Dinge
@@ -693,7 +693,7 @@ den wir hier zunächst mal vernachlässigen wollen.
 %
 Es ist bemerkenswert, dass die homogenen Lösungen
 auch hervorgehen, wenn man Eigenwerte und Eigenvektoren einer ganz bestimmten Matrix
-berechnet. Das ist natürlich kein Zufall; und mit der Denke können wir viele
+berechnet. Das ist natürlich kein Zufall; und mit diesem Ansatz können wir viele
 nützliche Tools aus der linearen Algebra mitverwenden.
 
 Um die Matrix aufzustellen, schreiben wir zunächst die homogene DGL um zu
@@ -967,7 +967,7 @@ Zeitpunkt $t=0$
 %
 \begin{mdframed}[backgroundcolor=C3!10]
 \begin{equation}
-y_p(t) = \int\limits_{0}^{t} h(t-\tau) x(\tau) \fsd \tau
+y_p(t) = \int\limits_{\tau=0}^{t} h(t-\tau) x(\tau) \fsd \tau
 \end{equation}
 \end{mdframed}
 %
