@@ -8,22 +8,27 @@ Laplace Transformation ist eine Integraltransformation aus der Familie
 F(y) = \int\limits_{x_1}^{x_2} f(x) \cdot K(x,y) \fsd x
 \end{equation}
 mit dem Integralkern $K(x,y) = \e^{-x \cdot y}$.
-Wir verwenden in SigSys vorwiegend für die Variable $x$ die Zeit $t$ und für
+Wir verwenden in SigSys vorwiegend für die Variable $x$ die Zeit $t\in\mathbb{R}$ und für
 $y$ die Laplace/Bild Variable $s\in\mathbb{C}$ (in älterer Literatur finden
-wir auch oft die Variable $p$, wahrscheinlich um den Link zur Namensgebung
+wir statt $s$ oft die Variable $p$, wahrscheinlich um den Link zur Namensgebung
 La\underline{p}lace zu machen).
 Als Grenzen benutzen wir oft $x_1={0,0^+,0^-}$ und $x_2=\infty$ um kausale Signale und
 Systeme beschreiben zu können.
 %
-Die Rücktransformation ist wegen $s\in\mathbb{C}$ ein komplexes Wegintegral.
+Die entsprechende Rücktransformation, also von $F(s)$ zu $f(t)$, ist wegen $s\in\mathbb{C}$ ein komplexes Wegintegral.
 
-Wir verwenden Signal-Transformationen, in der Hoffnung, dass a) Probleme im
+Wir verwenden Signal-Transformationen, in der Hoffnung, dass
+
+\noindent a) Probleme im
 transformierten Signalraum, dem sogenannten Bildbereich einfacher zu lösen
-sind als im Originalbereich und b) dass Signale einfacher/kompakter darstellbar
+sind, als im Originalbereich und
+
+\noindent b) dass Signale einfacher/kompakter darstellbar
 sind (vgl. kompliziert aussehendes periodisches Signal vs. wenige Koeffizienten einer Fourierreihe).
 %
-Die Wahl der geeignetsten Transformation ist dabei entscheidend, weil eine
-ungeeignete Transformation das Problem ja auch komplizierter machen kann.
+
+Die Wahl der geeignetesten Transformation ist dabei entscheidend, weil eine
+ungeeignete Transformation das Problem sogar komplizierter machen kann.
 %
 Die Laplace Transformation ist nun deswegen herausragend für SigSys geeignet, weil
 wir Signale \textbf{und} LTI-Systeme analysieren \textbf{und} synthetisieren
@@ -31,8 +36,8 @@ können und deswegen Signale mit Systemen elegant und konsistent verknüpfen kö
 
 Wir sollten uns klarmachen, dass der \textbf{Wunsch nach einem einfacherem äquivalenten
 Operator für die zeitliche Ableitung} ein möglicher Ausgangspunkt für die
-Erfindung der Laplace Transformation ist; das sehr lesenswerte,
-zeitlose Lehrwerk \cite{LangeSigSys1} enthält
+'Erfindung' der Laplace Transformation ist; das sehr lesenswerte,
+zeitlose Lehrwerk \cite{LangeSigSys1} (früherer SigSys Prof. in Rostock) enthält
 einen Abschnitt über die Entwicklungshistorie bis in die 1970er Jahre.
 Statt Ableiten, also Multiplizieren
 \begin{equation}
@@ -53,11 +58,18 @@ aber eben keine praktischen SigSys-Systeme beschreiben können.})
 der obigen
 Integraltransformation genau das gewünschte leistet. Es wurde definiert
 \begin{align}
-\mathcal{L}\{x(t)\} = \int\limits_{t=0}^{\infty} \left(x(t) \cdot \e^{-s\,t} \right)\fsd t,
+X(s) = \mathcal{L}\{x(t)\} = \int\limits_{t=0}^{\infty} \left(x(t) \cdot \e^{-s\,t} \right)\fsd t,
 \end{align}
 später deklariert als einseitige Laplace Transformation, benutzbar
 für kausale Signale.
 %
+Wir benutzen oft die folgenden Transformationsysmbole
+\begin{align}
+x(t)\quad\laplace\quad X(s) \qquad X(s)\quad\Laplace\quad x(t)
+\end{align}
+Diese sind halbwegs standardisiert, es ist aber sinnvoll gegenzuchecken, wie es genau
+benutzt wird in verschiedener Literatur.
+
 Die Laplace Transformation ist ein linearer Operator, d.h.
 es gilt die Additionseigenschaft
 \begin{align}
@@ -74,7 +86,7 @@ mittels der Integraltransformation erfüllt wird, also was passiert mit (vgl. Gl
 \begin{align}
 \mathcal{L}\{\frac{\fsd }{\fsd t}  x(t)\} &= \int\limits_{t=0^-}^{\infty} \frac{\fsd x(t)}{\fsd t} \cdot \e^{-s\,t} \fsd t
 \end{align}
-Die partielle Integration hilft dies anders darzustellen
+Die partielle Integration hilft, dies anders darzustellen
 \begin{align}
 &\int u v' \fsd t + \int v u' \fsd t = u\,v\\
 &\int u v' \fsd t = u\,v - \int v u' \fsd t\\
@@ -97,7 +109,7 @@ also tatsächlich die lineare Operation \textbf{zeitliche Ableitung} zur Operati
 \textbf{Multiplikation mit} $s$ gemacht wurde. Dabei müssen wir zusätzlich den
 linksseitigen \textbf{Anfangswert} $x(t=0^-)$ beachten.
 Wir folgen hier der in \cite{Lundberg2007}
-vorgeschlagenen Konvention, wo der linksseitige Anfangswertes $x(t=0^-)$
+vorgeschlagenen Konvention, wo der linksseitige Anfangswert $x(t=0^-)$
 (dort im Englischen als \textit{pre-initial value} bezeichnet) für eine
 konsistente und vglw. einfachere Laplace-Transformationstheorie benutzt wird.
 $x(t=0^-)$ ist gut zu unterscheiden vom Zustandswert bei genau $t=0$ (wo typisch
@@ -107,7 +119,7 @@ sind diese Werte unterschiedlich.
 
 Es ist hier sinnvoll gleich auch die Ableitungsregel für DGLs zweiter Ordnung
 explizit anzugeben, weil DGLs zweiter Ordnung sehr oft vorkommen bzw.
-DGLs höherer Ordnung in DGLs zweiter Ordnung zerlegt werden, damit es handhabbar
+DGLs höherer Ordnung in DGLs zweiter und erster Ordnung zerlegt werden, damit es handhabbar
 wird.
 %
 Wir könnten zunächst die obige Regel \eq{eq:laplace_diff_satz} anwenden um den
@@ -170,12 +182,13 @@ zeitliche Ableitung zur Multiplikation mit $s$ wird. Es hängt alles sehr elegan
 miteinander zusammen.
 
 Die mathematisch saubere Verortung des Dirac Impulses war im Erfindungsprozess
-der Laplace Transformation nicht einfach. Nachdem wir uns für SigSys mit Einführung
+der Laplace Transformation sicher nicht einfach und geradlinig.
+Nachdem wir uns für SigSys mit Einführung
 der Definition (zur Erinnerung: kein klassisches Riemann-Integral!)
 \begin{equation}
 \int\limits_{-\infty}^{+\infty} \delta(t-\tau) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(\tau)
 \end{equation}
-eine nützliches, einfaches Werkzeug gebastelt haben, sollten wir das auch so
+eine nützliches, einfaches Werkzeug gebastelt haben, sollten wir das nun aber auch so
 benutzen.
 Wir nehmen $\tau=0$
 \begin{equation}
@@ -203,10 +216,13 @@ Wir werden in den Aufgaben sehen, dass für den Einheitssprung
   \epsilon(t) \quad\laplace\quad \frac{1}{s} \qquad \Re(s)>0
 \end{equation}
 gilt.
-Die Integrationsregel der Laplace Transformation liefert uns hier sehr bequem
+Die Integrationsregel und Faltung/Multiplikationsdualität der Laplace Transformation liefert uns hier sehr bequem
 den einfachen Zusammenhang
 \begin{equation}
-  \int\limits_{0}^{t} \delta(\tau)\fsd \tau = \epsilon(t),
+\int\limits_{0}^{t} x(\tau) \fsd\tau\quad\laplace\quad \frac{1}{s} \cdot X(s)
+\quad\Laplace\quad \epsilon(t) \ast x(t)
+\quad\rightarrow\quad
+\int\limits_{0}^{t} \delta(\tau)\fsd \tau = \epsilon(t),
 \end{equation}
 mit dem wir uns wegen der Signalunstetigkeiten immer ein wenig schwer tun.
 %
@@ -485,9 +501,8 @@ Aufgabe \ref{sec:A0F7C530F3}.}
 Konvergenzbereich}
 \label{sec:0B03A693AD}
 \begin{Ziel}
-Wir hatten schon bei der Fourier Transformation das Modulationstheorem
-kennengelernt. Für die Laplace Transformation gibt es dies auch.
-Wir wollen uns dies an dem Beispiel mit dem Sprungsignal erarbeiten.
+Das sogenannte Modulationstheorem ist sehr wichtig, es taucht in allen Transformationen auf, die wir in SigSys kennenlernen. Wenn wir es hier also vom Wesen verstanden haben, können wir es bei allen Transformationen schnell und sicher anwenden.
+Wir wollen uns dies für die Laplace Transformation an dem Beispiel mit dem Sprungsignal erarbeiten.
 Hier müssen wir auch wieder den rechts- und linksseitigen Fall über den
 Konvergenzbereich definieren.
 \end{Ziel}
@@ -757,10 +772,9 @@ sowohl Signale UND Systeme \textbf{vollständig} darstellen kann
 Wir haben gelernt, dass in der \textbf{Impulsantwort} $h(t)$ eines LTI-Systems die
 \textbf{komplette Information zur Systembeschreibung} steckt.
 %
-Wir können also davon ausgehen, dass die Laplace Transformierte der Impulsantwort
-auch alle Information codiert, nur halt anders. Es ist natürlich genau so, diese
-\textbf{Laplace Transformierte} hat auch einen speziellen Namen, nämlich
-\textbf{Übertragungsfunktion}.
+Die Laplace Transformierte der Impulsantwort
+muss also auch alle Information codieren, nur halt anders. Die
+\textbf{Laplace Transformierte der Impulsantwort} wird \textbf{Übertragungsfunktion} genannt.
 Es ist sehr gängige Konvention diese mit $H(s)$ zu bezeichnen, also
 \begin{equation}
 h(t) \, \laplace \, H(s)
@@ -769,7 +783,7 @@ h(t) \, \laplace \, H(s)
 
 Für ein LTI-System $\mathcal{H}$ mit Impulsantwort $h(t)$ gilt
 $y(t) = \mathcal{H}\{x(t)\}$.
-Für den speziellen Fall von $x(t)=\e^{+s_0 t}$ gilt (und nur dann!,
+Für den speziellen Fall von $x(t)=\e^{+s_0 t}$ gilt (dann und auch nur dann!,
 der allgemeine Fall ist \eq{eq:4408E33353_duality})
 \begin{equation}
 y(t) = H(s)\bigg|_{s=s_0} \cdot \e^{+s_0 t}.
@@ -884,8 +898,8 @@ Das System befindet sich für $t<0$ in Ruhe, $C$ ist also nicht aufgeladen, dahe
 %
 \begin{center}
 \begin{circuitikz}[european, scale=0.75]
-\node (in) at (1,0){};
-\node (in_ground) at (1,-3){};
+\node (in) at (0,0){};
+\node (in_ground) at (0,-3){};
 \node (out) at (4,0){};
 \node (out_ground) at (4,-3){};
 \draw (in) to [R,l_=$R$,o-] (3,0);
@@ -940,7 +954,7 @@ interpretierbar zu machen.
 Diese DGL modelliert als einfachste Modellannahme den Wärmestrom von einem Körper
 zu einem benachbarten, also z.B. das Abkühlen von mit Bier gefüllten Flaschen
 in einer kaltwasserbefüllten Badewanne. Fragen wir bei der nächsten Gelegenheit
-Physiker*innen nach der genauen DGL...mutmaßlich sind abgelöste Etiketten
+Thermodynamik-affine Menschen nach der genauen DGL...mutmaßlich sind sich glibbrig ablösende Etiketten
 besonders problematisch zu modellieren ;-)
 \end{Ansatz}
 
@@ -1428,7 +1442,7 @@ In \fig{fig:4408E33353} ist das Systemverhalten für die drei betrachteten Szena
 übersichtlich dargestellt.
 %
 Die Grafik ist absichtlich nicht mit irgendeiner gewählten Dimensionierung
-für $R$ und $C$ gemacht, sondern es ist alles allgemein gültig schematisch gezeichnet.
+für $R$ und $C$ gemacht, sondern es ist alles allgemeingültig schematisch gezeichnet.
 Das System wird oft als \textbf{Tiefpass 1. Ordnung} (Nachrichtentechnik) und
 \textbf{PT$_1$-Glied} (Regelungstechnik) bezeichnet.
 
@@ -1608,7 +1622,7 @@ Sprüngen bzw. Unstetigkeiten am Eingang direkt folgen,
 d.h. Sprünge erscheinen unmittelbar am Ausgang, bevor sie dann vom
 System verschliffen werden.
 %
-Dies ist eine spezielle Eigenschaft von differenzierenden/proportionalen Systemen.
+Dies ist eine spezielle Eigenschaft von differenzierenden als auch proportionalen Systemen.
 %
 Die Impulsantwort beinhaltet bei solchen Systemen einen (gewichteten) Dirac-Impuls.
 
@@ -1713,6 +1727,8 @@ nach $Y(s)$ auflösen und sortieren nach Eingangssignal (vgl. $X(s)$) und Anfang
 \frac{s}{s + \frac{1}{T_\text{RC}}} \cdot X(s) + \frac{y(t=0^-) - x(t=0^-)}{s + \frac{1}{T_\text{RC}}} = Y(s)
 \end{align}
 %
+Man mache sich klar: in beiden Brüchen steht der gleiche Nenner mit der Polstelle die das System beschreibt.
+
 Übertragungsfunktion (dafür immer alle Anfangsbedingungen Null setzen)
 \begin{align}
 \frac{Y(s)}{X(s)} = H(s) = \frac{s}{s + \frac{1}{T_\text{RC}}} = \frac{s}{s + \omega_\text{RC}}
@@ -1749,7 +1765,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 \begin{Ansatz}
 \textbf{Für Rücktransformation:}
-$H(s)$ ist keine echte gebrochen-rationale Funktion, weil Polynomgrad Zähler = Nenner. Erst eine Polynomdivision \, \polylongdiv[style=C, vars=s]{s}{s+w} \quad führt auf Parallelschaltung zweier Systeme
+$H(s)$ ist keine echte gebrochen-rationale Funktion, weil Polynomgrad Zähler = Nenner. Erst eine Polynomdivision \, \polylongdiv[style=C, vars=s]{s}{s+w} \quad führt auf eine Parallelschaltung zweier Systeme
 \begin{align}
 H(s) = 1 - \frac{\frac{1}{T_\text{RC}}}{s + \frac{1}{T_\text{RC}}} =
 1 - \frac{\omega_\text{RC}}{s + \omega_\text{RC}}
@@ -1925,7 +1941,7 @@ coordinates {(-5,0)(0,0)};
 \end{figure}
 %
 \begin{Loesung}
-Die Anfangsbedingung lässt sich so interpretieren: In negativ unendlicher Zeit wurde begonnen den Kondensator durch eine konstante 2.5 V Quellspannung aufzuladen. Wir können daher annehmen, dass der Kondensator zum Zeitpunkt $t=0^-$ asymptotisch vollständig geladen ist (vgl. linkes Bild, $x(t=0^-)$, grün) und daher am CR-Ausgang keine Spannung zu messen ist (vgl. linkes Bild, $y(t=0^-)$, lila). Das System befindet sich also zu $t=0^-$ in einem stationären Zustand in welchem gemäß Kondensatortheorie kein Strom fliesst, aber Energie in Form von elektrischer Ladung im System gespeichert ist (vgl. bei einem mechanischen System eine vorgespannte Feder). Zum Zeitpunkt $t=0$ greifen wir mit einem sprunghaft eingeschalteten Cosinussignal (vgl. linkes Bild, braun) in den stationären Zustand ein. Eingangsseitig springt die Spannung von 2.5 V (Anfangsbedingung) auf 1 V (Eingangssignalamplitude). Das System muss nun reagieren. Weil es differenzierenden Charakter hat, führt der Eingangssprung direkt zu einem Ausgangssprung. Mit diesem Sprung fängt der Kondensator zunächst an sich zu entladen, was einen Stromfluss und demzufolge einen 'verschleifenden' Spannungsverlauf über dem Widerstand zur Folge hat. Nach Abklingen des exponentiellen Anteils im Ausgangssignal (Signalanteile aus der Anfangsbedingung und dem Einschaltsprung, vgl. rechtes Bild, blau) befindet sich das System wieder in einem stationären Zustand, diesmal mit Ausgangs-Cosinus der in Amplitude und Phase gegenüber dem Eingangs-Cosinus verändert ist (vgl. rechtes Bild, rot für $t > 5 T_\text{RC} \approx 10$ s). Durch die Anregung erfolgt ein harmonisches Auf- und Entladen des Kondensators, folglich ein Wechselstrom und daraus die Ausgangswechselspannung.
+Die Anfangsbedingung lässt sich so interpretieren: In negativ unendlicher Zeit wurde begonnen den Kondensator durch eine konstante 2.5 V Quellspannung aufzuladen. Wir können daher annehmen, dass der Kondensator zum Zeitpunkt $t=0^-$ asymptotisch vollständig geladen ist (vgl. linkes Bild, $x(t=0^-)$, grün) und daher am CR-Ausgang keine Spannung zu messen ist (vgl. linkes Bild, $y(t=0^-)$, lila). Das System befindet sich also zu $t=0^-$ in einem stationären Zustand in welchem gemäß Kondensatortheorie kein Strom fliesst, aber Energie in Form von elektrischer Ladung im System gespeichert ist (vgl. bei einem mechanischen System eine vorgespannte Feder). Zum Zeitpunkt $t=0$ greifen wir mit einem sprunghaft eingeschalteten Cosinussignal (vgl. linkes Bild, braun) in den stationären Zustand ein. Eingangsseitig springt zu $t=0$ die Spannung von 2.5 V (Anfangsbedingung) auf 1 V (Eingangssignalamplitude). Das System muss nun reagieren. Weil es differenzierenden Charakter hat, führt der Eingangssprung direkt zu einem Ausgangssprung. Mit diesem Sprung fängt der Kondensator zunächst an sich zu entladen, was einen Stromfluss und demzufolge einen 'verschleifenden' Spannungsverlauf über dem Widerstand zur Folge hat. Nach Abklingen des exponentiellen Anteils im Ausgangssignal (Signalanteile aus der Anfangsbedingung und dem Einschaltsprung, vgl. rechtes Bild, blau) befindet sich das System wieder in einem stationären Zustand (Erinnerung: es faltet aber die ganze Zeit vor sich hin), diesmal mit Ausgangs-Cosinus der in Amplitude und Phase gegenüber dem Eingangs-Cosinus verändert ist (vgl. rechtes Bild, rot für $t > 5 T_\text{RC} \approx 10$ s). Durch die Anregung erfolgt ein harmonisches Auf- und Entladen des Kondensators, folglich ein Wechselstrom und daraus die Ausgangswechselspannung.
 \end{Loesung}
 %
 
@@ -1986,14 +2002,14 @@ $$\mathcal{L}^{-1}\{\frac{1}{s} H(s)\} = h_\epsilon(t)$$
 Sortieren nach Eingangssignal (vgl. $X(s)$) und Anfangsbedingungen
 \begin{align}
 &Y(s) (1 + \frac{720}{169} s + \frac{900}{169} s^2) = \nonumber\\
-&\frac{900}{169} s^2 \cdot X(s) + \frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-))
+&\frac{900}{169} s^2 \cdot X(s) + \frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-)
 \end{align}
 %
 \begin{align}
 &Y(s) = \nonumber\\
 &\frac{\frac{900}{169} s^2}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
 \cdot X(s) +\nonumber\\
-&\frac{\frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-))}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
+&\frac{\frac{720}{169} y(t=0^-) + \frac{900}{169} s \cdot y(t=0^-) + \frac{900}{169} y'(t=0^-) - \frac{900}{169} s \cdot x(t=0^-) - \frac{900}{169} x'(t=0^-)}{1 + \frac{720}{169} s + \frac{900}{169} s^2}
 \end{align}
 Wenn alle Anfangsbedingungen Null (System ruhend) wird der zweite Summand Null und es verbleibt die Anregung
 \begin{align}
@@ -2008,11 +2024,11 @@ folgt.
 
 \noindent \textbf{b) für Pol-/Nullstellen-/Verstärkungsdiagramm (PNV)}
 
-Nullstelllen (wann wird das Zählerpolynom von $H(s)$ Null): hier doppelte Nullstelle im Ursprung
+Nullstellen (d.h. wann wird das Zählerpolynom von $H(s)$ Null?): hier doppelte Nullstelle im Ursprung
 \begin{align}
 s_{o,1/2} = 0
 \end{align}
-Polstellen (wann wird das Nennerpolynom von $H(s)$ Null): hier konjugiert-komplex in der linken Halbebene
+Polstellen (d.h. wann wird das Nennerpolynom von $H(s)$ Null?): hier konjugiert-komplex in der linken Halbebene
 \begin{align}
 s_{\infty,1/2} = -\frac{2}{5} \pm \im \frac{1}{6}
 \end{align}

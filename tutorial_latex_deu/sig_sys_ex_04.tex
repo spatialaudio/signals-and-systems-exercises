@@ -2,7 +2,7 @@
 \section{UE 4: Fourier Transformation}
 \label{sec:ue4_fouriertransformation}
 
-\textbf{Definitionsgleichungen} der Integraltransformation (SigSys Konvention:
+\textbf{Definitionsgleichungen} der Integraltransformation (unsere SigSys Konvention:
 exp(-...) bei der Transformation in den Bildbereich, $2\pi$-Normierung und exp(+...) bei der
 Transformation in den Zeitbereich)
 \begin{align}
@@ -16,12 +16,10 @@ Wir benutzen sehr häufig die verkürzte (weitgehend standardisierte)
 X(\omega) = \mathcal{F}\{x(t)\}&\qquad x(t) = \mathcal{F}^{-1}\{X(\omega)\}\\
 x(t) \,\fourier\, X(\omega) &\qquad X(\omega) \,\Fourier\, x(t)
 \end{align}
-Hinweis: Hintrafo Laplace $\laplace$, Rücktrafo Laplace $\Laplace$, Hintrafo Fourier
-$\fourier$, Rücktrafo Fourier $\Fourier$.
-Wir finden oft auch $\laplace$ bei der Fourier Trafo, dann muss im Kontext klar werden,
-welche Trafo benutzt wird. In der Formelsammlung und Übung~\ref{sec:ue1_intro} (1)
-ist das z.B. eindeutig, weil
-wir dort keine Laplace, sondern nur die Fourier Transformation verwenden.
+Hinweis: Hintrafo Laplace $x(t)\,\,\laplace\,\,X(s)$, Rücktrafo Laplace $X(s)\,\,\Laplace \,\,x(t)$, Hintrafo Fourier
+
+\noindent $x(t)\,\,\fourier\,\,X(\omega)$, Rücktrafo Fourier $X(\omega)\,\,\Fourier\,\,x(t)$.
+Wir finden oft auch $\laplace$ und $\Laplace$ für die Fourier Trafo, dann muss im Kontext klar werden, ob Laplace oder Fourier gemeint ist.
 %
 
 \noindent \textbf{Wichtigste Eigenschaften und Korrespondenzen}
@@ -36,10 +34,10 @@ a x_1(t) + b x_2(t) &\quad \fourier \quad a X_1(\omega) + b X_2(\omega)
 x(a \cdot t) &\quad \fourier \quad \frac{1}{|a|}X\left(\frac{\omega}{a}\right)
 \end{align}
 
-\item Dualität Faltung vs. Multiplikation
+\item Dualität Faltung vs. Multiplikation ($\ast_t$...Faltung bzgl. Zeit, $\ast_\omega$... Faltung bzgl. Kreisfrequenz)
 \begin{align}
 x_1(t) \ast_t x_2(t) &\quad \fourier \quad X_1(\omega) \cdot X_2(\omega)\\
-x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} X_1(\omega) \ast_\omega X_2(\omega)
+x_1(t) \cdot x_2(t) &\quad \fourier \quad \frac{1}{2\pi} \left(X_1(\omega) \ast_\omega X_2(\omega)\right)
 \end{align}
 
 \item Dualität Verschiebung vs. Multiplikation mit komplexem Exponentialsignal
@@ -66,8 +64,8 @@ x(a t - b)  = x(a [t-\frac{b}{a}]) \quad\fourier\quad
 
 \item Dualität Dirac Impuls vs. Gleichsignal
 \begin{align}
-\delta(t) &\quad \fourier \quad 1\\
-1 &\quad \fourier \quad 2\pi\delta(\omega)
+x(t)=\delta(t) &\quad \fourier \quad X(\omega)=1\\
+x(t)=1 &\quad \fourier \quad X(\omega)=2\pi\,\delta(\omega)
 \end{align}
 
 \item Dualität Rect vs. Sinc ($T\in\mathbb{R}$, $\mathrm{sinc}(\nu) := \frac{\sin(\nu)}{\nu}$)
@@ -198,7 +196,7 @@ $x(t)=1 \, \fourier \, X(\omega)=2\pi\delta(\omega)$ gilt.}
 \begin{Ziel}
 Wir wollen für die Fouriertransformation die wichtige Dualität zwischen der
 Rechteckfunktion und der Spaltfunktion anhand eines fundamentalen Beispiels erfassen.
-Zudem enthält auch hier die ausführliche Rechnung Schritte und Umformungen
+Zudem enthält auch hier die ausführliche Rechnung Schritte und Umformungen,
 welche wir wiederkehrend brauchen werden.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 8C3958BE4F}: Berechnen Sie die Fourier-Transformation für
@@ -274,7 +272,7 @@ Auch hier ist $X(\omega)\in\mathbb{R}$ ein Spezialfall.
 Der Faktor $\frac{T_h}{2}$ im sinc-Argument bestimmt wieder die Breite der
 Spaltfunktion.
 
-Wir merken uns bzw. besser wir sehen das in den Formeln:
+Wir merken uns bzw. besser: wir sehen das in den Formeln:
 
 Je \textbf{kleiner} $T_h$, also je \textbf{schmal}er der
 \textbf{Rechteck}impuls, desto \textbf{breit}er die \textbf{Spalt}funktion.
@@ -288,10 +286,9 @@ Kommunikationstechnik und wurde in \fig{fig:8C3958BE4F} grafisch aufbereitet.
 Was erwarten wir für $T_h\to 0$ (idealer Impuls) und was für $T_h\to \infty$
 (Gleichspannung)? In beiden Fällen bekommen
 wir Probleme beim Integrieren. Aber dies sind in der SigSys überaus wichtige
-Grenzfälle, für die auch Fouriertransformierte existieren. Wir werden sie bald
-kennenlernen.
+Grenzfälle, für die auch Fouriertransformierte existieren. Wir werden ihnen begegnen.
 
-Wir werden in der Vorlesung und Übung sehr oft das Elementarsignal
+Wir werden in der Vorlesung und Übung auch sehr oft das Elementarsignal
 
 \begin{equation}
 \text{rect}(t) := \begin{cases} 1 & |t| < \frac{1}{2} \\ \frac{1}{2} & |t| = \frac{1}{2} \\ 0 & |t| > \frac{1}{2} \end{cases}\quad,
@@ -302,17 +299,14 @@ Die Fouriertransformierte von $\text{rect}(t)$ lautet dann abgeleitet aus
 \eq{eq:8C3958BE4F_Loesung} einfach
 $X(\omega) = \mathrm{sinc}(\frac{\omega}{2})$.
 %
-Eine oft benutzte Schreibweise von Fouriertransformationspaaren (sogenannte
-Korrespondenzen, siehe Formelsammlung) benutzt den Operator $\laplace$.
-%
 Wir schreiben für das soeben gefundene Transformationspaar
 \begin{equation}
-x(t) = \text{rect}(t) \quad \laplace \quad X(\omega) = \mathrm{sinc}(\frac{\omega}{2})
+x(t) = \text{rect}(t) \quad \fourier \quad X(\omega) = \mathrm{sinc}(\frac{\omega}{2})
 \end{equation}
 %
 Eine weitere Korrespondenz ist
 \begin{equation}
-x(t) = \text{sinc}(t) \quad \laplace \quad X(\omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
+x(t) = \text{sinc}(t) \quad \fourier \quad X(\omega) = \pi \, \mathrm{rect}(\frac{\omega}{2}),
 \end{equation}
 also bis auf den Faktor $\pi$ vertauscht.
 %Diese Korrespondenz direkt zu
@@ -322,8 +316,7 @@ also bis auf den Faktor $\pi$ vertauscht.
 %
 Die Dualität, also \textbf{Spaltfunktion transformiert ergibt Rechteckfunktion und umgekehrt},
 dürfen wir die ganze Zeit nicht aus den Augen verlieren. Das ist so ein bisschen
-wie der Satz des Pythagoras bei rechtwinkligen Dreiecken, ohne den wird's auch eher
-dünne Rechnerei mit wenig Vertändnis.
+wie der Satz des Pythagoras bei rechtwinkligen Dreiecken: wenn wir den nicht auf dem Schirm hätten, wäre wir bei diesen speziellen Dreiecken etwas lost.
 
 Schauen wir noch kurz zurück in die \fig{fig:D1483A84E2_0} bis \fig{fig:D1483A84E2_4}.
 Dort wurde in grau immer der Verlauf der hier diskutierten Fouriertransformierten
@@ -331,7 +324,7 @@ hinterlegt. Wir sehen, dass die Werte der Fourierkoeffizienten $X_\nu$
 \eq{eq:D1483A84E2_Loesung} aus Aufgabe \ref{sec:D1483A84E2}
 mit den Werten von $X(\omega)$ \eq{eq:8C3958BE4F_Loesung} übereinstimmen bei
 $\frac{2\pi}{T} \nu = \nu \cdot \omega_0 = \omega$.
-Dies ist kein Zufall. Wir werden das später als Abtastung von Spektren kennenlernen.
+Dies ist absolut kein Zufall. Wir werden das später als Abtastung von Spektren kennenlernen.
 
 
 
@@ -461,24 +454,25 @@ X(\omega) = A T_h \cdot \mathrm{sinc}(\omega\frac{T_h}{2}) \cdot  \e^{-\im\omega
 \end{equation}
 %
 Wir erkennen, dass \eq{eq:8C3958BE4F_Loesung} um den komplexen Dreher / Zeiger $\e^{-\im\omega\frac{T_h}{2}}$
-erweitert wird und nun $X(\omega)\in\mathbb{C}$.
+erweitert wird und nun $X(\omega)\in\mathbb{C}$, also komplexwertig ist. Reelles Spektrum ist im Alltag eher eine Ausnahme, weil das nur für axialsymmetrische Signale passiert, und die sind in der Praxis jetzt nicht so häufig. Daher: gewöhnen wir uns langsam an komplexwertige Spektren, es wird SigSys-Tätige einen Leben lang begleiten!
 %
-Wir müssen bei grafischen Darstellungen daher eigentlich streng immer mindest
+Wir müssen genau deswegen bei grafischen Darstellungen eigentlich immer streng mindest
 zwei Diagramme anfertigen:
 \begin{itemize}
   \item Realteil + Imaginärteil und/oder
   \item Betrag + Phase
+  \item (Realteil + Phase, diese Kombi ist etwas crazy, würde aber auch gehen, weil komplette Info; andere Überkreuzvarianten sind auch denkbar, aber eben untypisch)
 \end{itemize}
 %
 Eine Darstellung in Betrag und Phase ist üblich, weil dies bei praktischen
 Problemen, schnell hilfreiche Informationen offenbart. Das haben wir auch schon
-bei der komplexen Wechselstromrechnung benutzt.
+bei der komplexen Wechselstromrechnung in der ET benutzt.
 
 
 Im Gegensatz zum vorherigen Beispiel und \fig{fig:8C3958BE4F_SingleCase_MagPhase},
 wo $X(\omega)\in\mathbb{R}<0$ Phasensprünge um $\pi$ verursacht haben, müssen
 wir hier eine stückweise stetige, linear Phasenfunktion $\phi(\omega)$ berücksichtigen.
-Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein Bild zu machen.
+Schauen wir schonmal auf \fig{fig:A8A2DEE53A} unten, um uns ein grobes Bild zu machen.
 %
 Der Anstieg der Geradenteile lässt sich direkt aus dem komplexen Dreher rauslesen
 zu $-\frac{T_h}{2}$.
@@ -532,8 +526,8 @@ Das was wir anhand eines speziellen (wichtigen) Beispiels gezeigt haben, gilt au
 allgemein. Die Korrespondenz zur \textbf{Zeitverschiebung} um $\tau\in\mathbb{R}$
 ---bekannt als \textbf{Verschiebungssatz}---lautet
 \begin{align}
-x(t) & \quad \laplace \quad X(\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
+x(t) & \quad \fourier \quad X(\omega)\\
+x(t - \tau) & \quad \fourier \quad X(\omega) \cdot \e^{-\im\omega \tau}.
 \end{align}
 %
 Man kann natürlich auch eine Fouriertransformierte um die Kreisfrequenz
@@ -542,9 +536,9 @@ $\omega_0\in\mathbb{R}$ verschieben, vgl. Aufgabe \ref{sec:9D652BE72B}.
 Die Korrespondenz zur \textbf{Frequenzverschiebung}
 ---bekannt als \textbf{Modulationssatz}---lautet
 \begin{align}
-x(t) & \quad \laplace \quad X(\omega)\\
+x(t) & \quad \fourier \quad X(\omega)\\
 \label{eq:A8A2DEE53A_ModTheoremTime}
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0).
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \fourier \quad X(\omega-\omega_0).
 \end{align}
 %
 Bemerkenswert ist der gekreuzte Zusammenhang Zeit-/ Frequenzverschiebung
@@ -561,7 +555,7 @@ im komplexen Dreher.
 \textbf{Vorsicht:} Die Grafik suggeriert, dass eine zeitliche Rechts-Verschiebung
 sowohl Phase als auch Betrag ändert. Dies passiert aber hier speziell, weil wir in der
 Aufgabe nach einer Verschiebung um $T_h/2$ gefragt haben, und $T_h$
-im Argument der Spaltfunktion die Breite dieser bestimmt.
+im Argument der Spaltfunktion die Breite dieser bestimmt. Didaktisch sicher etwas unglücklich :(
 \texttt{FourierTransformation\_A8A2DEE53A.ipynb}}
   \label{fig:A8A2DEE53A}
 \end{figure}
@@ -593,16 +587,16 @@ Merke bzw. besser sieh in den Formeln: Zeitumkehr ist Phasenumkehr in der Fourie
 %
 Wir erkennen
 \begin{itemize}
-\item die in Aufgabe \ref{sec:8C3958BE4F} hier um $-T_h/2$, also nach links,
-verschobene Rechteckfunktion
-\item die in Aufgabe \ref{sec:A8A2DEE53A} hier zeitgedrehte Rechteckfunktion
+\item die in Aufgabe \ref{sec:8C3958BE4F} hier um $-T_h/2$, also \textbf{nach links,
+verschobene} Rechteckfunktion
+\item die in Aufgabe \ref{sec:A8A2DEE53A} hier \textbf{zeitgedrehte} Rechteckfunktion
 \end{itemize}
 
 \begin{Werkzeug}
 Korrespondenz Zeitverschiebung um $\tau\in\mathbb{R}$:
 \begin{align}
-x(t) & \quad \laplace \quad X(\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}.
+x(t) & \quad \fourier \quad X(\omega)\\
+x(t - \tau) & \quad \fourier \quad X(\omega) \cdot \e^{-\im\omega \tau}.
 \end{align}
 Analyse mit Fouriertransformation:
 \begin{align}
@@ -615,7 +609,7 @@ Mit Kenntnis der Fouriertransformierten aus Aufgabe \ref{sec:8C3958BE4F}, d.h. d
 unverschobenen Zeitfunktion, können wir den Zeitverschiebungssatz anwenden:
 
 \begin{equation}
-x(t - (-T_h/2)) \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega (-T_h/2)}
+x(t - (-T_h/2)) \quad \fourier \quad X(\omega) \cdot \e^{-\im\omega (-T_h/2)}
 \end{equation}
 Das Endergebnis für die hier gestellte Aufgabe lautet daher
 \begin{equation}
@@ -697,8 +691,8 @@ Dies gilt auch wieder verallgemeinert und ist eine wichtige \textbf{Symmetrie}ei
 der Fourier Transformation
 %
 \begin{align}
-x(+t) \quad \laplace \quad X(+\omega) =& |X(\omega)| \, \e^{+\im\angle X(\omega)}\\
-x(-t) \quad \laplace \quad X(-\omega) =& |X(\omega)| \, \e^{-\im\angle X(\omega)}
+x(+t) \quad \fourier \quad X(+\omega) =& |X(\omega)| \, \e^{+\im\angle X(\omega)}\\
+x(-t) \quad \fourier \quad X(-\omega) =& |X(\omega)| \, \e^{-\im\angle X(\omega)}
 \end{align}
 %
 Zufällig (naja, die Aufgabe war so gewählt)
@@ -735,7 +729,7 @@ multipliziert wird
 \end{itemize}
 Wir wollen die Fouriertransformation Korrespondenz \eq{eq:A8A2DEE53A_ModTheoremTime}
 \begin{align}
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0)
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \fourier \quad X(\omega-\omega_0)
 \end{align}
 nochmal am Beispiel sehen.
 
@@ -777,7 +771,7 @@ X_m(\omega) = A T_h \cdot \mathrm{sinc}\left((\omega-\omega_0) \frac{T_h}{2}\rig
 Wir können mit Vergleich dieser und  Aufgabe \ref{sec:8C3958BE4F} beobachten, dass
 die Korrespondenz
 \begin{align}
-\e^{+\im \omega_0 t} \cdot x(t) \quad\laplace\quad X\left(\omega-\omega_0\right)
+\e^{+\im \omega_0 t} \cdot x(t) \quad\fourier\quad X\left(\omega-\omega_0\right)
 \end{align}
 gilt.
 %
@@ -843,7 +837,7 @@ genauso wie Zeit-/Frequenzverschiebung.
 %\begin{comment}
 \newpage
 \subsection{Fourier-Transformation Cosinus-Schwingung}
-\label{sec:610482EF57}
+\label{sec:AAF105E3E1}
 \begin{Ziel}
 Mit dem (eigentlich noch recht bescheidenen) Wissen zur Fourier-Transformation
 können wir trotzdem schon eine ganze Menge fundamental wichtiger Aspekte ableiten,
@@ -853,7 +847,7 @@ Wir werden die Qualität je schmaler/breiter Rechteckfunktion desto breiter/schm
 Spaltfunktion erfassen und uns das zunutze machen, um die auf direktem Wege
 für uns noch nicht lösbare Aufgabenstellung trotzdem zu lösen.
 \end{Ziel}
-\textbf{Aufgabe} {\tiny 610482EF57}: Berechnen Sie die Fouriertransformation für
+\textbf{Aufgabe} {\tiny AAF105E3E1}: Berechnen Sie die Fouriertransformation für
 \begin{itemize}
 \item Cosinus-Schwingung $\cos(\omega_1 t)$ mit Kreisfrequenz $\omega_1>0$
 \end{itemize}
@@ -886,7 +880,7 @@ X(\omega) = \int\limits_{-\infty}^{+\infty} 1 \e^{-\im \omega t} \fsd t = ?
 noch nicht. Es stresst hier wieder, dass das Integral nicht konvergiert. Mit
 unendlichen Grenzen können wir hier noch nicht gut umgehen.
 %
-Benutzen wir also unser Handwerkszeug aus den vorigen Übungen und legen zunächst
+Benutzen wir also unser Handwerkszeug aus den vorigen Übungsaufgaben und legen zunächst
 eine endliche Integrationsgrenze fest, nämlich mit Hilfe der
 axialsymmetrischen Rechteckfunktion der Breite $T$ und Amplitude $A$. Diesen
 Rechteckverlauf lassen wir dann immer breiter werden, bis er sich im Grenzfall
@@ -898,11 +892,12 @@ Unser Ansatz lautet also
 X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \cos(\omega_1 t) \, \e^{-\im \omega t} \fsd t
 \end{align}
 Wir erkennen, dass der Reckteckimpuls auf den Cosinus-Träger moduliert wird, aber
-wir kennen das Modulationsgesetz diesbezüglich noch nicht.
-Daher lösen wir das Integral zu Fuß.
+wir kennen das Modulationsgesetz diesbezüglich noch nicht. Wir könnten den Cosinus als Euler Identität darstellen, dann Modulationsgesetz (empfohlen das mal selbstständig zu machen).
+%
+Oder wir lösen wir das Integral noch einmal zu Fuß...
 \end{Ansatz}
 \begin{ExCalc}
-Wir benutzen $\cos(x) = \frac{1}{2}(\e^{\im x} + \e^{-\im x})$ um
+Wir benutzen Euleridentität $\cos(x) = \frac{1}{2}(\e^{\im x} + \e^{-\im x})$ für
 \begin{align}
 X(\omega) = \int\limits_{-T_h/2}^{+T_h/2} A \frac{1}{2}(\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t =
 \frac{A}{2} \int\limits_{-T_h/2}^{+T_h/2} (\e^{\im \omega_1} + \e^{-\im \omega_1}) \, \e^{-\im \omega t} \fsd t
@@ -953,19 +948,15 @@ liegt bei $-\omega_1$ (negative Frequenz).
 Was ist nun mit der ursprünglichen Aufgabe die Fourier Transformierte des Cosinus
 zu finden?
 %
-Wir können sie ehrlicherweise nur mit einem Vorgriff auf kommenden Stoff erarbeiten, das
-ist aber so fundamental, dass es sich lohnt, das hier schonmal anzudeuten.
-%
 Die Grundidee ist bekanntes mathematisches Handwerkszeug: wir lassen
-$T_h\to \infty$ gehen. Dann wird sich für beide gewichtete Spaltfunktionen ein
+$T_h\to \infty$ gehen. Dann wird sich für beide gewichtete Spaltfunktionen mutmaßlich ein
 geschlossener Ausdruck finden lassen.
 
 \end{Loesung}
 
 \begin{mdframed}
-\textit{Vorgriff}
 %
-Zunächst nehmen wir unser vorläufiges Endergebnis und schreiben die Spaltfunction
+Zunächst nehmen wir unser vorläufiges Endergebnis und schreiben die Spaltfunktionen mit Sinus
 aus
 \begin{align}
 X(\omega) =
@@ -978,7 +969,7 @@ X(\omega) =
 A \pi \frac{\sin\left((\omega-\omega_1) \frac{T_h}{2}\right)}{\pi (\omega-\omega_1)} +
 A \pi \frac{\sin\left((\omega+\omega_1) \frac{T_h}{2}\right)}{\pi (\omega+\omega_1)}
 \end{align}
-und stellen im sin-Argument noch ein wenig die Brüche um
+und stellen im Sinus-Argument noch ein wenig die Brüche um
 \begin{align}
 X(\omega) =
 A \pi \frac{\sin\left( \frac{(\omega-\omega_1)}{\frac{2}{T_h}}  \right)}{\pi (\omega-\omega_1)} +
@@ -990,7 +981,7 @@ Die Mathematik schenkt uns nun für folgenden Grenzübergang
 \begin{align}
 \delta(\omega) = \lim_{\xi\to 0} \frac{\sin(\frac{\omega}{\xi})}{\pi \omega}
 \end{align}
-einen geschlossenen Ausdruck $\delta(\omega)$.
+einen geschlossenen Ausdruck $\delta(\omega)$, siehe Aufgabe \ref{sec:D410BDAAE0}.
 %
 Wenden wir $\xi\to 0$ für unseren spezifischen Term $\frac{2}{T_h}\to 0$ an,
 was wie gewünscht $T_h\to \infty$ bedingt,
@@ -1007,16 +998,10 @@ X(\omega) = \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
 Machen wir uns klar, dass durch die Wahl $T_h\to \infty$ (also Verbreiterung
 der Rechteckfunktion bis ins Unendliche) die gesuchte Korrespondenz
 \begin{align}
-\cos(\omega_1 t) \quad\laplace\quad \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
+\cos(\omega_1 t) \quad\fourier\quad \pi \, \delta(\omega-\omega_1) + \pi \, \delta(\omega+\omega_1)
 \end{align}
 gefunden wurde.
 %
-Der Ausdruck $\delta(\omega)$ ist bekannt als Dirac-Impuls, es ist aufgrund seiner
-Eigenschaften keine normale Funktion, sondern eine Distribution.
-Momentan hilft es uns weiter, wenn wir uns den Dirac-Impuls $\delta(\omega)$
-als unendlich hohe, unendlich schmale Rechteckfunktion der Fläche 1 an der Stelle
-$\omega=0$ vorstellen, siehe Grafiken unten.
-
 Die Fourier-Transformation des Cosinus besteht daher aus zwei mit $\pi$ gewichteten
 Dirac-Impulsen, die verschoben sind. Der erste Dirac-Impuls ist bei $+\omega_1$
 (positive Kreisfrequenz) und der zweite Dirac ist bei $-\omega_1$
@@ -1026,7 +1011,6 @@ Wir erkennen eine Analogie zur komplexen Fourierreihe bei der es auch zweier
 komplexer Fourierkoeffizienten (bei $\pm k$) bedarf um eine Cosinus-Schwingung
 darzustellen bzw. zu synthetisieren.
 %
-Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
 \end{mdframed}
 %\end{comment}
 
@@ -1038,21 +1022,9 @@ Dies soll als Ausblich des \textbf{Dirac-Impulses} erstmal genügen.
 \subsection{Fourier Transformation der rechteckbegrenzten Cosinus-Schwingung}
 \label{sec:610482EF57}
 \begin{Ziel}
-In der Übung~\ref{sec:ue1_intro} (1) hatten wir schon ein paar wichtige Eigenschaften der Fourier Transformation
-kennengelernt. Eine sehr wichtige Signalklasse, nämlich harmonische
-Schwingungen soll nun in dieser Aufgabe im Vordergrund stehen.
-%
-Weil das Integral der Fourier Transformation für diese Signale auf den ersten
-Blick nicht konvergiert, behandeln wir es erst hier, weil wir mittlerweile genug
-SigSys-Werkzeug haben, um trotzdem Fourier Korrespondenzen zu finden bzw. zu
-benutzen.
-%
-Später in der Praxis werden wir selten das Integral explizit lösen, sondern
-nachdem wir das Wesen vollständig verstanden haben, eher bekannte Korrespondenzen
-benutzen. Die allerwichtigsten sind am Anfang dieses Skripts zusammengetragen.
-
-Wir wollen uns erarbeiten, wie das Spektrum einer rechteckbegrenzten Cos-Schwingung
-ausschaut. Wir schauen uns dabei drei Lösungswege an, die alle einen leicht anderen
+Wir wollen das Spektrum einer rechteckbegrenzten Cos-Schwingung detailliert studieren. Alle Signale die wir für einen endlichen Zeitraum beobachten, sind zwangsläufig (rechteck)begrenzt.
+Wir müssen also vom Wesen sehr gut verstehen, was dabei passiert.
+Wir schauen uns dabei drei Lösungswege an, die alle einen leicht anderen
 Blickwinkel auf das Wesen erlauben.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 610482EF57}: Berechnen Sie die Fouriertransformation für
@@ -1127,7 +1099,7 @@ Dieser Weg ist der mathematischste, aber wegen des Integraloperators vielleicht 
 der un-intuitivste; und ohne Erwartungshaltung Drauflos-Rechnen ist auch nicht die beste
 Vorgehensweise. Anyway...Wir müssen das Integral schon sehr lange anstarren, um das Wesen
 dahinter zu entlocken. Das wird uns mit den Lösungswegen II und III eleganter gelingen.
-Lösen wir aber erst einmal das Integral, das gelingt ganz ähnlich wie in Übung~\ref{sec:ue1_intro} (1).
+Lösen wir aber erst einmal das Integral.
 
 Ein Klassiker, sobald wir mit harmonischen Schwingungen im Integral
 der Fouriertransformation operieren, ist die Benutzung der Euleridentität
@@ -1148,6 +1120,8 @@ Schreib- als Rechenarbeit:
 +\frac{A}{2} \frac{\e^{-\im (\omega+\omega_0) T_h/2} - \e^{+\im (\omega+\omega_0) T_h/2}}{-\im (\omega+\omega_0)}
 \end{align}
 %
+Deja Vu Erlebnis Aufgabe \ref{sec:AAF105E3E1}?!? Ja, haben wir schon einmal gerechnet, nur anders motiviert.
+
 Vorzeichen, Erweitern
 %
 \begin{align}
@@ -1164,7 +1138,7 @@ X(\omega) =
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega-\omega_0] \frac{T_h}{2}\right) +
 \frac{A T_h}{2} \mathrm{sinc}\left([\omega+\omega_0] \frac{T_h}{2}\right)
 \end{align}
-Zur Kontrolle: für $\omega_0 = 0$ bekommen wir das Ergebnis aus Übung~\ref{sec:8C3958BE4F} (1.2),
+Zur Kontrolle: für $\omega_0 = 0$ bekommen wir das Ergebnis aus Übung~\ref{sec:8C3958BE4F} (4.1),
 %
 ein Indiz, dass wir uns nicht verrechnet haben.
 %
@@ -1181,7 +1155,7 @@ getrennt dargestellt.
 Superposition ergibt die Fouriertransformierte $X(\omega)$, das ist der schwarze
 Verlauf in der mittleren Grafik.
 
-Wir haben hier ein Spezialfall der Aufgabe~\ref{sec:9D652BE72B} (1.5) vorliegen, nämlich die Modulation
+Wir haben hier ein Spezialfall der Aufgabe~\ref{sec:9D652BE72B} (4.4) vorliegen, nämlich: die Modulation
 eines Signals im Zeitbereich führt zur Verschiebung des Spektrums.
 Hier bekommen wir nun zwei mit $\frac{A T_h}{2}$ gewichtete Spaltfunktionen,
 verschoben um $\pm \omega_0$ auf der Frequenzachse. Das Maximum der ersten Spaltfunktion
@@ -1209,7 +1183,7 @@ falls $\omega_0>0$).
 
 
 \begin{mdframed}
-\textbf{Zwischenbetrachtung Grenzübergang} $T_h\to\infty$ Wir können mit
+\textbf{Weil so wichtig, erneut Zwischenbetrachtung Grenzübergang} $T_h\to\infty$ Wir können mit
 unserem bisher erlernten SigSys Werkzeug
 einen schönen Zusammenhang zur Fouriertransformierten von $x(t)=\cos(\omega_0 t)$
 herstellen.
@@ -1509,7 +1483,7 @@ und sich nicht alle Spektren im gleichen Frequenzband 'tummeln'.
 Letzteres erreichen wir durch Modulation, wir hatten den Begriff schon bei der Übung~\ref{sec:ue1_intro} (1) und \ref{sec:ue3_laplace} (3),
 es geht um Verschiebung des Spektrums in einen anderen Frequenzbereich.
 
-Das Modulationstheorem kennen wir bereits, siehe Übung~\ref{sec:9D652BE72B} (1.5)
+Das Modulationstheorem kennen wir bereits, siehe Übung~\ref{sec:9D652BE72B} (4.4)
 \begin{equation}
   \e^{+\im\omega_0 t} x_1(t) \quad\fourier\quad X_1(\omega-\omega_0)
 \end{equation}
@@ -1649,7 +1623,7 @@ können wir den Ansatz machen
 \begin{equation}
   x(t)  = \sin(\omega_0 t)\cdot \sin(\omega_0 t) \quad\fourier\quad X(\omega) = \frac{1}{2\pi} \mathcal{F}\{\sin(\omega_0 t)\} \ast \mathcal{F}\{\sin(\omega_0 t)\}
 \end{equation}
-was wir mit den Erkenntnissen aus der vorherigen Aufgabe lösen können.
+
 \end{Ansatz}
 \begin{ExCalc}
 Die Korrespondenz für den Sinus ist (siehe \fig{fig:ue4_cos_sin_ft} in der Einleitung dieser Übung)

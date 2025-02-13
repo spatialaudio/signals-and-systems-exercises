@@ -1,4 +1,4 @@
-
+\fourier
 %------------------------------------------------------------------------------
 \newpage
 \section{UE 1: Wiederholung Mathe: Fourier-Reihe, Lösen von DGL}
@@ -281,8 +281,8 @@ kennenlernen, nämlich die des Dirac-Impulses und die des Gleichsignals, das als
 weiter Vorgriff auf das was uns erwartet in SigSys.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D410BDAAE0}:
-Finden Sie $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$ sowie
-$x(t)= ? \quad \laplace \quad X(\omega)=2\pi \delta(\omega)$
+Finden Sie $x(t)=\delta(t)\quad \fourier \quad X(\omega)=?$ sowie
+$x(t)= ? \quad \fourier \quad X(\omega)=2\pi \delta(\omega)$
 \begin{Werkzeug}
 Führen wir für $\xi\in\mathbb{N}^+$ eine Funktion $\delta_\xi(t)$ ein, die entweder
 \begin{equation}
@@ -407,7 +407,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 \draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
 \draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=\delta(t)$};
 \draw[->, C0, line width=1mm] (0+\l,0) -- (0+\l,1) node[left] {$(1)$};
-\node at (0,1) {$\laplace$};
+\node at (0,1) {$\fourier$};
 \draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
 \draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\omega)=1$};
 \draw[-, C0, line width=1mm] (-2+\r,1) -- (2+\r,1) node[right] {$1$};
@@ -419,7 +419,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 \draw[->] (-2+\l,0) -- (2+\l,0) node[right] {$t$};
 \draw[->] (0+\l,0) -- (0+\l,1.5) node[above] {$x(t)=1$};
 \draw[-, C0, line width=1mm] (-2+\l,1) node[left] {$1$} -- (2+\l,1);
-\node at (0,1) {$\laplace$};
+\node at (0,1) {$\fourier$};
 \draw[->] (-2+\r,0) -- (2+\r,0) node[right] {$\omega$};
 \draw[->] (0+\r,0) -- (0+\r,1.5) node[above] {$X(\omega)=2\pi\delta(\omega)$};
 \draw[->, C0, line width=1mm] (0+\r,0) -- (0+\r,1) node[right] {$(2\pi)$};
@@ -434,7 +434,7 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 
 \cleardoublepage
 \begin{Ansatz}
-Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \laplace \quad X(\omega)=?$
+Die gesuchte Korrespondenz $x(t)=\delta(t)\quad \fourier \quad X(\omega)=?$
 können wir ableiten aus der Ausblendeigenschaft
 $\int\limits_{-\infty}^{+\infty} \delta(t-t_0) \cdot f(t) \, \fsd t \stackrel{\mathrm{def}}= f(t_0)$
 mit $f(t) = \e^{-\im \omega t}$ und $t_0=0$.
@@ -446,7 +446,7 @@ X(\omega) = \int\limits_{-\infty}^{+\infty} \delta(t) \cdot \e^{-\im \omega t} \
 \end{equation}
 
 Auch die gesuchte Korrespondenz
-$x(t)= ? \quad \laplace \quad X(\omega)=2\pi \delta(\omega)$ lässt sich
+$x(t)= ? \quad \fourier \quad X(\omega)=2\pi \delta(\omega)$ lässt sich
 ableiten aus der Ausblendeigenschaft, diesmal mit der Funktionsvariablen Kreisfrequenz, also mit
 
 $\int\limits_{-\infty}^{+\infty} \delta(\omega-\omega_0) \cdot f(\omega) \, \fsd \omega \stackrel{\mathrm{def}}= f(\omega_0)$
@@ -474,9 +474,9 @@ Damit haben wir zwei weitere wichtige Korrespondenzen gefunden, in der Formelsam
 ganz oben auf der Liste:
 \begin{align}
 \label{eq:D410BDAAE0_Loesung1}
-x(t)= \delta(t) &\quad \laplace \quad X(\omega)=1\\
+x(t)= \delta(t) &\quad \fourier \quad X(\omega)=1\\
 \label{eq:D410BDAAE0_Loesung2}
-x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,\,2\pi
+x(t)= 1 &\quad \fourier \quad X(\omega)=2\pi \delta(\omega)\qquad \text{Dirac mit Gewicht}\,\,2\pi
 \end{align}
 %
 Diese sind in \fig{fig:D410BDAAE0_Korrespondenzen} veranschaulicht.
@@ -498,23 +498,23 @@ Gleichanteil repräsentiert.
 \\\noindent
 Wir haben bisher die Korrespondenzen
 \begin{align}
-x(t)= \delta(t) &\quad \laplace \quad X(\omega)=1\\
-x(t)= 1 &\quad \laplace \quad X(\omega)=2\pi \delta(\omega)\\
-x(t - \tau) & \quad \laplace \quad X(\omega) \cdot \e^{-\im\omega \tau}\\
-x(t) \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad X(\omega-\omega_0)
+x(t)= \delta(t) &\quad \fourier \quad X(\omega)=1\\
+x(t)= 1 &\quad \fourier \quad X(\omega)=2\pi \delta(\omega)\\
+x(t - \tau) & \quad \fourier \quad X(\omega) \cdot \e^{-\im\omega \tau}\\
+x(t) \cdot \e^{+\im\omega_0 t} & \quad \fourier \quad X(\omega-\omega_0)
 \end{align}
 kennengelernt.
 %
 Diese lassen sich nun sinnvoll kombinieren, um weitere Korrespondenzen zu finden,
 z.B. ein verschobener Dirac-Impuls im Zeitbereich
 \begin{align}
-\delta(t-\tau)& \quad \laplace \quad 1 \cdot \e^{-\im\omega \tau}.
+\delta(t-\tau)& \quad \fourier \quad 1 \cdot \e^{-\im\omega \tau}.
 \end{align}
 Das wird uns in SigSys begleiten: Zeitverschiebung führt zu Phasenänderung im Frequenzbereich.
 
 Oder ein verschobener Dirac-Impuls im Frequenzbereich
 \begin{align}
-1 \cdot \e^{+\im\omega_0 t} & \quad \laplace \quad 2\pi\delta(\omega-\omega_0),
+1 \cdot \e^{+\im\omega_0 t} & \quad \fourier \quad 2\pi\delta(\omega-\omega_0),
 \end{align}
 bedeutet Phasenänderung im Zeitbereich, speziell resultiert eine Multiplikation
 mit einer komplexen Schwingung auf das ursprüngliche Gleichsignal $x(t)=1$.
