@@ -13,7 +13,7 @@ die jeweils einen Pol und eine Nullstelle haben. Ihre Lage bestimmt ganz wesentl
 was das System genau macht. Wenn wir das Wesen hinter diesen neuen Werkzeugen
 bzw. Sichtweisen verstanden haben, ist es eine vergleichsweise einfache
 intellektuelle Leistung das auf komplexere Systeme (also Systeme mit noch mehr Nullstellen
-und Polstellen) zu übertragen.
+und Polstellen) zu übertragen; das Wesen bleibt ja gleich, 'nur' die Rechnerei wird u.U. komplizierter.
 %
 Buzzwords für diese Übung sind
 \begin{itemize}
@@ -23,7 +23,7 @@ Buzzwords für diese Übung sind
   \item Reihenschaltung, Parallelschaltung von Systemen
   \item Phasenfrequenzgang, Gruppenlaufzeit
 \end{itemize}
-Das sind alles Dinge die in aufbauenden Fächern immer wieder benötigt
+Das sind alles Dinge die in nachfolgenden Spezial-Fächern immer wieder benötigt
 werden, z.B. für Regelungstechnik, Mechatronik, Nachrichtentechnik,
 Nachrichtenübertragungstechnik, Hochfrequenztechnik, Akustik,
 Video- und Audiotechnik uvm. usw. ...
@@ -35,7 +35,7 @@ ist genauso angelegt, dass mit dieser Übung~\ref{sec:ue6_lti_ct_eigenschaften} 
 sozusagen die erste Staffel (zeitkontinuierliche SigSys),
 zu Ende geht und wir die Essenz der SigSys gesehen haben.
 Wir werden in der zweiten Staffel---der zeitdiskreten Signal- und Systemtheorie---viele
-bereits bekannte Werkzeuge wieder antreffen.
+bereits bekannte Werkzeuge wieder antreffen; und erfreulich: das Wesen wird sich nicht ändern, es lohnt sich also das hier schon anzueignen!
 
 \newpage
 \subsection{Diskussion dreier Systeme 1. Ordnung}
@@ -47,15 +47,15 @@ zeitkontinuierlichen Systemen durchspielen.
 Dabei werden wir sehen, dass ein paar Rechnungen schon bei diesen einfachen
 Systemen, vergleichsweise komplizierte Formeln erzeugen.
 Wir sollten das hier jedoch einmal manuell durchleiden, um später die Vorzüge der
-Computer Algebra/Numerik zu schätzen wissen. Systeme höherer Ordnung, also mehr Null-
-und Polstellen sind im Grund nicht mehr sinnvoll auf dem Papier zu handhaben.
+Computer Algebra/Numerik zu schätzen wissen. Systeme höherer Ordnung, also noch mehr Null-
+und Polstellen sind im Grund nicht mehr sinnvoll auf dem Papier zu handhaben (hat man vor ein paar Jahrzehnten noch in SigSys-Klausuren gebracht, für reines Rechenhandwerk sicher nice).
 Daher werden wir in der Praxis diese Systeme aufsplitten in Reihen- oder
-Parallelschaltung von Systemen 1. und 2. Ordnung. Es ist daher sehr sinnvoll,
+Parallelschaltung von Systemen 1. und 2. Ordnung. Es ist dann offensichtlich sehr sinnvoll,
 wenn wir uns bei 1./2. Ordnung Systemen 'zu Hause' fühlen.
 Hier also zunächst reines Zusammentragen von Ergebnissen, im Grunde stumpfes
 Abarbeiten mittlerweile bekannter SigSys-Dinge. Danach werden wir mit diesen
 drei Systemen in den nächsten Aufgaben dann noch zu weiteren Erkenntnissen
-erlangen.
+gelangen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny E1E7E53CFF}: Gegeben sind die drei Laplace
 Übertragungsfunktionen
@@ -298,7 +298,7 @@ Die Suchanfragen
 \item polynomial division
 \end{itemize}
 in \url{https://www.wolframalpha.com} liefern Eingabemasken für die jeweiligen
-Werkzeuge mit denen man bequem manuelle Rechnungen und Grafiken verfizieren kann.
+Werkzeuge mit denen man bequem manuelle Rechnungen und Grafiken verifizieren kann.
 
 \clearpage
 \begin{figure*}[h]
@@ -400,7 +400,7 @@ Wir wollen uns anhand eines
 einfachen Beispiels die Systemeigenschaften
 maximalphasig, minimalphasig und Allpass erarbeiten.
 Jedes stabile, kausale System kann zerlegt werden in eine Reihenschaltung aus
-Minimalphasensystem und Allpass.
+einem Minimalphasensystem und einem Allpass.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 68CD3A7F90}: Gegeben ist die Laplace
 Übertragungsfunktion
@@ -780,7 +780,7 @@ Stabilitätskriterium
 $\int\limits_{-\infty}^{+\infty} |h(t)|\fsd t < \infty$
 bekannt.
 Die Impulsantwort $h(t)_\mathrm{max}^{-1} $ verletzt das BIBO Kriterium, weil
-die $e$-Funktion über alle Maßen für $t\to\infty$ steigt. Das System ist
+die $\e$-Funktion über alle Maßen für $t\to\infty$ steigt. Das System ist
 instabil.
 Mit dieser Impulsantwort möchten wir ungern falten müssen.
 Bzw. weiter gedacht: wir können mit diesem System keine praktisch sinnvolle
@@ -1055,13 +1055,13 @@ sind hierfür unsere Tools.
 In den \fig{fig:tikz_series_081294E23C} und \fig{fig:tikz_parallel_081294E23C}
 ist dies übersichtlich dargestellt. Es leitet sich eigentlich 'nur' aus dem
 Distributivgesetz und dem Assoziativitätsgesetz der Faltung und der
-Faltung-Multiplikation-Dualität ab, alles Dinge die wir schon gut kennen.
+Faltung-Multiplikation-Dualität ab; also alles Dinge die wir schon gut kennen.
 Deswegen müssen wir das auch nicht auswendig lernen, sondern können uns
 die Zusammenhänge herleiten.
 
 Diese Verkettung gilt für idealisierte, \textbf{rückwirkungsfreie Systeme}.
-Das ist eine berechtigte Annahme, wenn wir z.B. in der Elektrotechnik Systeme
-betrachten, die eher im Leerlauf betrieben werden als unter Last mit hohem Stromfluss.
+Das ist in der ET z.B. dann eine berechtigte Annahme, wenn wir Systeme
+betrachten, die eher im Leerlauf (also weit weg vom Kurzschlußfall) betrieben werden.
 
 
 Wir müssen nun einen klassischen Stolperstein vorbeugend aus dem Weg räumen.
@@ -1496,7 +1496,7 @@ wesentlichen Dinge.
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{../system_properties_ct/frequency_group_8844932657.pdf}
-\caption{für Aufgabe \ref{fig:frequency_group_8844932657}. \texttt{frequency\_group\_8844932657.ipynb}.}
+\caption{für Aufgabe \ref{fig:frequency_group_8844932657}. \texttt{frequency\_group\_8844932657.ipynb}. Oben: Zeitsignal, unten: Betragsspektrum.}
 \label{fig:frequency_group_8844932657}
 \end{figure}
 
