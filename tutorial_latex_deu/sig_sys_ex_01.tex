@@ -387,6 +387,57 @@ Statt Fläche, sprechen wir deswegen zukünftig vom Gewicht 1 des Dirac-Impulses
 
 \end{Werkzeug}
 
+\noindent Weil es so fundamental wichtig ist, nochmal kompakt für SigSys.
+%
+Wir stellen uns einen Impuls vor, der
+\begin{align}
+\int\limits_{t=-\infty}^{+\infty} \delta(t) \fsd t = 1
+\qquad\qquad
+\delta(t) =
+\begin{cases}
+\infty & t=0\\
+0  & t \neq 0
+\end{cases}
+\end{align}
+als Eigenschaft haben soll. Mit der zweiten Formel kann man aber schlecht rechnen, daher Distribution, Grenzübergang, Definitionsintegral usw., siehe oben.
+Am allerwichtigsten ist
+\begin{align}
+\delta(t) x(t) = \delta(t) x(0)
+\end{align}
+und dessen Integral
+\begin{align}
+\int\limits_{t=-\infty}^{+\infty} \delta(t) x(t) \fsd t= \int\limits_{t=-\infty}^{+\infty}  \delta(t) x(0) \fsd t = x(0) \int\limits_{t=-\infty}^{+\infty} \delta(t) \fsd t = x(0),
+\end{align}
+also die Multiplikationseigenschaft und die Austasteigenschaft.
+Wenn man den Impuls verschiebt, so dass die Spitze bei $\tau$ ist, also
+\begin{align}
+\int\limits_{t=-\infty}^{+\infty} \delta(t-\tau) \fsd t = 1
+\qquad\qquad
+\delta(t-\tau) =
+\begin{cases}
+\infty & t=\tau\\
+0  & t \neq \tau
+\end{cases}
+\end{align}
+folgt
+\begin{align}
+\text{Multiplikationseigenschaft allgemein} & \qquad\delta(t-\tau)\,x(t) = \delta(t-\tau)\,x(\tau)\\
+\text{Multiplikationseigenschaft für } \tau=0 & \qquad\delta(t)\,x(t) = \delta(t)\,x(0)\\
+\text{Austasteigenschaft I allgemein} & \quad \int\limits_{t=-\infty}^{+\infty} \delta(t-\tau) x(t)\fsd t = x(\tau)\\
+\text{Austasteigenschaft I für } \tau=0& \quad \int\limits_{t=-\infty}^{+\infty} \delta(t) x(t)\fsd t = x(0)
+\end{align}
+%
+Die allgemeine Austasteigenschaft I können wir mit einem Variablentausch $t \leftrightarrow \tau$ als
+\begin{align}
+\int\limits_{\tau=-\infty}^{+\infty} \delta(\tau-t) x(\tau)\fsd \tau = x(t)
+\end{align}
+schreiben. Der Dirac Impulse ist ein gerades Signal, d.h. es gilt $\delta(t)=\delta(-t)$. Es gilt also auch $\delta(\tau-t)=\delta(-(\tau-t))=\delta(-\tau+t)$ und man kann damit die allgemeine Austasteigenschaft II
+\begin{align}
+\int\limits_{\tau=-\infty}^{+\infty} \delta(-\tau+t) x(\tau)\fsd \tau = x(t),
+\end{align}
+aufschreiben, die sich auch in der Formelsammlung findet. Typ I und II sind nützlich für verschiedene Rechenwege. Typ I ist in den meisten Lehrbüchern drin und mutmaßlich am Anfang einfacher zu verdauen. Typ II ist sehr gut geeignet, die Faltung elegant herzuleiten.
+
+
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{../dirac_impulse_ct/D410BDAAE0.pdf}
   \caption{Rechteck- (oben) und normalisierte Spaltfunktion (unten) unterschiedlicher Breite und Höhe.
