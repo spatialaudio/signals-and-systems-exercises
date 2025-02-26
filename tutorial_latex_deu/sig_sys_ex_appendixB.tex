@@ -1,5 +1,5 @@
 \clearpage
-\section{Appendix B: Basics Elektrotechnik}
+\section{Appendix B: Basics Elektrotechnik (ET)}
 %
 Dieser Appendix ersetzt auf keinen Fall ein mehrsemestriges intensives Studieren
 der ET, vielleicht hilft er aber sich schneller zurechtzufinden und die Links
@@ -10,9 +10,9 @@ Sehr hilfreiches Buch für Einsteiger*innen in ET ist das Buch
 
 \url{https://link.springer.com/book/10.1007/978-3-658-28884-6}
 
-Wenn wir bisher wirklich gar nichts mit Elektrotechnik zu tun hatten und uns
+\noindent Wenn wir bisher wirklich gar nichts mit ET zu tun hatten und uns
 der Link zur SigSys interessiert, helfen vielleicht die Basics
-in den \cite[Kapiteln 1-3]{Marinescu2020}
+in den \cite[Kapitel 1-3]{Marinescu2020}
 \begin{itemize}
   \item Ohmsches Gesetz
   \item Kirchhoffsche Gleichungen/Regeln, also Maschenumlauf ergibt Spannung Null,
@@ -37,17 +37,17 @@ wechselförmigen Ausgangs- und Eingangsspannung an, während
 \cite[Kap. 15]{Marinescu2020} auf Schaltvorgänge eingeht.
 
 Im Wesen schauen wir uns in ET an, wie sich Gleich- oder Wechselgrößen
-an elektrischen Netzwerken verhalten entweder im stationären Zustand
+an elektrischen Netzwerken verhalten, entweder im stationären Zustand
 oder speziell den Ein-/Ausschaltvorgang von Gleich-/Wechselgrößen.
 %
 Dies sind in der Welt der SigSys Spezialfälle für die Analyse des LTI-Systems
 'elektrisches Netzwerk mit idealen, konzentrierten Bauelementen'.
-
+%
 Im Folgenden ein Versuch die Essenz kompakt zusammenzufassen.
 
 \subsection{Strom i(t) / Spannung u(t) an passiven Bauelementen}
 
-vgl. \cite[Kap. 10.2.2]{Marinescu2020}, Integrationskonstanten Null, d.h. ohne AB
+vgl. \cite[Kap. 10.2.2]{Marinescu2020}, Integrationskonstanten Null, d.h. ohne Anfangsbedingungen (also keine Energie gespeichert)
 
 \begin{align}
 \text{Widerstand} \qquad & u(t) = R i(t) \qquad& i(t) = \frac{1}{R} u(t)\\
@@ -81,32 +81,33 @@ in einem elektrischen Netzwerk betrachten, lässt sich die Schreibweise vereinfa
 wenn wir die Terme $\sqrt{2}$ und $\e^{\im \omega t}$ im Kopf zwar berücksichtigen,
 aber eben nicht mehr explizit notieren, weil wir wissen, dass es mit $\omega$
 schwingt und wir mit Effektivwerten operieren.
-Wir schreiben also kurz die symbolischen Zeiger (gängig ist ein Unterstrich
-und Großbuchstabe um das klar zu machen) für Strom und Spannung
+Wir schreiben also kurz die symbolischen Zeiger (sehr gängig ist ein Unterstrich
+unter einem Großbuchstaben um das klar zu machen) für Strom und Spannung
 \begin{align}
 \underline{U} = U_\text{eff} \cdot \e^{\im \phi_u}\\
 \underline{I} = I_\text{eff} \cdot \e^{\im \phi_i},
 \end{align}
 meinen damit aber den vollständigen obigen Ansatz und beachten, ob wir der
-$\Re$-Teil oder $\Im$-Teil Konvention folgen wollen.
+$\Re$-Teil oder der $\Im$-Teil Konvention folgen wollen.
 %
 Diese Zeiger werden oft auch als ruhende Effektivwertzeiger bezeichnet.
 %
-Die sogenannte komplexe Impedanz $\underline{Z}$ ist dann definiert als (es ist konsistent mit dem
-obigen vollständigen Ansatz, weil sich $\sqrt{2}$ und $\e^{\im\omega t}$ kürzen)
+Die sogenannte komplexe Impedanz $\underline{Z}$ ist dann definiert als
 \begin{align}
 \underline{Z} =
 \frac{\underline{U}}{\underline{I}} =
 \frac{U_\text{eff} \cdot \e^{\im \phi_u}}{I_\text{eff} \cdot \e^{\im \phi_i}} =
-\frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)}
+\frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)};
 \end{align}
+es ist konsistent mit dem
+obigen vollständigen Ansatz, weil sich $\sqrt{2}$ und $\e^{\im\omega t}$ kürzen.
 
 \subsection{Komplexe Impedanzen für passive Bauelemente}
 
 vgl. \cite[Kap. 10.3.5]{Marinescu2020}
 
 Wenn wir für den Zusammenhang Strom/Spannung am Kondensator
-$u(t) = \frac{1}{C} \int i(t)$
+$u(t) = \frac{1}{C} \int i(t) \fsd t$
 die Ansätze
 \begin{align}
 u(t) = \sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)}\\
@@ -116,20 +117,20 @@ einsetzen, erhalten wir zunächst
 \begin{align}
 \sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)} = \frac{1}{C} \int \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)} \fsd t
 \end{align}
-und integriert
+und integriert (Hinweis: wir betrachten harmonische, also eingeschwungene Vorgänge, daher auch uneigentliche Integrale, also Integrale ohne explizite Grenzen)
 \begin{align}
 \sqrt{2} \, U_\text{eff} \cdot \e^{\im(\omega t + \phi_u)} = \frac{1}{\im \omega C} \sqrt{2} \, I_\text{eff} \cdot \e^{\im(\omega t + \phi_i)}
 \end{align}
 und zur komplexen Impedanz für den Kondensator umgestellt
 \begin{align}
 \label{eq:appb_ZC}
-\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \frac{1}{\im \omega C} = \frac{1}{\omega C} \cdot \e^{-\im \frac{\pi}{2}}
+\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \frac{1}{\im \omega C} = \frac{1}{\omega C} \cdot \e^{\im \frac{-\pi}{2}}
 \end{align}
 %
-Für die Spule führt der gleiche Ansatz (diesmal ist eine Ableitung nach der Zeit zu rechnen)
+Für die Spule führt der gleiche Ansatz (diesmal ist statt Interal eine Ableitung nach der Zeit zu rechnen)
 zur komplexen Impedanz
 \begin{align}
-\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \im \omega L = \omega L \cdot \e^{+\im \frac{\pi}{2}}
+\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U_\text{eff}}{I_\text{eff}} \e^{\im (\phi_u-\phi_i)} = \im \omega L = \omega L \cdot \e^{\im \frac{+\pi}{2}}
 \end{align}
 %
 Für den Widerstand erhält man die komplexe Impedanz
@@ -138,11 +139,11 @@ Für den Widerstand erhält man die komplexe Impedanz
 \end{align}
 %
 Wir sehen, dass die komplexe Impedanz des Widerstands eigentlich gar nicht komplexwertig ist.
-Zudem ist sie offensichtlich nicht von $\omega$ abhängig, d.h. ein (idealer!) Widerstand
-verhält sich bzgl. direkter Proportionalität zwischen Strom und Spannung frequenz\underline{un}abhängig!
+Zudem ist sie offensichtlich nicht von $\omega$ abhängig, d.h. ein (idealer) Widerstand
+verhält sich bzgl. direkter Proportionalität zwischen Strom und Spannung frequenz\underline{un}abhängig.
 %
 Für die Spule erkennen wir ein frequenzabhängiges Verhalten zwischen Strom und Spannung, zudem
-ist der Phasenwinkel zwischen Spannung und der Referenz Strom $\frac{\pi}{2} \rightarrow 90^\circ$, man sagt,
+ist der Phasenwinkel zwischen Spannung und der Referenzgröße Strom $\frac{\pi}{2} \rightarrow 90^\circ$, man sagt,
 dass die Spannung dem Strom $90^\circ$ voraus ist.
 %
 Für den Konsensator erkennen wir auch frequenzabhängiges Verhalten zwischen Strom und Spannung.
@@ -152,27 +153,27 @@ Der Phasenwinkel ist diesmal $-\frac{\pi}{2}$, die Spannung ist dem Strom um $90
 
 \subsection{Beispiel Wechselspannung am einfachen RC-Glied}
 
-Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
+Für das abgebildete RC-Glied sollen zwei Fälle diskutiert werden
 \begin{itemize}
   \item 1. Zusammenhang zwischen Eingangsspannung $u_e(t)$ und Strom $i(t)$
-  \item 2. Zusammenhang zwischen Einganngsspannung $u_e(t)$ und Ausgangsspannung $u_a(t)$
+  \item 2. Zusammenhang zwischen Eingangsspannung $u_e(t)$ und Ausgangsspannung $u_a(t)$
 \end{itemize}
 %
 \begin{center}
 \begin{circuitikz}[european, scale=0.75]
-\node (in) at (1,0){};
-\node (in_ground) at (1,-3){};
+\node (in) at (0,0){};
+\node (in_ground) at (0,-3){};
 \node (out) at (4,0){};
 \node (out_ground) at (4,-3){};
-\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (in) to [R,l^=$R$,o-] (3,0);
 \draw (3,0) to [short,-o,] (out);
 \draw (3,0) to [C,l_=$C$,*-*] (3,-3);
 \draw (in_ground) to [short,o-o] (out_ground);
 \path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $u_e(t)$} (in_ground);
 \path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $u_a(t)$} (out_ground);
 \draw (3,-3) to [short,i=${i(t)}$] (1.5,-3);
-\node (inp) at (0.5,0){$+$};
-\node (inm) at (0.5,-3){$\bot$};
+\node (inp) at (-0.5,0){$+$};
+\node (inm) at (-0.5,-3){$\bot$};
 \end{circuitikz}
 \end{center}
 
@@ -183,7 +184,7 @@ Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
 Wir wählen die $\Re$-Konvention (Cosinussignal).
 %
 Es gibt nur einen Strom $i(t)$ im Netzwerk, der durch $R$ und $C$ in der angezeigten
-Richtung fließt. Das ist eine ET-Konvention mit dem sperrigen Namen
+Richtung fließt. Diese Fließrichtung ist eine (wenn man von der Physik kommt und den tatsächlichen Elektronenstrom anschaut anfangs vielleicht sehr gewöhnungsbedürftige) ET-Konvention mit dem sperrigen Namen
 Verbraucherzählpfeilsystem \cite[S. 7]{Marinescu2020}. Für das gewählte Potentialgefälle
 der Quelle $u_e(t)$ von Pluspol zu Masse führt diese Konvention dazu, dass
 Spannungsabfälle über Verbrauchern die gleiche Richtung wie der technische
@@ -191,7 +192,7 @@ Stromfluss haben. Das sieht man z.B. am Spannungspfeil über dem Kondensator,
 diese Spannung ist gleichzeitig auch die uns interessierende Ausgangsspannung.
 %
 Der tatsächliche Elektronenstrom im elektrischen Netzwerk ist entgegengesetzt
-zur getroffenen Konvention.
+zur getroffenen Konvention!
 %
 Aus dem Maschenumlauf \cite[Kap. 2.5]{Marinescu2020} für Spannungen folgt
 \begin{align}
@@ -327,7 +328,7 @@ das kommt in Übung~\ref{sec:ue5_levelresponse} (5) ausführlich.
 
 \subsection{Beispiel Auf- und Entladevorgang am einfachen RC-Glied}
 
-Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
+Für das abgebildete RC-Glied sollen zwei Fälle diskutiert werden
 \begin{itemize}
   \item 1. Aufladevorgang Spannung des Kondensators
   \item 2. Entladevorgang Spannung des Kondensators
@@ -335,27 +336,27 @@ Für das abbgebildete RC-Glied sollen zwei Fälle diskutiert werden
 
 \begin{center}
 \begin{circuitikz}[european, scale=0.75]
-\node (in) at (1,0){};
-\node (in_ground) at (1,-3){};
+\node (in) at (0,0){};
+\node (in_ground) at (0,-3){};
 \node (out) at (4,0){};
 \node (out_ground) at (4,-3){};
-\draw (in) to [R,l_=$R$,o-] (3,0);
+\draw (in) to [R,l^=$R$,o-] (3,0);
 \draw (3,0) to [short,-o,] (out);
 \draw (3,0) to [C,l_=$C$,*-*] (3,-3);
 \draw (in_ground) to [short,o-o] (out_ground);
 \path[draw, bend right, ->, >=latex] (in) edge node[left]{Eingangsspannung $u_e(t)$} (in_ground);
 \path[draw, bend left, ->, >=latex] (out) edge node[right]{Ausgangsspannung $u_a(t)$} (out_ground);
 \draw (3,-3) to [short,i=${i(t)}$] (1.5,-3);
-\node (inp) at (0.5,0){$+$};
-\node (inm) at (0.5,-3){$\bot$};
+\node (inp) at (-0.5,0){$+$};
+\node (inm) at (-0.5,-3){$\bot$};
 \end{circuitikz}
 \end{center}
 
 
 \subsubsection*{Aufladevorgang am einfachen RC-Glied}
 
-Zum Zeitpunkt $t=0$ soll die Gleichspannung $U$ als Eingang auf das vorher in
-Ruhe befindliche RC Glieds geschaltet werden.
+Zum Zeitpunkt $t=0$ soll die Gleichspannung $u_e(t) = U$ als Eingang auf das vorher in
+Ruhe befindliche RC Glied geschaltet werden.
 %
 Wie verhält sich die Spannung über dem Kondensator $u_a(t)$ über die Zeit?
 
@@ -374,13 +375,13 @@ $T_\text{RC} = R C$ ergibt eine lineare Differentialgleichung erster Ordnung
 U = R C \frac{\fsd u_a(t)}{\fsd t} + u_a(t) =
 T_\text{RC} \frac{\fsd u_a(t)}{\fsd t} + u_a(t)
 \end{align}
-Wir könnten das noch etwas sauberer aufschreiben mit Anfangsbedingungen
+Wir könnten das (und sollten auch) noch etwas sauberer aufschreiben mit Anfangsbedingungen
 und Inhomogenität
 \begin{align}
 u_e(t) = T_\text{RC} \frac{\fsd u_a(t)}{\fsd t} + u_a(t),
 \qquad u_a(0_-)=0,\quad u_e(t\geq 0) = U.
 \end{align}
-Diese DGL lässt sich mit Trennung der Variablen lösen und die Anfangsbedingungen
+Diese DGL lässt sich mit Trennung der Variablen lösen (dann sieht man leider nicht, dass es eigentlich eine Faltung ist) und die Anfangsbedingungen
 können direkt mit Wahl des Integrationsbereichs berücksichtigt werden.
 %
 Die Lösung führt auf
@@ -452,7 +453,7 @@ ymin=-0.1, ymax=1.1,
 xtick={0, 1, 3, 5},
 ytick={0,0.63,0.95, 1},
 xticklabels={$0$, $T_\mathrm{RC}$, $3 T_\mathrm{RC}$, $5 T_\mathrm{RC}$},
-yticklabels={$0$, $0.63 U$, $ $, $U$},
+yticklabels={$0$, $0.63 U$, $0.95 U\quad$, $U$},
 ymajorgrids=true,
 xmajorgrids=true
 ]
