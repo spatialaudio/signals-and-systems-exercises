@@ -45,13 +45,12 @@ Multiplikationseigenschaft
 \begin{align}
 \cos(\frac{\pi}{4} t) \, \delta(t-\tau) = \cos(\frac{\pi}{4} \tau) \, \delta(t-\tau)
 \end{align}
-
-für spezielles $\tau=4$, Austasteigenschaft
+Für spezielles $\tau=4$ Austasteigenschaft:
 \begin{align}
 \int\limits_{t=-\infty}^{+\infty} \cos(\frac{\pi}{4} t) \, \delta(t-4) \, \fsd t \stackrel{\mathrm{def}}=\cos(\pi) = -1
 \end{align}
 %
-Multiplikationseigenschaft
+Für spezielles $\tau=4$ Multiplikationseigenschaft:
 \begin{align}
 \cos(\frac{\pi}{4} t) \, \delta(t-4) = \cos(\pi) \, \delta(t-4) = -\delta(t-4)
 \end{align}
@@ -59,10 +58,10 @@ Multiplikationseigenschaft
 \begin{mdframed}
 Von der Austasteigenschaft zur Faltung:
 \begin{align}
-&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(\tau-t) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , ausgehend von \eq{eq:AppA_SifitingCT} mit } t \leftrightarrow \tau\nonumber\\
-&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , weil }\delta(t)=\delta(-t)\nonumber\\
+&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(+(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , ausgehend von \eq{eq:AppA_SifitingCT} mit Variablentausch } t \leftrightarrow \tau\nonumber\\
+&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , weil gerade Funktion }\delta(t)=\delta(-t)\nonumber\\
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-\tau+t) \, \fsd \tau \stackrel{\mathrm{def}}= x(t) \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
-&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, h(-\tau+t) \, \fsd \tau = y(t) \text{ , Faltungsintegral mit LTI-System Impulsantwort}
+&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, h(-\tau+t) \, \fsd \tau = y(t) \text{ , Faltungsintegral mit LTI-System Impulsantwort } h(t)
 \end{align}
 \end{mdframed}
 
@@ -76,7 +75,7 @@ Dirac Impuls (Folge) diesmal als exaktes Signal definiert als
 \delta[k] =
 \begin{cases}
 1 & k=0\\
-0 & \text{ sonst}
+0 & k \neq 0
 \end{cases}
 \end{align}
 und damit sind 'tatsächliche' Berechnungen möglich.
@@ -91,7 +90,7 @@ Speziell für $\kappa=0$ folgt
 \begin{align}
 \sum\limits_{k=-\infty}^{+\infty} x[k] \, \delta[k] = x[k=0],
 \end{align}
-und für $x[k]=1$ und $\kappa=0$ folgt
+und für $x[k]=1$ und $\kappa=0$ folgt (hier sofort einzusehen)
 \begin{align}
 \sum\limits_{\kappa=-\infty}^{+\infty} \delta[k] = 1.
 \end{align}
@@ -132,6 +131,6 @@ Von der Austasteigenschaft zur zeitdiskreten Faltung:
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[\kappa-k] = x[\kappa=k]\text{ , ausgehend von \eq{eq:AppA_SifitingDT} mit } k \leftrightarrow \kappa\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-(\kappa-k)] = x[\kappa=k]\text{ , weil }\delta[k]=\delta[-k]\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-\kappa+k] = x[k] \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
-&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, h[-\kappa+k] = y[k] \text{ , Faltungsintegral mit LTI-System Impulsantwort}
+&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, h[-\kappa+k] = y[k] \text{ , Faltungsintegral mit LTI-System Impulsantwort } h[k]
 \end{align}
 \end{mdframed}
