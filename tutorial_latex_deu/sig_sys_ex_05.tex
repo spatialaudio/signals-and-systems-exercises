@@ -98,50 +98,55 @@
 \newpage
 \section{UE 5: LTI Systems in Spectral Domain: The Level Response}
 \label{sec:ue5_levelresponse}
-\noindent In this exercise we will add a very important view onto the things
-going on in SigSys: we will learn how to interpret LTI systems in the spectral
-domain, also called the frequency domain. By that we start to get the bigger
+For some weird reason this exercise was written in English.
+
+\noindent In this exercise we will learn how to interpret LTI systems in the spectral
+domain, also called the frequency domain. We stress the bigger
 picture of SigSys and we will be able to sort things that we have already mastered
 in basic electrical engineering courses.
 
 Thus, in this exercise we will learn how to draw a Bode plot of the
 magnitude (more precisely the level in Decibel) over frequency.
 Although computers can perform this task for us, it is good to
-know what's going in essence.
+know what is going in essence.
 Most likely we are already familiar with the Bode plot from analysis of RLC
 circuits in electrical engineering. We will see how this viewpoint will
 perfectly fit into the SigSys world. We should start thinking of LTI systems as
 poles and zeros description in the Laplace domain and what these poles and zeros
-are doing in terms of the frequency response, the impulse and step response and
-of course to any other arbitrary input signal.
+are doing in terms of the frequency response, the impulse and the step response.
+Finally, a deeper understanding is required how these poles and zeros of the system affect arbitrary input signals. This is probably easier to see in the frequency domain rather than in the convolution integral.
 
 \begin{mdframed}
 SigSys for an LTI system denoted with operator $\mathcal{H}$ is in essence described
-by the three most important equations / relationships
+by the very important SigSys equations / relationships
 \begin{align}
 &h(t) = \mathcal{H}\{\delta(t)\}\\
+&h_\epsilon(t) = \mathcal{H}\{\epsilon(t)\}\\
+& \epsilon(t)' = \delta(t)\\
+&h_\epsilon(t)' = h(t)\\
 &h(t) \,\laplace\, H(s)\\
+&h_\epsilon(t) \,\laplace\, \frac{1}{s} \cdot H(s)\\
 &y(t) = x(t) \ast h(t) \,\laplace\, Y(s) = X(s) \cdot H(s),
 \end{align}
 which we already know very good.
 %
 It includes the concept of the impulse response $h(t)$, its convolution with input
 signal $x(t)$ to yield the output signal $y(t)$, and the equivalence in the Laplace
-domain using multiplication with the transfer function $H(s)$.
-If we are interested in the steady state of the system
-(if this exists we are quite often interested in it in practice),
-we can evaluate the Fourier transform as special case of Laplace transform
+domain using multiplication with the transfer function $H(s)$; further we have the link between the step response $h_\epsilon(t)$ and the impulse response $h(t)$.
+
+If we are only interested in the steady state of the system
+(if it exists), we can evaluate the Fourier transform as a special case of evaluating the Laplace transform at $s=\im\omega$
 \begin{align}
 &h(t) = \mathcal{H}\{\delta(t)\}\\
-&h(t) \,\laplace\, H(s)\big|_{s=\im\omega}\\
-&y(t) = x(t) \ast h(t) \,\laplace\, Y(s)\big|_{s=\im\omega} = X(s)\big|_{s=\im\omega} \cdot H(s)\big|_{s=\im\omega}.
+&h(t) \quad\laplace\quad H(s)\bigg|_{s=\im\omega}\\
+&y(t) = x(t) \ast h(t) \quad\laplace\quad Y(s)\big|_{s=\im\omega} = X(s)\big|_{s=\im\omega} \cdot H(s)\big|_{s=\im\omega}.
 \end{align}
 %
-We should note that the Fourier domain by itself also holds in general
+We note that the Fourier domain has its dedicated relations (but step response is tricky)
 \begin{align}
 &h(t) = \mathcal{H}\{\delta(t)\}\\
-&h(t) \,\fourier\, H(\omega)\\
-&y(t) = x(t) \ast h(t) \,\fourier\, Y(\omega) = X(\omega) \cdot H(\omega).
+&h(t) \quad\fourier\quad H(\omega)\\
+&y(t) = x(t) \ast h(t) \quad\fourier\quad Y(\omega) = X(\omega) \cdot H(\omega).
 \end{align}
 \end{mdframed}
 
@@ -163,7 +168,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 (\convAbsz,-\axisLength/2)};
 \draw[->] (-\axisLength/2,0)--(\axisLength/2,0) node[right]{\small$\Re\{s\}$};
 \draw[->] (0,-\axisLength/2)--(0,\axisLength/2) node[above]{\small$\Im\{s\}$};
-\draw[-, C3] (0,+\axisLength/2+1/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
+\draw[-, C3, ultra thick] (0,+\axisLength/2)--(0,-\axisLength/2-1/2) node[below]{\small$\textcolor{C3}{H(\omega)}$};
 \draw[C0, ultra thick] (-\sigmaz,+\omegaz) node{\Huge $\times$};
 \draw[C0, ultra thick] (-\sigmaz,-\omegaz) node{\Huge $\times$};
 \draw (-\sigmaz,\tic)--(-\sigmaz,-\tic) node[below]{$-\frac{3}{4}$};
@@ -173,9 +178,9 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 \draw (1.25,1.75) node[]{$H_0=\frac{25}{16}$};
 \end{tikzpicture}
 \caption{Pole-zero map with region of convergence (ROC) for the causal LTI system
-$H(s) = \left[\frac{16}{25} s^2 + \frac{24}{25} s + 1\right]^{-1}$.
-The $\Im\{s\}$-axis (red) is included in the ROC, thus $H(\omega)$ can be evaluated as
-frequency response of this LTI system.}
+described by the \textbf{transfer function} $H(s) = \left[\frac{16}{25} s^2 + \frac{24}{25} s + 1\right]^{-1}$.
+The $\Im\{s\}$-axis (red) is included in the ROC, thus $H(s)\bigg|_{s=\im\omega} = H(\omega)$ can be evaluated as
+the \textcolor{C3}{\textbf{frequency response}} of this LTI system.}
 \label{fig:pzmap_44EB4169E9}
 \end{figure}
 
@@ -219,7 +224,7 @@ graphs of \fig{fig:pzmap_44EB4169E9} and \fig{fig:lowpass2nd_44EB4169E9}
 will help to interpret the system characteristic from different viewpoints.
 Pole/zero/gain map, impulse response, step response, level response and
 phase response are the most important
-ones and essentially this is must have knowledge.
+ones and essentially this is must have knowledge in engineering.
 The so called Nyquist plot and the so called Nichols plot are common in
 control system engineering.
 We need to learn interpreting all these graphs.
@@ -241,8 +246,8 @@ We need to learn interpreting all these graphs.
   \caption{3D view of Laplace domain for 2nd order lowpass system from
   \fig{fig:pzmap_44EB4169E9}.
   The thick red curve corresponds to the magnitude response along $-\omega...+\omega$.
-  Typically we are only interested in the physical frequencies $\omega\geq0$ and
-  very often the frequency axis is additionally plotted in logarithmic fashion.
+  Typically we are only interested in the physical frequencies $\omega\geq0$.
+  Very often the frequency axis is plotted in logarithmic fashion.
   \texttt{bodeplot\_example\_approximations\_pzmaps3D.ipynb}}
   \label{fig:bodeplot_example_approximations_pzmaps3D_44EB4169E9}
 \end{figure}
@@ -271,7 +276,7 @@ Although nowadays a computer calculates the frequency response faster and plots 
 probably nicer, we should be able to grasp the picture of the frequency response
 by rough estimation. Furthermore, by doing this we learn how zeros and poles
 of an LTI system actually  contribute to the frequency response. This knowledge
-is indeed basic engineering stuff and engineering thinking, and that's why we do
+is indeed basic engineering stuff and engineering thinking, and that is why we do
 it here in detail...still nowadays.
 \end{Ziel}
 \textbf{Task} {\tiny 44EB4169E9}:
@@ -291,6 +296,7 @@ in the region of convergence (ROC), which is the case here.
 
 \begin{Werkzeug}
 A potential and nice approach to solve the task is given in the Appendix of this exercise.
+If we don't like this one, we might check text books for other approaches, there are several options how to do this nicely.
 \end{Werkzeug}
 \begin{Ansatz}
 Quasi-standardized notation with coefficients $b\in\mathbb{R}$ for the numerator and
@@ -304,7 +310,7 @@ the coefficients are given as
 $b_0 = 1$, $a_0=1$, $a_1 = \frac{24}{25}$ and
 $a_2 = \frac{16}{25}$, $b_1=b_2=0$.
 %
-In pole/zero notation this could be reformulated
+In \textbf{pole/zero factorization} this could be reformulated
 \begin{align}
 H(s) =& H_0 \frac{1}{(s-s_{\infty,1}) (s-s_{\infty,2})}\\
 H(s) =& \frac{25}{16}\cdot\frac{1}{[s-(-\frac{3}{4}+\im)] [s-(-\frac{3}{4}-\im)]}
@@ -320,8 +326,8 @@ $s_{\infty,1,2} = -\frac{3}{4} \pm \im$.
 \textit{Some notes on generalization}
 
 
-Our system under discussion exhibits a complex conjugate pole pair and no zeros,
-and thus can be given as
+Our system under discussion exhibits a complex conjugate pole pair and no zeros.
+It is thus given as
 \begin{align}
 H(s) =
 \frac{K}{\frac{1}{\omega_0^2} s^2 + \frac{2 D}{\omega_0} s + 1}=
@@ -335,7 +341,7 @@ and
 H(s) = \frac{K}{\frac{1}{\omega_0^2} s^2 + \frac{2 D}{\omega_0} s + 1}
 = \frac{K}{\tau_0^2 s^2 + 2 D \tau_0 s + 1}.
 \end{align}
-These are common general notations of this 2nd order system.
+These are all common general notations of this 2nd order system.
 
 The so called damping factor $0\leq D \leq 1$ realizes differently damped,
 stable LTI systems for a chosen cutoff frequency $\omega_0=\nicefrac{1}{\tau_0}$.
@@ -345,9 +351,9 @@ $D$ by
 Q_{\infty,1} = \frac{1}{2 D}.
 \end{align}
 Both qualities allow for convenient interpretation and discussion of the
-system characteristics. Note the special case of equal quantity
-$D = Q_{\infty,1} = \frac{1}{\sqrt{2}}$, which yields a 2nd order
-lowpass filter with so called Butterworth characteristics.
+system characteristics. We note the special case of equal quantity
+$D = Q_{\infty,1} = \frac{1}{\sqrt{2}}$. This yields a 2nd order
+lowpass filter with so called Butterworth characteristics (a very famous filter type).
 %\begin{figure}[b!]
 %\centering
 \begin{center}
@@ -382,7 +388,7 @@ This is why $D$ is typically termed damping factor. It is directly
 proportional to $\sigma_0$ of the system's poles shown in the figure above.
 We can write this as $D\propto \sigma_0$.
 
-Note, that in \eq{eq:Hs_general} the first version using $\omega_0$ is
+Note, that in \eq{eq:Hs_general} the first version using cutoff frequency $\omega_0$ is
 common in filter design, whereas the second version with the time
 constant $\tau_0$ is often used in controlling engineering.
 %
@@ -390,15 +396,12 @@ This is meaningful since in filter design often the frequency response is to be
 optimised, whereas a controller is rather optimised for a dedicated
 temporal behaviour.
 %
-The system under discussion is thus called either a lowpass of 2nd order
-(frequency design view) or a PT$_2$-element (control system view).
+The system under discussion is thus called either a \textbf{lowpass of 2nd order}
+(frequency design view) or a \textbf{PT$_2$-element} (control system view).
 These are just names dealing with the same LTI system.
 Despite of that, we need to figure out how to describe its behaviour in the
 frequency domain in the following.
-A valuable reference for further reading on the topic are Chapter 6.5.2
-in Oppenheim, Willsky, Nawab (1997): "\textit{Signals \& Systems}", Prentice Hall,
-Upper Saddle River NJ (USA), 2nd edition
-or Fliege, N. (1991): "\textit{Systemtheorie}", Teubner, Stuttgart.
+A valuable reference for further reading on the topic are \cite[Chapter 6.5.2]{Oppenheim1997} or \cite[Chapter 4.3]{Fliege1991}.
 %
 %
 %
@@ -432,7 +435,7 @@ and by that the real and imaginary parts of the poles
 \omega_D = 1 \cdot \frac{\text{1}}{\text{s}},
 \end{equation}
 %
-and thus $s_{\infty,1,2} = -\frac{3}{4} \pm \im$
+and thus $s_{\infty,1,2} = -\frac{3}{4} \pm 1\cdot\im$
 omitting the physical unit \textit{second} in the following.
 %
 Note that magnitude $|s_{\infty,1,2}| = \omega_0=\frac{5}{4}$ of the complex number,
@@ -589,9 +592,9 @@ H(s) = \frac{100 s}{10 s^2 + 101 s + 10}\qquad\text{ROC: }
 See Appendix.
 \end{Werkzeug}
 \begin{Ansatz}
-We need to recast to pole/zero/gain representation
+We need to recast to pole/zero/gain representation, i.e. the \textbf{pole/zero factorisation}
 \begin{align}
-H(s) = H_0\frac{s-s_{0,1}}{(s-s_{\infty,1})(s-s_{\infty,2})}
+H(s) = H_0\frac{(s-s_{0,1})}{(s-s_{\infty,1})\cdot(s-s_{\infty,2})}
 \end{align}
 to handle a superposition of the level response prototypes shown in
 \fig{fig:magbodeprototype}.
@@ -601,7 +604,7 @@ to handle a superposition of the level response prototypes shown in
 For system interpretation we always need the poles, the zeros and the gain of
 the system:
 
-$s_0=0$,
+$s_{0,1}=0$,
 $s_{\infty,1}=-\frac{1}{10}$,
 $s_{\infty,2}=-10$
 
@@ -640,7 +643,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]
 
 Checking:
 \begin{align}
-H(s) = H_0\frac{s-s_{0,1}}{(s-s_{\infty,1})(s-s_{\infty,2})} = 10\frac{(s-0)}{(s-(-0.1))(s-(-10))}
+H(s) = H_0\frac{(s-s_{0,1})}{(s-s_{\infty,1})(s-s_{\infty,2})} = 10\frac{(s-0)}{(s-(-0.1))(s-(-10))}
 =\frac{100 s}{10 s^2 + 101 s + 10}.
 \end{align}
 %
@@ -720,15 +723,16 @@ H(s) = \frac{s^2+10 s}{s^2+\sqrt{2} s +1}\qquad\text{ROC: }
 \end{align}
 \begin{Werkzeug}
 The same as before. We should see the beauty of SigSys: we defined a system
-in the Laplace domain completely detached from a RLC circuit or an ODE.
+in the Laplace domain completely detached from a RLC circuit or a mass-spring-damp construction or any other physical device that is completely described by a
+linear ODE with constant coefficients.
 Although, it is good to know on which fundamentals SigSys is founded, we don't need
 any RLC circuit analogies to grasp the working principles, once we got into the
 SigSys mindset. Congratulations, we've mastered a very important step in knowledge!
 \end{Werkzeug}
 \begin{Ansatz}
-In practice most often causal systems are considered and the ROC is typically
-not explicitly stated then, but assumes the ROC right of the most right pole(s).
-If then \textbf{all poles are in the left} $s$-plane, the system is \textbf{stable},
+In practice most often causal systems are considered. The ROC is typically
+not explicitly stated then, but it is inherently assumed that the ROC is right of the most right pole(s).
+By doing so: If then \textbf{all poles are in the left} $s$-plane, the system is \textbf{stable},
 which is the case here.
 In other words: an unstable system does not include the $\Im\{s\}$-axis and therefore
 no Fourier transform exists, and therefore no frequency responses exists, since unstable
@@ -743,7 +747,7 @@ coefficients
 $a_2 = 1, a_1 = \sqrt{2}, a_0=1$ with ROC: $\Re\{s\}>-\frac{1}{\sqrt{2}}$.
 We can recast this in pole / zero representation
 \begin{align}
-H(s) = H_0\frac{(s-s_{0,1}) (s-s_{0,2})}{(s-s_{\infty,1})(s-s_{\infty,2})}
+H(s) = H_0\frac{(s-s_{0,1}) \cdot (s-s_{0,2})}{(s-s_{\infty,1}) \cdot (s-s_{\infty,2})}
 \end{align}
 which is needed to draw the Bode approximation of the level over frequency.
 \end{Ansatz}
@@ -756,7 +760,7 @@ Collect all ingredients (this recipe mindset might help)
 &|H_0| = 1\\
 &|\tilde{H}_0| = 1 \cdot \frac{|s_{0,2}|}{|s_{\infty,1,2}|^2} = 10 \rightarrow 20\text{lg}|\tilde{H}_0|=20 \text{dB}
 \end{align}
-Note: zeros or poles in the origin are not considered for calculation of $\tilde{H}_0$.
+Note: zeros or poles in the origin are not considered for calculation of $|\tilde{H}_0|$.
 
 \begin{center}
 \begin{tikzpicture}
@@ -862,7 +866,7 @@ and the transfer function \eq{eq:Hs_b_a}.
 the poles of the transfer function.}
 %
 
-We can rewrite \eq{eq:Hs_b_a} as
+We can rewrite \eq{eq:Hs_b_a} as \textbf{pole/zero-factorization}
 \begin{align}
 \label{eq:Hs_H0_z_p}
 H(s) = H_0 \cdot \frac
@@ -870,7 +874,7 @@ H(s) = H_0 \cdot \frac
 {(s-s_{\infty,1}) (s-s_{\infty,2}) \dots (s-s_{\infty,N-1}) (s-s_{\infty,N})}
 \end{align}
 with $M$ zeros $s_{0,(\cdot)}$ and $N$ poles $s_{\infty,(\cdot)}$
-and gain factor
+and the gain factor
 \begin{align}
 H_0 = \frac{b_M}{a_N}.
 \end{align}
@@ -889,8 +893,8 @@ to be used with
   \item \verb|w, H = scipy.signal.freqs(b, a, w)| in Python
   \item \verb|h = freqs(b,a,w)| in Matlab,
 \end{itemize}
-that evaluate $H(s)\big|_{s=\im\omega}$ for that
-angular frequencies $\omega$ which were specified in the vector \verb|w|.
+that evaluate $H(s)\big|_{s=\im\omega}$ for
+those desired angular frequencies $\omega$ specified in the vector \verb|w|.
 
 
 
