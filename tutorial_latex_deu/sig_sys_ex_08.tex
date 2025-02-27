@@ -3,14 +3,14 @@
 \label{sec:ue8_dt_systems_intro_conv}
 %
 In der zeitdiskreten Signal- und Systemtheorie haben wir mit Signalen zu tun,
-die wir in der Mathematik als Folgen betrachten. Es gibt Folgen, die wir analytisch
+die wir in der Mathematik als Folgen bezeichnet werden. Es gibt Folgen, die wir analytisch
 als Formeln darstellen können.
 Ein einfaches Beispiel wäre die Folge bestehend aus ganz bestimmten Cosinuswerten
 \begin{align}
 x[k] = \cos(\Omega_0 \cdot k)\quad\text{für}\quad k\in\mathbb{Z},\,\Omega_0\in\mathbb{R}.
 \end{align}
 Wir benutzen zur Kenntlichmachung von Folgen / von zeitdiskreten Signalen eckige
-Klammern $x[k]$ und konsistent $k$ als Folgenindex, der daher $k\in\mathbb{Z}$ ist.
+Klammern $x[k]$ und konsistent $k$ als Folgenindex, der daher $k\in\mathbb{Z}$ ist. Dies ist eine sehr SigSys-typische Schreibweise, der viele Bücher folgen.
 %
 Die obige Folge könnte aus einem zeitlichen Abtastprozess (englisch \textit{sampling})
 entstanden sein. Mit dem
@@ -184,7 +184,7 @@ Abb.~\ref{fig:ex08:Standardsignale}:
 \delta[k] =
 \begin{cases}
 1 & k=0\\
-0 & \text{sonst}
+0 & k \neq 0
 \end{cases}
 %\end{align}
 %\begin{align}
@@ -196,7 +196,7 @@ Abb.~\ref{fig:ex08:Standardsignale}:
 \epsilon[k] =
 \begin{cases}
 1 & k \geq 0\\
-0 & \text{sonst}
+0 & k<0
 \end{cases}
 =\sum_{\kappa=-\infty}^k \delta[\kappa]
 \end{align}
@@ -205,14 +205,14 @@ Abb.~\ref{fig:ex08:Standardsignale}:
 \mathrm{rect}_N[k] =
 \begin{cases}
 1 & 0 \leq k < N\\
-0 & \text{sonst}
+0 & k<0
 \end{cases}
 %\end{align}
 %\begin{align}
 %=\mathrm{rect}_N[k]
-= \epsilon[k] - \epsilon[k-N]
+= \epsilon[k] - \epsilon[k-N];
 \end{align}
-wir beachten den Spezialfall $\mathrm{rect}_{N=1}[k] = \epsilon[k] - \epsilon[k-1] = \delta[k]$
+wir beachten den Spezialfall $\mathrm{rect}_{N=1}[k] = \epsilon[k] - \epsilon[k-1] = \delta[k]$.
 
 \item Exponentialfolge (Link zu LTI-Systemen: Eigenfunktion bzw. -folge)
 
@@ -276,44 +276,71 @@ rechts: Rechteckfolge $\mathrm{rect}_N[k]$ (Achtung: bei zeitdiskreter SigSys is
 
 \newpage
 \subsection*{Dirac Impuls und Faltung im zeitdiskreten Bereich}
+
+
 Im Gegensatz zur zeitkontinuierlichen SigSys, ist der Dirac Impuls in der zeitdiskreten
 SigSys eine definierte Folge
 \begin{align}
+\sum\limits_{k=-\infty}^{+\infty} \delta[k] = 1
+\qquad\qquad
 \delta[k] =
 \begin{cases}
 1 & k=0\\
-0 & \text{sonst}
+0  & k \neq 0
 \end{cases}
 \end{align}
 mit der wir direkt rechnen dürfen, also keinen (gedanklichen) Umweg nehmen müssen
 über eine Distribution und Anwendung von deren Eigenschaften.
+Am allerwichtigsten ist wieder
+\begin{align}
+\delta[k] x[k] = \delta[k] x[0]
+\end{align}
+und die Summen darüber
+\begin{align}
+\sum\limits_{k=-\infty}^{+\infty} \delta[k] x[k] = \sum\limits_{k=-\infty}^{+\infty}  \delta[k] x[0] = x[0] \sum\limits_{k=-\infty}^{+\infty} \delta[k] = x[0],
+\end{align}
+also die \textbf{Multiplikationseigenschaft} und die \textbf{Austasteigenschaft}.
+Wenn wir den Impuls verschieben, so dass die Spitze bei $\kappa$ ist (vgl. wir verwenden im Zeitdiskreten kappa und im Zeitkontinuierlichen tau), also
+\begin{align}
+\sum\limits_{k=-\infty}^{+\infty} \delta[k-\kappa] = 1
+\qquad\qquad
+\delta[k-\kappa] =
+\begin{cases}
+1 & k=\kappa\\
+0  & k \neq \kappa
+\end{cases}
+\end{align}
+folgt
+\begin{align}
+\text{Multiplikationseigenschaft allgemein} & \qquad\delta[k-\kappa]\,x[k] = \delta[k-\kappa]\,x[\kappa]\\
+\text{Multiplikationseigenschaft für } \kappa=0 & \qquad\delta[k]\,x[k] = \delta[k]\,x[0]\\
+\text{Austasteigenschaft I allgemein} & \quad \sum\limits_{k=-\infty}^{+\infty} \delta[k-\kappa] x[k] = x[\kappa]\\
+\text{Austasteigenschaft I für } \kappa=0& \quad \sum\limits_{k=-\infty}^{+\infty} \delta[k] x[k] = x[0]
+\end{align}
 %
-Die \textbf{Austasteigenschaft}
+Die allgemeine Austasteigenschaft I können wir mit einem Variablentausch $k \leftrightarrow \kappa$ als
 \begin{align}
-x[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
-\cdot \delta[k-\kappa]
+\sum\limits_{\kappa=-\infty}^{+\infty} \delta[\kappa-k] x[\kappa] = x[k]
 \end{align}
-kann daher als tatsächliche Rechenvorschrift verstanden werden, aus der wir
-auch direkt die \textbf{Multiplikationseigenschaft}
+schreiben. Der Dirac Impuls ist ein gerades Signal, d.h. es gilt $\delta[k]=\delta[-k]$. Es gilt also auch $\delta[\kappa-k]=\delta[-(\kappa-k)]=\delta[-\kappa+k]$ und wir können damit die allgemeine Austasteigenschaft II
 \begin{align}
-x[k] \cdot \delta[k-\kappa] = x[\kappa] \cdot \delta[k-\kappa]
+\sum\limits_{\kappa=-\infty}^{+\infty} \delta[-\kappa+k] x[\kappa] = x[k],
 \end{align}
-ableiten können, wenn wir nur ein spezielles $\kappa$ aus der Summe betrachten
-wollen.
-
+aufschreiben, die sich auch in der Formelsammlung findet. Typ I und II sind nützlich für verschiedene Rechenwege. Typ I ist in den meisten Lehrbüchern drin und mutmaßlich am Anfang einfacher zu verdauen. Typ II ist sehr gut geeignet, die Faltung elegant herzuleiten:
+%
 Der Dirac Impuls ist das \textbf{Neutralelement der Faltung}, an diesem fundamentalen
 Konzept halten wir auch in der zeitdiskreten Welt fest. Daher repräsentiert die
-obige Austasteigenschaft
+obige Austasteigenschaft Typ II
 \begin{align}
-x[k] = x[k] \ast_k \delta[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
-\cdot \delta[k-\kappa]
+x[k] = \delta[k] \ast_k x[k] = \sum_{\kappa=-\infty}^{+\infty}
+\delta[k-\kappa] \, x[\kappa]
 \end{align}
 eine spezielle Faltungssumme. Für ein LTI-System $\mathcal{H}$ können wir
 die Impulsantwort $h[k]=\mathcal{H}\{\delta[k]\}$ definieren, und damit
 Eingang $x[k]$ und Ausgang $y[k]$ verknüpfen mit der \textbf{Faltung}
 \begin{align}
-x[k] = x[k] \ast_k h[k] = \sum_{\kappa=-\infty}^{+\infty} x[\kappa]
-\cdot h[k-\kappa].
+x[k] = h[k] \ast_k x[k] = \sum_{\kappa=-\infty}^{+\infty}
+h[k-\kappa] \, x[\kappa].
 \end{align}
 %
 
@@ -321,7 +348,7 @@ In \fig{fig:convolution_discrete_pt1_xhy} ist ein Beispiel für eine Faltung
 zweier Folgen dargestellt, es entspricht einer möglichen zeitdiskreten
 Variante der Übungsaufgabe~\ref{sec:AF3B15E0D3} (2.7).
 %
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
 \includegraphics[width=\textwidth]{../convolution_dt/convolution_discrete_pt1_xhy.pdf}
 \caption{Zeitdiskrete Faltung zweier endlicher Folgen, vgl. den zeitkontinuierlichen
