@@ -14,6 +14,5 @@ jobs:
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          working_directory: tutorial_latex_deu
           name: PDF
-          path: sig_sys_ex.pdf
+          path: "tutorial_latex_deu/sig_sys_ex.pdf"
