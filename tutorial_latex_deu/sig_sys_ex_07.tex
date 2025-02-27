@@ -13,15 +13,16 @@ Signalverarbeitung herstellen zu können.
 Die meisten (wenn nicht alle?!) natürlich vorkommenden Signale sind zeit- und
 wertekontinuierlich.
 %
-Um die Signale mit einem Rechner verarbeiten zu können, müssen wir sie bzgl. der
+Um die Signale mit einem Digital-Rechner verarbeiten zu können, müssen wir sie bzgl. der
 Zeit (oder einer anderen Variable, z.B. Ort bei Bild/Video)
 diskretisieren (also abtasten) und bzgl. der Werte diskretisieren
 (also quantisieren).
 %
-Nach dem Abtasten und dem Quantisieren erhält man ein digitales Signal.
+Nach dem Abtasten und nach dem Quantisieren erhält man ein digitales Signal.
 %
-Hier in SigSys werden wir nun zunächst die Abtastung kennenlernen, im Mastermodul
-Digital Signal Processing folgt dann die Quantisierung.
+Hier in SigSys werden wir nun zunächst die Abtastung kennenlernen. Wir können damit
+aus zeitkontinuierlichen Signalen zeitdiskrete Signale (Folgen) erzeugen.
+Im Mastermodul Digital Signal Processing folgt dann die Quantisierung.
 %
 
 Ein anderer wichtiger Punkt die ideale Abtastung und die Rekonstruktion zurück
@@ -277,7 +278,7 @@ dass dies exakt das Ergebnis von oben ist, unsere Werkzeuge
 sind erfreulicherweise konsistent.
 %
 Damit erhalten wir zusammenfassend die äquivalenten Korrespondenzen
-(aus der Formelsammlung ableitbar, üben...)
+(aus der Formelsammlung ableitbar, üben...bzw. seit SS2024 noch ausführlicher in der Formelsammlung, in der Hoffnung, es macht Dinge einfacher)
 \begin{mdframed}
 \begin{equation}
 \frac{1}{T_\mathrm{s}} {\Sha}(\frac{t}{T_\mathrm{s}}) \quad\fourier\quad
@@ -362,7 +363,7 @@ Schusselfehler und Verwirrung.
 Daher die Empfehlung, SigSys einfach weiter mit $\omega$ durchzuziehen,
 alle Aufgaben sind auch so gestellt. Wenn die SigSys Tools dann sitzen, ist die
 Transferleistung zu physikalischen Frequenzen $f$ vergleichsweise einfach, z.B.
-ganz am Schluss von Rechnungen bei der grafischen Darstellung.
+ganz am Schluss von Rechnungen bei der grafischen Darstellung einfach die Frequenzachse umnormieren.
 
 
 \subsubsection*{iii) Rekonstruktion}
@@ -453,9 +454,8 @@ dass einfach zu interpretierende
 Ergebnisse in einem Bereich u.U. schwer zugängliche Darstellungen im anderen Bereich
 bedingen. Hier wird uns der Frequenzbereich eine deutlich anschaulichere Lösung
 liefern. Quasi während unserer Rechnerei werden wir auf die
-Sinc-Interpolationsformel im Zeitbereich stoßen, die als Grundlage des
-Abtasttheorems 1925 (Whittaker) bzw. 1933 (Kotelnikov) streng bewiesen wurde, vgl.
-\url{https://en.wikipedia.org/wiki/Nyquist-Shannon_sampling_theorem}
+Sinc-Interpolationsformel im Zeitbereich stoßen,
+die ein wichtiger Baustein im klassischen Abtasttheorem ist.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny EF235EE3D8}:
 Für das dargestellte zeitliche Abtast- und Rekonstruktionsmodell
