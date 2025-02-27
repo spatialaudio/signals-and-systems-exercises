@@ -46,6 +46,15 @@ jobs:
         done
       continue-on-error: false
       shell: bash
+    - name: Check for errors
+      run: |
+        if grep "raise Exception(" *.ipynb; then
+          echo "Error found in notebook(s)."
+          exit 1
+        else
+          echo "No errors found in notebooks."
+        fi
+      shell: bash
 
   build_latex:
     runs-on: ubuntu-latest
@@ -62,16 +71,3 @@ jobs:
         with:
           name: PDF
           path: "tutorial_latex_deu/sig_sys_ex.pdf"
-
-
-
-
-    - name: Check for errors
-      run: |
-        if grep "raise Exception(" *.ipynb; then
-          echo "Error found in notebook(s)."
-          exit 1
-        else
-          echo "No errors found in notebooks."
-        fi
-      shell: bash
