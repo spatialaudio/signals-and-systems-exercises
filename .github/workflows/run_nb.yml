@@ -3,10 +3,10 @@ name: Run Notebooks
 on:
   push:
     branches:
-      - dev  # Change this to your repository's main branch
+      - master  # Change this to your repository's main branch
   pull_request:
     branches:
-      - dev
+      - master
   schedule:
       - cron: "0 0 * * 0"  # Run every Sunday at midnight UTC (4 week interval)
 
@@ -32,7 +32,7 @@ jobs:
 
     - name: Install dependencies
       run: pip install jupyter nbconvert
-    - run: pip install -r requirements.txt   
+    - run: pip install -r requirements.txt
 
     - name: Find notebooks
       id: find-notebooks
