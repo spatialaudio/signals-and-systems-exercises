@@ -1,4 +1,4 @@
-name: Run Notebooks
+name: run notebooks / compile latex
 
 on:
   workflow_dispatch:
