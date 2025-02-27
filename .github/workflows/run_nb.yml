@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10"]
 
     steps:
     - name: Checkout code
@@ -46,6 +46,25 @@ jobs:
         done
       continue-on-error: false
       shell: bash
+
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: tutorial_latex_deu
+          root_file: sig_sys_ex.tex
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF
+          path: "tutorial_latex_deu/sig_sys_ex.pdf"
+
+
+
 
     - name: Check for errors
       run: |
