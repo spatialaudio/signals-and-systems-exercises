@@ -2,9 +2,6 @@ name: Run Notebooks
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master  # Change this to your repository's main branch
   pull_request:
     branches:
       - master
