@@ -6,14 +6,17 @@ on:
     branches:
       - master
   schedule:
-      - cron: "0 0 * * 0"  # Run every Sunday at midnight UTC (4 week interval)
+      - cron: "30 2 * * 3"  # every wednesday on 2:30am UTC
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DIR: tutorial_latex_deu
+      FILE: sig_sys_ex
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.12"]
 
     steps:
     - name: Checkout code
@@ -24,7 +27,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # Testing matrix by printing the current Python version:
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
 
@@ -56,3 +58,19 @@ jobs:
           echo "No errors found in notebooks."
         fi
       shell: bash
+
+    - name: Install TeXlive
+      run: sudo apt-get update && sudo apt-get install texlive texlive-publishers texlive-science texlive-fonts-extra texlive-lang-german latexmk cm-super
+
+    - name: LaTeX compile
+      working-directory: ${{ env.DIR }}
+      run: pdflatex ${{ env.FILE }}; bibtex ${{ env.FILE }}; pdflatex ${{ env.FILE }}; pdflatex ${{ env.FILE }};
+
+    - name: move
+      run: mkdir -p github_artifacts && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/
+
+    - name: Upload pdf as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.FILE }}.pdf
+        path: ./github_artifacts
