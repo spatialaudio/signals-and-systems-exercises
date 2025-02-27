@@ -9,29 +9,36 @@ on:
       - cron: "0 0 * * 0"  # Run every Sunday at midnight UTC (4 week interval)
 
 jobs:
-  job1:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+
+    # Testing matrix by printing the current Python version:
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
+
     - name: Install dependencies
       run: pip install jupyter nbconvert
     - run: pip install -r requirements.txt
+
     - name: Find notebooks
       id: find-notebooks
       run: |
-        find . -name "FourierSeries_D1483A84E2.ipynb" > notebooks.txt
+        find . -name "*.ipynb" > notebooks.txt
         cat notebooks.txt
       shell: bash
+
     - name: Execute notebooks
       run: |
         cat notebooks.txt | while read -r notebook; do
@@ -39,6 +46,7 @@ jobs:
         done
       continue-on-error: false
       shell: bash
+
     - name: Check for errors
       run: |
         if grep "raise Exception(" *.ipynb; then
@@ -48,17 +56,3 @@ jobs:
           echo "No errors found in notebooks."
         fi
       shell: bash
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          working_directory: tutorial_latex_deu
-          root_file: sig_sys_ex.tex
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v4
-        with:
-          name: PDF
-          path: "tutorial_latex_deu/sig_sys_ex.pdf"
