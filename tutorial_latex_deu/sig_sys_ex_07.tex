@@ -344,9 +344,9 @@ müssen.
 \caption{Korrespondenz der Fourier Transformation für den Dirac Impuls Kamm.
 Dirac Impulse sind äquidistant bzgl. der Zeitachse (links) und
 der Frequenzachse (rechts). Zeit-Austast-Intervall $T_\mathrm{s}$.
-Kreis-Frequenz-Austast-Intervall $\omega_\textrm{s}=\frac{2\pi}{T_\mathrm{s}}$.
+Abtast-(Kreis)-Frequenz Wiederholungsintervall $\omega_\textrm{s}=\frac{2\pi}{T_\mathrm{s}}$.
 %
-Dirac Gewichte 1 im Zeitbereich. Dirac Gewichte $\omega_\text{s}$ im Spketralbereich.}
+Dirac Gewichte 1 im Zeitbereich. Dirac Gewichte $\omega_\text{s}$ im Spektralbereich.}
 \label{fig:DiracImpulsKammSkizze}
 \end{figure}
 
@@ -379,7 +379,7 @@ h_\mathrm{r}(t) \quad\fourier\quad  & H_\mathrm{r}(\omega)\\
 \end{align}
 Es gibt natürlich viel mehr Korrespondenzen, die für die Praxis auch deutlich mehr
 Sinn ergeben. Aber das ist dann Spezialwissen, wenn wir
-Rekonstruktion vertiefter betreiben wollen, Stichwort wäre hier u.a. Splines.
+Rekonstruktion vertiefter betreiben wollen; Stichwort wäre hier u.a. Splines.
 Wir beschränken uns hier darauf das Wesen der Rekonstruktion didaktisch möglichst
 zugänglich zu gestalten und dafür sind ideale Modelle sehr gut geeignet.
 
@@ -408,7 +408,8 @@ damit multiplizieren.
 Mit diesen Rekonstruktionen wurde das Abtasttheorem initial eingeführt und
 bewiesen. Eine historische Abhandlung und wie diese Rekonstruktion
 aus einer verallgemeinernden Sichtweise einzuordnen ist, findet sich in
-\url{https://doi.org/10.1109/5.843002}.
+\url{https://doi.org/10.1109/5.843002} und
+\url{https://doi.org/10.1007/s00041-010-9131-8}.
 
 \textbf{Hinweis 2}: Wir können uns das nicht oft genug klarmachen: die ganzen
 Formeln der Transformationen interessieren sich nicht welchen Bereich wir wie
@@ -513,8 +514,8 @@ die Abtastung und die Rekonstruktion berechnet und skizziert werden.
 \begin{itemize}
   \item Berechnen Sie die Spektren $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $X_\mathrm{r}(\omega)$.
   \item Berechnen Sie die Signale $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$.
-  \item Skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
-  \item Skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$
+  \item Skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$.
+  \item Skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$.
   \item Ist die Rekonstruktion des Zeitsignals erfolgreich?
 \end{itemize}
 
@@ -527,8 +528,8 @@ die Abtastung und die Rekonstruktion berechnet und skizziert werden.
 Alles was wir bisher im SigSys Koffer sortiert vorfinden :-)
 \end{Werkzeug}
 \begin{Ansatz}
-Wir finden zunächst für alle gegebenen Signale und Spektren die direkten
-Fouriertransformierten.
+Wir tragen zunächst für alle gegebenen Signale und Spektren die jeweiligen
+Fouriertransformierten zusammen.
 
 \textbf{Eingang, Signal und Spektrum}:
 Wir haben
@@ -540,7 +541,7 @@ als Periodendauer $T_0 = \frac{2\pi}{3}$ s.
 Die blaue Kurve in \fig{fig:EF235EE3D8_TimeDomain} zeigt das Sinussignal.
 Daraus folgt die Fourier Transformierte
 \begin{equation}
-X(\mathrm{j} \omega) =
+X(\omega) =
 \mathrm{j} \pi \left( \delta(\omega+\omega_0) - \delta(\omega-\omega_0) \right) =
 \mathrm{j} \pi \left( \delta(\omega+3) - \delta(\omega-3) \right),
 \end{equation}
@@ -578,31 +579,32 @@ h_\mathrm{r}(t) = \mathrm{sinc}(2 t) \quad\fourier\quad
 H_\mathrm{r}(\omega) = \frac{\pi}{2}\mathrm{rect}(\frac{\omega}{4}).
 \end{equation}
 
-Die Impulsantwort ist in \fig{fig:Sampling_05_LowpassIR_EF235EE3D8} aufgetragen,
+Die Impulsantwort ist in \fig{fig:Sampling_05_LowpassIR_EF235EE3D8} aufgetragen;
 das Spektrum, also der Frequenzgang in \fig{fig:Sampling_04_LowpassSpectrum_EF235EE3D8}.
 Es handelt sich um das ideale Tiefpassfilter (das Filter als Neutrum ist die in der
-Signalverarbeitung üblichere Bezeichnung) mit einer Grenzfrequenz von $\omega_c=2$ rad/s.
+Signalverarbeitung üblichere Bezeichnung statt \textit{der} Filter)
+mit einer Grenzfrequenz von $\omega_c=2$ rad/s.
 Das Filter lässt Signalanteile der Frequenzen $0\leq |\omega|<2$ perfekt passieren
 (mit Amplitude $\nicefrac{\pi}{2}$ gewichtet), höherfrequente
 Signalanteile, also $|\omega|>2$, werden perfekt unterdrückt.
-Das Filter ist nicht realisierbar, da es eine unendliche Impulsantwort hat
+Das Filter ist praktisch nicht realisierbar, da es eine unendliche Impulsantwort hat
 und das System nicht kausal ist.
 Es ist aber bestens geeignet, die Theorie der Abtastung und Rekonstruktion
 zu beschreiben, in fact: damit wurde das Abtasttheorem erfunden. Dies ist verglichen
 mit anderen Tools aus SigSys noch gar nicht so lange her. Die potentielle
-Rekonstruktion mit der Sinc-Funktion datiert auf 1910er Jahre (1915 Whittaker),
-die Abtastung und fehlerfreie Rekonstruktion auf die 1930er (1933 Kotelnikov).
-Ab 1948 ist es auch in der westlichen Literatur durch 'Neuerfindung' von Shannon
-flächendeckend bekannt geworden und dann als Shannon'sches Abtasttheorem in die
-Technikhistorie eingegangen.
+Rekonstruktion mit der Sinc-Funktion datiert auf die 1910er Jahre (Whittaker),
+die Abtastung und fehlerfreie Rekonstruktion auf die 1920er und 1930er Jahre (Ogura, Kotelnikov, Raabe), vgl. \url{https://doi.org/10.1007/s00041-010-9131-8}.
+Shannon hat 1948 ein wichtiges Paper veröffentlicht, das auf den erwähnten Arbeiten basiert.
+Es hat sich dann irgendwie verselbstständigt, das Theorem Shannon'sches Abtasttheorem zu nennen, weil
+diese Arbeit mutmaßlich am meisten Reichweite hatte.
 \end{Ansatz}
 \begin{ExCalc}
-Wir müssen nun 'einfach' dem Signaflussgraphen des idealen Abtast-Rekonstruktionsmodells
+Wir müssen dem Signaflussgraphen des idealen Abtast-Rekonstruktionsmodells
 folgen und nach und nach alle Signale und deren Spektren zusammentragen und dabei
 verstehen, was im Detail passiert.
 
 \textbf{Abtastung}:
-Die Abtastung in Formeln aufgeschrieben lautet für den Zeitbereich
+Die ideale Abtastung in Formeln aufgeschrieben lautet für den Zeitbereich
 \begin{equation}
 x_\mathrm{s}(t) = \sin(3 t) \cdot \frac{2}{\pi} {\Sha}(\frac{2 t}{\pi}) =
 \sin(3 t) \cdot \sum_{m=-\infty}^{+\infty} \delta(t-m \frac{\pi}{2})=
@@ -709,7 +711,7 @@ Damit können wir uns nun klarmachen, wie
 \fig{fig:Sampling_03_DiscreteSine_EF235EE3D8} entsteht. Wir haben das Gesamtspektrum
 in 4 Dirac Impuls Kämme zerlegt, die immer mit dem gleichen Frequenzabstand
 (der Abtast-Kreisfrequenz agieren, das ist ja der Sinn der Sache) und wegen
-des abgetasteten Sinussignals einen Offset von $\pm 3$ rad/s und $\pm 2\im$ Gewicht
+des abgetasteten Sinussignals einen Offset von $\pm 3$ rad/s und ein Gewicht von $\pm 2\im$
 aufweisen.
 Wenn wir das in Skizzen später aufmalen, müssen wir 'nur' das Eingangsspektrum
 sukzessive um Vielfache der Abtast-Kreisfrequenz verschieben und für die Amplitude
@@ -840,7 +842,7 @@ enthält, dann (und nur dann, also bei Einhaltung von 1. und 2.) gilt
 \begin{align}
 x_\mathrm{r}(t) \equiv x(t).
 \end{align}
-Der mathematisch saubere Beweis dieser \textbf{perfekten Rekonstruktion}
+Der mathematisch Beweis dieser \textbf{perfekten Rekonstruktion}
 mittels der Summenformel (sogenannte \textbf{Sinc-Interpolation}, 1915, Whittaker)
 unter den beiden Bedingungen \textbf{1./2.} (1933, Kotelnikov) bilden die theoretische
 Grundlage des \textbf{Abtasttheorem}s für tiefpassbegrenzte Signale.
@@ -1253,8 +1255,8 @@ die Abtastung von $X(\omega)$ und die Rekonstruktion zu $X_\mathrm{r}(\omega)$
 mit $\omega_s = 3 \pi$ berechnet und skizziert werden.
 
 \begin{itemize}
-  \item Berechnen und skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$
-  \item Berechnen und skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$
+  \item Berechnen und skizzieren Sie alle Signale, d.h. $x(t)$, $s(t)$, $x_\mathrm{s}(t)$, $h_\mathrm{r}(t)$ und $x_\mathrm{r}(t)$.
+  \item Berechnen und skizzieren Sie alle Spektren, d.h.  $X(\omega)$, $S(\omega)$, $X_\mathrm{s}(\omega)$, $H_\mathrm{r}(\omega)$ und $X_\mathrm{r}(\omega)$.
   \item Ist die Rekonstruktion des Spektrums erfolgreich?
 \end{itemize}
 
@@ -1263,7 +1265,7 @@ Siehe Aufgabe \ref{sec:EF235EE3D8}.
 $$\omega_s = \frac{2\pi}{T_s} = 2 \pi f_s$$
 Wir sollten in SigSys nicht mit $f_s$ denken/arbeiten, sondern lieber alle Rechnungen und Überlegungen
 mit $\omega_s$ durchführen und erst ganz am Ende umrechnen bzw. grafisch darstellen in die physikalische Frequenz.
-Erst wenn das sicher sitzt in der Berufspraxis auf $f_s$ umschwenken.
+Erst wenn das sicher sitzt auf $f_s$ umschwenken in der Berufspraxis.
 \end{Werkzeug}
 \begin{Ansatz}
 Siehe Aufgabe \ref{sec:EF235EE3D8}, in Gedanken müssen wir hier Faltung und
