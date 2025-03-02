@@ -48,6 +48,10 @@ enlarge y limits={abs=1.2em},
 \DeclareMathOperator{\rectOP}{\text{rect}}
 \newcommand{\rectN}[2]{\ensuremath{\rectOP_{#1} \left[ #2 \right]}}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle, draw, inner sep=1pt,
+        minimum height=12pt] (char) {\vphantom{1g}#1};}}
+
 %matplotlib colors:
 %https://matplotlib.org/stable/tutorials/colors/colors.html
 \definecolor{C0}{HTML}{1f77b4}

@@ -10,7 +10,7 @@ Die anderen uns bisher bekannten drei Fourier Transformation (FT, FR, DTFT)
 setzen ja entweder
 unendliche lange Signale, unendlich viele Spektralkoeffizienten bzw.
 kontinuierliche Signale/Spektren
-voraus. Das sind alles Daten-Eigenschaften mit denen Computer wegen endlicher
+voraus. Das sind alles Daten-Eigenschaften mit denen Digital-Computer wegen endlicher
 Rechen- und Speicherressourcen nicht nativ umgehen können.
 %
 Daher werden wir sehr oft konfrontiert sein, die DFT als Approximation
@@ -22,7 +22,7 @@ Eine der Grundeigenschaften der DFT, nämliche die inhärente
 Periodizität sowohl der Signalfolgen als auch der DFT-Spektren jeweils mit
 der Länge $N$, ist nun eigentlich
 eher praxisfern. Die meisten Signale sind ja eher nicht periodisch, und wenn
-doch dann meist überlagert mit Rauschen.
+doch dann meist überlagert mit nichtperiodischem (Mess)-Rauschen.
 %
 Wir haben mit der DFT also ein Werkzeug, was gut ist für digitale Rechentechnik,
 aber schlecht für die meisten praktisch vorkommenden Signale.
@@ -325,7 +325,7 @@ folgt die Orthogonalitätsbedingung aus dem Skalarprodukt für komplexe Vektoren
 \bm{f}_i^\mathrm{H} \bm{f}_j =
 \begin{cases}
 N & i=j\\
-0 & \text{sonst}
+0 & i \neq j
 \end{cases}
 \end{align}
 mit dem adjungierten Operator $()^\mathrm{H}$, also konjugiert-komplex und transponiert.
@@ -338,7 +338,7 @@ Es ist genau die Orthogonalität der Fourier-Matrix $\bm{F}$ die uns die DFT / I
 schenkt als Linearkombination $N$ orthogonaler (komplexer) Vektoren.
 %
 
-Mit konjugiert-komplexer Transponierung von Matrix $\bm{F}$, also mit $\bm{F}^\mathrm{H}$
+Mit konjugiert-komplexer Transponierung von Matrix $\bm{F}$, also mit $(\bm{F}^*)^\mathrm{T}$, bzw. kürzer mit $\bm{F}^\mathrm{H}$
 \begin{align}
 \label{eq:FourierMatrixH}
 \bm{F}^\mathrm{H} =

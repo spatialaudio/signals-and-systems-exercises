@@ -168,7 +168,7 @@ Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 =
-Y(\Omega) = \left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)\bigg|_{\Omega=\frac{\pi}{4}\pm 2\pi \cdot m}
+\left(\frac{1}{2} - \frac{1}{2} \e^{-\im 2 \Omega}\right)\bigg|_{\Omega=\frac{\pi}{4}\pm 2\pi \cdot m}
 \cdot
 \Sha(\frac{\Omega-\frac{\pi}{4}}{2\pi})
 \end{align}
@@ -233,7 +233,7 @@ y[k] = \sum_{\kappa=-\infty}^{+\infty} \e^{+\im\frac{\pi}{4} (-\kappa+k)} \cdot
 \left(\frac{1}{2}\delta[\kappa] - \frac{1}{2}\delta[\kappa-2]\right).
 \end{align}
 %
-Schreiben wir die Terme auseinander
+Schreiben wir die Terme auseinander (Superposition)
 \begin{align}
 y[k] =
 \sum_{\kappa=-\infty}^{+\infty} \e^{+\im\frac{\pi}{4} (-\kappa+k)} \cdot \frac{1}{2}\delta[\kappa]
@@ -599,7 +599,7 @@ Das erkennen wir, weil
 \begin{itemize}
   \item Konvergenzbereich ist \textbf{immer} $|z|>0$ (wird ja durch die Pole im Ursprung bestimmt), umschließt also immer den Einheitskreis
   \item Nicht-rekursive Systeme haben \textbf{immer} eine endliche Impulsantwort, d.h. es kann keinen zeitlich unbeschränkt aufklingenden Verlauf geben
-  \item Hm?!?!: keine Rückkopplung bedeutet kein Stress (warum macht man dann nicht alles mit FIR?!?...wegen Vor- und Nachteilen...Buch bzw. Mastervorlesung Digitale Signalverarbeitung...)
+  \item Hm?!?!: keine Rückkopplung bedeutet kein Stress (warum macht man dann nicht alles mit FIR?!?...natürlich wegen Vor- und Nachteilen...siehe Buch bzw. Mastervorlesung Digitale Signalverarbeitung...)
 \end{itemize}
 
 
@@ -700,6 +700,7 @@ Diese unendliche Summe hat aber nur Einträge für
 &h_0[k=+4] \e^{-\im\Omega (+4)} =  0\cdot\delta[k-4] \e^{-\im\Omega (+4)}\nonumber\\
 &h_0[k=+5] \e^{-\im\Omega (+5)} =  1\cdot\delta[k-5] \e^{-\im\Omega (+5)}
 \end{align}
+(die Summe tastet dann die Diracs weg)
 und führt daher zum gleichen Ergebnis wie $H_0(z)\bigg|_{z=\e^{\im\Omega}}$, also
 \begin{align}
 H_0(\Omega)
@@ -1148,7 +1149,7 @@ W(\Omega)=\e^{-\im\Omega\frac{(N-1)}{2}}\cdot\frac{\sin\left(N\frac{\Omega}{2}\r
 %
 Multiplikation / Faltung Dualität (hier als $2\pi$ zyklische Faltung im Spektralbereich):
 \begin{align}
-x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} X(\Omega) \circledast_{2\pi} W(\Omega)
+x[k] \cdot w[k] \quad\dtft\quad \frac{1}{2\pi} (X(\Omega) \circledast_{2\pi} W(\Omega))
 \end{align}
 %
 Faltungsintegral ausgeschrieben (Hilfsvariable für Frequenzspiegelung und -verschiebung
@@ -1161,17 +1162,17 @@ X(\Omega) \circledast_{2\pi} W(\Omega) =
 \end{Werkzeug}
 \begin{Ansatz}
 In Aufgabe~\ref{sec:610482EF57} (4.6) hatten wir zwei Sichtweisen auf das Wesen kennengelernt, dies
-lässt sich hier genauso anwenden.
+lässt sich hier wieder genauso anwenden.
 
 \textbf{Sichtweise I}: eine unendliche Exponentialschwingung zeitlich
 begrenzen, heißt ideales Dirac-Kamm Spektrum verschleifen,
-i.e. aus Sicht der Signalanalyse, Fensterung
+i.e. aus Sicht der \textbf{Signalanalyse, Fensterung}
 
 \textbf{Sichtweise II}: das periodische, psinc-artige Spektrum der Rechteckfunktion
-im Frequenzbereich verschieben i.e. aus Sicht der Nachrichtentechnik, Modulation
+im Frequenzbereich verschieben i.e. aus Sicht der \textbf{Nachrichtentechnik, Modulation}
 
 Wir haben hier statt einem cos-Signal eine komplexe Exponentialschwingung
-zu betrachten, gewisse Dinge werden dadurch eigentlich sogar leichter und anschaulicher.
+zu betrachten; gewisse Dinge werden dadurch eigentlich sogar leichter und anschaulicher.
 
 Wir brauchen zunächst die Spektren der beiden Exponentialschwingungen $x_1[k]$
 und $x_2[k]$.
@@ -1217,14 +1218,15 @@ $\frac{1}{2\pi}$ bei der Faltung nicht vergessen!
 
 \end{Ansatz}
 \begin{ExCalc}
-Mit Übung können wir solche Dirac Kamm Faltungen irgendwann in Gedanken durchführen.
+Mit Übung können wir solche Dirac Impuls Kamm Faltungen irgendwann in Gedanken durchführen.
 Wir sollten die Rechnung aber in aller Ausführlichkeit gesehen haben, weil hier
 die zyklische Faltung im Frequenzbereich eine wichtige Rolle spielt,
 und im Laufe der Rechnung ein paar Klassiker beim Umformen von komplexen Drehern
 und Stolpersteine bzgl. der psinc() auf uns warten. Daher:
 %
 Faltungsintegral mit Hilfsvariable $O$ (Verwechslung mit Null ausgeschlossen weil
-keine Null vorkommt), Summe des Dirac Impulskamms mittels
+in der ganzen Rechnung keine Null vorkommt bis auf die untere Integralgrenze),
+Summe des Dirac Impulskamms mittels
 Hilfsvariable $m$.
 \begin{align}
 X(\Omega) \circledast_{2\pi} W(\Omega) =
@@ -1395,7 +1397,7 @@ Das Betragsspektrum ist in \fig{fig:windowing_96D7F1EE47} rechts oben dargestell
 wir bemerken die Frequenzachsennormalisierung mit $\pi/4$. Dann können wir
 $\Omega_1$ bequem bei $2 \pm 8$ ablesen.
 
-Das genauso verschliffene Betragsspektrum $|X_{w,2}(\Omega)|$ ist in der mittleren Zeile, rechts
+Das genauso verschliffene Betragsspektrum $|X_{w,2}(\Omega)|$ ist in \fig{fig:windowing_96D7F1EE47} in der mittleren Zeile, rechts
 dargestellt, hier finden wir das Basisbandmaximum bei $3$ für die gewählte Frequenzachsennormierung.
 
 Die Überlagerung

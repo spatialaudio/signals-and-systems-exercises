@@ -1,10 +1,10 @@
 \clearpage
-\section{Appendix A: Dirac Impuls: Austast- / Multiplikationseigenschaft}
+\section{Appendix A: Dirac Impuls: Austast-/Ausblendeigenschaft und Multiplikationseigenschaft}
 %
 \subsection{Zeitkontinuierlich}
 Definition, kein eigentliches Riemannintegral:
 \begin{mdframed}
-Austasteigenschaft, Ausblendeigenschaft, englisch: sifting property (nicht: shifting)
+Austasteigenschaft/Ausblendeigenschaft \circled{1}, englisch: sifting property (nicht: shifting)
 \begin{align}
 \int\limits_{t=-\infty}^{+\infty} x(t) \, \delta(t-\tau) \, \fsd t \stackrel{\mathrm{def}}= x(t=\tau)
 \label{eq:AppA_SifitingCT}
@@ -56,11 +56,11 @@ Für spezielles $\tau=4$ Multiplikationseigenschaft:
 \end{align}
 
 \begin{mdframed}
-Von der Austasteigenschaft zur Faltung:
+Von der Austasteigenschaft \circled{1} zur Faltung:
 \begin{align}
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(+(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , ausgehend von \eq{eq:AppA_SifitingCT} mit Variablentausch } t \leftrightarrow \tau\nonumber\\
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-(\tau-t)) \, \fsd \tau \stackrel{\mathrm{def}}= x(\tau=t)\text{ , weil gerade Funktion }\delta(t)=\delta(-t)\nonumber\\
-&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-\tau+t) \, \fsd \tau \stackrel{\mathrm{def}}= x(t) \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
+&\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, \delta(-\tau+t) \, \fsd \tau \stackrel{\mathrm{def}}= x(t) \text{ , Austasteigenschaft \circled{2}=Faltung mit Neutralelement, vgl. \textbf{Formelsammlung}}\nonumber\\
 &\int\limits_{\tau=-\infty}^{+\infty} x(\tau) \, h(-\tau+t) \, \fsd \tau = y(t) \text{ , Faltungsintegral mit LTI-System Impulsantwort } h(t)
 \end{align}
 \end{mdframed}
@@ -80,7 +80,7 @@ Dirac Impuls (Folge) diesmal als exaktes Signal definiert als
 \end{align}
 und damit sind 'tatsächliche' Berechnungen möglich.
 \begin{mdframed}
-Austasteigenschaft, Ausblendeigenschaft, englisch: sifting property (nicht: shifting)
+Austasteigenschaft/Ausblendeigenschaft \circled{1}, englisch: sifting property (nicht: shifting)
 \begin{align}
 \sum\limits_{k=-\infty}^{+\infty} x[k] \, \delta[k-\kappa] = x[k=\kappa]
 \label{eq:AppA_SifitingDT}
@@ -126,11 +126,11 @@ für spezielles $\kappa=4$
 \end{align}
 
 \begin{mdframed}
-Von der Austasteigenschaft zur zeitdiskreten Faltung:
+Von der Austasteigenschaft \circled{1} zur zeitdiskreten Faltung:
 \begin{align}
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[\kappa-k] = x[\kappa=k]\text{ , ausgehend von \eq{eq:AppA_SifitingDT} mit } k \leftrightarrow \kappa\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-(\kappa-k)] = x[\kappa=k]\text{ , weil }\delta[k]=\delta[-k]\nonumber\\
-&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-\kappa+k] = x[k] \text{ , Variante Austasteigenschaft, das ist Faltung mit Neutralelement}\nonumber\\
+&\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, \delta[-\kappa+k] = x[k] \text{ , Austasteigenschaft \circled{2}=Faltung mit Neutralelement, vgl. \textbf{Formelsammlung}}\nonumber\\
 &\sum\limits_{\kappa=-\infty}^{+\infty} x[\kappa] \, h[-\kappa+k] = y[k] \text{ , Faltungsintegral mit LTI-System Impulsantwort } h[k]
 \end{align}
 \end{mdframed}
