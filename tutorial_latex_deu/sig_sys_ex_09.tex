@@ -6,16 +6,17 @@ Die $z$-Transformation bildet zeitdiskrete Signale, also Folgen, $x[k]$
 auf Funktionen $X(z)$ ($X\in\mathbb{C}$, $z\in\mathbb{C}$)
 ab.
 %
-Wir arbeiten daher im sogenannten Bildbereich also in der komplexwertigen $z$-Ebene mit
+Wir arbeiten daher im sogenannten Bildbereich (d.h. komplexwertige $z$-Ebene) mit
 potentiell komplexwertigen Funktionen $X(z)$.
 %
 In speziellen, aber in SigSys oft benutzen, Fällen ist $x\in\mathbb{R}$, besteht
 also aus reellen Folgengliedern bzw. Samples. Im Bildbereich führt das (fast immer?)
-auch zu reellen $X(z)$, aber in jedem Fall $z\in\mathbb{C}$.
+auch zu reellen, meist gebrochen-rationalen Funktionen $X(z)$;
+aber in jedem Fall ist $z\in\mathbb{C}$.
 %
 Wie mittlerweile etabliert, versuchen wir hier auch so viel wie möglich mit
 vergleichsweise einfachen Rechnungen und viel Anschauung zugänglich zu machen,
-um das Wesen zu erfassen.
+um zunächst das Wesen zu erfassen.
 %
 
 
@@ -79,7 +80,7 @@ z.B. $X(z), H(z), Y(z)$ und Reihenkoeffizienten bzw. Folgenglieder $c_k$
 sind bei uns die typischen
 zeitdiskreten Signale $x[k], h[k], y[k]$.
 %
-Schreiben wir es also für die Übersichtlichkeit nochmal untereinander
+Schreiben wir es also zur Übersichtlichkeit nochmal untereinander
 \begin{align}
 \text{z-Trafo in SigSys:   } X(z) = \sum_{k=-\infty}^{\infty} x[k] \, z^{-k}\qquad
 &x[k] = \frac{1}{2\pi \im} \oint\limits_{C \subset \text{KB}} X(z) \, z^{k-1} \, \fsd z\\
@@ -132,7 +133,7 @@ Frequenzvariable
 \begin{align}
 z = \e^{\Sigma + \im \Omega} %= \e^{\Sigma} \cdot \e^{+\im \Omega}
 \end{align}
-zu tun mit $\Sigma,\Omega\in\mathbb{R}$ und spannen dadurch die komplexe $z$-Ebene auf.
+mit $\Sigma,\Omega\in\mathbb{R}$ zu tun und spannen dadurch die komplexe $z$-Ebene auf.
 %
 Nützlich ist wegen $|z|=\e^{\Sigma}$ und $\arg z = \Omega$ die Polarform
 \begin{align}
@@ -146,7 +147,7 @@ Sachverhalte schöner interpretieren zu können.
 %
 Nachdem wir mittlerweile wissen, dass die Impuls- und Sprungantwort ein LTI-System
 vollständig repräsentieren, und somit spezielle
-Signale sind, können wir also im $z$-Bildbereich sowohl Signale als auch Systeme
+Signale sind, können wir also mittels $z$-Bildbereich sowohl Signale als auch Systeme (spezielle Signale)
 analysieren \textbf{und} synthetisieren.
 %
 Dazu benötigen wir, ganz ähnlich zur zeitkontinuierlichen Betrachtungsweise, auch
@@ -247,10 +248,10 @@ skizzieren, bekommen wir einen Kreis mit Radius $|a|$.
 \textbf{Außerhalb dieses Kreises}
 ist in der komplexen $z$-Ebene also Konvergenz sichergestellt, das ist der Konvergenzbereich (KB), im englischen region of convergence (ROC).
 Dieser gilt für \textbf{rechtsseitige Signale}. Wir vertiefen die Betrachtung
-hier nicht für linksseitige Signale, dafür sein ein gutes zeitdiskretes SigSys oder Digitale Signalverarbeitung
+hier nicht für linksseitige Signale, dafür sein ein gutes zeitdiskretes SigSys Buch oder Digitale Signalverarbeitung Buch
 empfohlen, z.B. \cite{Oppenheim2004,Oppenheim2010,Kammeyer2002,Holton21}.
 %
-Aus der Vorlesung ist aber auch bekannt, dass für \textbf{linksseitige Signale}
+Aus der SigSys-Vorlesung ist aber auch bekannt, dass für \textbf{linksseitige Signale}
 der KB im inneren eines Kreises zu finden ist, und für \textbf{beidseitige Signale}
 eine Kreisscheibe/Kreisring als KB gilt.
 
@@ -274,7 +275,7 @@ landen wir bei der Darstellung in unserer Formelsammlung.
 Wir machen uns in SigSys nun im Grunde 'nur' zu Nutze, dass $a\in\mathbb{C}$
 sein darf, und spezielle Folgen der Form $a^k=(\e^{\Sigma_0 +\im\Omega_0})^k$
 \textbf{Eigenfolgen von zeitdiskreten Systemen sind}, welche uns für SigSys speziell
-interessiert.
+interessieren.
 %
 Der einfachste Fall ist $a=1$ ($\Sigma_0=0$, $\Omega_0=0$),
 dann bekommen wir den Einheitssprung und dessen Korrespondenz.
@@ -989,7 +990,7 @@ Programmcode mit bekannten analytischen Lösungen validieren zu können.
 %
 Das hier diskutierte Beispiel lässt sich entweder als Rekursion oder in geschlossener
 Form mit ein paar Zeilen Code checken, so eine Art \texttt{Hello World} Programm
-in der SigSys Welt...das sollten wir mal in Python und/oder Matlab checken.
+in der SigSys Welt...das sollten wir unbedingt einmal in Python und/oder Matlab checken.
 \end{ExCalc}
 \begin{Loesung}
 Die Differenzengleichung (für $k\geq 0$, $y[k=-1]=0$, also kausales, initial ruhendes System)
