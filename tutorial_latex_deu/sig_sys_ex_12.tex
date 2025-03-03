@@ -6,7 +6,7 @@ Werkzeugen, die wir als Ingenieur*innen und Naturwissenschaftler*innen
 in modifizierter Form immer wieder antreffen werden.
 Es ist immer die gleiche Message: je mehr wir
 die Basics vom Wesen verstanden haben, desto einfacher fällt uns das Adaptieren auf
-kompliziertere und/oder praktische Probleme.
+kompliziertere und/oder praktische Probleme...vorausgesetzt das reine Mathe-Handwerk kann im Sinne einer Transferleistung benutzt werden. Ingenieur-Mathe ist die Sprache, SigSys eine Konversation unter Benutzung dieser.
 
 Die Idee dieser letzten Übung ist, zwei Betrachtungen, die wir aus der
 zeitkontinuierlichen Welt schon kennen, hier für zeitdiskrete Signale
@@ -20,7 +20,7 @@ die wichtigen analytischen Rechnungen nicht aus den Augen verlieren.
 
 Hier nun zwei abschließende Aufgaben, die wir im Detail nicht mehr analytisch
 ausrechnen, sie sollten aber noch auf dem Papier
-handhabbar sein (der Autor mutmaßt, weil er selbst zu faul dafür war).
+handhabbar sein (der Autor mutmaßt, weil er selbst bis heute zu faul dafür war oder eher die dafür Zeit fehlte).
 Darum soll es uns hier nicht gehen, sondern vielmehr nochmal zwei wichtige
 Aspekte zur Beschreibung von zeitdiskreten Systemen herauszuarbeiten.
 
@@ -69,7 +69,7 @@ entweder als Matlab Skript oder Jupyter Notebook
 
 \end{Werkzeug}
 \begin{Ansatz}
-Wir setzen die DFT Synthese ($\tilde{x}, \tilde{X}$ als Hinweis/Erinnerung, dass Folge und DFT-Spektrum $N$-periodisch)
+Wir setzen die DFT Synthese ($\tilde{x}, \tilde{X}$ mit Tilde als Hinweis/Erinnerung, dass Folge und DFT-Spektrum $N$-periodisch)
 %
 \begin{equation}
 \tilde{x}[k]=\frac{1}{N} \sum_{\mu=0}^{N-1}\tilde{X}[\mu]\,\e^{+\im\frac{2\pi}{N}k\mu}
@@ -98,7 +98,7 @@ x[k] = \mathrm{rect}_N[k] \cdot \tilde{x}[k].
 Die hintere Summe über $k$ ist wieder die endliche, geometrische Reihe,
 vgl. Glg.~\eqref{eq:ue10_sum_to_psinc}ff (10.71)ff
 und \cite[(3-39)]{Lyons2011}.
-Wir schreiben das noch einmal in aller Ausführlichkeit um, das ist gute Rechenübung,
+Wir schreiben das noch ein letztes Mal in aller Ausführlichkeit um, das ist gute Rechenübung,
 weil ähnliche Umformungen in SigSys immer wieder benötigt werden.
 %
 \begin{align}
@@ -195,10 +195,8 @@ bis ins Messrauschen abgeklungen ist, welches selbst sinvollerweise sehr wenig
 Leistung hat, damit wir einen großen Dynamik-Umfang herstellen können.
 
 In einer großen Kirche müssten wir dann schon mal 20 s Zeitfenster einplanen,
-damit wir den kompletten Nachhall als Antwort auf einen lauten Knall erfassen
-können (diesen Impuls zur Anregung des Raums würden wir heutzutage aus technischen,
-aber viel wichtiger: sozialverträglichen Gründen nicht mehr mit einer Handfeuerwaffe
-erzeugen).
+damit wir den kompletten Nachhall als Antwort auf einen lauten Knall (ein umfallendes Brett?!) erfassen
+können.
 %
 Wenn wir uns für die Systemeigenschaften, wie den Frequenzgang der gemessenen,
 endlichen Impulsantwort der Länge $N$ interessieren, müssten wir erst die
@@ -713,7 +711,7 @@ Im Pegeldiagramm ist in rot zudem noch der Verlauf bzgl. der logarithmischen
 Frequenzachse (im Diagramm oben angedeutet) dargestellt.
 Die Gruppenlaufzeit ist im Diagramm in Sekunden angegeben. Zur Erstellung
 wurde die Samplingfrequenz $f_s=1$ Hz benutzt, weswegen
-die Gruppenlaufzeit auch als Samples interpretiert werden kann, wegen
+die Zahlen zur Gruppenlaufzeit auch als Samples interpretiert werden können, weil
 $\tau_\mathrm{GD,samples} \,/\, f_s = \tau_\mathrm{GD,seconds}$.
 
 In der rechten Spalte sind Impuls- und Sprungantwort über Samples (also unabhängig
