@@ -365,9 +365,10 @@ verrechnen, ist der konjugiert-komplexe Teil des komplexen Skalarprodukts schon
 berücksichtigt.
 
 %
-\noindent Hinweis \textbf{Unitäre Fourier Matrix}
+\noindent Hinweis \textbf{Unitäre Fourier Matrix}:
+
 Wir könnten das IDFT/DFT-Paar auch mit $\frac{1}{\sqrt{N}}$-Normierung
-aufschreiben (das wird sehr gerne in Physik und Mathe benutzt)
+aufschreiben, das wird so sehr gerne in Physik und Mathe benutzt
 \begin{align}
 x[k] = \frac{1}{\sqrt{N}} \sum_{\mu=0}^{N-1} X[\mu] \, \e^{+\im\frac{2\pi}{N} k \cdot \mu}
 \qquad
@@ -381,7 +382,7 @@ für die IDFT / DFT-Matrixoperationen
 \begin{align}
 \bm{x}_k = \mathring{\bm{F}} \, \bm{x}_\mu
 \qquad
-\bm{x}_\mu = (\mathring{\bm{F}})^* \, \bm{x}_k,
+\bm{x}_\mu = \left(\mathring{\bm{F}}\right)^* \, \bm{x}_k,
 \end{align}
 also bei der DFT die konjugiert-komplexe von $\mathring{\mathbf{F}}$.
 %
@@ -390,7 +391,7 @@ also eine orthonormale, komplexe und zudem symmetrische Matrix, für die
 \begin{align}
 \mathring{\bm{F}} = \mathring{\bm{F}}^\mathrm{T}
 \qquad
-(\mathring{\bm{F}})^* =
+\left(\mathring{\bm{F}}\right)^* =
 \mathring{\bm{F}}^\mathrm{H} =
 \mathring{\bm{F}}^{-1}
 \qquad\text{und}\qquad
@@ -402,9 +403,8 @@ gilt.
 %
 Damit sehen wir sehr schön, dass die DFT/IDFT eindeutig lösbare
 Gleichungssysteme repräsentieren, wobei die Vektoren (bei uns in SigSys also Zeitsignal bzw.
-DFT-Spektrum) in eine (spezielle und fundamentale wichtige)
-orthonormale Vektorbasis projiziert werden, die wir lernen sollten, sinnvoll
-für SigSys Probleme zu interpretieren.
+DFT-Spektrum) die Koeffizienten einer Linearkombination
+aller Vektoren der (fundamental wichtigen) orthonormalen Fourier-Vektorbasis repräsentieren.
 
 
 \clearpage
@@ -415,9 +415,9 @@ Wir wollen uns als Einstieg in die DFT / IDFT Welt mit der Signalsynthese, also
 in SigSys-Anschauung mit der inversen DFT beschäftigen. Dazu diskutieren wir zwei ganz einfache
 Fälle, in denen das $N=8$ DFT-Spektrum nur einen bzw. zwei Einträge hat, die nicht Null sind.
 Wenn wir die Signalsynthese anhand der zugrundeliegenden Linearkombination
-verstanden haben, können wir die Spektren beliebig verkomplizieren und damit
+verstanden haben, können wir die Spektren beliebig verkomplizieren und damit alle mögliche
 $N$ periodische Signalfolgen synthetisieren.
-Die Vorgehensweise ist sehr ähnlich zur Signalsynthese mit der komplexen
+Die Vorgehens- und Sichtweise ist sehr ähnlich zur Signalsynthese mit der komplexen
 Fourierreihe.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny D394560597}: Gegeben sind die $N=8$ DFT Spektren
@@ -878,7 +878,7 @@ Ansonsten ist es wieder nur Spieltrieb mit \texttt{fft() / ifft()}.
 %
 Oder anderer Gedankengang: sich hier einmal die Analytik sauber draufzuschaffen,
 wird mutmaßlich weniger Zeitaufwand sein, als sich über ein ganzes Berufsleben
-gemittelt immer wieder neu über numerische Ergebnisse zu wundern ;-) Wir werden
+immer wieder neu über numerische Ergebnisse zu wundern ;-) Wir werden
 die DFT sehr sehr sehr oft benutzen.
 \end{Ziel}
 \textbf{Aufgabe} {\tiny 0C30EB5E76}: Berechnen Sie für das periodische
@@ -1035,8 +1035,8 @@ Spaltenvektors $\bm{x}_\mu$.
 Wir sehen, dass für dieses vergleichsweise überschaubare Beispiel
 Summen zusammenkommen, die relativ viele Umformungen mit Euleridentitäten
 benötigen, um sie in geschlossen analytischer Form darstellen zu können
-(der Erkenntnisgewinn hält sich in Grenzen, daher können wir das guten Gewissens
-links liegen lassen, außer wir wollen ganz viel Euleridentität üben).
+(der Erkenntnisgewinn hält sich in Grenzen, daher können wir hier mal guten Gewissens auf Mathe mit Papier \& Stift verzichten
+, außer wir wollen ganz viel Euleridentität üben).
 %
 Das komplette Ergebnis lautet
 \begin{align}
@@ -1181,7 +1181,7 @@ abändern, wie schaut dann das DFT Spektrum aus? Wenn wir das durch reine
 verstanden.
 %
 Falls ein Aha Erlebnis ausbleibt, ruhig nochmal die vorherige Aufgabe~\ref{sec:D394560597} (11.1)
-intensiver anschauen.
+intensiver anschauen...Und erst dann mit einem Computer rumspielen, aber vielleicht nicht unbedingt ChatGPT danach fragen, das Tool hat hier in dem ganzen SigSys-Kontext nichts zu suchen! Wolfram Alpha schon eher...aber keine Ahnung wie man das da macht.
 
 \end{ExCalc}
 
@@ -1198,8 +1198,8 @@ $\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$.
 Warum ist diese Signalenergie in der DFT nun auf die $\mu$, vor allem auf $\mu=2$ und
 $\mu=3$  verschmiert und suggeriert sogar einen Gleichanteil bei $\mu=0$.
 %
-Schuld ist \textbf{nie} die DFT, die macht alles richtig, immer!!, sie bildet
-einfach 'nur' einen $N$-dimensionalen Vektor auf einen anderen ab.
+Schuld ist \textbf{nie} die DFT, die macht alles richtig, immer!!. Die DFT bildet
+'einfach nur' einen $N$-dimensionalen Vektor auf einen anderen ab. Linearkombination und Lineare Algebra anzweifeln ist daher kein Mittel der Wahl ;-)
 %
 \textbf{Unsere} obige Aussage---unser Signal bestünde eigentlich nur aus der Frequenz
 $\Omega=\frac{2\pi}{8}\cdot\frac{5}{2}$---ist \textbf{nicht korrekt}.
@@ -1207,7 +1207,7 @@ Dazu schauen wir uns das Zeitsignal in \fig{fig:dft_complex_signal_Signal_0C30EB
 Real- unten Imaginärteil. In orange wieder die angenommene Periode $N=8$, also
 die Samples für $0 \leq k \leq 7$.
 In grau als durchgemalte Linien (was bei Folgen ja eigentlich strenggenommen
-nicht erlaubt ist, aber dadurch wird es besser deutlich) sehen wir das Signal
+nicht erlaubt ist, aber dadurch wird es besser ersichtlich) sehen wir das Signal
 \begin{align}
 \e^{+\im \frac{2\pi}{8} \cdot \frac{5}{2} \cdot k} =
 \exp\left(+\im \frac{2\pi}{\nicefrac{16}{5}} \cdot k\right)
@@ -1223,7 +1223,7 @@ Wir können uns bei der Fourierreihe hoffentlich bildlich vorstellen, wie das
 Spektrum hochfrequent Energie gewinnt, wenn wir einen Sinusbogen zeitlich
 hart anschneiden.
 %
-Nicht anderes passiert hier, es ist in der Literatur als Spectral leakage,
+Nicht anderes passiert hier; es ist in der Literatur als spectral leakage,
 leakage effect bzw. deutsch Leckeffekt bekannt.
 %
 Falls das zu analysierende Signal nicht genau mit den Signalperiode(n)
@@ -1232,8 +1232,8 @@ gewisse Frequenzanteile, die im Signal eigentlich nicht da sind.
 %
 Um das aber nochmal ganz deutlich zu machen: das $N$-DFT Spektrum ist das exakte
 Spektrum des $N$-periodisierten Signals.
-Die Fouriermatrix kann nix für unser Unvermögen einen nicht repräsentativen
-Signalausschnitt ausgewählt zu haben.
+Die Fouriermatrix kann absolut nichts für unser Unvermögen einen nicht repräsentativen
+Signalausschnitt ausgewählt zu haben (also wieder bildlich: einen Sinus hart abgeschnitten zu haben, den wir eigentlich gerne in schön analysieren wollten).
 %
 Es ist daher unsere Aufgabe sicherzustellen (das braucht viel SigSys Erfahrung),
 dass das $N$-periodisierte Signal genau den repräsentativen Signalausschnitt
@@ -1676,7 +1676,7 @@ Die zyklische Faltung wird mit zyklischen Matrizen abgebildet.
 \end{bmatrix}
 \end{align}
 als Matrix Multiplikation mit \textbf{zyklischen Matrizen} auch \textbf{zirkulante Matrizen}
-(diese sind komplett definiert durch die erste Spalte oder erste Zeile).
+(diese sind komplett definiert durch die erste Spalte oder die erste Zeile, der Rest kann nach einem Algorithmus aufgefüllt werden).
 Bei der Multiplikation mit zyklischen Matrizen gilt Kommutativität, das ist erfreulicherweise
 konsistent mit der Kommutativitätseigenschaft der Faltung.
 %
@@ -1703,7 +1703,7 @@ Die obigen Spaltenvektoren sind die jeweils \textbf{erste Spalte} der zyklischen
 %
 Die Multiplikation zweier zyklischer Matrizen erzeugt immer eine zyklische Ergebnismatrix.
 Daher machen wir uns klar, dass wir von der Ergebnismatrix nur die erste Spalte
-oder erste Zeile ausrechnen müssen, um die gesamte Matrix zu kennen.
+oder die erste Zeile ausrechnen müssen, um die gesamte Matrix zu kennen.
 %
 Deswegen: Die Linearkombination von Spalten der ersten Matrix liefert direkt das gewünschte
 zyklische Faltungsergebnis als Spaltenvektor
