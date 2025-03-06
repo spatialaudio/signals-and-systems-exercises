@@ -17,6 +17,8 @@ This tutorial accompanies the lecture [Continuous-Time and Discrete-Time Signals
 - summer term 2020 version: https://github.com/spatialaudio/signals-and-systems-exercises/releases/tag/v0.1
 - we use the branch `master` for developing
 
+The CI action 'run notebooks / compile latex' compiles a pdf of the tutorial, provided as downloadable artifact. The graphics needed for the tutorial are created by the Jupyter notebooks that are execute before LaTex compiling.
+
 ## Referencing
 
 Please cite this open educational resource (OER) project as
