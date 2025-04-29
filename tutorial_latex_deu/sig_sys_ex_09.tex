@@ -30,8 +30,8 @@ die Rücktransformation ist wegen $z\in\mathbb{C}$ ein komplexes Wegintegral
 x[k] = \frac{1}{2\pi \im} \oint\limits_{C \subset \text{KB}} X(z) \, z^{k-1} \, \fsd z.
 \end{align}
 %
-Die Rücktransformation ist im Grunde die Anwendung des Cauchy
-Integralsatzes, wie sich mit untenstehender Rechnung zeigen lässt, vgl.
+Die Rücktransformation ist im Grunde die Anwendung der Cauchy’schen Integralformel,
+wie sich mit untenstehender Rechnung zeigen lässt, vgl.
 \cite[S.\,152]{Wunsch1972}, \cite[S.\,180ff]{Wunsch2006a}
 \begin{align}
 \text{Ansatz mit Hilfsvariable k':} \quad X(z) =& \sum_{k'=-\infty}^{\infty} x[k'] \, z^{-k'}\\
@@ -47,7 +47,7 @@ Integralsatzes, wie sich mit untenstehender Rechnung zeigen lässt, vgl.
 \oint\limits_{C \subset \text{KB}}
 \frac{x[k']}{z^{k'-k+1}} \fsd z
 \end{align}
-Gemäß Cauchy Integraltheorie, vgl.~\cite[Kap.\,5]{Strang2007,Strang2010}, \cite[Kap.\,2]{Burg2013b},
+Gemäß der Theorie analytischer Funktionen und komplexer Kurvenintegrale, vgl.~\cite[Kap.\,5]{Strang2007,Strang2010}, \cite[Kap. 11]{Arfken2013}, \cite[Kap. 32]{Arens2022}, \cite[Kap.\,2]{Burg2013b},
 ergibt sich für das Ringintegral auf der rechten Seite in der letzten Formel
 \begin{itemize}
   \item für $k' \neq k$ das Ergebnis Null
@@ -61,7 +61,7 @@ Die Summe über alle $k'$ liefert also die oben schon eingeführte Rücktransfor
 %
 Die $z$-Transformation ist daher keine Erfindung der SigSys, sondern in der
 Mathematik, speziell komplexer Funktionsanalysis, wohlbekannt als spezielle
-Form der Laurent Reihe~\cite[S.\,56ff]{Wunsch1972}
+Form der Laurent Reihe~\cite[S.\,56ff]{Wunsch1972}, \cite[Kap. 32.3]{Arens2022}
 \begin{align}
 f(z) = \sum_{k=-\infty}^{\infty} c_k (z - z_0)^k
 \end{align}
@@ -76,11 +76,10 @@ In SigSys benutzen wir $z_0=0$, also die Entwicklung der Reihe um den
 Koordinatenursprung.
 %
 Weiterhin schreiben wir statt $f(z)$ die z-Transformierten mit Großbuchstaben,
-z.B. $X(z), H(z), Y(z)$ und Reihenkoeffizienten bzw. Folgenglieder $c_k$
-sind bei uns die typischen
-zeitdiskreten Signale $x[k], h[k], y[k]$.
+z.B. $X(z), H(z), Y(z)$ und die Reihenkoeffizienten / Folgenglieder $c_k$
+sind bei uns die zeitdiskreten Signale (Folgen) $x[k], h[k], y[k]$.
 %
-Schreiben wir es also zur Übersichtlichkeit nochmal untereinander
+Schreiben wir es zur Übersichtlichkeit nochmal untereinander
 \begin{align}
 \text{z-Trafo in SigSys:   } X(z) = \sum_{k=-\infty}^{\infty} x[k] \, z^{-k}\qquad
 &x[k] = \frac{1}{2\pi \im} \oint\limits_{C \subset \text{KB}} X(z) \, z^{k-1} \, \fsd z\\
@@ -92,10 +91,10 @@ Wir beachten, dass die Vorzeichen für $k$ im Exponenten zwischen Mathe und SigS
 unterschiedlich sind.
 %
 Beides ist korrekt, weil 'Hin/Rück'-Transformationspaar jeweils in sich
-konsistent sind.
+konsistent sind; vgl. $x[k] = c_{-k}$ \cite[S. 95]{Frey2008}.
 %
 Die SigSys Konvention ist für uns praktischer, weil Ergebnisse
-bezüglich Zeitverschiebung einfacher interpretierbar sind.
+bezüglich Zeitverzögerung einfacher interpretierbar sind.
 %
 Die z-Rücktransformation kann mit dem Residuensatz
 \begin{align}
