@@ -502,13 +502,15 @@ x[k] \quad\ztransf\quad X(z) = 2 \cdot X_s(\frac{z}{a}) =
 2 \cdot \frac{\frac{\sqrt{3}}{2} \frac{z}{\nicefrac{3}{4}}}{(\frac{z}{\nicefrac{3}{4}})^2 - \frac{z}{\nicefrac{3}{4}} +1}
 =
 2 \cdot \frac{\frac{3\sqrt{3}}{8} z}{z^2 - \frac{3}{4}z + \frac{9}{16}}
+=
+\frac{3\sqrt{3}}{4} \cdot \frac{z}{z^2 - \frac{3}{4}z + \frac{9}{16}}
 \end{align}
 %
-Verstärkungsfaktor: $g=+2$,
+Verstärkungsfaktor: $g=\frac{3\sqrt{3}}{4}$,
 %
 Nullstelle: $z_{0,1} = 0$,
 %
-Polstellen: $z_{\infty,1,2} = \frac{\sqrt{3}}{8} \pm \frac{3\sqrt{3}}{8} \im \approx 0.375 \pm 0.65\im$,
+Polstellen: $z_{\infty,1,2} = \frac{3}{8} \pm \frac{3\sqrt{3}}{8} \im \approx 0.375 \pm 0.65\im$,
 %
 Polstellen in Polardarstellung: $z_{\infty,1,2} = \frac{3}{4}\e^{\pm\im \frac{\pi}{3}}$,
 %
@@ -525,7 +527,7 @@ KB: $|z|>|z_{\infty,1,2}| = \frac{3}{4}$
 decorate [decoration={snake,segment length=15pt,amplitude=1pt}]{(0,-3pt) circle(1.5)};;
 \draw[help lines, C7!50, step=0.25cm] (-1,-1) grid (1,1);
 \draw[C3] (0,0) circle(1);
-\node at (0.5, 1.5){\tiny $g = +2$};
+\node at (0.5, 1.5){\tiny $g = \frac{3\sqrt{3}}{4}$};
 \draw (1.2*0.86602540378*1.5,1.2*0.5*1.5) node[C2!75]{KB};
 \draw[->] (-1.8,0)--(2,0) node[right]{$\Re\{z\}$};
 \draw[->] (0,-1.8)--(0,2) node[above]{$\Im\{z\}$};
@@ -533,7 +535,7 @@ decorate [decoration={snake,segment length=15pt,amplitude=1pt}]{(0,-3pt) circle(
 \draw (0.375,-0.649519052838329) node[C0]{\Large $\times$};
 \draw (0,0) node[C0]{\Large $\circ$};
 \draw (1+2*\tic,-2*\tic) node{$1$};
-\draw (2.5,-1) node{$X(z) = 2 \cdot \frac{\frac{3\sqrt{3}}{8} z}{z^2 - \frac{3}{4}z + \frac{9}{16}}$};
+\draw (2.5,-1) node{$X(z) = \frac{3\sqrt{3}}{4} \cdot \frac{z}{z^2 - \frac{3}{4}z + \frac{9}{16}}$};
 \end{tikzpicture}
 \end{center}
 Wir machen uns klar, dass $\frac{\pi}{3}$ exakt 60 Grad entspricht.
