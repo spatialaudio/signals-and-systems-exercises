@@ -22,11 +22,11 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
-\usepackage{../sig_sys_macros}
+\usepackage{../tutorial_latex_deu/sig_sys_macros}
 
 \title[Discrete-Time Convolution]{Discrete-Time Convolution}
-\author[SigSys Tutorial]{Frank Schultz}
-\date[Summer Term 2024]{Signals and Systems Tutorial, Summer Term 2024}
+\author[SigSys]{Frank Schultz}
+\date[Summer Term 2025]{Signals and Systems, Summer Term 2025}
 \institute[]{Prof. Sascha Spors, Institute of Communications Engineering\\
 Faculty of Computer Science and Electrical Engineering, University of Rostock, Germany}
 
@@ -34,7 +34,7 @@ Faculty of Computer Science and Electrical Engineering, University of Rostock, G
 \maketitle
 
 \begin{frame}{Discrete-Time Convolution / Zeitdiskrete Faltung / Faltung von Folgen}
-Task 8.2
+cf. \url{sig_sys_ex.pdf} Task 8.2
 %% Signal x[k], h[k]
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -44,26 +44,28 @@ Task 8.2
 \draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
 \foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
 \draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
 \begin{scope}[xshift=11cm]
 \draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
 \draw[->] (0,-1.5) -- (0,3) node[above]{$h[k]$};
 \foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
 \draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
 \draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[above]{$2$};
 \end{scope}
 \end{tikzpicture}
 \end{center}
 
-Calculate the convolution of two finite-length signals / two sequences $x[k]$ and $h[k]$ as
+Calculate the linear convolution of the two finite-length sequences $x[k]$ and $h[k]$ as
 $$y[k] = x[k] \ast h[k]$$
-$$y[k] = \sum_{\kappa = -\infty}^{+\infty} x[\kappa] \ast h[-\kappa + k] =
-\sum_{\kappa = -\infty}^{+\infty} x[-\kappa+k] \ast h[\kappa]
+$$y[k] = \sum_{\textcolor{C1}{\kappa} = -\infty}^{+\infty} x[\textcolor{C1}{\kappa}] \ast h[\textcolor{C1}{-\kappa} + k] =
+\sum_{\textcolor{C1}{\kappa} = -\infty}^{+\infty} x[\textcolor{C1}{-\kappa}+k] \ast h[\textcolor{C1}{\kappa}]
 $$
 
 \end{frame}
 
 
-\begin{frame}{L\"osungsweg I, k=0}
+\begin{frame}{L\"osungsweg I, k=0 (keine \"Uberlappung)}
 %% k = 0
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -82,14 +84,14 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,0) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
 \draw[->] (0,-3.2) -- (0,5) node[above]{$y[k]$};
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
-\draw[stem, C2, dashed] plot coordinates{(0,0)};
+\draw[stem, C5, dashed] plot coordinates{(0,0)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -97,7 +99,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=1}
+\begin{frame}{L\"osungsweg I, k=1 (teilweise \"Uberlappung)}
 %% k = 1
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -116,7 +118,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,2) (2,0) (3,0) (4,0) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +2$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +2$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -124,7 +126,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2)};
-\draw[stem, C2, dashed] plot coordinates{(1,2)};
+\draw[stem, C5, dashed] plot coordinates{(1,2)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -132,7 +134,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=2}
+\begin{frame}{L\"osungsweg I, k=2 (teilweise \"Uberlappung)}
 %% k=2
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -151,7 +153,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,1) (2,2) (3,0) (4,0) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +3$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +3$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -159,7 +161,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) };
-\draw[stem, C2, dashed] plot coordinates{(2,3)};
+\draw[stem, C5, dashed] plot coordinates{(2,3)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -167,7 +169,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=3}
+\begin{frame}{L\"osungsweg I, k=3 (vollst\"andige \"Uberlappung)}
 %% k=3
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -186,7 +188,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,-1) (2,1) (3,4) (4,0) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +4$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +4$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -194,7 +196,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) };
-\draw[stem, C2, dashed] plot coordinates{(3,4)};
+\draw[stem, C5, dashed] plot coordinates{(3,4)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -202,7 +204,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=4}
+\begin{frame}{L\"osungsweg I, k=4 (vollst\"andige \"Uberlappung)}
 %% k=4
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -221,7 +223,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,0) (2,-1) (3,2) (4,-2) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -1$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -1$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -229,7 +231,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1)};
-\draw[stem, C2, dashed] plot coordinates{(4,-1)};
+\draw[stem, C5, dashed] plot coordinates{(4,-1)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -237,7 +239,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=5}
+\begin{frame}{L\"osungsweg I, k=5 (teilweise \"Uberlappung)}
 %% k=5
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -256,7 +258,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,-2) (4,-1) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -3$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = -3$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -264,7 +266,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3)};
-\draw[stem, C2, dashed] plot coordinates{(5,-3)};
+\draw[stem, C5, dashed] plot coordinates{(5,-3)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -272,7 +274,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=6}
+\begin{frame}{L\"osungsweg I, k=6 (teilweise \"Uberlappung)}
 %% k=6
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -291,7 +293,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,1) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +1$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +1$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -299,7 +301,7 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1)};
-\draw[stem, C2, dashed] plot coordinates{(6,1)};
+\draw[stem, C5, dashed] plot coordinates{(6,1)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -307,7 +309,7 @@ $$
 
 
 
-\begin{frame}{L\"osungsweg I, k=7}
+\begin{frame}{L\"osungsweg I, k=7 (keine \"Uberlappung)}
 %% k=7
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
@@ -326,7 +328,7 @@ $$
 \draw[->] (0,-2.5) -- (0,4) node[above]{$x[\kappa]\cdot h[-\kappa+\k]$};
 \foreach \y in {-2,...,3}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C3] plot coordinates{(0,0) (1,0) (2,0) (3,0) (4,0) (5,0) };
-\node at (13,4.5){$y[\k] = \sum_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
+\node at (13,-4.5){$y[\k] = \sum\limits_{\kappa} x[\kappa]\cdot h[-\kappa+\k] = +0$};
 \end{scope}
 \begin{scope}[yshift=-7cm, xshift=10cm]
 \draw[->] (-0.5,0) -- (8,0) node[right]{$k$};
@@ -334,18 +336,62 @@ $$
 \foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
 \draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
 \draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
-\draw[stem, C2, dashed] plot coordinates{(7,0)};
+\draw[stem, C5, dashed] plot coordinates{(7,0)};
 \end{scope}
 \end{tikzpicture}
 \end{center}
 \end{frame}
 
+\begin{frame}{}
+Beginn der Signale
+$$k_{x,\text{Start}}=1, \quad k_{h,\text{Start}}=0 \rightarrow k_{y,\text{Start}} = k_{x,\text{Start}} + k_{h,\text{Start}} = 1$$
+Länge der Signale
+$$N_{x} = 4, \quad N_{h} = 3 \rightarrow N_{y} = N_{x} + N_{h} -1 = 6$$
+bedeutet für $y[k]$
+$$y[k_{y,\text{Start}} \leq k \leq k_{y,\text{Start}} + N_y - 1] = ...$$
+$$y[k<k_{y,\text{Start}}=1]=0,\quad y[k>k_{y,\text{Start}}+N_y-1=6] = 0$$
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\def\tic{0.1};
+\draw[->] (-0.5,0) -- (6.5,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$x[k]$};
+\draw[stem] plot coordinates{(0,0) (1,1) (2,1) (3,2) (4,-1) (5,0) };
+\foreach \y in {-1, 1, 2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$3$};
+\draw (4,\tic) -- (4,-\tic)  node[above]{$4$};
+\begin{scope}[xshift=9.75cm]
+\draw[->] (-1.5,0) -- (4,0) node[right]{$k$};
+\draw[->] (0,-1.5) -- (0,3) node[above]{$h[k]$};
+\foreach \y in {-1,1,2}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem] plot coordinates{ (-1,0) (0,2) (1,1) (2,-1) (3,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[above]{$2$};
+\end{scope}
+\begin{scope}[yshift=0, xshift=16cm]
+\draw[->] (-0.25,0) -- (8,0) node[right]{$k$};
+\draw[->] (0,-3.2) -- (0,5) node[right]{$y[k]=x[k] \ast h[k]$};
+%\foreach \y in {-3,...,4}{\draw (\tic,\y) -- (-\tic,\y);};
+\foreach \y in {-3,-2,...,4}{\draw (\tic,\y) -- (-\tic,\y)  node[left]{$\y$};};
+\draw[stem, C2!10] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw[stem,  C2!75] plot coordinates{(0,0) (1,2) (2,3) (3,4) (4,-1) (5,-3) (6,1) (7,0)};
+\draw (1,\tic) -- (1,-\tic)  node[below]{$1$};
+\draw (2,\tic) -- (2,-\tic)  node[below]{$2$};
+\draw (3,\tic) -- (3,-\tic)  node[below]{$3$};
+\draw (4,\tic) -- (4,-\tic)  node[above]{$4$};
+\draw (5,\tic) -- (5,-\tic)  node[above]{$5$};
+\draw (6,\tic) -- (6,-\tic)  node[below]{$6$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
 
+\end{frame}
 
 
 
 \begin{frame}{Discrete-Time Convolution / Zeitdiskrete Faltung / Faltung von Folgen}
-Task 8.2
+cf. \url{sig_sys_ex.pdf} Task 8.2
 %% Signal x[k], h[k]
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -365,7 +411,7 @@ Task 8.2
 \end{tikzpicture}
 \end{center}
 
-Calculate the convolution of two finite-length signals / two sequences $x[k]$ and $h[k]$ as
+Calculate the convolution of the two finite-length signals $x[k]$ and $h[k]$ as
 $$y[k] = x[k] \ast h[k]$$
 $$y[k] = \sum_{\kappa = -\infty}^{+\infty} x[\kappa] \ast h[-\kappa + k] =
 \sum_{\kappa = -\infty}^{+\infty} x[-\kappa+k] \ast h[\kappa]
