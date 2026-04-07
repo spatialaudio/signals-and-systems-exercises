@@ -6,7 +6,7 @@
 % 
 % # Tutorial Signals and Systems (Signal- und Systemtheorie)
 % 
-% Summer Semester 2022 (Bachelor Course #24015)
+% Bachelor Course #24015
 % 
 % - lecture: https://github.com/spatialaudio/signals-and-systems-lecture
 % - tutorial: https://github.com/spatialaudio/signals-and-systems-exercises

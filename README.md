@@ -10,6 +10,7 @@ This tutorial accompanies the lecture [Continuous-Time and Discrete-Time Signals
 - MIT License for software
 
 ## Versions / Tags / Branches
+- summer term 2025 version: https://github.com/spatialaudio/signals-and-systems-exercises/releases/tag/v0.6
 - summer term 2024 version: https://github.com/spatialaudio/signals-and-systems-exercises/releases/tag/v0.5
 - summer term 2023 version: https://github.com/spatialaudio/signals-and-systems-exercises/releases/tag/v0.4
 - summer term 2022 version: https://github.com/spatialaudio/signals-and-systems-exercises/releases/tag/v0.3

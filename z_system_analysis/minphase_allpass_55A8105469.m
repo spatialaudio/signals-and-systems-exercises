@@ -5,7 +5,8 @@
 %[Frank Schultz](https://orcid.org/0000-0002-3010-0294),
 %[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-% task 12.2 55A8105469
+% task: Zerlegung in Reihenschaltung aus Minimalphasensystem und Allpass
+% 55A8105469
 
 % discrete-time LTI system examples
 % minimum phase system in series with specific allpass to obtain

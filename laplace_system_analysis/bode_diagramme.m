@@ -16,7 +16,7 @@ full_analysis_flag = false
 % [Frank Schultz](https://orcid.org/0000-0002-3010-0294)
 % [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 %%
-% UE 5.1: lowpass 2nd order, PT2 element
+% UE: lowpass 2nd order, PT2 element 44EB4169E9
 sz = [0];
 sp = [0, -3/4-1j, -3/4+1j];
 k = 25/16;

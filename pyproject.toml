@@ -1,0 +1,22 @@
+[project]
+name = "signals-and-systems-exercises"
+version = "0.0.0"
+dependencies = [
+  "ipykernel",
+  "ipympl",
+  "matplotlib",
+  "numpy",
+  "papermill",
+  "scipy",
+  "sympy",
+]
+requires-python = ">=3.13"
+authors = [
+  {name = "Frank Schultz", github = "fs446"},
+]
+description = "SigSys UE"
+readme = "README.md"
+license = "MIT"
+
+[project.urls]
+Repository = "https://github.com/spatialaudio/signals-and-systems-exercises"
